@@ -1,6 +1,8 @@
 # Robot Setup
 
-This guide will walk through the steps to install Ubuntu Server 22.04 LTS, ROS2 Humble, and all dependencies on a Raspberry Pi 4B. This Pi is then embedded within the Robotis TurtleBot3 Burger along with a USB Camera. The robotics system, TurtleBot3, is utilized in the United States Air Force Academy's Electrical and Computer Engineering department to teach undergraduate students robotics. You can follow the below steps or a Raspberry Pi image can be provided by emailing Steven Beyer (sbeyer@beyersbots.com). This guide is adapted from the [TurtleBot3 e-Manual](https://emanual.robotis.com/docs/en/platform/turtlebot3/overview/#overview).
+This guide will walk through the steps to install Ubuntu Server 22.04 LTS, ROS2 Humble, and all dependencies on a Raspberry Pi 4B. This Pi is then embedded within the Robotis TurtleBot3 Burger along with a USB Camera. The robotics system, TurtleBot3, is utilized in the United States Air Force Academy's Electrical and Computer Engineering department to teach undergraduate students robotics. 
+
+This guide is adapted from the [TurtleBot3 e-Manual](https://emanual.robotis.com/docs/en/platform/turtlebot3/overview/#overview).
 
 ## Hardware
 Below is a list of recommended hardware and links. Other off-the-shelf components can replace the ones below. 
@@ -11,10 +13,8 @@ Below is a list of recommended hardware and links. Other off-the-shelf component
 - Monitor, mouse, and keyboard
 - If using an older version of the TurtleBot3 with a Jetson Nano or Raspberry Pi 3 B+ you will need to purchase a [Raspberry Pi 4 Model B](https://www.canakit.com/raspberry-pi-4-8gb.html) (preferably with 8 GB of RAM))
 
-
 ### Hardware Assembly
 Follow the [Robotis e-Manual](https://emanual.robotis.com/docs/en/platform/turtlebot3/hardware_setup/#hardware-assembly) for hardware assembly stopping after installing the Raspberry Pi.
-
 
 ### Raspberry Pi
 A Raspberry Pi 4 B with 8 GB of RAM is used throughout this curriculum. Ensure heat sinks are propertly installed on the Pi such as these from [CanaKit](https://www.canakit.com/raspberry-pi-4-heat-sinks.html).
@@ -26,7 +26,6 @@ Also, a small fan can be installed to help with cooling. We used this 3D printed
 :align: center
 ```
 
-
 ### Camera
 After installing the Raspberry pi level of the TurtleBot3 you need to install the USB Camera Mount prior to finishing the robot build. The mount used in this course can be found in the [curriculum material](../stl/burger_usbcam_mount.stl) and is installed on two of the front standoffs on the TurtleBot3.
 
@@ -35,19 +34,19 @@ After installing the Raspberry pi level of the TurtleBot3 you need to install th
 :align: center
 ```
 
-
 ## Software
-### Download Ubuntu and flash MicroSD card
-There are multiple ways to download and install Ubuntu 20 to a MicroSD card, but the Raspberry Pi Imager is one of the easiest. Instructions for installing the imager on your operating system can be found on the [Raspberry Pi OS software page](https://www.raspberrypi.com/software/). 
 
-Once installed, start the imager and select the "CHOOSE OS" button.
+### Download Ubuntu and flash MicroSD card
+There are multiple ways to download and install Ubuntu 22.04 to a MicroSD card, but the Raspberry Pi Imager is one of the easiest. Instructions for installing the imager on your operating system can be found on the [Raspberry Pi OS software page](https://www.raspberrypi.com/software/). 
+
+Once installed, start the imager and select the ``CHOOSE OS`` button.
 ```{image} ./Figures/installer1.png
 :width: 480
 :align: center
 ```
 <br>
 
-Scroll down the menu and select "Other general purpose OS".
+Scroll down the menu and select ``Other general purpose OS``.
 <br>
 
 ```{image} ./Figures/installer2.png
@@ -55,30 +54,24 @@ Scroll down the menu and select "Other general purpose OS".
 :align: center
 ```
 <br>
-Next, select "Ubuntu".
+Next, select ``Ubuntu``
 
 ```{image} ./Figures/installer3.png
 :width: 480
 :align: center
 ```
 <br>
-Lastly, scroll and select the latest 64-bit version of "Ubuntu Server 22.04 LTS".
+Lastly, scroll and select the latest 64-bit version of ``Ubuntu Server 22.04 LTS``.
 
 <br>
 
-```{image} ./Figures/installer4.png
-:width: 480
-:align: center
-```
-<br>
-
-Now that you have the correct image selected, you need to choose the correct storage device that corresponds to the MicroSD card. Select "CHOOSE STORAGE".
+Now that you have the correct image selected, you need to choose the correct storage device that corresponds to the MicroSD card. Select ``CHOOSE STORAGE``.
 
 ```{warning}
-This process will overwrite the drive, so ensure you select the correct device! You can select "CHOOSE STORAGE" before inserting the MicroSD card, then insert it, and the card will be the new drive that pops up.
+This process will overwrite the drive, so ensure you select the correct device! You can select ``CHOOSE STORAGE`` before inserting the MicroSD card, then insert it, and the card will be the new drive that pops up.
 ```
 
-Once you are sure the correct drive is selected, click "WRITE".
+Once you are sure the correct drive is selected, click ``WRITE``.
 
 Once complete you should have an Ubuntu SD card! Ensure your Raspberry Pi is powered off, connected to a monitor, keyboard, and mouse, and insert the SD card.
 
@@ -91,7 +84,7 @@ On first login, you will be prompted to change the password. Enter the current p
 
 
 #### Changing username (optional)
-I like to change the username to "pi" so I remember that this machine is a Raspberry Pi. This is optional and you can change the username to anything you like.
+I like to change the username to ``pi``so I remember that this machine is a Raspberry Pi. This is optional and you can change the username to anything you like.
 
 First, add a *temp* user:
 ```bash
@@ -186,8 +179,8 @@ network:
         wlan0:
              optional: true
              access-points:
-                 "YOUR-SSID":
-                     password: "YOUR-PASSWORD"
+                 <YOUR-SSID>:
+                     password: <YOUR-PASSWORD>
              dhcp4: true
 ```
 
@@ -227,8 +220,8 @@ network:
         wlan0:
              dhcp4: no
              access-points:
-                 "robotics_5GHz":
-                     password: "YOUR-PASSWORD"
+                 robotics_5GHz:
+                     password: <YOUR-PASSWORD>
              addresses:
                  - 192.168.4.208/24
              routes:
@@ -481,7 +474,7 @@ Click **New SSH key**:
 <br>
 
 
-In the `Title` field, add a descriptive label for the new key, such as "robot0".
+In the `Title` field, add a descriptive label for the new key, such as ``robot0``.
 
 Paste your key into the `Key` field (contents of the `.pub` file).
 
@@ -489,7 +482,7 @@ Click **Add SSH key**.
 
 
 #### Update Alternatives
-Python3 is installed in Ubuntu20 by default. Some ROS packages utilize the "python" command instead of "python3" so we need to create a new executable, "/usr/bin/python" that will call the Python3 (basically use the command "python" to call Python3):
+Python3 is installed in Ubuntu22 by default. Some ROS packages utilize the ``python`` command instead of ``python3`` so we need to create a new executable, ``/usr/bin/python`` that will call the Python3 (basically use the command ``python`` to call Python3):
 
 ```bash
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 10
@@ -627,7 +620,7 @@ roscd ece387_curriculum
 pip3 install -r requirements.txt
 ```
 
-> 📝️ **Note:** the "dlib" package will take quite a while to install.
+> 📝️ **Note:** the ``dlib`` package will take quite a while to install.
 <!-- #endregion -->
 
 <!-- #region -->
