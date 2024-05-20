@@ -457,7 +457,8 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="robot-setup">
 <h1>Robot Setup<a class="headerlink" href="#robot-setup" title="Permalink to this heading">#</a></h1>
-<p>This guide will walk through the steps to install Ubuntu Server 22.04 LTS, ROS2 Humble, and all dependencies on a Raspberry Pi 4B. This Pi is then embedded within the Robotis TurtleBot3 Burger along with a USB Camera. The robotics system, TurtleBot3, is utilized in the United States Air Force Academy’s Electrical and Computer Engineering department to teach undergraduate students robotics. You can follow the below steps or a Raspberry Pi image can be provided by emailing Steven Beyer (<a class="reference external" href="mailto:sbeyer&#37;&#52;&#48;beyersbots&#46;com">sbeyer<span>&#64;</span>beyersbots<span>&#46;</span>com</a>). This guide is adapted from the <a class="reference external" href="https://emanual.robotis.com/docs/en/platform/turtlebot3/overview/#overview">TurtleBot3 e-Manual</a>.</p>
+<p>This guide will walk through the steps to install Ubuntu Server 22.04 LTS, ROS2 Humble, and all dependencies on a Raspberry Pi 4B. This Pi is then embedded within the Robotis TurtleBot3 Burger along with a USB Camera. The robotics system, TurtleBot3, is utilized in the United States Air Force Academy’s Electrical and Computer Engineering department to teach undergraduate students robotics.</p>
+<p>This guide is adapted from the <a class="reference external" href="https://emanual.robotis.com/docs/en/platform/turtlebot3/overview/#overview">TurtleBot3 e-Manual</a>.</p>
 <section id="hardware">
 <h2>Hardware<a class="headerlink" href="#hardware" title="Permalink to this heading">#</a></h2>
 <p>Below is a list of recommended hardware and links. Other off-the-shelf components can replace the ones below.</p>
@@ -488,27 +489,25 @@ document.write(`
 <h2>Software<a class="headerlink" href="#software" title="Permalink to this heading">#</a></h2>
 <section id="download-ubuntu-and-flash-microsd-card">
 <h3>Download Ubuntu and flash MicroSD card<a class="headerlink" href="#download-ubuntu-and-flash-microsd-card" title="Permalink to this heading">#</a></h3>
-<p>There are multiple ways to download and install Ubuntu 20 to a MicroSD card, but the Raspberry Pi Imager is one of the easiest. Instructions for installing the imager on your operating system can be found on the <a class="reference external" href="https://www.raspberrypi.com/software/">Raspberry Pi OS software page</a>.</p>
-<p>Once installed, start the imager and select the “CHOOSE OS” button.</p>
+<p>There are multiple ways to download and install Ubuntu 22.04 to a MicroSD card, but the Raspberry Pi Imager is one of the easiest. Instructions for installing the imager on your operating system can be found on the <a class="reference external" href="https://www.raspberrypi.com/software/">Raspberry Pi OS software page</a>.</p>
+<p>Once installed, start the imager and select the <code class="docutils literal notranslate"><span class="pre">CHOOSE</span> <span class="pre">OS</span></code> button.</p>
 <a class="reference internal image-reference" href="../_images/installer1.png"><img alt="../_images/installer1.png" class="align-center" src="../_images/installer1.png" style="width: 480px;" /></a>
 <br>
-<p>Scroll down the menu and select “Other general purpose OS”.
+<p>Scroll down the menu and select <code class="docutils literal notranslate"><span class="pre">Other</span> <span class="pre">general</span> <span class="pre">purpose</span> <span class="pre">OS</span></code>.
 <br></p>
 <a class="reference internal image-reference" href="../_images/installer2.png"><img alt="../_images/installer2.png" class="align-center" src="../_images/installer2.png" style="width: 480px;" /></a>
 <br>
-Next, select "Ubuntu".
+Next, select ``Ubuntu``
 <a class="reference internal image-reference" href="../_images/installer3.png"><img alt="../_images/installer3.png" class="align-center" src="../_images/installer3.png" style="width: 480px;" /></a>
 <br>
-Lastly, scroll and select the latest 64-bit version of "Ubuntu Server 22.04 LTS".
+Lastly, scroll and select the latest 64-bit version of ``Ubuntu Server 22.04 LTS``.
 <br>
-<a class="reference internal image-reference" href="../_images/installer4.png"><img alt="../_images/installer4.png" class="align-center" src="../_images/installer4.png" style="width: 480px;" /></a>
-<br>
-<p>Now that you have the correct image selected, you need to choose the correct storage device that corresponds to the MicroSD card. Select “CHOOSE STORAGE”.</p>
+<p>Now that you have the correct image selected, you need to choose the correct storage device that corresponds to the MicroSD card. Select <code class="docutils literal notranslate"><span class="pre">CHOOSE</span> <span class="pre">STORAGE</span></code>.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>This process will overwrite the drive, so ensure you select the correct device! You can select “CHOOSE STORAGE” before inserting the MicroSD card, then insert it, and the card will be the new drive that pops up.</p>
+<p>This process will overwrite the drive, so ensure you select the correct device! You can select <code class="docutils literal notranslate"><span class="pre">CHOOSE</span> <span class="pre">STORAGE</span></code> before inserting the MicroSD card, then insert it, and the card will be the new drive that pops up.</p>
 </div>
-<p>Once you are sure the correct drive is selected, click “WRITE”.</p>
+<p>Once you are sure the correct drive is selected, click <code class="docutils literal notranslate"><span class="pre">WRITE</span></code>.</p>
 <p>Once complete you should have an Ubuntu SD card! Ensure your Raspberry Pi is powered off, connected to a monitor, keyboard, and mouse, and insert the SD card.</p>
 </section>
 <section id="ubuntu-setup">
@@ -520,7 +519,7 @@ Lastly, scroll and select the latest 64-bit version of "Ubuntu Server 22.04 LTS"
 </section>
 <section id="changing-username-optional">
 <h4>Changing username (optional)<a class="headerlink" href="#changing-username-optional" title="Permalink to this heading">#</a></h4>
-<p>I like to change the username to “pi” so I remember that this machine is a Raspberry Pi. This is optional and you can change the username to anything you like.</p>
+<p>I like to change the username to <code class="docutils literal notranslate"><span class="pre">pi</span></code>so I remember that this machine is a Raspberry Pi. This is optional and you can change the username to anything you like.</p>
 <p>First, add a <em>temp</em> user:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>adduser<span class="w"> </span>temp
 </pre></div>
@@ -596,8 +595,8 @@ sudo<span class="w"> </span>rm<span class="w"> </span>-r<span class="w"> </span>
         <span class="n">wlan0</span><span class="p">:</span>
              <span class="n">optional</span><span class="p">:</span> <span class="n">true</span>
              <span class="n">access</span><span class="o">-</span><span class="n">points</span><span class="p">:</span>
-                 <span class="s2">&quot;YOUR-SSID&quot;</span><span class="p">:</span>
-                     <span class="n">password</span><span class="p">:</span> <span class="s2">&quot;YOUR-PASSWORD&quot;</span>
+                 <span class="o">&lt;</span><span class="n">YOUR</span><span class="o">-</span><span class="n">SSID</span><span class="o">&gt;</span><span class="p">:</span>
+                     <span class="n">password</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">YOUR</span><span class="o">-</span><span class="n">PASSWORD</span><span class="o">&gt;</span>
              <span class="n">dhcp4</span><span class="p">:</span> <span class="n">true</span>
 </pre></div>
 </div>
@@ -630,8 +629,8 @@ default via 192.168.0.1 dev wlan0 proto static
         <span class="n">wlan0</span><span class="p">:</span>
              <span class="n">dhcp4</span><span class="p">:</span> <span class="n">no</span>
              <span class="n">access</span><span class="o">-</span><span class="n">points</span><span class="p">:</span>
-                 <span class="s2">&quot;robotics_5GHz&quot;</span><span class="p">:</span>
-                     <span class="n">password</span><span class="p">:</span> <span class="s2">&quot;YOUR-PASSWORD&quot;</span>
+                 <span class="n">robotics_5GHz</span><span class="p">:</span>
+                     <span class="n">password</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">YOUR</span><span class="o">-</span><span class="n">PASSWORD</span><span class="o">&gt;</span>
              <span class="n">addresses</span><span class="p">:</span>
                  <span class="o">-</span> <span class="mf">192.168.4.208</span><span class="o">/</span><span class="mi">24</span>
              <span class="n">routes</span><span class="p">:</span>
@@ -824,13 +823,13 @@ ssh-add<span class="w"> </span>~/.ssh/id_ed25519
 <br></p>
 <a class="reference internal image-reference" href="../_images/ssh3.png"><img alt="../_images/ssh3.png" class="align-center" src="../_images/ssh3.png" style="width: 640px;" /></a>
 <br>
-<p>In the <code class="docutils literal notranslate"><span class="pre">Title</span></code> field, add a descriptive label for the new key, such as “robot0”.</p>
+<p>In the <code class="docutils literal notranslate"><span class="pre">Title</span></code> field, add a descriptive label for the new key, such as <code class="docutils literal notranslate"><span class="pre">robot0</span></code>.</p>
 <p>Paste your key into the <code class="docutils literal notranslate"><span class="pre">Key</span></code> field (contents of the <code class="docutils literal notranslate"><span class="pre">.pub</span></code> file).</p>
 <p>Click <strong>Add SSH key</strong>.</p>
 </section>
 <section id="update-alternatives">
 <h4>Update Alternatives<a class="headerlink" href="#update-alternatives" title="Permalink to this heading">#</a></h4>
-<p>Python3 is installed in Ubuntu20 by default. Some ROS packages utilize the “python” command instead of “python3” so we need to create a new executable, “/usr/bin/python” that will call the Python3 (basically use the command “python” to call Python3):</p>
+<p>Python3 is installed in Ubuntu22 by default. Some ROS packages utilize the <code class="docutils literal notranslate"><span class="pre">python</span></code> command instead of <code class="docutils literal notranslate"><span class="pre">python3</span></code> so we need to create a new executable, <code class="docutils literal notranslate"><span class="pre">/usr/bin/python</span></code> that will call the Python3 (basically use the command <code class="docutils literal notranslate"><span class="pre">python</span></code> to call Python3):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>update-alternatives<span class="w"> </span>--install<span class="w"> </span>/usr/bin/python<span class="w"> </span>python<span class="w"> </span>/usr/bin/python3<span class="w"> </span><span class="m">10</span>
 </pre></div>
 </div>
@@ -943,7 +942,7 @@ pip3<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </
 </pre></div>
 </div>
 <blockquote>
-<div><p>📝️ <strong>Note:</strong> the “dlib” package will take quite a while to install.</p>
+<div><p>📝️ <strong>Note:</strong> the <code class="docutils literal notranslate"><span class="pre">dlib</span></code> package will take quite a while to install.</p>
 </div></blockquote>
 <!-- #endregion -->
 <!-- #region -->
