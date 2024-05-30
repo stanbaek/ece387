@@ -1,7 +1,6 @@
 # ECE 387 Introduction to Robotic Systems
 
 ## 👨‍🏫 Instructors
-- ![neff](https://img.shields.io/badge/Col%20Brian%20Neff-6xxx-yellow)
 - [![baek](https://img.shields.io/badge/Dr.%20Stan%20Baek-2E38-red)](https://stanbaek.github.io)
 
 
