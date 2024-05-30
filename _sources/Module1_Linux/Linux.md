@@ -1,4 +1,4 @@
-# Module 2: Linux for Robotics
+# Module 1: Linux for Robotics
 
 ```{note}
 This document is known as a Jupyter notebook; it is used in academia and industry to allow text and executable code to coexist in a very easy to read format. Blocks can contain text or code, and for blocks containing code, press `Shift + Enter` to run the code. Earlier blocks of code need to be run for the later blocks of code to work.
