@@ -120,11 +120,23 @@ mkdir -p ~/master_ws/src
 cd ~/master_ws/
 ```
 
+### TurtleBot3 Simulation Package 
+
+
+```bash
+cd ~/master_ws/src/
+git clone -b humble-devel https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
+cd ~/master_ws && colcon build --symlink-install
+```
+
+### ROS Environment
+
 Setup ROS environment variables and setup scripts within the `~/.bashrc` file. Open the `~/.bashrc` file with your favorite command line editor and add the following to the bottom:
 
 ```bash
 source /opt/ros/humble/setup.bash
 source ~/master_ws/install/setup.bash
+source /usr/share/gazebo/setup.sh
 export ROS_DOMAIN_ID=30 #TURTLEBOT3" >> ~/.bashrc
 source /usr/share/colcon_cd/function/colcon_cd.sh
 export _colcon_cd_root=/opt/ros/humble/
@@ -136,6 +148,19 @@ Any time you make changes to your `~/.bashrc` file you must source it:
 
 ```bash
 source ~/.bashrc
+```
+
+
+### Install PIP
+
+```bash
+sudo apt install python3-pip
+```
+
+
+
+```bash
+sudo pip install ds4drv
 ```
 
 

@@ -13,19 +13,19 @@ parts:
 
   - caption: Modules
     chapters:
-    - file: Module1_ROS/index
+    - file: Module1_Linux/Linux.md
+
+    - file: Module2_Python3/index
       sections:
-      - file: Module1_ROS/ROS.md
-      - file: Module1_ROS/ICE1_ListenerTalker.md    
-      
-    - file: Module2_Linux/Linux.md
-    
-    - file: Module3_Python3/index
+      - file: Module2_Python3/Python3.md
+      - file: Module2_Python3/ROS.md    
+      - file: Module2_Python3/RPSComputer.md    
+      - file: Module2_Python3/ICE3_ClientServer.md    
+
+    - file: Module3_ROS/index
       sections:
-      - file: Module3_Python3/Python3.md
-      - file: Module3_Python3/ROS.md    
-      - file: Module3_Python3/RPSComputer.md    
-      - file: Module3_Python3/ICE3_ClientServer.md    
+      - file: Module3_ROS/ROS.md
+      - file: Module3_ROS/ICE1_ListenerTalker.md    
     
     - file: Module4_DrivingTheRobot/index
       sections:
