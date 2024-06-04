@@ -409,6 +409,7 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#general">General</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#usr-bin-env-python3-r-no-such-file-or-directory"><em>/usr/bin/env: ‘python3\r’: No such file or directory</em></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gazebo-error">Gazebo Error</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#error-cannot-launch-node-of-type"><em>ERROR: cannot launch node of type</em></a></li>
 </ul>
 </li>
@@ -437,6 +438,23 @@ document.write(`
 <li><p>VS Code: At the bottom right of the screen in VS Code there is a little button that says <code class="docutils literal notranslate"><span class="pre">LF</span></code> or <code class="docutils literal notranslate"><span class="pre">CRLF</span></code>: Click that button and change it to your preference.</p></li>
 </ul>
 <br>
+</section>
+<section id="gazebo-error">
+<h3>Gazebo Error<a class="headerlink" href="#gazebo-error" title="Permalink to this heading">#</a></h3>
+<p>If you have an error when you run the following command</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_gazebo<span class="w"> </span>empty_world.launch.py
+</pre></div>
+</div>
+<p>The error message looks like:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>[gzclient-2] gzclient: /usr/include/boost/smart_ptr/shared_ptr.hpp:728: typename boost::detail::sp_member_access&lt;T&gt;::type boost::shared_ptr&lt;T&gt;::operator-&gt;() const [with T = gazebo::rendering::Camera; typename boost::detail::sp_member_access&lt;T&gt;::type = gazebo::rendering::Camera*]: Assertion `px != 0&#39; failed.
+[ERROR] [gzclient-2]: process has died [pid 7768, exit code -6, cmd &#39;gzclient&#39;].
+</pre></div>
+</div>
+<p>Then, the solution is to source Gazebo’s setup file, i.e.:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>.<span class="w"> </span>/usr/share/gazebo/setup.sh
+</pre></div>
+</div>
+<p>This is needed to set some necessary environment variables in case they’re going to be overridden, which is a common use case.</p>
 </section>
 <section id="error-cannot-launch-node-of-type">
 <h3><em>ERROR: cannot launch node of type</em><a class="headerlink" href="#error-cannot-launch-node-of-type" title="Permalink to this heading">#</a></h3>
@@ -528,6 +546,7 @@ document.write(`
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#general">General</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#usr-bin-env-python3-r-no-such-file-or-directory"><em>/usr/bin/env: ‘python3\r’: No such file or directory</em></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gazebo-error">Gazebo Error</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#error-cannot-launch-node-of-type"><em>ERROR: cannot launch node of type</em></a></li>
 </ul>
 </li>

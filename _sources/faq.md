@@ -17,6 +17,28 @@ The problem are your line ending characters. Your file was created or edited on 
 <br>
 
 
+### Gazebo Error
+
+If you have an error when you run the following command
+```bash
+ros2 launch turtlebot3_gazebo empty_world.launch.py
+```
+
+The error message looks like:
+
+```bash
+[gzclient-2] gzclient: /usr/include/boost/smart_ptr/shared_ptr.hpp:728: typename boost::detail::sp_member_access<T>::type boost::shared_ptr<T>::operator->() const [with T = gazebo::rendering::Camera; typename boost::detail::sp_member_access<T>::type = gazebo::rendering::Camera*]: Assertion `px != 0' failed.
+[ERROR] [gzclient-2]: process has died [pid 7768, exit code -6, cmd 'gzclient'].
+```
+
+Then, the solution is to source Gazebo's setup file, i.e.:
+
+```bash
+. /usr/share/gazebo/setup.sh
+```
+
+This is needed to set some necessary environment variables in case they're going to be overridden, which is a common use case. 
+
 
 
 ### _ERROR: cannot launch node of type_

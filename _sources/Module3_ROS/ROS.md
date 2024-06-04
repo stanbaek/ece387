@@ -1,10 +1,9 @@
 # Robotics Operating System (ROS)
 
 ## Purpose
-This lecture accompanies the introduction to ROS notetaker used in class. We will apply the knowledge you learned by interacting with a simulated TurlteBot3 Burger.
+This lecture accompanies the introduction to ROS used in class. We will apply the knowledge you learned by interacting with a simulated TurlteBot3 Burger.
 
 ## ROS Introduction.
-Robotics Operating System (https://www.ros.org/about-ros/):
 
 The Robot Operating System (ROS) is a flexible framework for writing robot software. It is a collection of tools, libraries, and conventions that aim to simplify the task of creating complex and robust robot behavior across a wide variety of robotic platforms. ROS is sometimes called a meta operating system because it performs many functions of an operating system, but it requires a computer's operating system such as Linux.
 

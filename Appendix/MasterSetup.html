@@ -415,10 +415,13 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ros2-humble">ROS2 Humble</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a><ul class="nav section-nav flex-column">
-<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation">Simulation:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
 </ul>
 </li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#turtlebot3-simulation-package">TurtleBot3 Simulation Package</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ros-environment">ROS Environment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-pip">Install PIP</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation">Simulation:</a></li>
 </ul>
 </li>
 </ul>
@@ -518,9 +521,22 @@ sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> <
 <span class="nb">cd</span><span class="w"> </span>~/master_ws/
 </pre></div>
 </div>
+</section>
+</section>
+<section id="turtlebot3-simulation-package">
+<h3>TurtleBot3 Simulation Package<a class="headerlink" href="#turtlebot3-simulation-package" title="Permalink to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/master_ws/src/
+git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>humble-devel<span class="w"> </span>https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
+<span class="nb">cd</span><span class="w"> </span>~/master_ws<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>colcon<span class="w"> </span>build<span class="w"> </span>--symlink-install
+</pre></div>
+</div>
+</section>
+<section id="ros-environment">
+<h3>ROS Environment<a class="headerlink" href="#ros-environment" title="Permalink to this heading">#</a></h3>
 <p>Setup ROS environment variables and setup scripts within the <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> file. Open the <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> file with your favorite command line editor and add the following to the bottom:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span>/opt/ros/humble/setup.bash
 <span class="nb">source</span><span class="w"> </span>~/master_ws/install/setup.bash
+<span class="nb">source</span><span class="w"> </span>/usr/share/gazebo/setup.sh
 <span class="nb">export</span><span class="w"> </span><span class="nv">ROS_DOMAIN_ID</span><span class="o">=</span><span class="m">30</span><span class="w"> </span><span class="c1">#TURTLEBOT3&quot; &gt;&gt; ~/.bashrc</span>
 <span class="nb">source</span><span class="w"> </span>/usr/share/colcon_cd/function/colcon_cd.sh
 <span class="nb">export</span><span class="w"> </span><span class="nv">_colcon_cd_root</span><span class="o">=</span>/opt/ros/humble/
@@ -532,8 +548,17 @@ sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> <
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span>~/.bashrc
 </pre></div>
 </div>
+</section>
+<section id="install-pip">
+<h3>Install PIP<a class="headerlink" href="#install-pip" title="Permalink to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>python3-pip
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>ds4drv
+</pre></div>
+</div>
 <section id="simulation">
-<h5><a class="reference external" href="https://emanual.robotis.com/docs/en/platform/turtlebot3/simulation/#gazebo-simulation">Simulation</a>:<a class="headerlink" href="#simulation" title="Permalink to this heading">#</a></h5>
+<h4><a class="reference external" href="https://emanual.robotis.com/docs/en/platform/turtlebot3/simulation/#gazebo-simulation">Simulation</a>:<a class="headerlink" href="#simulation" title="Permalink to this heading">#</a></h4>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/master_ws/src
 git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>noetic-devel<span class="w"> </span>https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
 </pre></div>
@@ -542,7 +567,6 @@ git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </spa
 <div><p>📝️ <strong>Note:</strong> the “dlib” package will take quite a while to install.</p>
 </div></blockquote>
 <!-- #endregion -->
-</section>
 </section>
 </section>
 </section>
@@ -623,10 +647,13 @@ git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </spa
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ros2-humble">ROS2 Humble</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a><ul class="nav section-nav flex-column">
-<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation">Simulation:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
 </ul>
 </li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#turtlebot3-simulation-package">TurtleBot3 Simulation Package</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ros-environment">ROS Environment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-pip">Install PIP</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation">Simulation:</a></li>
 </ul>
 </li>
 </ul>
