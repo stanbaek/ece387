@@ -1,7 +1,7 @@
 # Module 1: Linux for Robotics
 
-## Purpose
-This Jupyter Notebook accompanies the introduction to Linux notetaker used in class. We will apply the knowledge you learned by interacting with the Ubuntu Operating System (OS) on the Master.
+## Objectives
+- Students should be able to
 
 ## Linux Commands
 During class we went over a number of basic Linux commands. Open a terminal on the Master and let's practice using those commands (use the shortcut `ctrl+alt+t` to open a new terminal window or select an open terminal and hit `ctrl+shift+t` to open a new terminal tab).
