@@ -25,7 +25,7 @@ I recommned [vscode](https://code.visualstudio.com/) to edit and publish it.
 ### Convert jupyter notebook to markdown
 - jupytext https://jupytext.readthedocs.io/en/latest/using-cli.html
 - install: pip install jupytext
-
+- How to use: jupytext lab2.ipynb --to md
 
 
 ### Settings inside settings.json
