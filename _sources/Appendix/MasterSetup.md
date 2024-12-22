@@ -164,7 +164,7 @@ sudo pip install ds4drv
 ```
 
 
-##### [Simulation](https://emanual.robotis.com/docs/en/platform/turtlebot3/simulation/#gazebo-simulation):
+### [Simulation](https://emanual.robotis.com/docs/en/platform/turtlebot3/simulation/#gazebo-simulation):
 ```bash
 cd ~/master_ws/src
 git clone -b noetic-devel https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git

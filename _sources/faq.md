@@ -5,9 +5,10 @@
 
 ### _/usr/bin/env: ‘python3\r’: No such file or directory_
 
+```bash
 $ rosrun lab1 mouse_client.py
 /usr/bin/env: ‘python3\r’: No such file or directory
-
+```
 
 The problem are your line ending characters. Your file was created or edited on a Windows system and uses Windows/DOS-style line endings (CR+LF), whereas Linux systems like Ubuntu require Unix-style line endings (LF).
 
@@ -20,6 +21,7 @@ The problem are your line ending characters. Your file was created or edited on 
 ### Gazebo Error
 
 If you have an error when you run the following command
+
 ```bash
 ros2 launch turtlebot3_gazebo empty_world.launch.py
 ```
@@ -38,6 +40,14 @@ Then, the solution is to source Gazebo's setup file, i.e.:
 ```
 
 This is needed to set some necessary environment variables in case they're going to be overridden, which is a common use case. 
+
+### How to check if a package is installed
+
+If we would like to check if `turtlesim` is installed, run
+
+```bash
+ros2 pkg executables turtlesim
+```
 
 
 
