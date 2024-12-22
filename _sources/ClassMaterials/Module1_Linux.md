@@ -1,4 +1,4 @@
-# Module1: Linux
+# ICE1: Linux
 
 ## Objectives
 - Students should be able to

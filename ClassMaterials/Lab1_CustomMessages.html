@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Lab 1: Custom Messages &#8212; Introduction to Robotic Systems</title>
+    <title>Lab1: Custom Messages &#8212; Introduction to Robotic Systems</title>
   
   
   
@@ -163,27 +163,29 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../syllabus.html">📌 Syllabus</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../schedule.html">📆 Course Schedule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linux.html">🐧 Linux</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../python.html">🐍 Python Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../faq.html">🙋 FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://stanbaek.github.io/NoPointer.html">No Pointers in Python?</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Modules</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="Module1_Linux.html">Module1: Linux</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module2_Python3.html">Module2: Python</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module3_ROS2.html">Module3: ROS2</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ICE2_Python3.html">Module 2: Python3 for Robotics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ICE3_ClientServer.html">ICE3 - Client and Server</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ICE3_ROS.html">ICE3: ROS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module1_Linux.html">ICE1: Linux</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ICE1_ListenerTalker.html">ICE1: Talker and Listener</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module2_Python3.html">Module2: Python3 for Robotics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ICE2_Python3.html">Module2: Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module3_ROS2.html">Module3: ROS2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ICE3_ClientServer.html">ICE3: Client and Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ICE3_ROS.html">ICE3: ROS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Module4_DrivingTheRobot.html">Module4: Driving the Robot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ICE4_DrivingTheRobot.html">ICE4: Driving the Robot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Module5_CustomMessages.html">Module5: Messages</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lab 1: Custom Messages</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lab1: Custom Messages</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Module6_IMU.html">Module6: IMU</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Lab2_IMU.html">Lab 2: Inertial Measurement Unit</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module7_LaunchFile.html">Module 7: Launch Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lab2_IMU.html">Lab2: Inertial Measurement Unit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module7_LaunchFile.html">Module7: Launch Files</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Module8_LIDAR.html">Module8: LIDAR</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Lab3_LIDAR.html">Lab 3: LIDAR</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lab3_LIDAR.html">Lab3: LIDAR</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendix</span></p>
 <ul class="nav bd-sidenav">
@@ -373,7 +375,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Lab 1: Custom Messages</h1>
+    <h1>Lab1: Custom Messages</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -405,8 +407,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="lab-1-custom-messages">
-<h1>Lab 1: Custom Messages<a class="headerlink" href="#lab-1-custom-messages" title="Permalink to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="lab1-custom-messages">
+<h1>Lab1: Custom Messages<a class="headerlink" href="#lab1-custom-messages" title="Permalink to this heading">#</a></h1>
 <section id="synopsis">
 <h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this heading">#</a></h2>
 <p>This lab will provide practice in creating custom messages.  You will use provided code that listens for events from the mouse.  Specifically, the code is listening to the position of the cursor, and any buttons pressed.  You will create a custom message that is going to pass the cursor position and mouse button events across the <code class="docutils literal notranslate"><span class="pre">/mouse_info</span></code> topic.  You will develop a controller that will subscribe to the <code class="docutils literal notranslate"><span class="pre">/mouse_info</span></code> topic and then publish a Twist message to <code class="docutils literal notranslate"><span class="pre">/cmd_vel</span></code> according to the requirements in the lab handout.</p>

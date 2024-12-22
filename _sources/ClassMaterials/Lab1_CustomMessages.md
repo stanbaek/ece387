@@ -1,4 +1,4 @@
-# Lab 1: Custom Messages
+# Lab1: Custom Messages
 
 ## Synopsis
 This lab will provide practice in creating custom messages.  You will use provided code that listens for events from the mouse.  Specifically, the code is listening to the position of the cursor, and any buttons pressed.  You will create a custom message that is going to pass the cursor position and mouse button events across the `/mouse_info` topic.  You will develop a controller that will subscribe to the `/mouse_info` topic and then publish a Twist message to `/cmd_vel` according to the requirements in the lab handout.
