@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Module2: Python &#8212; Introduction to Robotic Systems</title>
+    <title>ICE6: IMU &#8212; Introduction to Robotic Systems</title>
   
   
   
@@ -63,12 +63,12 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'ClassMaterials/Module2_Python3';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'ClassMaterials/ICE6_IMU';</script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Module2: Python" href="ICE2_Python3.html" />
-    <link rel="prev" title="ICE1: Talker and Listener" href="ICE1_ListenerTalker.html" />
+    <link rel="next" title="Lab2: IMU" href="Lab2_IMU.html" />
+    <link rel="prev" title="Lab1: Custom Messages" href="Lab1_CustomMessages.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -172,7 +172,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="ICE1_Linux.html">ICE1: Linux</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ICE1_ListenerTalker.html">ICE1: Talker and Listener</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Module2: Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module2_Python3.html">Module2: Python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ICE2_Python3.html">Module2: Python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Module3_ROS2.html">Module3: ROS2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ICE3_ClientServer.html">ICE3: Client and Server</a></li>
@@ -181,7 +181,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="ICE4_DrivingTheRobot.html">ICE4: Driving the Robot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ICE5_CustomMessages.html">ICE5: Messages</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Lab1_CustomMessages.html">Lab1: Custom Messages</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ICE6_IMU.html">ICE6: IMU</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">ICE6: IMU</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Lab2_IMU.html">Lab2: IMU</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ICE7_LaunchFile.html">ICE7: Launch Files</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ICE8_LIDAR.html">ICE8: LIDAR</a></li>
@@ -263,7 +263,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/stanbaek/ece387/issues/new?title=Issue%20on%20page%20%2FClassMaterials/Module2_Python3.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/stanbaek/ece387/issues/new?title=Issue%20on%20page%20%2FClassMaterials/ICE6_IMU.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -293,7 +293,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="../_sources/ClassMaterials/Module2_Python3.md" target="_blank"
+      <li><a href="../_sources/ClassMaterials/ICE6_IMU.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -375,7 +375,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Module2: Python</h1>
+    <h1>ICE6: IMU</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -385,8 +385,14 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-note-on-this-document">A note on this document</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computer-player">Computer Player</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose">Purpose</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calibrating-the-imu">Calibrating the IMU</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-the-imu">Test the IMU</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-the-subscriber">Write the Subscriber</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint">Checkpoint</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cleanup">Cleanup</a></li>
 </ul>
             </nav>
         </div>
@@ -398,50 +404,142 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="module2-python">
-<h1>Module2: Python<a class="headerlink" href="#module2-python" title="Permalink to this heading">#</a></h1>
-<section id="a-note-on-this-document">
-<h2>A note on this document<a class="headerlink" href="#a-note-on-this-document" title="Permalink to this heading">#</a></h2>
-<p>This document is known as a Jupyter Notebook; it is used in academia and industry to allow text and executable code to coexist in a very easy to read format. Blocks can contain text or code, and for blocks containing code, press <code class="docutils literal notranslate"><span class="pre">Shift</span> <span class="pre">+</span> <span class="pre">Enter</span></code> to run the code. Earlier blocks of code need to be run for the later blocks of code to work.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="ice6-imu">
+<h1>ICE6: IMU<a class="headerlink" href="#ice6-imu" title="Permalink to this heading">#</a></h1>
+<section id="purpose">
+<h2>Purpose<a class="headerlink" href="#purpose" title="Permalink to this heading">#</a></h2>
+<p>In practice, an inertial measurement unit (IMU) device provides orientation, angular velocity, and linear acceleration. The <a class="reference external" href="https://invensense.tdk.com/products/motion-tracking/6-axis/icm-20648/">ICM-20648 6-Axis MEMS MotionTracking Device</a> from TDK includes a 3-axis gyroscope, 3-axis accelerometer, and a Digital Motion Processor (DMP). This IMU is integrated on the OpenCR1.0 board, an open source robot controller embedded with an ARM Cortex-M7 processor. The OpenCR combines sensor data using an EKF to generate IMU estimates 170 times a second.</p>
+<p><img alt="logo" src="../_images/IMU.jpg" /></p>
+<p>The IMU provides values that are part of the robot state and allow the robot to navigate more accurately. Combined with data from the tachometers these values provide the odometry of the robot to estimate change in position over time. We will primarily use the IMU to perform 90 and 180 degree turns.</p>
+<p><img alt="logo" src="../_images/bot.PNG" /></p>
 </section>
-<section id="computer-player">
-<h2>Computer Player<a class="headerlink" href="#computer-player" title="Permalink to this heading">#</a></h2>
-<p>We will now implement a computer player node that will send a random choice to the player node.</p>
-<p>First import your required modules:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">rospy</span><span class="o">,</span> <span class="nn">random</span>
-<span class="kn">from</span> <span class="nn">std_msgs.msg</span> <span class="kn">import</span> <span class="n">String</span>
+<section id="calibrating-the-imu">
+<h2>Calibrating the IMU<a class="headerlink" href="#calibrating-the-imu" title="Permalink to this heading">#</a></h2>
+<p>As described above, there are a number of different sensors that work together to provide the attitude and heading estimates for the Turtlebot3. These sensors are sensitive to magnetic fields which are unique to locale and device. As you will learn in future ECE classes, all electronic devices create small magnetic fields. Even electrons traveling over a wire create magnetic fields. The OpenCR board and IMU are strategically placed in the center of the robot for best attitude and heading performance, however, this location is also in the center of a number of magnetic fields. Luckily for us, the creators of the Turtlebot3 were aware of these issues and whenever you run the serial node to connect to the robot the IMU is calibrated.</p>
+</section>
+<section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this heading">#</a></h2>
+<p>The ICM-20648 is already integrated into the Turtlebot3 robot, therefore, there is no setup required. Whenever the serial node is ran to connect to the OpenCR board, the IMU is initialized and will start publishing data.</p>
+</section>
+<section id="test-the-imu">
+<h2>Test the IMU<a class="headerlink" href="#test-the-imu" title="Permalink to this heading">#</a></h2>
+<p>Open a new terminal on the master and run roscore and setup for statistics:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>roscore
+rosparam<span class="w"> </span><span class="nb">set</span><span class="w"> </span>enable_statistics<span class="w"> </span><span class="nb">true</span>
 </pre></div>
 </div>
-<p>Here, we are importing two modules: <em>rospy</em>, which allows us to run ROS code in Python, and the <em>String</em> message from the <em>std_msgs</em> ROS package.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Computer</span><span class="p">:</span>
-    <span class="c1"># class constant to store computer choices</span>
-    <span class="n">CHOICES</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Rock&#39;</span><span class="p">,</span> <span class="s1">&#39;Paper&#39;</span><span class="p">,</span> <span class="s1">&#39;Scissors&#39;</span><span class="p">]</span>
-    
-    <span class="c1"># initialize class</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,):</span>
-        <span class="c1"># instance variables</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">computers_choice</span> <span class="o">=</span> <span class="n">String</span><span class="p">()</span>
-        
-        <span class="c1"># subscriber to receive the computer&#39;s choice over the computer topic</span>
-        <span class="n">rospy</span><span class="o">.</span><span class="n">Subscriber</span><span class="p">(</span><span class="s1">&#39;user_choice&#39;</span><span class="p">,</span> <span class="n">String</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">callback_computers_choice</span><span class="p">)</span>
-        
-        <span class="c1"># publisher to send player&#39;s choice over the player topic</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pub</span> <span class="o">=</span> <span class="n">rospy</span><span class="o">.</span><span class="n">Publisher</span><span class="p">(</span><span class="s1">&#39;computer_choice&#39;</span><span class="p">,</span> <span class="n">String</span><span class="p">,</span> <span class="n">queue_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    
-    <span class="k">def</span> <span class="nf">callback_computers_choice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-        <span class="c1"># use random module imported earlier to select a random index from the list</span>
-        <span class="n">rand_index</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">CHOICES</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-        <span class="c1"># use the index to select an item from the list</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">computers_choice</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CHOICES</span><span class="p">[</span><span class="n">rand_index</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pub</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">computers_choice</span><span class="p">)</span>
+<p>Create a secure shell connection to your <strong>Robot</strong> and launch the Turtlebot3 core launchfile.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>roslaunch<span class="w"> </span>turtlebot3_bringup<span class="w"> </span>turtlebot3_core.launch
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rospy</span><span class="o">.</span><span class="n">init_node</span><span class="p">(</span><span class="s1">&#39;computer&#39;</span><span class="p">)</span>
-<span class="n">Computer</span><span class="p">()</span>
-<span class="n">rospy</span><span class="o">.</span><span class="n">spin</span><span class="p">()</span>
+<p>Open a new terminal on your <strong>Master</strong> and observe what topics are running.</p>
+<p>You should note two topics of interest: <strong>/imu</strong> and <strong>/odom</strong>.</p>
+<p>Echo the output of each of the topics and rotate the <strong>Robot</strong> to see the values change.</p>
+<p>The <strong>/imu</strong> topic combines information from the gyroscope and accelerometer to provide orientation, angular velocity, and linear acceleration. The <strong>/odom</strong> topic combines the information from the <strong>/imu</strong> topic and tachometers to estimate position, orientation, and linear and angular velocities.</p>
+<p>Both of these topics provide the orientation of the robot using a quaternion representation. While quaternions can make computation easier, they are not very human readable, so we will convert to Euler angles. To do this we will use a Python library called <a class="reference external" href="https://pypi.org/project/squaternion/">squaternion</a>.</p>
+<p>The two main functions we will use from the squaternion library:</p>
+<p>First we will need to create a Quaternion object:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">q</span> <span class="o">=</span> <span class="n">Quaternion</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Now return to the Module3_Python3 User Notebook and fill in the requested inputs.</p>
+<p>Then we will conver that Quaternion to an Euler:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">e</span> <span class="o">=</span> <span class="n">q</span><span class="o">.</span><span class="n">to_euler</span><span class="p">(</span><span class="n">degrees</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now we have <code class="docutils literal notranslate"><span class="pre">e</span></code>, an array representing our Euler angles, <code class="docutils literal notranslate"><span class="pre">e[roll,</span> <span class="pre">pitch,</span> <span class="pre">yaw]</span></code>.</p>
+<p>You can keep the node running for the next portion of the lesson.</p>
+</section>
+<section id="write-the-subscriber">
+<h2>Write the Subscriber<a class="headerlink" href="#write-the-subscriber" title="Permalink to this heading">#</a></h2>
+<ol class="arabic">
+<li><p>In a new terminal on the <strong>Master</strong>, create an <strong>ice6</strong> package which depends on the <em>geometry_msgs</em>, <em>rospy</em>, and <em>turtlebot3_bringup</em> packages, compile and source the workspace:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/master_ws/src/ece387_master_sp2X-USERNAME/master
+catkin_create_pkg<span class="w"> </span>ice6<span class="w"> </span>std_msgs<span class="w"> </span>rospy<span class="w"> </span>turtlebot3_bringup
+<span class="nb">cd</span><span class="w"> </span>~/master_ws
+catkin_make
+<span class="nb">source</span><span class="w"> </span>~/.bashrc
+</pre></div>
+</div>
+</li>
+<li><p>Create an IMU node:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>roscd<span class="w"> </span>ice6/src
+touch<span class="w"> </span>imu_sub.py
+</pre></div>
+</div>
+</li>
+<li><p>Copy and complete the below code using a GUI editor tool, such as <strong>Sublime</strong> or <strong>VS Code</strong>. Browse to the subscriber you just created and double-click. This will open the file in <strong>Sublime</strong> or <strong>VS Code</strong> (if it is open in any other editor, stop, raise your hand, and get help from an instructor)</p></li>
+</ol>
+<blockquote>
+<div><p>💡️ <strong>Tip:</strong> Look for the <strong>“TODO”</strong> tag which indicates where you should insert your own code.</p>
+</div></blockquote>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span> <span class="nn">rospy</span>
+<span class="kn">from</span> <span class="nn">squaternion</span> <span class="kn">import</span> <span class="n">Quaternion</span>
+<span class="c1"># TODO: import message type sent over imu topic</span>
+
+
+<span class="k">class</span> <span class="nc">IMU</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Class to read orientation data from Turtlebot3 IMU&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>        
+        <span class="c1"># TODO: subscribe to the imu topic that is published by the</span>
+        <span class="c1"># Turtlebot3 and provides the robot orientation</span>
+
+
+        <span class="c1"># nicely handle shutdown (Ctrl+c)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_c</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">rospy</span><span class="o">.</span><span class="n">on_shutdown</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shutdownhook</span><span class="p">)</span>
+
+    <span class="c1"># The IMU provides yaw from -180 to 180. This function</span>
+    <span class="c1"># converts the yaw (in degrees) to 0 to 360</span>
+    <span class="k">def</span> <span class="nf">convert_yaw</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">yaw</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">360</span> <span class="o">+</span> <span class="n">yaw</span> <span class="k">if</span> <span class="n">yaw</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">yaw</span>		
+
+    <span class="c1"># Print the current Yaw</span>
+    <span class="k">def</span> <span class="nf">callback_imu</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">imu</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_c</span><span class="p">:</span>
+            <span class="c1"># TODO: create a quaternion using the x, y, z, and w values</span>
+            <span class="c1"># from the correct imu message</span>
+            
+            
+            <span class="c1"># TODO: convert the quaternion to euler in degrees</span>
+            
+            
+            <span class="c1"># TODO: get the yaw component of the euler</span>
+            <span class="n">yaw</span> <span class="o">=</span> 
+
+            <span class="c1"># convert yaw from -180 to 180 to 0 to 360</span>
+            <span class="n">yaw</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">convert_yaw</span><span class="p">(</span><span class="n">yaw</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Current heading is </span><span class="si">%f</span><span class="s2"> degrees.&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">yaw</span><span class="p">))</span>
+
+    <span class="c1"># clean shutdown</span>
+    <span class="k">def</span> <span class="nf">shutdownhook</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shutting down the IMU subscriber&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_c</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">rospy</span><span class="o">.</span><span class="n">init_node</span><span class="p">(</span><span class="s1">&#39;imu_sub&#39;</span><span class="p">)</span>
+    <span class="n">IMU</span><span class="p">()</span>
+    <span class="n">rospy</span><span class="o">.</span><span class="n">spin</span><span class="p">()</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Save, exit, and make the node executable.</p></li>
+<li><p>Open a new terminal on the <strong>Master</strong> and run the <strong>imu_sub.py</strong> node.</p></li>
+<li><p>Rotate the <strong>Robot</strong> and observe the output.</p></li>
+</ol>
+</section>
+<section id="checkpoint">
+<h2>Checkpoint<a class="headerlink" href="#checkpoint" title="Permalink to this heading">#</a></h2>
+<p>Once complete, get checked off by an instructor showing the output of your <strong>imu_sub</strong> and <strong>rqt_graph</strong> node.  Push your ice6 package to your repo for credit</p>
+</section>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this heading">#</a></h2>
+<p>In this lesson you learned how to utilize the on-board IMU and determine the orientation of the Turtlebot3. In the lab that corresponds to this lesson you will apply this knowledge to turn the robot in 90 and 180 degree turns.ROS</p>
+</section>
+<section id="cleanup">
+<h2>Cleanup<a class="headerlink" href="#cleanup" title="Permalink to this heading">#</a></h2>
+<p>In each terminal window, close the node by typing <code class="docutils literal notranslate"><span class="pre">ctrl+c</span></code>. Exit any SSH connections. Shutdown the notebook server by typing <code class="docutils literal notranslate"><span class="pre">ctrl+c</span></code> within the terminal you ran <code class="docutils literal notranslate"><span class="pre">jupyter-lab</span></code> in. Select ‘y’.</p>
+<p><strong>Ensure roscore is terminated before moving on to the lab.</strong></p>
 </section>
 </section>
 
@@ -477,20 +575,20 @@ document.write(`
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="ICE1_ListenerTalker.html"
+       href="Lab1_CustomMessages.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">ICE1: Talker and Listener</p>
+        <p class="prev-next-title">Lab1: Custom Messages</p>
       </div>
     </a>
     <a class="right-next"
-       href="ICE2_Python3.html"
+       href="Lab2_IMU.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Module2: Python</p>
+        <p class="prev-next-title">Lab2: IMU</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -512,8 +610,14 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-note-on-this-document">A note on this document</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computer-player">Computer Player</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose">Purpose</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calibrating-the-imu">Calibrating the IMU</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-the-imu">Test the IMU</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-the-subscriber">Write the Subscriber</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint">Checkpoint</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cleanup">Cleanup</a></li>
 </ul>
   </nav></div>
 

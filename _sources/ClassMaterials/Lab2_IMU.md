@@ -1,4 +1,4 @@
-# Lab2: Inertial Measurement Unit
+# Lab2: IMU
 
 ## Purpose
 This lab will integrate the on-board IMU with the Turtlebot3 controller to turn the robot 90 degrees left or right.  Do not disable any of the mouse controller functionality in the turtlebot_controller.py code.  The IMU and mouse control functionality should be able to coexist seemlessly.
