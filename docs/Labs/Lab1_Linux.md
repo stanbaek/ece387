@@ -1,4 +1,4 @@
-# Module 1: Linux for Robotics
+# Lab1: Linux
 
 ## Objectives
 - Students should be able to

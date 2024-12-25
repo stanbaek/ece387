@@ -8,53 +8,22 @@ parts:
     chapters:
     - file: syllabus.md
     - file: schedule.md
+    - file: linux.md
     - file: python.md
     - file: faq.md
+    - url: https://stanbaek.github.io/NoPointer.html
+      title: No Pointers in Python?
 
-  - caption: Modules
+  - caption: Labs
     chapters:
-    - file: Module1_Linux/Linux.md
-
-    - file: Module2_Python3/index
-      sections:
-      - file: Module2_Python3/Python3.md
-      - file: Module2_Python3/ROS.md    
-      - file: Module2_Python3/RPSComputer.md    
-      - file: Module2_Python3/ICE3_ClientServer.md    
-
-    - file: Module3_ROS/index
-      sections:
-      - file: Module3_ROS/ROS.md
-      - file: Module3_ROS/ICE1_ListenerTalker.md    
-    
-    - file: Module4_DrivingTheRobot/index
-      sections:
-      - file: Module4_DrivingTheRobot/DrivingTheRobot.md
-      - file: Module4_DrivingTheRobot/ICE4_DrivingTheRobot.md
-    
-    - file: Module5_CustomMessages/index
-      sections:
-      - file: Module5_CustomMessages/CustomMessages.md    
-      - file: Module5_CustomMessages/Lab1_CustomMessages.md  
-      
-    - file: Module6_IMU/index
-      sections:
-      - file: Module6_IMU/IMU.md
-      - file: Module6_IMU/Lab2_IMU.md
-      
-    - file: Module7_LaunchFile/LaunchFile.md
-      
-    - file: Module8_LIDAR/index
-      sections:
-      - file: Module8_LIDAR/LIDAR.md
-      - file: Module8_LIDAR/Lab3_LIDAR.md
-      
-    - file: Module9_CV/index
-      sections:
-      - file: Module9_CV/computer_vision
-      - file: Module9_CV/Lab4_ComputerVision.md
-      
-    - file: Module10_FinalProject/FinalProject.md
+    - file: Labs/Lab1_Linux.md
+    - file: Labs/Lab2_ROS.md    
+    - file: Labs/Lab3_Python.md
+    - file: Labs/Lab4_TurtleBot.md
+    - file: Labs/Lab5_Messages.md    
+    - file: Labs/Lab6_IMU.md
+    - file: Labs/Lab7_LaunchFile.md
+    - file: Labs/Lab8_LIDAR.md
 
   - caption: Appendix
     chapters:
