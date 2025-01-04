@@ -369,7 +369,6 @@ In each terminal window, close the node by typing `ctrl+c`. Exit any SSH connect
 
 
 
-
 ##Lab8: Custom Messages
 
 ## Synopsis
@@ -440,3 +439,32 @@ Complete a short 2-3 page report that utilizes the format and answers the questi
 
 **[25 points]** Code/ROS package: push your code to your repository. Also, include a screenshot or the raw text of the `turtlebot_controller.py` and `mouse_client_OO.py` files at the end of your report.
 
+
+
+
+
+
+`rosidl_default_generators` is a package in ROS 2 that provides the necessary tools to generate code for interfaces such as messages, services, and actions from their definitions. It is part of the build process for generating the corresponding C++ and Python code from `.msg` (message), `.srv` (service), and `.action` (action) files that are specified in your ROS 2 package.
+
+In your specific example, the `rosidl_generate_interfaces` macro is used to generate these code bindings. Here’s a breakdown of what happens:
+
+1. **`rosidl_generate_interfaces(${PROJECT_NAME} ...)`**: This command tells the ROS 2 build system to generate the necessary code (C++, Python, etc.) from the message (`.msg`) and service (`.srv`) definitions listed within the command. The `${PROJECT_NAME}` is a placeholder for your package name, which should be defined elsewhere in your CMake configuration.
+
+2. **The `DEPENDENCIES` keyword**: This specifies any external packages that your messages or services depend on. In this case, you are saying that the `Sphere.msg` message depends on the `geometry_msgs` package.
+
+3. **What `rosidl_default_generators` does**:
+   - It generates code for the types defined in `.msg` and `.srv` files.
+   - It includes all necessary build dependencies and processes to ensure that the interface definitions are available and usable by the rest of your ROS 2 code.
+   - It works with different languages (like C++, Python, etc.) so that your interface files can be used across multiple programming environments.
+
+In essence, `rosidl_default_generators` is what allows ROS 2 to take your custom interface definitions (messages and services) and turn them into usable code in your ROS 2 project.
+
+
+`rosidl` stands for **ROS Interface Definition Language** in the context of `rosidl_default_generators`.
+
+- **ROS**: Refers to the Robot Operating System, the framework and middleware for building robotic applications.
+- **IDL**: Stands for **Interface Definition Language**, which is a language used to define the structure of data types and interfaces, such as messages, services, and actions, in a way that can be understood and used across different programming languages and platforms.
+
+In the case of `rosidl_default_generators`, the package is responsible for generating code from interface definitions written in `.msg`, `.srv`, and `.action` files. These files define the structure of messages and services, and `rosidl` provides the tools and processes to transform these definitions into usable code in ROS 2 (like C++ and Python).
+
+So, `rosidl` is essentially the part of the ROS 2 build system that handles the generation of interfaces and code bindings based on these interface definitions.
