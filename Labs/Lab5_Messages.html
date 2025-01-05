@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Lab5: Messages &#8212; Introduction to Robotic Systems</title>
+    <title>🔬 Lab5: Messages &#8212; Introduction to Robotic Systems</title>
   
   
   
@@ -67,8 +67,8 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Lab6: IMU" href="Lab6_IMU.html" />
-    <link rel="prev" title="Lab4: Driving the Robot" href="Lab4_TurtleBot.html" />
+    <link rel="next" title="🔬 Lab6: IMU" href="Lab6_IMU.html" />
+    <link rel="prev" title="🔬 Lab4: Driving the Robot" href="Lab4_TurtleBot.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -170,15 +170,15 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Labs</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="Lab1_Linux.html">Lab1: Linux</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Lab2_ROS.html">Lab2: ROS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Lab3_Python.html">Lab3: Python</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Lab4_TurtleBot.html">Lab4: Driving the Robot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lab1_Linux.html">🔬 Lab1: Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lab2_ROS.html">🔬 Lab2: ROS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lab3_Python.html">🔬 Lab3: Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lab4_TurtleBot.html">🔬 Lab4: Driving the Robot</a></li>
 
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lab5: Messages</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Lab6_IMU.html">Lab6: IMU</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Lab7_LaunchFile.html">Lab7: Launch Files</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Lab8_LIDAR.html">Lab8: LIDAR</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">🔬 Lab5: Messages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lab6_IMU.html">🔬 Lab6: IMU</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lab7_LaunchFile.html">🔬 Lab7: Launch Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lab8_LIDAR.html">🔬 Lab8: LIDAR</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendix</span></p>
 <ul class="nav bd-sidenav">
@@ -368,7 +368,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Lab5: Messages</h1>
+    <h1>🔬 Lab5: Messages</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -427,7 +427,7 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="lab5-messages">
-<h1>Lab5: Messages<a class="headerlink" href="#lab5-messages" title="Permalink to this heading">#</a></h1>
+<h1>🔬 Lab5: Messages<a class="headerlink" href="#lab5-messages" title="Permalink to this heading">#</a></h1>
 <section id="purpose">
 <h2>Purpose<a class="headerlink" href="#purpose" title="Permalink to this heading">#</a></h2>
 <p>This In-Class Exercise will provide you more insight into ROS messages and how information is passed between two nodes. A node can publish specific messages over a topic and other nodes are able to subscribe to that topic to receive the message. The format of these messages must be pre-defined and each node needs to know the format of the message. ROS provides a number of pre-built messages, but also allows for developers to create custom messages. In this lesson you will learn the method for and practice creating custom messages. In the corresponding lab you will develop a custom message to drive the robot. The custom message will eventually be used to enable a controller to drive the robot based on multiple data sources (e.g., IMU, LIDAR, keyboard).</p>
@@ -875,6 +875,27 @@ message, you can use the built in ROS functionality to see what the format of th
 <p><strong>[25 points]</strong> Demonstration of mouse control of Turtlebot (preferably in person, but can be recorded and posted to Teams under the Lab1 channel).</p>
 <p><strong>[50 points]</strong> Report via Gradescope.</p>
 <p><strong>[25 points]</strong> Code/ROS package: push your code to your repository. Also, include a screenshot or the raw text of the <code class="docutils literal notranslate"><span class="pre">turtlebot_controller.py</span></code> and <code class="docutils literal notranslate"><span class="pre">mouse_client_OO.py</span></code> files at the end of your report.</p>
+<p><code class="docutils literal notranslate"><span class="pre">rosidl_default_generators</span></code> is a package in ROS 2 that provides the necessary tools to generate code for interfaces such as messages, services, and actions from their definitions. It is part of the build process for generating the corresponding C++ and Python code from <code class="docutils literal notranslate"><span class="pre">.msg</span></code> (message), <code class="docutils literal notranslate"><span class="pre">.srv</span></code> (service), and <code class="docutils literal notranslate"><span class="pre">.action</span></code> (action) files that are specified in your ROS 2 package.</p>
+<p>In your specific example, the <code class="docutils literal notranslate"><span class="pre">rosidl_generate_interfaces</span></code> macro is used to generate these code bindings. Here’s a breakdown of what happens:</p>
+<ol class="arabic simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">rosidl_generate_interfaces(${PROJECT_NAME}</span> <span class="pre">...)</span></code></strong>: This command tells the ROS 2 build system to generate the necessary code (C++, Python, etc.) from the message (<code class="docutils literal notranslate"><span class="pre">.msg</span></code>) and service (<code class="docutils literal notranslate"><span class="pre">.srv</span></code>) definitions listed within the command. The <code class="docutils literal notranslate"><span class="pre">${PROJECT_NAME}</span></code> is a placeholder for your package name, which should be defined elsewhere in your CMake configuration.</p></li>
+<li><p><strong>The <code class="docutils literal notranslate"><span class="pre">DEPENDENCIES</span></code> keyword</strong>: This specifies any external packages that your messages or services depend on. In this case, you are saying that the <code class="docutils literal notranslate"><span class="pre">Sphere.msg</span></code> message depends on the <code class="docutils literal notranslate"><span class="pre">geometry_msgs</span></code> package.</p></li>
+<li><p><strong>What <code class="docutils literal notranslate"><span class="pre">rosidl_default_generators</span></code> does</strong>:</p>
+<ul class="simple">
+<li><p>It generates code for the types defined in <code class="docutils literal notranslate"><span class="pre">.msg</span></code> and <code class="docutils literal notranslate"><span class="pre">.srv</span></code> files.</p></li>
+<li><p>It includes all necessary build dependencies and processes to ensure that the interface definitions are available and usable by the rest of your ROS 2 code.</p></li>
+<li><p>It works with different languages (like C++, Python, etc.) so that your interface files can be used across multiple programming environments.</p></li>
+</ul>
+</li>
+</ol>
+<p>In essence, <code class="docutils literal notranslate"><span class="pre">rosidl_default_generators</span></code> is what allows ROS 2 to take your custom interface definitions (messages and services) and turn them into usable code in your ROS 2 project.</p>
+<p><code class="docutils literal notranslate"><span class="pre">rosidl</span></code> stands for <strong>ROS Interface Definition Language</strong> in the context of <code class="docutils literal notranslate"><span class="pre">rosidl_default_generators</span></code>.</p>
+<ul class="simple">
+<li><p><strong>ROS</strong>: Refers to the Robot Operating System, the framework and middleware for building robotic applications.</p></li>
+<li><p><strong>IDL</strong>: Stands for <strong>Interface Definition Language</strong>, which is a language used to define the structure of data types and interfaces, such as messages, services, and actions, in a way that can be understood and used across different programming languages and platforms.</p></li>
+</ul>
+<p>In the case of <code class="docutils literal notranslate"><span class="pre">rosidl_default_generators</span></code>, the package is responsible for generating code from interface definitions written in <code class="docutils literal notranslate"><span class="pre">.msg</span></code>, <code class="docutils literal notranslate"><span class="pre">.srv</span></code>, and <code class="docutils literal notranslate"><span class="pre">.action</span></code> files. These files define the structure of messages and services, and <code class="docutils literal notranslate"><span class="pre">rosidl</span></code> provides the tools and processes to transform these definitions into usable code in ROS 2 (like C++ and Python).</p>
+<p>So, <code class="docutils literal notranslate"><span class="pre">rosidl</span></code> is essentially the part of the ROS 2 build system that handles the generation of interfaces and code bindings based on these interface definitions.</p>
 </section>
 </section>
 
@@ -915,7 +936,7 @@ message, you can use the built in ROS functionality to see what the format of th
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Lab4: Driving the Robot</p>
+        <p class="prev-next-title">🔬 Lab4: Driving the Robot</p>
       </div>
     </a>
     <a class="right-next"
@@ -923,7 +944,7 @@ message, you can use the built in ROS functionality to see what the format of th
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Lab6: IMU</p>
+        <p class="prev-next-title">🔬 Lab6: IMU</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

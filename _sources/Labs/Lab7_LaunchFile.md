@@ -1,4 +1,4 @@
-# Lab7: Launch Files
+# 🔬 Lab7: Launch Files
 
 ## Purpose
 Large applications in robotics typically involve several interconnected ROS nodes, each of which have many parameters. Your current setup is a good example: as you experienced in the IMU lab, you had to open 3 different terminals to run all of the nodes necessary for our system to that point:

@@ -1,4 +1,4 @@
-# Lab2: ROS
+# 🔬 Lab2: ROS
 
 ## Purpose
 This lecture accompanies the introduction to ROS used in class. We will apply the knowledge you learned by interacting with a simulated TurlteBot3 Burger.

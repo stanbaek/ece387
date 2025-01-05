@@ -170,15 +170,15 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Labs</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../Labs/Lab1_Linux.html">Lab1: Linux</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Labs/Lab2_ROS.html">Lab2: ROS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Labs/Lab3_Python.html">Lab3: Python</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Labs/Lab4_TurtleBot.html">Lab4: Driving the Robot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Labs/Lab1_Linux.html">🔬 Lab1: Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Labs/Lab2_ROS.html">🔬 Lab2: ROS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Labs/Lab3_Python.html">🔬 Lab3: Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Labs/Lab4_TurtleBot.html">🔬 Lab4: Driving the Robot</a></li>
 
-<li class="toctree-l1"><a class="reference internal" href="../Labs/Lab5_Messages.html">Lab5: Messages</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Labs/Lab6_IMU.html">Lab6: IMU</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Labs/Lab7_LaunchFile.html">Lab7: Launch Files</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Labs/Lab8_LIDAR.html">Lab8: LIDAR</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Labs/Lab5_Messages.html">🔬 Lab5: Messages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Labs/Lab6_IMU.html">🔬 Lab6: IMU</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Labs/Lab7_LaunchFile.html">🔬 Lab7: Launch Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Labs/Lab8_LIDAR.html">🔬 Lab8: LIDAR</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendix</span></p>
 <ul class="current nav bd-sidenav">
@@ -380,19 +380,14 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hardware">Hardware</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#software">Software</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#download-ubuntu-and-flash-usb">Download Ubuntu and flash USB</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-github-ssh-keys">Setup GitHub SSH Keys</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#update-alternatives">Update Alternatives</a></li>
-</ul>
-</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ubuntu-22-04">Ubuntu 22.04</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ros2-humble">ROS2 Humble</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#turtlebot3-simulation-package">TurtleBot3 Simulation Package</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ros-environment">ROS Environment</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#turtlebot3-simulation-package">TurtleBot3 Simulation Package</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ros-environment">ROS Environment</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-pip">Install PIP</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation">Simulation:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pip">PIP</a></li>
 </ul>
 </li>
 </ul>
@@ -417,50 +412,79 @@ document.write(`
 </section>
 <section id="software">
 <h2>Software<a class="headerlink" href="#software" title="Permalink to this heading">#</a></h2>
-<section id="download-ubuntu-and-flash-usb">
-<h3>Download Ubuntu and flash USB<a class="headerlink" href="#download-ubuntu-and-flash-usb" title="Permalink to this heading">#</a></h3>
+<section id="ubuntu-22-04">
+<h3>Ubuntu 22.04<a class="headerlink" href="#ubuntu-22-04" title="Permalink to this heading">#</a></h3>
 <p>For the desktop machine you will first need to download <a class="reference external" href="https://releases.ubuntu.com/jammy/">Ubuntu Desktop 22.04 LTS</a>.</p>
 <p>Once downloaded, follow the instructions to create a <a class="reference external" href="https://ubuntu.com/tutorials/create-a-usb-stick-on-ubuntu#1-overview">bootable Ubuntu USB stick</a> within Ubuntu. The guide provides links to create USB sticks from Windows and macOS as well.</p>
 <p>Once the bootable USB stick is created, follow the guide to <a class="reference external" href="https://ubuntu.com/tutorials/install-ubuntu-desktop#1-overview">Install Ubuntu desktop</a> selecting a useful computer name such as <code class="docutils literal notranslate"><span class="pre">master0</span></code>. The NUC requires you to press and hold F10 on startup to boot from a USB stick.</p>
-<!-- #region -->
-<section id="setup-github-ssh-keys">
-<h4>Setup GitHub SSH Keys<a class="headerlink" href="#setup-github-ssh-keys" title="Permalink to this heading">#</a></h4>
-<p>The following assumes you already have a GitHub account.</p>
-<p>Create SSH keys to use with your GitHub account by typing the following using the same email as you GitHub login:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span>
-ssh-keygen<span class="w"> </span>-t<span class="w"> </span>ed25519<span class="w"> </span>-C<span class="w"> </span><span class="s2">&quot;github@email.com&quot;</span>
-</pre></div>
-</div>
-<p>When prompted to “Enter a file in which to save the key”, hit <strong>enter</strong>.</p>
-<p>Start the ssh-agent in the background and add your SSH private key to the ssh-agent:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">eval</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>ssh-agent<span class="w"> </span>-s<span class="k">)</span><span class="s2">&quot;</span>
-ssh-add<span class="w"> </span>~/.ssh/id_ed25519
-</pre></div>
-</div>
-<p>Open the public key with your favorite command line editor (this is easier to accomplish via an SSH connection from a desktop machine with a GUI so you can copy the public key to your GitHub account).</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nano<span class="w"> </span>~/.ssh/id_ed25519.pub
-</pre></div>
-</div>
-<p>Copy the contents of the file (maximize the window and ensure you copy the entire contents up to the GitHub email).</p>
-<p>Open a web browser and sign in to your GitHub account.</p>
-<p>In the upper-right corner of any page, click your profile photo, then click <strong>Settings</strong>:</p>
-<a class="reference internal image-reference" href="../_images/ssh1.png"><img alt="../_images/ssh1.png" class="align-center" src="../_images/ssh1.png" style="width: 200px;" /></a>
-<p>In the user settings sidebar, click <strong>SSH and GPG keys</strong>:</p>
-<a class="reference internal image-reference" href="../_images/ssh2.png"><img alt="../_images/ssh2.png" class="align-center" src="../_images/ssh2.png" style="width: 200px;" /></a>
-<p>Click <strong>New SSH key</strong>:</p>
-<a class="reference internal image-reference" href="../_images/ssh3.png"><img alt="../_images/ssh3.png" class="align-center" src="../_images/ssh3.png" style="width: 600px;" /></a>
+<!-- 
+#### Setup GitHub SSH Keys
+The following assumes you already have a GitHub account.
+
+Create SSH keys to use with your GitHub account by typing the following using the same email as you GitHub login:
+
+```bash
+cd
+ssh-keygen -t ed25519 -C "github@email.com"
+```
+
+When prompted to "Enter a file in which to save the key", hit **enter**.
+
+Start the ssh-agent in the background and add your SSH private key to the ssh-agent:
+
+```bash
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+```
+
+Open the public key with your favorite command line editor (this is easier to accomplish via an SSH connection from a desktop machine with a GUI so you can copy the public key to your GitHub account).
+
+```bash
+nano ~/.ssh/id_ed25519.pub
+```
+
+Copy the contents of the file (maximize the window and ensure you copy the entire contents up to the GitHub email).
+
+Open a web browser and sign in to your GitHub account.
+
+In the upper-right corner of any page, click your profile photo, then click **Settings**:
+
+```{image} ./Figures/ssh1.png
+:width: 200
+:align: center
+```
+
+
+In the user settings sidebar, click **SSH and GPG keys**:
+
+```{image} ./Figures/ssh2.png
+:width: 200
+:align: center
+```
+
+Click **New SSH key**:
+
+```{image} ./Figures/ssh3.png
+:width: 600
+:align: center
+```
 <br>
-<p>In the <code class="docutils literal notranslate"><span class="pre">Title</span></code> field, add a descriptive label for the new key, such as <code class="docutils literal notranslate"><span class="pre">master0</span></code>.</p>
-<p>Paste your key into the <code class="docutils literal notranslate"><span class="pre">Key</span></code> field (contents of the <code class="docutils literal notranslate"><span class="pre">.pub</span></code> file).</p>
-<p>Click <strong>Add SSH key</strong>.</p>
-</section>
-<section id="update-alternatives">
-<h4>Update Alternatives<a class="headerlink" href="#update-alternatives" title="Permalink to this heading">#</a></h4>
-<p>Python3 is installed in Ubuntu20 by default. Some ROS packages utilize the <code class="docutils literal notranslate"><span class="pre">python</span></code> command instead of <code class="docutils literal notranslate"><span class="pre">python3</span></code> so we need to create a new executable, <code class="docutils literal notranslate"><span class="pre">/usr/bin/python</span></code> that will call Python3 (basically use the command <code class="docutils literal notranslate"><span class="pre">python</span></code> to call <code class="docutils literal notranslate"><span class="pre">Python3</span></code>):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>update-alternatives<span class="w"> </span>--install<span class="w"> </span>/usr/bin/python<span class="w"> </span>python<span class="w"> </span>/usr/bin/python3<span class="w"> </span><span class="m">10</span>
-</pre></div>
-</div>
-</section>
+
+In the ``Title`` field, add a descriptive label for the new key, such as ``master0``.
+
+Paste your key into the ``Key`` field (contents of the `.pub` file).
+
+Click **Add SSH key**.
+
+-->
+<!--
+### Update Alternatives
+Python3 is installed in Ubuntu 22.04 by default. Some ROS packages utilize the ``python`` command instead of ``python3`` so we need to create a new executable, ``/usr/bin/python`` that will call Python3 (basically use the command ``python`` to call ``Python3``):
+
+```bash
+sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 10
+```
+-->
 </section>
 <section id="ros2-humble">
 <h3>ROS2 Humble<a class="headerlink" href="#ros2-humble" title="Permalink to this heading">#</a></h3>
@@ -485,32 +509,33 @@ sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> <
 sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ros-humble-turtlebot3
 </pre></div>
 </div>
-<p>Create your ROS workspace:</p>
+<p>Create a ROS workspace:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span>~/master_ws/src
 <span class="nb">cd</span><span class="w"> </span>~/master_ws/
 </pre></div>
 </div>
 </section>
-</section>
 <section id="turtlebot3-simulation-package">
-<h3>TurtleBot3 Simulation Package<a class="headerlink" href="#turtlebot3-simulation-package" title="Permalink to this heading">#</a></h3>
+<h4>TurtleBot3 Simulation Package<a class="headerlink" href="#turtlebot3-simulation-package" title="Permalink to this heading">#</a></h4>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/master_ws/src/
-git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>humble-devel<span class="w"> </span>https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
+git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>humble<span class="w"> </span>https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
 <span class="nb">cd</span><span class="w"> </span>~/master_ws<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>colcon<span class="w"> </span>build<span class="w"> </span>--symlink-install
 </pre></div>
 </div>
 </section>
 <section id="ros-environment">
-<h3>ROS Environment<a class="headerlink" href="#ros-environment" title="Permalink to this heading">#</a></h3>
+<h4>ROS Environment<a class="headerlink" href="#ros-environment" title="Permalink to this heading">#</a></h4>
 <p>Setup ROS environment variables and setup scripts within the <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> file. Open the <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> file with your favorite command line editor and add the following to the bottom:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span>/opt/ros/humble/setup.bash
 <span class="nb">source</span><span class="w"> </span>~/master_ws/install/setup.bash
 <span class="nb">source</span><span class="w"> </span>/usr/share/gazebo/setup.sh
-<span class="nb">export</span><span class="w"> </span><span class="nv">ROS_DOMAIN_ID</span><span class="o">=</span><span class="m">30</span><span class="w"> </span><span class="c1">#TURTLEBOT3&quot; &gt;&gt; ~/.bashrc</span>
 <span class="nb">source</span><span class="w"> </span>/usr/share/colcon_cd/function/colcon_cd.sh
+<span class="nb">export</span><span class="w"> </span><span class="nv">ROS_DOMAIN_ID</span><span class="o">=</span><span class="m">30</span><span class="w"> </span>
 <span class="nb">export</span><span class="w"> </span><span class="nv">_colcon_cd_root</span><span class="o">=</span>/opt/ros/humble/
 <span class="nb">export</span><span class="w"> </span><span class="nv">TURTLEBOT3_MODEL</span><span class="o">=</span>burger
 <span class="nb">export</span><span class="w"> </span><span class="nv">LDS_MODEL</span><span class="o">=</span>LDS-01<span class="w"> </span><span class="c1"># replace with LDS-02 if using new LIDAR</span>
+<span class="nb">source</span><span class="w"> </span>/usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
+--&gt;
 </pre></div>
 </div>
 <p>Any time you make changes to your <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> file you must source it:</p>
@@ -518,25 +543,18 @@ git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </spa
 </pre></div>
 </div>
 </section>
-<section id="install-pip">
-<h3>Install PIP<a class="headerlink" href="#install-pip" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="pip">
+<h3>PIP<a class="headerlink" href="#pip" title="Permalink to this heading">#</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>python3-pip
 </pre></div>
 </div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>ds4drv
 </pre></div>
 </div>
-</section>
-<section id="simulation">
-<h3><a class="reference external" href="https://emanual.robotis.com/docs/en/platform/turtlebot3/simulation/#gazebo-simulation">Simulation</a>:<a class="headerlink" href="#simulation" title="Permalink to this heading">#</a></h3>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/master_ws/src
-git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>noetic-devel<span class="w"> </span>https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
-</pre></div>
-</div>
 <blockquote>
 <div><p>📝️ <strong>Note:</strong> the “dlib” package will take quite a while to install.</p>
 </div></blockquote>
-<!-- #endregion -->
 </section>
 </section>
 </section>
@@ -610,19 +628,14 @@ git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </spa
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hardware">Hardware</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#software">Software</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#download-ubuntu-and-flash-usb">Download Ubuntu and flash USB</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-github-ssh-keys">Setup GitHub SSH Keys</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#update-alternatives">Update Alternatives</a></li>
-</ul>
-</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ubuntu-22-04">Ubuntu 22.04</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ros2-humble">ROS2 Humble</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#turtlebot3-simulation-package">TurtleBot3 Simulation Package</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ros-environment">ROS Environment</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#turtlebot3-simulation-package">TurtleBot3 Simulation Package</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ros-environment">ROS Environment</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-pip">Install PIP</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation">Simulation:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pip">PIP</a></li>
 </ul>
 </li>
 </ul>

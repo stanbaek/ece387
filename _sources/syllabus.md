@@ -24,10 +24,10 @@ The overall **weighting** of the graded items is:
 
 |     Prog               |             | Final              |             |
 |------------------------|-------------|--------------------|-------------|
-|     GRs                |     20%     | GRs                |     20%     |
-|     Labs               |     75%     | Labs               |     50%     |
-|     Quizzes            |      5%     | Quizzes            |      5%     |
-|                        |             | Final Project      |     25%     |
+|     GRs                |     30%     | GRs                |     20%     |
+|     Labs               |     60%     | Labs               |     40%     |
+|     Quizzes            |     10%     | Quizzes            |      5%     |
+|                        |             | Projects           |     35%     |
 |                        |             |                    |             |
 |     Total              |     100%    | Total              |     100%    |
 
@@ -44,22 +44,28 @@ The **Grade distribution** for this course is shown in the chart below.
 _**You must complete all minimum functionalities on labs in order to complete the course.**  Even if an assignment is so late that no credit will be received, the assignment must be completed to the satisfaction of the instructor to prevent a grade of “Incomplete.”_
 
 ## Primary Communication and Control (C2)
-All communication and course material will be provided through a course/section Team. A Blockboard course will be used to provide grades. Lastly, GitHub will be used for cadets to provide their source code for laboratories.
+All communication and course material will be provided through a course/section Team. A Gradescope will be used to provide grades. Lastly, GitHub will be used for cadets to provide their source code for laboratories.
 
 ## Textbooks
 There is no printed textbook for ECE 387. Reading materials/labs are posted on this Course Web.
 
 ## Collaboration Policy
 
-Unless  specifically directed otherwise, the collaboration policy for this course is:
+Unless specifically directed otherwise, the collaboration policy for this course is:
 
-Authorized resources: Any material from the ECE 387 course site and online sources regarding C programming syntax only. This does not include any solutions or solution stubs for challenges similar to those asked in any assignments. 
-
-- For all assignments in this course, unless otherwise noted on the assignment, you may work with anyone.  We expect all graded work, including code and written reports, to be in your own work. Copying another person’s work, with or without documentation, will result in NO academic credit. Furthermore, copying without attribution is dishonorable and will be dealt with as an honor code violation.
-- All help received on work submitted for grading must be documented in accordance with the course documentation policy.
+- For all assignments in this course, unless otherwise noted on the assignment, you may collaborate with any other cadets currently enrolled in ECE 387. We expect all graded work to be in your own work. Copying another person’s work, with or without documentation, will result in NO academic credit. Furthermore, copying without attribution is dishonorable and will be dealt with as an honor code violation.
 - GRs are individual efforts. No collaboration is allowed while taking these exams. All electronic devices (phones, smartwatches, computers, tablets, etc.) must be placed out of sight for the duration of the event. If any electronic device is seen during the event, the student will receive a zero for that effort. 
+- Authorized resources include any material from the ECE 387 course site and online sources regarding Python programming syntax only. This does not include any solutions or solution stubs for challenges similar to those asked in any assignments. 
 
-## EI Policy
+## Documentation Requirements
+
+You must document all help received from any sources other than your instructor or instructor-provided course materials (including your textbook). 
+- Each documentation statement must be specific enough to explicitly describe what assistance was provided, how it was used to complete the assignment, and who provided the assistance.
+- If no help was received on this assignment, the documentation statement must state “None.”
+- If you checked answers with anyone, you must document with whom on which problems. You must document whether you made any changes or not.  If you did make changes, you must document the problems you changed and the reasons why.
+- Vague documentation statements will result in a 5% deduction on the assignment.
+
+## Extra Instruction (EI)
 
 Schedule EI with an instructor if you are having difficulty with the course material.  You must have read the assignment and attempted the homework before requesting EI.  Note:  You are responsible for material if you miss class, so get notes from someone in your section.  For example, you miss the lesson where the instructor announces a quiz for the next lesson or the instructor assigns homework due next lesson.  Even though you missed the lesson, you are still responsible for the quiz, homework, or any other assignments made.  It is in your best interest to check with your classmates after an absence.  After you’ve read the assignment, attempted the homework, and checked with your classmates, you may then schedule EI if you have difficulty with the material—not to make up a class you missed.
 
@@ -72,7 +78,14 @@ When a cadet is absent on the day that an assignment is due, or on the date of a
 - Unique Circumstances: For circumstances that do not fall under either of these broad categories (e.g. concussion protocol), the cadet is expected to communicate early and often with the instructor.  The instructor and course director will work with the cadet on a course of action.
 
 ## Late Work Policy
-All work is due as shown on the [schedule](schedule.md) or in the assignment. If problems arise with graded assignments, see your instructor in advance.  Assignments turned in later than the due date **without prior permission** from the instructor will be penalized (with instructor discretion) 25% per **calendar** day.
+All work is due as shown on Gradescope. If problems arise with graded assignments, see your instructor in advance. 
+- The cutoff for on-time submission is 0700 on the due date. 
+- Late days are counted in 24-hour periods. Submitting between 07:00:01 on the due date and 07:00:00 the next day is one day late, and so on.
+- You are given 5 grace days (self-granted extensions) which you can use to give yourself extra time without penalty. No more than 2 grace days can used for each assignment.
+- Instructor-granted extensions are only considered after all grace days are used and only given in exceptional situations. Computer problems such as hard-drive reimaging are not considered as exceptional situations and you must use grace days.
+- Late work handed in when you have run out of grace is discounted up to 20% for the first day late and up to 15% per day late thereafter.
+- Every assignment has a hard deadline; 4 calendar days past the original due date. 
+- Late submissions (penalty or not) are not accepted after the hard deadline or after the solution to the assignment is published. No late submissions (penalty or not) will be accepted for the assignments right before GRs.
 
 ## Assignments
 Assignments and due dates are included on the [schedule](schedule.md). 

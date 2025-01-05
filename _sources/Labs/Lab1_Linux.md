@@ -1,4 +1,4 @@
-# Lab1: Linux
+# 🔬 Lab1: Linux
 
 ## Objectives
 - Students should be able to

@@ -12,14 +12,15 @@ For our application, we are using [Intel NUC Kits](https://www.intel.com/content
 
 
 ## Software
-### Download Ubuntu and flash USB
+
+### Ubuntu 22.04
 For the desktop machine you will first need to download [Ubuntu Desktop 22.04 LTS](https://releases.ubuntu.com/jammy/). 
 
 Once downloaded, follow the instructions to create a [bootable Ubuntu USB stick](https://ubuntu.com/tutorials/create-a-usb-stick-on-ubuntu#1-overview) within Ubuntu. The guide provides links to create USB sticks from Windows and macOS as well.
 
 Once the bootable USB stick is created, follow the guide to [Install Ubuntu desktop](https://ubuntu.com/tutorials/install-ubuntu-desktop#1-overview) selecting a useful computer name such as `master0`. The NUC requires you to press and hold F10 on startup to boot from a USB stick.
 
-<!-- #region -->
+<!-- 
 #### Setup GitHub SSH Keys
 The following assumes you already have a GitHub account.
 
@@ -78,13 +79,16 @@ Paste your key into the ``Key`` field (contents of the `.pub` file).
 
 Click **Add SSH key**.
 
-#### Update Alternatives
-Python3 is installed in Ubuntu20 by default. Some ROS packages utilize the ``python`` command instead of ``python3`` so we need to create a new executable, ``/usr/bin/python`` that will call Python3 (basically use the command ``python`` to call ``Python3``):
+-->
+
+<!--
+### Update Alternatives
+Python3 is installed in Ubuntu 22.04 by default. Some ROS packages utilize the ``python`` command instead of ``python3`` so we need to create a new executable, ``/usr/bin/python`` that will call Python3 (basically use the command ``python`` to call ``Python3``):
 
 ```bash
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 10
 ```
-
+-->
 
 ### ROS2 Humble
 
@@ -113,23 +117,22 @@ sudo apt install ros-humble-turtlebot3-msgs
 sudo apt install ros-humble-turtlebot3
 ```
 
-Create your ROS workspace:
+Create a ROS workspace:
 
 ```bash
 mkdir -p ~/master_ws/src
 cd ~/master_ws/
 ```
 
-### TurtleBot3 Simulation Package 
-
+#### TurtleBot3 Simulation Package 
 
 ```bash
 cd ~/master_ws/src/
-git clone -b humble-devel https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
+git clone -b humble https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
 cd ~/master_ws && colcon build --symlink-install
 ```
 
-### ROS Environment
+#### ROS Environment
 
 Setup ROS environment variables and setup scripts within the `~/.bashrc` file. Open the `~/.bashrc` file with your favorite command line editor and add the following to the bottom:
 
@@ -137,11 +140,13 @@ Setup ROS environment variables and setup scripts within the `~/.bashrc` file. O
 source /opt/ros/humble/setup.bash
 source ~/master_ws/install/setup.bash
 source /usr/share/gazebo/setup.sh
-export ROS_DOMAIN_ID=30 #TURTLEBOT3" >> ~/.bashrc
 source /usr/share/colcon_cd/function/colcon_cd.sh
+export ROS_DOMAIN_ID=30 
 export _colcon_cd_root=/opt/ros/humble/
 export TURTLEBOT3_MODEL=burger
 export LDS_MODEL=LDS-01 # replace with LDS-02 if using new LIDAR
+source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
+-->
 ```
 
 Any time you make changes to your `~/.bashrc` file you must source it:
@@ -151,25 +156,16 @@ source ~/.bashrc
 ```
 
 
-### Install PIP
+### PIP
 
 ```bash
 sudo apt install python3-pip
 ```
-
-
 
 ```bash
 sudo pip install ds4drv
 ```
 
 
-### [Simulation](https://emanual.robotis.com/docs/en/platform/turtlebot3/simulation/#gazebo-simulation):
-```bash
-cd ~/master_ws/src
-git clone -b noetic-devel https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
-```
-
-
 > 📝️ **Note:** the "dlib" package will take quite a while to install.
-<!-- #endregion -->
+
