@@ -90,7 +90,7 @@ All work is due as shown on Gradescope. If problems arise with graded assignment
 ## ✏️ Assignments
 Assignments and due dates are included on the [schedule](schedule.md). 
 
-## Exams and Quizzes  
+## 📝 Exams and Quizzes  
 All exams and quizzes are closed textbook and notes.  Quizzes will be given at instructor discretion.  Testable material includes any concepts from the labs, lectures, exercises, homework, and assigned readings.  **Not all testable concepts will necessarily be covered in class (e.g., readings).**
 
 For missed GRs, the following policies are outlined in USAFA FOI 537-3:
