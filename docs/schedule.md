@@ -4,7 +4,7 @@
 This schedule is subject to change as appropriate.
 ```
 
-**Last Updated: 22 Dec 2024**
+**Last Updated: 4 Jan 2025**
 
 | Lesson |                Topic                      |   Reading         | Due: 0700    |
 |:------:|-------------------------------------------   |:-----------------:|:------------:|
