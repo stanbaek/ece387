@@ -1,5 +1,5 @@
 
-# Master Setup
+# 🔧 Master Setup
 This guide will walk through the steps to install Ubuntu Desktop 22.04 LTS, ROS2 Humble, and all dependencies on a desktop computer. This computer system is utilized in the United States Air Force Academy's Electrical and Computer Engineering department in an embedded network with the ground robot, a TurtleBot3 Burger. The master system is used to utilize ROS GUI tools and create secure connections with the TurtleBot3. 
 
 This guide is adapted from the [TurtleBot3 e-Manual](https://emanual.robotis.com/docs/en/platform/turtlebot3/overview/#overview).

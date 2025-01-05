@@ -1,6 +1,5 @@
 
-# Setting Up Git Repositories
-
+# 🔧 Git Repo Setup
 
 
 ## Purpose
