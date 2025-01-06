@@ -1,4 +1,4 @@
-# Lab8: LIDAR
+# 🔬 Lab8: LIDAR
 
 ## Purpose
 This lab will integrate the Turtlebot3 LIDAR with the existing controller to drive the robot forward and turn 90 degrees when there is an obstacle.

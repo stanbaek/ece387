@@ -1,4 +1,4 @@
-# Computer Vision
+# 🔬 Computer Vision
 
 ## Part 1: Image Basics
 When we talk about the sizes of images, we generally talk about them in terms of the number of pixels the image possesses in the x(horizontal) or y(vertical) direction.  If the image is a color image, we also need to concern ourselves with the depth of the image as well.  Normally, each individual pixel is represented by the “color” or the “intensity” of light that appears in a given place in our image.
