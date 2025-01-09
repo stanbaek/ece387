@@ -417,66 +417,6 @@ document.write(`
 <p>For the desktop machine you will first need to download <a class="reference external" href="https://releases.ubuntu.com/jammy/">Ubuntu Desktop 22.04 LTS</a>.</p>
 <p>Once downloaded, follow the instructions to create a <a class="reference external" href="https://ubuntu.com/tutorials/create-a-usb-stick-on-ubuntu#1-overview">bootable Ubuntu USB stick</a> within Ubuntu. The guide provides links to create USB sticks from Windows and macOS as well.</p>
 <p>Once the bootable USB stick is created, follow the guide to <a class="reference external" href="https://ubuntu.com/tutorials/install-ubuntu-desktop#1-overview">Install Ubuntu desktop</a> selecting a useful computer name such as <code class="docutils literal notranslate"><span class="pre">master0</span></code>. The NUC requires you to press and hold F10 on startup to boot from a USB stick.</p>
-<!-- 
-#### Setup GitHub SSH Keys
-The following assumes you already have a GitHub account.
-
-Create SSH keys to use with your GitHub account by typing the following using the same email as you GitHub login:
-
-```bash
-cd
-ssh-keygen -t ed25519 -C "github@email.com"
-```
-
-When prompted to "Enter a file in which to save the key", hit **enter**.
-
-Start the ssh-agent in the background and add your SSH private key to the ssh-agent:
-
-```bash
-eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/id_ed25519
-```
-
-Open the public key with your favorite command line editor (this is easier to accomplish via an SSH connection from a desktop machine with a GUI so you can copy the public key to your GitHub account).
-
-```bash
-nano ~/.ssh/id_ed25519.pub
-```
-
-Copy the contents of the file (maximize the window and ensure you copy the entire contents up to the GitHub email).
-
-Open a web browser and sign in to your GitHub account.
-
-In the upper-right corner of any page, click your profile photo, then click **Settings**:
-
-```{image} ./Figures/ssh1.png
-:width: 200
-:align: center
-```
-
-
-In the user settings sidebar, click **SSH and GPG keys**:
-
-```{image} ./Figures/ssh2.png
-:width: 200
-:align: center
-```
-
-Click **New SSH key**:
-
-```{image} ./Figures/ssh3.png
-:width: 600
-:align: center
-```
-<br>
-
-In the ``Title`` field, add a descriptive label for the new key, such as ``master0``.
-
-Paste your key into the ``Key`` field (contents of the `.pub` file).
-
-Click **Add SSH key**.
-
--->
 <!--
 ### Update Alternatives
 Python3 is installed in Ubuntu 22.04 by default. Some ROS packages utilize the ``python`` command instead of ``python3`` so we need to create a new executable, ``/usr/bin/python`` that will call Python3 (basically use the command ``python`` to call ``Python3``):
@@ -496,6 +436,10 @@ sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 10
 <li><p>For most Linux users, <a class="reference external" href="https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html">Debian package installation method</a> is strongly recommended.</p></li>
 <li><p>Install <code class="docutils literal notranslate"><span class="pre">ros-humble-desktop</span></code>.</p></li>
 </ul>
+<p>Install colcon:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>python3-colcon-common-extensions
+</pre></div>
+</div>
 <p>Install ROS dependencies for building packages:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ros-humble-gazebo-*
 sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ros-humble-cartographer
@@ -535,7 +479,6 @@ git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </spa
 <span class="nb">export</span><span class="w"> </span><span class="nv">TURTLEBOT3_MODEL</span><span class="o">=</span>burger
 <span class="nb">export</span><span class="w"> </span><span class="nv">LDS_MODEL</span><span class="o">=</span>LDS-01<span class="w"> </span><span class="c1"># replace with LDS-02 if using new LIDAR</span>
 <span class="nb">source</span><span class="w"> </span>/usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
---&gt;
 </pre></div>
 </div>
 <p>Any time you make changes to your <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> file you must source it:</p>
