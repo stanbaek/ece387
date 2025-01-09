@@ -377,7 +377,10 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose">Purpose</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose">Purpose</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-github-ssh-keys">Setup GitHub SSH Keys</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-repo-within-the-github-classroom">Create a repo within the GitHub Classroom:</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enable-ssh-connection-to-your-github-account">Enable SSH connection to your GitHub account</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clone-repository-to-your-master">Clone repository to your master.</a></li>
@@ -398,6 +401,38 @@ document.write(`
 <section id="purpose">
 <h2>Purpose<a class="headerlink" href="#purpose" title="Permalink to this heading">#</a></h2>
 <p>Setup GIT repositories and access on the <strong>Master</strong>.</p>
+<p>!–</p>
+<section id="setup-github-ssh-keys">
+<h3>Setup GitHub SSH Keys<a class="headerlink" href="#setup-github-ssh-keys" title="Permalink to this heading">#</a></h3>
+<p>The following assumes you already have a GitHub account.</p>
+<p>Create SSH keys to use with your GitHub account by typing the following using the same email as you GitHub login:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span>
+ssh-keygen<span class="w"> </span>-t<span class="w"> </span>ed25519<span class="w"> </span>-C<span class="w"> </span><span class="s2">&quot;github@email.com&quot;</span>
+</pre></div>
+</div>
+<p>When prompted to “Enter a file in which to save the key”, hit <strong>enter</strong>.</p>
+<p>Start the ssh-agent in the background and add your SSH private key to the ssh-agent:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">eval</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>ssh-agent<span class="w"> </span>-s<span class="k">)</span><span class="s2">&quot;</span>
+ssh-add<span class="w"> </span>~/.ssh/id_ed25519
+</pre></div>
+</div>
+<p>Open the public key with your favorite command line editor (this is easier to accomplish via an SSH connection from a desktop machine with a GUI so you can copy the public key to your GitHub account).</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nano<span class="w"> </span>~/.ssh/id_ed25519.pub
+</pre></div>
+</div>
+<p>Copy the contents of the file (maximize the window and ensure you copy the entire contents up to the GitHub email).</p>
+<p>Open a web browser and sign in to your GitHub account.</p>
+<p>In the upper-right corner of any page, click your profile photo, then click <strong>Settings</strong>:</p>
+<a class="reference internal image-reference" href="../_images/ssh1.png"><img alt="../_images/ssh1.png" class="align-center" src="../_images/ssh1.png" style="width: 200px;" /></a>
+<p>In the user settings sidebar, click <strong>SSH and GPG keys</strong>:</p>
+<a class="reference internal image-reference" href="../_images/ssh2.png"><img alt="../_images/ssh2.png" class="align-center" src="../_images/ssh2.png" style="width: 200px;" /></a>
+<p>Click <strong>New SSH key</strong>:</p>
+<a class="reference internal image-reference" href="../_images/ssh3.png"><img alt="../_images/ssh3.png" class="align-center" src="../_images/ssh3.png" style="width: 600px;" /></a>
+<br>
+<p>In the <code class="docutils literal notranslate"><span class="pre">Title</span></code> field, add a descriptive label for the new key, such as <code class="docutils literal notranslate"><span class="pre">master0</span></code>.</p>
+<p>Paste your key into the <code class="docutils literal notranslate"><span class="pre">Key</span></code> field (contents of the <code class="docutils literal notranslate"><span class="pre">.pub</span></code> file).</p>
+<p>Click <strong>Add SSH key</strong>.</p>
+</section>
 </section>
 <section id="create-a-repo-within-the-github-classroom">
 <h2>Create a repo within the GitHub Classroom:<a class="headerlink" href="#create-a-repo-within-the-github-classroom" title="Permalink to this heading">#</a></h2>
@@ -574,7 +609,10 @@ git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose">Purpose</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose">Purpose</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-github-ssh-keys">Setup GitHub SSH Keys</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-repo-within-the-github-classroom">Create a repo within the GitHub Classroom:</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enable-ssh-connection-to-your-github-account">Enable SSH connection to your GitHub account</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clone-repository-to-your-master">Clone repository to your master.</a></li>

@@ -6,6 +6,71 @@
 Setup GIT repositories and access on the **Master**.
 
 
+
+
+
+!-- 
+#### Setup GitHub SSH Keys
+The following assumes you already have a GitHub account.
+
+Create SSH keys to use with your GitHub account by typing the following using the same email as you GitHub login:
+
+```bash
+cd
+ssh-keygen -t ed25519 -C "github@email.com"
+```
+
+When prompted to "Enter a file in which to save the key", hit **enter**.
+
+Start the ssh-agent in the background and add your SSH private key to the ssh-agent:
+
+```bash
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+```
+
+Open the public key with your favorite command line editor (this is easier to accomplish via an SSH connection from a desktop machine with a GUI so you can copy the public key to your GitHub account).
+
+```bash
+nano ~/.ssh/id_ed25519.pub
+```
+
+Copy the contents of the file (maximize the window and ensure you copy the entire contents up to the GitHub email).
+
+Open a web browser and sign in to your GitHub account.
+
+In the upper-right corner of any page, click your profile photo, then click **Settings**:
+
+```{image} ./Figures/ssh1.png
+:width: 200
+:align: center
+```
+
+
+In the user settings sidebar, click **SSH and GPG keys**:
+
+```{image} ./Figures/ssh2.png
+:width: 200
+:align: center
+```
+
+Click **New SSH key**:
+
+```{image} ./Figures/ssh3.png
+:width: 600
+:align: center
+```
+<br>
+
+In the ``Title`` field, add a descriptive label for the new key, such as ``master0``.
+
+Paste your key into the ``Key`` field (contents of the `.pub` file).
+
+Click **Add SSH key**.
+
+
+
+
 ## Create a repo within the GitHub Classroom:
 
 1. Browse to [github.com](https://www.github.com) and create a GitHub account if you do not already have one. It is useful if your username is something that identifies you (e.g., bneff1013).

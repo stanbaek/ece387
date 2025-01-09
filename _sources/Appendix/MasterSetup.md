@@ -109,9 +109,9 @@ sudo apt install python3-pip
 ```
 
 ```bash
-sudo pip install ds4drv
+sudo pip install dlib
 ```
 
-
-> 📝️ **Note:** the "dlib" package will take quite a while to install.
-
+```{note}
+The "dlib" package will take quite a while to install.
+```
