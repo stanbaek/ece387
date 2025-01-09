@@ -21,14 +21,14 @@ Once downloaded, follow the instructions to create a [bootable Ubuntu USB stick]
 Once the bootable USB stick is created, follow the guide to [Install Ubuntu desktop](https://ubuntu.com/tutorials/install-ubuntu-desktop#1-overview) selecting a useful computer name such as `master0`. The NUC requires you to press and hold F10 on startup to boot from a USB stick.
 
 
-<!--
 ### Update Alternatives
-Python3 is installed in Ubuntu 22.04 by default. Some ROS packages utilize the ``python`` command instead of ``python3`` so we need to create a new executable, ``/usr/bin/python`` that will call Python3 (basically use the command ``python`` to call ``Python3``):
+Python3 is installed in Ubuntu 22.04 by default. Some ROS packages utilize the `python` command instead of `python3` so we need to create a new executable, `/usr/bin/python` that will call Python3 (basically use the command `python` to call `Python3`):
 
 ```bash
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 10
 ```
--->
+After running this command, `/usr/bin/python` will point to `/usr/bin/python3` with a priority of 10, allowing us to set and manage different versions of Python easily.
+
 
 ### ROS2 Humble
 
@@ -88,7 +88,7 @@ source /opt/ros/humble/setup.bash
 source ~/master_ws/install/setup.bash
 source /usr/share/gazebo/setup.sh
 source /usr/share/colcon_cd/function/colcon_cd.sh
-export ROS_DOMAIN_ID=30 
+export ROS_DOMAIN_ID=0  # For master0 and robot0
 export _colcon_cd_root=/opt/ros/humble/
 export TURTLEBOT3_MODEL=burger
 export LDS_MODEL=LDS-01 # replace with LDS-02 if using new LIDAR
@@ -113,5 +113,5 @@ sudo pip install dlib
 ```
 
 ```{note}
-The "dlib" package will take quite a while to install.
+The `dlib` package will take quite a while to install.
 ```

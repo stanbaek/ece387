@@ -381,6 +381,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hardware">Hardware</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#software">Software</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ubuntu-22-04">Ubuntu 22.04</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#update-alternatives">Update Alternatives</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ros2-humble">ROS2 Humble</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#turtlebot3-simulation-package">TurtleBot3 Simulation Package</a></li>
@@ -417,14 +418,14 @@ document.write(`
 <p>For the desktop machine you will first need to download <a class="reference external" href="https://releases.ubuntu.com/jammy/">Ubuntu Desktop 22.04 LTS</a>.</p>
 <p>Once downloaded, follow the instructions to create a <a class="reference external" href="https://ubuntu.com/tutorials/create-a-usb-stick-on-ubuntu#1-overview">bootable Ubuntu USB stick</a> within Ubuntu. The guide provides links to create USB sticks from Windows and macOS as well.</p>
 <p>Once the bootable USB stick is created, follow the guide to <a class="reference external" href="https://ubuntu.com/tutorials/install-ubuntu-desktop#1-overview">Install Ubuntu desktop</a> selecting a useful computer name such as <code class="docutils literal notranslate"><span class="pre">master0</span></code>. The NUC requires you to press and hold F10 on startup to boot from a USB stick.</p>
-<!--
-### Update Alternatives
-Python3 is installed in Ubuntu 22.04 by default. Some ROS packages utilize the ``python`` command instead of ``python3`` so we need to create a new executable, ``/usr/bin/python`` that will call Python3 (basically use the command ``python`` to call ``Python3``):
-
-```bash
-sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 10
-```
--->
+</section>
+<section id="update-alternatives">
+<h3>Update Alternatives<a class="headerlink" href="#update-alternatives" title="Permalink to this heading">#</a></h3>
+<p>Python3 is installed in Ubuntu 22.04 by default. Some ROS packages utilize the <code class="docutils literal notranslate"><span class="pre">python</span></code> command instead of <code class="docutils literal notranslate"><span class="pre">python3</span></code> so we need to create a new executable, <code class="docutils literal notranslate"><span class="pre">/usr/bin/python</span></code> that will call Python3 (basically use the command <code class="docutils literal notranslate"><span class="pre">python</span></code> to call <code class="docutils literal notranslate"><span class="pre">Python3</span></code>):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>update-alternatives<span class="w"> </span>--install<span class="w"> </span>/usr/bin/python<span class="w"> </span>python<span class="w"> </span>/usr/bin/python3<span class="w"> </span><span class="m">10</span>
+</pre></div>
+</div>
+<p>After running this command, <code class="docutils literal notranslate"><span class="pre">/usr/bin/python</span></code> will point to <code class="docutils literal notranslate"><span class="pre">/usr/bin/python3</span></code> with a priority of 10, allowing us to set and manage different versions of Python easily.</p>
 </section>
 <section id="ros2-humble">
 <h3>ROS2 Humble<a class="headerlink" href="#ros2-humble" title="Permalink to this heading">#</a></h3>
@@ -474,7 +475,7 @@ git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </spa
 <span class="nb">source</span><span class="w"> </span>~/master_ws/install/setup.bash
 <span class="nb">source</span><span class="w"> </span>/usr/share/gazebo/setup.sh
 <span class="nb">source</span><span class="w"> </span>/usr/share/colcon_cd/function/colcon_cd.sh
-<span class="nb">export</span><span class="w"> </span><span class="nv">ROS_DOMAIN_ID</span><span class="o">=</span><span class="m">30</span><span class="w"> </span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">ROS_DOMAIN_ID</span><span class="o">=</span><span class="m">0</span><span class="w">  </span><span class="c1"># For master0 and robot0</span>
 <span class="nb">export</span><span class="w"> </span><span class="nv">_colcon_cd_root</span><span class="o">=</span>/opt/ros/humble/
 <span class="nb">export</span><span class="w"> </span><span class="nv">TURTLEBOT3_MODEL</span><span class="o">=</span>burger
 <span class="nb">export</span><span class="w"> </span><span class="nv">LDS_MODEL</span><span class="o">=</span>LDS-01<span class="w"> </span><span class="c1"># replace with LDS-02 if using new LIDAR</span>
@@ -497,7 +498,7 @@ git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </spa
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The “dlib” package will take quite a while to install.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">dlib</span></code> package will take quite a while to install.</p>
 </div>
 </section>
 </section>
@@ -573,6 +574,7 @@ git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </spa
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hardware">Hardware</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#software">Software</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ubuntu-22-04">Ubuntu 22.04</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#update-alternatives">Update Alternatives</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ros2-humble">ROS2 Humble</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#turtlebot3-simulation-package">TurtleBot3 Simulation Package</a></li>

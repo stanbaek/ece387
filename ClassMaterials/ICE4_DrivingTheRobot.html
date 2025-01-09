@@ -1,0 +1,638 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>ICE4: Driving the Robot &#8212; Introduction to Robotic Systems</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/tabs.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'ClassMaterials/ICE4_DrivingTheRobot';</script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="ICE5: Messages" href="ICE5_CustomMessages.html" />
+    <link rel="prev" title="Module4: Driving the Robot" href="Module4_DrivingTheRobot.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/ece387.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/ece387.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    ECE 387 Introduction to Robotic Systems
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Course Info</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../syllabus.html">📌 Syllabus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../schedule.html">📆 Course Schedule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linux.html">🐧 Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python.html">🐍 Python Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">🙋 FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://stanbaek.github.io/NoPointer.html">No Pointers in Python?</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modules</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ICE1_Linux.html">ICE1: Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ICE1_ListenerTalker.html">ICE1: Talker and Listener</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module2_Python3.html">Module2: Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ICE2_Python3.html">Module2: Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module3_ROS2.html">Module3: ROS2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ICE3_ClientServer.html">ICE3: Client and Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ICE3_ROS.html">ICE3: ROS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module4_DrivingTheRobot.html">Module4: Driving the Robot</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">ICE4: Driving the Robot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ICE5_CustomMessages.html">ICE5: Messages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lab1_CustomMessages.html">Lab1: Custom Messages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ICE6_IMU.html">ICE6: IMU</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lab2_IMU.html">Lab2: IMU</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ICE7_LaunchFile.html">ICE7: Launch Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ICE8_LIDAR.html">ICE8: LIDAR</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lab3_LIDAR.html">Lab3: LIDAR</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendix</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Appendix/RobotSetup.html">Robot Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendix/MasterSetup.html">Master Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendix/GitSetup.html">Setting Up Git Repositories</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/stanbaek/ece387" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/stanbaek/ece387/issues/new?title=Issue%20on%20page%20%2FClassMaterials/ICE4_DrivingTheRobot.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/ClassMaterials/ICE4_DrivingTheRobot.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>ICE4: Driving the Robot</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose">Purpose</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-used-to-drive-the-robot">Code used to drive the robot</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#driving-the-robot">Driving the robot</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ros">ROS</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint">Checkpoint</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cleanup">Cleanup</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="ice4-driving-the-robot">
+<h1>ICE4: Driving the Robot<a class="headerlink" href="#ice4-driving-the-robot" title="Permalink to this heading">#</a></h1>
+<section id="purpose">
+<h2>Purpose<a class="headerlink" href="#purpose" title="Permalink to this heading">#</a></h2>
+<p>This In-Class Exercise will introduce you to utilizing pre-built ROS packages to accomplish a task. It will also provide you experience interacting with someone else’s source code (.py files) to learn how that component works. You will use ROS to run two nodes, <strong>turtlebot3_core</strong> and <strong>teleop_twist_keyboard</strong>, to drive the Turtlebot3 with a keyboard. You will continue to practice using ROS tools to observe how these components communicate.</p>
+</section>
+<section id="code-used-to-drive-the-robot">
+<h2>Code used to drive the robot<a class="headerlink" href="#code-used-to-drive-the-robot" title="Permalink to this heading">#</a></h2>
+<ol class="arabic">
+<li><p>On the Master, open a terminal and run <strong>roscore</strong>.</p></li>
+<li><p>Open a new terminal on the Master and create a secure shell into the Turtlebot3 using the SSH command you learned during Module 2. This will allow you to run commands as if you were on the Turtlebot3.</p></li>
+<li><p>Using the secure shell, open the source code for the <strong>turtlebot3_core</strong> launch using the nano command line editor tool through the rosed command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>rosed<span class="w"> </span>turtlebot3_bringup<span class="w"> </span>turtlebot3_core.launch
+</pre></div>
+</div>
+<blockquote>
+<div><p>⌨️ <strong>Syntax:</strong>  <code class="docutils literal notranslate"><span class="pre">rosed</span> <span class="pre">&lt;package&gt;</span> <span class="pre">&lt;filename&gt;</span></code></p>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You may remember when we set up our <em>.bashrc</em> file we set the system variable <strong>EDITOR</strong> to <code class="docutils literal notranslate"><span class="pre">nano</span> <span class="pre">-w</span></code>. This enables the <code class="docutils literal notranslate"><span class="pre">rosed</span></code> command to utilize the nano editor.</p>
+</div>
+<p>We will learn more about launch files in a few modules, but just understand that a launch file is used to launch one or more ROS nodes. This particular launch file only launches one node, <strong>serial_node.py</strong>. This node will connect to the OpenCR controller on the Turtlebot3 using the port and baud rate parameters. This connection will enable us to send <em>Twist</em> messages over the <strong>/cmd_vel</strong> topic to drive the Turtlebot3 using the keyboard.</p>
+</li>
+<li><p>Close the editor by hitting <code class="docutils literal notranslate"><span class="pre">ctrl+x</span></code>.</p></li>
+<li><p>It is always a good idea to check that the Turtlebot3 is communicating with the Master. To do this, we can list the active topics the Turtlebot3 sees. Run the following within your secure shell:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>rostopic<span class="w"> </span>list<span class="sb">`</span>
+</pre></div>
+</div>
+<p>If all is well, then there should be two topics provided by <strong>roscore</strong> running on the Master: <strong>/rosout</strong> and <strong>/rosout_agg</strong>. We will typically ignore these topics.</p>
+</li>
+<li><p>Run the <strong>turtlebot3_core.launch</strong> file using the <code class="docutils literal notranslate"><span class="pre">roslaunch</span></code> command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>roslaunch<span class="w"> </span>turtlebot3_bringup<span class="w"> </span>turtlebot3_core.launch<span class="sb">`</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>⌨️ <strong>Syntax:</strong> <code class="docutils literal notranslate"><span class="pre">roslaunch</span> <span class="pre">&lt;package&gt;</span> <span class="pre">&lt;launchfile&gt;</span></code></p>
+</div></blockquote>
+<p>Your Turtlebot3 is now ready to drive and should be listening for <em>Twist</em> messages to be sent over the <strong>/cmd_vel</strong> topic.</p>
+</li>
+</ol>
+</section>
+<section id="driving-the-robot">
+<h2>Driving the robot<a class="headerlink" href="#driving-the-robot" title="Permalink to this heading">#</a></h2>
+<ol class="arabic">
+<li><p>Open a new terminal on the Master and observe the nodes currently running:</p>
+<p><code class="docutils literal notranslate"><span class="pre">rosrun</span> <span class="pre">rqt_graph</span> <span class="pre">rqt_graph</span></code></p>
+<p>You should only see one node running right now, <strong>turtlebot3_core</strong>, with no connections.</p>
+</li>
+<li><p>Open a new terminal tab and list the active topics. There should be one active topic other than the ones created by <strong>roscore</strong>: <strong>/cmd_vel</strong>.</p></li>
+<li><p>We used the <strong>/cmd_vel</strong> topic when driving the simulated Turtlebot3, but let’s refresh our memory about the topic:</p>
+<p><code class="docutils literal notranslate"><span class="pre">rostopic</span> <span class="pre">info</span> <span class="pre">cmd_vel</span></code></p>
+<p>As you can see the <strong>/cmd_vel</strong> topic is currently subscribed to by the <strong>turtlebot3_core</strong> with no publishers (just as we would expect after seeing the rqt_graph). We also note that topic utilizes the <em>Twist</em> message type. The following will show information about the fields within the <em>Twist</em> message sent over the <strong>/cmd_vel</strong> topic:</p>
+<p><code class="docutils literal notranslate"><span class="pre">rostopic</span> <span class="pre">type</span> <span class="pre">cmd_vel</span> <span class="pre">|</span> <span class="pre">rosmsg</span> <span class="pre">show</span></code></p>
+</li>
+<li><p>You can find information about pre-built packages by googling the package name along with the ROS distribution. Open up your favorite browser and google “teleop twist keyboard noetic”. The first result should be from the ROS wiki page.</p></li>
+<li><p>Ensure the ROS package <strong>teleop_twist_keyboard</strong> is installed on your Master:</p>
+<p><code class="docutils literal notranslate"><span class="pre">rospack</span> <span class="pre">find</span> <span class="pre">teleop_twist_keyboard</span></code></p>
+<p>If installed, the command should return the absolute path to the package, similar to <code class="docutils literal notranslate"><span class="pre">/opt/ros/noetic/share/teleop_twist_keyboard</span></code></p>
+<p>If the command instead returns an error, then you need to install the package using apt:</p>
+<p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">install</span> <span class="pre">ros-noetic-teleop-twist-keyboard</span></code></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>All packages built for Noetic can be downloaded in the above manner (ros-noetic-desired-pkg with underscores in the package name replaced by dashes). Some packages were only built for previous ROS distribution and will have to be built from source (we will demonstrate this at a future time).</p>
+</div>
+</li>
+<li><p>Run the <strong>teleop_twist_keyboard</strong> node on the Master:</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Don’t forget your tab completion! You can start typing a package name or node and then hit tab for it to complete the command for you!</p>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">rosrun</span> <span class="pre">teleop_twist_keyboard</span> <span class="pre">teleop_twist_keyboard.py</span></code></p>
+</li>
+<li><p>Before we get too excited and drive the Turtlebot3 off a cliff, observe how the nodes communicate using the <strong>rqt_graph</strong> tool in a new terminal (if you still have the previous rqt_graph running, you can hit the refresh button in the top left corner).</p></li>
+<li><p>Select the terminal that has the <strong>teleop_twist_keyboard</strong> node running and observe the instructions for sending <em>Twist</em> messages. These are the same as when driving the simulated Turtlebot3.</p></li>
+<li><p>The Turtlebot3 operates best with a linear velocity between 0.2 m/s and 0.5 m/s. It turns best with an angular velocity between 0.5 rad/s and 1.5 rad/s. Drive the Turtlebot3 using these parameters.</p></li>
+</ol>
+</section>
+<section id="ros">
+<h2>ROS<a class="headerlink" href="#ros" title="Permalink to this heading">#</a></h2>
+<p>In labs throughout this course we will request information about the topics, nodes, and messages within your system. Accomplish the following in a new terminal on your Master (you can ignore all nodes/topics that result from <strong>roscore</strong>).</p>
+<ol class="arabic simple">
+<li><p>List all running nodes.</p></li>
+<li><p>Determine what topics the nodes subscribe and publish to (repeat for each node).</p></li>
+<li><p>Display running nodes and communication between them.</p></li>
+<li><p>List the active topics.</p></li>
+<li><p>Determine the type of messages sent over the topics (repeat for each topic).</p></li>
+<li><p>Determine the fields of the messages.</p></li>
+<li><p>Observe the information sent over a topic (repeat for each topic).</p></li>
+</ol>
+</section>
+<section id="checkpoint">
+<h2>Checkpoint<a class="headerlink" href="#checkpoint" title="Permalink to this heading">#</a></h2>
+<p>Once complete, push screenshots showing the output of each of the above to your student repo on github in a /master/module04 folder.</p>
+</section>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this heading">#</a></h2>
+<p>In this exercise you examined and used pre-built packages and source code to drive the Turtlebot3 and understand how the system worked. You then were able to analyze the topics, nodes, and messages within the ROS system to better understand the flow of information and control. The <strong>pro-tips</strong> presented throughout this exercise will make you a better user of Linux and ROS.</p>
+</section>
+<section id="cleanup">
+<h2>Cleanup<a class="headerlink" href="#cleanup" title="Permalink to this heading">#</a></h2>
+<p>In each terminal window, close the node by typing <code class="docutils literal notranslate"><span class="pre">ctrl+c</span></code>. Exit any SSH connections.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./ClassMaterials"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Module4_DrivingTheRobot.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Module4: Driving the Robot</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="ICE5_CustomMessages.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">ICE5: Messages</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose">Purpose</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-used-to-drive-the-robot">Code used to drive the robot</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#driving-the-robot">Driving the robot</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ros">ROS</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint">Checkpoint</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cleanup">Cleanup</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Stan Baek
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
