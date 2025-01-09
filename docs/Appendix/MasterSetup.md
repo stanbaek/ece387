@@ -20,66 +20,6 @@ Once downloaded, follow the instructions to create a [bootable Ubuntu USB stick]
 
 Once the bootable USB stick is created, follow the guide to [Install Ubuntu desktop](https://ubuntu.com/tutorials/install-ubuntu-desktop#1-overview) selecting a useful computer name such as `master0`. The NUC requires you to press and hold F10 on startup to boot from a USB stick.
 
-<!-- 
-#### Setup GitHub SSH Keys
-The following assumes you already have a GitHub account.
-
-Create SSH keys to use with your GitHub account by typing the following using the same email as you GitHub login:
-
-```bash
-cd
-ssh-keygen -t ed25519 -C "github@email.com"
-```
-
-When prompted to "Enter a file in which to save the key", hit **enter**.
-
-Start the ssh-agent in the background and add your SSH private key to the ssh-agent:
-
-```bash
-eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/id_ed25519
-```
-
-Open the public key with your favorite command line editor (this is easier to accomplish via an SSH connection from a desktop machine with a GUI so you can copy the public key to your GitHub account).
-
-```bash
-nano ~/.ssh/id_ed25519.pub
-```
-
-Copy the contents of the file (maximize the window and ensure you copy the entire contents up to the GitHub email).
-
-Open a web browser and sign in to your GitHub account.
-
-In the upper-right corner of any page, click your profile photo, then click **Settings**:
-
-```{image} ./Figures/ssh1.png
-:width: 200
-:align: center
-```
-
-
-In the user settings sidebar, click **SSH and GPG keys**:
-
-```{image} ./Figures/ssh2.png
-:width: 200
-:align: center
-```
-
-Click **New SSH key**:
-
-```{image} ./Figures/ssh3.png
-:width: 600
-:align: center
-```
-<br>
-
-In the ``Title`` field, add a descriptive label for the new key, such as ``master0``.
-
-Paste your key into the ``Key`` field (contents of the `.pub` file).
-
-Click **Add SSH key**.
-
--->
 
 <!--
 ### Update Alternatives
@@ -99,6 +39,13 @@ At this point, the Ubuntu environment is setup. Now we will setup the ROS 2 requ
 Follow [the official ROS2 documentation](https://docs.ros.org/en/humble/Installation.html) to install the ROS2 Humble.
 - For most Linux users, [Debian package installation method](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html) is strongly recommended.
 - Install ``ros-humble-desktop``.
+
+
+Install colcon:
+
+```bash
+sudo apt install python3-colcon-common-extensions
+```
 
 Install ROS dependencies for building packages:
 
@@ -146,7 +93,6 @@ export _colcon_cd_root=/opt/ros/humble/
 export TURTLEBOT3_MODEL=burger
 export LDS_MODEL=LDS-01 # replace with LDS-02 if using new LIDAR
 source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
--->
 ```
 
 Any time you make changes to your `~/.bashrc` file you must source it:
