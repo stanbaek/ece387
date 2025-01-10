@@ -379,7 +379,16 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linux-commands">Linux Commands</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linux-commands">Linux Commands</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-filesystem">Using Filesystem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#listing-files">Listing Files</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-and-deleting-files">Creating and Deleting Files</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-and-removing-directories">Creating and Removing Directories</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#copying-moving-and-renaming-files">Copying, Moving, and Renaming Files</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#useful-commands">Useful Commands</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#input-output-and-pipes">Input, Output, and Pipes</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-a-remote-machine">Working with a remote machine</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ros">ROS</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint">Checkpoint</a></li>
@@ -406,23 +415,162 @@ document.write(`
 </section>
 <section id="linux-commands">
 <h2>Linux Commands<a class="headerlink" href="#linux-commands" title="Permalink to this heading">#</a></h2>
-<p>During class we went over a number of basic Linux commands. Open a terminal on the Master and let’s practice using those commands (use the shortcut <code class="docutils literal notranslate"><span class="pre">ctrl+alt+t</span></code> to open a new terminal window or select an open terminal and hit <code class="docutils literal notranslate"><span class="pre">ctrl+shift+t</span></code> to open a new terminal tab).</p>
-<p>When observing the terminal (or Shell) you will note the syntax <code class="docutils literal notranslate"><span class="pre">username&#64;hostname:</span></code>(i.e., on the master: <code class="docutils literal notranslate"><span class="pre">dfec&#64;masterX:</span></code>, on the robot: <code class="docutils literal notranslate"><span class="pre">pi&#64;robotX</span></code>), the current working directory (i.e., <code class="docutils literal notranslate"><span class="pre">~</span></code>, which represents the home folder of the user), and lastly the ‘$’ character and a blinking cursor. This line is the prompt and the blinking cursor indicates the terminal is active and ready for commands.</p>
-<p>Run the commands to move to the home folder and make a new directory:</p>
-<p><code class="docutils literal notranslate"><span class="pre">cd</span></code></p>
-<p><code class="docutils literal notranslate"><span class="pre">mkdir</span> <span class="pre">my_folder</span></code></p>
-<blockquote>
-<div><p>💡️ <strong>Tip:</strong> In Linux, if you highlight a command you can paste it into the terminal by clicking the scroll wheel.</p>
-</div></blockquote>
-<p>Change directories into your new folder:</p>
-<p><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">my_folder</span></code></p>
-<p>Create a new bash script we can use to drive the TurtleBot3:</p>
-<p><code class="docutils literal notranslate"><span class="pre">touch</span> <span class="pre">move_turtlebot.sh</span></code></p>
-<p>A bash script is a regular text file that allows you to run any command you would run within the terminal. We will use it to run a few ROS command line tools to move our TurtleBot.</p>
-<p>We can use the Nano text editor to edit a file within the terminal. There are a number of text editors within the terminal and WWIII might be fought over which is best; some other options include Vim and Emacs. Nano is one of the more simple editors for quick edits. Feel free to use whichever works best for you, but all guidance within this course will be based on Nano.</p>
-<p>Edit the new bash script:</p>
-<p><code class="docutils literal notranslate"><span class="pre">nano</span> <span class="pre">move_turtlebot.sh</span></code></p>
-<p>Copy the following into the script:</p>
+<p>During class, we covered several basic Linux commands. In this lab, we will get hands-on practice with those commands.</p>
+<ol class="arabic">
+<li><p>To log in the Master computer, use <code class="docutils literal notranslate"><span class="pre">m3</span></code> if you’re in the M3 section and <code class="docutils literal notranslate"><span class="pre">t5</span></code> if you’re in the T5 section.</p></li>
+<li><p>Click the Terminal icon on the Dock to open a terminal and practice commands.</p>
+<a class="reference internal image-reference" href="../_images/Lab1_Terminal.png"><img alt="../_images/Lab1_Terminal.png" class="align-center" src="../_images/Lab1_Terminal.png" style="width: 300px;" /></a>
+ <br>
+</li>
+<li><p>You can select an open terminal and use <code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">Shift</span> <span class="pre">+</span> <span class="pre">n</span></code> to open a new terminal window or <code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">Shift</span> <span class="pre">+</span> <span class="pre">t</span></code> to add a new tab to the current terminal.</p></li>
+<li><p>When observing the terminal (or Shell) you will notice the following</p>
+<ul class="simple">
+<li><p>Syntax: <code class="docutils literal notranslate"><span class="pre">username&#64;hostname:</span></code>(e.g., on the master: <code class="docutils literal notranslate"><span class="pre">m3&#64;masterX:</span></code>, on the robot: <code class="docutils literal notranslate"><span class="pre">pi&#64;robotX</span></code>)</p></li>
+<li><p>Current working directory: Represented as <code class="docutils literal notranslate"><span class="pre">~</span></code>, which refers to the user’s home directory.</p></li>
+<li><p>Prompt: The <code class="docutils literal notranslate"><span class="pre">$</span></code> character followed by a blinking cursor, which indicates the terminal is active and ready for commands.</p></li>
+</ul>
+</li>
+</ol>
+<section id="using-filesystem">
+<h3>Using Filesystem<a class="headerlink" href="#using-filesystem" title="Permalink to this heading">#</a></h3>
+<p>To master Linux, it’s crucial to understand the filesystem and become comfortable with the Terminal (or shell). While the command line may feel intimidating at first, regular practice will make it second nature.</p>
+<ol class="arabic">
+<li><p><strong>View Directory Contents</strong>: Enter <code class="docutils literal notranslate"><span class="pre">ls</span></code> to see the contents of the current directory. You’ll see directories like Desktop, Documents, and Downloads. Color coding helps identify types: directories are blue, files are white, executable files are bright green, and archived files are red. For now, just note that directories are blue and files are white.</p></li>
+<li><p><strong>Display Current Directory Path</strong>: Enter <code class="docutils literal notranslate"><span class="pre">pwd</span></code> to display the path of the current directory. This will show your home directory path, such as <code class="docutils literal notranslate"><span class="pre">/home/stanbaek</span></code>.</p></li>
+<li><p><strong>Change Directory</strong>: To move from your home directory to the Downloads directory, enter <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">Downloads</span></code>. The <code class="docutils literal notranslate"><span class="pre">cd</span></code> command stands for “change directory.” Enter <code class="docutils literal notranslate"><span class="pre">ls</span></code> again to view the files inside the Downloads directory.</p></li>
+<li><p><strong>Navigate to Parent Directory</strong>: Use <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">..</span></code> to navigate back to the home directory. In Linux, two dots <code class="docutils literal notranslate"><span class="pre">..</span></code> refer to the directory above (the parent directory). A single dot <code class="docutils literal notranslate"><span class="pre">.</span></code> refers to the current directory. While you don’t use <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">.</span></code> to switch to the current directory, knowing this can be useful for some commands.</p></li>
+<li><p><strong>Root Directory</strong>: The root directory is always <code class="docutils literal notranslate"><span class="pre">/</span></code>. Enter <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">/</span></code> to list the contents of the root directory, and <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">/</span></code> to switch to the root directory. It’s important to understand the difference between <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">Downloads</span></code> and <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">/Downloads</span></code>. The first command lists the contents of the Downloads directory within the current directory, while the second tries to list a Downloads directory directly under the root, which usually doesn’t exist.</p></li>
+<li><p><strong>View Root Directory Contents</strong>: Enter <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">/</span></code> followed by <code class="docutils literal notranslate"><span class="pre">ls</span></code> to view the files inside the root directory.</p></li>
+<li><p><strong>Return to Home Directory</strong>: Enter <code class="docutils literal notranslate"><span class="pre">cd</span></code> to move back to your home directory. Note that <code class="docutils literal notranslate"><span class="pre">cd</span></code> is equivalent to <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">~</span></code>.</p></li>
+<li><p><strong>Complex Paths</strong>: The <code class="docutils literal notranslate"><span class="pre">ls</span></code> and <code class="docutils literal notranslate"><span class="pre">cd</span></code> commands can also be used with more complex paths. For example, enter <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">/opt/ros/humble</span></code> to view the contents of the “humble” directory inside “ros,” which is inside “opt.” Switch to this directory using <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">/opt/ros/humble</span></code>. To move back up three parent directories, use <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">../../..</span></code>.</p></li>
+<li><p><strong>Autocomplete</strong>: Type <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">/o</span></code> followed by the tab key. It will autocomplete to <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">/opt/</span></code>. Press the tab key again to see options like <code class="docutils literal notranslate"><span class="pre">google</span></code> and <code class="docutils literal notranslate"><span class="pre">ros</span></code>. Type <code class="docutils literal notranslate"><span class="pre">r</span></code> and press the tab key to choose <code class="docutils literal notranslate"><span class="pre">ros</span></code>, then press the tab key again to choose <code class="docutils literal notranslate"><span class="pre">humble</span></code> as it is the only directory inside <code class="docutils literal notranslate"><span class="pre">ros</span></code>.</p>
+<a class="reference internal image-reference" href="../_images/Lab1_Autocomplete.gif"><img alt="../_images/Lab1_Autocomplete.gif" class="align-center" src="../_images/Lab1_Autocomplete.gif" style="width: 520px;" /></a>
+ <br>
+</li>
+</ol>
+</section>
+<section id="listing-files">
+<h3>Listing Files<a class="headerlink" href="#listing-files" title="Permalink to this heading">#</a></h3>
+<p>Using the desktop GUI to list and move files is easier than using the Terminal and keyboard, but it’s an important skill that you’ll appreciate as you advance with ROS and Linux.</p>
+<ol class="arabic">
+<li><p><strong>Basic Listing</strong>: We’ve already looked at <code class="docutils literal notranslate"><span class="pre">ls</span></code>, which lists the files in the working directory. You’re more likely to use a command like <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-lah</span></code>. The bit after the command (the <code class="docutils literal notranslate"><span class="pre">-lah</span></code>) is known as the argument. This option modifies the behavior of the command. The <code class="docutils literal notranslate"><span class="pre">-l</span></code> argument lists files and directories in “long” format. Each file and directory is now on a single line, and before each file is a lot of text. First, you’ll see letters and dashes, like <code class="docutils literal notranslate"><span class="pre">drwxr-xr-x</span></code>. These are <code class="docutils literal notranslate"><span class="pre">permissions</span></code>, and we breifly discussed in class.</p>
+<a class="reference internal image-reference" href="../_images/Lab1_ls-lah.png"><img alt="../_images/Lab1_ls-lah.png" class="align-center" src="../_images/Lab1_ls-lah.png" style="width: 520px;" /></a>
+ <br>
+</li>
+<li><p><strong>File Count</strong>: After the permission letters, there’s a single number. This is the number of files in the item. If it’s a file, it will be 1, but if it’s a directory, it will be at least 2. Each directory contains two hidden files: one with a single dot (<code class="docutils literal notranslate"><span class="pre">.</span></code>) and one with two dots (<code class="docutils literal notranslate"><span class="pre">..</span></code>). Directories containing files or other directories will have a higher number.</p></li>
+<li><p><strong>Owner and Group</strong>: Next, you’ll see your username twice on each line. The first is the owner of the file, and the second is the group. Typically, these will be the same, and you’ll see either <code class="docutils literal notranslate"><span class="pre">root</span></code> or your username. You can enter <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-l</span> <span class="pre">/</span></code> to view the files and directories in the root directory that belongs to the root account.</p></li>
+<li><p><strong>File Size</strong>: The next number relates to the size of the files, in bytes. The <code class="docutils literal notranslate"><span class="pre">h</span></code> argument in <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-lah</span></code> humanizes the number, making it easier to read.</p></li>
+<li><p><strong>Hidden Files</strong>: Be aware that many hidden files in Linux are listed using the <code class="docutils literal notranslate"><span class="pre">-a</span></code> argument. Hidden files and directories begin with a dot (<code class="docutils literal notranslate"><span class="pre">.</span></code>), so you should never start a file or directory with a dot, unless you want to hide it. Typically, you can combine all three arguments into the command <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-lah</span></code>.</p></li>
+</ol>
+</section>
+<section id="creating-and-deleting-files">
+<h3>Creating and Deleting Files<a class="headerlink" href="#creating-and-deleting-files" title="Permalink to this heading">#</a></h3>
+<p>Creating and deleting files is a fundamental computing skill. When using the Linux Terminal, remember that deleted files are not sent to the system recycle bin, so extra care is needed.</p>
+<ol class="arabic simple">
+<li><p><strong>Create a File</strong>: Enter <code class="docutils literal notranslate"><span class="pre">cd</span></code> to move to the home directory. Type <code class="docutils literal notranslate"><span class="pre">touch</span> <span class="pre">testfile</span></code> and <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-l</span></code> to view the files. You’ll see a new file called <code class="docutils literal notranslate"><span class="pre">testfile</span></code> with a size of 0 because it’s empty.</p></li>
+<li><p><strong>Case Sensitivity</strong>: Linux is case sensitive. If you enter <code class="docutils literal notranslate"><span class="pre">touch</span> <span class="pre">Testfile</span></code> (with a capital T), it creates a second file called <code class="docutils literal notranslate"><span class="pre">Testfile</span></code>. Enter <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-l</span></code> to see both files. To avoid confusion, most people use lowercase letters consistently.</p></li>
+<li><p><strong>Update Timestamp</strong>: Enter <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-l</span></code> and note the timestamp of <code class="docutils literal notranslate"><span class="pre">testfile</span></code>. Then enter <code class="docutils literal notranslate"><span class="pre">touch</span> <span class="pre">testfile</span></code> followed by <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-l</span></code> and notice the updated time. The touch command updates files or directories with the current system time.</p></li>
+<li><p><strong>No Spaces in File Names</strong>: Avoid using spaces in file names. Entering <code class="docutils literal notranslate"><span class="pre">touch</span> <span class="pre">test</span> <span class="pre">file</span></code> creates two files: <code class="docutils literal notranslate"><span class="pre">test</span></code> and <code class="docutils literal notranslate"><span class="pre">file</span></code>. Instead, use an underscore (<code class="docutils literal notranslate"><span class="pre">_</span></code>), like <code class="docutils literal notranslate"><span class="pre">touch</span> <span class="pre">test_file</span></code>.</p></li>
+<li><p><strong>Delete Files</strong>: If you’ve followed the steps, you should have five files: <code class="docutils literal notranslate"><span class="pre">testfile</span></code>, <code class="docutils literal notranslate"><span class="pre">Testfile</span></code>, <code class="docutils literal notranslate"><span class="pre">test</span></code>, <code class="docutils literal notranslate"><span class="pre">file</span></code>, and <code class="docutils literal notranslate"><span class="pre">test_file</span></code>. To delete files, use the <code class="docutils literal notranslate"><span class="pre">rm</span></code> command. Enter <code class="docutils literal notranslate"><span class="pre">rm</span> <span class="pre">Testfile</span></code> to delete the file named <code class="docutils literal notranslate"><span class="pre">Testfile</span></code>. Enter <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-l</span></code> to confirm its deletion.</p></li>
+<li><p><strong>Use Wildcards</strong>: Enter <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">test*</span></code> to view files that match the word <code class="docutils literal notranslate"><span class="pre">test</span></code> followed by any characters. The <code class="docutils literal notranslate"><span class="pre">*</span></code> wildcard means “any characters here.” Enter <code class="docutils literal notranslate"><span class="pre">rm</span> <span class="pre">test*</span></code> to delete <code class="docutils literal notranslate"><span class="pre">test</span></code>, <code class="docutils literal notranslate"><span class="pre">testfile</span></code>, and <code class="docutils literal notranslate"><span class="pre">test_file</span></code>. Finally, enter <code class="docutils literal notranslate"><span class="pre">rm</span> <span class="pre">file</span></code> to delete it.</p></li>
+</ol>
+</section>
+<section id="creating-and-removing-directories">
+<h3>Creating and Removing Directories<a class="headerlink" href="#creating-and-removing-directories" title="Permalink to this heading">#</a></h3>
+<p>After learning to create files, you’ll want to know how to make directories and move items around.</p>
+<ol class="arabic simple">
+<li><p><strong>Create a Directory</strong>: Enter <code class="docutils literal notranslate"><span class="pre">ls</span></code> to view directories in the home directory. Use <code class="docutils literal notranslate"><span class="pre">mkdir</span></code> to create directories. Enter <code class="docutils literal notranslate"><span class="pre">mkdir</span> <span class="pre">testdir</span></code> and <code class="docutils literal notranslate"><span class="pre">ls</span></code> again to see it.</p></li>
+<li><p><strong>Timestamp Update</strong>: Unlike touch, <code class="docutils literal notranslate"><span class="pre">mkdir</span></code> does not update the timestamp if used on an existing directory.</p></li>
+<li><p><strong>Multiple Directories</strong>: You can create multiple directories at once with <code class="docutils literal notranslate"><span class="pre">mkdir</span></code>. Enter <code class="docutils literal notranslate"><span class="pre">mkdir</span> <span class="pre">testdir2</span> <span class="pre">testdir3</span></code> and <code class="docutils literal notranslate"><span class="pre">ls</span></code> to see several directories.</p></li>
+<li><p><strong>Nested Directories</strong>: You can create directories within directories using the directory path. Enter <code class="docutils literal notranslate"><span class="pre">mkdir</span> <span class="pre">Documents/photos</span></code> to create a <code class="docutils literal notranslate"><span class="pre">photos</span></code> directory inside <code class="docutils literal notranslate"><span class="pre">Documents</span></code>. The parent directory must exist, so <code class="docutils literal notranslate"><span class="pre">mkdir</span> <span class="pre">articles/reports</span></code> will fail if <code class="docutils literal notranslate"><span class="pre">articles</span></code> does not exist.</p></li>
+<li><p><strong>Create Directory Path</strong>: Use the <code class="docutils literal notranslate"><span class="pre">-p</span></code> option with <code class="docutils literal notranslate"><span class="pre">mkdir</span></code> to create a directory path. Enter <code class="docutils literal notranslate"><span class="pre">mkdir</span> <span class="pre">-p</span> <span class="pre">articles/reports</span></code> and <code class="docutils literal notranslate"><span class="pre">ls</span></code> to view the <code class="docutils literal notranslate"><span class="pre">articles</span></code> directory, and <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">articles</span></code> to see the <code class="docutils literal notranslate"><span class="pre">reports</span></code> directory inside.</p></li>
+<li><p><strong>Remove a Directory</strong>: Ensure you’re in the home directory by entering <code class="docutils literal notranslate"><span class="pre">cd</span></code>. Then enter <code class="docutils literal notranslate"><span class="pre">ls</span></code> to view contents. Use <code class="docutils literal notranslate"><span class="pre">rmdir</span></code> to delete directories. Enter <code class="docutils literal notranslate"><span class="pre">rmdir</span> <span class="pre">testdir3</span></code> and <code class="docutils literal notranslate"><span class="pre">ls</span></code> to confirm deletion.</p></li>
+<li><p><strong>Non-Empty Directories</strong>: Try to delete the <code class="docutils literal notranslate"><span class="pre">articles</span></code> directory containing the <code class="docutils literal notranslate"><span class="pre">reports</span></code> directory. Enter <code class="docutils literal notranslate"><span class="pre">rmdir</span> <span class="pre">articles</span></code>. You will get an error. The <code class="docutils literal notranslate"><span class="pre">rmdir</span></code> command only removes empty directories. To delete non-empty directories, use <code class="docutils literal notranslate"><span class="pre">rm</span></code> with the <code class="docutils literal notranslate"><span class="pre">-r</span></code> (recursive) option. Enter <code class="docutils literal notranslate"><span class="pre">rm</span> <span class="pre">-r</span> <span class="pre">articles</span></code> to delete the <code class="docutils literal notranslate"><span class="pre">articles</span></code> directory containing the <code class="docutils literal notranslate"><span class="pre">reports</span></code> directory.</p></li>
+<li><p><strong>Interactive Deletion</strong>: Use the <code class="docutils literal notranslate"><span class="pre">-i</span></code> (interactive) option with <code class="docutils literal notranslate"><span class="pre">rm</span></code> to prompt before each deletion. Enter <code class="docutils literal notranslate"><span class="pre">rm</span> <span class="pre">-ri</span> <span class="pre">test*</span></code> and enter <code class="docutils literal notranslate"><span class="pre">Y</span></code> or <code class="docutils literal notranslate"><span class="pre">y</span></code> for each prompt. Using <code class="docutils literal notranslate"><span class="pre">-i</span></code> is a good practice with the <code class="docutils literal notranslate"><span class="pre">rm</span></code> command.</p></li>
+</ol>
+</section>
+<section id="copying-moving-and-renaming-files">
+<h3>Copying, Moving, and Renaming Files<a class="headerlink" href="#copying-moving-and-renaming-files" title="Permalink to this heading">#</a></h3>
+<p>In Linux, renaming a file is essentially moving it from one name to another, and copying a file involves moving it without deleting the original.</p>
+<ol class="arabic">
+<li><p><strong>Create Test File and Directory</strong>: Enter <code class="docutils literal notranslate"><span class="pre">touch</span> <span class="pre">testfile</span></code> and <code class="docutils literal notranslate"><span class="pre">mkdir</span> <span class="pre">testdir</span></code> to create a test file and directory in your home directory. Enter <code class="docutils literal notranslate"><span class="pre">ls</span></code> to confirm their presence.</p></li>
+<li><p><strong>Move Files and Directories</strong>: Use the <code class="docutils literal notranslate"><span class="pre">mv</span></code> command with two arguments: source and destination. Enter <code class="docutils literal notranslate"><span class="pre">mv</span> <span class="pre">testfile</span> <span class="pre">testdir</span></code> to move <code class="docutils literal notranslate"><span class="pre">testfile</span></code> into <code class="docutils literal notranslate"><span class="pre">testdir</span></code>. Enter <code class="docutils literal notranslate"><span class="pre">ls</span></code> to see it’s no longer in the home directory, and <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">testdir</span></code> to see it inside <code class="docutils literal notranslate"><span class="pre">testdir</span></code>. Create a new directory with <code class="docutils literal notranslate"><span class="pre">mkdir</span> <span class="pre">newparent</span></code>.</p></li>
+<li><p><strong>Move Directories</strong>: Move directories with files using the same command. Enter <code class="docutils literal notranslate"><span class="pre">mv</span> <span class="pre">testdir</span> <span class="pre">newparent</span></code> to move <code class="docutils literal notranslate"><span class="pre">testdir</span></code> into <code class="docutils literal notranslate"><span class="pre">newparent</span></code>. Enter <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">newparent/testdir</span></code> and <code class="docutils literal notranslate"><span class="pre">ls</span></code> to see <code class="docutils literal notranslate"><span class="pre">testfile</span></code> inside <code class="docutils literal notranslate"><span class="pre">testdir</span></code>.</p></li>
+<li><p><strong>Move Up Levels</strong>: Use the double dot (<code class="docutils literal notranslate"><span class="pre">..</span></code>) to move up directories. Enter <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-la</span></code> to view files, including single and double dot entries. Move <code class="docutils literal notranslate"><span class="pre">testfile</span></code> up one level with <code class="docutils literal notranslate"><span class="pre">mv</span> <span class="pre">testfile</span> <span class="pre">..</span></code> and enter <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">..</span></code> to move to the parent directory.</p>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>Use the tab key to autocomplete paths for the following step.</p>
+</div>
+</li>
+<li><p><strong>Longer Paths</strong>: Move files using longer paths. Enter <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">~</span></code> to return to the home directory, then <code class="docutils literal notranslate"><span class="pre">mv</span> <span class="pre">newparent/testfile</span> <span class="pre">newparent/testdir/testfile</span></code> to move <code class="docutils literal notranslate"><span class="pre">testfile</span></code> back to <code class="docutils literal notranslate"><span class="pre">testdir</span></code>. Enter <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">newparent/testdir</span></code> to confirm.</p></li>
+<li><p><strong>Rename Files</strong>: Rename and move a file at the same time. Enter <code class="docutils literal notranslate"><span class="pre">mv</span> <span class="pre">newparent/testdir/testfile</span> <span class="pre">newparent/testfile2</span></code>. Enter <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">newparent</span></code> to see <code class="docutils literal notranslate"><span class="pre">testfile2</span></code> in the <code class="docutils literal notranslate"><span class="pre">newparent</span></code> directory.</p></li>
+</ol>
+</section>
+<section id="useful-commands">
+<h3>Useful Commands<a class="headerlink" href="#useful-commands" title="Permalink to this heading">#</a></h3>
+<p>Linux is a vast and versatile command line language with hundreds of commands you can learn. Here are a few that can help you get more from your Ubuntu.</p>
+<ol class="arabic simple">
+<li><p><strong>View Processor Details</strong>: Enter <code class="docutils literal notranslate"><span class="pre">cat</span> <span class="pre">/proc/cpuinfo</span></code> to see details about the processors.</p></li>
+<li><p><strong>Using <code class="docutils literal notranslate"><span class="pre">cat</span></code></strong>: The <code class="docutils literal notranslate"><span class="pre">cat</span></code> command lists the contents of a text file, such as <code class="docutils literal notranslate"><span class="pre">cpuinfo</span></code>. You can also open this text file using gedit, a GUI text editor. Enter <code class="docutils literal notranslate"><span class="pre">gedit</span> <span class="pre">/proc/cpuinfo</span></code> to view the file in gedit. Note that <code class="docutils literal notranslate"><span class="pre">cpuinfo</span></code> is read-only.</p></li>
+<li><p><strong>View Memory Information</strong>: Enter <code class="docutils literal notranslate"><span class="pre">cat</span> <span class="pre">/proc/meminfo</span></code> to get information about your memory.</p></li>
+<li><p><strong>Process Status</strong>: Type <code class="docutils literal notranslate"><span class="pre">ps</span></code> to see two items: <code class="docutils literal notranslate"><span class="pre">bash</span></code> and <code class="docutils literal notranslate"><span class="pre">ps</span></code>. To view processes used by other users (including those started by root), enter <code class="docutils literal notranslate"><span class="pre">ps</span> <span class="pre">-a</span></code>. This option shows processes for all users but does not include background processes. For that, enter <code class="docutils literal notranslate"><span class="pre">ps</span> <span class="pre">-A</span></code> or <code class="docutils literal notranslate"><span class="pre">ps</span> <span class="pre">-e</span></code>, which shows every process on the system, including background processes. You may need to pipe it through <code class="docutils literal notranslate"><span class="pre">less</span></code> using <code class="docutils literal notranslate"><span class="pre">ps</span> <span class="pre">-e</span> <span class="pre">|</span> <span class="pre">less</span></code>. The <code class="docutils literal notranslate"><span class="pre">less</span></code> command allows you to view the contents one screen at a time. Press <code class="docutils literal notranslate"><span class="pre">q</span></code> to exit <code class="docutils literal notranslate"><span class="pre">less</span></code>.</p></li>
+<li><p><strong>Real-Time Process Monitoring</strong>: While <code class="docutils literal notranslate"><span class="pre">ps</span></code> is useful, you may need to view processes in real-time, especially to check CPU and memory usage. Use the <code class="docutils literal notranslate"><span class="pre">top</span></code> command for this.</p></li>
+<li><p><strong>Shutdown and Restart</strong>: To shut down the computer from the command line, enter <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">shutdown</span> <span class="pre">-h</span> <span class="pre">now</span></code>. The <code class="docutils literal notranslate"><span class="pre">-h</span></code> option stands for “halt.” To restart, enter <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">shutdown</span> <span class="pre">-r</span></code>.</p></li>
+</ol>
+</section>
+<section id="input-output-and-pipes">
+<h3>Input, Output, and Pipes<a class="headerlink" href="#input-output-and-pipes" title="Permalink to this heading">#</a></h3>
+<ol class="arabic">
+<li><p><strong>Redirect Output</strong>: Change the standard output using the <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> character after your command. For example, <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-l</span> <span class="pre">/etc</span></code> lists all items in the <code class="docutils literal notranslate"><span class="pre">/etc</span></code> directory. Using <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-l</span> <span class="pre">/etc</span> <span class="pre">&gt;</span> <span class="pre">etc.txt</span></code> outputs the list to a new text file called <code class="docutils literal notranslate"><span class="pre">etc.txt</span></code>.</p></li>
+<li><p><strong>View Output File</strong>: The <code class="docutils literal notranslate"><span class="pre">etc.txt</span></code> file now contains the output from the <code class="docutils literal notranslate"><span class="pre">ls</span></code> command. Check it using <code class="docutils literal notranslate"><span class="pre">cat</span> <span class="pre">etc.txt</span></code> or <code class="docutils literal notranslate"><span class="pre">nano</span> <span class="pre">etc.txt</span></code>. The output from <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-l</span></code> was sent to this file instead of the screen. Press <code class="docutils literal notranslate"><span class="pre">Ctrl+X</span></code> to quit <code class="docutils literal notranslate"><span class="pre">nano</span></code>. The <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> character allows you to output to files, but you can also get input from a file.</p></li>
+<li><p><strong>Using Pipes</strong>: As you advance in Linux, you create more powerful commands using the pipe character (<code class="docutils literal notranslate"><span class="pre">|</span></code>). Enter <code class="docutils literal notranslate"><span class="pre">cat</span> <span class="pre">~/.bashrc</span></code> to display the <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> file’s content. Now enter <code class="docutils literal notranslate"><span class="pre">cat</span> <span class="pre">~/.bashrc</span> <span class="pre">|</span> <span class="pre">wc</span></code>. The output from <code class="docutils literal notranslate"><span class="pre">cat</span></code> is piped into the <code class="docutils literal notranslate"><span class="pre">wc</span></code> (word count) command, showing the number of lines, words, and characters in the document.</p></li>
+<li><p><strong>Chaining Commands</strong>: You can pipe commands multiple times. Enter <code class="docutils literal notranslate"><span class="pre">cat</span> <span class="pre">~/.bashrc</span> <span class="pre">|</span> <span class="pre">sort</span> <span class="pre">|</span> <span class="pre">grep</span> <span class="pre">source*</span></code> to list lines starting with “source” in alphabetical order. The output from <code class="docutils literal notranslate"><span class="pre">cat</span></code> is passed to <code class="docutils literal notranslate"><span class="pre">sort</span></code>, and <code class="docutils literal notranslate"><span class="pre">sort</span></code>’s output is passed to <code class="docutils literal notranslate"><span class="pre">grep</span></code>, which filters out content starting with “source.”</p></li>
+<li><p>Run the commands to move to the home folder and make a new directory:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>
+mkdir<span class="w"> </span>master_ws
+</pre></div>
+</div>
+</li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">master_ws</span></code> is the ROS workspace on the Master computer.</p></li>
+<li><p>Change directories into this master workspace and create a subdirectory.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>
+mkdir<span class="w"> </span>src
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>In Linux, if you select text using the mouse, you can paste it by clicking the middle mouse button.</p>
+</div>
+</li>
+<li><p>Run the commands to move to the home folder and make a new directory:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>
+mkdir<span class="w"> </span>my_folder
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>In Linux, if you select text using the mouse, you can paste it by clicking the middle mouse button.</p>
+</div>
+</li>
+<li><p>Change directories into your new folder and create a new bash script to drive to drive the TurtleBot3:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>my_folder
+touch<span class="w"> </span>move_turtlebot.sh
+</pre></div>
+</div>
+</li>
+<li><p>A bash script is a regular text file that allows you to run any command you would normally execute within the terminal. We will use it to run a few ROS command-line tools to move our TurtleBot.</p></li>
+<li><p>Use the <code class="docutils literal notranslate"><span class="pre">Nano</span></code> text editor to edit files directly within the terminal. While there are several terminal-based text editors available (and endless debates about which is best, such as Vim or Emacs), Nano is a simple, user-friendly option ideal for quick edits. You are welcome to use whichever editor you prefer, but the instructions in this course will focus mainly on Nano.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>On the Master computer, you can use GUI-based editors such as VS Code, Gedit, or Sublime Text. However, we will start with a terminal-based editor to build familiarity with command-line tools. Note that on the Raspberry Pi inside the robot, GUI-based options are not available.</p>
+</div>
+</li>
+<li><p>Open the new bash script for editing:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nano<span class="w"> </span>move_turtlebot.sh
+</pre></div>
+</div>
+</li>
+<li><p>Copy the following code into the script:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="nv">ARG1</span><span class="o">=</span><span class="nv">$1</span>
@@ -464,13 +612,13 @@ document.write(`
 <span class="k">fi</span>
 </pre></div>
 </div>
-<p>Typing <code class="docutils literal notranslate"><span class="pre">ctrl+s</span></code> saves the file and then typing <code class="docutils literal notranslate"><span class="pre">ctrl+x</span></code> exits Nano.</p>
-<p>Again, a bash script just runs commands exactly as you would within a terminal. The above code takes an argument and publishes a <em>Twist</em> message over the <strong>/cmd_vel</strong> topic to drive the robot accordingly.</p>
-<p>Before running this script, let’s get our ROS environment setup:</p>
-<ol class="arabic">
+</li>
+<li><p>Typing <code class="docutils literal notranslate"><span class="pre">ctrl+s</span></code> saves the file and then typing <code class="docutils literal notranslate"><span class="pre">ctrl+x</span></code> exits Nano.</p></li>
+<li><p>Again, a bash script just runs commands exactly as you would within a terminal. The above code takes an argument and publishes a <em>Twist</em> message over the <code class="docutils literal notranslate"><span class="pre">/cmd_vel</span></code> topic to drive the robot accordingly.</p></li>
+<li><p>Before running this script, let’s get our ROS environment setup:</p></li>
 <li><p>Open a new terminal and type <code class="docutils literal notranslate"><span class="pre">roscore</span></code>.</p></li>
 <li><p>Open a new terminal tab and run our TurtleBot3 simulation:</p>
-<p><code class="docutils literal notranslate"><span class="pre">roslaunch</span> <span class="pre">turtlebot3_gazebo</span> <span class="pre">turtlebot3_empty_world.launch</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">launch</span> <span class="pre">turtlebot3_gazebo</span> <span class="pre">turtlebot3_empty_world.launch</span></code></p>
 </li>
 </ol>
 <p>Now, in a new terminal, run the script you created:</p>
@@ -613,6 +761,7 @@ document.write(`
 <p>There are a lot, so this isn’t very helpful, but we can filter this command!</p>
 <p><code class="docutils literal notranslate"><span class="pre">rospack</span> <span class="pre">list</span> <span class="pre">|</span> <span class="pre">grep</span> <span class="pre">turtlebot</span></code></p>
 <p>The vertical line, ‘|’, pipes the results of the first command into the second command, so we can filter all packages looking only for turtlebot packages.</p>
+</section>
 </section>
 <section id="working-with-a-remote-machine">
 <h2>Working with a remote machine<a class="headerlink" href="#working-with-a-remote-machine" title="Permalink to this heading">#</a></h2>
@@ -784,7 +933,16 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linux-commands">Linux Commands</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linux-commands">Linux Commands</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-filesystem">Using Filesystem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#listing-files">Listing Files</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-and-deleting-files">Creating and Deleting Files</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-and-removing-directories">Creating and Removing Directories</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#copying-moving-and-renaming-files">Copying, Moving, and Renaming Files</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#useful-commands">Useful Commands</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#input-output-and-pipes">Input, Output, and Pipes</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-a-remote-machine">Working with a remote machine</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ros">ROS</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint">Checkpoint</a></li>
