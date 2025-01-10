@@ -161,7 +161,7 @@ Linux is a vast and versatile command line language with hundreds of commands yo
 
 ## 🚚 Deliverables
 
-Visit [Git Setup](GitSetup.md) to create a ROS workspace on the `Master` computer and configure your ECE387 classroom repo.  
+Visit [Git Setup](../Appendix/GitSetup.md) to create a ROS workspace on the `Master` computer and configure your ECE387 classroom repo.  
 
 
 <br>
