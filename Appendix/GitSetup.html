@@ -381,7 +381,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-repository-within-the-github-classroom">Create a Repository within the GitHub Classroom</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-github-ssh-keys">Setup GitHub SSH Keys</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-github-ssh-key-on-master">Setup GitHub SSH Key on Master</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clone-repository-to-your-master">Clone repository to your master.</a></li>
 </ul>
             </nav>
@@ -406,8 +406,8 @@ document.write(`
 <section id="create-a-repository-within-the-github-classroom">
 <span id="createrepo"></span><h3>Create a Repository within the GitHub Classroom<a class="headerlink" href="#create-a-repository-within-the-github-classroom" title="Permalink to this heading">#</a></h3>
 <ol class="arabic simple">
-<li><p>If you don’t already have a <a href="https://github.com/" target="_blank">GitHub</a> account, go ahead and create one.</p></li>
-<li><p>Once you have your account, browse to <a href="https://classroom.github.com/a/Gspbtxg5" target="_blank">ECE387 Classroom</a>.</p></li>
+<li><p>If you don’t already have a <a href="https://github.com/" target="_blank">GitHub</a> account, go ahead and create one. It is useful if your username is something that identifies you (e.g., stanbaek).</p></li>
+<li><p>Once you have your account, browse to <a href="https://classroom.github.com/a/gHikuWHu" target="_blank">ECE387 Classroom</a>.</p></li>
 <li><p>Your afacademy email address has already been loaded for you to easily join. Although I prefer your school email address, you can use a different email address if you would like to. For this, click <code class="docutils literal notranslate"><span class="pre">Skip</span> <span class="pre">to</span> <span class="pre">the</span> <span class="pre">next</span> <span class="pre">step</span></code></p></li>
 </ol>
 <a class="reference internal image-reference" href="../_images/GitClassroom_SelectIdentifier.png"><img alt="../_images/GitClassroom_SelectIdentifier.png" class="align-center" src="../_images/GitClassroom_SelectIdentifier.png" style="width: 480px;" /></a>
@@ -415,18 +415,18 @@ document.write(`
 <ol class="arabic simple">
 <li><p>Select <code class="docutils literal notranslate"><span class="pre">Accept</span> <span class="pre">this</span> <span class="pre">assignment</span></code>.</p></li>
 <li><p>Browse to your repository. Note the URL for your repository (save this link; it is the best way to check if your repo is updated).</p></li>
-<li><p>Go to <code class="docutils literal notranslate"><span class="pre">Settings</span></code> and change your repository name to <code class="docutils literal notranslate"><span class="pre">ece387-YourLastName</span></code>, e.g., <code class="docutils literal notranslate"><span class="pre">ece387-baek</span></code>.</p></li>
+<li><p>Go to <code class="docutils literal notranslate"><span class="pre">Settings</span></code> and change your repository name to <code class="docutils literal notranslate"><span class="pre">ece487-yourlastname</span></code> (all lowercase), e.g., <code class="docutils literal notranslate"><span class="pre">ece487-baek</span></code>.</p></li>
 </ol>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>Please name your repository as ece387-LastName. This will help instructors find your repository easily.</p>
+<p>Please name your repository as ece487-lastname (all lowercase). This will help instructors find your repository easily.</p>
 </div>
 </section>
 </section>
-<section id="setup-github-ssh-keys">
-<h2>Setup GitHub SSH Keys<a class="headerlink" href="#setup-github-ssh-keys" title="Permalink to this heading">#</a></h2>
+<section id="setup-github-ssh-key-on-master">
+<h2>Setup GitHub SSH Key on Master<a class="headerlink" href="#setup-github-ssh-key-on-master" title="Permalink to this heading">#</a></h2>
 <p>The following assumes you already have a GitHub account.</p>
-<p>Create SSH keys to use with your GitHub account by typing the following using the same email as you GitHub login:</p>
+<p>Create an SSH key to use with your GitHub account by typing the following using the same email as you GitHub login:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span>
 ssh-keygen<span class="w"> </span>-t<span class="w"> </span>ed25519<span class="w"> </span>-C<span class="w"> </span><span class="s2">&quot;your_email@email.com&quot;</span>
 </pre></div>
@@ -453,6 +453,22 @@ ssh-add<span class="w"> </span>~/.ssh/id_ed25519
 <p>In the <code class="docutils literal notranslate"><span class="pre">Title</span></code> field, add a descriptive label for the new key, such as <code class="docutils literal notranslate"><span class="pre">master0</span></code>.</p>
 <p>Paste your key into the <code class="docutils literal notranslate"><span class="pre">Key</span></code> field (contents of the <code class="docutils literal notranslate"><span class="pre">.pub</span></code> file).</p>
 <p>Click <strong>Add SSH key</strong>.</p>
+<!--
+## Create a repo within the GitHub Classroom:
+
+1. Browse to [github.com](https://www.github.com) and create a GitHub account if you do not already have one. It is useful if your username is something that identifies you (e.g., bneff1013).
+1. **One student per group** do the following on your personal computer:
+    1. First we are going to setup the repo for the Master.  This will allow your instructor to see all of your commits throughout the semester.
+    1. Browse to [https://classroom.github.com/a/OoH0u_XW](https://classroom.github.com/a/OoH0u_XW)
+    1. Select "Accept this assignment"
+    1. You may need to hit refresh, but eventually it will provide you a link to the repository.
+	1. Browse to your repository.
+	1. Note the url for your repository (save this link, it is the best way to check if your repo is updated).
+	1. Go to Settings -> Manage access -> and "Invite teams or people".
+	1. Provide access to your team member using their GitHub user name.
+    1. Now we need to do the exact same thing to setup the repo for the robot.
+	1. Browse to [https://classroom.github.com/a/0MPq4TNE](https://classroom.github.com/a/0MPq4TNE) and repeat steps c-h.
+-->
 <!--
 ## Enable SSH connection to your GitHub account
 1. Open a terminal on your **Master** (ctrl+alt+t).
@@ -494,21 +510,24 @@ ssh-add<span class="w"> </span>~/.ssh/id_ed25519
 <section id="clone-repository-to-your-master">
 <h2>Clone repository to your master.<a class="headerlink" href="#clone-repository-to-your-master" title="Permalink to this heading">#</a></h2>
 <ol class="arabic">
-<li><p>On the <strong>Master</strong>, open the GitHub repository and copy your repo address using the SSH mode:
-<img alt="logo" src="../_images/clone.PNG" /></p></li>
+<li><p>On the <strong>Master</strong>, open the GitHub repository and copy your repo address using the SSH mode:</p>
+<a class="reference internal image-reference" href="../_images/clone.PNG"><img alt="../_images/clone.PNG" class="align-center" src="../_images/clone.PNG" style="width: 400px;" /></a>
+ <br>
+</li>
 <li><p>Open a terminal and browse to your workspace source folder:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/master_ws/src/
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span>~/master_ws/src/
+<span class="nb">cd</span><span class="w"> </span>~/master_ws/src
 </pre></div>
 </div>
 </li>
 <li><p>Clone your repo using the username and password used when you generated the SSH key, replacing <strong>USERNAME</strong> with your GitHub username:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>git@github.com:ECE387/ece387_master_spring202X-USERNAME.git
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>git@github.com:ECE387/ece387_yourlastname.git
 </pre></div>
 </div>
 </li>
 <li><p>Update your git email address and the last name for you and your team mate.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>user.email<span class="w"> </span><span class="s2">&quot;you@example.com&quot;</span>
-git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>user.name<span class="w"> </span><span class="s2">&quot;Lastname1 Lastname2&quot;</span>
+git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>user.name<span class="w"> </span><span class="s2">&quot;FirstName LastName&quot;</span>
 </pre></div>
 </div>
 </li>
@@ -597,7 +616,7 @@ git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-repository-within-the-github-classroom">Create a Repository within the GitHub Classroom</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-github-ssh-keys">Setup GitHub SSH Keys</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-github-ssh-key-on-master">Setup GitHub SSH Key on Master</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clone-repository-to-your-master">Clone repository to your master.</a></li>
 </ul>
   </nav></div>
