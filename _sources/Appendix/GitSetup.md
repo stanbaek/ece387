@@ -29,7 +29,7 @@ Don’t worry if it doesn’t work right. If everything did, you’d be out of a
 1. Go to `Settings` and change your repository name to `ece387-yourlastname` (all lowercase), e.g., `ece387-baek`.
 
 ```{important}
-Please name your repository as ece487-lastname (all lowercase). This will help instructors find your repository easily.
+Please name your repository as ece387-lastname (all lowercase). This will help instructors find your repository easily.
 ```
 
 ## Setup GitHub SSH Key on Master
