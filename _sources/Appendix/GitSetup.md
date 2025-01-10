@@ -26,7 +26,7 @@ Don’t worry if it doesn’t work right. If everything did, you’d be out of a
 
 1. Select `Accept this assignment`.
 1. Browse to your repository. Note the URL for your repository (save this link; it is the best way to check if your repo is updated).
-1. Go to `Settings` and change your repository name to `ece487-yourlastname` (all lowercase), e.g., `ece487-baek`.
+1. Go to `Settings` and change your repository name to `ece387-yourlastname` (all lowercase), e.g., `ece387-baek`.
 
 ```{important}
 Please name your repository as ece487-lastname (all lowercase). This will help instructors find your repository easily.
