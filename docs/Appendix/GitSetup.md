@@ -5,22 +5,43 @@
 ## Purpose
 Setup GIT repositories and access on the **Master**.
 
+```{note}
+Don’t worry if it doesn’t work right. If everything did, you’d be out of a job.
+```
+
+(CreateRepo)=
+### Create a Repository within the GitHub Classroom
+
+1. If you don't already have a <a href="https://github.com/" target="_blank">GitHub</a> account, go ahead and create one.
+1. Once you have your account, browse to <a href="https://classroom.github.com/a/Gspbtxg5" target="_blank">ECE387 Classroom</a>.
+1. Your afacademy email address has already been loaded for you to easily join. Although I prefer your school email address, you can use a different email address if you would like to. For this, click `Skip to the next step` 
+
+```{image} ./Figures/GitClassroom_SelectIdentifier.png
+:width: 480
+:align: center
+```
+<br>
+
+1. Select `Accept this assignment`.
+1. Browse to your repository. Note the URL for your repository (save this link; it is the best way to check if your repo is updated).
+1. Go to `Settings` and change your repository name to `ece487-YourLastName`, e.g., `ece487-baek`.
+
+```{important}
+Please name your repository as ece487-LastName. This will help instructors find your repository easily.
+```
 
 
-
-
-!-- 
-#### Setup GitHub SSH Keys
+## Setup GitHub SSH Keys
 The following assumes you already have a GitHub account.
 
 Create SSH keys to use with your GitHub account by typing the following using the same email as you GitHub login:
 
 ```bash
 cd
-ssh-keygen -t ed25519 -C "github@email.com"
+ssh-keygen -t ed25519 -C "your_email@email.com"
 ```
 
-When prompted to "Enter a file in which to save the key", hit **enter**.
+You'll be asked to enter a file path to save the key. Press `Enter` to accept the default location (~/.ssh/id_ed25519).
 
 Start the ssh-agent in the background and add your SSH private key to the ssh-agent:
 
@@ -42,7 +63,7 @@ Open a web browser and sign in to your GitHub account.
 In the upper-right corner of any page, click your profile photo, then click **Settings**:
 
 ```{image} ./Figures/ssh1.png
-:width: 200
+:width: 180
 :align: center
 ```
 
@@ -50,7 +71,7 @@ In the upper-right corner of any page, click your profile photo, then click **Se
 In the user settings sidebar, click **SSH and GPG keys**:
 
 ```{image} ./Figures/ssh2.png
-:width: 200
+:width: 180
 :align: center
 ```
 
@@ -62,12 +83,11 @@ Click **New SSH key**:
 ```
 <br>
 
-In the ``Title`` field, add a descriptive label for the new key, such as ``master0``.
+In the `Title` field, add a descriptive label for the new key, such as `master0`.
 
-Paste your key into the ``Key`` field (contents of the `.pub` file).
+Paste your key into the `Key` field (contents of the `.pub` file).
 
 Click **Add SSH key**.
-
 
 
 
