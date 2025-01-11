@@ -67,6 +67,7 @@ In the upper-right corner of any page, click your profile photo, then click **Se
 :align: center
 ```
 
+
 In the user settings sidebar, click **SSH and GPG keys**:
 
 ```{image} ./Figures/ssh2.png
@@ -89,7 +90,23 @@ Paste your key into the `Key` field (contents of the `.pub` file).
 Click **Add SSH key**.
 
 
-<!--
+
+## Create a repo within the GitHub Classroom:
+
+1. Browse to [github.com](https://www.github.com) and create a GitHub account if you do not already have one. It is useful if your username is something that identifies you (e.g., bneff1013).
+1. **One student per group** do the following on your personal computer:
+    1. First we are going to setup the repo for the Master.  This will allow your instructor to see all of your commits throughout the semester.
+    1. Browse to [https://classroom.github.com/a/OoH0u_XW](https://classroom.github.com/a/OoH0u_XW)
+    1. Select "Accept this assignment"
+    1. You may need to hit refresh, but eventually it will provide you a link to the repository.
+	1. Browse to your repository.
+	1. Note the url for your repository (save this link, it is the best way to check if your repo is updated).
+	1. Go to Settings -> Manage access -> and "Invite teams or people".
+	1. Provide access to your team member using their GitHub user name.
+    1. Now we need to do the exact same thing to setup the repo for the robot.
+	1. Browse to [https://classroom.github.com/a/0MPq4TNE](https://classroom.github.com/a/0MPq4TNE) and repeat steps c-h.
+
+
 ## Enable SSH connection to your GitHub account
 1. Open a terminal on your **Master** (ctrl+alt+t).
 1. The same student as step 1.1.2 do the following:
@@ -125,7 +142,7 @@ Click **Add SSH key**.
         ssh pi@robotX
         ```
     1. Repeat steps a-f on your **Robot** and j-n on your **Master**.
--->
+
 
 ## Clone repository to your master.
 1. On the **Master**, open the GitHub repository and copy your repo address using the SSH mode:
@@ -145,7 +162,7 @@ Click **Add SSH key**.
     git config --global user.name "Lastname1 Lastname2"
     ```
 
-<!--
+
 ## Clone repository to your robot.
 1. Create a secure shell connection to your robot:
     ```bash
@@ -164,4 +181,3 @@ Click **Add SSH key**.
     git config --global user.email "you@example.com"
     git config --global user.name "Lastname1 Lastname2"
     ```
--->
