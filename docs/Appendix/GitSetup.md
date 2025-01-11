@@ -13,72 +13,61 @@ Don’t worry if it doesn’t work right. If everything did, you’d be out of a
 ### Create a Repository within the GitHub Classroom
 
 1. If you don't already have a <a href="https://github.com/" target="_blank">GitHub</a> account, go ahead and create one. It is useful if your username is something that identifies you (e.g., stanbaek).
-
 1. Once you have your account, browse to <a href="https://classroom.github.com/a/gHikuWHu" target="_blank">ECE387 Classroom</a>.
-
 1. Your afacademy email address has already been loaded for you to easily join. Although I prefer your school email address, you can use a different email address if you would like to. For this, click `Skip to the next step` 
 
-```{image} ./Figures/GitClassroom_SelectIdentifier.png
-:width: 480
-:align: center
-```
-<br>
+    ```{image} ./figures/GitClassroom_SelectIdentifier.png
+    :width: 480
+    :align: center
+    ```
+    <br>
 
 1. Select `Accept this assignment`.
 1. Browse to your repository. Note the URL for your repository (save this link; it is the best way to check if your repo is updated).
-1. Go to `Settings` and change your repository name to `ece387-YourLastName`, e.g., `ece387-baek`.
+1. Go to `Settings` and change your repository name to `ece387-lastname`, e.g., `ece387-baek`.
 
-```{important}
-Please name your repository as ece387-LastName. This will help instructors find your repository easily.
-```
+    ```{important}
+    Please name your repository as ece387-lastname (all lowercase). This will help instructors find your repository easily.
+    ```
 
 ## Setup GitHub SSH Key on Master
 
 The following assumes you already have a GitHub account. 
 
-Create an SSH key to use with your GitHub account by typing the following using the same email as you GitHub login:
+1. Create an SSH key to use with your GitHub account by typing the following using the same email as you GitHub login:
+    ```bash
+    cd
+    ssh-keygen -t ed25519 -C "your_email@email.com"
+    ```
+1. You'll be asked to enter a file path to save the key. Press `Enter` to accept the default location (~/.ssh/id_ed25519).
+1. Start the ssh-agent in the background and add your SSH private key to the ssh-agent:
+    ```bash
+    eval "$(ssh-agent -s)"
+    ssh-add ~/.ssh/id_ed25519
+    ```
+1. Open the public key with your favorite command line editor (this is easier to accomplish via an SSH connection from a desktop machine with a GUI so you can copy the public key to your GitHub account).
+    ```bash
+    nano ~/.ssh/id_ed25519.pub
+    ```
+1. Copy the contents of the file (maximize the window and ensure you copy the entire contents up to the GitHub email).
+1. Open a web browser and sign in to your GitHub account.
+1. In the upper-right corner of any page, click your profile photo, then click **Settings**:
 
-```bash
-cd
-ssh-keygen -t ed25519 -C "your_email@email.com"
-```
-
-You'll be asked to enter a file path to save the key. Press `Enter` to accept the default location (~/.ssh/id_ed25519).
-
-Start the ssh-agent in the background and add your SSH private key to the ssh-agent:
-
-```bash
-eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/id_ed25519
-```
-
-Open the public key with your favorite command line editor (this is easier to accomplish via an SSH connection from a desktop machine with a GUI so you can copy the public key to your GitHub account).
-
-```bash
-nano ~/.ssh/id_ed25519.pub
-```
-
-Copy the contents of the file (maximize the window and ensure you copy the entire contents up to the GitHub email).
-
-Open a web browser and sign in to your GitHub account.
-
-In the upper-right corner of any page, click your profile photo, then click **Settings**:
-
-```{image} ./Figures/ssh1.png
-:width: 180
-:align: center
-```
+    ```{image} ./figures/ssh1.png
+    :width: 180
+    :align: center
+    ```
 
 In the user settings sidebar, click **SSH and GPG keys**:
 
-```{image} ./Figures/ssh2.png
+```{image} ./figures/ssh2.png
 :width: 180
 :align: center
 ```
 
 Click **New SSH key**:
 
-```{image} ./Figures/ssh3.png
+```{image} ./figures/ssh3.png
 :width: 600
 :align: center
 ```
@@ -129,11 +118,11 @@ Click **Add SSH key**.
 	1. Select the contents of the file (maximize the window and ensure it has your GIT email at the end), right click, and select copy.
     1. Open a web browser and sign in to your GitHub account.
 	1. In the upper-right corner of any page, click your profile photo, then click **Settings**.
-        ![logo](Figures/userbar-account-settings.png)
+        ![logo](figures/userbar-account-settings.png)
 	1. In the user settings sidebar, click **SSH and GPG keys**.
-		![logo](Figures/settings-sidebar-ssh-keys.png)
+		![logo](figures/settings-sidebar-ssh-keys.png)
     1. Click **New SSH key**
-		![logo](Figures/ssh-add-ssh-key.png)
+		![logo](figures/ssh-add-ssh-key.png)
 	1. In the "Title" field, add a descriptive label for the new key, such as "MasterX".
 	1. Paste your key into the "Key" field (contents of the `.pub` file).
 	1. Click **Add SSH key**.
@@ -148,7 +137,7 @@ Click **Add SSH key**.
 ## Clone repository to your master.
 1. On the **Master**, open the GitHub repository and copy your repo address using the SSH mode:
 
-	```{image} ./Figures/clone.PNG
+	```{image} ./figures/clone.PNG
     :width: 400
     :align: center
     ```
