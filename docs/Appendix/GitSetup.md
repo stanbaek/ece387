@@ -12,72 +12,145 @@ Don’t worry if it doesn’t work right. If everything did, you’d be out of a
 (CreateRepo)=
 ### Create a Repository within the GitHub Classroom
 
-1. If you don't already have a <a href="https://github.com/" target="_blank">GitHub</a> account, go ahead and create one. It is useful if your username is something that identifies you (e.g., stanbaek).
-1. Once you have your account, browse to <a href="https://classroom.github.com/a/gHikuWHu" target="_blank">ECE387 Classroom</a>.
-1. Your afacademy email address has already been loaded for you to easily join. Although I prefer your school email address, you can use a different email address if you would like to. For this, click `Skip to the next step` 
+1. If you don’t already have a <a href="https://github.com/" target="_blank">GitHub</a> account, create one. It’s best if your username is something identifiable (e.g., `stanbaek`).  
 
-    ```{image} ./figures/GitClassroom_SelectIdentifier.png
-    :width: 480
-    :align: center
-    ```
-    <br>
+1. Once your account is ready, go to the <a href="https://classroom.github.com/a/gHikuWHu" target="_blank">ECE387 Classroom</a>.  
 
-1. Select `Accept this assignment`.
-1. Browse to your repository. Note the URL for your repository (save this link; it is the best way to check if your repo is updated).
-1. Go to `Settings` and change your repository name to `ece387-lastname`, e.g., `ece387-baek`.
+1. Your afacademy email address has been preloaded to make joining easy. While I prefer your school email address, you may use another email if desired. For this, click `Skip to the next step`:  
 
-    ```{important}
-    Please name your repository as ece387-lastname (all lowercase). This will help instructors find your repository easily.
-    ```
+    ```{image} ./figures/GitClassroom_SelectIdentifier.png  
+    :width: 480  
+    :align: center  
+    ```  
+    <br>  
 
-## Setup GitHub SSH Key on Master
+1. Select `Accept this assignment`.  
 
-The following assumes you already have a GitHub account. 
+1. Navigate to your repository and note the repository URL. Save this link—it’s the easiest way to check if your repository is updated.  
 
-1. Create an SSH key to use with your GitHub account by typing the following using the same email as you GitHub login:
-    ```bash
-    cd
-    ssh-keygen -t ed25519 -C "your_email@email.com"
-    ```
-1. You'll be asked to enter a file path to save the key. Press `Enter` to accept the default location (~/.ssh/id_ed25519).
-1. Start the ssh-agent in the background and add your SSH private key to the ssh-agent:
-    ```bash
-    eval "$(ssh-agent -s)"
-    ssh-add ~/.ssh/id_ed25519
-    ```
-1. Open the public key with your favorite command line editor (this is easier to accomplish via an SSH connection from a desktop machine with a GUI so you can copy the public key to your GitHub account).
-    ```bash
-    nano ~/.ssh/id_ed25519.pub
-    ```
-1. Copy the contents of the file (maximize the window and ensure you copy the entire contents up to the GitHub email).
-1. Open a web browser and sign in to your GitHub account.
-1. In the upper-right corner of any page, click your profile photo, then click **Settings**:
+1. Go to `Settings` and change your repository name to `ece387-lastname` (e.g., `ece387-baek`).  
 
-    ```{image} ./figures/ssh1.png
-    :width: 180
-    :align: center
-    ```
+    ```{important}  
+    Please name your repository as `ece387-lastname` (all lowercase). This makes it easier for instructors to locate your repository.  
+    ```  
 
-In the user settings sidebar, click **SSH and GPG keys**:
+## Set Up GitHub SSH Key on Master  
 
-```{image} ./figures/ssh2.png
-:width: 180
-:align: center
-```
+This section assumes you already have a GitHub account.  
 
-Click **New SSH key**:
+1. Create an SSH key for your GitHub account by running the following command. Use the same email as your GitHub login:  
 
-```{image} ./figures/ssh3.png
-:width: 600
-:align: center
-```
-<br>
+    ```bash  
+    cd  
+    ssh-keygen -t ed25519 -C "your_email@email.com"  
+    ```  
 
-In the `Title` field, add a descriptive label for the new key, such as `master0`.
+1. When prompted to specify a file path, press `Enter` to accept the default location (`~/.ssh/id_ed25519`).  
 
-Paste your key into the `Key` field (contents of the `.pub` file).
+1. Start the ssh-agent in the background and add your SSH private key:  
 
-Click **Add SSH key**.
+    ```bash  
+    eval "$(ssh-agent -s)"  
+    ssh-add ~/.ssh/id_ed25519  
+    ```  
+
+1. Open the public key using your favorite terminal-based text editor. This step is easier via an SSH connection from a GUI-based desktop machine, as it allows you to copy the public key to your GitHub account:  
+
+    ```bash  
+    nano ~/.ssh/id_ed25519.pub  
+    ```  
+
+1. Copy the entire contents of the file. Maximize the window to ensure you don’t miss anything, including the GitHub email.  
+
+1. Open a web browser and log in to your GitHub account.  
+
+1. In the top-right corner of any page, click your profile photo, then select **Settings**:  
+
+    ```{image} ./figures/ssh1.png  
+    :width: 180  
+    :align: center  
+    ```  
+    <br>  
+
+1. In the settings sidebar, click **SSH and GPG keys**:  
+
+    ```{image} ./figures/ssh2.png  
+    :width: 180  
+    :align: center  
+    ```  
+    <br>  
+
+1. Click **New SSH key**:  
+
+    ```{image} ./figures/ssh3.png  
+    :width: 600  
+    :align: center  
+    ```  
+    <br>  
+
+1. In the `Title` field, provide a descriptive label for the key, such as `master0`.  
+
+1. Paste the copied key (from the `.pub` file) into the `Key` field.  
+
+1. Click **Add SSH key** to save it.  
+
+(CloneRepo)=
+## Clone Repository to Your Master  
+
+1. On the **Master**, open your GitHub repository and copy the repository address using the **SSH** mode:  
+
+    ```{image} ./figures/GitClone.png  
+    :width: 600  
+    :align: center  
+    ```  
+    <br>  
+
+1. Open a terminal and create a workspace source folder:  
+    ```bash  
+    mkdir -p ~/master_ws/src/  
+    cd ~/master_ws/src  
+    ```  
+
+1. Clone your repository:  
+    ```bash  
+    git clone git@github.com:ECE387/ece387_lastname.git  
+    ```  
+
+1. Update your Git email address and name:  
+    ```bash  
+    git config user.email "you@example.com"  
+    git config user.name "FirstName LastName"  
+    ```  
+
+1. Move into your repository you just cloned:  
+    ```bash  
+    cd ece387-lastname  
+    ```  
+
+1. Use the `touch` command to create an empty file called `COLCON_IGNORE`. This file ensures that this directory will be ignored when compiling ROS packages.
+
+1. Run the following command to append your full name and section to a file named `README.md`. Since the file does not exist, it will be created automatically:
+    ```bash  
+    echo "# Your full name, Section" >> README.md  
+    ```  
+
+1. Verify that the file was created correctly by running:  
+    ```bash  
+    cat README.md  
+    ```  
+    If the file was created successfully, you should see output similar to the following:
+    ```{image} ./figures/GitCreateReadmeFile.png  
+    :width: 300  
+    :align: center  
+    ```  
+    <br>  
+1. Commit and push your changes to your GitHub repository:
+    ```bash  
+    git add -A 
+    git commit -m"initial commit"
+    git push  
+    ```  
+
 
 <!--
 ## Create a repo within the GitHub Classroom:
@@ -132,35 +205,15 @@ Click **Add SSH key**.
         ssh pi@robotX
         ```
     1. Repeat steps a-f on your **Robot** and j-n on your **Master**.
+-->
 
-
-## Clone repository to your master.
-1. On the **Master**, open the GitHub repository and copy your repo address using the SSH mode:
-
-	```{image} ./figures/clone.PNG
-    :width: 400
-    :align: center
-    ```
-    <br>
-1. Open a terminal and browse to your workspace source folder:
-    ```bash
-    mkdir -p ~/master_ws/src/
-    cd ~/master_ws/src
-    ```
-1. Clone your repo using the username and password used when you generated the SSH key, replacing **USERNAME** with your GitHub username:
-    ```bash
-    git clone git@github.com:ECE387/ece387_yourlastname.git
-    ```
-
-1. Update your git email address and the last name for you and your team mate.
-    ```bash
-    git config --global user.email "you@example.com"
-    git config --global user.name "FirstName LastName"
-    ```
-
-<!--
 <!--
 ## Clone repository to your robot.
+
+#####
+1. Open the public key using your favorite terminal-based text editor. This step is easier via an SSH connection from a GUI-based desktop machine, as it allows you to copy the public key to your GitHub account:  
+#####
+
 1. Create a secure shell connection to your robot:
     ```bash
     ssh pi@robotX

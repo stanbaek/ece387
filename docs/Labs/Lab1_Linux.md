@@ -161,11 +161,14 @@ Linux is a vast and versatile command line language with hundreds of commands yo
 
 ## 🚚 Deliverables
 
-Visit [Git Repo Setup](../Appendix/GitSetup.md) to create a ROS workspace on the `Master` computer and configure your ECE387 classroom repo.  
-
+1. Visit [Git Repo Setup](../Appendix/GitSetup.md) to create a ROS workspace on the `Master` computer and configure your ECE387 classroom repository.  
+1. Submit Lab 1 on Gradescope.  
 
 <br>
-This lab was adapted from "Raspberry Pi Tips, Tricks & Fixes Vol. 35", ISBN: 2046-2743, Edited by James Cale, BDM Limited, 2019.
+
+**References**
+<br>
+1. "Raspberry Pi Tips, Tricks & Fixes Vol. 35", Edited by James Cale, BDM Limited, 2019, ISBN: 2046-2743. 
 
 
 
