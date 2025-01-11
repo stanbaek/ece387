@@ -381,8 +381,8 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-repository-within-the-github-classroom">Create a Repository within the GitHub Classroom</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-github-ssh-key-on-master">Setup GitHub SSH Key on Master</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clone-repository-to-your-master">Clone repository to your master.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up-github-ssh-key-on-master">Set Up GitHub SSH Key on Master</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clone-repository-to-your-master">Clone Repository to Your Master</a></li>
 </ul>
             </nav>
         </div>
@@ -405,54 +405,116 @@ document.write(`
 </div>
 <section id="create-a-repository-within-the-github-classroom">
 <span id="createrepo"></span><h3>Create a Repository within the GitHub Classroom<a class="headerlink" href="#create-a-repository-within-the-github-classroom" title="Permalink to this heading">#</a></h3>
-<ol class="arabic simple">
-<li><p>If you don’t already have a <a href="https://github.com/" target="_blank">GitHub</a> account, go ahead and create one. It is useful if your username is something that identifies you (e.g., stanbaek).</p></li>
-<li><p>Once you have your account, browse to <a href="https://classroom.github.com/a/gHikuWHu" target="_blank">ECE387 Classroom</a>.</p></li>
-<li><p>Your afacademy email address has already been loaded for you to easily join. Although I prefer your school email address, you can use a different email address if you would like to. For this, click <code class="docutils literal notranslate"><span class="pre">Skip</span> <span class="pre">to</span> <span class="pre">the</span> <span class="pre">next</span> <span class="pre">step</span></code></p></li>
-</ol>
+<ol class="arabic">
+<li><p>If you don’t already have a <a href="https://github.com/" target="_blank">GitHub</a> account, create one. It’s best if your username is something identifiable (e.g., <code class="docutils literal notranslate"><span class="pre">stanbaek</span></code>).</p></li>
+<li><p>Once your account is ready, go to the <a href="https://classroom.github.com/a/gHikuWHu" target="_blank">ECE387 Classroom</a>.</p></li>
+<li><p>Your afacademy email address has been preloaded to make joining easy. While I prefer your school email address, you may use another email if desired. For this, click <code class="docutils literal notranslate"><span class="pre">Skip</span> <span class="pre">to</span> <span class="pre">the</span> <span class="pre">next</span> <span class="pre">step</span></code>:</p>
 <a class="reference internal image-reference" href="../_images/GitClassroom_SelectIdentifier.png"><img alt="../_images/GitClassroom_SelectIdentifier.png" class="align-center" src="../_images/GitClassroom_SelectIdentifier.png" style="width: 480px;" /></a>
-<br>
-<ol class="arabic simple">
+ <br>  
+</li>
 <li><p>Select <code class="docutils literal notranslate"><span class="pre">Accept</span> <span class="pre">this</span> <span class="pre">assignment</span></code>.</p></li>
-<li><p>Browse to your repository. Note the URL for your repository (save this link; it is the best way to check if your repo is updated).</p></li>
-<li><p>Go to <code class="docutils literal notranslate"><span class="pre">Settings</span></code> and change your repository name to <code class="docutils literal notranslate"><span class="pre">ece387-yourlastname</span></code> (all lowercase), e.g., <code class="docutils literal notranslate"><span class="pre">ece387-baek</span></code>.</p></li>
-</ol>
+<li><p>Navigate to your repository and note the repository URL. Save this link—it’s the easiest way to check if your repository is updated.</p></li>
+<li><p>Go to <code class="docutils literal notranslate"><span class="pre">Settings</span></code> and change your repository name to <code class="docutils literal notranslate"><span class="pre">ece387-lastname</span></code> (e.g., <code class="docutils literal notranslate"><span class="pre">ece387-baek</span></code>).</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>Please name your repository as ece387-lastname (all lowercase). This will help instructors find your repository easily.</p>
+<p>Please name your repository as <code class="docutils literal notranslate"><span class="pre">ece387-lastname</span></code> (all lowercase). This makes it easier for instructors to locate your repository.</p>
 </div>
+</li>
+</ol>
 </section>
 </section>
-<section id="setup-github-ssh-key-on-master">
-<h2>Setup GitHub SSH Key on Master<a class="headerlink" href="#setup-github-ssh-key-on-master" title="Permalink to this heading">#</a></h2>
-<p>The following assumes you already have a GitHub account.</p>
-<p>Create an SSH key to use with your GitHub account by typing the following using the same email as you GitHub login:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span>
-ssh-keygen<span class="w"> </span>-t<span class="w"> </span>ed25519<span class="w"> </span>-C<span class="w"> </span><span class="s2">&quot;your_email@email.com&quot;</span>
+<section id="set-up-github-ssh-key-on-master">
+<h2>Set Up GitHub SSH Key on Master<a class="headerlink" href="#set-up-github-ssh-key-on-master" title="Permalink to this heading">#</a></h2>
+<p>This section assumes you already have a GitHub account.</p>
+<ol class="arabic">
+<li><p>Create an SSH key for your GitHub account by running the following command. Use the same email as your GitHub login:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w">  </span>
+ssh-keygen<span class="w"> </span>-t<span class="w"> </span>ed25519<span class="w"> </span>-C<span class="w"> </span><span class="s2">&quot;your_email@email.com&quot;</span><span class="w">  </span>
 </pre></div>
 </div>
-<p>You’ll be asked to enter a file path to save the key. Press <code class="docutils literal notranslate"><span class="pre">Enter</span></code> to accept the default location (~/.ssh/id_ed25519).</p>
-<p>Start the ssh-agent in the background and add your SSH private key to the ssh-agent:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">eval</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>ssh-agent<span class="w"> </span>-s<span class="k">)</span><span class="s2">&quot;</span>
-ssh-add<span class="w"> </span>~/.ssh/id_ed25519
+</li>
+<li><p>When prompted to specify a file path, press <code class="docutils literal notranslate"><span class="pre">Enter</span></code> to accept the default location (<code class="docutils literal notranslate"><span class="pre">~/.ssh/id_ed25519</span></code>).</p></li>
+<li><p>Start the ssh-agent in the background and add your SSH private key:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">eval</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>ssh-agent<span class="w"> </span>-s<span class="k">)</span><span class="s2">&quot;</span><span class="w">  </span>
+ssh-add<span class="w"> </span>~/.ssh/id_ed25519<span class="w">  </span>
 </pre></div>
 </div>
-<p>Open the public key with your favorite command line editor (this is easier to accomplish via an SSH connection from a desktop machine with a GUI so you can copy the public key to your GitHub account).</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nano<span class="w"> </span>~/.ssh/id_ed25519.pub
+</li>
+<li><p>Open the public key using your favorite terminal-based text editor. This step is easier via an SSH connection from a GUI-based desktop machine, as it allows you to copy the public key to your GitHub account:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nano<span class="w"> </span>~/.ssh/id_ed25519.pub<span class="w">  </span>
 </pre></div>
 </div>
-<p>Copy the contents of the file (maximize the window and ensure you copy the entire contents up to the GitHub email).</p>
-<p>Open a web browser and sign in to your GitHub account.</p>
-<p>In the upper-right corner of any page, click your profile photo, then click <strong>Settings</strong>:</p>
+</li>
+<li><p>Copy the entire contents of the file. Maximize the window to ensure you don’t miss anything, including the GitHub email.</p></li>
+<li><p>Open a web browser and log in to your GitHub account.</p></li>
+<li><p>In the top-right corner of any page, click your profile photo, then select <strong>Settings</strong>:</p>
 <a class="reference internal image-reference" href="../_images/ssh1.png"><img alt="../_images/ssh1.png" class="align-center" src="../_images/ssh1.png" style="width: 180px;" /></a>
-<p>In the user settings sidebar, click <strong>SSH and GPG keys</strong>:</p>
+ <br>  
+</li>
+<li><p>In the settings sidebar, click <strong>SSH and GPG keys</strong>:</p>
 <a class="reference internal image-reference" href="../_images/ssh2.png"><img alt="../_images/ssh2.png" class="align-center" src="../_images/ssh2.png" style="width: 180px;" /></a>
-<p>Click <strong>New SSH key</strong>:</p>
+ <br>  
+</li>
+<li><p>Click <strong>New SSH key</strong>:</p>
 <a class="reference internal image-reference" href="../_images/ssh3.png"><img alt="../_images/ssh3.png" class="align-center" src="../_images/ssh3.png" style="width: 600px;" /></a>
-<br>
-<p>In the <code class="docutils literal notranslate"><span class="pre">Title</span></code> field, add a descriptive label for the new key, such as <code class="docutils literal notranslate"><span class="pre">master0</span></code>.</p>
-<p>Paste your key into the <code class="docutils literal notranslate"><span class="pre">Key</span></code> field (contents of the <code class="docutils literal notranslate"><span class="pre">.pub</span></code> file).</p>
-<p>Click <strong>Add SSH key</strong>.</p>
+ <br>  
+</li>
+<li><p>In the <code class="docutils literal notranslate"><span class="pre">Title</span></code> field, provide a descriptive label for the key, such as <code class="docutils literal notranslate"><span class="pre">master0</span></code>.</p></li>
+<li><p>Paste the copied key (from the <code class="docutils literal notranslate"><span class="pre">.pub</span></code> file) into the <code class="docutils literal notranslate"><span class="pre">Key</span></code> field.</p></li>
+<li><p>Click <strong>Add SSH key</strong> to save it.</p></li>
+</ol>
+</section>
+<section id="clone-repository-to-your-master">
+<span id="clonerepo"></span><h2>Clone Repository to Your Master<a class="headerlink" href="#clone-repository-to-your-master" title="Permalink to this heading">#</a></h2>
+<ol class="arabic">
+<li><p>On the <strong>Master</strong>, open your GitHub repository and copy the repository address using the <strong>SSH</strong> mode:</p>
+<a class="reference internal image-reference" href="../_images/GitClone.png"><img alt="../_images/GitClone.png" class="align-center" src="../_images/GitClone.png" style="width: 600px;" /></a>
+ <br>  
+</li>
+<li><p>Open a terminal and create a workspace source folder:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span>~/master_ws/src/<span class="w">  </span>
+<span class="nb">cd</span><span class="w"> </span>~/master_ws/src<span class="w">  </span>
+</pre></div>
+</div>
+</li>
+<li><p>Clone your repository:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>git@github.com:ECE387/ece387_lastname.git<span class="w">  </span>
+</pre></div>
+</div>
+</li>
+<li><p>Update your Git email address and name:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>config<span class="w"> </span>user.email<span class="w"> </span><span class="s2">&quot;you@example.com&quot;</span><span class="w">  </span>
+git<span class="w"> </span>config<span class="w"> </span>user.name<span class="w"> </span><span class="s2">&quot;FirstName LastName&quot;</span><span class="w">  </span>
+</pre></div>
+</div>
+</li>
+<li><p>Move into your repository you just cloned:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>ece387-lastname<span class="w">  </span>
+</pre></div>
+</div>
+</li>
+<li><p>Use the <code class="docutils literal notranslate"><span class="pre">touch</span></code> command to create an empty file called <code class="docutils literal notranslate"><span class="pre">COLCON_IGNORE</span></code>. This file ensures that this directory will be ignored when compiling ROS packages.</p></li>
+<li><p>Run the following command to append your full name and section to a file named <code class="docutils literal notranslate"><span class="pre">README.md</span></code>. Since the file does not exist, it will be created automatically:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;# Your full name, Section&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>README.md<span class="w">  </span>
+</pre></div>
+</div>
+</li>
+<li><p>Verify that the file was created correctly by running:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>README.md<span class="w">  </span>
+</pre></div>
+</div>
+<p>If the file was created successfully, you should see output similar to the following:</p>
+<a class="reference internal image-reference" href="../_images/GitCreateReadmeFile.png"><img alt="../_images/GitCreateReadmeFile.png" class="align-center" src="../_images/GitCreateReadmeFile.png" style="width: 300px;" /></a>
+ <br>  
+</li>
+<li><p>Commit and push your changes to your GitHub repository:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>add<span class="w"> </span>-A<span class="w"> </span>
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="s2">&quot;initial commit&quot;</span>
+git<span class="w"> </span>push<span class="w">  </span>
+</pre></div>
+</div>
+</li>
+</ol>
 <!--
 ## Create a repo within the GitHub Classroom:
 
@@ -491,11 +553,11 @@ ssh-add<span class="w"> </span>~/.ssh/id_ed25519
 	1. Select the contents of the file (maximize the window and ensure it has your GIT email at the end), right click, and select copy.
     1. Open a web browser and sign in to your GitHub account.
 	1. In the upper-right corner of any page, click your profile photo, then click **Settings**.
-        ![logo](Figures/userbar-account-settings.png)
+        ![logo](figures/userbar-account-settings.png)
 	1. In the user settings sidebar, click **SSH and GPG keys**.
-		![logo](Figures/settings-sidebar-ssh-keys.png)
+		![logo](figures/settings-sidebar-ssh-keys.png)
     1. Click **New SSH key**
-		![logo](Figures/ssh-add-ssh-key.png)
+		![logo](figures/ssh-add-ssh-key.png)
 	1. In the "Title" field, add a descriptive label for the new key, such as "MasterX".
 	1. Paste your key into the "Key" field (contents of the `.pub` file).
 	1. Click **Add SSH key**.
@@ -506,34 +568,13 @@ ssh-add<span class="w"> </span>~/.ssh/id_ed25519
         ```
     1. Repeat steps a-f on your **Robot** and j-n on your **Master**.
 -->
-</section>
-<section id="clone-repository-to-your-master">
-<h2>Clone repository to your master.<a class="headerlink" href="#clone-repository-to-your-master" title="Permalink to this heading">#</a></h2>
-<ol class="arabic">
-<li><p>On the <strong>Master</strong>, open the GitHub repository and copy your repo address using the SSH mode:</p>
-<a class="reference internal image-reference" href="../_images/clone.PNG"><img alt="../_images/clone.PNG" class="align-center" src="../_images/clone.PNG" style="width: 400px;" /></a>
- <br>
-</li>
-<li><p>Open a terminal and browse to your workspace source folder:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span>~/master_ws/src/
-<span class="nb">cd</span><span class="w"> </span>~/master_ws/src
-</pre></div>
-</div>
-</li>
-<li><p>Clone your repo using the username and password used when you generated the SSH key, replacing <strong>USERNAME</strong> with your GitHub username:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>git@github.com:ECE387/ece387_yourlastname.git
-</pre></div>
-</div>
-</li>
-<li><p>Update your git email address and the last name for you and your team mate.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>user.email<span class="w"> </span><span class="s2">&quot;you@example.com&quot;</span>
-git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>user.name<span class="w"> </span><span class="s2">&quot;FirstName LastName&quot;</span>
-</pre></div>
-</div>
-</li>
-</ol>
 <!--
 ## Clone repository to your robot.
+
+#####
+1. Open the public key using your favorite terminal-based text editor. This step is easier via an SSH connection from a GUI-based desktop machine, as it allows you to copy the public key to your GitHub account:  
+#####
+
 1. Create a secure shell connection to your robot:
     ```bash
     ssh pi@robotX
@@ -616,8 +657,8 @@ git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-repository-within-the-github-classroom">Create a Repository within the GitHub Classroom</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-github-ssh-key-on-master">Setup GitHub SSH Key on Master</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clone-repository-to-your-master">Clone repository to your master.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up-github-ssh-key-on-master">Set Up GitHub SSH Key on Master</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clone-repository-to-your-master">Clone Repository to Your Master</a></li>
 </ul>
   </nav></div>
 
