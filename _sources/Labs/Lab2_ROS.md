@@ -17,49 +17,67 @@ ROS2 Humble Hawksbill: https://docs.ros.org/en/humble/
 
 The tutorials at [Beginner: CLI Tools](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools.html) offer a great introduction to ROS (Robot Operating System) command-line tools for beginners. These tutorials are designed to help you get started with ROS and learn how to use its command-line tools effectively.  
 
+Read the lab instructions provided below as you work through all 10 tutorials. The entire set should take about 2-3 hours to finish.  
 
-    ```{image} ./figures/Lab2_ROS_Tutorials.png
+```{image} ./figures/Lab2_ROS_Tutorials.png
+:width: 800
+:align: center
+```
+<br>
+
+### 1. Configuring environment
+
+1. For tutorial, [Configuring Environment](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Configuring-ROS2-Environment.html), your environment has already been configured. Simply read through the page but do not run any commands. Instead, display the contents of your `.bashrc` file by running the following commands:
+
+    ```bash
+    cd
+    cat .bashrc
+    ```
+
+1. You should see the following lines at the bottom of the `.bashrc` file. 
+    ```bash
+    source /opt/ros/humble/setup.bash
+    source ~/master_ws/install/setup.bash
+    source /usr/share/gazebo/setup.sh
+    source /usr/share/colcon_cd/function/colcon_cd.sh
+    export ROS_DOMAIN_ID=0  # For master0 and robot0
+    export _colcon_cd_root=/opt/ros/humble/
+    export TURTLEBOT3_MODEL=burger
+    export LDS_MODEL=LDS-01 # replace with LDS-02 if using new LIDAR
+    source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
+    ```
+    Please note that your `ROS_DOMAIN_ID=XX` should match your computer ID, where `XX` corresponds to the `XX` in `MasterXX`.
+
+
+### 2. Using turtlesim, ros2, and rqt
+
+- Do **not** install `rqt` and its plugins as they have already been installed.
+
+### 3. Understanding nodes
+
+- Work though this tutorial
+
+### 4. Understanding topics
+
+- Try all the options for the checkboxes on the `rqt_graph`.
+
+    ```{image} ./figures/Lab2_rqt_graph.png
     :width: 720
     :align: center
     ```
     <br>
 
-### 1. Configuring environment
+- Get the same graph as shown above and save it. The block locations may be different than the graph provided above. Submit the plot on Gradescope. 
 
-For the first tutorial, `Configuring Environment`, your environment has already been configured. Simply read through the page but do not run any commands. Instead, display the contents of your `.bashrc` file by running the following commands:
-
-```bash
-cd
-cat .bashrc
-```
-
-You should see the following lines at the bottom of the `.bashrc` file. 
-```bash
-source /opt/ros/humble/setup.bash
-source ~/master_ws/install/setup.bash
-source /usr/share/gazebo/setup.sh
-source /usr/share/colcon_cd/function/colcon_cd.sh
-export ROS_DOMAIN_ID=0  # For master0 and robot0
-export _colcon_cd_root=/opt/ros/humble/
-export TURTLEBOT3_MODEL=burger
-export LDS_MODEL=LDS-01 # replace with LDS-02 if using new LIDAR
-source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
-```
-Please note that your `ROS_DOMAIN_ID=XX` should match your computer ID, where `XX` corresponds to the `XX` in `MasterXX`.
+### 5. Understanding services
 
 
-Visit [Beginner: CLI Tools](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools.html) and complete all 10 tutorials. The entire set should take approximately 2 hours to finish.  
 
-
-Using turtlesim, ros2, and rqt
-Understanding nodes
-Understanding topics
-Understanding services
-Understanding parameters
-Understanding actions
-Using rqt_console to view logs
-Launching nodes
-Recording and playing back data
+### 6. Understanding parameters
+### 7. Understanding actions
+### 8. Using rqt_console to view logs
+### 9. Launching nodes
+### 10. Recording and playing back data
 
 
 ## Deliverables (NOT READY YET)

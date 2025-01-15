@@ -382,6 +382,15 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ros-introduction">ROS Introduction.</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ros-command-line-tools">ROS Command-line tools</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configuring-environment">1. Configuring environment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-turtlesim-ros2-and-rqt">2. Using turtlesim, ros2, and rqt</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-nodes">3. Understanding nodes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-topics">4. Understanding topics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-services">5. Understanding services</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-parameters">6. Understanding parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-actions">7. Understanding actions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-rqt-console-to-view-logs">8. Using rqt_console to view logs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#launching-nodes">9. Launching nodes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#recording-and-playing-back-data">10. Recording and playing back data</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables-not-ready-yet">Deliverables (NOT READY YET)</a></li>
@@ -416,21 +425,19 @@ document.write(`
 <section id="ros-command-line-tools">
 <h2>ROS Command-line tools<a class="headerlink" href="#ros-command-line-tools" title="Permalink to this heading">#</a></h2>
 <p>The tutorials at <a class="reference external" href="https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools.html">Beginner: CLI Tools</a> offer a great introduction to ROS (Robot Operating System) command-line tools for beginners. These tutorials are designed to help you get started with ROS and learn how to use its command-line tools effectively.</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>```{image} ./figures/Lab2_ROS_Tutorials.png
-:width: 720
-:align: center
-```
-&lt;br&gt;
-</pre></div>
-</div>
+<p>Read the lab instructions provided below as you work through all 10 tutorials. The entire set should take about 2-3 hours to finish.</p>
+<a class="reference internal image-reference" href="../_images/Lab2_ROS_Tutorials.png"><img alt="../_images/Lab2_ROS_Tutorials.png" class="align-center" src="../_images/Lab2_ROS_Tutorials.png" style="width: 800px;" /></a>
+<br>
 <section id="configuring-environment">
 <h3>1. Configuring environment<a class="headerlink" href="#configuring-environment" title="Permalink to this heading">#</a></h3>
-<p>For the first tutorial, <code class="docutils literal notranslate"><span class="pre">Configuring</span> <span class="pre">Environment</span></code>, your environment has already been configured. Simply read through the page but do not run any commands. Instead, display the contents of your <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> file by running the following commands:</p>
+<ol class="arabic">
+<li><p>For tutorial, <a class="reference external" href="https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Configuring-ROS2-Environment.html">Configuring Environment</a>, your environment has already been configured. Simply read through the page but do not run any commands. Instead, display the contents of your <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> file by running the following commands:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span>
 cat<span class="w"> </span>.bashrc
 </pre></div>
 </div>
-<p>You should see the following lines at the bottom of the <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> file.</p>
+</li>
+<li><p>You should see the following lines at the bottom of the <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> file.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span>/opt/ros/humble/setup.bash
 <span class="nb">source</span><span class="w"> </span>~/master_ws/install/setup.bash
 <span class="nb">source</span><span class="w"> </span>/usr/share/gazebo/setup.sh
@@ -443,16 +450,48 @@ cat<span class="w"> </span>.bashrc
 </pre></div>
 </div>
 <p>Please note that your <code class="docutils literal notranslate"><span class="pre">ROS_DOMAIN_ID=XX</span></code> should match your computer ID, where <code class="docutils literal notranslate"><span class="pre">XX</span></code> corresponds to the <code class="docutils literal notranslate"><span class="pre">XX</span></code> in <code class="docutils literal notranslate"><span class="pre">MasterXX</span></code>.</p>
-<p>Visit <a class="reference external" href="https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools.html">Beginner: CLI Tools</a> and complete all 10 tutorials. The entire set should take approximately 2 hours to finish.</p>
-<p>Using turtlesim, ros2, and rqt
-Understanding nodes
-Understanding topics
-Understanding services
-Understanding parameters
-Understanding actions
-Using rqt_console to view logs
-Launching nodes
-Recording and playing back data</p>
+</li>
+</ol>
+</section>
+<section id="using-turtlesim-ros2-and-rqt">
+<h3>2. Using turtlesim, ros2, and rqt<a class="headerlink" href="#using-turtlesim-ros2-and-rqt" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Do <strong>not</strong> install <code class="docutils literal notranslate"><span class="pre">rqt</span></code> and its plugins as they have already been installed.</p></li>
+</ul>
+</section>
+<section id="understanding-nodes">
+<h3>3. Understanding nodes<a class="headerlink" href="#understanding-nodes" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Work though this tutorial</p></li>
+</ul>
+</section>
+<section id="understanding-topics">
+<h3>4. Understanding topics<a class="headerlink" href="#understanding-topics" title="Permalink to this heading">#</a></h3>
+<ul>
+<li><p>Try all the options for the checkboxes on the <code class="docutils literal notranslate"><span class="pre">rqt_graph</span></code>.</p>
+<a class="reference internal image-reference" href="../_images/Lab2_rqt_graph.png"><img alt="../_images/Lab2_rqt_graph.png" class="align-center" src="../_images/Lab2_rqt_graph.png" style="width: 720px;" /></a>
+  <br>
+</li>
+<li><p>Get the same graph as shown above and save it. The block locations may be different than the graph provided above. Submit the plot on Gradescope.</p></li>
+</ul>
+</section>
+<section id="understanding-services">
+<h3>5. Understanding services<a class="headerlink" href="#understanding-services" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="understanding-parameters">
+<h3>6. Understanding parameters<a class="headerlink" href="#understanding-parameters" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="understanding-actions">
+<h3>7. Understanding actions<a class="headerlink" href="#understanding-actions" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="using-rqt-console-to-view-logs">
+<h3>8. Using rqt_console to view logs<a class="headerlink" href="#using-rqt-console-to-view-logs" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="launching-nodes">
+<h3>9. Launching nodes<a class="headerlink" href="#launching-nodes" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="recording-and-playing-back-data">
+<h3>10. Recording and playing back data<a class="headerlink" href="#recording-and-playing-back-data" title="Permalink to this heading">#</a></h3>
 </section>
 </section>
 <section id="deliverables-not-ready-yet">
@@ -610,6 +649,15 @@ Recording and playing back data</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ros-introduction">ROS Introduction.</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ros-command-line-tools">ROS Command-line tools</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configuring-environment">1. Configuring environment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-turtlesim-ros2-and-rqt">2. Using turtlesim, ros2, and rqt</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-nodes">3. Understanding nodes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-topics">4. Understanding topics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-services">5. Understanding services</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-parameters">6. Understanding parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-actions">7. Understanding actions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-rqt-console-to-view-logs">8. Using rqt_console to view logs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#launching-nodes">9. Launching nodes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#recording-and-playing-back-data">10. Recording and playing back data</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables-not-ready-yet">Deliverables (NOT READY YET)</a></li>
