@@ -17,6 +17,15 @@ ROS2 Humble Hawksbill: https://docs.ros.org/en/humble/
 
 The tutorials at [Beginner: CLI Tools](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools.html) offer a great introduction to ROS (Robot Operating System) command-line tools for beginners. These tutorials are designed to help you get started with ROS and learn how to use its command-line tools effectively.  
 
+
+    ```{image} ./figures/Lab2_ROS_Tutorials.png
+    :width: 720
+    :align: center
+    ```
+    <br>
+
+### 1. Configuring environment
+
 For the first tutorial, `Configuring Environment`, your environment has already been configured. Simply read through the page but do not run any commands. Instead, display the contents of your `.bashrc` file by running the following commands:
 
 ```bash
@@ -41,6 +50,16 @@ Please note that your `ROS_DOMAIN_ID=XX` should match your computer ID, where `X
 
 Visit [Beginner: CLI Tools](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools.html) and complete all 10 tutorials. The entire set should take approximately 2 hours to finish.  
 
+
+Using turtlesim, ros2, and rqt
+Understanding nodes
+Understanding topics
+Understanding services
+Understanding parameters
+Understanding actions
+Using rqt_console to view logs
+Launching nodes
+Recording and playing back data
 
 
 ## Deliverables (NOT READY YET)

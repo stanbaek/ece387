@@ -380,7 +380,10 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose">Purpose</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ros-introduction">ROS Introduction.</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ros-command-line-tools">ROS Command-line tools</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ros-command-line-tools">ROS Command-line tools</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configuring-environment">1. Configuring environment</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables-not-ready-yet">Deliverables (NOT READY YET)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint">Checkpoint</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ros">ROS</a></li>
@@ -413,6 +416,15 @@ document.write(`
 <section id="ros-command-line-tools">
 <h2>ROS Command-line tools<a class="headerlink" href="#ros-command-line-tools" title="Permalink to this heading">#</a></h2>
 <p>The tutorials at <a class="reference external" href="https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools.html">Beginner: CLI Tools</a> offer a great introduction to ROS (Robot Operating System) command-line tools for beginners. These tutorials are designed to help you get started with ROS and learn how to use its command-line tools effectively.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>```{image} ./figures/Lab2_ROS_Tutorials.png
+:width: 720
+:align: center
+```
+&lt;br&gt;
+</pre></div>
+</div>
+<section id="configuring-environment">
+<h3>1. Configuring environment<a class="headerlink" href="#configuring-environment" title="Permalink to this heading">#</a></h3>
 <p>For the first tutorial, <code class="docutils literal notranslate"><span class="pre">Configuring</span> <span class="pre">Environment</span></code>, your environment has already been configured. Simply read through the page but do not run any commands. Instead, display the contents of your <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> file by running the following commands:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span>
 cat<span class="w"> </span>.bashrc
@@ -432,6 +444,16 @@ cat<span class="w"> </span>.bashrc
 </div>
 <p>Please note that your <code class="docutils literal notranslate"><span class="pre">ROS_DOMAIN_ID=XX</span></code> should match your computer ID, where <code class="docutils literal notranslate"><span class="pre">XX</span></code> corresponds to the <code class="docutils literal notranslate"><span class="pre">XX</span></code> in <code class="docutils literal notranslate"><span class="pre">MasterXX</span></code>.</p>
 <p>Visit <a class="reference external" href="https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools.html">Beginner: CLI Tools</a> and complete all 10 tutorials. The entire set should take approximately 2 hours to finish.</p>
+<p>Using turtlesim, ros2, and rqt
+Understanding nodes
+Understanding topics
+Understanding services
+Understanding parameters
+Understanding actions
+Using rqt_console to view logs
+Launching nodes
+Recording and playing back data</p>
+</section>
 </section>
 <section id="deliverables-not-ready-yet">
 <h2>Deliverables (NOT READY YET)<a class="headerlink" href="#deliverables-not-ready-yet" title="Permalink to this heading">#</a></h2>
@@ -586,7 +608,10 @@ cat<span class="w"> </span>.bashrc
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose">Purpose</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ros-introduction">ROS Introduction.</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ros-command-line-tools">ROS Command-line tools</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ros-command-line-tools">ROS Command-line tools</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configuring-environment">1. Configuring environment</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables-not-ready-yet">Deliverables (NOT READY YET)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint">Checkpoint</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ros">ROS</a></li>
