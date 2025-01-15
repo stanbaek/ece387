@@ -17,8 +17,6 @@ ROS2 Humble Hawksbill: https://docs.ros.org/en/humble/
 
 The tutorials at [Beginner: CLI Tools](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools.html) offer a great introduction to ROS (Robot Operating System) command-line tools for beginners. These tutorials are designed to help you get started with ROS and learn how to use its command-line tools effectively.  
 
-Visit [Beginner: CLI Tools](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools.html) and complete all 10 tutorials. The entire set should take approximately 2 hours to finish.  
-
 For the first tutorial, `Configuring Environment`, your environment has already been configured. Simply read through the page but do not run any commands. Instead, display the contents of your `.bashrc` file by running the following commands:
 
 ```bash
@@ -38,9 +36,10 @@ export TURTLEBOT3_MODEL=burger
 export LDS_MODEL=LDS-01 # replace with LDS-02 if using new LIDAR
 source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
 ```
-
 Please note that your `ROS_DOMAIN_ID=XX` should match your computer ID, where `XX` corresponds to the `XX` in `MasterXX`.
 
+
+Visit [Beginner: CLI Tools](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools.html) and complete all 10 tutorials. The entire set should take approximately 2 hours to finish.  
 
 
 
