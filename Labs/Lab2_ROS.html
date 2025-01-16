@@ -393,11 +393,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#recording-and-playing-back-data">10. Recording and playing back data</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables-not-ready-yet">Deliverables (NOT READY YET)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint">Checkpoint</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ros">ROS</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Checkpoint</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cleanup">Cleanup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">Deliverables</a></li>
 </ul>
             </nav>
         </div>
@@ -424,16 +420,16 @@ document.write(`
 </section>
 <section id="ros-command-line-tools">
 <h2>ROS Command-line tools<a class="headerlink" href="#ros-command-line-tools" title="Permalink to this heading">#</a></h2>
-<p>The tutorials at <a class="reference external" href="https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools.html">Beginner: CLI Tools</a> offer a great introduction to ROS (Robot Operating System) command-line tools for beginners. These tutorials are designed to help you get started with ROS and learn how to use its command-line tools effectively.</p>
-<p>Read the lab instructions provided below as you work through all 10 tutorials. The entire set should take about 2-3 hours to finish.</p>
+<p>The tutorials at <a class="reference external" href="https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools.html">Beginner: CLI Tools</a> provide an excellent starting point for learning ROS (Robot Operating System) command-line tools. These tutorials are designed to help beginners get familiar with ROS and use its command-line tools effectively.</p>
+<p>Follow the lab instructions provided below as you work through all 10 tutorials. The entire set should take about 2-3 hours to finish.</p>
 <a class="reference internal image-reference" href="../_images/Lab2_ROS_Tutorials.png"><img alt="../_images/Lab2_ROS_Tutorials.png" class="align-center" src="../_images/Lab2_ROS_Tutorials.png" style="width: 800px;" /></a>
 <br>
 <section id="configuring-environment">
 <h3>1. Configuring environment<a class="headerlink" href="#configuring-environment" title="Permalink to this heading">#</a></h3>
-<ol class="arabic">
-<li><p>For tutorial, <a class="reference external" href="https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Configuring-ROS2-Environment.html">Configuring Environment</a>, your environment has already been configured. Simply read through the page but do not run any commands. Instead, display the contents of your <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> file by running the following commands:</p>
+<ul>
+<li><p>For this firt tutorial, <a class="reference external" href="https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Configuring-ROS2-Environment.html">Configuring Environment</a>, your environment has already been configured. Simply read through the page, but do not run any commands. Instead, open the <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> file by running the following commands:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span>
-cat<span class="w"> </span>.bashrc
+gedit<span class="w"> </span>.bashrc
 </pre></div>
 </div>
 </li>
@@ -449,132 +445,86 @@ cat<span class="w"> </span>.bashrc
 <span class="nb">source</span><span class="w"> </span>/usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
 </pre></div>
 </div>
-<p>Please note that your <code class="docutils literal notranslate"><span class="pre">ROS_DOMAIN_ID=XX</span></code> should match your computer ID, where <code class="docutils literal notranslate"><span class="pre">XX</span></code> corresponds to the <code class="docutils literal notranslate"><span class="pre">XX</span></code> in <code class="docutils literal notranslate"><span class="pre">MasterXX</span></code>.</p>
+<p>Your <code class="docutils literal notranslate"><span class="pre">ROS_DOMAIN_ID=XX</span></code> should match your computer ID, where <code class="docutils literal notranslate"><span class="pre">XX</span></code> corresponds to the <code class="docutils literal notranslate"><span class="pre">XX</span></code> in <code class="docutils literal notranslate"><span class="pre">MasterXX</span></code>. Update the file, save the changes, and exit.</p>
 </li>
-</ol>
+</ul>
 </section>
 <section id="using-turtlesim-ros2-and-rqt">
 <h3>2. Using turtlesim, ros2, and rqt<a class="headerlink" href="#using-turtlesim-ros2-and-rqt" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
-<li><p>Do <strong>not</strong> install <code class="docutils literal notranslate"><span class="pre">rqt</span></code> and its plugins as they have already been installed.</p></li>
+<li><p>Do <strong>not</strong> install <code class="docutils literal notranslate"><span class="pre">rqt</span></code> and its plugins, as they are already installed.</p></li>
 </ul>
 </section>
 <section id="understanding-nodes">
 <h3>3. Understanding nodes<a class="headerlink" href="#understanding-nodes" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
-<li><p>Work though this tutorial</p></li>
+<li><p>Complete this tutorial.</p></li>
 </ul>
 </section>
 <section id="understanding-topics">
 <h3>4. Understanding topics<a class="headerlink" href="#understanding-topics" title="Permalink to this heading">#</a></h3>
 <ul>
-<li><p>Try all the options for the checkboxes on the <code class="docutils literal notranslate"><span class="pre">rqt_graph</span></code>.</p>
+<li><p>Try all the options for the checkboxes in <code class="docutils literal notranslate"><span class="pre">rqt_graph</span></code>.</p>
 <a class="reference internal image-reference" href="../_images/Lab2_rqt_graph.png"><img alt="../_images/Lab2_rqt_graph.png" class="align-center" src="../_images/Lab2_rqt_graph.png" style="width: 720px;" /></a>
   <br>
 </li>
-<li><p>Get the same graph as shown above and save it. The block locations may be different than the graph provided above. Submit the plot on Gradescope.</p></li>
+<li><p>Recreate the graph shown above and save it as a .png file. While the block locations might differ from the example, ensure your graph structure matches. Save the graph by clicking the <code class="docutils literal notranslate"><span class="pre">Save</span> <span class="pre">as</span> <span class="pre">image</span></code> button in the top-right corner and submit it on Gradescope.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Do NOT take pictures of your computer screen using your phone because (i) it can result in sampling aliasing, as explained in ECE215/ECE315, (ii) it will require more steps compared to a simple screen capture, and (iii) the resulting image will always be blurrier than a direct screen capture.</p>
+</div>
+</li>
 </ul>
 </section>
 <section id="understanding-services">
 <h3>5. Understanding services<a class="headerlink" href="#understanding-services" title="Permalink to this heading">#</a></h3>
+<ul>
+<li><p>Follow the instruction in this turtorial. At the end, spawn an additional turtle (so there are 3 turtles in total) near the center of the window. Right click on the title bar and select <code class="docutils literal notranslate"><span class="pre">Take</span> <span class="pre">Screenshot</span></code>.  You can also take a screenshot using the <code class="docutils literal notranslate"><span class="pre">Print</span> <span class="pre">Screen</span></code> key on your keyboard. Then, submit the screenshot on Gradescope.</p>
+<a class="reference internal image-reference" href="../_images/Lab2_Spawn3Turtles.png"><img alt="../_images/Lab2_Spawn3Turtles.png" class="align-center" src="../_images/Lab2_Spawn3Turtles.png" style="width: 320px;" /></a>
+  <br>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>You will receive a grade of -10 everytime you submit a picture of computer screen taken by your phone or mobile device.</p>
+</div>
+</li>
+</ul>
 </section>
 <section id="understanding-parameters">
 <h3>6. Understanding parameters<a class="headerlink" href="#understanding-parameters" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Complete this tutorial.</p></li>
+</ul>
 </section>
 <section id="understanding-actions">
 <h3>7. Understanding actions<a class="headerlink" href="#understanding-actions" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Complete this tutorial.</p></li>
+</ul>
 </section>
 <section id="using-rqt-console-to-view-logs">
 <h3>8. Using rqt_console to view logs<a class="headerlink" href="#using-rqt-console-to-view-logs" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Complete this tutorial.</p></li>
+</ul>
 </section>
 <section id="launching-nodes">
 <h3>9. Launching nodes<a class="headerlink" href="#launching-nodes" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Complete this tutorial.</p></li>
+</ul>
 </section>
 <section id="recording-and-playing-back-data">
 <h3>10. Recording and playing back data<a class="headerlink" href="#recording-and-playing-back-data" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Create a directory called <code class="docutils literal notranslate"><span class="pre">lab2</span></code> within your local repository.  Then, create the <code class="docutils literal notranslate"><span class="pre">bag_files</span></code> directory inside the <code class="docutils literal notranslate"><span class="pre">lab2</span></code> directory.  As you follow the instruction in this tutorial, save the <code class="docutils literal notranslate"><span class="pre">subset</span></code> bag file in the <code class="docutils literal notranslate"><span class="pre">bag_files</span></code> directory.  Ensure the recording time is approimately 10 seconds. Push your code to your GitHub repository.</p></li>
+</ul>
 </section>
 </section>
-<section id="deliverables-not-ready-yet">
-<h2>Deliverables (NOT READY YET)<a class="headerlink" href="#deliverables-not-ready-yet" title="Permalink to this heading">#</a></h2>
-<p>Below you will run ROS commands. With the client and server nodes running execute the below commands.</p>
-<p>List all running nodes:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-<p>List the active topics:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> 
-</pre></div>
-</div>
-<p>Display running nodes and communication between them:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> 
-</pre></div>
-</div>
-<p>Exit the rqt_graph.</p>
-<p>Show information about a the <strong>/client</strong> topic such as what type of messages are sent over the topic and publishing and subscribing nodes.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> 
-</pre></div>
-</div>
-<p>Display information about the message that is sent over the <strong>/client</strong> topic.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-<p>Display messages sent over the <strong>/client</strong> topic:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-<p>In the ICE3_Client notebook when you send a message you should see the message echoed above.</p>
-</section>
-<section id="checkpoint">
-<h2>Checkpoint<a class="headerlink" href="#checkpoint" title="Permalink to this heading">#</a></h2>
-<p>Once complete, take the necessary screen shots of all the items above functioning. Upload those screenshots to your repo in a Module03 folder within the master folder of your repo.</p>
-</section>
-<section id="ros">
-<h2>ROS<a class="headerlink" href="#ros" title="Permalink to this heading">#</a></h2>
-<p>Below you will see the ROS commands you will use throughout this course to investigate your ROS system and write your lab reports. The “!” character in the front allows us to run bash commands from Jupyter and would <strong>NOT</strong> be used in the command line.</p>
-<p>With the talker and listener nodes running execute the below commands.</p>
-<p>List all running nodes:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ rosnode list
-</pre></div>
-</div>
-<p>You should see the listener and talker nodes. The <em>/rosout</em> node is created when running <code class="docutils literal notranslate"><span class="pre">roscore</span></code> and facilitates communication in the network. You can ignore this node in your lab reports.</p>
-<p>Get more information about the <em>/listener</em> node:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ rosnode info /listener
-</pre></div>
-</div>
-<p>You can see what topics the node is publishing and subscribing to. It publishes to the ROS log file (for debugging) and subscribes to the <strong>/chat</strong> topic.</p>
-<p>List the active topics:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ rostopic list
-</pre></div>
-</div>
-<p>The first topic is the one we created. The last two are created by <code class="docutils literal notranslate"><span class="pre">roscore</span></code> and can be ignored.</p>
-<p>Show information about the <strong>/chat</strong> topic such as what type of messages are sent over the topic and publishing and subscribing nodes.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ rostopic info /chat
-</pre></div>
-</div>
-<p>As expected, the <em>talker</em> node is publishing to the <strong>/chat</strong> topic while the <em>listener</em> node subscribes.</p>
-<p>Display running nodes and communication between them:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ rqt_graph
-</pre></div>
-</div>
-<p>Close the rqt_graph.</p>
-<p>Display information about the message that is sent over the <strong>/chat</strong> topic.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ rostopic type /chat | rosmsg show
-</pre></div>
-</div>
-<p>The output of the command is the same as the information we saw from the ROS documentation. Again, to access the message we have to use the <code class="docutils literal notranslate"><span class="pre">data</span></code> attribute.</p>
-<p>Display messages sent over the <strong>/chat</strong> topic:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ rostopic echo /chat
-</pre></div>
-</div>
-<p>In the ICE1_Talker notebook send a message to the listener. You should see that message show up both here and at the listener. This echo tool is useful to ensure your nodes are sending the messages as expected.</p>
-</section>
-<section id="id1">
-<h2>Checkpoint<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
-<p>Once complete, get checked off by an instructor showing the output of each of the above.</p>
-</section>
-<section id="cleanup">
-<h2>Cleanup<a class="headerlink" href="#cleanup" title="Permalink to this heading">#</a></h2>
-<p>In each of the notebooks reset the Jupyter kernel and clear output (at the top menu bar select “Kernel” and “Restart &amp; Clear Output”). Close each notebook. Shutdown the notebook server by typing <code class="docutils literal notranslate"><span class="pre">ctrl+c</span></code> within the terminal you ran <code class="docutils literal notranslate"><span class="pre">jupyter-notebook</span></code> in. Select ‘y’.</p>
+<section id="deliverables">
+<h2>Deliverables<a class="headerlink" href="#deliverables" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Go to Gradescope and submit the <code class="docutils literal notranslate"><span class="pre">Lab2</span></code> assignment.</p></li>
+</ul>
 </section>
 </section>
 
@@ -660,11 +610,7 @@ cat<span class="w"> </span>.bashrc
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#recording-and-playing-back-data">10. Recording and playing back data</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables-not-ready-yet">Deliverables (NOT READY YET)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint">Checkpoint</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ros">ROS</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Checkpoint</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cleanup">Cleanup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">Deliverables</a></li>
 </ul>
   </nav></div>
 
