@@ -7,6 +7,12 @@ Reference: [NumPy Quickstart Guide](https://numpy.org/doc/stable/user/quickstart
 
 <hr>
 
+
+- [NumPy user guide](https://numpy.org/doc/stable/user/index.html)
+- [NumPy for MATLAB users](https://numpy.org/doc/stable/user/numpy-for-matlab-users.html)
+
+
+
 ## NumPy Overview
 
 NumPy’s main object is the homogeneous multidimensional array. It is a table of elements (usually numbers) of the same type. In NumPy dimensions are called **axes**.
