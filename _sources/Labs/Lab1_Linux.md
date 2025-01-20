@@ -7,7 +7,7 @@
 - Students should be able to use features like tab autocompletion, output redirection (`>`), and pipes (`|`) to streamline their workflow and combine commands for advanced functionality.  
 - Students should be able to view system information and processes using commands like `ps`, `top`, and `cat /proc/cpuinfo`, and perform system actions such as shutting down or restarting from the command line.  
 
-## Linux Commands
+## Linux Commands 🐧
 During class, we covered several basic Linux commands. In this lab, we will get hands-on practice with those commands.
 
 1. To log in the Master computer, use `m3` if you're in the M3 section and `t5` if you're in the T5 section.
