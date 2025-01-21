@@ -380,20 +380,23 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose">Purpose</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#string-formatting">String Formatting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-data-containers">Python Data Containers</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lists">Lists</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tuples">Tuples</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#strings">Strings</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#string-formatting">String Formatting</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dictionaries">Dictionaries</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sets">Sets</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pythonic-coding">Pythonic Coding</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-list-comprehensions">Example: List Comprehensions</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simplifying-conditional-statements">Simplifying Conditional Statements</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ternary-operator">Ternary Operator</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loops">Loops</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#iterating-through-multiple-lists">Iterating Through Multiple Lists</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-data-containers">Python Data Containers</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#strings">Strings</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lists">Lists</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tuples">Tuples</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dictionaries">Dictionaries</a></li>
 </ul>
 </li>
 </ul>
@@ -414,8 +417,162 @@ document.write(`
 <p>This tutorial introduces Pythonic coding practices and key Python data containers such as strings, lists, tuples, and dictionaries.</p>
 <p>Reference: D. Beazley, <em>Python Essential Reference</em>, 4th ed, Addison Wesley, 2009</p>
 </section>
+<section id="python-data-containers">
+<h2>Python Data Containers<a class="headerlink" href="#python-data-containers" title="Permalink to this heading">#</a></h2>
+<section id="lists">
+<h3>Lists<a class="headerlink" href="#lists" title="Permalink to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Lists are <code class="docutils literal notranslate"><span class="pre">mutable</span></code> sequences of objects, created with square brackets:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Dave&quot;</span><span class="p">,</span> <span class="s2">&quot;Mark&quot;</span><span class="p">,</span> <span class="s2">&quot;Ann&quot;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Lists are indexed by integers, starting with zero. Use the indexing operator to access and modify individual items of the list:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">names</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>     <span class="c1"># print Ann</span>
+<span class="n">names</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Jeff&quot;</span>   <span class="c1"># [&quot;Jeff&quot;, &quot;Mark&quot;, &quot;Ann&quot;]</span>
+<span class="n">names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Paula&quot;</span><span class="p">)</span>   <span class="c1"># [&quot;Jeff&quot;, &quot;Mark&quot;, &quot;Ann&quot;, &quot;Paula&quot;]</span>
+<span class="n">names</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;Thomas&quot;</span><span class="p">)</span> <span class="c1"># [&quot;Jeff&quot;, &quot;Mark&quot;, &quot;Thomas&quot;, &quot;Ann&quot;, &quot;Paula&quot;]</span>
+</pre></div>
+</div>
+</li>
+<li><p>Lists can be sliced and concatenated using:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">stop</span><span class="p">:</span><span class="n">stride</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>For example,</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Jeff&quot;</span><span class="p">,</span> <span class="s2">&quot;Mark&quot;</span><span class="p">,</span> <span class="s2">&quot;Thomas&quot;</span><span class="p">,</span> <span class="s2">&quot;Ann&quot;</span><span class="p">,</span> <span class="s2">&quot;Paula&quot;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">names</span><span class="p">[:</span><span class="mi">2</span><span class="p">])</span>    <span class="c1"># [&#39;Jeff&#39;, &#39;Mark&#39;]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">names</span><span class="p">[</span><span class="mi">2</span><span class="p">:])</span>    <span class="c1"># [&#39;Thomas&#39;, &#39;Ann&#39;, &#39;Paula&#39;]</span>
+<span class="n">names</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Dave&#39;</span><span class="p">,</span> <span class="s1">&#39;Mark&#39;</span><span class="p">,</span> <span class="s1">&#39;Jeff&#39;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>        <span class="c1"># [&#39;Dave&#39;, &#39;Mark&#39;, &#39;Jeff&#39;, &#39;Ann&#39;, &#39;Paula&#39;]</span>
+</pre></div>
+</div>
+</li>
+<li><p>Use the plus <code class="docutils literal notranslate"><span class="pre">+</span></code> operator to concatenate lists:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span><span class="o">+</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]</span>   <span class="c1"># [1, 2, 3, 4, 5, 6]</span>
+</pre></div>
+</div>
+</li>
+<li><p>An empty list can be created by one of two ways</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">names</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+</pre></div>
+</div>
+</li>
+<li><p>Lists can contain any kind of Python object, including other lists, as in the following example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Dave&quot;</span><span class="p">,</span> <span class="mf">3.14</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Mark&quot;</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">101</span><span class="p">]],</span> <span class="mi">10</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><p>Items contained in nested lists are accessed by applying more than one indexing operation, as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>     <span class="c1"># Dave</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>     <span class="c1"># [&#39;Mark&#39;, 7, 9, [0, 101]]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># 7</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">3</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># 101</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Pythonic Tip:</strong> List comprehensions:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">squares</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">squares</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="tuples">
+<h3>Tuples<a class="headerlink" href="#tuples" title="Permalink to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>To create simple data structures, you can pack a collection of values together into a single object using a <em>tuple</em>.  Tubles are ordered, immutable collections of items, created with parentheses.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">stock</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;GOOG&quot;</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mf">490.10</span><span class="p">)</span>
+<span class="n">address</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;www.python.org&#39;</span><span class="p">,</span> <span class="mi">80</span><span class="p">)</span>
+<span class="n">person</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Stan&quot;</span><span class="p">,</span> <span class="s2">&quot;Baek&quot;</span><span class="p">,</span> <span class="s2">&quot;stanley.baek@afacademy&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Python often recognizes that a tuple is intended even if the parentheses are missing</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">stock</span> <span class="o">=</span> <span class="s2">&quot;GOOG&quot;</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mf">490.10</span>
+<span class="n">address</span> <span class="o">=</span> <span class="s1">&#39;www.python.org&#39;</span><span class="p">,</span> <span class="mi">80</span>
+<span class="n">person</span> <span class="o">=</span> <span class="s2">&quot;Stan&quot;</span><span class="p">,</span> <span class="s2">&quot;Baek&quot;</span><span class="p">,</span> <span class="s2">&quot;stanley.baek@afacademy&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p>For completeness, 0- and 1-element tuples can be defined, but have special syntax:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="p">()</span>    <span class="c1"># 0-tuple, empty tuple</span>
+<span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,)</span>  <span class="c1"># 1-tuple  </span>
+<span class="n">c</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>    <span class="c1"># 1-tuple</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">c</span><span class="p">))</span>
+<span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span>   <span class="c1"># not a tuple</span>
+<span class="n">c</span> <span class="o">=</span> <span class="mi">1</span>     <span class="c1"># not a tuple</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">c</span><span class="p">))</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Tuple Unpacking:</strong> The values in a tuple can be extracted by numerical index just like a list. However, it is more common to unpack tuples into a set of variables like this</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">name</span><span class="p">,</span> <span class="n">shares</span><span class="p">,</span> <span class="n">price</span> <span class="o">=</span> <span class="n">stock</span>
+<span class="n">host</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="n">address</span>
+<span class="n">first_name</span><span class="p">,</span> <span class="n">last_name</span><span class="p">,</span> <span class="n">phone</span> <span class="o">=</span> <span class="n">person</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Immutable:</strong> Although tuples support most of the same operations as lists, such as indexing, slicing, and concatenation, the contents of a tuple <code class="docutils literal notranslate"><span class="pre">cannot</span> <span class="pre">be</span> <span class="pre">modified</span></code> after creation.  That is, you cannot replace, delete, or append new elements to an exisiting tuple.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">stock</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> 
+<span class="n">stock</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">200</span>  <span class="c1"># error</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Python tuples and strings are <code class="docutils literal notranslate"><span class="pre">immutable</span></code>. This means that once it is created, its contents cannot be changed — elements cannot be added, removed, or altered.  On the other hand, Python lists are <code class="docutils literal notranslate"><span class="pre">mutable</span></code>.</p>
+</div>
+</section>
+<section id="strings">
+<h3>Strings<a class="headerlink" href="#strings" title="Permalink to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Strings are created by enclosing characters in single, double, or triple quotes:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="s2">&quot;Hellow World&quot;</span>
+<span class="n">b</span> <span class="o">=</span> <span class="s1">&#39;Python is groovy&#39;</span>
+<span class="n">c</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;Computer says &#39;No&#39;&quot;&quot;&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>The same type of quote used to start a string must be used to terminate it.  Triple-quoted strings capture all the text that appears prior to the terminating triple quote, as opposed to single- and double-quoted strings, which must be  specified on one logical line.  Triple-quoted strings are useful when the contents of a string literal span multiple lines of text such as the following:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;Content-type: text/html</span>
+
+<span class="s1">&lt;h1&gt; Hello World &lt;/h1&gt;</span>
+<span class="s1">Click &lt;a href=&quot;http://www.python.org&quot;&gt;here&lt;/a&gt;.</span>
+<span class="s1">&#39;&#39;&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Strings are stored as sequences of characters indexed by integers starting at zero</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="s2">&quot;Hello World&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>   <span class="c1"># First character</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">[:</span><span class="mi">5</span><span class="p">])</span>  <span class="c1"># Slice: &#39;Hello&#39;  </span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">6</span><span class="p">:])</span>  <span class="c1"># Slice: &#39;World&#39;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">8</span><span class="p">])</span> <span class="c1"># Slice: &#39;lo Wo&#39; </span>
+</pre></div>
+</div>
+</li>
+<li><p>Try this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;37&quot;</span>
+<span class="n">y</span> <span class="o">=</span> <span class="s2">&quot;42&quot;</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">x</span><span class="o">+</span><span class="n">y</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="c1"># what does this print?  why?</span>
+<span class="n">z</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">+</span><span class="nb">int</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>  <span class="c1"># what does this print?</span>
+</pre></div>
+</div>
+</li>
+</ol>
 <section id="string-formatting">
-<h2>String Formatting<a class="headerlink" href="#string-formatting" title="Permalink to this heading">#</a></h2>
+<h4>String Formatting<a class="headerlink" href="#string-formatting" title="Permalink to this heading">#</a></h4>
 <ul>
 <li><p>Python offers multiple ways to format strings. Here are some common methods:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;The legendary pirate captain&quot;</span>
@@ -456,6 +613,68 @@ document.write(`
 </div>
 </li>
 </ul>
+</section>
+</section>
+<section id="dictionaries">
+<h3>Dictionaries<a class="headerlink" href="#dictionaries" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>In Python, a dictionary (or dict) is mapping between a set of indices (keys) and a set of values</p></li>
+<li><p>The items in a dictionary are key-value pairs</p></li>
+<li><p>Keys can be any Python data type</p></li>
+<li><p>Dictionaries are mutable, unordered collection of key-value pairs.</p></li>
+</ul>
+<ol class="arabic">
+<li><p>We can create a dictionary using curly braces:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">student</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Alice&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span> <span class="s2">&quot;grade&quot;</span><span class="p">:</span> <span class="s2">&quot;A&quot;</span><span class="p">}</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">student</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</li>
+<li><p>Common operations are:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">student</span><span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">26</span>  <span class="c1"># Modify value</span>
+<span class="n">student</span><span class="p">[</span><span class="s2">&quot;city&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;New York&quot;</span>  <span class="c1"># Add new key-value pair</span>
+<span class="k">del</span> <span class="n">student</span><span class="p">[</span><span class="s2">&quot;grade&quot;</span><span class="p">]</span>  <span class="c1"># Remove key</span>
+</pre></div>
+</div>
+</li>
+<li><p>Keys can be retrieved using <code class="docutils literal notranslate"><span class="pre">.keys()</span></code> and values using <code class="docutils literal notranslate"><span class="pre">.values()</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># keys vs values</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">eng2sp</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">eng2sp</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="sets">
+<h3>Sets<a class="headerlink" href="#sets" title="Permalink to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Sets are unordered, mutable collection of unique items.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">my_set</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;apple&quot;</span><span class="p">,</span> <span class="s2">&quot;banana&quot;</span><span class="p">,</span> <span class="s2">&quot;cherry&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p>Common operations are</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">my_set</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span>  <span class="c1"># Add element</span>
+<span class="n">my_set</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="s2">&quot;banana&quot;</span><span class="p">)</span>  <span class="c1"># Remove element</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;apple&quot;</span> <span class="ow">in</span> <span class="n">my_set</span><span class="p">)</span>  <span class="c1"># Membership test</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Set Operations:</strong></p>
+<ul class="simple">
+<li><p>Union, Intersection, Difference:</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">set1</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">}</span>
+<span class="n">set2</span> <span class="o">=</span> <span class="p">{</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">}</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">set1</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">set2</span><span class="p">))</span>  <span class="c1"># {1, 2, 3, 4, 5}</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">set1</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">set2</span><span class="p">))</span>  <span class="c1"># {3}</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">set1</span> <span class="o">-</span> <span class="n">set2</span><span class="p">)</span>  <span class="c1"># {1, 2}</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
 </section>
 <section id="pythonic-coding">
 <h2>Pythonic Coding<a class="headerlink" href="#pythonic-coding" title="Permalink to this heading">#</a></h2>
@@ -631,207 +850,6 @@ document.write(`
 </ol>
 </section>
 </section>
-<section id="python-data-containers">
-<h2>Python Data Containers<a class="headerlink" href="#python-data-containers" title="Permalink to this heading">#</a></h2>
-<section id="strings">
-<h3>Strings<a class="headerlink" href="#strings" title="Permalink to this heading">#</a></h3>
-<ol class="arabic">
-<li><p>Strings are created by enclosing characters in single, double, or triple quotes:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="s2">&quot;Hellow World&quot;</span>
-<span class="n">b</span> <span class="o">=</span> <span class="s1">&#39;Python is groovy&#39;</span>
-<span class="n">c</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;Computer says &#39;No&#39;&quot;&quot;&quot;</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
-</pre></div>
-</div>
-</li>
-<li><p>The same type of quote used to start a string must be used to terminate it.  Triple-quoted strings capture all the text that appears prior to the terminating triple quote, as opposed to single- and double-quoted strings, which must be  specified on one logical line.  Triple-quoted strings are useful when the contents of a string literal span multiple lines of text such as the following:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;Content-type: text/html</span>
-
-<span class="s1">&lt;h1&gt; Hello World &lt;/h1&gt;</span>
-<span class="s1">Click &lt;a href=&quot;http://www.python.org&quot;&gt;here&lt;/a&gt;.</span>
-<span class="s1">&#39;&#39;&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</li>
-<li><p>Strings are stored as sequences of characters indexed by integers starting at zero</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="s2">&quot;Hello World&quot;</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>   <span class="c1"># First character</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">[:</span><span class="mi">5</span><span class="p">])</span>  <span class="c1"># Slice: &#39;Hello&#39;  </span>
-<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">6</span><span class="p">:])</span>  <span class="c1"># Slice: &#39;World&#39;</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">8</span><span class="p">])</span> <span class="c1"># Slice: &#39;lo Wo&#39; </span>
-</pre></div>
-</div>
-</li>
-<li><p>Try this:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;37&quot;</span>
-<span class="n">y</span> <span class="o">=</span> <span class="s2">&quot;42&quot;</span>
-<span class="n">z</span> <span class="o">=</span> <span class="n">x</span><span class="o">+</span><span class="n">y</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="c1"># what does this print?  why?</span>
-<span class="n">z</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">+</span><span class="nb">int</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>  <span class="c1"># what does this print?</span>
-</pre></div>
-</div>
-</li>
-</ol>
-</section>
-<section id="lists">
-<h3>Lists<a class="headerlink" href="#lists" title="Permalink to this heading">#</a></h3>
-<ol class="arabic">
-<li><p>Lists are <code class="docutils literal notranslate"><span class="pre">mutable</span></code> sequences of objects, created with square brackets:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Dave&quot;</span><span class="p">,</span> <span class="s2">&quot;Mark&quot;</span><span class="p">,</span> <span class="s2">&quot;Ann&quot;</span><span class="p">,</span> <span class="s2">&quot;Phil&quot;</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
-</pre></div>
-</div>
-</li>
-<li><p>Lists are indexed by integers, starting with zero. Use the indexing operator to access and modify individual items of the list:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">names</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-<span class="n">names</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Jeff&quot;</span>
-<span class="n">names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Paula&quot;</span><span class="p">)</span>
-<span class="n">names</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;Thomas&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
-</pre></div>
-</div>
-</li>
-<li><p>Lists can be sliced and concatenated using:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">stop</span><span class="p">:</span><span class="n">stride</span><span class="p">]</span>
-</pre></div>
-</div>
-</li>
-<li><p>For example,</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">names</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
-<span class="n">c</span> <span class="o">=</span> <span class="n">names</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
-<span class="n">names</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Jeff&#39;</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
-<span class="n">names</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Dave&#39;</span><span class="p">,</span> <span class="s1">&#39;Mark&#39;</span><span class="p">,</span> <span class="s1">&#39;Jeff&#39;</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
-</pre></div>
-</div>
-</li>
-<li><p>Use the plus <code class="docutils literal notranslate"><span class="pre">+</span></code> operator to concatenate lists:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span><span class="o">+</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-</pre></div>
-</div>
-</li>
-<li><p>An empty list can be created by one of two ways</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">names</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
-<span class="n">names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
-</pre></div>
-</div>
-</li>
-<li><p>Lists can contain any kind of Python object, including other lists, as in the following example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Dave&quot;</span><span class="p">,</span> <span class="mf">3.14</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Mark&quot;</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">101</span><span class="p">]],</span> <span class="mi">10</span><span class="p">]</span>
-</pre></div>
-</div>
-</li>
-<li><p>Items contained in nested lists are accessed by applying more than one indexing operation, as follows:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">3</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
-</pre></div>
-</div>
-</li>
-<li><p>Objects can be inserted and appended to a list.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># List methods (insert)</span>
-<span class="n">list_b</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="s1">&#39;python&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">list_b</span><span class="p">)</span>
-<span class="c1"># List methods (append)</span>
-<span class="n">list_b</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">list_b</span><span class="p">)</span>
-</pre></div>
-</div>
-</li>
-</ol>
-</section>
-<section id="tuples">
-<h3>Tuples<a class="headerlink" href="#tuples" title="Permalink to this heading">#</a></h3>
-<ol class="arabic">
-<li><p>To create simple data structures, you can pack a collection of values together into a single object using a <em>tuple</em>. You can create a tuple by enclosing group of values in parentheses like this:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">stock</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;GOOG&quot;</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mf">490.10</span><span class="p">)</span>
-<span class="n">address</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;www.python.org&#39;</span><span class="p">,</span> <span class="mi">80</span><span class="p">)</span>
-<span class="n">person</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Stan&quot;</span><span class="p">,</span> <span class="s2">&quot;Baek&quot;</span><span class="p">,</span> <span class="s2">&quot;stanley.baek@afacademy&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</li>
-<li><p>Python often recognizes that a tuple is intended even if the parentheses are missing</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">stock</span> <span class="o">=</span> <span class="s2">&quot;GOOG&quot;</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mf">490.10</span>
-<span class="n">address</span> <span class="o">=</span> <span class="s1">&#39;www.python.org&#39;</span><span class="p">,</span> <span class="mi">80</span>
-<span class="n">person</span> <span class="o">=</span> <span class="s2">&quot;Stan&quot;</span><span class="p">,</span> <span class="s2">&quot;Baek&quot;</span><span class="p">,</span> <span class="s2">&quot;stanley.baek@afacademy&quot;</span>
-</pre></div>
-</div>
-</li>
-<li><p>For completeness, 0- and 1-element tuples can be defined, but have special syntax:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="p">()</span>    <span class="c1"># 0-tuple, empty tuple</span>
-<span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,)</span>  <span class="c1"># 1-tuple  </span>
-<span class="n">c</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>    <span class="c1"># 1-tuple</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">c</span><span class="p">))</span>
-<span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span>   <span class="c1"># not a tuple</span>
-<span class="n">c</span> <span class="o">=</span> <span class="mi">1</span>     <span class="c1"># not a tuple</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">c</span><span class="p">))</span>
-</pre></div>
-</div>
-</li>
-<li><p>The values in a tuple can be extracted by numerical index just like a list. However, it is more common to unpack tuples into a set of variables like this</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">name</span><span class="p">,</span> <span class="n">shares</span><span class="p">,</span> <span class="n">price</span> <span class="o">=</span> <span class="n">stock</span>
-<span class="n">host</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="n">address</span>
-<span class="n">first_name</span><span class="p">,</span> <span class="n">last_name</span><span class="p">,</span> <span class="n">phone</span> <span class="o">=</span> <span class="n">person</span>
-</pre></div>
-</div>
-</li>
-<li><p>Although tuples support most of the same operations as lists, such as indexing, slicing, and concatenation, the contents of a tuple <code class="docutils literal notranslate"><span class="pre">cannot</span> <span class="pre">be</span> <span class="pre">modified</span></code> after creation.  That is, you cannot replace, delete, or append new elements to an exisiting tuple.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">stock</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> 
-<span class="n">stock</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">200</span>  <span class="c1"># error</span>
-</pre></div>
-</div>
-</li>
-</ol>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Python tuples and strings are <code class="docutils literal notranslate"><span class="pre">immutable</span></code>. This means that once it is created, its contents cannot be changed — elements cannot be added, removed, or altered.  On the other hand, Python lists are <code class="docutils literal notranslate"><span class="pre">mutable</span></code>.</p>
-</div>
-</section>
-<section id="dictionaries">
-<h3>Dictionaries<a class="headerlink" href="#dictionaries" title="Permalink to this heading">#</a></h3>
-<ul class="simple">
-<li><p>In Python, a dictionary (or dict) is mapping between a set of indices (keys) and a set of values</p></li>
-<li><p>The items in a dictionary are key-value pairs</p></li>
-<li><p>Keys can be any Python data type</p></li>
-<li><p>Dictionaries are unordered</p></li>
-</ul>
-<ol class="arabic">
-<li><p>We can create a dictionary using curly braces:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">eng2sp</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;one&#39;</span><span class="p">:</span> <span class="s1">&#39;uno&#39;</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">:</span> <span class="s1">&#39;dos&#39;</span><span class="p">,</span> <span class="s1">&#39;three&#39;</span><span class="p">:</span> <span class="s1">&#39;tres&#39;</span><span class="p">}</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">eng2sp</span><span class="p">[</span><span class="s1">&#39;one&#39;</span><span class="p">])</span>  <span class="c1"># Output: uno</span>
-</pre></div>
-</div>
-</li>
-<li><p>An empty dictionary can be created:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Dictionaries</span>
-<span class="n">eng2sp</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="n">eng2sp</span><span class="p">[</span><span class="s1">&#39;one&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;uno&#39;</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">eng2sp</span><span class="p">)</span>
-</pre></div>
-</div>
-</li>
-<li><p>Keys can be retrieved using <code class="docutils literal notranslate"><span class="pre">.keys()</span></code> and values using <code class="docutils literal notranslate"><span class="pre">.values()</span></code>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># keys vs values</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">eng2sp</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">eng2sp</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
-</pre></div>
-</div>
-</li>
-</ol>
-</section>
-</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -902,20 +920,23 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose">Purpose</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#string-formatting">String Formatting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-data-containers">Python Data Containers</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lists">Lists</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tuples">Tuples</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#strings">Strings</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#string-formatting">String Formatting</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dictionaries">Dictionaries</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sets">Sets</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pythonic-coding">Pythonic Coding</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-list-comprehensions">Example: List Comprehensions</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simplifying-conditional-statements">Simplifying Conditional Statements</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ternary-operator">Ternary Operator</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loops">Loops</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#iterating-through-multiple-lists">Iterating Through Multiple Lists</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-data-containers">Python Data Containers</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#strings">Strings</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lists">Lists</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tuples">Tuples</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dictionaries">Dictionaries</a></li>
 </ul>
 </li>
 </ul>
