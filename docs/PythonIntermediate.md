@@ -5,7 +5,149 @@ This tutorial introduces Pythonic coding practices and key Python data container
 
 Reference: D. Beazley, _Python Essential Reference_, 4th ed, Addison Wesley, 2009
 
-## String Formatting
+
+## Python Data Containers
+
+### Lists
+1. Lists are `mutable` sequences of objects, created with square brackets:
+    ```python
+    names = ["Dave", "Mark", "Ann"]
+    print(names)
+    ```
+1. Lists are indexed by integers, starting with zero. Use the indexing operator to access and modify individual items of the list:
+    ```python
+    print(names[2])     # print Ann
+    names[0] = "Jeff"   # ["Jeff", "Mark", "Ann"]
+    names.append("Paula")   # ["Jeff", "Mark", "Ann", "Paula"]
+    names.insert(2, "Thomas") # ["Jeff", "Mark", "Thomas", "Ann", "Paula"]
+    ```
+
+1. Lists can be sliced and concatenated using:
+    ```Python
+    x[start:stop:stride]
+    ```
+    For example,
+    ```python
+    names = ["Jeff", "Mark", "Thomas", "Ann", "Paula"]
+    print(names[:2])    # ['Jeff', 'Mark']
+    print(names[2:])    # ['Thomas', 'Ann', 'Paula']
+    names[0:3] = ['Dave', 'Mark', 'Jeff']
+    print(names)        # ['Dave', 'Mark', 'Jeff', 'Ann', 'Paula']
+    ```
+1. Use the plus `+` operator to concatenate lists: 
+    ```python
+    a = [1,2,3]+[4,5,6]   # [1, 2, 3, 4, 5, 6]
+    ```
+1. An empty list can be created by one of two ways
+    ```python
+    names = []
+    names = list()
+    ```
+1. Lists can contain any kind of Python object, including other lists, as in the following example:
+    ```python
+    a = [1, "Dave", 3.14, ["Mark", 7, 9, [0, 101]], 10]
+    ```
+1. Items contained in nested lists are accessed by applying more than one indexing operation, as follows:
+
+    ```python
+    print(a[1])     # Dave
+    print(a[3])     # ['Mark', 7, 9, [0, 101]]
+    print(a[3][1])  # 7
+    print(a[3][3][1])  # 101
+    ```
+
+1. **Pythonic Tip:** List comprehensions:
+    ```python
+    squares = [x ** 2 for x in range(10)]
+    print(squares)
+    ```
+
+### Tuples
+1. To create simple data structures, you can pack a collection of values together into a single object using a *tuple*.  Tubles are ordered, immutable collections of items, created with parentheses.
+    ```python
+    stock = ("GOOG", 100, 490.10)
+    address = ('www.python.org', 80)
+    person = ("Stan", "Baek", "stanley.baek@afacademy")
+    ```
+1. Python often recognizes that a tuple is intended even if the parentheses are missing
+    ```python
+    stock = "GOOG", 100, 490.10
+    address = 'www.python.org', 80
+    person = "Stan", "Baek", "stanley.baek@afacademy"
+    ```
+1. For completeness, 0- and 1-element tuples can be defined, but have special syntax:
+    ```python
+    a = ()    # 0-tuple, empty tuple
+    b = (1,)  # 1-tuple  
+    c = 1,    # 1-tuple
+    print(type(a))
+    print(type(b))
+    print(type(c))
+    b = (1)   # not a tuple
+    c = 1     # not a tuple
+    print(type(b))
+    print(type(c))
+    ```
+
+1. **Tuple Unpacking:** The values in a tuple can be extracted by numerical index just like a list. However, it is more common to unpack tuples into a set of variables like this
+    ```python
+    name, shares, price = stock
+    host, port = address
+    first_name, last_name, phone = person
+    ```
+1. **Immutable:** Although tuples support most of the same operations as lists, such as indexing, slicing, and concatenation, the contents of a tuple `cannot be modified` after creation.  That is, you cannot replace, delete, or append new elements to an exisiting tuple. 
+
+    ```python
+    print(stock[1]) 
+    stock[1] = 200  # error
+    ```
+
+```{note}
+Python tuples and strings are `immutable`. This means that once it is created, its contents cannot be changed — elements cannot be added, removed, or altered.  On the other hand, Python lists are `mutable`.
+```
+
+
+### Strings
+
+1. Strings are created by enclosing characters in single, double, or triple quotes:
+    ```python
+    a = "Hellow World"
+    b = 'Python is groovy'
+    c = """Computer says 'No'"""
+    print(a, b, c)
+    ```
+
+1. The same type of quote used to start a string must be used to terminate it.  Triple-quoted strings capture all the text that appears prior to the terminating triple quote, as opposed to single- and double-quoted strings, which must be  specified on one logical line.  Triple-quoted strings are useful when the contents of a string literal span multiple lines of text such as the following:
+
+    ```python
+    print('''Content-type: text/html
+
+    <h1> Hello World </h1>
+    Click <a href="http://www.python.org">here</a>.
+    ''')
+    ```
+
+1. Strings are stored as sequences of characters indexed by integers starting at zero
+
+    ```python
+    a = "Hello World"
+    print(a[0])   # First character
+    print(a[:5])  # Slice: 'Hello'  
+    print(a[6:])  # Slice: 'World'
+    print(a[3:8]) # Slice: 'lo Wo' 
+    ```
+
+1. Try this:
+    ```python
+    x = "37"
+    y = "42"
+    z = x+y
+    print(z) # what does this print?  why?
+    z = int(x)+int(y)
+    print(z)  # what does this print?
+    ```
+
+#### String Formatting
 - Python offers multiple ways to format strings. Here are some common methods:
 
     ```python
@@ -42,6 +184,53 @@ Reference: D. Beazley, _Python Essential Reference_, 4th ed, Addison Wesley, 200
     The legendary pirate captain is 726.25 years old.
     The legendary pirate captain is 726.2500 years old.
     The legendary pirate captain is   726.2500 years old.
+    ```
+
+### Dictionaries
+- In Python, a dictionary (or dict) is mapping between a set of indices (keys) and a set of values
+- The items in a dictionary are key-value pairs
+- Keys can be any Python data type
+- Dictionaries are mutable, unordered collection of key-value pairs.
+
+1. We can create a dictionary using curly braces:
+    ```python
+    student = {"name": "Alice", "age": 25, "grade": "A"}
+    print(student["name"])
+    ```
+1. Common operations are:
+    ```python
+    student["age"] = 26  # Modify value
+    student["city"] = "New York"  # Add new key-value pair
+    del student["grade"]  # Remove key
+    ```
+1. Keys can be retrieved using `.keys()` and values using `.values()`:
+    ```python
+    # keys vs values
+    print(eng2sp.keys())
+    print(eng2sp.values())
+    ```
+
+### Sets
+1. Sets are unordered, mutable collection of unique items.
+    ```python
+    my_set = {"apple", "banana", "cherry"}
+    ```
+
+2. Common operations are
+    ```python
+    my_set.add("date")  # Add element
+    my_set.discard("banana")  # Remove element
+    print("apple" in my_set)  # Membership test
+    ```
+
+3. **Set Operations:**
+    - Union, Intersection, Difference:
+    ```python
+    set1 = {1, 2, 3}
+    set2 = {3, 4, 5}
+    print(set1.union(set2))  # {1, 2, 3, 4, 5}
+    print(set1.intersection(set2))  # {3}
+    print(set1 - set2)  # {1, 2}
     ```
 
 ## Pythonic Coding
@@ -189,180 +378,4 @@ The ternary operator allows concise conditional assignments:
     Dr. Baek is actually Pirate Captain from USAFA
     ```
 
-
-## Python Data Containers
-
-### Strings
-
-1. Strings are created by enclosing characters in single, double, or triple quotes:
-    ```python
-    a = "Hellow World"
-    b = 'Python is groovy'
-    c = """Computer says 'No'"""
-    print(a, b, c)
-    ```
-
-1. The same type of quote used to start a string must be used to terminate it.  Triple-quoted strings capture all the text that appears prior to the terminating triple quote, as opposed to single- and double-quoted strings, which must be  specified on one logical line.  Triple-quoted strings are useful when the contents of a string literal span multiple lines of text such as the following:
-
-    ```python
-    print('''Content-type: text/html
-
-    <h1> Hello World </h1>
-    Click <a href="http://www.python.org">here</a>.
-    ''')
-    ```
-
-1. Strings are stored as sequences of characters indexed by integers starting at zero
-
-    ```python
-    a = "Hello World"
-    print(a[0])   # First character
-    print(a[:5])  # Slice: 'Hello'  
-    print(a[6:])  # Slice: 'World'
-    print(a[3:8]) # Slice: 'lo Wo' 
-    ```
-
-1. Try this:
-    ```python
-    x = "37"
-    y = "42"
-    z = x+y
-    print(z) # what does this print?  why?
-    z = int(x)+int(y)
-    print(z)  # what does this print?
-    ```
-
-### Lists
-1. Lists are `mutable` sequences of objects, created with square brackets:
-    ```python
-    names = ["Dave", "Mark", "Ann", "Phil"]
-    print(names)
-    ```
-1. Lists are indexed by integers, starting with zero. Use the indexing operator to access and modify individual items of the list:
-    ```python
-    a = names[2]
-    print(a)
-    names[0] = "Jeff"
-    names.append("Paula")
-    names.insert(2, "Thomas")
-    print(names)
-    ```
-1. Lists can be sliced and concatenated using:
-    ```Python
-    x[start:stop:stride]
-    ```
-1. For example,
-    ```python
-    b = names[0:2]
-    print(b)
-    c = names[2:]
-    print(c)
-    names[1] = 'Jeff'
-    print(names)
-    names[0:2] = ['Dave', 'Mark', 'Jeff']
-    print(names)
-    ```
-1. Use the plus `+` operator to concatenate lists: 
-    ```python
-    a = [1,2,3]+[4,5,6]
-    print(a)
-    ```
-1. An empty list can be created by one of two ways
-    ```python
-    names = []
-    print(names)
-    names = list()
-    print(names)
-    ```
-1. Lists can contain any kind of Python object, including other lists, as in the following example:
-    ```python
-    a = [1, "Dave", 3.14, ["Mark", 7, 9, [0, 101]], 10]
-    ```
-1. Items contained in nested lists are accessed by applying more than one indexing operation, as follows:
-
-    ```python
-    print(a[1])
-    print(a[3])
-    print(a[3][1])
-    print(a[3][3][1])
-    ```
-1. Objects can be inserted and appended to a list.
-    ```python
-    # List methods (insert)
-    list_b.insert(2,'python')
-    print(list_b)
-    # List methods (append)
-    list_b.append('.')
-    print(list_b)
-    ```
-
-### Tuples
-1. To create simple data structures, you can pack a collection of values together into a single object using a *tuple*. You can create a tuple by enclosing group of values in parentheses like this: 
-
-    ```python
-    stock = ("GOOG", 100, 490.10)
-    address = ('www.python.org', 80)
-    person = ("Stan", "Baek", "stanley.baek@afacademy")
-    ```
-1. Python often recognizes that a tuple is intended even if the parentheses are missing
-    ```python
-    stock = "GOOG", 100, 490.10
-    address = 'www.python.org', 80
-    person = "Stan", "Baek", "stanley.baek@afacademy"
-    ```
-1. For completeness, 0- and 1-element tuples can be defined, but have special syntax:
-    ```python
-    a = ()    # 0-tuple, empty tuple
-    b = (1,)  # 1-tuple  
-    c = 1,    # 1-tuple
-    print(type(a))
-    print(type(b))
-    print(type(c))
-    b = (1)   # not a tuple
-    c = 1     # not a tuple
-    print(type(b))
-    print(type(c))
-    ```
-
-1. The values in a tuple can be extracted by numerical index just like a list. However, it is more common to unpack tuples into a set of variables like this
-    ```python
-    name, shares, price = stock
-    host, port = address
-    first_name, last_name, phone = person
-    ```
-1. Although tuples support most of the same operations as lists, such as indexing, slicing, and concatenation, the contents of a tuple `cannot be modified` after creation.  That is, you cannot replace, delete, or append new elements to an exisiting tuple. 
-
-    ```python
-    print(stock[1]) 
-    stock[1] = 200  # error
-    ```
-
-```{note}
-Python tuples and strings are `immutable`. This means that once it is created, its contents cannot be changed — elements cannot be added, removed, or altered.  On the other hand, Python lists are `mutable`.
-```
-
-### Dictionaries
-- In Python, a dictionary (or dict) is mapping between a set of indices (keys) and a set of values
-- The items in a dictionary are key-value pairs
-- Keys can be any Python data type
-- Dictionaries are unordered
-
-1. We can create a dictionary using curly braces:
-    ```python
-    eng2sp = {'one': 'uno', 'two': 'dos', 'three': 'tres'}
-    print(eng2sp['one'])  # Output: uno
-    ```
-1. An empty dictionary can be created:
-    ```python
-    # Dictionaries
-    eng2sp = {}
-    eng2sp['one'] = 'uno'
-    print(eng2sp)
-    ```
-1. Keys can be retrieved using `.keys()` and values using `.values()`:
-    ```python
-    # keys vs values
-    print(eng2sp.keys())
-    print(eng2sp.values())
-    ```
 
