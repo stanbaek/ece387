@@ -8,14 +8,9 @@ Lab 3 is not ready yet!
 
 ## **Objective**
 
-This lab will help you learn the following key programming concepts in Python:
-1. **Object-Oriented Programming (OOP):**
-   - Classes, attributes, and methods.
-   - Inheritance and method overriding.
-2. **Game Simulation:**
-   - Implementing game mechanics using programming logic.
-3. **Using TODOs for Active Learning:**
-   - You'll implement specific parts of the game by completing the `TODO` sections in the code.
+- Students should be able to understand Object-Oriented Programming (OOP), including classes, attributes, and methods.
+- Students should be able to explain inheritance and method overriding in OOP.
+- Students should be able to implement game mechanics using programming logic in a game simulation.
 
 ---
 
@@ -26,9 +21,6 @@ This simplified version of the Risk board game involves:
 - Recruiting armies with different unit types (`Footman`, `Archer`, `Knight`, and `SiegeMachine`).
 - Taking turns to attack until one side is defeated.
 - Using dice rolls to determine attack outcomes.
-
-
-
 
 ### **Rules for This Simplified Risk Game**
 
@@ -46,6 +38,9 @@ This version of Risk is a simplified, turn-based game involving two players: the
   - **Archer**: Cost: 2 coins, Health: 1, Hit Threshold: 4+
   - **Knight**: Cost: 3 coins, Health: 2, Hit Threshold: 3+
   - **Siege Machine**: Cost: 10 coins, Health: 3, Hit Threshold: 3+ (rolls two dice when attacking)
+
+  The hit threshold is the minimum dice roll a unit needs to score a successful hit during an attack (e.g., a Footman hits on a roll of 5 or higher). It determines the unit's effectiveness in battle, with lower thresholds making a unit more likely to hit.
+
 - **Recruitment**: 
   - Players recruit units randomly until their budget runs out.
   - A maximum of **2 Siege Machines** can be recruited per player.
@@ -100,20 +95,7 @@ This version of Risk is a simplified, turn-based game involving two players: the
 
 ---
 
-### **Key Differences from the Original Risk Game**
-- This version simplifies recruitment and combat:
-  - There is no board or territorial control.
-  - Armies are recruited randomly, and players have fixed budgets.
-  - Combat is resolved by alternating turns, with no simultaneous attacks or strategic maneuvers.
-- Unit roles and dice mechanics are adjusted for simplicity.
-
----
-
 This straightforward set of rules ensures that the focus remains on implementing and understanding the **object-oriented programming concepts** behind the game.
-
-
-
-
 
 ---
 
@@ -144,9 +126,6 @@ This straightforward set of rules ensures that the focus remains on implementing
 #### **Tasks for Students**
 1. **Complete the `take_damage` method**:
    - Use the `max()` function to ensure health doesn’t drop below 0.
-   ```python
-   self.health = max(self.health - damage, 0)
-   ```
 2. **Complete the `isalive` method**:
    - Check the value of `self.health` and return a boolean.
 
@@ -158,20 +137,6 @@ This straightforward set of rules ensures that the focus remains on implementing
 - **SiegeMachine Special Ability**:
   - Rolls **two dice** instead of one for its attack.
   - **TODO**: Implement the `roll_attack` method in the `SiegeMachine` class to roll two dice and count the hits.
-
-#### **Tasks for Students**
-1. **Modify `roll_attack` in `SiegeMachine`**:
-   - Use a loop to roll two dice.
-   - Count how many rolls are greater than or equal to `hit_threshold`.
-   ```python
-   hits = 0
-   for _ in range(2):
-       roll = random.randint(1, 6)
-       print(f"{self.name} rolls {roll}.")
-       if roll >= self.hit_threshold:
-           hits += 1
-   return hits
-   ```
 
 ---
 
@@ -188,35 +153,6 @@ This straightforward set of rules ensures that the focus remains on implementing
     - **TODO**: Roll dice for units of the current type and calculate the total hits.
   - `resolve_damage(total_damage)`: Applies damage to the player's units.
     - **TODO**: Randomly pick units to take damage, remove units with zero health, and print eliminated units.
-
-#### **Tasks for Students**
-1. **Complete `recruit_units`**:
-   - Skip recruiting Siege Machines if `siege_count >= MaxSiegeUnits`.
-   ```python
-   if isinstance(unit, SiegeMachine) and siege_count >= self.MaxSiegeUnits:
-       continue
-   ```
-2. **Complete `attack`**:
-   - Loop through `self.army` and roll dice for units of the current type (`army_type`).
-   - Add hits to `total_hits` and print results.
-   ```python
-   if isinstance(unit, army_type) and unit.isalive():
-       hits = unit.roll_attack()
-       total_hits += hits
-       print(f"{unit} scores {hits} hit(s).")
-   ```
-3. **Complete `resolve_damage`**:
-   - While `total_damage > 0`, randomly pick units from `self.army` using `random.choice()`.
-   - Apply 1 damage to the selected unit, remove dead units, and print their names.
-   ```python
-   while total_damage > 0 and self.army:
-       unit = random.choice(self.army)
-       unit.take_damage(1)
-       if not unit.isalive():
-           print(f"{unit.name} has been eliminated!")
-           self.army.remove(unit)
-       total_damage -= 1
-   ```
 
 ---
 
@@ -239,12 +175,6 @@ This straightforward set of rules ensures that the focus remains on implementing
 
 2. **Implement the Missing Functionality**:
    - Follow the instructions in the `TODO` comments to complete the methods:
-     - `Unit.take_damage`
-     - `Unit.isalive`
-     - `SiegeMachine.roll_attack`
-     - `Player.recruit_units`
-     - `Player.attack`
-     - `Player.resolve_damage`
 
 3. **Test the Implementation**:
    - Use the `test()` function provided in the code to test individual unit behaviors (e.g., `roll_attack` and `take_damage`).
@@ -274,10 +204,5 @@ When you run the game:
 
 ---
 
-### **Learning Outcomes**
-By completing this lab, you will:
-1. Understand how to design and implement OOP systems.
-2. Learn how to use inheritance to extend functionality.
-3. Gain experience with simulating game mechanics using Python.
 
 Good luck, and enjoy coding! 🎯
