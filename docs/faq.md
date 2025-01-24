@@ -25,9 +25,8 @@ If you have an error when you run the following command
 ```bash
 ros2 launch turtlebot3_gazebo empty_world.launch.py
 ```
-
+<br>
 The error message looks like:
-
 ```bash
 [gzclient-2] gzclient: /usr/include/boost/smart_ptr/shared_ptr.hpp:728: typename boost::detail::sp_member_access<T>::type boost::shared_ptr<T>::operator->() const [with T = gazebo::rendering::Camera; typename boost::detail::sp_member_access<T>::type = gazebo::rendering::Camera*]: Assertion `px != 0' failed.
 [ERROR] [gzclient-2]: process has died [pid 7768, exit code -6, cmd 'gzclient'].

@@ -1,10 +1,10 @@
 # 🔬 Lab3: Python
 
-
+```{note}
+Lab 3 is not ready yet!
+```
 
 # **Simplified Risk Game in Python**
-
----
 
 ## **Objective**
 
