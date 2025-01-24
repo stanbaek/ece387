@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>🔬 Lab3: Python &#8212; Introduction to Robotic Systems</title>
   
@@ -15,62 +14,63 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=4c969af8" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
-
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
-  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
-    <script src="../_static/tabs.js"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/tabs.js?v=3ee01567"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'Labs/Lab3_Python';</script>
-    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="🔬 Lab4: Driving the Robot" href="Lab4_TurtleBot.html" />
     <link rel="prev" title="🔬 Lab2: ROS" href="Lab2_ROS.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -78,23 +78,16 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+  <div id="pst-scroll-pixel-helper"></div>
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
   
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../search.html"
       method="get">
@@ -102,7 +95,6 @@ const thebe_selector_output = ".output, .cell_output"
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -110,16 +102,25 @@ const thebe_selector_output = ".output, .cell_output"
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -132,9 +133,13 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
+  
+    
   
 
 <a class="navbar-brand logo" href="../intro.html">
+  
   
   
   
@@ -144,12 +149,19 @@ const thebe_selector_output = ".output, .cell_output"
       
     
     
-    <img src="../_static/ece387.png" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="../_static/ece387.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+    <img src="../_static/ece387.png" class="logo__image only-light" alt="Introduction to Robotic Systems - Home"/>
+    <img src="../_static/ece387.png" class="logo__image only-dark pst-js-only" alt="Introduction to Robotic Systems - Home"/>
   
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -174,6 +186,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="Lab1_Linux.html">🔬 Lab1: Linux</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Lab2_ROS.html">🔬 Lab2: ROS</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">🔬 Lab3: Python</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="Lab4_TurtleBot.html">🔬 Lab4: Driving the Robot</a></li>
 
 <li class="toctree-l1"><a class="reference internal" href="Lab5_Messages.html">🔬 Lab5: Messages</a></li>
@@ -194,14 +207,19 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -210,14 +228,14 @@ const thebe_selector_output = ".output, .cell_output"
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -339,26 +357,20 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
-<script>
-document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
-  </button>
-`);
-</script>
 
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-  </button>
-`);
-</script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -379,50 +391,49 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-note-on-this-document">A note on this document</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose">Purpose</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-modules-at-top-of-python-code">Import modules at top of Python code</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variables">Variables</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lists">Lists</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#functions">Functions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#user-input">User input</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#validating-user-input-with-if-statements">Validating user input with if statements</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classes">Classes</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-the-player-class-and-init-method">Create the player class and init method</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ros-callback-method-part-of-the-player-class-called-by-timer">ROS callback method part of the Player class called by timer</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ros-callback-method-part-of-player-class-called-by-topic">ROS callback method part of Player class called by topic</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#class-methods-part-of-player-class">Class methods part of Player class</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">🔬 Lab3: Python</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#simplified-risk-game-in-python"><strong>Simplified Risk Game in Python</strong></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objective"><strong>Objective</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-the-game"><strong>Overview of the Game</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rules-for-this-simplified-risk-game"><strong>Rules for This Simplified Risk Game</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#game-setup"><strong>1. Game Setup</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combat-mechanics"><strong>2. Combat Mechanics</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#end-of-game"><strong>3. End of Game</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-walkthrough"><strong>Example Walkthrough</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-differences-from-the-original-risk-game"><strong>Key Differences from the Original Risk Game</strong></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#let-s-start-the-game">Let’s start the game!</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#initialize-ros">Initialize ROS:</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-modules">Import modules:</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-the-class">Build the class:</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-the-main">Create the main</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup"><strong>Setup</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classes-and-responsibilities"><strong>Classes and Responsibilities</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unit-class"><strong>1. <code class="docutils literal notranslate"><span class="pre">Unit</span></code> Class</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#tasks-for-students"><strong>Tasks for Students</strong></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computer-player">Computer Player</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ros-refresher">ROS refresher</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#subclasses-footman-archer-knight-siegemachine"><strong>2. Subclasses (<code class="docutils literal notranslate"><span class="pre">Footman</span></code>, <code class="docutils literal notranslate"><span class="pre">Archer</span></code>, <code class="docutils literal notranslate"><span class="pre">Knight</span></code>, <code class="docutils literal notranslate"><span class="pre">SiegeMachine</span></code>)</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><strong>Tasks for Students</strong></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cleanup">Cleanup</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Initialize ROS:</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementing-the-chat-client">Implementing the chat client</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Import modules</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#client-class">Client Class</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#main">Main</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#run-the-program">Run the program</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#player-class"><strong>3. <code class="docutils literal notranslate"><span class="pre">Player</span></code> Class</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2"><strong>Tasks for Students</strong></a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementing-the-chat-server">Implementing the chat server</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#server-class">Server Class</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Main</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Run the program</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#risk-class"><strong>4. <code class="docutils literal notranslate"><span class="pre">Risk</span></code> Class</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#steps-to-complete-the-lab"><strong>Steps to Complete the Lab</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-outputs"><strong>Expected Outputs</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#test-function"><strong>Test Function</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#main-game"><strong>Main Game</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submission"><strong>Submission</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-outcomes"><strong>Learning Outcomes</strong></a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
+
             </nav>
         </div>
     </div>
@@ -431,648 +442,438 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="lab3-python">
-<h1>🔬 Lab3: Python<a class="headerlink" href="#lab3-python" title="Permalink to this heading">#</a></h1>
-<section id="a-note-on-this-document">
-<h2>A note on this document<a class="headerlink" href="#a-note-on-this-document" title="Permalink to this heading">#</a></h2>
-<p>This document is known as a Jupyter notebook; it is used in academia and industry to allow text and executable code to coexist in a very easy to read format. Blocks can contain text or code, and for blocks containing code, press <code class="docutils literal notranslate"><span class="pre">Shift</span> <span class="pre">+</span> <span class="pre">Enter</span></code> to run the code. Earlier blocks of code need to be run for the later blocks of code to work.</p>
-</section>
-<section id="purpose">
-<h2>Purpose<a class="headerlink" href="#purpose" title="Permalink to this heading">#</a></h2>
-<p>This assignment will help refresh Python3 fundamentals through application. You will implement a rock paper scissors player and computer that will compete over ROS.</p>
-</section>
-<section id="import-modules-at-top-of-python-code">
-<h2>Import modules at top of Python code<a class="headerlink" href="#import-modules-at-top-of-python-code" title="Permalink to this heading">#</a></h2>
-<p>With Python code, the convention is to import all required modules at the top of the python script. Modules are packages of additional functionality built by others. Typically, a module is comprised of compiled code that serves a specific function.</p>
-<p>By importing all modules at the beginning of the script, we ensure that all modules have been loaded by the time we need them later in the script. Also, it ensures anyone reading our code can very quickly see all the modules (dependencies) needed to run the code.</p>
-<p>Our imports are in the following code block.</p>
-<blockquote>
-<div><p>⚠️ <strong>Important:</strong> Importing classes may take some time. You will know the code block is still executing as the bracket on the left of the cell will change to a <code class="docutils literal notranslate"><span class="pre">*</span></code> character. Do not move to the next step until the <code class="docutils literal notranslate"><span class="pre">*</span></code> is gone.</p>
-</div></blockquote>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># import required modules</span>
-<span class="kn">import</span> <span class="nn">random</span>
-</pre></div>
-</div>
-<p>Here, the module is called “random”, and by importing the module this way, we can use the module by referencing “random” in our code. There are a few other ways to do imports, but we will wait get to those in another script.</p>
-<p>Another thing to note is we can make comments in python by starting a line with “#”. Comments are lines in your code that do not perform any function and are intended only to inform others (and your future self) about the purpose of your code. It is a good idea to document the purpose of your code at the beginning of the code with comments and to leave short and concise comments throughout your code. Many people get lazy and fail to comment their code, but don’t fall prey to that trap!</p>
-</section>
-<section id="variables">
-<h2>Variables<a class="headerlink" href="#variables" title="Permalink to this heading">#</a></h2>
-<p>In programming languages, variables are containers that store simple information. In Python, variables can store strings or numbers. A string is a block of text, such as “my TurtleBot is faster than yours”. A number can be an integer or a decimal number.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a variable to hold a string asking the user if they want to play rock, paper, scissors</span>
-<span class="n">welcome_text</span> <span class="o">=</span> <span class="s1">&#39;Would you like to play rock, paper, scissors?&#39;</span>
-
-<span class="c1"># create a variable holding a number representing the number of possible choices in rock, paper, scissors</span>
-<span class="n">num_choices</span> <span class="o">=</span> <span class="mi">3</span>
-
-<span class="c1"># verify the variables are holding the correct information by using the &quot;print&quot; function to display the content of both variables</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The variable welcome_text contains: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">welcome_text</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The variable num_choices contains: </span><span class="si">%02d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">num_choices</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>A few things are going on here while creating variables. First, Python lets us define variables using the convention variable_name = value. As long as the variable name is unique (it is not the name of a function, module, or other variable), we can define our variable this way. For strings, single quotes or double quotes must be used around the text that needs to be in the variable; it doesn’t matter whether you choose single or double quotes, just stay consistent.</p>
-<p>Second, we show the print function. The print function takes a string as its input and prints the string to the output, which is right below the block of text. Given <code class="docutils literal notranslate"><span class="pre">format</span> <span class="pre">%</span> <span class="pre">values</span></code>, <em>format</em> includes a string and <code class="docutils literal notranslate"><span class="pre">%</span></code> conversion <strong>items</strong> which are replaced with elements of <em>values</em> (such as a 2 digit value <code class="docutils literal notranslate"><span class="pre">%02d</span></code>). The <em>values</em> must be a tuple with the exact number of <strong>items</strong> specified in the <em>format</em> string.</p>
-</section>
-<section id="lists">
-<h2>Lists<a class="headerlink" href="#lists" title="Permalink to this heading">#</a></h2>
-<p>In Python, we can store information in more than just variables. Python has a data type called “lists”, and they store just that - lists. An example of a Python list is below.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a list containing all of the possible choices in rock, paper, scissors</span>
-<span class="n">choices</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Rock&#39;</span><span class="p">,</span><span class="s1">&#39;Paper&#39;</span><span class="p">,</span><span class="s1">&#39;Scissors&#39;</span><span class="p">]</span>
-
-<span class="c1"># print the contents of &quot;choices&quot; to see what it contains</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">choices</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>We chose to use strings for each item in the list above, but we could have just as easily chosen numbers or other objects instead. Lists always begin with an open hard bracket, [, and end with the closed hard bracket, ]. Additionally, list items are separated by commas. For this case, choices is the name of our list. Python has other data structures, such as dictionaries, tuples, and classes, but we will stick to variables and lists for now.</p>
-<p>You’re probably thinking, “Lists look great and all, but how do I use them?” Great question! All of the items in the list are given a position, and in Python lingo, this is called an index. Each item (string in this case) in the list has an index, and the indices start at 0 on the furthest left and increase as you move to the right through the list. You can use an item’s index to retrieve it from the list. Using the name of the list, choices in this case, followed by hard brackets [] with the index of the item in the middle will retrieve the item.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># retrieve each item from the list with its index and print it to the output</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The first item is: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The second item is: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">choices</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The third item is: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">choices</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;All items of the list include: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">choices</span><span class="p">)</span>
-
-<span class="c1"># find the number of items in the list (length of the list)</span>
-<span class="nb">len</span><span class="p">(</span><span class="n">choices</span><span class="p">)</span>
-</pre></div>
+<h1>🔬 Lab3: Python<a class="headerlink" href="#lab3-python" title="Link to this heading">#</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Lab 3 is not ready yet!</p>
 </div>
 </section>
-<section id="functions">
-<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this heading">#</a></h2>
-<p>In Python, we can create functions to perform a specific task. Functions help us organize our code and simplify our code by allowing us to call a function multiple times rather than writing the same code multiple times. Python functions start with the keyword <code class="docutils literal notranslate"><span class="pre">def</span></code> followed by the function name, an open parenthesis, any inputs to pass to the function, a close parenthesis, and a colon. When we start writing what the function will do, we need to start on a new line and “tab-in” so that Python knows we are writing within the scope of the function. The function finishes when it gets to the last line of code or it reaches a <code class="docutils literal notranslate"><span class="pre">return</span></code> keyword. Let’s write a function that represents the computer randomly selecting either ‘Rock’, ‘Paper’, or ‘Scissors’.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a function that represents the computer selecting either &#39;Rock&#39;,</span>
-<span class="c1"># &#39;Paper&#39;, or &#39;Scissors&#39; at random</span>
-<span class="c1"># inputs: choices, which is a list representing any item the </span>
-<span class="c1">#         computer can choose</span>
-<span class="c1"># outputs: rand_choice, an item chosen at random from the input, </span>
-<span class="c1">#          choices</span>
-<span class="k">def</span> <span class="nf">get_comp_choice</span><span class="p">(</span><span class="n">choices_list</span><span class="p">):</span>
-    <span class="c1"># use random module imported earlier to select a random index from the list</span>
-    <span class="n">rand_index</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">choices_list</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-    <span class="c1"># use the index to select an item from the list</span>
-    <span class="n">rand_choice</span> <span class="o">=</span> <span class="n">choices_list</span><span class="p">[</span><span class="n">rand_index</span><span class="p">]</span>
-    <span class="c1"># end the function by returning the computer&#39;s choice</span>
-    <span class="k">return</span> <span class="n">rand_choice</span>
-</pre></div>
-</div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># call the function a few times to test that it works properly</span>
-<span class="c1"># we are using the list &#39;choices&#39; from earlier </span>
-<span class="n">choice1</span> <span class="o">=</span> <span class="n">get_comp_choice</span><span class="p">(</span><span class="n">choices</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Test Choice 1: &#39;</span><span class="p">,</span><span class="n">choice1</span><span class="p">)</span>
-<span class="n">choice2</span> <span class="o">=</span> <span class="n">get_comp_choice</span><span class="p">(</span><span class="n">choices</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Test Choice 2: &#39;</span><span class="p">,</span><span class="n">choice2</span><span class="p">)</span>
-<span class="n">choice3</span> <span class="o">=</span> <span class="n">get_comp_choice</span><span class="p">(</span><span class="n">choices</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Test Choice 3: &#39;</span><span class="p">,</span><span class="n">choice3</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>In the function <code class="docutils literal notranslate"><span class="pre">get_comp_choice</span></code>, we use the <code class="docutils literal notranslate"><span class="pre">randint</span></code> function from the <code class="docutils literal notranslate"><span class="pre">random</span></code> module we imported earlier. The <code class="docutils literal notranslate"><span class="pre">randint</span></code> function accepts as its input a range of integers from which it will select an integer at random. Then, it returns this integer and stores it in the variable <code class="docutils literal notranslate"><span class="pre">rand_index</span></code>. The first input to this function is the smallest possible integer to select, and the second input is the largest possible integer to select. The random integer is used to retrieve an item from the input list <code class="docutils literal notranslate"><span class="pre">choices_list</span></code>. Finally, we use the <code class="docutils literal notranslate"><span class="pre">return</span></code> keyword to allow the user to store the choice in a variable when the function is called.</p>
-<p>The second code block calls the function 3 times to test that it works as we expect. Press <code class="docutils literal notranslate"><span class="pre">Shift</span> <span class="pre">+</span> <span class="pre">Enter</span></code> in the code block multiple times to see how the “Test Choices” change. As you can see above, we call a function by using its name followed by an open parenthesis, any inputs, and a close parenthesis. You can pass a different list to the function to further test that it works as you expect!</p>
+<section class="tex2jax_ignore mathjax_ignore" id="simplified-risk-game-in-python">
+<h1><strong>Simplified Risk Game in Python</strong><a class="headerlink" href="#simplified-risk-game-in-python" title="Link to this heading">#</a></h1>
+<section id="objective">
+<h2><strong>Objective</strong><a class="headerlink" href="#objective" title="Link to this heading">#</a></h2>
+<p>This lab will help you learn the following key programming concepts in Python:</p>
+<ol class="arabic simple">
+<li><p><strong>Object-Oriented Programming (OOP):</strong></p>
+<ul class="simple">
+<li><p>Classes, attributes, and methods.</p></li>
+<li><p>Inheritance and method overriding.</p></li>
+</ul>
+</li>
+<li><p><strong>Game Simulation:</strong></p>
+<ul class="simple">
+<li><p>Implementing game mechanics using programming logic.</p></li>
+</ul>
+</li>
+<li><p><strong>Using TODOs for Active Learning:</strong></p>
+<ul class="simple">
+<li><p>You’ll implement specific parts of the game by completing the <code class="docutils literal notranslate"><span class="pre">TODO</span></code> sections in the code.</p></li>
+</ul>
+</li>
+</ol>
 </section>
-<section id="user-input">
-<h2>User input<a class="headerlink" href="#user-input" title="Permalink to this heading">#</a></h2>
-<p>In order to play rock, paper, scissors, we need to get input from the user. The python <code class="docutils literal notranslate"><span class="pre">input</span></code> function is perfect for this.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># collect an input string from the user </span>
-<span class="n">choice</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Please choose &#39;Rock&#39;, &#39;Paper&#39;, or &#39;Scissors&#39; by typing either one of the three:&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># print the contents of the variable choice </span>
-<span class="nb">print</span><span class="p">(</span><span class="n">choice</span><span class="p">)</span>
-
-<span class="c1"># print the type of data contained in the variable choice</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">choice</span><span class="p">))</span>
-</pre></div>
-</div>
-<p>The <code class="docutils literal notranslate"><span class="pre">input</span></code> function takes a string of instructions as input and requests that the user input a string. After the user inputs a string, the function assigns that input string to a variable. In this case, the variable <code class="docutils literal notranslate"><span class="pre">choice</span></code> will contain whatever <em>string</em> the user types in the box (numbers typed in the input box will be interpreted as strings).</p>
-<p>In the string of instructions passed to the <code class="docutils literal notranslate"><span class="pre">input</span></code> function, the string is surrounded by double quotes, and the individual items are surrounded by single quotes. When placing quotation marks inside of a string, the quotation marks inside the string must be single if the outside quotes are double and vice versa. Lastly, the string includes <code class="docutils literal notranslate"><span class="pre">\n</span></code>, the <code class="docutils literal notranslate"><span class="pre">\n</span></code> tells python to create a newline in the output, and this ensures that the box for input is on a separate line than the instructions.</p>
-<p>We chose to print out the contents of <code class="docutils literal notranslate"><span class="pre">choice</span></code> to the output to show what is actually stored in the variable <code class="docutils literal notranslate"><span class="pre">choice</span></code>. Also, we use the <code class="docutils literal notranslate"><span class="pre">type</span></code> function inside of the <code class="docutils literal notranslate"><span class="pre">print</span></code> function to print the data type being stored in choice, and the output of <code class="docutils literal notranslate"><span class="pre">&lt;class</span> <span class="pre">'str'&gt;</span></code> confirms that strings are always stored in variables created by the <code class="docutils literal notranslate"><span class="pre">input</span></code> function. Try putting different words and numbers in the input box to verify this yourself!</p>
+<hr class="docutils" />
+<section id="overview-of-the-game">
+<h2><strong>Overview of the Game</strong><a class="headerlink" href="#overview-of-the-game" title="Link to this heading">#</a></h2>
+<p>This simplified version of the Risk board game involves:</p>
+<ul class="simple">
+<li><p>Two players (a user and the computer).</p></li>
+<li><p>Recruiting armies with different unit types (<code class="docutils literal notranslate"><span class="pre">Footman</span></code>, <code class="docutils literal notranslate"><span class="pre">Archer</span></code>, <code class="docutils literal notranslate"><span class="pre">Knight</span></code>, and <code class="docutils literal notranslate"><span class="pre">SiegeMachine</span></code>).</p></li>
+<li><p>Taking turns to attack until one side is defeated.</p></li>
+<li><p>Using dice rolls to determine attack outcomes.</p></li>
+</ul>
+<section id="rules-for-this-simplified-risk-game">
+<h3><strong>Rules for This Simplified Risk Game</strong><a class="headerlink" href="#rules-for-this-simplified-risk-game" title="Link to this heading">#</a></h3>
+<p>This version of Risk is a simplified, turn-based game involving two players: the <strong>user</strong> and the <strong>computer</strong>. Players recruit armies within a budget and take turns attacking each other until one side is eliminated. The game is played as follows:</p>
 </section>
-<section id="validating-user-input-with-if-statements">
-<h2>Validating user input with if statements<a class="headerlink" href="#validating-user-input-with-if-statements" title="Permalink to this heading">#</a></h2>
-<p>Now that we have the user input, let’s verify that the user actually did input either Rock, Paper, or Scissors (humans make mistakes after all). We can do this with if statements in Python. If the user inputted a valid string, we can continue with the game. If not, the user has to start over and put in a new string. The key words <code class="docutils literal notranslate"><span class="pre">if</span></code>, <code class="docutils literal notranslate"><span class="pre">elif</span></code>, and <code class="docutils literal notranslate"><span class="pre">else</span></code> followed by a logical expression and a colon denote valid if, else if, and else statements, respectively. Below is an example of an if statement to check if the input is valid.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># use if statement to check if user&#39;s input is valid</span>
-<span class="c1"># start by checking if choice stores the string Rock</span>
-<span class="k">if</span> <span class="n">choice</span> <span class="o">==</span> <span class="s1">&#39;Rock&#39;</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Good input&#39;</span><span class="p">)</span>
-    <span class="n">valid_input</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="c1">#check if choice stores the string Paper</span>
-<span class="k">elif</span> <span class="n">choice</span> <span class="o">==</span> <span class="s1">&#39;Paper&#39;</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Good input&#39;</span><span class="p">)</span>
-    <span class="n">valid_input</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="c1">#check if choice stores the string Scissors</span>
-<span class="k">elif</span> <span class="n">choice</span> <span class="o">==</span> <span class="s1">&#39;Scissors&#39;</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Good input&#39;</span><span class="p">)</span>
-    <span class="n">valid_input</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="c1"># any other strings in choice are invalid</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Bad input. Try again.&#39;</span><span class="p">)</span>
-    <span class="n">valid_input</span> <span class="o">=</span> <span class="kc">False</span>
-</pre></div>
-</div>
-<p>Logical expressions in Python compare one value or string to another. Python uses <code class="docutils literal notranslate"><span class="pre">==</span></code> to test equality and <code class="docutils literal notranslate"><span class="pre">!=</span></code> to test if something is not equal to something else. Python can check if a value is greater or less than another number as well. Googling ‘Logical operators in Python’ will give a complete list.</p>
-<p>Variables can also store boolean values, meaning they can store <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code>. These are shortcuts for saying something is on or off, and in this case, we are using <code class="docutils literal notranslate"><span class="pre">True</span></code> if the input is valid and <code class="docutils literal notranslate"><span class="pre">False</span></code> if the input is not valid. We will use them later to make our code more concise.</p>
-<p>Can you think of a way to rewrite the if statement above without the <code class="docutils literal notranslate"><span class="pre">elif</span></code> statements? Hint: Python uses <code class="docutils literal notranslate"><span class="pre">or</span></code> and <code class="docutils literal notranslate"><span class="pre">and</span></code> to combine multiple logical expressions into one. Hint for more advanced way: you can use the list <code class="docutils literal notranslate"><span class="pre">choices</span></code> from above.</p>
-<p>One final note about our input validation: if the user inputs rock, what happens? Can you think of a way to accept this as a valid input without adding another <code class="docutils literal notranslate"><span class="pre">elif</span></code> statement?</p>
+<hr class="docutils" />
+<section id="game-setup">
+<h3><strong>1. Game Setup</strong><a class="headerlink" href="#game-setup" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Players</strong>: There are two players:</p>
+<ul>
+<li><p><strong>User</strong>: You, the player.</p></li>
+<li><p><strong>Computer</strong>: Controlled by the program.</p></li>
+</ul>
+</li>
+<li><p><strong>Budget</strong>: Each player starts with a fixed number of coins to recruit their army. By default, this budget is 30 coins.</p></li>
+<li><p><strong>Unit Types</strong>:</p>
+<ul>
+<li><p><strong>Footman</strong>: Cost: 1 coin, Health: 1, Hit Threshold: 5+</p></li>
+<li><p><strong>Archer</strong>: Cost: 2 coins, Health: 1, Hit Threshold: 4+</p></li>
+<li><p><strong>Knight</strong>: Cost: 3 coins, Health: 2, Hit Threshold: 3+</p></li>
+<li><p><strong>Siege Machine</strong>: Cost: 10 coins, Health: 3, Hit Threshold: 3+ (rolls two dice when attacking)</p></li>
+</ul>
+</li>
+<li><p><strong>Recruitment</strong>:</p>
+<ul>
+<li><p>Players recruit units randomly until their budget runs out.</p></li>
+<li><p>A maximum of <strong>2 Siege Machines</strong> can be recruited per player.</p></li>
+</ul>
+</li>
+</ul>
 </section>
-<section id="classes">
-<h2>Classes<a class="headerlink" href="#classes" title="Permalink to this heading">#</a></h2>
-<p>We will use ROS to communicate and classes enable us to bundle data and functionality together while taking advantage of ROS tools. A class creates new types of objects, allowing <em>instances</em> of that class to be made. Each class can have attributes and methods that, combined, maintain and modify a class’s state. For example, we could create a <code class="docutils literal notranslate"><span class="pre">Robot</span></code> class that has attributes such as number of wheels, speed, and physics. There might be methods that provide a controller information about the robot’s state, such as <code class="docutils literal notranslate"><span class="pre">get_speed</span></code> or <code class="docutils literal notranslate"><span class="pre">set_speed</span></code>. If we were using multiple robots we could have multiple instances of the class and each instance’s attributes and methods would only control that particular robot. We will use classes throughout this course.</p>
-<p>A class name should use the CapWords convention. When we are operating within the scope of a class, we have to make sure to use the correct namespaces. Within a class you will see the keyword <code class="docutils literal notranslate"><span class="pre">self</span></code> quite a bit. This refers to an instance variable or method and is scoped within the class. For example, if a class has an instance variable <code class="docutils literal notranslate"><span class="pre">num_wheels</span></code>, when within that class, we must access it using the explicit scope: <code class="docutils literal notranslate"><span class="pre">self.num_wheels</span></code>.</p>
-<p>Let’s discuss the components of the player class</p>
-<section id="create-the-player-class-and-init-method">
-<h3>Create the player class and init method<a class="headerlink" href="#create-the-player-class-and-init-method" title="Permalink to this heading">#</a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Player</span><span class="p">:</span>
-    <span class="c1"># class constant to store player choices</span>
-    <span class="n">CHOICES</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Rock&#39;</span><span class="p">,</span> <span class="s1">&#39;Paper&#39;</span><span class="p">,</span> <span class="s1">&#39;Scissors&#39;</span><span class="p">]</span>
-    
-    <span class="c1"># initialize class</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_rounds</span> <span class="o">=</span> <span class="mi">3</span><span class="p">):</span>
-        <span class="c1"># instance variables</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">num_rounds</span> <span class="o">=</span> <span class="n">num_rounds</span> <span class="c1"># total numer of games to be played</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">round</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># number of rounds played so far</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">players_choice</span> <span class="o">=</span> <span class="n">String</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">computers_choice</span> <span class="o">=</span> <span class="n">String</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">round_complete</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">user_wins</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">computer_wins</span> <span class="o">=</span> <span class="mi">0</span>
-        
-        <span class="c1"># publisher to send player&#39;s choice over the player topic</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pub</span> <span class="o">=</span> <span class="n">rospy</span><span class="o">.</span><span class="n">Publisher</span><span class="p">(</span><span class="s1">&#39;player&#39;</span><span class="p">,</span> <span class="n">String</span><span class="p">,</span> <span class="n">queue_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-        
-        <span class="c1"># timer to request user&#39;s input, should be called once/second, but will stall</span>
-        <span class="c1"># on user input</span>
-        <span class="n">rospy</span><span class="o">.</span><span class="n">Timer</span><span class="p">(</span><span class="n">rospy</span><span class="o">.</span><span class="n">Duration</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">callback_players_choice</span><span class="p">)</span>
-        
-        <span class="c1"># subscriber to receive the computer&#39;s choice over the computer topic</span>
-        <span class="n">rospy</span><span class="o">.</span><span class="n">Subscriber</span><span class="p">(</span><span class="s1">&#39;computer&#39;</span><span class="p">,</span> <span class="n">String</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">callback_computers_choice</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>The above creates and initializes a class called Player. <code class="docutils literal notranslate"><span class="pre">CHOICES</span></code> is a class level variable which is the same for every instance of the class. When an instance of the class is created the number of rounds to be played can be passed to the init function and becomes part of the instance of the class. If no input is provided, the default is set to 3. It is always good to set a default. You can see that comments are provided to describe a few of the instance variables that might need some clarification, but not for the self explanatory variables. That is one benefit of using descriptive variable names, it is easier for some to understand what is going on.</p>
-<p>To access an instance variable within the class you must use the <code class="docutils literal notranslate"><span class="pre">self</span></code> keyword.</p>
-<p>The last three lines create the ROS publisher, timer, and subscriber. The publisher and subscriber should be familiar to you by now, and the timer periodically calls a callback which we will use to take input from the user. It runs every duration, which is every one second in this example.</p>
+<hr class="docutils" />
+<section id="combat-mechanics">
+<h3><strong>2. Combat Mechanics</strong><a class="headerlink" href="#combat-mechanics" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Turn-Based Gameplay</strong>:</p>
+<ul>
+<li><p>The <strong>user</strong> attacks first, followed by the <strong>computer</strong>.</p></li>
+<li><p>Players alternate turns until one side is completely defeated.</p></li>
+</ul>
+</li>
+<li><p><strong>Attacking</strong>:</p>
+<ul>
+<li><p>Players attack with one type of unit at a time (in the order: Siege Machine → Archer → Knight → Footman).</p></li>
+<li><p>Each unit rolls dice to determine how many hits they score:</p>
+<ul>
+<li><p>A unit scores a hit if the dice roll is greater than or equal to its <strong>hit threshold</strong>.</p></li>
+<li><p><strong>Footman, Archer, and Knight</strong> roll one die.</p></li>
+<li><p><strong>Siege Machines</strong> roll two dice.</p></li>
+</ul>
+</li>
+<li><p>The total number of hits is calculated and applied to the opposing player.</p></li>
+</ul>
+</li>
+<li><p><strong>Defending</strong>:</p>
+<ul>
+<li><p>The defending player absorbs hits by assigning damage to random units in their army.</p></li>
+<li><p>Units with zero health are eliminated and removed from the army.</p></li>
+</ul>
+</li>
+</ul>
 </section>
-<section id="ros-callback-method-part-of-the-player-class-called-by-timer">
-<h3>ROS callback method part of the Player class called by timer<a class="headerlink" href="#ros-callback-method-part-of-the-player-class-called-by-timer" title="Permalink to this heading">#</a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># method to request user input and publish to computer</span>
-<span class="c1"># inputs: event, ROS information on timing of interrupt.</span>
-<span class="c1">#         Can be ignored.</span>
-<span class="c1"># outputs: publishes player&#39;s choice</span>
-<span class="k">def</span> <span class="nf">callback_players_choice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-    <span class="c1"># check to ensure we wait for the round to be complete to get user input</span>
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">round_complete</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_game_complete</span><span class="p">():</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">players_choice</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Please choose between </span><span class="si">%s</span><span class="s1"> by typing either one of the three.</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">CHOICES</span><span class="p">)</span>
-
-        <span class="c1"># check to ensure it is a valid input</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">players_choice</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">CHOICES</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">round_complete</span> <span class="o">=</span> <span class="kc">False</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">pub</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">players_choice</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Invalid input. Please choose between </span><span class="si">%s</span><span class="s1"> by typing either one of the three.</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">CHOICES</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>This is an example of a class method. In ROS we call it a callback, because some other process triggers the calling of the method instead of the main function. This particular method is called by the timer. The check is a more concise version of the one we saw earlier. If the check is valid the <code class="docutils literal notranslate"><span class="pre">choice</span></code> <em>String</em> is published over the <em>player</em> topic.</p>
+<hr class="docutils" />
+<section id="end-of-game">
+<h3><strong>3. End of Game</strong><a class="headerlink" href="#end-of-game" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>The game ends when one player’s army is completely defeated.</p></li>
+<li><p>The remaining player’s army is declared the winner.</p></li>
+<li><p>The program displays:</p>
+<ul>
+<li><p>The composition of the winning army.</p></li>
+<li><p>A message announcing the winner.</p></li>
+</ul>
+</li>
+</ul>
 </section>
-<section id="ros-callback-method-part-of-player-class-called-by-topic">
-<h3>ROS callback method part of Player class called by topic<a class="headerlink" href="#ros-callback-method-part-of-player-class-called-by-topic" title="Permalink to this heading">#</a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># method to receive computer&#39;s choice and determine winner</span>
-<span class="c1"># inputs: choice, computer&#39;s choice sent over the computer</span>
-<span class="c1">#         topic</span>
-<span class="c1"># outputs: none</span>
-<span class="k">def</span> <span class="nf">callback_computers_choice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">choice</span><span class="p">):</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">computers_choice</span> <span class="o">=</span> <span class="n">choice</span><span class="o">.</span><span class="n">data</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">round</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Game </span><span class="si">%d</span><span class="s1">: </span><span class="si">%s</span><span class="s1"> vs. </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">round</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">players_choice</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">computers_choice</span><span class="p">))</span>
-
-    <span class="c1"># Determine winner and increase number of wins for player by 1</span>
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">players_choice</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">computers_choice</span><span class="p">:</span> 
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Draw&#39;</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">players_choice</span> <span class="o">==</span> <span class="s1">&#39;Rock&#39;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">computers_choice</span> <span class="o">==</span> <span class="s1">&#39;Scissors&#39;</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;You win!&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">user_wins</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">players_choice</span> <span class="o">==</span> <span class="s1">&#39;Paper&#39;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">computers_choice</span> <span class="o">==</span> <span class="s1">&#39;Rock&#39;</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;You win!&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">user_wins</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">players_choice</span> <span class="o">==</span> <span class="s1">&#39;Scissors&#39;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">computers_choice</span> <span class="o">==</span> <span class="s1">&#39;Paper&#39;</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;You win!&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">user_wins</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;You lose.&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">computer_wins</span> <span class="o">+=</span> <span class="mi">1</span>
-
-    <span class="bp">self</span><span class="o">.</span><span class="n">round_complete</span> <span class="o">=</span> <span class="kc">True</span>
-</pre></div>
-</div>
-<p>This class method is another callback that is called whenever a <em>String</em> message is sent over the <em>computer</em> topic. When called, the message is passed to the module. In this example we named the variable choice and store it in the <code class="docutils literal notranslate"><span class="pre">computers_choice</span></code> instance variable.</p>
+<hr class="docutils" />
+<section id="example-walkthrough">
+<h3><strong>Example Walkthrough</strong><a class="headerlink" href="#example-walkthrough" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Recruitment Phase</strong>:</p>
+<ul class="simple">
+<li><p>Both players recruit units based on their budget. For example:</p>
+<ul>
+<li><p>User: 2 Footmen, 1 Archer, 1 Knight, 1 Siege Machine.</p></li>
+<li><p>Computer: 3 Footmen, 2 Archers, 1 Knight.</p></li>
+</ul>
+</li>
+<li><p>The composition of each army is displayed before the battle begins.</p></li>
+</ul>
+</li>
+<li><p><strong>Battle Phase</strong>:</p>
+<ul class="simple">
+<li><p><strong>Turn 1</strong>:</p>
+<ul>
+<li><p>User’s Siege Machine rolls two dice and scores 1 hit. The hit is applied to a random unit in the computer’s army.</p></li>
+<li><p>Computer’s Siege Machine rolls two dice and scores 2 hits. The hits are applied to the user’s units.</p></li>
+</ul>
+</li>
+<li><p><strong>Subsequent Turns</strong>:</p>
+<ul>
+<li><p>Both players alternate attacking with their next unit types (e.g., Archers, Knights).</p></li>
+<li><p>Damage is applied to the defending player’s army after each attack.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Game Over</strong>:</p>
+<ul class="simple">
+<li><p>The game ends when one player’s army is eliminated. The program announces the winner and shows the remaining army of the victorious player.</p></li>
+</ul>
+</li>
+</ol>
 </section>
-<section id="class-methods-part-of-player-class">
-<h3>Class methods part of Player class<a class="headerlink" href="#class-methods-part-of-player-class" title="Permalink to this heading">#</a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># returns the number of wins by the user and computer</span>
-<span class="k">def</span> <span class="nf">get_results</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_wins</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">computer_wins</span>
-
-<span class="c1"># checks if the game is complete</span>
-<span class="k">def</span> <span class="nf">is_game_complete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_rounds</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">round</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">round_complete</span><span class="p">:</span>
-        <span class="k">return</span> <span class="kc">True</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="kc">False</span>
-</pre></div>
-</div>
-<p>These are two class methods that are used either within the class or in main. Class variables are technically accessible in main, but the first method above is a better convention for accessing instance variables.</p>
+<hr class="docutils" />
+<section id="key-differences-from-the-original-risk-game">
+<h3><strong>Key Differences from the Original Risk Game</strong><a class="headerlink" href="#key-differences-from-the-original-risk-game" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>This version simplifies recruitment and combat:</p>
+<ul>
+<li><p>There is no board or territorial control.</p></li>
+<li><p>Armies are recruited randomly, and players have fixed budgets.</p></li>
+<li><p>Combat is resolved by alternating turns, with no simultaneous attacks or strategic maneuvers.</p></li>
+</ul>
+</li>
+<li><p>Unit roles and dice mechanics are adjusted for simplicity.</p></li>
+</ul>
+<hr class="docutils" />
+<p>This straightforward set of rules ensures that the focus remains on implementing and understanding the <strong>object-oriented programming concepts</strong> behind the game.</p>
 </section>
 </section>
-<section id="let-s-start-the-game">
-<h2>Let’s start the game!<a class="headerlink" href="#let-s-start-the-game" title="Permalink to this heading">#</a></h2>
-<p>Alright, now that we remember the basics of a Python, let’s build our game. We will start with the user player.</p>
-<section id="initialize-ros">
-<h3>Initialize ROS:<a class="headerlink" href="#initialize-ros" title="Permalink to this heading">#</a></h3>
-<p>The first step when utilizing  ROS is to initialize <em>roscore</em>. There are two methods to accomplish this: first, by explicitly running <em>roscore</em> and second, by running a launch file (which will initialize <em>roscore</em> if it is not already running). During the first portion of this course we will explicitly run <em>roscore</em> and then take advantage of launch files later in the course.</p>
-<p>Copy the following code and run it in a new terminal (use the shortcut <code class="docutils literal notranslate"><span class="pre">ctrl+alt+t</span></code> to open a new terminal window):</p>
-<p><code class="docutils literal notranslate"><span class="pre">roscore</span></code></p>
+<hr class="docutils" />
+<section id="setup">
+<h2><strong>Setup</strong><a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Open your Python development environment (e.g., VS Code or PyCharm).</p></li>
+<li><p>Copy and paste the provided code into a new <code class="docutils literal notranslate"><span class="pre">.py</span></code> file.</p></li>
+<li><p>Follow the instructions in each <strong><code class="docutils literal notranslate"><span class="pre">TODO</span></code></strong> section to complete the missing functionality.</p></li>
+</ol>
 </section>
-<section id="import-modules">
-<h3>Import modules:<a class="headerlink" href="#import-modules" title="Permalink to this heading">#</a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">rospy</span>
-<span class="kn">from</span> <span class="nn">std_msgs.msg</span> <span class="kn">import</span> <span class="n">String</span>
+<hr class="docutils" />
+<section id="classes-and-responsibilities">
+<h2><strong>Classes and Responsibilities</strong><a class="headerlink" href="#classes-and-responsibilities" title="Link to this heading">#</a></h2>
+<section id="unit-class">
+<h3><strong>1. <code class="docutils literal notranslate"><span class="pre">Unit</span></code> Class</strong><a class="headerlink" href="#unit-class" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Represents a generic unit in the game.</p></li>
+<li><p>Attributes include:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: The name of the unit.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cost</span></code>: How much it costs to recruit this unit.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">health</span></code>: The unit’s health points.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hit_threshold</span></code>: The minimum dice roll needed for the unit to score a hit.</p></li>
+</ul>
+</li>
+<li><p><strong>Methods</strong>:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">roll_attack()</span></code>: Simulates a dice roll and determines if the unit scores a hit.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">take_damage(damage)</span></code>: Reduces the unit’s health by the specified damage.</p>
+<ul>
+<li><p><strong>TODO</strong>: Subtract the damage value from <code class="docutils literal notranslate"><span class="pre">self.health</span></code> and ensure health doesn’t go below 0.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">isalive()</span></code>: Checks if the unit is still alive (health &gt; 0).</p>
+<ul>
+<li><p><strong>TODO</strong>: Return <code class="docutils literal notranslate"><span class="pre">True</span></code> if health &gt; 0, else return <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<section id="tasks-for-students">
+<h4><strong>Tasks for Students</strong><a class="headerlink" href="#tasks-for-students" title="Link to this heading">#</a></h4>
+<ol class="arabic">
+<li><p><strong>Complete the <code class="docutils literal notranslate"><span class="pre">take_damage</span></code> method</strong>:</p>
+<ul class="simple">
+<li><p>Use the <code class="docutils literal notranslate"><span class="pre">max()</span></code> function to ensure health doesn’t drop below 0.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">health</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">health</span> <span class="o">-</span> <span class="n">damage</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Here, we are importing two modules: <em>rospy</em>, which allows us to run ROS code in Python, and the <em>String</em> message from the <em>std_msgs</em> ROS package.</p>
-</section>
-<section id="build-the-class">
-<h3>Build the class:<a class="headerlink" href="#build-the-class" title="Permalink to this heading">#</a></h3>
-<p>The below is a copy of what we saw above.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">User</span><span class="p">:</span>
-    <span class="c1"># class constant to store user choices</span>
-    <span class="n">CHOICES</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Rock&#39;</span><span class="p">,</span> <span class="s1">&#39;Paper&#39;</span><span class="p">,</span> <span class="s1">&#39;Scissors&#39;</span><span class="p">]</span>
-    
-    <span class="c1"># initialize class</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_rounds</span> <span class="o">=</span> <span class="mi">3</span><span class="p">):</span>
-        <span class="c1"># instance variables</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">num_rounds</span> <span class="o">=</span> <span class="n">num_rounds</span> <span class="c1"># total numer of games to be played</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">round</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># number of rounds played so far</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">users_choice</span> <span class="o">=</span> <span class="n">String</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">computers_choice</span> <span class="o">=</span> <span class="n">String</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">round_complete</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">user_wins</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">computer_wins</span> <span class="o">=</span> <span class="mi">0</span>
-        
-        <span class="c1"># publisher to send user&#39;s choice over the user topic</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pub</span> <span class="o">=</span> <span class="n">rospy</span><span class="o">.</span><span class="n">Publisher</span><span class="p">(</span><span class="s1">&#39;user_choice&#39;</span><span class="p">,</span> <span class="n">String</span><span class="p">,</span> <span class="n">queue_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-        
-        <span class="c1"># timer to request user&#39;s input, should be called once per second, but will stall</span>
-        <span class="c1"># on user input</span>
-        <span class="n">rospy</span><span class="o">.</span><span class="n">Timer</span><span class="p">(</span><span class="n">rospy</span><span class="o">.</span><span class="n">Duration</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">callback_users_choice</span><span class="p">)</span>
-        
-        <span class="c1"># subscriber to receive the computer&#39;s choice over the computer topic</span>
-        <span class="n">rospy</span><span class="o">.</span><span class="n">Subscriber</span><span class="p">(</span><span class="s1">&#39;computer_choice&#39;</span><span class="p">,</span> <span class="n">String</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">callback_computers_choice</span><span class="p">)</span>
-            
-    <span class="c1"># method to request user input and publish to computer</span>
-    <span class="c1"># inputs: event, ROS information on timing of interrupt.</span>
-    <span class="c1">#         Can be ignored.</span>
-    <span class="c1"># outputs: publishes user&#39;s choice</span>
-    <span class="k">def</span> <span class="nf">callback_users_choice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="c1"># check to ensure we wait for the round to be complete to get user input</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">round_complete</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_game_complete</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">users_choice</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Please choose between </span><span class="si">%s</span><span class="s1"> by typing either one of the three.</span><span class="se">\n</span><span class="s1">&#39;</span> 
-                                      <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">CHOICES</span><span class="p">)</span>
-
-            <span class="c1"># check to ensure it is a valid input</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">users_choice</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">CHOICES</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">round_complete</span> <span class="o">=</span> <span class="kc">False</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">pub</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">users_choice</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Invalid input. Please choose between </span><span class="si">%s</span><span class="s1"> by typing either one of the three.</span><span class="se">\n</span><span class="s1">&#39;</span> 
-                      <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">CHOICES</span><span class="p">)</span>
-                
-    <span class="c1"># method to receive computer&#39;s choice and determine winner</span>
-    <span class="c1"># inputs: choice, computer&#39;s choice sent over the computer</span>
-    <span class="c1">#         topic</span>
-    <span class="c1"># outputs: none</span>
-    <span class="k">def</span> <span class="nf">callback_computers_choice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">choice</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">computers_choice</span> <span class="o">=</span> <span class="n">choice</span><span class="o">.</span><span class="n">data</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">round</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Game </span><span class="si">%d</span><span class="s1">: </span><span class="si">%s</span><span class="s1"> vs. </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">round</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">users_choice</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">computers_choice</span><span class="p">))</span>
-        
-        <span class="c1"># Determine winner and increase number of wins for user by 1</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">users_choice</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">computers_choice</span><span class="p">:</span> 
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Draw&#39;</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">users_choice</span> <span class="o">==</span> <span class="s1">&#39;Rock&#39;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">computers_choice</span> <span class="o">==</span> <span class="s1">&#39;Scissors&#39;</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;You win!&#39;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">user_wins</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">users_choice</span> <span class="o">==</span> <span class="s1">&#39;Paper&#39;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">computers_choice</span> <span class="o">==</span> <span class="s1">&#39;Rock&#39;</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;You win!&#39;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">user_wins</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">users_choice</span> <span class="o">==</span> <span class="s1">&#39;Scissors&#39;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">computers_choice</span> <span class="o">==</span> <span class="s1">&#39;Paper&#39;</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;You win!&#39;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">user_wins</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;You lose.&#39;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">computer_wins</span> <span class="o">+=</span> <span class="mi">1</span>
-        
-        <span class="bp">self</span><span class="o">.</span><span class="n">round_complete</span> <span class="o">=</span> <span class="kc">True</span>
-
-    <span class="c1"># returns the number of wins by the user and computer</span>
-    <span class="k">def</span> <span class="nf">get_results</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_wins</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">computer_wins</span>
-    
-    <span class="c1"># checks if the game is complete</span>
-    <span class="k">def</span> <span class="nf">is_game_complete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_rounds</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">round</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">round_complete</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">True</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">False</span>
-</pre></div>
-</div>
-</section>
-<section id="create-the-main">
-<h3>Create the main<a class="headerlink" href="#create-the-main" title="Permalink to this heading">#</a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="c1"># initialize a node called player</span>
-    <span class="n">rospy</span><span class="o">.</span><span class="n">init_node</span><span class="p">(</span><span class="s1">&#39;user&#39;</span><span class="p">)</span>
-
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;***Make sure your computer player is running.***&quot;</span><span class="p">)</span>
-
-    <span class="n">num_rounds</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s1">&#39;How many rounds do you want to play? &#39;</span><span class="p">))</span>
-
-    <span class="c1"># create an instance of the class that will play the specified number of games</span>
-    <span class="n">u</span> <span class="o">=</span> <span class="n">User</span><span class="p">(</span><span class="n">num_rounds</span><span class="p">)</span>
-
-    <span class="c1"># run continuously until the game is complete</span>
-    <span class="k">while</span> <span class="ow">not</span> <span class="n">u</span><span class="o">.</span><span class="n">is_game_complete</span><span class="p">():</span>
-        <span class="k">pass</span>
-
-    <span class="c1"># print results</span>
-    <span class="n">user_wins</span><span class="p">,</span> <span class="n">computer_wins</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">get_results</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Total number of user wins: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">user_wins</span><span class="p">))</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Total number of computer wins: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">computer_wins</span><span class="p">))</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Total number of draws: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">num_rounds</span> <span class="o">-</span> <span class="p">(</span><span class="n">user_wins</span> <span class="o">+</span> <span class="n">computer_wins</span><span class="p">)))</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;User win percentage: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">user_wins</span><span class="o">/</span><span class="n">num_rounds</span><span class="p">))</span>
-</pre></div>
-</div>
-<p>In an actual Python script we will replace</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">main</span><span class="p">()</span>
-</pre></div>
-</div>
-<p>with</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-</pre></div>
-</div>
-<p>This allows our python files to be imported into other python files that might also have a main() function.</p>
+</li>
+<li><p><strong>Complete the <code class="docutils literal notranslate"><span class="pre">isalive</span></code> method</strong>:</p>
+<ul class="simple">
+<li><p>Check the value of <code class="docutils literal notranslate"><span class="pre">self.health</span></code> and return a boolean.</p></li>
+</ul>
+</li>
+</ol>
 </section>
 </section>
-<section id="computer-player">
-<h2>Computer Player<a class="headerlink" href="#computer-player" title="Permalink to this heading">#</a></h2>
-<p>We will now implement a computer player node that will send a random choice to the player node.</p>
-<p>First import your required modules:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">rospy</span><span class="o">,</span> <span class="nn">random</span>
-<span class="kn">from</span> <span class="nn">std_msgs.msg</span> <span class="kn">import</span> <span class="n">String</span>
-</pre></div>
-</div>
-<p>Here, we are importing two modules: <em>rospy</em>, which allows us to run ROS code in Python, and the <em>String</em> message from the <em>std_msgs</em> ROS package.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Computer</span><span class="p">:</span>
-    <span class="c1"># class constant to store computer choices</span>
-    <span class="n">CHOICES</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Rock&#39;</span><span class="p">,</span> <span class="s1">&#39;Paper&#39;</span><span class="p">,</span> <span class="s1">&#39;Scissors&#39;</span><span class="p">]</span>
-    
-    <span class="c1"># initialize class</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,):</span>
-        <span class="c1"># instance variables</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">computers_choice</span> <span class="o">=</span> <span class="n">String</span><span class="p">()</span>
-        
-        <span class="c1"># subscriber to receive the computer&#39;s choice over the computer topic</span>
-        <span class="n">rospy</span><span class="o">.</span><span class="n">Subscriber</span><span class="p">(</span><span class="s1">&#39;user_choice&#39;</span><span class="p">,</span> <span class="n">String</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">callback_computers_choice</span><span class="p">)</span>
-        
-        <span class="c1"># publisher to send player&#39;s choice over the player topic</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pub</span> <span class="o">=</span> <span class="n">rospy</span><span class="o">.</span><span class="n">Publisher</span><span class="p">(</span><span class="s1">&#39;computer_choice&#39;</span><span class="p">,</span> <span class="n">String</span><span class="p">,</span> <span class="n">queue_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    
-    <span class="k">def</span> <span class="nf">callback_computers_choice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-        <span class="c1"># use random module imported earlier to select a random index from the list</span>
-        <span class="n">rand_index</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">CHOICES</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-        <span class="c1"># use the index to select an item from the list</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">computers_choice</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CHOICES</span><span class="p">[</span><span class="n">rand_index</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pub</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">computers_choice</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rospy</span><span class="o">.</span><span class="n">init_node</span><span class="p">(</span><span class="s1">&#39;computer&#39;</span><span class="p">)</span>
-<span class="n">Computer</span><span class="p">()</span>
-<span class="n">rospy</span><span class="o">.</span><span class="n">spin</span><span class="p">()</span>
-</pre></div>
-</div>
-<p>Now return to the Module3_Python3 User Notebook and fill in the requested inputs.</p>
-<section id="ros-refresher">
-<h3>ROS refresher<a class="headerlink" href="#ros-refresher" title="Permalink to this heading">#</a></h3>
-<p>Open the Module3_ROS notebook and follow the instructions.</p>
-<p>List the active topics:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rostopic<span class="w"> </span>list
-</pre></div>
-</div>
-<p>Display running nodes and communication between them:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rqt_graph
-</pre></div>
-</div>
-<p>Exit the rqt_graph and then list all running nodes:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rosnode<span class="w"> </span>list
-</pre></div>
-</div>
-<p>Show information about a the <strong>/computer_choice</strong> topic such as what type of messages are sent over the topic and publishing and subscribing nodes:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rostopic<span class="w"> </span>info<span class="w"> </span>/computer_choice
-</pre></div>
-</div>
-<p>Display information about the message that is sent over the <strong>/computer</strong> topic:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rostopic<span class="w"> </span><span class="nb">type</span><span class="w"> </span>/computer_choice<span class="w"> </span><span class="p">|</span><span class="w"> </span>rosmsg<span class="w"> </span>show
-</pre></div>
-</div>
-<p>Display messages sent over the <strong>/user_choice</strong> topic:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rostopic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/user_choice
-</pre></div>
-</div>
-<p>In the Module3_Python3 notebook, reset the Jupter kernel and clear output: At the top menu bar select “Kernel” and “Restart &amp; Clear Output” (you do not need to restart the computer player). Make sure to rerun the code blocks to import modules, build the class, and create the main. When you select ‘Rock’, ‘Paper’, or ‘Scissors’ you should see the message echoed above.</p>
-</section>
-</section>
-<section id="cleanup">
-<h2>Cleanup<a class="headerlink" href="#cleanup" title="Permalink to this heading">#</a></h2>
-<p>In each of the notebooks reset the Jupter kernel and clear output. Close each notebook. Shutdown the notebook server by typing <code class="docutils literal notranslate"><span class="pre">ctrl+c</span></code> within the terminal you ran <code class="docutils literal notranslate"><span class="pre">Jupter-notebook</span></code> in. Select ‘y’. Kill all processes in your terminals (ctrl+c) and ensure roscore is terminated before moving on to the ICE.</p>
-<p>You should now have a better understanding of how to utilize ROS and Python. To learn more about the Python style guide and standards, visit <a class="reference external" href="https://www.python.org/dev/peps/pep-0008/#class-names">PEP 8 – Style Guid for Python Code</a>.</p>
-</section>
+<hr class="docutils" />
+<section id="subclasses-footman-archer-knight-siegemachine">
+<h3><strong>2. Subclasses (<code class="docutils literal notranslate"><span class="pre">Footman</span></code>, <code class="docutils literal notranslate"><span class="pre">Archer</span></code>, <code class="docutils literal notranslate"><span class="pre">Knight</span></code>, <code class="docutils literal notranslate"><span class="pre">SiegeMachine</span></code>)</strong><a class="headerlink" href="#subclasses-footman-archer-knight-siegemachine" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Inherit from the <code class="docutils literal notranslate"><span class="pre">Unit</span></code> class.</p></li>
+<li><p>Each unit type has specific attributes for <code class="docutils literal notranslate"><span class="pre">cost</span></code>, <code class="docutils literal notranslate"><span class="pre">health</span></code>, and <code class="docutils literal notranslate"><span class="pre">hit_threshold</span></code>.</p></li>
+<li><p><strong>SiegeMachine Special Ability</strong>:</p>
+<ul>
+<li><p>Rolls <strong>two dice</strong> instead of one for its attack.</p></li>
+<li><p><strong>TODO</strong>: Implement the <code class="docutils literal notranslate"><span class="pre">roll_attack</span></code> method in the <code class="docutils literal notranslate"><span class="pre">SiegeMachine</span></code> class to roll two dice and count the hits.</p></li>
+</ul>
+</li>
+</ul>
 <section id="id1">
-<h2>Initialize ROS:<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
-<p>The first step when utilizing  ROS is to initialize <em>roscore</em>. There are two methods to accomplish this: first, by explicitly running <em>roscore</em> and second, by running a launch file (which will initialize <em>roscore</em> if it is not already running). During the first portion of this course we will explicitly run <em>roscore</em> and then take advantage of launch files later in the course.</p>
-<p>Copy the following code and run it in a new terminal (use the shortcut <code class="docutils literal notranslate"><span class="pre">ctrl+alt+t</span></code> to open a new terminal window or select an open terminal and hit <code class="docutils literal notranslate"><span class="pre">ctrl+shift+t</span></code> to open a new terminal tab):</p>
-<p><code class="docutils literal notranslate"><span class="pre">roscore</span></code></p>
+<h4><strong>Tasks for Students</strong><a class="headerlink" href="#id1" title="Link to this heading">#</a></h4>
+<ol class="arabic">
+<li><p><strong>Modify <code class="docutils literal notranslate"><span class="pre">roll_attack</span></code> in <code class="docutils literal notranslate"><span class="pre">SiegeMachine</span></code></strong>:</p>
+<ul class="simple">
+<li><p>Use a loop to roll two dice.</p></li>
+<li><p>Count how many rolls are greater than or equal to <code class="docutils literal notranslate"><span class="pre">hit_threshold</span></code>.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">hits</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+    <span class="n">roll</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> rolls </span><span class="si">{</span><span class="n">roll</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">roll</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hit_threshold</span><span class="p">:</span>
+        <span class="n">hits</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="k">return</span> <span class="n">hits</span>
+</pre></div>
+</div>
+</li>
+</ol>
 </section>
-<section id="implementing-the-chat-client">
-<h2>Implementing the chat client<a class="headerlink" href="#implementing-the-chat-client" title="Permalink to this heading">#</a></h2>
-<blockquote>
-<div><p>📝️ <strong>Note:</strong> This Jupyter Notebook will require you to enter Python3 code within code sections. You can type any Python3 code and expand the block if necessary. After typing the code, execute the code block before moving forward.</p>
-</div></blockquote>
+</section>
+<hr class="docutils" />
+<section id="player-class">
+<h3><strong>3. <code class="docutils literal notranslate"><span class="pre">Player</span></code> Class</strong><a class="headerlink" href="#player-class" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Represents a player (user or computer).</p></li>
+<li><p>Attributes include:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: The player’s name.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">budget</span></code>: Coins available for recruiting units.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">army</span></code>: List of units the player has recruited.</p></li>
+</ul>
+</li>
+<li><p><strong>Methods</strong>:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">recruit_units()</span></code>: Randomly recruits units within the player’s budget.</p>
+<ul>
+<li><p><strong>TODO</strong>: Enforce the maximum number of Siege Machines (<code class="docutils literal notranslate"><span class="pre">MaxSiegeUnits</span></code>) allowed.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">attack(defender)</span></code>: Simulates an attack on another player.</p>
+<ul>
+<li><p><strong>TODO</strong>: Roll dice for units of the current type and calculate the total hits.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">resolve_damage(total_damage)</span></code>: Applies damage to the player’s units.</p>
+<ul>
+<li><p><strong>TODO</strong>: Randomly pick units to take damage, remove units with zero health, and print eliminated units.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 <section id="id2">
-<h3>Import modules<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
-<blockquote>
-<div><p>⚠️ <strong>Important:</strong> Importing classes may take some time. You will know the code block is still executing as the bracket on the left of the cell will change to a <code class="docutils literal notranslate"><span class="pre">*</span></code> character. Do not move to the next step until the <code class="docutils literal notranslate"><span class="pre">*</span></code> is gone.</p>
-</div></blockquote>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># import required modules for ROS and the String message from std_msgs</span>
-
-
+<h4><strong>Tasks for Students</strong><a class="headerlink" href="#id2" title="Link to this heading">#</a></h4>
+<ol class="arabic">
+<li><p><strong>Complete <code class="docutils literal notranslate"><span class="pre">recruit_units</span></code></strong>:</p>
+<ul class="simple">
+<li><p>Skip recruiting Siege Machines if <code class="docutils literal notranslate"><span class="pre">siege_count</span> <span class="pre">&gt;=</span> <span class="pre">MaxSiegeUnits</span></code>.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">SiegeMachine</span><span class="p">)</span> <span class="ow">and</span> <span class="n">siege_count</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MaxSiegeUnits</span><span class="p">:</span>
+    <span class="k">continue</span>
 </pre></div>
 </div>
-<section id="client-class">
-<h4>Client Class<a class="headerlink" href="#client-class" title="Permalink to this heading">#</a></h4>
-<ol class="arabic simple">
-<li><p>Create a Client class with a dictionary used to map numbers to messages.</p></li>
-<li><p>Initialize the class with the following:</p>
-<ol class="arabic simple">
-<li><p>an instance variable to store the String message</p></li>
-<li><p>a publisher that publishes String messages on the client topic</p></li>
-<li><p>a subscriber to the server topic which receives String messages and calls a callback when messages are sent.</p></li>
-<li><p>a timer that runs every second and calls a class method</p></li>
-<li><p>nicely handle shutdown</p></li>
-</ol>
 </li>
-<li><p>Create the callback input class method that is ran every second and has the user pick a message to send.</p></li>
-<li><p>Create the callback received class method that is called every time a message is received from the server.</p></li>
-<li><p>Handle shutdown.</p></li>
-</ol>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Client</span><span class="p">:</span>
-    <span class="n">MESSAGE</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;Hello!&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s2">&quot;How are you?&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="s2">&quot;Where are you from?&quot;</span><span class="p">,</span>
-               <span class="mi">4</span><span class="p">:</span> <span class="s2">&quot;What are you doing today?&quot;</span><span class="p">}</span>
-    
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># 2.A</span>
-
-        <span class="c1"># 2.B</span>
-        
-        <span class="c1"># 2.C</span>
-        
-        <span class="c1"># 2.D</span>
-        
-        <span class="c1"># 2.E nicely handle shutdown</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_c</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="n">rospy</span><span class="o">.</span><span class="n">on_shutdown</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shutdownhook</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">callback_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="n">valid</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="k">while</span> <span class="ow">not</span> <span class="n">valid</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_c</span><span class="p">:</span>
-            <span class="c1"># get input from user (you must inform them their options)</span>
-            
-            <span class="k">try</span><span class="p">:</span>
-                <span class="c1"># convert to int, if not number throw ValueError</span>
-                <span class="n">val</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">chat_str</span><span class="p">)</span>
-                <span class="c1"># check if valid number, if valid then access</span>
-                <span class="c1"># that entry in the dictionary, publish the message</span>
-                <span class="c1"># and set valid to True; if not valid, print error</span>
-                <span class="c1"># message to user (make this error message useful)</span>
-                
-                
-                
-                
-                
-            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
-                <span class="c1"># print error message to user (make </span>
-                <span class="c1"># this error message useful)</span>
-                
-                
-    <span class="k">def</span> <span class="nf">callback_received</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
-        <span class="c1"># print message sent to the server</span>
-        
-        <span class="c1"># print the response from the server</span>
-    
-    <span class="c1"># handle shutdown</span>
-    <span class="k">def</span> <span class="nf">shutdownhook</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shutting down the client&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_c</span> <span class="o">=</span> <span class="kc">True</span>
+<li><p><strong>Complete <code class="docutils literal notranslate"><span class="pre">attack</span></code></strong>:</p>
+<ul class="simple">
+<li><p>Loop through <code class="docutils literal notranslate"><span class="pre">self.army</span></code> and roll dice for units of the current type (<code class="docutils literal notranslate"><span class="pre">army_type</span></code>).</p></li>
+<li><p>Add hits to <code class="docutils literal notranslate"><span class="pre">total_hits</span></code> and print results.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">army_type</span><span class="p">)</span> <span class="ow">and</span> <span class="n">unit</span><span class="o">.</span><span class="n">isalive</span><span class="p">():</span>
+    <span class="n">hits</span> <span class="o">=</span> <span class="n">unit</span><span class="o">.</span><span class="n">roll_attack</span><span class="p">()</span>
+    <span class="n">total_hits</span> <span class="o">+=</span> <span class="n">hits</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">unit</span><span class="si">}</span><span class="s2"> scores </span><span class="si">{</span><span class="n">hits</span><span class="si">}</span><span class="s2"> hit(s).&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
-<section id="main">
-<h4>Main<a class="headerlink" href="#main" title="Permalink to this heading">#</a></h4>
-<p>The main function calls initializes our node, creates an instance of the client class, then runs forever.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="c1"># initialize node</span>
-    
-    <span class="c1"># create an instance of the client class</span>
-    
-    <span class="c1"># run forever</span>
-    <span class="n">rospy</span><span class="o">.</span><span class="n">spin</span><span class="p">()</span>
-</pre></div>
-</div>
-</section>
-<section id="run-the-program">
-<h4>Run the program<a class="headerlink" href="#run-the-program" title="Permalink to this heading">#</a></h4>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">main</span><span class="p">()</span>
-</pre></div>
-</div>
-</section>
-</section>
-<section id="implementing-the-chat-server">
-<h3>Implementing the chat server<a class="headerlink" href="#implementing-the-chat-server" title="Permalink to this heading">#</a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># import required modules for ROS and the String message from std_msgs</span>
-
-
-</pre></div>
-</div>
-<section id="server-class">
-<h4>Server Class<a class="headerlink" href="#server-class" title="Permalink to this heading">#</a></h4>
-<ol class="arabic simple">
-<li><p>Create a server class with a dictionary used to map messages to responses (one for each message from the client).</p></li>
-<li><p>Initialize the class with the following:</p>
-<ol class="arabic simple">
-<li><p>an instance variable to store the String message</p></li>
-<li><p>a subscriber to the client topic which receives String messages and calls a callback called received.</p></li>
-<li><p>a publisher to the server topic which sends String messages</p></li>
-<li><p>nicely handle shutdown</p></li>
-</ol>
 </li>
-<li><p>Create the callback received class method that is called every time a message is received from the client.</p></li>
-<li><p>Handle shutdown.</p></li>
+<li><p><strong>Complete <code class="docutils literal notranslate"><span class="pre">resolve_damage</span></code></strong>:</p>
+<ul class="simple">
+<li><p>While <code class="docutils literal notranslate"><span class="pre">total_damage</span> <span class="pre">&gt;</span> <span class="pre">0</span></code>, randomly pick units from <code class="docutils literal notranslate"><span class="pre">self.army</span></code> using <code class="docutils literal notranslate"><span class="pre">random.choice()</span></code>.</p></li>
+<li><p>Apply 1 damage to the selected unit, remove dead units, and print their names.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">while</span> <span class="n">total_damage</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">army</span><span class="p">:</span>
+    <span class="n">unit</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">army</span><span class="p">)</span>
+    <span class="n">unit</span><span class="o">.</span><span class="n">take_damage</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">unit</span><span class="o">.</span><span class="n">isalive</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">unit</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> has been eliminated!&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">army</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">unit</span><span class="p">)</span>
+    <span class="n">total_damage</span> <span class="o">-=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</li>
 </ol>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Server</span><span class="p">:</span>
-    <span class="c1"># class dictionary storing server responses</span>
-    <span class="n">MESSAGE</span> <span class="o">=</span> 
-    
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># 2.A</span>
-
-        <span class="c1"># 2.B</span>
-        
-        <span class="c1"># 2.C</span>
-        
-        <span class="c1"># 2.D nicely handle shutdown</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_c</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="n">rospy</span><span class="o">.</span><span class="n">on_shutdown</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shutdownhook</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">callback_received</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
-        <span class="c1"># print the message from the client</span>
-        
-        <span class="c1"># print the response that will be sent to the client</span>
-        
-        <span class="c1"># publish the response</span>
-    
-    <span class="c1"># handle shutdown</span>
-    <span class="k">def</span> <span class="nf">shutdownhook</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shutting down the server&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_c</span> <span class="o">=</span> <span class="kc">True</span>
-</pre></div>
-</div>
 </section>
-<section id="id3">
-<h4>Main<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h4>
-<p>The main function calls initializes our node, creates an instance of the server class, then runs forever.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="c1"># initialize node</span>
-    
-    <span class="c1"># create an instance of the server class</span>
-    
-    <span class="c1"># run forever</span>
-    <span class="n">rospy</span><span class="o">.</span><span class="n">spin</span><span class="p">()</span>
-</pre></div>
-</div>
 </section>
-<section id="id4">
-<h4>Run the program<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h4>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">main</span><span class="p">()</span>
-</pre></div>
-</div>
-<p>At this point, the server is waiting for the client to send a message. Browse back to your client and type a message! You should see that message show up above.</p>
+<hr class="docutils" />
+<section id="risk-class">
+<h3><strong>4. <code class="docutils literal notranslate"><span class="pre">Risk</span></code> Class</strong><a class="headerlink" href="#risk-class" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Represents the overall game.</p></li>
+<li><p>Attributes:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">user</span></code>: The human player.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">computer</span></code>: The AI opponent.</p></li>
+</ul>
+</li>
+<li><p><strong>Methods</strong>:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">play()</span></code>: Runs the game loop until one player is defeated.</p></li>
+<li><p>Prints the final outcome of the game.</p></li>
+</ul>
+</li>
+</ul>
 </section>
+</section>
+<hr class="docutils" />
+<section id="steps-to-complete-the-lab">
+<h2><strong>Steps to Complete the Lab</strong><a class="headerlink" href="#steps-to-complete-the-lab" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Understand the Code</strong>:</p>
+<ul class="simple">
+<li><p>Read through each class and its methods.</p></li>
+<li><p>Pay attention to the <code class="docutils literal notranslate"><span class="pre">TODO</span></code> sections.</p></li>
+</ul>
+</li>
+<li><p><strong>Implement the Missing Functionality</strong>:</p>
+<ul class="simple">
+<li><p>Follow the instructions in the <code class="docutils literal notranslate"><span class="pre">TODO</span></code> comments to complete the methods:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Unit.take_damage</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Unit.isalive</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SiegeMachine.roll_attack</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Player.recruit_units</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Player.attack</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Player.resolve_damage</span></code></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Test the Implementation</strong>:</p>
+<ul class="simple">
+<li><p>Use the <code class="docutils literal notranslate"><span class="pre">test()</span></code> function provided in the code to test individual unit behaviors (e.g., <code class="docutils literal notranslate"><span class="pre">roll_attack</span></code> and <code class="docutils literal notranslate"><span class="pre">take_damage</span></code>).</p></li>
+<li><p>Uncomment the <code class="docutils literal notranslate"><span class="pre">main()</span></code> function to play the full game after completing the <code class="docutils literal notranslate"><span class="pre">TODO</span></code> sections.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="expected-outputs">
+<h2><strong>Expected Outputs</strong><a class="headerlink" href="#expected-outputs" title="Link to this heading">#</a></h2>
+<section id="test-function">
+<h3><strong>Test Function</strong><a class="headerlink" href="#test-function" title="Link to this heading">#</a></h3>
+<p>When you run <code class="docutils literal notranslate"><span class="pre">test()</span></code>, you should see:</p>
+<ul class="simple">
+<li><p>Units rolling dice and scoring hits.</p></li>
+<li><p>Units taking damage and being eliminated when their health reaches 0.</p></li>
+</ul>
+</section>
+<section id="main-game">
+<h3><strong>Main Game</strong><a class="headerlink" href="#main-game" title="Link to this heading">#</a></h3>
+<p>When you run the game:</p>
+<ul class="simple">
+<li><p>Both players will recruit armies based on their budget.</p></li>
+<li><p>Players will take turns attacking until one is defeated.</p></li>
+<li><p>The final result will display the surviving army composition for the winner.</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="submission">
+<h2><strong>Submission</strong><a class="headerlink" href="#submission" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Complete all <code class="docutils literal notranslate"><span class="pre">TODO</span></code> sections.</p></li>
+<li><p>Test your code thoroughly.</p></li>
+<li><p>Submit the completed <code class="docutils literal notranslate"><span class="pre">.py</span></code> file to the course platform.</p></li>
+</ol>
+<hr class="docutils" />
+<section id="learning-outcomes">
+<h3><strong>Learning Outcomes</strong><a class="headerlink" href="#learning-outcomes" title="Link to this heading">#</a></h3>
+<p>By completing this lab, you will:</p>
+<ol class="arabic simple">
+<li><p>Understand how to design and implement OOP systems.</p></li>
+<li><p>Learn how to use inheritance to extend functionality.</p></li>
+<li><p>Gain experience with simulating game mechanics using Python.</p></li>
+</ol>
+<p>Good luck, and enjoy coding! 🎯</p>
 </section>
 </section>
 </section>
@@ -1102,11 +903,10 @@ document.write(`
 
               
               
-                <footer class="bd-footer-article">
+              
+              
+                <footer class="prev-next-footer d-print-none">
                   
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="Lab2_ROS.html"
@@ -1126,17 +926,16 @@ document.write(`
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -1144,50 +943,49 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-note-on-this-document">A note on this document</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose">Purpose</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-modules-at-top-of-python-code">Import modules at top of Python code</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variables">Variables</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lists">Lists</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#functions">Functions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#user-input">User input</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#validating-user-input-with-if-statements">Validating user input with if statements</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classes">Classes</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-the-player-class-and-init-method">Create the player class and init method</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ros-callback-method-part-of-the-player-class-called-by-timer">ROS callback method part of the Player class called by timer</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ros-callback-method-part-of-player-class-called-by-topic">ROS callback method part of Player class called by topic</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#class-methods-part-of-player-class">Class methods part of Player class</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">🔬 Lab3: Python</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#simplified-risk-game-in-python"><strong>Simplified Risk Game in Python</strong></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objective"><strong>Objective</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-the-game"><strong>Overview of the Game</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rules-for-this-simplified-risk-game"><strong>Rules for This Simplified Risk Game</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#game-setup"><strong>1. Game Setup</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combat-mechanics"><strong>2. Combat Mechanics</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#end-of-game"><strong>3. End of Game</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-walkthrough"><strong>Example Walkthrough</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-differences-from-the-original-risk-game"><strong>Key Differences from the Original Risk Game</strong></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#let-s-start-the-game">Let’s start the game!</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#initialize-ros">Initialize ROS:</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-modules">Import modules:</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-the-class">Build the class:</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-the-main">Create the main</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup"><strong>Setup</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classes-and-responsibilities"><strong>Classes and Responsibilities</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unit-class"><strong>1. <code class="docutils literal notranslate"><span class="pre">Unit</span></code> Class</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#tasks-for-students"><strong>Tasks for Students</strong></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computer-player">Computer Player</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ros-refresher">ROS refresher</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#subclasses-footman-archer-knight-siegemachine"><strong>2. Subclasses (<code class="docutils literal notranslate"><span class="pre">Footman</span></code>, <code class="docutils literal notranslate"><span class="pre">Archer</span></code>, <code class="docutils literal notranslate"><span class="pre">Knight</span></code>, <code class="docutils literal notranslate"><span class="pre">SiegeMachine</span></code>)</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><strong>Tasks for Students</strong></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cleanup">Cleanup</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Initialize ROS:</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementing-the-chat-client">Implementing the chat client</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Import modules</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#client-class">Client Class</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#main">Main</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#run-the-program">Run the program</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#player-class"><strong>3. <code class="docutils literal notranslate"><span class="pre">Player</span></code> Class</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2"><strong>Tasks for Students</strong></a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementing-the-chat-server">Implementing the chat server</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#server-class">Server Class</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Main</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Run the program</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#risk-class"><strong>4. <code class="docutils literal notranslate"><span class="pre">Risk</span></code> Class</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#steps-to-complete-the-lab"><strong>Steps to Complete the Lab</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-outputs"><strong>Expected Outputs</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#test-function"><strong>Test Function</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#main-game"><strong>Main Game</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submission"><strong>Submission</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-outcomes"><strong>Learning Outcomes</strong></a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
+
   </nav></div>
 
 </div></div>
@@ -1208,6 +1006,7 @@ By Stan Baek
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2023.
@@ -1234,8 +1033,8 @@ By Stan Baek
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
   </footer>
