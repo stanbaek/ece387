@@ -24,7 +24,7 @@ This schedule is subject to change as appropriate.
 | 14     | Lec 6: IMU                                   |                   | Lab 5        |
 | 15     | [Lab 6: IMU](Labs/Lab6_IMU.md)               |                   |              |
 | 16     | Lec 7: Launch Files                          |                   | Lab 6        |
-| 17     | [Lab 7: Launch Files](Labs/Lab7_LaunchFiles.md)|                 |              |
+| 17     | [Lab 7: Launch Files](Labs/Lab7_LaunchFile.md)|                  |              |
 | 18     | Lec 8: LIDAR                                 |                   | Lab 7        |
 | 19     | GR 1                                         |                   |              |
 | 20     | [Lab 8: LIDAR](Labs/Lab8_LIDAR.md)           |                   |              |
@@ -34,8 +34,8 @@ This schedule is subject to change as appropriate.
 | 24     | Proj 1: SLAM                                 |                   |              |
 | 25     | Proj 1: SLAM                                 |                   | P1 Demo      |
 | 26     | Lec 9: Computer Vision                       |                   | P1 Report    |
-| 27     | [Lab 9: Computer Vision](Labs/Lab9_CV.md)    |                   |              |
-| 28     | [Lab 9: Computer Vision](Labs/Lab9_CV.md)    |                   |              |
+| 27     | Lab 9: Computer Vision                       |                   |              |
+| 28     | Lab 9: Computer Vision                       |                   |              |
 | 29     | Lec 10: AprilTags                            |                   | Lab 9        |
 | 30     | Lab 10: AprilTags                            |                   |              |
 | 31     | Lab 10: AprilTags                            |                   |              | 

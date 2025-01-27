@@ -82,7 +82,7 @@ This version of Risk is a simplified, turn-based game involving two players: the
      - Computer: 3 Footmen, 2 Archers, 1 Knight.
    - The composition of each army is displayed before the battle begins.
 
-2. **Battle Phase**:
+1. **Battle Phase**:
    - **Turn 1**: 
      - User's Siege Machine rolls two dice and scores 1 hit. The hit is applied to a random unit in the computer's army.
      - Computer's Siege Machine rolls two dice and scores 2 hits. The hits are applied to the user's units.
@@ -90,7 +90,7 @@ This version of Risk is a simplified, turn-based game involving two players: the
      - Both players alternate attacking with their next unit types (e.g., Archers, Knights).
      - Damage is applied to the defending player's army after each attack.
 
-3. **Game Over**:
+1. **Game Over**:
    - The game ends when one player's army is eliminated. The program announces the winner and shows the remaining army of the victorious player.
 
 ---
@@ -99,15 +99,43 @@ This straightforward set of rules ensures that the focus remains on implementing
 
 ---
 
-## **Setup**
+## **Steps to Complete the Lab**
 
-1. Open your Python development environment (e.g., VS Code or PyCharm).
-2. Copy and paste the provided code into a new `.py` file.
-3. Follow the instructions in each **`TODO`** section to complete the missing functionality.
+1. **Understand the Code**:
+   - Read through each class and its methods.
+   - Pay attention to the `TODO` sections.
+
+1. **Implement the Missing Functionality**:
+   - Follow the instructions in the `TODO` comments to complete the methods:
+
+1. **Test the Implementation**:
+   - Use the `test()` function provided in the code to test individual unit behaviors (e.g., `roll_attack` and `take_damage`).
+   - Uncomment the `main()` function to play the full game after completing the `TODO` sections.
 
 ---
 
+## **Setup**
+
+1. Go to the [Setup Upstream Repository](UpstreamRepo) section to connect your repository to the instructor's (upstream) repository.  
+
+1. Pull the latest changes from the upstream repository by running:  
+    ```bash  
+    git pull upstream main  
+    ```  
+    After completing this step, you should see a `lab3` directory containing Python scripts.  
+
+1. Open **VS Code** by running the following command in your terminal:  
+    ```bash  
+    code .  
+    ```  
+---
+
 ## **Classes and Responsibilities**
+
+
+```{hint}
+You can find an example output in `example_output.txt`.  
+```
 
 ### **1. `Unit` Class**
 - Represents a generic unit in the game.
@@ -165,20 +193,6 @@ This straightforward set of rules ensures that the focus remains on implementing
   - `play()`: Runs the game loop until one player is defeated.
   - Prints the final outcome of the game.
 
----
-
-## **Steps to Complete the Lab**
-
-1. **Understand the Code**:
-   - Read through each class and its methods.
-   - Pay attention to the `TODO` sections.
-
-2. **Implement the Missing Functionality**:
-   - Follow the instructions in the `TODO` comments to complete the methods:
-
-3. **Test the Implementation**:
-   - Use the `test()` function provided in the code to test individual unit behaviors (e.g., `roll_attack` and `take_damage`).
-   - Uncomment the `main()` function to play the full game after completing the `TODO` sections.
 
 ---
 
@@ -197,12 +211,16 @@ When you run the game:
 
 ---
 
-## **Submission**
-1. Complete all `TODO` sections.
-2. Test your code thoroughly.
-3. Submit the completed `.py` file to the course platform.
+## **Submission**  
 
+1. Complete all `TODO` sections in your code.  
+1. Test your code thoroughly to ensure it works as expected.  
+1. Once your code is complete, save the output to a file by running:  
+    ```bash  
+    python risk.py > output.txt  
+    ```  
+1. Push both your code and the output file (`output.txt`) to your GitHub repository.  
+1. Submit the **Lab3** assignment on Gradescope.  
 ---
-
 
 Good luck, and enjoy coding! 🎯
