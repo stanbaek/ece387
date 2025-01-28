@@ -6,7 +6,7 @@ Lab 3 is not ready yet!
 
 # **Simplified Risk Game in Python**
 
-## **Objective**
+## 📌 Objectives
 
 - Students should be able to understand Object-Oriented Programming (OOP), including classes, attributes, and methods.
 - Students should be able to explain inheritance and method overriding in OOP.
@@ -14,7 +14,7 @@ Lab 3 is not ready yet!
 
 ---
 
-## **Overview of the Game**
+## 📜 Overview of the Game
 
 This simplified version of the Risk board game involves:
 - Two players (a user and the computer).
@@ -22,13 +22,13 @@ This simplified version of the Risk board game involves:
 - Taking turns to attack until one side is defeated.
 - Using dice rolls to determine attack outcomes.
 
-### **Rules for This Simplified Risk Game**
+### Rules for This Simplified Risk Game
 
 This version of Risk is a simplified, turn-based game involving two players: the **user** and the **computer**. Players recruit armies within a budget and take turns attacking each other until one side is eliminated. The game is played as follows:
 
 ---
 
-### **1. Game Setup**
+### 1. Game Setup
 - **Players**: There are two players:
   - **User**: You, the player.
   - **Computer**: Controlled by the program.
@@ -47,7 +47,7 @@ This version of Risk is a simplified, turn-based game involving two players: the
 
 ---
 
-### **2. Combat Mechanics**
+### 2. Combat Mechanics
 - **Turn-Based Gameplay**:
   - The **user** attacks first, followed by the **computer**.
   - Players alternate turns until one side is completely defeated.
@@ -66,7 +66,7 @@ This version of Risk is a simplified, turn-based game involving two players: the
 
 ---
 
-### **3. End of Game**
+### 3. End of Game
 - The game ends when one player's army is completely defeated.
 - The remaining player's army is declared the winner.
 - The program displays:
@@ -75,7 +75,7 @@ This version of Risk is a simplified, turn-based game involving two players: the
 
 ---
 
-### **Example Walkthrough**
+### 4. Example Walkthrough
 1. **Recruitment Phase**:
    - Both players recruit units based on their budget. For example:
      - User: 2 Footmen, 1 Archer, 1 Knight, 1 Siege Machine.
@@ -99,7 +99,7 @@ This straightforward set of rules ensures that the focus remains on implementing
 
 ---
 
-## **Steps to Complete the Lab**
+## 💻 Procedure
 
 1. **Understand the Code**:
    - Read through each class and its methods.
@@ -114,7 +114,7 @@ This straightforward set of rules ensures that the focus remains on implementing
 
 ---
 
-## **Setup**
+### Setup
 
 1. Go to the [Setup Upstream Repository](UpstreamRepo) section to connect your repository to the instructor's (upstream) repository.  
 
@@ -130,14 +130,13 @@ This straightforward set of rules ensures that the focus remains on implementing
     ```  
 ---
 
-## **Classes and Responsibilities**
-
+### Classes and Responsibilities
 
 ```{hint}
 You can find an example output in `example_output.txt`.  
 ```
 
-### **1. `Unit` Class**
+#### **1. `Unit` Class**
 - Represents a generic unit in the game.
 - Attributes include:
   - `name`: The name of the unit.
@@ -147,28 +146,18 @@ You can find an example output in `example_output.txt`.
 - **Methods**:
   - `roll_attack()`: Simulates a dice roll and determines if the unit scores a hit.
   - `take_damage(damage)`: Reduces the unit's health by the specified damage.
-    - **TODO**: Subtract the damage value from `self.health` and ensure health doesn’t go below 0.
-  - `isalive()`: Checks if the unit is still alive (health > 0).
+    - **TODO**: Subtract the damage value from `self.health` and ensure health doesn’t go below 0. Hint: Use the `max()` function to ensure health doesn’t drop below 0.
+  - `isalive()`: Checks if the unit is still alive (health > 0). Hint: Check the value of `self.health` and return a boolean.
     - **TODO**: Return `True` if health > 0, else return `False`.
 
-#### **Tasks for Students**
-1. **Complete the `take_damage` method**:
-   - Use the `max()` function to ensure health doesn’t drop below 0.
-2. **Complete the `isalive` method**:
-   - Check the value of `self.health` and return a boolean.
-
----
-
-### **2. Subclasses (`Footman`, `Archer`, `Knight`, `SiegeMachine`)**
+#### **2. Subclasses (`Footman`, `Archer`, `Knight`, `SiegeMachine`)**
 - Inherit from the `Unit` class.
 - Each unit type has specific attributes for `cost`, `health`, and `hit_threshold`.
 - **SiegeMachine Special Ability**:
   - Rolls **two dice** instead of one for its attack.
   - **TODO**: Implement the `roll_attack` method in the `SiegeMachine` class to roll two dice and count the hits.
 
----
-
-### **3. `Player` Class**
+#### **3. `Player` Class**
 - Represents a player (user or computer).
 - Attributes include:
   - `name`: The player's name.
@@ -182,9 +171,7 @@ You can find an example output in `example_output.txt`.
   - `resolve_damage(total_damage)`: Applies damage to the player's units.
     - **TODO**: Randomly pick units to take damage, remove units with zero health, and print eliminated units.
 
----
-
-### **4. `Risk` Class**
+#### **4. `Risk` Class**
 - Represents the overall game.
 - Attributes:
   - `user`: The human player.
@@ -194,16 +181,15 @@ You can find an example output in `example_output.txt`.
   - Prints the final outcome of the game.
 
 
----
 
-## **Expected Outputs**
+### **Expected Outputs**
 
-### **Test Function**
+#### **Test Function**
 When you run `test()`, you should see:
 - Units rolling dice and scoring hits.
 - Units taking damage and being eliminated when their health reaches 0.
 
-### **Main Game**
+#### **Main Game**
 When you run the game:
 - Both players will recruit armies based on their budget.
 - Players will take turns attacking until one is defeated.
@@ -211,7 +197,7 @@ When you run the game:
 
 ---
 
-## **Submission**  
+## 🚚 **Deliverables**  
 
 1. Complete all `TODO` sections in your code.  
 1. Test your code thoroughly to ensure it works as expected.  

@@ -20,7 +20,7 @@ parts:
     - file: Labs/Lab1_Linux.md
     - file: Labs/Lab2_ROS.md    
     - file: Labs/Lab3_Python.md
-    - file: Labs/Lab4_TurtleBot.md
+    - file: Labs/Lab4_Gamepad.md
     - file: Labs/Lab5_Messages.md    
     - file: Labs/Lab6_IMU.md
     - file: Labs/Lab7_LaunchFile.md
@@ -31,4 +31,5 @@ parts:
     - file: Appendix/RobotSetup.md    
     - file: Appendix/MasterSetup.md  
     - file: Appendix/GitSetup.md    
+    - file: Appendix/GamepadSetup.md
   
