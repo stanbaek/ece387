@@ -1,5 +1,179 @@
-# 🔬 Lab2: ROS
+# 🔬 Lab4: Gamepad
 
+
+
+
+
+
+git clone -b humble https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
+
+
+```bash
+Finished <<< turtlebot3_fake_node [17.9s]                                       
+--- stderr: turtlebot3_gazebo                                
+CMake Warning (dev) at /usr/share/cmake-3.22/Modules/FindPackageHandleStandardArgs.cmake:438 (message):
+  The package name passed to `find_package_handle_standard_args` (PkgConfig)
+  does not match the name of the calling package (gazebo).  This can lead to
+  problems in calling code that expects `find_package` result variables
+  (e.g., `_FOUND`) to follow a certain pattern.
+Call Stack (most recent call first):
+  /usr/share/cmake-3.22/Modules/FindPkgConfig.cmake:99 (find_package_handle_standard_args)
+  /usr/lib/x86_64-linux-gnu/cmake/gazebo/gazebo-config.cmake:72 (include)
+  CMakeLists.txt:23 (find_package)
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+---
+Finished <<< turtlebot3_gazebo [20.9s]
+Starting >>> turtlebot3_simulations
+Finished <<< turtlebot3_simulations [0.90s]                
+
+```
+
+
+
+```bash
+$ ros2 pkg create --build-type ament_python lab4_gamepad
+```
+
+Your terminal will return a message verifying the creation of your package py_pubsub and all its necessary files and folders.
+
+
+
+
+
+
+
+
+
+Creating a ROS 2 package that subscribes to the `joy` topic (from a joystick) and publishes `cmd_vel` to control a TurtleBot3 is a great project! Below are step-by-step instructions to achieve this.
+
+---
+
+### Step 2: Create a New ROS 2 Package
+1. Navigate to the `src` directory of your workspace:
+   ```bash
+   cd ~/ros2_ws/src
+   ```
+2. Create a new ROS 2 package:
+   ```bash
+   ros2 pkg create --build-type ament_python joy_to_cmd_vel
+   ```
+   This creates a package named `joy_to_cmd_vel`.
+
+---
+
+### Step 3: Write the ROS 2 Node
+1. Navigate to the package directory:
+   ```bash
+   cd joy_to_cmd_vel/joy_to_cmd_vel
+   ```
+2. Create a Python script for the node:
+   ```bash
+   touch joy_to_cmd_vel_node.py
+   chmod +x joy_to_cmd_vel_node.py
+   ```
+3. Open the script in a text editor and add the following code:
+   ```python
+   #!/usr/bin/env python3
+
+   import rclpy
+   from rclpy.node import Node
+   from sensor_msgs.msg import Joy
+   from geometry_msgs.msg import Twist
+
+   class JoyToCmdVel(Node):
+       def __init__(self):
+           super().__init__('joy_to_cmd_vel')
+           self.subscription = self.create_subscription(
+               Joy,
+               'joy',
+               self.joy_callback,
+               10)
+           self.publisher = self.create_publisher(Twist, 'cmd_vel', 10)
+           self.get_logger().info("Joy to cmd_vel node started!")
+
+       def joy_callback(self, msg):
+           twist = Twist()
+           # Map joystick axes to linear and angular velocities
+           twist.linear.x = msg.axes[1]  # Left stick up/down for linear velocity
+           twist.angular.z = msg.axes[0]  # Left stick left/right for angular velocity
+           self.publisher.publish(twist)
+
+   def main(args=None):
+       rclpy.init(args=args)
+       joy_to_cmd_vel_node = JoyToCmdVel()
+       rclpy.spin(joy_to_cmd_vel_node)
+       joy_to_cmd_vel_node.destroy_node()
+       rclpy.shutdown()
+
+   if __name__ == '__main__':
+       main()
+   ```
+
+---
+
+### Step 4: Update `setup.py`
+1. Open the `setup.py` file in the package directory:
+   ```bash
+   cd ~/ros2_ws/src/joy_to_cmd_vel
+   nano setup.py
+   ```
+2. Add the following entry point under `console_scripts`:
+   ```python
+   entry_points={
+       'console_scripts': [
+           'joy_to_cmd_vel_node = joy_to_cmd_vel.joy_to_cmd_vel_node:main',
+       ],
+   },
+   ```
+
+---
+
+### Step 5: Build the Workspace
+1. Navigate to the root of your workspace:
+   ```bash
+   cd ~/ros2_ws
+   ```
+2. Build the workspace:
+   ```bash
+   colcon build
+   ```
+
+---
+
+### Step 6: Run the Node
+1. Source the workspace:
+   ```bash
+   source ~/ros2_ws/install/setup.bash
+   ```
+2. Launch the TurtleBot3 simulation (optional):
+   ```bash
+   export TURTLEBOT3_MODEL=waffle
+   ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py
+   ```
+3. Run the `joy` node to publish joystick data:
+   ```bash
+   ros2 run joy joy_node
+   ```
+4. Run your `joy_to_cmd_vel` node:
+   ```bash
+   ros2 run joy_to_cmd_vel joy_to_cmd_vel_node
+   ```
+
+---
+
+### Step 7: Control the TurtleBot3
+- Use your joystick to control the TurtleBot3. The left stick should move the robot forward/backward and rotate it left/right.
+
+---
+
+### Notes
+- **Joystick Mapping**: The axes and buttons on your joystick may vary. Use `ros2 topic echo /joy` to see the joystick data and adjust the mapping in the `joy_callback` function if needed.
+- **TurtleBot3 Model**: Ensure the `TURTLEBOT3_MODEL` environment variable is set correctly (e.g., `waffle` or `burger`).
+
+---
+
+Let me know if you need further assistance!
 
 
 

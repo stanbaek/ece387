@@ -41,35 +41,6 @@ To use both a Logitech Gamepad and an Xbox One Gamepad with ROS2 Humble on Ubunt
 
 
 
-3. **Set up the udev rules** for your controller. Create a file named `99-joystick.rules` in the `/etc/udev/rules.d/` directory with the following content:
-   ```bash
-   SUBSYSTEM=="input", ATTRS{name}=="Logitech USB Gamepad", MODE="0666"
-   ```
-4. **Reload the udev rules** to apply the changes:
-   ```bash
-   sudo udevadm control --reload-rules
-   sudo udevadm trigger
-   ```
-5. **Launch the teleop_f310 node** in ROS2:
-   ```bash
-   roslaunch teleop_f310 teleop_f310.launch
-   ```
-   This will start the node that allows you to control your robot using the Logitech F310 joystick.
-
-6. **Verify the joystick input** by echoing the `joy` topic:
-   ```bash
-   rostopic echo joy
-   ```
-   You should see the joystick inputs being published if everything is set up correctly.
-
-7. **Adjust the joystick configuration** if needed using the dynamic reconfigure plugin in `rqt`. This allows you to change the joystick mappings on-the-fly.
-
-==========================================================================================
-
-
-
-
-
 
 ### Step 3: Configure the `joy` Node
 1. **Launch the `joy` node**:
@@ -85,6 +56,10 @@ To use both a Logitech Gamepad and an Xbox One Gamepad with ROS2 Humble on Ubunt
    ros2 topic echo /joy
    ```
    Move the joysticks or press buttons on your gamepad to see data being published.
+
+
+
+
 
 ### Step 4: Configure Teleoperation (Optional)
 If you want to use the gamepad to control a robot using teleoperation, follow these steps.
@@ -114,21 +89,7 @@ If you want to use the gamepad to control a robot using teleoperation, follow th
    ```
    Replace `/dev/input/js0` with the correct device file if necessary.
 
-### Step 5: Using Both Gamepads Simultaneously
-- If you want to use both gamepads simultaneously, you'll need to launch two `joy_node` instances: one for each gamepad.
 
-1. **Launch two joy nodes**:
-   You can launch two `joy_node` instances like this:
-   ```bash
-   ros2 run joy joy_node --ros-args -p joy_node.device:="/dev/input/js0" &
-   ros2 run joy joy_node --ros-args -p joy_node.device:="/dev/input/js1" &
-   ```
-
-2. **Verify both devices are working**:
-   You can echo both `/joy` topics to see if both devices are sending data:
-   ```bash
-   ros2 topic echo /joy
-   ```
 
 ### Step 6: Test Everything
 1. **Control the robot (if applicable)**:
