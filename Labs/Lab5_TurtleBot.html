@@ -1,0 +1,880 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>🔬 Lab4: Driving the Robot &#8212; Introduction to Robotic Systems</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=4c969af8" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/tabs.js?v=3ee01567"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Labs/Lab5_TurtleBot';</script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/ece387.png" class="logo__image only-light" alt="Introduction to Robotic Systems - Home"/>
+    <img src="../_static/ece387.png" class="logo__image only-dark pst-js-only" alt="Introduction to Robotic Systems - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    ECE 387 Introduction to Robotic Systems
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Course Info</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../syllabus.html">📌 Syllabus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../schedule.html">📆 Course Schedule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PythonBasic.html">🐍 Python Basic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PythonIntermediate.html">🐍 Python Intermediate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NumPy.html">➕ NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">🙋 FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://stanbaek.github.io/NoPointer.html">No Pointers in Python?</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Labs</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Lab1_Linux.html">🔬 Lab1: Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lab2_ROS.html">🔬 Lab2: ROS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lab3_Python.html">🔬 Lab3: Python</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="Lab5_Messages.html">🔬 Lab5: Messages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lab6_IMU.html">🔬 Lab6: IMU</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lab7_LaunchFile.html">🔬 Lab7: Launch Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lab8_LIDAR.html">🔬 Lab8: LIDAR</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendix</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Appendix/RobotSetup.html">🔧 Robot Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendix/MasterSetup.html">🔧 Master Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendix/GitSetup.html">🔧 Git Repo Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendix/GamepadSetup.html">🔧 Gamepad Setup</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/stanbaek/ece387" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/stanbaek/ece387/issues/new?title=Issue%20on%20page%20%2FLabs/Lab5_TurtleBot.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/Labs/Lab5_TurtleBot.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>🔬 Lab4: Driving the Robot</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">🔬 Lab4: Driving the Robot</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lesson-objectives">Lesson Objectives:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agenda">Agenda:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#running-the-turtlebot3-simulation">Running the TurtleBot3 simulation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#common-ros-commands">Common ROS commands</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gain-additional-familiarity-with-simulation-environment">Gain Additional Familiarity with Simulation Environment.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gain-familiarity-with-turtlebot3-robotics-platform">Gain Familiarity with Turtlebot3 Robotics Platform.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#assignments">Assignments.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-time">Next time.</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#ice4-driving-the-robot">ICE4: Driving the Robot</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose">Purpose</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-used-to-drive-the-robot">Code used to drive the robot</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#driving-the-robot">Driving the robot</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ros">ROS</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint">Checkpoint</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cleanup">Cleanup</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="lab4-driving-the-robot">
+<h1>🔬 Lab4: Driving the Robot<a class="headerlink" href="#lab4-driving-the-robot" title="Link to this heading">#</a></h1>
+<section id="lesson-objectives">
+<h2>Lesson Objectives:<a class="headerlink" href="#lesson-objectives" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Gain additional familiarity with simulation environment</p></li>
+<li><p>Gain familiarity with Turtlebot 3 robotics platform</p></li>
+<li><p>Practice with ROS diagnostic tools</p></li>
+</ol>
+</section>
+<section id="agenda">
+<h2>Agenda:<a class="headerlink" href="#agenda" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Use Linux terminals to launch and control Turtlebot 3 in simulation environment.</p></li>
+<li><p>Use Linux terminals to launch and control actual Turtlebot 3.</p></li>
+</ol>
+<p>Sure, I can help with that! Here are the step-by-step instructions to use your Logitech F310 with ROS2:</p>
+<ol class="arabic">
+<li><p><strong>Plug in your Logitech F310 controller</strong> to your computer via USB.</p></li>
+<li><p><strong>Install the necessary dependencies</strong> for ROS2 and joystick support. You can do this by running:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt-get<span class="w"> </span>update
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>ros-&lt;ros_version&gt;-joy
+</pre></div>
+</div>
+<p>Replace <code class="docutils literal notranslate"><span class="pre">&lt;ros_version&gt;</span></code> with your ROS2 version (e.g., <code class="docutils literal notranslate"><span class="pre">foxy</span></code>, <code class="docutils literal notranslate"><span class="pre">galactic</span></code>).</p>
+</li>
+<li><p><strong>Set up the udev rules</strong> for your controller. Create a file named <code class="docutils literal notranslate"><span class="pre">99-joystick.rules</span></code> in the <code class="docutils literal notranslate"><span class="pre">/etc/udev/rules.d/</span></code> directory with the following content:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">SUBSYSTEM</span><span class="o">==</span><span class="s2">&quot;input&quot;</span>,<span class="w"> </span>ATTRS<span class="o">{</span>name<span class="o">}==</span><span class="s2">&quot;Logitech USB Gamepad&quot;</span>,<span class="w"> </span><span class="nv">MODE</span><span class="o">=</span><span class="s2">&quot;0666&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Reload the udev rules</strong> to apply the changes:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>udevadm<span class="w"> </span>control<span class="w"> </span>--reload-rules
+sudo<span class="w"> </span>udevadm<span class="w"> </span>trigger
+</pre></div>
+</div>
+</li>
+<li><p><strong>Launch the teleop_f310 node</strong> in ROS2:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>roslaunch<span class="w"> </span>teleop_f310<span class="w"> </span>teleop_f310.launch
+</pre></div>
+</div>
+<p>This will start the node that allows you to control your robot using the Logitech F310 joystick.</p>
+</li>
+<li><p><strong>Verify the joystick input</strong> by echoing the <code class="docutils literal notranslate"><span class="pre">joy</span></code> topic:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rostopic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>joy
+</pre></div>
+</div>
+<p>You should see the joystick inputs being published if everything is set up correctly.</p>
+</li>
+<li><p><strong>Adjust the joystick configuration</strong> if needed using the dynamic reconfigure plugin in <code class="docutils literal notranslate"><span class="pre">rqt</span></code>. This allows you to change the joystick mappings on-the-fly.</p></li>
+</ol>
+<p>That’s it! You should now be able to use your Logitech F310 with ROS2. If you encounter any issues, feel free to ask for more help!</p>
+</section>
+<section id="running-the-turtlebot3-simulation">
+<h2>Running the TurtleBot3 simulation<a class="headerlink" href="#running-the-turtlebot3-simulation" title="Link to this heading">#</a></h2>
+<p>The best way to learn about ROS is through implementation, however, let’s start off by playing around with a virtual TurtleBot3! The TurtleBot3 is a tool we will utilize throughout this course to apply and integrate robotics systems. Ultimately you will create a complex embedded robotics system to perform a specific dedicated task, such as navigating the halls of DFEC. But let’s see if we can get the robot to drive around first.</p>
+<ol class="arabic">
+<li><p>In a terminal (<strong>Pro tip:</strong> ctrl+alt+t opens a new terminal window, while ctrl+shift+t opens a new terminal tab in an existing window) and initialize the ROS network:</p>
+<p><code class="docutils literal notranslate"><span class="pre">roscore</span></code></p>
+</li>
+<li><p>That terminal is now occupied. Open a new terminal tab/window and launch the TurtleBot3 gazebo launch file (A launch file is a way to run one or more nodes at once, we will learn about launch files later):</p>
+<p><code class="docutils literal notranslate"><span class="pre">roslaunch</span> <span class="pre">turtlebot3_gazebo</span> <span class="pre">turtlebot3_world.launch</span></code></p>
+</li>
+</ol>
+<blockquote>
+<div><p>⌨️ <strong>Syntax:</strong> <code class="docutils literal notranslate"><span class="pre">roslaunch</span> <span class="pre">&lt;package&gt;</span> <span class="pre">&lt;launchfile&gt;</span></code></p>
+</div></blockquote>
+<ol class="arabic" start="3">
+<li><p>Open another terminal tab/window and launch the following:</p>
+<p><code class="docutils literal notranslate"><span class="pre">roslaunch</span> <span class="pre">turtlebot3_gazebo</span> <span class="pre">turtlebot3_gazebo_rviz.launch</span></code></p>
+</li>
+</ol>
+<p>The launch files will run the nodes necessary to simulate our robot and opens two windows: Gazebo and rviz. Gazebo is a simulation tool that provides physics for our robot and enables the testing of algorithms prior to real-world implementation. You should see a TurtleBot3 sitting at (-2.0, -0.5) facing the positive x direction surrounded by a maze. Using the mouse, left-click and holding will pan, holding the scroll wheel will change the orientation of the camera, and scrolling will zoom in and out.</p>
+<p>The second window is rviz, a tool that visualizes topics interacting in our system. You should see a number of red dots outlining the location of the obstacles in our simulation. These are objects detected by our LIDAR which is communicating over a scan topic. Using the mouse, left-click will change the orientation of the camera, holding the scroll wheel will pan, and scrolling will zoom in and out (would be nice if they were the same).</p>
+<p>Don’t worry! We will learn more about both of these tools at a later time.</p>
+<p>Let’s go ahead and take a look at what nodes and topics currently running in our system.</p>
+<p>The “!” character in front of the following commands allows us to run bash commands from the Jupyter NB and would <strong>NOT</strong> be used in the command line.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rosnode</span> <span class="nb">list</span>
+</pre></div>
+</div>
+<p>There are five nodes running, the first two enable the Gazebo simulation, the third allows for the visualization of the simulated robot, the fourth is created every time <em>roscore</em> is ran and helps with communication in our network, and the last enables rviz.</p>
+<p>Not too exciting yet, so lets see what topics are active.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rostopic</span> <span class="nb">list</span>
+</pre></div>
+</div>
+<p>There are a lot of topics that are utilized to simulate our robot. Our real-world robot will eventually have most of these, such as <strong>/cmd_vel</strong>, <strong>/imu</strong>, and <strong>/scan</strong>. These are topics that allow us to communicate with some of the simulated hardware, such as the orientation sensor (/imu), LIDAR (/scan), and driving the robot (/cmd_vel). The rest of the topics enable visualization and movement within the simulation and can be ignored for now.</p>
+<p>Another useful tool for visualizing nodes and topics is called <em>rqt_graph</em>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rqt_graph</span>
+</pre></div>
+</div>
+<p>All that is going on right now is Gazebo is publishing the position and scan data which rviz uses to visualize the robot. <strong>Close your rqt_graph</strong> and let’s add another node to make things a bit more interesting.</p>
+<p>Earlier we saw the topic <strong>/cmd_vel</strong>. This is a topic used to send <em>Twist</em> messages to a robot. A <em>Twist</em> message includes linear and angular x, y, z values to move a robot in a 3-dimensional space (google <code class="docutils literal notranslate"><span class="pre">ROS</span> <span class="pre">twist</span> <span class="pre">message</span></code> for more information). Our robot only drives in 2-dimensions and the wheels can only move forward and backward, so we will only use the linear x (forward and backward) and angular z (turning) attributes of the <em>Twist</em> message. To drive our simulated robot, we need a node that can publish <em>Twist</em> messages to the <strong>/cmd_vel</strong> topic. Luckily, there is a pre-built node called Teleop_Twist_Keyboard that sends <em>Twist</em> messages using a keyboard!</p>
+<p>Open a new terminal tab (select the terminal and press ctrl+shift+t) and run the following (<strong>Pro tip</strong>: in a Linux terminal if you type the first couple letters of a command and then hit tab it will autocomplete the command for you):</p>
+<p><code class="docutils literal notranslate"><span class="pre">rosrun</span> <span class="pre">teleop_twist_keyboard</span> <span class="pre">teleop_twist_keyboard.py</span></code></p>
+<blockquote>
+<div><p>⌨️ <strong>Syntax:</strong> <code class="docutils literal notranslate"><span class="pre">rosrun</span> <span class="pre">&lt;package&gt;</span> <span class="pre">&lt;executable&gt;</span></code></p>
+</div></blockquote>
+<p>To drive the robot use the ‘x’ key to decrease linear x speed to about .25 m/s and use the ‘c’ key to decrease angular z speed to about .5 rad/s. Now follow the directions to utilize the keyboard to drive the robot! You should see the robot move in the simulation.</p>
+<p>Let’s take a look at our rqt_graph to see if anything has changed.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rqt_graph</span>
+</pre></div>
+</div>
+<p>You should now see the teleop_twist_keyboard node which sends messages over <strong>/cmd_vel</strong> topic to Gazebo. <strong>Close the rqt_graph window</strong>. Let’s run through a number of commands that will provide you more information about your ROS network. You will use these throughout the course to determine what is going on in your ROS network.</p>
+</section>
+<section id="common-ros-commands">
+<h2>Common ROS commands<a class="headerlink" href="#common-ros-commands" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">rosnode</span></code> command allows us to interact with nodes. Typing any ROS command followd by <code class="docutils literal notranslate"><span class="pre">--help</span></code> will provide information about that command:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rosnode</span> <span class="o">--</span><span class="n">help</span>
+</pre></div>
+</div>
+<p>Let’s get some information about our new node, teleop_twist_keyboard:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rosnode</span> <span class="n">info</span> <span class="o">/</span><span class="n">teleop_twist_keyboard</span>
+</pre></div>
+</div>
+<p>The output of the command lists the topics the node is publishing and subscribing to (here is where we can see it publishes on <strong>/cmd_vel</strong>).</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">rostopic</span></code> command interacts with topics.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rostopic</span> <span class="o">--</span><span class="n">help</span>
+</pre></div>
+</div>
+<p>Some of the common rostopic commands we will use in this course are <code class="docutils literal notranslate"><span class="pre">echo</span></code>, <code class="docutils literal notranslate"><span class="pre">hz</span></code>, <code class="docutils literal notranslate"><span class="pre">info</span></code>,  <code class="docutils literal notranslate"><span class="pre">type</span></code>, and <code class="docutils literal notranslate"><span class="pre">list</span></code></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rostopic</span> <span class="nb">list</span>
+</pre></div>
+</div>
+<p>Let’s get some information about the <strong>/cmd_vel</strong> topic.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rostopic</span> <span class="n">info</span> <span class="o">/</span><span class="n">cmd_vel</span>
+</pre></div>
+</div>
+<p>From the output we can see what nodes are publishing and subscribing to the <strong>/cmd_vel</strong> topic.</p>
+<p>Echoing the topic will allow us to see what messages are sent over the topic. After running the below command, browse back to your teleop_twist_keyboard node and drive the robot. You should see the twist messages sent to Gazebo.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rostopic</span> <span class="n">echo</span> <span class="o">/</span><span class="n">cmd_vel</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When moving forward and backward (‘i’ and ‘,’ keys) only a linear x value is sent, when turning left or right (‘j’ and ‘l’ keys) only an angular z value is sent, and when arcing (‘u’, ‘o’, ‘m’, and ‘.’ keys) both a linear x and angular z value are sent.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The previous command still has an <code class="docutils literal notranslate"><span class="pre">*</span></code> character to the left. This means this command is waiting for inputs and will block all future commands. To kill the command and restart the kernel in the Jupyter Notebook at the top menu bar select “Kernel” and “Restart &amp; Clear Output”. This will allow future commands to run.</p>
+</div>
+<p>To learn more about the messages sent over the <strong>/cmd_vel</strong> topic we can use the <code class="docutils literal notranslate"><span class="pre">type</span></code> command and the <code class="docutils literal notranslate"><span class="pre">rosmsg</span></code> tool.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rostopic</span> <span class="nb">type</span> <span class="o">/</span><span class="n">cmd_vel</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rosmsg</span> <span class="n">show</span> <span class="n">geometry_msgs</span><span class="o">/</span><span class="n">Twist</span>
+</pre></div>
+</div>
+<p>Or in one combined command:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rostopic</span> <span class="nb">type</span> <span class="o">/</span><span class="n">cmd_vel</span> <span class="o">|</span> <span class="n">rosmsg</span> <span class="n">show</span>
+</pre></div>
+</div>
+</section>
+<section id="gain-additional-familiarity-with-simulation-environment">
+<h2>Gain Additional Familiarity with Simulation Environment.<a class="headerlink" href="#gain-additional-familiarity-with-simulation-environment" title="Link to this heading">#</a></h2>
+<p>At this point we are nearly 20% complete with the course, and we have the foundational knowledge required about the ecosystem we will be working in. In short we will be using the Linux operating system to host ROS. We will use ROS to execute python code to control and interact with the various subsystems on our robotics platform.</p>
+<p>Before we move on to controlling our actual robot, we want to stress the importance and capabilities of our simulation environment. There will be times, where it may be inconvenient to work with the actual robot. Additionally, with all hardware systems, there can occasionally be inconsistent behaviors. For both of these reasons (and many others), having an effective simulator may be very useful. There are two tools that we will find very useful for simulation (RViz and Gazebo).</p>
+<ul class="simple">
+<li><p>RViz - (short for “ROS visualization”) is a 3D visualization software tool for robots, sensors, and
+algorithms. It enables you to see the robot’s perception of its world (real or simulated).</p></li>
+<li><p>Gazebo - Gazebo is a 3D robot simulator. Its objective is to simulate a robot, giving you a close
+substitute to how your robot would behave in a real-world physical environment. It can compute the
+impact of forces (such as gravity).</p></li>
+</ul>
+<p>The difference between the two can be summed up in the following excerpt from Morgan Quigley (one of
+the original developers of ROS) in his book Programming Robots with ROS:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">RViz</span> <span class="n">shows</span> <span class="n">you</span> <span class="n">what</span> <span class="n">the</span> <span class="n">robot</span> <span class="n">thinks</span> <span class="ow">is</span> <span class="n">happening</span><span class="p">,</span> <span class="k">while</span> <span class="n">Gazebo</span> <span class="n">shows</span> <span class="n">you</span> <span class="n">what</span> <span class="ow">is</span> <span class="n">really</span> <span class="n">happening</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>For future research or development efforts, you may need to build your own simulation environment. However,
+for this course, the developers of the Turtlebot3, Robotis, have already done this for us.</p>
+<ul class="simple">
+<li><p>In a free terminal window, bring up roscore</p></li>
+<li><p>In a second free terminal window, we are going to use the roslaunch command to bring up the Gazebo
+environment within a maze. Tip: There are numerous virtual environments, but this will work for
+now</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dfec@master:∼$<span class="w"> </span>roslaunch<span class="w"> </span>turtlebot3_gazebo<span class="w"> </span>turtlebot3_world.launch
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>In a third terminal window, we are now going to bring up the RViz environment.</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dfec@master:∼$<span class="w"> </span>roslaunch<span class="w"> </span>turtlebot3_gazebo<span class="w"> </span>turtlebot3_gazebo_rviz.launch
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>In a fourth terminal window, we are going to bring up a valuable tool that will allow us to control the
+robot via the keyboard. This tool is called teleop_twist.</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dfec@master:∼$<span class="w"> </span>rosrun<span class="w"> </span>teleop_twist_keyboard<span class="w"> </span>teleop_twist_keyboard.py
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>I strongly recommend that you commit the above sequence of commands to memory, or at a minimum
+have them in a place that you can quickly recall them. There is nothing until Module 9 that absolutely requires the real robot, as everything else can be simulated.</p>
+</div>
+</section>
+<section id="gain-familiarity-with-turtlebot3-robotics-platform">
+<h2>Gain Familiarity with Turtlebot3 Robotics Platform.<a class="headerlink" href="#gain-familiarity-with-turtlebot3-robotics-platform" title="Link to this heading">#</a></h2>
+<p>The Module04 Jupyter Notebook will guide you through the process of connecting to and activating your
+robot for the first time.</p>
+<ol class="arabic simple">
+<li><p>On the master, open the Jupyter Notebook server (if it is not already open):</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/master_ws/src/ece387_lastname/Module04_DrivingTheRobot
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Open ICE4: Driving the Robot and follow the instructions.</p></li>
+</ol>
+</section>
+<section id="assignments">
+<h2>Assignments.<a class="headerlink" href="#assignments" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Complete ICE4 if not accomplished during class.</p></li>
+<li><p>Push screen captures into your repo/master/module04 on github</p></li>
+</ul>
+</section>
+<section id="next-time">
+<h2>Next time.<a class="headerlink" href="#next-time" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Lesson 10: Module 5 - Custom Messages</p></li>
+</ul>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="ice4-driving-the-robot">
+<h1>ICE4: Driving the Robot<a class="headerlink" href="#ice4-driving-the-robot" title="Link to this heading">#</a></h1>
+<section id="purpose">
+<h2>Purpose<a class="headerlink" href="#purpose" title="Link to this heading">#</a></h2>
+<p>This In-Class Exercise will introduce you to utilizing pre-built ROS packages to accomplish a task. It will also provide you experience interacting with someone else’s source code (.py files) to learn how that component works. You will use ROS to run two nodes, <strong>turtlebot3_core</strong> and <strong>teleop_twist_keyboard</strong>, to drive the Turtlebot3 with a keyboard. You will continue to practice using ROS tools to observe how these components communicate.</p>
+</section>
+<section id="code-used-to-drive-the-robot">
+<h2>Code used to drive the robot<a class="headerlink" href="#code-used-to-drive-the-robot" title="Link to this heading">#</a></h2>
+<ol class="arabic">
+<li><p>On the Master, open a terminal and run <strong>roscore</strong>.</p></li>
+<li><p>Open a new terminal on the Master and create a secure shell into the Turtlebot3 using the SSH command you learned during Module 2. This will allow you to run commands as if you were on the Turtlebot3.</p></li>
+<li><p>Using the secure shell, open the source code for the <strong>turtlebot3_core</strong> launch using the nano command line editor tool through the rosed command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>rosed<span class="w"> </span>turtlebot3_bringup<span class="w"> </span>turtlebot3_core.launch
+</pre></div>
+</div>
+<blockquote>
+<div><p>⌨️ <strong>Syntax:</strong>  <code class="docutils literal notranslate"><span class="pre">rosed</span> <span class="pre">&lt;package&gt;</span> <span class="pre">&lt;filename&gt;</span></code></p>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You may remember when we set up our <em>.bashrc</em> file we set the system variable <strong>EDITOR</strong> to <code class="docutils literal notranslate"><span class="pre">nano</span> <span class="pre">-w</span></code>. This enables the <code class="docutils literal notranslate"><span class="pre">rosed</span></code> command to utilize the nano editor.</p>
+</div>
+<p>We will learn more about launch files in a few modules, but just understand that a launch file is used to launch one or more ROS nodes. This particular launch file only launches one node, <strong>serial_node.py</strong>. This node will connect to the OpenCR controller on the Turtlebot3 using the port and baud rate parameters. This connection will enable us to send <em>Twist</em> messages over the <strong>/cmd_vel</strong> topic to drive the Turtlebot3 using the keyboard.</p>
+</li>
+<li><p>Close the editor by hitting <code class="docutils literal notranslate"><span class="pre">ctrl+x</span></code>.</p></li>
+<li><p>It is always a good idea to check that the Turtlebot3 is communicating with the Master. To do this, we can list the active topics the Turtlebot3 sees. Run the following within your secure shell:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>rostopic<span class="w"> </span>list<span class="sb">`</span>
+</pre></div>
+</div>
+<p>If all is well, then there should be two topics provided by <strong>roscore</strong> running on the Master: <strong>/rosout</strong> and <strong>/rosout_agg</strong>. We will typically ignore these topics.</p>
+</li>
+<li><p>Run the <strong>turtlebot3_core.launch</strong> file using the <code class="docutils literal notranslate"><span class="pre">roslaunch</span></code> command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>roslaunch<span class="w"> </span>turtlebot3_bringup<span class="w"> </span>turtlebot3_core.launch<span class="sb">`</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>⌨️ <strong>Syntax:</strong> <code class="docutils literal notranslate"><span class="pre">roslaunch</span> <span class="pre">&lt;package&gt;</span> <span class="pre">&lt;launchfile&gt;</span></code></p>
+</div></blockquote>
+<p>Your Turtlebot3 is now ready to drive and should be listening for <em>Twist</em> messages to be sent over the <strong>/cmd_vel</strong> topic.</p>
+</li>
+</ol>
+</section>
+<section id="driving-the-robot">
+<h2>Driving the robot<a class="headerlink" href="#driving-the-robot" title="Link to this heading">#</a></h2>
+<ol class="arabic">
+<li><p>Open a new terminal on the Master and observe the nodes currently running:</p>
+<p><code class="docutils literal notranslate"><span class="pre">rosrun</span> <span class="pre">rqt_graph</span> <span class="pre">rqt_graph</span></code></p>
+<p>You should only see one node running right now, <strong>turtlebot3_core</strong>, with no connections.</p>
+</li>
+<li><p>Open a new terminal tab and list the active topics. There should be one active topic other than the ones created by <strong>roscore</strong>: <strong>/cmd_vel</strong>.</p></li>
+<li><p>We used the <strong>/cmd_vel</strong> topic when driving the simulated Turtlebot3, but let’s refresh our memory about the topic:</p>
+<p><code class="docutils literal notranslate"><span class="pre">rostopic</span> <span class="pre">info</span> <span class="pre">cmd_vel</span></code></p>
+<p>As you can see the <strong>/cmd_vel</strong> topic is currently subscribed to by the <strong>turtlebot3_core</strong> with no publishers (just as we would expect after seeing the rqt_graph). We also note that topic utilizes the <em>Twist</em> message type. The following will show information about the fields within the <em>Twist</em> message sent over the <strong>/cmd_vel</strong> topic:</p>
+<p><code class="docutils literal notranslate"><span class="pre">rostopic</span> <span class="pre">type</span> <span class="pre">cmd_vel</span> <span class="pre">|</span> <span class="pre">rosmsg</span> <span class="pre">show</span></code></p>
+</li>
+<li><p>You can find information about pre-built packages by googling the package name along with the ROS distribution. Open up your favorite browser and google “teleop twist keyboard noetic”. The first result should be from the ROS wiki page.</p></li>
+<li><p>Ensure the ROS package <strong>teleop_twist_keyboard</strong> is installed on your Master:</p>
+<p><code class="docutils literal notranslate"><span class="pre">rospack</span> <span class="pre">find</span> <span class="pre">teleop_twist_keyboard</span></code></p>
+<p>If installed, the command should return the absolute path to the package, similar to <code class="docutils literal notranslate"><span class="pre">/opt/ros/noetic/share/teleop_twist_keyboard</span></code></p>
+<p>If the command instead returns an error, then you need to install the package using apt:</p>
+<p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">install</span> <span class="pre">ros-noetic-teleop-twist-keyboard</span></code></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>All packages built for Noetic can be downloaded in the above manner (ros-noetic-desired-pkg with underscores in the package name replaced by dashes). Some packages were only built for previous ROS distribution and will have to be built from source (we will demonstrate this at a future time).</p>
+</div>
+</li>
+<li><p>Run the <strong>teleop_twist_keyboard</strong> node on the Master:</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Don’t forget your tab completion! You can start typing a package name or node and then hit tab for it to complete the command for you!</p>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">rosrun</span> <span class="pre">teleop_twist_keyboard</span> <span class="pre">teleop_twist_keyboard.py</span></code></p>
+</li>
+<li><p>Before we get too excited and drive the Turtlebot3 off a cliff, observe how the nodes communicate using the <strong>rqt_graph</strong> tool in a new terminal (if you still have the previous rqt_graph running, you can hit the refresh button in the top left corner).</p></li>
+<li><p>Select the terminal that has the <strong>teleop_twist_keyboard</strong> node running and observe the instructions for sending <em>Twist</em> messages. These are the same as when driving the simulated Turtlebot3.</p></li>
+<li><p>The Turtlebot3 operates best with a linear velocity between 0.2 m/s and 0.5 m/s. It turns best with an angular velocity between 0.5 rad/s and 1.5 rad/s. Drive the Turtlebot3 using these parameters.</p></li>
+</ol>
+</section>
+<section id="ros">
+<h2>ROS<a class="headerlink" href="#ros" title="Link to this heading">#</a></h2>
+<p>In labs throughout this course we will request information about the topics, nodes, and messages within your system. Accomplish the following in a new terminal on your Master (you can ignore all nodes/topics that result from <strong>roscore</strong>).</p>
+<ol class="arabic simple">
+<li><p>List all running nodes.</p></li>
+<li><p>Determine what topics the nodes subscribe and publish to (repeat for each node).</p></li>
+<li><p>Display running nodes and communication between them.</p></li>
+<li><p>List the active topics.</p></li>
+<li><p>Determine the type of messages sent over the topics (repeat for each topic).</p></li>
+<li><p>Determine the fields of the messages.</p></li>
+<li><p>Observe the information sent over a topic (repeat for each topic).</p></li>
+</ol>
+</section>
+<section id="checkpoint">
+<h2>Checkpoint<a class="headerlink" href="#checkpoint" title="Link to this heading">#</a></h2>
+<p>Once complete, push screenshots showing the output of each of the above to your student repo on github in a /master/module04 folder.</p>
+</section>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
+<p>In this exercise you examined and used pre-built packages and source code to drive the Turtlebot3 and understand how the system worked. You then were able to analyze the topics, nodes, and messages within the ROS system to better understand the flow of information and control. The <strong>pro-tips</strong> presented throughout this exercise will make you a better user of Linux and ROS.</p>
+</section>
+<section id="cleanup">
+<h2>Cleanup<a class="headerlink" href="#cleanup" title="Link to this heading">#</a></h2>
+<p>In each terminal window, close the node by typing <code class="docutils literal notranslate"><span class="pre">ctrl+c</span></code>. Exit any SSH connections.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./Labs"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">🔬 Lab4: Driving the Robot</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lesson-objectives">Lesson Objectives:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agenda">Agenda:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#running-the-turtlebot3-simulation">Running the TurtleBot3 simulation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#common-ros-commands">Common ROS commands</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gain-additional-familiarity-with-simulation-environment">Gain Additional Familiarity with Simulation Environment.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gain-familiarity-with-turtlebot3-robotics-platform">Gain Familiarity with Turtlebot3 Robotics Platform.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#assignments">Assignments.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-time">Next time.</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#ice4-driving-the-robot">ICE4: Driving the Robot</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose">Purpose</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-used-to-drive-the-robot">Code used to drive the robot</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#driving-the-robot">Driving the robot</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ros">ROS</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint">Checkpoint</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cleanup">Cleanup</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Stan Baek
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

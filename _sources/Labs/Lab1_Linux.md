@@ -1,6 +1,6 @@
 # 🔬 Lab1: Linux
 
-## Objectives
+## 📌 bjectives
 - Students should be able to use commands like `ls`, `pwd`, and `cd` to explore directories, navigate using relative and absolute paths, and understand the structure of the Linux filesystem.  
 - Students should be able to create files and directories using `touch` and `mkdir`, modify file timestamps, and delete items using `rm` and `rmdir`, including handling hidden and non-empty directories.  
 - Students should be able to use advanced `ls` options such as `-lah` to display detailed file and directory information, including permissions, ownership, and sizes, and recognize hidden files.  

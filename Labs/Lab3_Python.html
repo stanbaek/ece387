@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>🔬 Lab3: Python &#8212; Introduction to Robotic Systems</title>
   
@@ -15,62 +14,63 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=4c969af8" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
-
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
-  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
-    <script src="../_static/tabs.js"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/tabs.js?v=3ee01567"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'Labs/Lab3_Python';</script>
-    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="🔬 Lab4: Driving the Robot" href="Lab4_TurtleBot.html" />
+    <link rel="next" title="🔬 Lab5: Messages" href="Lab5_Messages.html" />
     <link rel="prev" title="🔬 Lab2: ROS" href="Lab2_ROS.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -78,23 +78,16 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+  <div id="pst-scroll-pixel-helper"></div>
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
   
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../search.html"
       method="get">
@@ -102,7 +95,6 @@ const thebe_selector_output = ".output, .cell_output"
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -110,16 +102,25 @@ const thebe_selector_output = ".output, .cell_output"
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -132,9 +133,13 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
+  
+    
   
 
 <a class="navbar-brand logo" href="../intro.html">
+  
   
   
   
@@ -144,12 +149,19 @@ const thebe_selector_output = ".output, .cell_output"
       
     
     
-    <img src="../_static/ece387.png" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="../_static/ece387.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+    <img src="../_static/ece387.png" class="logo__image only-light" alt="Introduction to Robotic Systems - Home"/>
+    <img src="../_static/ece387.png" class="logo__image only-dark pst-js-only" alt="Introduction to Robotic Systems - Home"/>
   
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -175,8 +187,6 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="Lab2_ROS.html">🔬 Lab2: ROS</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">🔬 Lab3: Python</a></li>
 
-<li class="toctree-l1"><a class="reference internal" href="Lab4_TurtleBot.html">🔬 Lab4: Driving the Robot</a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="Lab5_Messages.html">🔬 Lab5: Messages</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Lab6_IMU.html">🔬 Lab6: IMU</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Lab7_LaunchFile.html">🔬 Lab7: Launch Files</a></li>
@@ -187,6 +197,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="../Appendix/RobotSetup.html">🔧 Robot Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Appendix/MasterSetup.html">🔧 Master Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Appendix/GitSetup.html">🔧 Git Repo Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendix/GamepadSetup.html">🔧 Gamepad Setup</a></li>
 </ul>
 
     </div>
@@ -195,14 +206,19 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -211,14 +227,14 @@ const thebe_selector_output = ".output, .cell_output"
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -340,26 +356,20 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
-<script>
-document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
-  </button>
-`);
-</script>
 
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-  </button>
-`);
-</script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -382,33 +392,32 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">🔬 Lab3: Python</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#simplified-risk-game-in-python"><strong>Simplified Risk Game in Python</strong></a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objective"><strong>Objective</strong></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-the-game"><strong>Overview of the Game</strong></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rules-for-this-simplified-risk-game"><strong>Rules for This Simplified Risk Game</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#game-setup"><strong>1. Game Setup</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combat-mechanics"><strong>2. Combat Mechanics</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#end-of-game"><strong>3. End of Game</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-walkthrough"><strong>Example Walkthrough</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">📌 Objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-the-game">📜 Overview of the Game</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rules-for-this-simplified-risk-game">Rules for This Simplified Risk Game</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#game-setup">1. Game Setup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combat-mechanics">2. Combat Mechanics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#end-of-game">3. End of Game</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-walkthrough">4. Example Walkthrough</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#steps-to-complete-the-lab"><strong>Steps to Complete the Lab</strong></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup"><strong>Setup</strong></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classes-and-responsibilities"><strong>Classes and Responsibilities</strong></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unit-class"><strong>1. <code class="docutils literal notranslate"><span class="pre">Unit</span></code> Class</strong></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#tasks-for-students"><strong>Tasks for Students</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#procedure">💻 Procedure</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#classes-and-responsibilities">Classes and Responsibilities</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#unit-class"><strong>1. <code class="docutils literal notranslate"><span class="pre">Unit</span></code> Class</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#subclasses-footman-archer-knight-siegemachine"><strong>2. Subclasses (<code class="docutils literal notranslate"><span class="pre">Footman</span></code>, <code class="docutils literal notranslate"><span class="pre">Archer</span></code>, <code class="docutils literal notranslate"><span class="pre">Knight</span></code>, <code class="docutils literal notranslate"><span class="pre">SiegeMachine</span></code>)</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#player-class"><strong>3. <code class="docutils literal notranslate"><span class="pre">Player</span></code> Class</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#risk-class"><strong>4. <code class="docutils literal notranslate"><span class="pre">Risk</span></code> Class</strong></a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#subclasses-footman-archer-knight-siegemachine"><strong>2. Subclasses (<code class="docutils literal notranslate"><span class="pre">Footman</span></code>, <code class="docutils literal notranslate"><span class="pre">Archer</span></code>, <code class="docutils literal notranslate"><span class="pre">Knight</span></code>, <code class="docutils literal notranslate"><span class="pre">SiegeMachine</span></code>)</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#player-class"><strong>3. <code class="docutils literal notranslate"><span class="pre">Player</span></code> Class</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#risk-class"><strong>4. <code class="docutils literal notranslate"><span class="pre">Risk</span></code> Class</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-outputs"><strong>Expected Outputs</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#test-function"><strong>Test Function</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#main-game"><strong>Main Game</strong></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-outputs"><strong>Expected Outputs</strong></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#test-function"><strong>Test Function</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#main-game"><strong>Main Game</strong></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submission"><strong>Submission</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">🚚 <strong>Deliverables</strong></a></li>
 </ul>
 </li>
 </ul>
@@ -421,19 +430,19 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="lab3-python">
-<h1>🔬 Lab3: Python<a class="headerlink" href="#lab3-python" title="Permalink to this heading">#</a></h1>
+<h1>🔬 Lab3: Python<a class="headerlink" href="#lab3-python" title="Link to this heading">#</a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Lab 3 is not ready yet!</p>
 </div>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="simplified-risk-game-in-python">
-<h1><strong>Simplified Risk Game in Python</strong><a class="headerlink" href="#simplified-risk-game-in-python" title="Permalink to this heading">#</a></h1>
-<section id="objective">
-<h2><strong>Objective</strong><a class="headerlink" href="#objective" title="Permalink to this heading">#</a></h2>
+<h1><strong>Simplified Risk Game in Python</strong><a class="headerlink" href="#simplified-risk-game-in-python" title="Link to this heading">#</a></h1>
+<section id="objectives">
+<h2>📌 Objectives<a class="headerlink" href="#objectives" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Students should be able to understand Object-Oriented Programming (OOP), including classes, attributes, and methods.</p></li>
 <li><p>Students should be able to explain inheritance and method overriding in OOP.</p></li>
@@ -442,7 +451,7 @@ document.write(`
 </section>
 <hr class="docutils" />
 <section id="overview-of-the-game">
-<h2><strong>Overview of the Game</strong><a class="headerlink" href="#overview-of-the-game" title="Permalink to this heading">#</a></h2>
+<h2>📜 Overview of the Game<a class="headerlink" href="#overview-of-the-game" title="Link to this heading">#</a></h2>
 <p>This simplified version of the Risk board game involves:</p>
 <ul class="simple">
 <li><p>Two players (a user and the computer).</p></li>
@@ -451,12 +460,12 @@ document.write(`
 <li><p>Using dice rolls to determine attack outcomes.</p></li>
 </ul>
 <section id="rules-for-this-simplified-risk-game">
-<h3><strong>Rules for This Simplified Risk Game</strong><a class="headerlink" href="#rules-for-this-simplified-risk-game" title="Permalink to this heading">#</a></h3>
+<h3>Rules for This Simplified Risk Game<a class="headerlink" href="#rules-for-this-simplified-risk-game" title="Link to this heading">#</a></h3>
 <p>This version of Risk is a simplified, turn-based game involving two players: the <strong>user</strong> and the <strong>computer</strong>. Players recruit armies within a budget and take turns attacking each other until one side is eliminated. The game is played as follows:</p>
 </section>
 <hr class="docutils" />
 <section id="game-setup">
-<h3><strong>1. Game Setup</strong><a class="headerlink" href="#game-setup" title="Permalink to this heading">#</a></h3>
+<h3>1. Game Setup<a class="headerlink" href="#game-setup" title="Link to this heading">#</a></h3>
 <ul>
 <li><p><strong>Players</strong>: There are two players:</p>
 <ul class="simple">
@@ -484,7 +493,7 @@ document.write(`
 </section>
 <hr class="docutils" />
 <section id="combat-mechanics">
-<h3><strong>2. Combat Mechanics</strong><a class="headerlink" href="#combat-mechanics" title="Permalink to this heading">#</a></h3>
+<h3>2. Combat Mechanics<a class="headerlink" href="#combat-mechanics" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p><strong>Turn-Based Gameplay</strong>:</p>
 <ul>
@@ -515,7 +524,7 @@ document.write(`
 </section>
 <hr class="docutils" />
 <section id="end-of-game">
-<h3><strong>3. End of Game</strong><a class="headerlink" href="#end-of-game" title="Permalink to this heading">#</a></h3>
+<h3>3. End of Game<a class="headerlink" href="#end-of-game" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>The game ends when one player’s army is completely defeated.</p></li>
 <li><p>The remaining player’s army is declared the winner.</p></li>
@@ -529,7 +538,7 @@ document.write(`
 </section>
 <hr class="docutils" />
 <section id="example-walkthrough">
-<h3><strong>Example Walkthrough</strong><a class="headerlink" href="#example-walkthrough" title="Permalink to this heading">#</a></h3>
+<h3>4. Example Walkthrough<a class="headerlink" href="#example-walkthrough" title="Link to this heading">#</a></h3>
 <ol class="arabic simple">
 <li><p><strong>Recruitment Phase</strong>:</p>
 <ul class="simple">
@@ -569,8 +578,8 @@ document.write(`
 </section>
 </section>
 <hr class="docutils" />
-<section id="steps-to-complete-the-lab">
-<h2><strong>Steps to Complete the Lab</strong><a class="headerlink" href="#steps-to-complete-the-lab" title="Permalink to this heading">#</a></h2>
+<section id="procedure">
+<h2>💻 Procedure<a class="headerlink" href="#procedure" title="Link to this heading">#</a></h2>
 <ol class="arabic simple">
 <li><p><strong>Understand the Code</strong>:</p>
 <ul class="simple">
@@ -590,10 +599,9 @@ document.write(`
 </ul>
 </li>
 </ol>
-</section>
 <hr class="docutils" />
 <section id="setup">
-<h2><strong>Setup</strong><a class="headerlink" href="#setup" title="Permalink to this heading">#</a></h2>
+<h3>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h3>
 <ol class="arabic">
 <li><p>Go to the <a class="reference internal" href="../Appendix/GitSetup.html#upstreamrepo"><span class="std std-ref">Setup Upstream Repository</span></a> section to connect your repository to the instructor’s (upstream) repository.</p></li>
 <li><p>Pull the latest changes from the upstream repository by running:</p>
@@ -611,13 +619,13 @@ document.write(`
 </section>
 <hr class="docutils" />
 <section id="classes-and-responsibilities">
-<h2><strong>Classes and Responsibilities</strong><a class="headerlink" href="#classes-and-responsibilities" title="Permalink to this heading">#</a></h2>
+<h3>Classes and Responsibilities<a class="headerlink" href="#classes-and-responsibilities" title="Link to this heading">#</a></h3>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
 <p>You can find an example output in <code class="docutils literal notranslate"><span class="pre">example_output.txt</span></code>.</p>
 </div>
 <section id="unit-class">
-<h3><strong>1. <code class="docutils literal notranslate"><span class="pre">Unit</span></code> Class</strong><a class="headerlink" href="#unit-class" title="Permalink to this heading">#</a></h3>
+<h4><strong>1. <code class="docutils literal notranslate"><span class="pre">Unit</span></code> Class</strong><a class="headerlink" href="#unit-class" title="Link to this heading">#</a></h4>
 <ul class="simple">
 <li><p>Represents a generic unit in the game.</p></li>
 <li><p>Attributes include:</p>
@@ -633,10 +641,10 @@ document.write(`
 <li><p><code class="docutils literal notranslate"><span class="pre">roll_attack()</span></code>: Simulates a dice roll and determines if the unit scores a hit.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">take_damage(damage)</span></code>: Reduces the unit’s health by the specified damage.</p>
 <ul>
-<li><p><strong>TODO</strong>: Subtract the damage value from <code class="docutils literal notranslate"><span class="pre">self.health</span></code> and ensure health doesn’t go below 0.</p></li>
+<li><p><strong>TODO</strong>: Subtract the damage value from <code class="docutils literal notranslate"><span class="pre">self.health</span></code> and ensure health doesn’t go below 0. Hint: Use the <code class="docutils literal notranslate"><span class="pre">max()</span></code> function to ensure health doesn’t drop below 0.</p></li>
 </ul>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">isalive()</span></code>: Checks if the unit is still alive (health &gt; 0).</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">isalive()</span></code>: Checks if the unit is still alive (health &gt; 0). Hint: Check the value of <code class="docutils literal notranslate"><span class="pre">self.health</span></code> and return a boolean.</p>
 <ul>
 <li><p><strong>TODO</strong>: Return <code class="docutils literal notranslate"><span class="pre">True</span></code> if health &gt; 0, else return <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
 </ul>
@@ -644,25 +652,9 @@ document.write(`
 </ul>
 </li>
 </ul>
-<section id="tasks-for-students">
-<h4><strong>Tasks for Students</strong><a class="headerlink" href="#tasks-for-students" title="Permalink to this heading">#</a></h4>
-<ol class="arabic simple">
-<li><p><strong>Complete the <code class="docutils literal notranslate"><span class="pre">take_damage</span></code> method</strong>:</p>
-<ul class="simple">
-<li><p>Use the <code class="docutils literal notranslate"><span class="pre">max()</span></code> function to ensure health doesn’t drop below 0.</p></li>
-</ul>
-</li>
-<li><p><strong>Complete the <code class="docutils literal notranslate"><span class="pre">isalive</span></code> method</strong>:</p>
-<ul class="simple">
-<li><p>Check the value of <code class="docutils literal notranslate"><span class="pre">self.health</span></code> and return a boolean.</p></li>
-</ul>
-</li>
-</ol>
 </section>
-</section>
-<hr class="docutils" />
 <section id="subclasses-footman-archer-knight-siegemachine">
-<h3><strong>2. Subclasses (<code class="docutils literal notranslate"><span class="pre">Footman</span></code>, <code class="docutils literal notranslate"><span class="pre">Archer</span></code>, <code class="docutils literal notranslate"><span class="pre">Knight</span></code>, <code class="docutils literal notranslate"><span class="pre">SiegeMachine</span></code>)</strong><a class="headerlink" href="#subclasses-footman-archer-knight-siegemachine" title="Permalink to this heading">#</a></h3>
+<h4><strong>2. Subclasses (<code class="docutils literal notranslate"><span class="pre">Footman</span></code>, <code class="docutils literal notranslate"><span class="pre">Archer</span></code>, <code class="docutils literal notranslate"><span class="pre">Knight</span></code>, <code class="docutils literal notranslate"><span class="pre">SiegeMachine</span></code>)</strong><a class="headerlink" href="#subclasses-footman-archer-knight-siegemachine" title="Link to this heading">#</a></h4>
 <ul class="simple">
 <li><p>Inherit from the <code class="docutils literal notranslate"><span class="pre">Unit</span></code> class.</p></li>
 <li><p>Each unit type has specific attributes for <code class="docutils literal notranslate"><span class="pre">cost</span></code>, <code class="docutils literal notranslate"><span class="pre">health</span></code>, and <code class="docutils literal notranslate"><span class="pre">hit_threshold</span></code>.</p></li>
@@ -674,9 +666,8 @@ document.write(`
 </li>
 </ul>
 </section>
-<hr class="docutils" />
 <section id="player-class">
-<h3><strong>3. <code class="docutils literal notranslate"><span class="pre">Player</span></code> Class</strong><a class="headerlink" href="#player-class" title="Permalink to this heading">#</a></h3>
+<h4><strong>3. <code class="docutils literal notranslate"><span class="pre">Player</span></code> Class</strong><a class="headerlink" href="#player-class" title="Link to this heading">#</a></h4>
 <ul class="simple">
 <li><p>Represents a player (user or computer).</p></li>
 <li><p>Attributes include:</p>
@@ -707,9 +698,8 @@ document.write(`
 </li>
 </ul>
 </section>
-<hr class="docutils" />
 <section id="risk-class">
-<h3><strong>4. <code class="docutils literal notranslate"><span class="pre">Risk</span></code> Class</strong><a class="headerlink" href="#risk-class" title="Permalink to this heading">#</a></h3>
+<h4><strong>4. <code class="docutils literal notranslate"><span class="pre">Risk</span></code> Class</strong><a class="headerlink" href="#risk-class" title="Link to this heading">#</a></h4>
 <ul class="simple">
 <li><p>Represents the overall game.</p></li>
 <li><p>Attributes:</p>
@@ -727,11 +717,10 @@ document.write(`
 </ul>
 </section>
 </section>
-<hr class="docutils" />
 <section id="expected-outputs">
-<h2><strong>Expected Outputs</strong><a class="headerlink" href="#expected-outputs" title="Permalink to this heading">#</a></h2>
+<h3><strong>Expected Outputs</strong><a class="headerlink" href="#expected-outputs" title="Link to this heading">#</a></h3>
 <section id="test-function">
-<h3><strong>Test Function</strong><a class="headerlink" href="#test-function" title="Permalink to this heading">#</a></h3>
+<h4><strong>Test Function</strong><a class="headerlink" href="#test-function" title="Link to this heading">#</a></h4>
 <p>When you run <code class="docutils literal notranslate"><span class="pre">test()</span></code>, you should see:</p>
 <ul class="simple">
 <li><p>Units rolling dice and scoring hits.</p></li>
@@ -739,7 +728,7 @@ document.write(`
 </ul>
 </section>
 <section id="main-game">
-<h3><strong>Main Game</strong><a class="headerlink" href="#main-game" title="Permalink to this heading">#</a></h3>
+<h4><strong>Main Game</strong><a class="headerlink" href="#main-game" title="Link to this heading">#</a></h4>
 <p>When you run the game:</p>
 <ul class="simple">
 <li><p>Both players will recruit armies based on their budget.</p></li>
@@ -748,9 +737,10 @@ document.write(`
 </ul>
 </section>
 </section>
+</section>
 <hr class="docutils" />
-<section id="submission">
-<h2><strong>Submission</strong><a class="headerlink" href="#submission" title="Permalink to this heading">#</a></h2>
+<section id="deliverables">
+<h2>🚚 <strong>Deliverables</strong><a class="headerlink" href="#deliverables" title="Link to this heading">#</a></h2>
 <ol class="arabic">
 <li><p>Complete all <code class="docutils literal notranslate"><span class="pre">TODO</span></code> sections in your code.</p></li>
 <li><p>Test your code thoroughly to ensure it works as expected.</p></li>
@@ -792,11 +782,10 @@ document.write(`
 
               
               
-                <footer class="bd-footer-article">
+              
+              
+                <footer class="prev-next-footer d-print-none">
                   
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="Lab2_ROS.html"
@@ -808,25 +797,24 @@ document.write(`
       </div>
     </a>
     <a class="right-next"
-       href="Lab4_TurtleBot.html"
+       href="Lab5_Messages.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">🔬 Lab4: Driving the Robot</p>
+        <p class="prev-next-title">🔬 Lab5: Messages</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -836,33 +824,32 @@ document.write(`
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">🔬 Lab3: Python</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#simplified-risk-game-in-python"><strong>Simplified Risk Game in Python</strong></a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objective"><strong>Objective</strong></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-the-game"><strong>Overview of the Game</strong></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rules-for-this-simplified-risk-game"><strong>Rules for This Simplified Risk Game</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#game-setup"><strong>1. Game Setup</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combat-mechanics"><strong>2. Combat Mechanics</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#end-of-game"><strong>3. End of Game</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-walkthrough"><strong>Example Walkthrough</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">📌 Objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-the-game">📜 Overview of the Game</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rules-for-this-simplified-risk-game">Rules for This Simplified Risk Game</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#game-setup">1. Game Setup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combat-mechanics">2. Combat Mechanics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#end-of-game">3. End of Game</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-walkthrough">4. Example Walkthrough</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#steps-to-complete-the-lab"><strong>Steps to Complete the Lab</strong></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup"><strong>Setup</strong></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classes-and-responsibilities"><strong>Classes and Responsibilities</strong></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unit-class"><strong>1. <code class="docutils literal notranslate"><span class="pre">Unit</span></code> Class</strong></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#tasks-for-students"><strong>Tasks for Students</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#procedure">💻 Procedure</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#classes-and-responsibilities">Classes and Responsibilities</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#unit-class"><strong>1. <code class="docutils literal notranslate"><span class="pre">Unit</span></code> Class</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#subclasses-footman-archer-knight-siegemachine"><strong>2. Subclasses (<code class="docutils literal notranslate"><span class="pre">Footman</span></code>, <code class="docutils literal notranslate"><span class="pre">Archer</span></code>, <code class="docutils literal notranslate"><span class="pre">Knight</span></code>, <code class="docutils literal notranslate"><span class="pre">SiegeMachine</span></code>)</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#player-class"><strong>3. <code class="docutils literal notranslate"><span class="pre">Player</span></code> Class</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#risk-class"><strong>4. <code class="docutils literal notranslate"><span class="pre">Risk</span></code> Class</strong></a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#subclasses-footman-archer-knight-siegemachine"><strong>2. Subclasses (<code class="docutils literal notranslate"><span class="pre">Footman</span></code>, <code class="docutils literal notranslate"><span class="pre">Archer</span></code>, <code class="docutils literal notranslate"><span class="pre">Knight</span></code>, <code class="docutils literal notranslate"><span class="pre">SiegeMachine</span></code>)</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#player-class"><strong>3. <code class="docutils literal notranslate"><span class="pre">Player</span></code> Class</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#risk-class"><strong>4. <code class="docutils literal notranslate"><span class="pre">Risk</span></code> Class</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-outputs"><strong>Expected Outputs</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#test-function"><strong>Test Function</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#main-game"><strong>Main Game</strong></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-outputs"><strong>Expected Outputs</strong></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#test-function"><strong>Test Function</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#main-game"><strong>Main Game</strong></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submission"><strong>Submission</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">🚚 <strong>Deliverables</strong></a></li>
 </ul>
 </li>
 </ul>
@@ -887,6 +874,7 @@ By Stan Baek
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2023.
@@ -913,8 +901,8 @@ By Stan Baek
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
   </footer>

@@ -1,9 +1,9 @@
 # 🔬 Lab2: ROS
 
-## Purpose
+## 📌 Purpose
 This lecture accompanies the introduction to ROS used in class. We will apply the knowledge you learned by interacting with a simulated TurlteBot3 Burger.
 
-## ROS Introduction.
+## 📜 ROS Introduction.
 
 The Robot Operating System (ROS) is a flexible framework for writing robot software. It is a collection of tools, libraries, and conventions that aim to simplify the task of creating complex and robust robot behavior across a wide variety of robotic platforms. ROS is sometimes called a meta operating system because it performs many functions of an operating system, but it requires a computer's operating system such as Linux.
 
@@ -13,7 +13,7 @@ As a result, ROS was built from the ground up to encourage collaborative robotic
 
 ROS2 Humble Hawksbill: https://docs.ros.org/en/humble/
 
-## ROS Command-line tools
+## 💻 ROS Command-line tools
 
 The tutorials at [Beginner: CLI Tools](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools.html) provide an excellent starting point for learning ROS (Robot Operating System) command-line tools. These tutorials are designed to help beginners get familiar with ROS and use its command-line tools effectively.  
 
@@ -109,6 +109,6 @@ Follow the lab instructions provided below as you work through all 10 tutorials.
 
 - Create a directory called `lab2` within your local repository.  Then, create the `bag_files` directory inside the `lab2` directory.  As you follow the instruction in this tutorial, save the `subset` bag file in the `bag_files` directory.  Ensure the recording time is approimately 10 seconds. Push your code to your GitHub repository.
 
-## Deliverables 
+## 🚚 Deliverables 
 
 - Go to Gradescope and submit the `Lab2` assignment.
