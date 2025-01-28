@@ -60,9 +60,6 @@ The `joy` node reads input from your gamepads and publishes joystick data to ROS
    ```  
 2. Move the joysticks or press buttons on your gamepad. You should see data being published in the terminal.  
 
-   
-
-
 <!--
 
 ### Step 4: Configure Teleoperation (Optional)

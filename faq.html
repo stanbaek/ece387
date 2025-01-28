@@ -187,6 +187,7 @@
 <li class="toctree-l1"><a class="reference internal" href="Labs/Lab2_ROS.html">🔬 Lab2: ROS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Labs/Lab3_Python.html">🔬 Lab3: Python</a></li>
 
+<li class="toctree-l1"><a class="reference internal" href="Labs/Lab4_Gamepad.html">🔬 Lab4: Gamepad</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Labs/Lab5_Messages.html">🔬 Lab5: Messages</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Labs/Lab6_IMU.html">🔬 Lab6: IMU</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Labs/Lab7_LaunchFile.html">🔬 Lab7: Launch Files</a></li>
@@ -414,11 +415,11 @@
 <span id="faq-general"></span><h2>General<a class="headerlink" href="#general" title="Link to this heading">#</a></h2>
 <section id="usr-bin-env-python3-r-no-such-file-or-directory">
 <h3><em>/usr/bin/env: ‘python3\r’: No such file or directory</em><a class="headerlink" href="#usr-bin-env-python3-r-no-such-file-or-directory" title="Link to this heading">#</a></h3>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>rosrun<span class="w"> </span>lab1<span class="w"> </span>mouse_client.py
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ros2<span class="w"> </span>run<span class="w"> </span>lab1<span class="w"> </span>mouse_client.py
 /usr/bin/env:<span class="w"> </span>‘python3<span class="se">\r</span>’:<span class="w"> </span>No<span class="w"> </span>such<span class="w"> </span>file<span class="w"> </span>or<span class="w"> </span>directory
 </pre></div>
 </div>
-<p>The problem are your line ending characters. Your file was created or edited on a Windows system and uses Windows/DOS-style line endings (CR+LF), whereas Linux systems like Ubuntu require Unix-style line endings (LF).</p>
+<p>The problem is your line ending characters. Your file was created or edited on a Windows system and uses Windows/DOS-style line endings (CR+LF), whereas Linux systems like Ubuntu require Unix-style line endings (LF).</p>
 <ul class="simple">
 <li><p>Sublime: Open the desired file with Sublime and from the top menu select View -&gt; Line Endings and then the Windows(CRLF) or Unix(LF). That’s it.</p></li>
 <li><p>VS Code: At the bottom right of the screen in VS Code there is a little button that says <code class="docutils literal notranslate"><span class="pre">LF</span></code> or <code class="docutils literal notranslate"><span class="pre">CRLF</span></code>: Click that button and change it to your preference.</p></li>
@@ -432,11 +433,11 @@
 </pre></div>
 </div>
 <br>
-The error message looks like:
-```bash
-[gzclient-2] gzclient: /usr/include/boost/smart_ptr/shared_ptr.hpp:728: typename boost::detail::sp_member_access<T>::type boost::shared_ptr<T>::operator->() const [with T = gazebo::rendering::Camera; typename boost::detail::sp_member_access<T>::type = gazebo::rendering::Camera*]: Assertion `px != 0' failed.
-[ERROR] [gzclient-2]: process has died [pid 7768, exit code -6, cmd 'gzclient'].
-```
+<p>The error message looks like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[gzclient-2] gzclient: /usr/include/boost/smart_ptr/shared_ptr.hpp:728: typename boost::detail::sp_member_access&lt;T&gt;::type boost::shared_ptr&lt;T&gt;::operator-&gt;() const [with T = gazebo::rendering::Camera; typename boost::detail::sp_member_access&lt;T&gt;::type = gazebo::rendering::Camera*]: Assertion `px != 0&#39; failed.
+[ERROR] [gzclient-2]: process has died [pid 7768, exit code -6, cmd &#39;gzclient&#39;].
+</pre></div>
+</div>
 <p>Then, the solution is to source Gazebo’s setup file, i.e.:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>.<span class="w"> </span>/usr/share/gazebo/setup.sh
 </pre></div>

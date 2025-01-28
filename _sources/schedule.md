@@ -18,7 +18,7 @@ This schedule is subject to change as appropriate.
 | 8      | [Lab 3: Python](Labs/Lab3_Python.md)         |                   |              |
 | 9      | [Lab 3: Python](Labs/Lab3_Python.md)         |                   |              |
 | 10     | Lec 4: TurtleBot                             |                   | Lab 3        |
-| 11     | [Lab 4: TurtleBot](Labs/Lab4_TurtleBot.md)   |                   |              |
+| 11     | [Lab 4: TurtleBot](Labs/Lab4_Gamepad.md)     |                   |              |
 | 12     | Lec 5: ROS Messages                          |                   | Lab 4        |
 | 13     | [Lab 5: ROS Messages](Labs/Lab5_Messages.md) |                   |              |
 | 14     | Lec 6: IMU                                   |                   | Lab 5        |
