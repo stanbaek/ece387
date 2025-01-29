@@ -1,12 +1,13 @@
 
+
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="../" >
+<html lang="en" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>🔬 Lab7: Launch Files &#8212; Introduction to Robotic Systems</title>
   
@@ -14,63 +15,62 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
-  <!--
-    this give us a css class that will be invisible only if js is disabled
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=4c969af8" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
-  <!-- So that users can add custom icons -->
-  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
-  <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
-    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="../_static/copybutton.js?v=f281be69"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
-    <script src="../_static/tabs.js?v=3ee01567"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/tabs.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js?v=36754332"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'Labs/Lab7_LaunchFile';</script>
-    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="🔬 Lab8: LIDAR" href="Lab8_LIDAR.html" />
     <link rel="prev" title="🔬 Lab6: IMU" href="Lab6_IMU.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -78,16 +78,23 @@
 
   
   
-  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
   
-  <div id="pst-scroll-pixel-helper"></div>
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
   
-  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
-
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
   
-  <dialog id="pst-search-dialog">
-    
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="../search.html"
       method="get">
@@ -95,6 +102,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -102,25 +110,16 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
-
-  <div class="pst-async-banner-revealer d-none">
-  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
-</div>
-
+</form></div>
+  </div>
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
-    </header>
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
   
-
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
       
-      
-      
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -133,13 +132,9 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
-
-  
-    
   
 
 <a class="navbar-brand logo" href="../intro.html">
-  
   
   
   
@@ -149,19 +144,12 @@
       
     
     
-    <img src="../_static/ece387.png" class="logo__image only-light" alt="Introduction to Robotic Systems - Home"/>
-    <img src="../_static/ece387.png" class="logo__image only-dark pst-js-only" alt="Introduction to Robotic Systems - Home"/>
+    <img src="../_static/ece387.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/ece387.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
   
   
 </a></div>
-        <div class="sidebar-primary-item">
-
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
-        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -207,19 +195,14 @@
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
-      <div class="sidebar-primary-item">
-<div id="ethical-ad-placement"
-      class="flat"
-      data-ea-publisher="readthedocs"
-      data-ea-type="readthedocs-sidebar"
-      data-ea-manual="true">
-</div></div>
   </div>
+  
+  <div id="rtd-footer-container"></div>
 
 
       </div>
       
-      <main id="main-content" class="bd-main" role="main">
+      <main id="main-content" class="bd-main">
         
         
 
@@ -228,14 +211,14 @@
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article d-print-none">
+              <div class="bd-header-article">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</button></div>
+</label></div>
       
     </div>
   
@@ -357,20 +340,26 @@
 </button>
 
 
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
-
-
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</button>
+</label>
 </div></div>
       
     </div>
@@ -410,12 +399,12 @@
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article">
+                <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="lab7-launch-files">
-<h1>🔬 Lab7: Launch Files<a class="headerlink" href="#lab7-launch-files" title="Link to this heading">#</a></h1>
+<h1>🔬 Lab7: Launch Files<a class="headerlink" href="#lab7-launch-files" title="Permalink to this heading">#</a></h1>
 <section id="purpose">
-<h2>Purpose<a class="headerlink" href="#purpose" title="Link to this heading">#</a></h2>
+<h2>Purpose<a class="headerlink" href="#purpose" title="Permalink to this heading">#</a></h2>
 <p>Large applications in robotics typically involve several interconnected ROS nodes, each of which have many parameters. Your current setup is a good example: as you experienced in the IMU lab, you had to open 3 different terminals to run all of the nodes necessary for our system to that point:</p>
 <p><strong>Robot:</strong></p>
 <ul class="simple">
@@ -429,7 +418,7 @@
 <p>This problem is only going to get more complex as we add additional functionality to our robot. As it stands right now, every node requires a separate terminal window and the associated command to run it. Using the <em>roslaunch</em> tool, we can eliminate that administrivia of running each node separately. We will create/edit two launch files to bring up the nodes on the master and robot.</p>
 </section>
 <section id="roslaunch">
-<h2><a class="reference external" href="http://wiki.ros.org/roslaunch">roslaunch</a><a class="headerlink" href="#roslaunch" title="Link to this heading">#</a></h2>
+<h2><a class="reference external" href="http://wiki.ros.org/roslaunch">roslaunch</a><a class="headerlink" href="#roslaunch" title="Permalink to this heading">#</a></h2>
 <p>The <em>roslaunch</em> tool is used to launch multiple ROS nodes locally and remotely via SSH. We can run nodes that we have created, nodes from pre-built packages, and other launch files. The roslaunch tool takes in one or more XML configuration files (with the .launch extension) that specify the parameters to set and nodes to launch.</p>
 <p>A launch file is an XML document which specifies:</p>
 <ul class="simple">
@@ -442,7 +431,7 @@
 <p>By convention, we will give our launch files the <em>.launch</em> extension and store them in a <em>launch</em> folder within our package. This isn’t required, but it is the common convention.</p>
 </section>
 <section id="current-state">
-<h2>Current State<a class="headerlink" href="#current-state" title="Link to this heading">#</a></h2>
+<h2>Current State<a class="headerlink" href="#current-state" title="Permalink to this heading">#</a></h2>
 <p>In this section we will first use the conventional technique to bring up all of the nodes required for <strong>Lab 2</strong> using the currently understood techniques.</p>
 <p>Open a new terminal on your <strong>Master</strong> and start <em>roscore</em>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>roscore
@@ -470,7 +459,7 @@
 <p>Kill all nodes and roscore.</p>
 </section>
 <section id="roslaunch-on-the-robot">
-<h2>roslaunch on the Robot<a class="headerlink" href="#roslaunch-on-the-robot" title="Link to this heading">#</a></h2>
+<h2>roslaunch on the Robot<a class="headerlink" href="#roslaunch-on-the-robot" title="Permalink to this heading">#</a></h2>
 <p>Navigate to one of the terminals with a secure shell connection to the robot.</p>
 <p>Open the <em>turtlebot3_core.launch</em> file:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rosed<span class="w"> </span>turtlebot3_bringup<span class="w"> </span>turtlebot3_core.launch
@@ -498,7 +487,7 @@
 <p>Close the editor: <code class="docutils literal notranslate"><span class="pre">ctrl+x</span></code></p>
 </section>
 <section id="roslaunch-on-the-master">
-<h2>roslaunch on the Master<a class="headerlink" href="#roslaunch-on-the-master" title="Link to this heading">#</a></h2>
+<h2>roslaunch on the Master<a class="headerlink" href="#roslaunch-on-the-master" title="Permalink to this heading">#</a></h2>
 <p>Navigate to your <strong>lab2</strong> package on the <strong>Master</strong> and create a launch directory:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>roscd<span class="w"> </span>lab2
 mkdir<span class="w"> </span>launch
@@ -548,7 +537,7 @@ touch<span class="w"> </span>lab2.launch
 <p>Save and close the launch file.</p>
 </section>
 <section id="setting-up-remote-connectivity">
-<h2>Setting up remote connectivity<a class="headerlink" href="#setting-up-remote-connectivity" title="Link to this heading">#</a></h2>
+<h2>Setting up remote connectivity<a class="headerlink" href="#setting-up-remote-connectivity" title="Permalink to this heading">#</a></h2>
 <p>Before we can run the above launch file we need to accomplish some steps to ensure we can connect remotely to our <strong>Robot</strong>.</p>
 <ol class="arabic">
 <li><p>Open a terminal on your <strong>Master</strong> and type the following:</p>
@@ -607,7 +596,7 @@ nano<span class="w"> </span>remote_env_loader.sh
 </ol>
 </section>
 <section id="running-launch-files">
-<h2>Running Launch Files<a class="headerlink" href="#running-launch-files" title="Link to this heading">#</a></h2>
+<h2>Running Launch Files<a class="headerlink" href="#running-launch-files" title="Permalink to this heading">#</a></h2>
 <p>Browse to a terminal on the <strong>Master</strong> and make and source your workspace:</p>
 <p>Utilize the <em>roslaunch</em> utility to execute the <strong>lab2</strong> launch file on your <strong>Master</strong>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>roslaunch<span class="w"> </span>lab2<span class="w"> </span>lab2.launch
@@ -618,15 +607,15 @@ nano<span class="w"> </span>remote_env_loader.sh
 <p><img alt="logo" src="../_images/rqt_graph.png" /></p>
 </section>
 <section id="checkpoint">
-<h2>Checkpoint<a class="headerlink" href="#checkpoint" title="Link to this heading">#</a></h2>
+<h2>Checkpoint<a class="headerlink" href="#checkpoint" title="Permalink to this heading">#</a></h2>
 <p>Once complete, get checked off by an instructor showing the output of your <strong>rqt_graph</strong> node.</p>
 </section>
 <section id="summary">
-<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this heading">#</a></h2>
 <p>There is clearly a lot more we can do with launch files, but this will get you started. You now know how to run nodes, other launch files, and provide parameters to a node using a launch file. I encourage you to visit the ROS tutorials online if you need to do more complex functions with the launch files.</p>
 </section>
 <section id="cleanup">
-<h2>Cleanup<a class="headerlink" href="#cleanup" title="Link to this heading">#</a></h2>
+<h2>Cleanup<a class="headerlink" href="#cleanup" title="Permalink to this heading">#</a></h2>
 <p>In each terminal window, close the nodes by typing <code class="docutils literal notranslate"><span class="pre">ctrl+c</span></code>. Exit any SSH connections. Shutdown the notebook server by typing <code class="docutils literal notranslate"><span class="pre">ctrl+c</span></code> within the terminal you ran <code class="docutils literal notranslate"><span class="pre">jupyter-notebook</span></code> in. Select ‘y’.</p>
 <p><strong>Ensure roscore is terminated before moving on to the next lesson.</strong></p>
 </section>
@@ -657,10 +646,11 @@ nano<span class="w"> </span>remote_env_loader.sh
 
               
               
-              
-              
-                <footer class="prev-next-footer d-print-none">
+                <footer class="bd-footer-article">
                   
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="Lab6_IMU.html"
@@ -680,16 +670,17 @@ nano<span class="w"> </span>remote_env_loader.sh
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
+</div></div>
+  
 </div>
+
                 </footer>
               
             </div>
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -728,7 +719,6 @@ By Stan Baek
   
   <div class="footer-item">
     
-
   <p class="copyright">
     
       © Copyright 2023.
@@ -755,8 +745,8 @@ By Stan Baek
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
   <footer class="bd-footer">
   </footer>

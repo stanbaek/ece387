@@ -1,12 +1,13 @@
 
+
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="../" >
+<html lang="en" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>🔬 Lab4: Gamepad &#8212; Introduction to Robotic Systems</title>
   
@@ -14,63 +15,62 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
-  <!--
-    this give us a css class that will be invisible only if js is disabled
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=4c969af8" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
-  <!-- So that users can add custom icons -->
-  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
-  <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
-    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="../_static/copybutton.js?v=f281be69"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
-    <script src="../_static/tabs.js?v=3ee01567"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/tabs.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js?v=36754332"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'Labs/Lab4_Gamepad';</script>
-    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="🔬 Lab5: Messages" href="Lab5_Messages.html" />
     <link rel="prev" title="🔬 Lab3: Python" href="Lab3_Python.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -78,16 +78,23 @@
 
   
   
-  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
   
-  <div id="pst-scroll-pixel-helper"></div>
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
   
-  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
-
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
   
-  <dialog id="pst-search-dialog">
-    
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="../search.html"
       method="get">
@@ -95,6 +102,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -102,25 +110,16 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
-
-  <div class="pst-async-banner-revealer d-none">
-  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
-</div>
-
+</form></div>
+  </div>
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
-    </header>
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
   
-
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
       
-      
-      
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -133,13 +132,9 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
-
-  
-    
   
 
 <a class="navbar-brand logo" href="../intro.html">
-  
   
   
   
@@ -149,19 +144,12 @@
       
     
     
-    <img src="../_static/ece387.png" class="logo__image only-light" alt="Introduction to Robotic Systems - Home"/>
-    <img src="../_static/ece387.png" class="logo__image only-dark pst-js-only" alt="Introduction to Robotic Systems - Home"/>
+    <img src="../_static/ece387.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/ece387.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
   
   
 </a></div>
-        <div class="sidebar-primary-item">
-
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
-        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -207,19 +195,14 @@
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
-      <div class="sidebar-primary-item">
-<div id="ethical-ad-placement"
-      class="flat"
-      data-ea-publisher="readthedocs"
-      data-ea-type="readthedocs-sidebar"
-      data-ea-manual="true">
-</div></div>
   </div>
+  
+  <div id="rtd-footer-container"></div>
 
 
       </div>
       
-      <main id="main-content" class="bd-main" role="main">
+      <main id="main-content" class="bd-main">
         
         
 
@@ -228,14 +211,14 @@
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article d-print-none">
+              <div class="bd-header-article">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</button></div>
+</label></div>
       
     </div>
   
@@ -357,20 +340,26 @@
 </button>
 
 
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
-
-
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</button>
+</label>
 </div></div>
       
     </div>
@@ -391,43 +380,20 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#this-lab-is-not-ready"><strong>THIS LAB IS NOT READY</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">📌 Objectives</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">📜 Overview</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#procedure">💻 Procedure</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-create-a-new-ros-2-package">Step 2: Create a New ROS 2 Package</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-write-the-ros-2-node">Step 3: Write the ROS 2 Node</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-update-setup-py">Step 4: Update <code class="docutils literal notranslate"><span class="pre">setup.py</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-5-build-the-workspace">Step 5: Build the Workspace</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-6-run-the-node">Step 6: Run the Node</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-7-control-the-turtlebot3">Step 7: Control the TurtleBot3</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notes">Notes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-lab-ros2-client-libraries">🔧 Pre-Lab: ROS2 Client Libraries</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementing-the-chat-subscriber">Implementing the chat subscriber</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-modules">Import modules</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#listener">Listener</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#callback-function">Callback function</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#main">Main</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-the-listener">Run the listener</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#talker">Talker</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-note-on-this-document">A note on this document</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose">Purpose</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#initialize-ros">Initialize ROS:</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementing-the-chat-publisher">Implementing the chat publisher</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Import modules</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#talker-function">Talker Function</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Main</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-the-talker">Run the talker</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-the-listener">Create the listener</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ros-commands">ROS commands</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ros">ROS</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint">Checkpoint</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">🔧 Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-new-ros2-package">📦 Create a New ROS2 Package</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-the-ros2-node">📝 Write the ROS2 Node</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#update-setup-py">🛠 Update <code class="docutils literal notranslate"><span class="pre">setup.py</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-the-workspace">🔨 Build the Workspace</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-the-node">🚀 Run the Node</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#control-the-turtlebot3">🎮 Control the TurtleBot3</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">📌 <strong>Deliverables</strong></a></li>
 </ul>
             </nav>
         </div>
@@ -437,386 +403,328 @@
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article">
+                <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="lab4-gamepad">
-<h1>🔬 Lab4: Gamepad<a class="headerlink" href="#lab4-gamepad" title="Link to this heading">#</a></h1>
-<section id="this-lab-is-not-ready">
-<h2><strong>THIS LAB IS NOT READY</strong><a class="headerlink" href="#this-lab-is-not-ready" title="Link to this heading">#</a></h2>
+<h1>🔬 Lab4: Gamepad<a class="headerlink" href="#lab4-gamepad" title="Permalink to this heading">#</a></h1>
+<section id="objectives">
+<h2>📌 Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Students should be able to use ROS topics and messages in Python nodes to facilitate communication between publishers and subscribers.</p></li>
+<li><p>Students should be able to develop a ROS2 node that subscribes to joystick input and publishes commands to control a robot.</p></li>
+<li><p>Students should be able to integrate gamepad input to control a TurtleBot3 in a simulated environment.</p></li>
+</ul>
 </section>
 <section id="overview">
-<h2>📜 Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
-<p>This Lab will provide you more insight into ROS topics and messages and how information is passed between nodes. A node can publish specific messages over a topic and other nodes are able to subscribe to that topic to receive the message. The format of these messages must be pre-defined and each node needs to know the format of the message. In this lab you will develop a node that subscribes to a joystick topic and publishes a topic that is used to enable a controller to drive the robot.</p>
+<h2>📜 Overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h2>
+<p>This lab provides insight into ROS topics and messages and how information is exchanged between nodes. A node can <strong>publish</strong> messages over a topic, and other nodes can <strong>subscribe</strong> to that topic to receive messages. Each message follows a predefined format, which all participating nodes must understand.</p>
+<p>In this lab, you will develop a node that subscribes to joystick input (<code class="docutils literal notranslate"><span class="pre">/joy</span></code> topic) and publishes velocity commands (<code class="docutils literal notranslate"><span class="pre">/cmd_vel</span></code> topic) to control a robot.</p>
 </section>
 <section id="procedure">
-<h2>💻 Procedure<a class="headerlink" href="#procedure" title="Link to this heading">#</a></h2>
-<ol class="arabic">
-<li><p>Go to the <a class="reference internal" href="../Appendix/GamepadSetup.html"><span class="std std-doc">Gamepad Setup</span></a> page to configure Logitech Gamepad as an input device to your <code class="docutils literal notranslate"><span class="pre">Master</span></code> computer.</p></li>
-<li><p>Open a Terminal and navigate to the <code class="docutils literal notranslate"><span class="pre">src</span></code> directory in your workspace:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w">  </span>~/master_ws/src
-</pre></div>
-</div>
+<h2>💻 Procedure<a class="headerlink" href="#procedure" title="Permalink to this heading">#</a></h2>
+<section id="pre-lab-ros2-client-libraries">
+<h3>🔧 Pre-Lab: ROS2 Client Libraries<a class="headerlink" href="#pre-lab-ros2-client-libraries" title="Permalink to this heading">#</a></h3>
+<p>The tutorials at <a class="reference external" href="https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries.html">Beginner: Client Libraries</a> are a great introduction to ROS2 client libraries.</p>
+<a class="reference internal image-reference" href="../_images/Lab2_ROS_Tutorials2.png"><img alt="../_images/Lab2_ROS_Tutorials2.png" class="align-center" src="../_images/Lab2_ROS_Tutorials2.png" style="width: 800px;" /></a>
+<br>  
+<p>Complete the following four tutorials. <strong>Important:</strong> Skip <strong>C++</strong> tutorials and complete only the <strong>Python</strong> ones.</p>
+<ol class="arabic simple">
+<li><p><strong>Using <code class="docutils literal notranslate"><span class="pre">colcon</span></code> to Build Packages</strong></p>
+<ul class="simple">
+<li><p>Create a new workspace: <code class="docutils literal notranslate"><span class="pre">~/ros2_ws</span></code> (not <code class="docutils literal notranslate"><span class="pre">~/master_ws</span></code>).</p></li>
+<li><p>Skip the <a class="reference external" href="https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Colcon-Tutorial.html#setup-colcon-cd">Setup <code class="docutils literal notranslate"><span class="pre">colcon_cd</span></code></a> section and below.</p></li>
+</ul>
 </li>
-<li><p>Install the TurtleBot3 Simulation Package by running</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>humble<span class="w"> </span>https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
-</pre></div>
-</div>
-<p>Ensure the <code class="docutils literal notranslate"><span class="pre">turtlebot3_simulations</span></code> directory is in the <code class="docutils literal notranslate"><span class="pre">src</span></code> directory.</p>
+<li><p><strong>Creating a Workspace</strong></p>
+<ul class="simple">
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">~/ros2_ws</span></code>, not <code class="docutils literal notranslate"><span class="pre">~/master_ws</span></code>.</p></li>
+<li><p>Select <strong>Linux</strong> in the operating system tab.</p></li>
+</ul>
 </li>
-<li><p>Run <code class="docutils literal notranslate"><span class="pre">colcon</span> <span class="pre">build</span></code></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/master_ws
-$<span class="w"> </span>colcon<span class="w"> </span>build<span class="w"> </span>--symlink-install
-</pre></div>
-</div>
-<p>Note that you must always run <code class="docutils literal notranslate"><span class="pre">colcon</span> <span class="pre">build</span></code> in the root of your workspace, i.e., <code class="docutils literal notranslate"><span class="pre">~/master_ws</span></code>.</p>
-<p>You should see the following output. If you see the <code class="docutils literal notranslate"><span class="pre">stderr</span></code> and <code class="docutils literal notranslate"><span class="pre">CMake</span> <span class="pre">Warning</span></code> as shown below, don’t worry and you can ignore them.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Finished<span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="w"> </span>turtlebot3_fake_node<span class="w"> </span><span class="o">[</span><span class="m">17</span>.9s<span class="o">]</span><span class="w">                                       </span>
----<span class="w"> </span>stderr:<span class="w"> </span>turtlebot3_gazebo<span class="w">                                </span>
-CMake<span class="w"> </span>Warning<span class="w"> </span><span class="o">(</span>dev<span class="o">)</span><span class="w"> </span>at<span class="w"> </span>/usr/share/cmake-3.22/Modules/FindPackageHandleStandardArgs.cmake:438<span class="w"> </span><span class="o">(</span>message<span class="o">)</span>:
-The<span class="w"> </span>package<span class="w"> </span>name<span class="w"> </span>passed<span class="w"> </span>to<span class="w"> </span><span class="sb">`</span>find_package_handle_standard_args<span class="sb">`</span><span class="w"> </span><span class="o">(</span>PkgConfig<span class="o">)</span>
-does<span class="w"> </span>not<span class="w"> </span>match<span class="w"> </span>the<span class="w"> </span>name<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>calling<span class="w"> </span>package<span class="w"> </span><span class="o">(</span>gazebo<span class="o">)</span>.<span class="w">  </span>This<span class="w"> </span>can<span class="w"> </span>lead<span class="w"> </span>to
-problems<span class="w"> </span><span class="k">in</span><span class="w"> </span>calling<span class="w"> </span>code<span class="w"> </span>that<span class="w"> </span>expects<span class="w"> </span><span class="sb">`</span>find_package<span class="sb">`</span><span class="w"> </span>result<span class="w"> </span>variables
-<span class="o">(</span>e.g.,<span class="w"> </span><span class="sb">`</span>_FOUND<span class="sb">`</span><span class="o">)</span><span class="w"> </span>to<span class="w"> </span>follow<span class="w"> </span>a<span class="w"> </span>certain<span class="w"> </span>pattern.
-Call<span class="w"> </span>Stack<span class="w"> </span><span class="o">(</span>most<span class="w"> </span>recent<span class="w"> </span>call<span class="w"> </span>first<span class="o">)</span>:
-/usr/share/cmake-3.22/Modules/FindPkgConfig.cmake:99<span class="w"> </span><span class="o">(</span>find_package_handle_standard_args<span class="o">)</span>
-/usr/lib/x86_64-linux-gnu/cmake/gazebo/gazebo-config.cmake:72<span class="w"> </span><span class="o">(</span>include<span class="o">)</span>
-CMakeLists.txt:23<span class="w"> </span><span class="o">(</span>find_package<span class="o">)</span>
-This<span class="w"> </span>warning<span class="w"> </span>is<span class="w"> </span><span class="k">for</span><span class="w"> </span>project<span class="w"> </span>developers.<span class="w">  </span>Use<span class="w"> </span>-Wno-dev<span class="w"> </span>to<span class="w"> </span>suppress<span class="w"> </span>it.
-
----
-Finished<span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="w"> </span>turtlebot3_gazebo<span class="w"> </span><span class="o">[</span><span class="m">20</span>.9s<span class="o">]</span>
-Starting<span class="w"> </span>&gt;&gt;&gt;<span class="w"> </span>turtlebot3_simulations
-Finished<span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="w"> </span>turtlebot3_simulations<span class="w"> </span><span class="o">[</span><span class="m">0</span>.90s<span class="o">]</span><span class="w">                </span>
-</pre></div>
-</div>
+<li><p><strong>Creating a Package</strong></p>
+<ul class="simple">
+<li><p>Follow the Python tutorial (not the CMake one).</p></li>
+</ul>
 </li>
+<li><p><strong>Writing a Simple Publisher and Subscriber (Python)</strong></p>
+<ul class="simple">
+<li><p>Select <strong>Linux</strong> in the operating system tab.</p></li>
+</ul>
+</li>
+<li><p><strong>Demo the Terminal Outputs to Your Instructor</strong></p></li>
 </ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ros2<span class="w"> </span>pkg<span class="w"> </span>create<span class="w"> </span>--build-type<span class="w"> </span>ament_python<span class="w"> </span>lab4_gamepad
-</pre></div>
-</div>
-<p>Your terminal will return a message verifying the creation of your package py_pubsub and all its necessary files and folders.</p>
-<p>Creating a ROS 2 package that subscribes to the <code class="docutils literal notranslate"><span class="pre">joy</span></code> topic (from a joystick) and publishes <code class="docutils literal notranslate"><span class="pre">cmd_vel</span></code> to control a TurtleBot3 is a great project! Below are step-by-step instructions to achieve this.</p>
-<hr class="docutils" />
-<section id="step-2-create-a-new-ros-2-package">
-<h3>Step 2: Create a New ROS 2 Package<a class="headerlink" href="#step-2-create-a-new-ros-2-package" title="Link to this heading">#</a></h3>
-<ol class="arabic">
-<li><p>Navigate to the <code class="docutils literal notranslate"><span class="pre">src</span></code> directory of your workspace:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/src
+<ul>
+<li><p>One terminal should display messages every 0.5 seconds:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span>minimal_publisher<span class="o">]</span>:<span class="w"> </span>Publishing:<span class="w"> </span><span class="s2">&quot;Hello World: 0&quot;</span><span class="w">  </span>
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span>minimal_publisher<span class="o">]</span>:<span class="w"> </span>Publishing:<span class="w"> </span><span class="s2">&quot;Hello World: 1&quot;</span><span class="w">  </span>
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span>minimal_publisher<span class="o">]</span>:<span class="w"> </span>Publishing:<span class="w"> </span><span class="s2">&quot;Hello World: 2&quot;</span><span class="w">  </span>
 </pre></div>
 </div>
 </li>
-<li><p>Create a new ROS 2 package:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>pkg<span class="w"> </span>create<span class="w"> </span>--build-type<span class="w"> </span>ament_python<span class="w"> </span>joy_to_cmd_vel
+<li><p>Another terminal should print messages like:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span>minimal_subscriber<span class="o">]</span>:<span class="w"> </span>I<span class="w"> </span>heard:<span class="w"> </span><span class="s2">&quot;Hello World: 12&quot;</span><span class="w">  </span>
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span>minimal_subscriber<span class="o">]</span>:<span class="w"> </span>I<span class="w"> </span>heard:<span class="w"> </span><span class="s2">&quot;Hello World: 13&quot;</span><span class="w">  </span>
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span>minimal_subscriber<span class="o">]</span>:<span class="w"> </span>I<span class="w"> </span>heard:<span class="w"> </span><span class="s2">&quot;Hello World: 14&quot;</span><span class="w">  </span>
 </pre></div>
 </div>
-<p>This creates a package named <code class="docutils literal notranslate"><span class="pre">joy_to_cmd_vel</span></code>.</p>
+</li>
+</ul>
+</section>
+</section>
+<section id="setup">
+<h2>🔧 Setup<a class="headerlink" href="#setup" title="Permalink to this heading">#</a></h2>
+<ol class="arabic">
+<li><p>Follow the <a class="reference internal" href="../Appendix/GamepadSetup.html"><span class="doc std std-doc">Gamepad Setup</span></a> guide to configure the Logitech Gamepad on your <strong>Master</strong> computer.</p></li>
+<li><p>Open a terminal and navigate to the <code class="docutils literal notranslate"><span class="pre">src</span></code> directory in your workspace:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/master_ws/src<span class="w">  </span>
+</pre></div>
+</div>
+</li>
+<li><p>Install the TurtleBot3 Simulation Package:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>humble<span class="w"> </span>https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git<span class="w">  </span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Ensure the <code class="docutils literal notranslate"><span class="pre">turtlebot3_simulations</span></code> directory is inside <code class="docutils literal notranslate"><span class="pre">~/master_ws/src</span></code>.</p></li>
+</ul>
+</li>
+<li><p>Build the workspace:
+<strong>Important:</strong> Always run <code class="docutils literal notranslate"><span class="pre">colcon</span> <span class="pre">build</span></code> from the root of your workspace (<code class="docutils literal notranslate"><span class="pre">~/master_ws</span></code>).</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/master_ws<span class="w">  </span>
+colcon<span class="w"> </span>build<span class="w"> </span>--symlink-install<span class="w">  </span>
+</pre></div>
+</div>
+<p>After running the command, you should see output similar to the following.
+<strong>Note</strong>: If you notice <code class="docutils literal notranslate"><span class="pre">stderr</span></code> messages or <code class="docutils literal notranslate"><span class="pre">CMake</span> <span class="pre">Warning</span></code> messages like the one shown below, <strong>you can safely ignore them</strong>—they do not affect the build process.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Finished<span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="w"> </span>turtlebot3_fake_node<span class="w"> </span><span class="o">[</span><span class="m">17</span>.9s<span class="o">]</span><span class="w">                                       </span>
+---<span class="w"> </span>stderr:<span class="w"> </span>turtlebot3_gazebo<span class="w">                                  </span>
+CMake<span class="w"> </span>Warning<span class="w"> </span><span class="o">(</span>dev<span class="o">)</span><span class="w"> </span>at<span class="w"> </span>/usr/share/cmake-3.22/Modules/FindPackageHandleStandardArgs.cmake:438<span class="w"> </span><span class="o">(</span>message<span class="o">)</span>:<span class="w">  </span>
+The<span class="w"> </span>package<span class="w"> </span>name<span class="w"> </span>passed<span class="w"> </span>to<span class="w"> </span><span class="sb">`</span>find_package_handle_standard_args<span class="sb">`</span><span class="w"> </span><span class="o">(</span>PkgConfig<span class="o">)</span><span class="w">  </span>
+does<span class="w"> </span>not<span class="w"> </span>match<span class="w"> </span>the<span class="w"> </span>name<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>calling<span class="w"> </span>package<span class="w"> </span><span class="o">(</span>gazebo<span class="o">)</span>.<span class="w"> </span>This<span class="w"> </span>can<span class="w"> </span>lead<span class="w"> </span>to<span class="w">  </span>
+problems<span class="w"> </span><span class="k">in</span><span class="w"> </span>calling<span class="w"> </span>code<span class="w"> </span>that<span class="w"> </span>expects<span class="w"> </span><span class="sb">`</span>find_package<span class="sb">`</span><span class="w"> </span>result<span class="w"> </span>variables<span class="w">  </span>
+<span class="o">(</span>e.g.,<span class="w"> </span><span class="sb">`</span>_FOUND<span class="sb">`</span><span class="o">)</span><span class="w"> </span>to<span class="w"> </span>follow<span class="w"> </span>a<span class="w"> </span>certain<span class="w"> </span>pattern.<span class="w">  </span>
+Call<span class="w"> </span>Stack<span class="w"> </span><span class="o">(</span>most<span class="w"> </span>recent<span class="w"> </span>call<span class="w"> </span>first<span class="o">)</span>:<span class="w">  </span>
+/usr/share/cmake-3.22/Modules/FindPkgConfig.cmake:99<span class="w"> </span><span class="o">(</span>find_package_handle_standard_args<span class="o">)</span><span class="w">  </span>
+/usr/lib/x86_64-linux-gnu/cmake/gazebo/gazebo-config.cmake:72<span class="w"> </span><span class="o">(</span>include<span class="o">)</span><span class="w">  </span>
+CMakeLists.txt:23<span class="w"> </span><span class="o">(</span>find_package<span class="o">)</span><span class="w">  </span>
+
+This<span class="w"> </span>warning<span class="w"> </span>is<span class="w"> </span><span class="k">for</span><span class="w"> </span>project<span class="w"> </span>developers.<span class="w"> </span>Use<span class="w"> </span><span class="sb">`</span>-Wno-dev<span class="sb">`</span><span class="w"> </span>to<span class="w"> </span>suppress<span class="w"> </span>it.<span class="w">  </span>
+
+---<span class="w">  </span>
+Finished<span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="w"> </span>turtlebot3_gazebo<span class="w"> </span><span class="o">[</span><span class="m">20</span>.9s<span class="o">]</span><span class="w">  </span>
+Starting<span class="w"> </span>&gt;&gt;&gt;<span class="w"> </span>turtlebot3_simulations<span class="w">  </span>
+Finished<span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="w"> </span>turtlebot3_simulations<span class="w"> </span><span class="o">[</span><span class="m">0</span>.90s<span class="o">]</span><span class="w">  </span>
+</pre></div>
+</div>
 </li>
 </ol>
 </section>
-<hr class="docutils" />
-<section id="step-3-write-the-ros-2-node">
-<h3>Step 3: Write the ROS 2 Node<a class="headerlink" href="#step-3-write-the-ros-2-node" title="Link to this heading">#</a></h3>
+<section id="create-a-new-ros2-package">
+<h2>📦 Create a New ROS2 Package<a class="headerlink" href="#create-a-new-ros2-package" title="Permalink to this heading">#</a></h2>
+<ol class="arabic">
+<li><p>Navigate to your local repository inside your workspace:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/master_ws/src/ece387_lastname<span class="w">  </span>
+</pre></div>
+</div>
+</li>
+<li><p>Create a New ROS2 Package: Run the following command to create a new ROS 2 package named <code class="docutils literal notranslate"><span class="pre">lab4_gamepad</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>pkg<span class="w"> </span>create<span class="w"> </span>--build-type<span class="w"> </span>ament_python<span class="w"> </span>lab4_gamepad<span class="w">  </span>
+</pre></div>
+</div>
+<p>After running this command, your terminal will confirm the package creation and generate the necessary files and folders:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>lab4_gamepad/<span class="w">  </span>
+<span class="w">    </span>lab4_gamepad/<span class="w">  </span>
+<span class="w">    </span>resource/lab4_gamepad<span class="w">  </span>
+<span class="w">    </span>package.xml<span class="w">  </span>
+<span class="w">    </span>setup.cfg<span class="w">  </span>
+<span class="w">    </span>setup.py<span class="w">  </span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="write-the-ros2-node">
+<h2>📝 Write the ROS2 Node<a class="headerlink" href="#write-the-ros2-node" title="Permalink to this heading">#</a></h2>
 <ol class="arabic">
 <li><p>Navigate to the package directory:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>joy_to_cmd_vel/joy_to_cmd_vel
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>lab4_gamepad/lab4_gamepad<span class="w">  </span>
 </pre></div>
 </div>
+<p><strong>Note</strong>: You need to enter the <code class="docutils literal notranslate"><span class="pre">lab4_gamepad</span></code> directory inside the <code class="docutils literal notranslate"><span class="pre">lab4_gamepad</span></code> package folder.</p>
 </li>
 <li><p>Create a Python script for the node:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>touch<span class="w"> </span>joy_to_cmd_vel_node.py
-chmod<span class="w"> </span>+x<span class="w"> </span>joy_to_cmd_vel_node.py
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>touch<span class="w"> </span>gamepad.py<span class="w">  </span>
+chmod<span class="w"> </span>+x<span class="w"> </span>gamepad.py<span class="w">  </span>
 </pre></div>
 </div>
+<p>The <code class="docutils literal notranslate"><span class="pre">chmod</span> <span class="pre">+x</span></code> command makes the <code class="docutils literal notranslate"><span class="pre">gamepad.py</span></code> file executable so it can be run as a script.</p>
 </li>
-<li><p>Open the script in a text editor and add the following code:</p>
+<li><p>Open the <code class="docutils literal notranslate"><span class="pre">gamepad.py</span></code> file in VS Code and implement the <strong>TODO</strong> sections in the provided template.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="c1"># The above line is a shebang, which tells the system to run this script using Python 3.</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">rclpy</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">rclpy.node</span><span class="w"> </span><span class="kn">import</span> <span class="n">Node</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sensor_msgs.msg</span><span class="w"> </span><span class="kn">import</span> <span class="n">Joy</span>
+<span class="c1"># Import necessary ROS 2 libraries</span>
+<span class="kn">import</span> <span class="nn">rclpy</span>  <span class="c1"># ROS 2 client library for Python</span>
+<span class="kn">from</span> <span class="nn">rclpy.node</span> <span class="kn">import</span> <span class="n">Node</span>  <span class="c1"># Base class for creating ROS 2 nodes</span>
+
+<span class="c1"># Import message types</span>
+<span class="kn">from</span> <span class="nn">sensor_msgs.msg</span> <span class="kn">import</span> <span class="n">Joy</span>  <span class="c1"># Message type for joystick (gamepad) inputs</span>
+<span class="kn">from</span> <span class="nn">geometry_msgs.msg</span> <span class="kn">import</span> <span class="n">Twist</span>  <span class="c1"># Message type for velocity commands</span>
+
+<span class="k">class</span> <span class="nc">Gamepad</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A ROS 2 Node that converts joystick (gamepad) inputs into velocity commands</span>
+<span class="sd">    for a robot. It subscribes to the &#39;joy&#39; topic and publishes Twist messages</span>
+<span class="sd">    to the &#39;cmd_vel&#39; topic.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructor: Initializes the gamepad node.</span>
+<span class="sd">        - Subscribes to the &#39;joy&#39; topic to receive joystick inputs.</span>
+<span class="sd">        - Publishes to the &#39;cmd_vel&#39; topic to send velocity commands.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO: Initialize the node with the name &#39;gamepad&#39;</span>
+
+
+        <span class="c1"># TODO: Create a subscriber to the &#39;joy&#39; topic (gamepad inputs)</span>
+        <span class="c1"># - This listens for messages of type Joy.</span>
+        <span class="c1"># - It calls the `joy_callback` function whenever a new message arrives.</span>
+        <span class="c1"># - Queue size of 10 will buffer up to 10 messages before discarding old ones.</span>
+
+
+        <span class="c1"># TODO: Create a publisher to send velocity commands to the &#39;cmd_vel&#39; topic.</span>
+        <span class="c1"># - This sends messages of type Twist.</span>
+        <span class="c1"># - Queue size of 10 helps manage message buffering.</span>
+
+
+        <span class="c1"># Log a message indicating that the node has started successfully</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Joy to cmd_vel node started!&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">joy_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Callback function that processes incoming joystick messages.</span>
+<span class="sd">        - Extracts axis values from the joystick message.</span>
+<span class="sd">        - Converts these values into a Twist message (velocity commands).</span>
+<span class="sd">        - Publishes the Twist message to control the robot.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            msg (Joy): The incoming joystick message containing axes and button states.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO: Create a new Twist message (velocity command)</span>
+
+        <span class="c1"># TODO: Map joystick axes to robot velocity:</span>
+        <span class="c1"># The left stick up/down controls linear speed (forward/backward)</span>
+        <span class="c1"># The right stick left/right controls angular speed (rotation)</span>
+
+
+        <span class="c1"># TODO: Publish the velocity command to the &#39;cmd_vel&#39; topic</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Main function to start the ROS 2 node.</span>
+<span class="sd">    - Initializes the ROS 2 system.</span>
+<span class="sd">    - Creates an instance of the Gamepad node.</span>
+<span class="sd">    - Keeps the node running using `rclpy.spin()`, which listens for messages.</span>
+<span class="sd">    - Cleans up resources when the node is shut down.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">)</span>  <span class="c1"># Initialize ROS 2</span>
+    <span class="n">gamepad</span> <span class="o">=</span> <span class="n">Gamepad</span><span class="p">()</span>  <span class="c1"># Create an instance of the Gamepad node</span>
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">spin</span><span class="p">(</span><span class="n">gamepad</span><span class="p">)</span>  <span class="c1"># Keep the node running and responsive to joystick input</span>
+
+    <span class="c1"># Cleanup when the node is shutting down</span>
+    <span class="n">gamepad</span><span class="o">.</span><span class="n">destroy_node</span><span class="p">()</span>  <span class="c1"># Properly destroy the node</span>
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>  <span class="c1"># Shutdown ROS 2</span>
+
+<span class="c1"># Run the script if executed directly (not imported as a module)</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
 
 </pre></div>
 </div>
 </li>
 </ol>
-</section>
-<hr class="docutils" />
-<section id="step-4-update-setup-py">
-<h3>Step 4: Update <code class="docutils literal notranslate"><span class="pre">setup.py</span></code><a class="headerlink" href="#step-4-update-setup-py" title="Link to this heading">#</a></h3>
-<ol class="arabic">
-<li><p>Open the <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> file in the package directory:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/src/joy_to_cmd_vel
-nano<span class="w"> </span>setup.py
-</pre></div>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">topic</span> <span class="pre">info</span> <span class="pre">&lt;topic_name&gt;</span></code> to inspect topics and <code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">interface</span> <span class="pre">show</span> <span class="pre">&lt;message_name&gt;</span></code> to see message structures.</p>
 </div>
-</li>
-<li><p>Add the following entry point under <code class="docutils literal notranslate"><span class="pre">console_scripts</span></code>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">entry_points</span><span class="o">=</span><span class="p">{</span>
-    <span class="s1">&#39;console_scripts&#39;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s1">&#39;joy_to_cmd_vel_node = joy_to_cmd_vel.joy_to_cmd_vel_node:main&#39;</span><span class="p">,</span>
-    <span class="p">],</span>
-<span class="p">},</span>
+</section>
+<section id="update-setup-py">
+<h2>🛠 Update <code class="docutils literal notranslate"><span class="pre">setup.py</span></code><a class="headerlink" href="#update-setup-py" title="Permalink to this heading">#</a></h2>
+<ol class="arabic">
+<li><p>Open the <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> file and modify the <code class="docutils literal notranslate"><span class="pre">entry_points</span></code> section:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">entry_points</span><span class="o">=</span><span class="p">{</span>  
+    <span class="s1">&#39;console_scripts&#39;</span><span class="p">:</span> <span class="p">[</span>  
+        <span class="s1">&#39;gamepad = lab4_gamepad.gamepad:main&#39;</span><span class="p">,</span>  
+    <span class="p">],</span>  
+<span class="p">},</span>  
 </pre></div>
 </div>
 </li>
 </ol>
 </section>
-<hr class="docutils" />
-<section id="step-5-build-the-workspace">
-<h3>Step 5: Build the Workspace<a class="headerlink" href="#step-5-build-the-workspace" title="Link to this heading">#</a></h3>
+<section id="build-the-workspace">
+<h2>🔨 Build the Workspace<a class="headerlink" href="#build-the-workspace" title="Permalink to this heading">#</a></h2>
 <ol class="arabic">
-<li><p>Navigate to the root of your workspace:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/ros2_ws
+<li><p>Navigate to the workspace root:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/master_ws<span class="w">  </span>
 </pre></div>
 </div>
 </li>
 <li><p>Build the workspace:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>colcon<span class="w"> </span>build
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>colcon<span class="w"> </span>build<span class="w"> </span>--symlink-install<span class="w">  </span>
 </pre></div>
 </div>
 </li>
 </ol>
 </section>
-<hr class="docutils" />
-<section id="step-6-run-the-node">
-<h3>Step 6: Run the Node<a class="headerlink" href="#step-6-run-the-node" title="Link to this heading">#</a></h3>
+<section id="run-the-node">
+<h2>🚀 Run the Node<a class="headerlink" href="#run-the-node" title="Permalink to this heading">#</a></h2>
 <ol class="arabic">
 <li><p>Source the workspace:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span>~/ros2_ws/install/setup.bash
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span>~/master_ws/install/setup.bash<span class="w">  </span>
 </pre></div>
 </div>
 </li>
-<li><p>Launch the TurtleBot3 simulation (optional):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">TURTLEBOT3_MODEL</span><span class="o">=</span>waffle
-ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_gazebo<span class="w"> </span>turtlebot3_world.launch.py
+<li><p>Launch the TurtleBot3 simulation:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_gazebo<span class="w"> </span>turtlebot3_world.launch.py<span class="w">  </span>
 </pre></div>
 </div>
 </li>
-<li><p>Run the <code class="docutils literal notranslate"><span class="pre">joy</span></code> node to publish joystick data:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>joy<span class="w"> </span>joy_node
+<li><p>Run the <code class="docutils literal notranslate"><span class="pre">joy</span></code> node to publish gamepad data:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>joy<span class="w"> </span>joy_node<span class="w">  </span>
 </pre></div>
 </div>
 </li>
-<li><p>Run your <code class="docutils literal notranslate"><span class="pre">joy_to_cmd_vel</span></code> node:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>joy_to_cmd_vel<span class="w"> </span>joy_to_cmd_vel_node
+<li><p>Start your <code class="docutils literal notranslate"><span class="pre">gamepad</span></code> node:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>lab4_gamepad<span class="w"> </span>gamepad<span class="w">  </span>
 </pre></div>
 </div>
 </li>
 </ol>
 </section>
-<hr class="docutils" />
-<section id="step-7-control-the-turtlebot3">
-<h3>Step 7: Control the TurtleBot3<a class="headerlink" href="#step-7-control-the-turtlebot3" title="Link to this heading">#</a></h3>
+<section id="control-the-turtlebot3">
+<h2>🎮 Control the TurtleBot3<a class="headerlink" href="#control-the-turtlebot3" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Use your joystick to control the TurtleBot3. The left stick should move the robot forward/backward and rotate it left/right.</p></li>
+<li><p>Use the <strong>left stick</strong> to move forward/backward.</p></li>
+<li><p>Use the <strong>right stick</strong> to rotate left/right.</p></li>
 </ul>
+<p><strong>Note:</strong> If controls don’t respond correctly, use:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/joy<span class="w">  </span>
+</pre></div>
+</div>
+<p>This will display joystick data, allowing you to adjust mappings in <code class="docutils literal notranslate"><span class="pre">joy_callback()</span></code>.</p>
 </section>
 <hr class="docutils" />
-<section id="notes">
-<h3>Notes<a class="headerlink" href="#notes" title="Link to this heading">#</a></h3>
-<ul class="simple">
-<li><p><strong>Joystick Mapping</strong>: The axes and buttons on your joystick may vary. Use <code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">topic</span> <span class="pre">echo</span> <span class="pre">/joy</span></code> to see the joystick data and adjust the mapping in the <code class="docutils literal notranslate"><span class="pre">joy_callback</span></code> function if needed.</p></li>
-<li><p><strong>TurtleBot3 Model</strong>: Ensure the <code class="docutils literal notranslate"><span class="pre">TURTLEBOT3_MODEL</span></code> environment variable is set correctly (e.g., <code class="docutils literal notranslate"><span class="pre">waffle</span></code> or <code class="docutils literal notranslate"><span class="pre">burger</span></code>).</p></li>
-</ul>
-<hr class="docutils" />
-<p>Let me know if you need further assistance!</p>
-</section>
-</section>
-<section id="implementing-the-chat-subscriber">
-<h2>Implementing the chat subscriber<a class="headerlink" href="#implementing-the-chat-subscriber" title="Link to this heading">#</a></h2>
-<section id="import-modules">
-<h3>Import modules<a class="headerlink" href="#import-modules" title="Link to this heading">#</a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># import required modules</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">rospy</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">std_msgs.msg</span><span class="w"> </span><span class="kn">import</span> <span class="n">String</span>
-</pre></div>
-</div>
-</section>
-</section>
-<section id="listener">
-<h2>Listener<a class="headerlink" href="#listener" title="Link to this heading">#</a></h2>
-<p>This function will create the subscriber (“listener”) used to receive chat messages from the publisher (“talker”).</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">listener</span><span class="p">():</span>
-    <span class="n">rospy</span><span class="o">.</span><span class="n">Subscriber</span><span class="p">(</span><span class="s1">&#39;chat&#39;</span><span class="p">,</span> <span class="n">String</span><span class="p">,</span> <span class="n">callback_chat</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>The above function creates the subscriber to the <strong>/chat</strong> topic. Every time a <em>String</em> message is sent over the topic the <code class="docutils literal notranslate"><span class="pre">callback_chat()</span></code> function is called. This is an interrupt that spins a new thread to call that function.</p>
-<section id="callback-function">
-<h3>Callback function<a class="headerlink" href="#callback-function" title="Link to this heading">#</a></h3>
-<p>The callback function will log and display what the chat listener sent.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">callback_chat</span><span class="p">(</span><span class="n">message</span><span class="p">):</span>
-    <span class="n">rospy</span><span class="o">.</span><span class="n">loginfo</span><span class="p">(</span><span class="n">rospy</span><span class="o">.</span><span class="n">get_caller_id</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot; I heard </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">message</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>The callback function receives the <em>String</em> message as an input (you can name this parameter anything, but it is helpful if it is a meaningful variable name). To access the actual message, we need to utilize the data attribute of the <em>String</em> message. If you browse to the documentation for the <a class="reference external" href="http://docs.ros.org/en/noetic/api/std_msgs/html/msg/String.html">String Mesage</a>, you will note that the message attribute is called <em>data</em> and it is of type <em>string</em>. This is why we use the command <code class="docutils literal notranslate"><span class="pre">message.data</span></code>.</p>
-</section>
-<section id="main">
-<h3>Main<a class="headerlink" href="#main" title="Link to this heading">#</a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
-    <span class="n">rospy</span><span class="o">.</span><span class="n">init_node</span><span class="p">(</span><span class="s1">&#39;listener&#39;</span><span class="p">)</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">listener</span><span class="p">()</span>
-        <span class="n">rospy</span><span class="o">.</span><span class="n">spin</span><span class="p">()</span>
-    <span class="k">except</span> <span class="n">rospy</span><span class="o">.</span><span class="n">ROSInterruptException</span><span class="p">:</span>
-        <span class="k">pass</span>
-</pre></div>
-</div>
-<p>The above is similar to the talker, but adds the <code class="docutils literal notranslate"><span class="pre">rospy.spin()</span></code> function call to create an infinite loop to allow the subscriber to operate in the background.</p>
-<p>In an actual Python script we will replace</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
-</pre></div>
-</div>
-<p>with</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-</pre></div>
-</div>
-<p>This allows our python files to be imported into other python files that might also have a main() function.</p>
-</section>
-<section id="run-the-listener">
-<h3>Run the listener<a class="headerlink" href="#run-the-listener" title="Link to this heading">#</a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">main</span><span class="p">()</span>
-</pre></div>
-</div>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[INFO] [1666756858.595079, 308.564000]: /listener I heard hello
-</pre></div>
-</div>
-<p>At this point, the subscriber is waiting for the publisher to send a message. Browse back to your talker and type a message! You should see that message show up above after hitting <code class="docutils literal notranslate"><span class="pre">enter</span></code> in the talker Notebook.</p>
-</section>
-</section>
-<section id="talker">
-<h2>Talker<a class="headerlink" href="#talker" title="Link to this heading">#</a></h2>
-<section id="a-note-on-this-document">
-<h3>A note on this document<a class="headerlink" href="#a-note-on-this-document" title="Link to this heading">#</a></h3>
-<p>This document is known as a Jupyter Notebook; it is used in academia and industry to allow text and executable code to coexist in a very easy to read format. Blocks can contain text or code, and for blocks containing code, press <code class="docutils literal notranslate"><span class="pre">Shift</span> <span class="pre">+</span> <span class="pre">Enter</span></code> to run the code. Earlier blocks of code need to be run for the later blocks of code to work.</p>
-</section>
-<section id="purpose">
-<h3>Purpose<a class="headerlink" href="#purpose" title="Link to this heading">#</a></h3>
-<p>This Jupyter Notebook will delve a little deeper into ROS implementation. You will create a basic one way chat server that allows a user to send messages to another (both users will be on the same computer at this point in time).</p>
-</section>
-<section id="initialize-ros">
-<h3>Initialize ROS:<a class="headerlink" href="#initialize-ros" title="Link to this heading">#</a></h3>
-<p>The first step when utilizing  ROS is to initialize <em>roscore</em>. There are two methods to accomplish this: first, by explicitly running <em>roscore</em> and second, by running a launch file (which will initialize <em>roscore</em> if it is not already running). During the first portion of this course we will explicitly run <em>roscore</em> and then take advantage of launch files later in the course.</p>
-<p>Copy the following code and run it in a new terminal (use the shortcut <code class="docutils literal notranslate"><span class="pre">ctrl+alt+t</span></code> to open a new terminal window or select an open terminal and hit <code class="docutils literal notranslate"><span class="pre">ctrl+shift+t</span></code> to open a new terminal tab):</p>
-<p><code class="docutils literal notranslate"><span class="pre">roscore</span></code></p>
-</section>
-<section id="implementing-the-chat-publisher">
-<h3>Implementing the chat publisher<a class="headerlink" href="#implementing-the-chat-publisher" title="Link to this heading">#</a></h3>
-<blockquote>
-<div><p>📝️ <strong>Note:</strong> The following is Python code that will be implemented within the Jupyter Notebook. Again, the Notebook is just a way to allow for code and text to coexist to help guide you through the ICE. You could take all of the code in this Notebook and put it within a Python file and it would work the same as it does here. The focus of this ICE is the ROS implementation. It is assumed you have a working knowledge of Python at this time so this Notebook will not go into a lot of background regarding the Python code. Module 3 will provide a Python refresher.</p>
-</div></blockquote>
-</section>
-<section id="id1">
-<h3>Import modules<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
-<blockquote>
-<div><p>⚠️ <strong>Important:</strong> Importing classes may take some time. You will know the code block is still executing as the bracket on the left of the cell will change to a <code class="docutils literal notranslate"><span class="pre">*</span></code> character. Do not move to the next step until the <code class="docutils literal notranslate"><span class="pre">*</span></code> is gone.</p>
-</div></blockquote>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># import required modules</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">rospy</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">std_msgs.msg</span><span class="w"> </span><span class="kn">import</span> <span class="n">String</span>
-</pre></div>
-</div>
-<p>Here, we have two modules, rospy and a message. The rospy module provides all ROS implementation to create nodes and publish messages on topics. The next line imports the String message from the std_msgs package which we will use to send our chat messages. The Standard ROS Messages include a number of common message types. You can find more information about these messages on the <a class="reference external" href="http://wiki.ros.org/std_msgs">ROS wiki</a>.</p>
-</section>
-<section id="talker-function">
-<h3>Talker Function<a class="headerlink" href="#talker-function" title="Link to this heading">#</a></h3>
-<p>One method to communicate in ROS is using a publisher/subscriber model. One node publishes messages over a topic and any other nodes can subscribe to this topic to receive the messages.</p>
-<p>This function will create the publisher (“talker”) used to send chat messages to the subscriber (“listener”). It will read user input and publish the message.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">talker</span><span class="p">():</span>
-    <span class="n">chat_pub</span> <span class="o">=</span> <span class="n">rospy</span><span class="o">.</span><span class="n">Publisher</span><span class="p">(</span><span class="s1">&#39;chat&#39;</span><span class="p">,</span> <span class="n">String</span><span class="p">,</span> <span class="n">queue_size</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="n">rate</span> <span class="o">=</span> <span class="n">rospy</span><span class="o">.</span><span class="n">Rate</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="c1"># 10 Hz</span>
-    <span class="k">while</span> <span class="ow">not</span> <span class="n">rospy</span><span class="o">.</span><span class="n">is_shutdown</span><span class="p">():</span>
-        <span class="n">chat_str</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Message: &quot;</span><span class="p">)</span>
-        <span class="n">rospy</span><span class="o">.</span><span class="n">loginfo</span><span class="p">(</span><span class="s2">&quot;I sent </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">chat_str</span><span class="p">)</span>
-        <span class="n">chat_pub</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="n">chat_str</span><span class="p">)</span>
-        <span class="n">rate</span><span class="o">.</span><span class="n">sleep</span><span class="p">()</span>
-</pre></div>
-</div>
-<p>Line 2 creates the publisher. The publisher will publish <em>String</em> messages over the <strong>/chat</strong> topic. The <code class="docutils literal notranslate"><span class="pre">queue_size</span></code> parameter determines how many messages the ROS network will hold before dropping old messages. If the publisher publishes faster than the network can handle, then messages will start getting dropped.</p>
-<p>Line 3 determines the rate at which the following loop should run. With an input of 10, the loop should run 10 times per second (10 Hz). Line 4 creates a loop that runs until <code class="docutils literal notranslate"><span class="pre">ctrl+c</span></code> is pressed in the terminal. Line 5 gets user input while line 6 logs the message into a log file (and prints it to the screen). Line 7 publishes the chat message using the previously created publisher. Lastly, line 8 sleeps so the loop runs at the desired rate.</p>
-<blockquote>
-<div><p>📝️ <strong>Note:</strong> Waiting for user input will cause the loop to not run at 10 Hz as line 5 will block until the user hits enter.</p>
-</div></blockquote>
-</section>
-<section id="id2">
-<h3>Main<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
-<p>The main function calls our talker function.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
-    <span class="n">rospy</span><span class="o">.</span><span class="n">init_node</span><span class="p">(</span><span class="s1">&#39;talker&#39;</span><span class="p">)</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">talker</span><span class="p">()</span>
-    <span class="k">except</span> <span class="n">rospy</span><span class="o">.</span><span class="n">ROSInterruptException</span><span class="p">:</span>
-        <span class="k">pass</span>
-</pre></div>
-</div>
-<p>Line 2 of the above code initializes our talker node. The rest creates a try-except statement that calls our talker function. All the try/except really does is ensures we exit cleanly when ctrl+c is pressed in a terminal.</p>
-<p>In an actual Python script we will replace</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
-</pre></div>
-</div>
-<p>with</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-</pre></div>
-</div>
-<p>This allows our python files to be imported into other python files that might also have a main() function.</p>
-</section>
-<section id="run-the-talker">
-<h3>Run the talker<a class="headerlink" href="#run-the-talker" title="Link to this heading">#</a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">main</span><span class="p">()</span>
-</pre></div>
-</div>
-</section>
-<section id="create-the-listener">
-<h3>Create the listener<a class="headerlink" href="#create-the-listener" title="Link to this heading">#</a></h3>
-<p>At this point the talker is waiting for user input. Don’t start typing yet, though! We need to implement and run our listener.</p>
-</section>
-<section id="ros-commands">
-<h3>ROS commands<a class="headerlink" href="#ros-commands" title="Link to this heading">#</a></h3>
-<p>Note that the Jupyter code block for the <code class="docutils literal notranslate"><span class="pre">main()</span></code> function call on both the talker and listener has an <code class="docutils literal notranslate"><span class="pre">*</span></code> on the left side. That is due to the infinite loops in the talker and main functions. This means that those functions are blocking and no other Jupyter code blocks will run in these two notebooks. We have to open a new notebook to run the ROS commands we would use to investigate the state of our ROS system. This would be equivalent to opening a new terminal on the Linux computer.</p>
-</section>
-</section>
-<section id="ros">
-<h2>ROS<a class="headerlink" href="#ros" title="Link to this heading">#</a></h2>
-<p>Below you will see the ROS commands you will use throughout this course to investigate your ROS system and write your lab reports. The “!” character in the front allows us to run bash commands from Jupyter and would <strong>NOT</strong> be used in the command line.</p>
-<p>With the talker and listener nodes running execute the below commands.</p>
-<p>List all running nodes:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ rosnode list
-</pre></div>
-</div>
-<p>You should see the listener and talker nodes. The <em>/rosout</em> node is created when running <code class="docutils literal notranslate"><span class="pre">roscore</span></code> and facilitates communication in the network. You can ignore this node in your lab reports.</p>
-<p>Get more information about the <em>/listener</em> node:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ rosnode info /listener
-</pre></div>
-</div>
-<p>You can see what topics the node is publishing and subscribing to. It publishes to the ROS log file (for debugging) and subscribes to the <strong>/chat</strong> topic.</p>
-<p>List the active topics:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ rostopic list
-</pre></div>
-</div>
-<p>The first topic is the one we created. The last two are created by <code class="docutils literal notranslate"><span class="pre">roscore</span></code> and can be ignored.</p>
-<p>Show information about the <strong>/chat</strong> topic such as what type of messages are sent over the topic and publishing and subscribing nodes.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ rostopic info /chat
-</pre></div>
-</div>
-<p>As expected, the <em>talker</em> node is publishing to the <strong>/chat</strong> topic while the <em>listener</em> node subscribes.</p>
-<p>Display running nodes and communication between them:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ rqt_graph
-</pre></div>
-</div>
-<p>Close the rqt_graph.</p>
-<p>Display information about the message that is sent over the <strong>/chat</strong> topic.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ rostopic type /chat | rosmsg show
-</pre></div>
-</div>
-<p>The output of the command is the same as the information we saw from the ROS documentation. Again, to access the message we have to use the <code class="docutils literal notranslate"><span class="pre">data</span></code> attribute.</p>
-<p>Display messages sent over the <strong>/chat</strong> topic:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ rostopic echo /chat
-</pre></div>
-</div>
-<p>In the ICE1_Talker notebook send a message to the listener. You should see that message show up both here and at the listener. This echo tool is useful to ensure your nodes are sending the messages as expected.</p>
-</section>
-<section id="checkpoint">
-<h2>Checkpoint<a class="headerlink" href="#checkpoint" title="Link to this heading">#</a></h2>
-<p>Once complete, get checked off by an instructor showing the output of each of the above.</p>
+<section id="deliverables">
+<h2>📌 <strong>Deliverables</strong><a class="headerlink" href="#deliverables" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Complete all TODO sections</strong> in <code class="docutils literal notranslate"><span class="pre">gamepad.py</span></code>.</p></li>
+<li><p><strong>Verify joystick control</strong> over the TurtleBot3 in simulation.</p></li>
+<li><p><strong>Push your code</strong> to your GitHub repository.</p></li>
+<li><p><strong>Submit your assignment</strong> on Gradescope.</p></li>
+</ol>
 </section>
 </section>
 
@@ -845,10 +753,11 @@ ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_gazebo<span
 
               
               
-              
-              
-                <footer class="prev-next-footer d-print-none">
+                <footer class="bd-footer-article">
                   
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="Lab3_Python.html"
@@ -868,16 +777,17 @@ ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_gazebo<span
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
+</div></div>
+  
 </div>
+
                 </footer>
               
             </div>
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -885,43 +795,20 @@ ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_gazebo<span
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#this-lab-is-not-ready"><strong>THIS LAB IS NOT READY</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">📌 Objectives</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">📜 Overview</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#procedure">💻 Procedure</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-create-a-new-ros-2-package">Step 2: Create a New ROS 2 Package</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-write-the-ros-2-node">Step 3: Write the ROS 2 Node</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-update-setup-py">Step 4: Update <code class="docutils literal notranslate"><span class="pre">setup.py</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-5-build-the-workspace">Step 5: Build the Workspace</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-6-run-the-node">Step 6: Run the Node</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-7-control-the-turtlebot3">Step 7: Control the TurtleBot3</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notes">Notes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-lab-ros2-client-libraries">🔧 Pre-Lab: ROS2 Client Libraries</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementing-the-chat-subscriber">Implementing the chat subscriber</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-modules">Import modules</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#listener">Listener</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#callback-function">Callback function</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#main">Main</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-the-listener">Run the listener</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#talker">Talker</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-note-on-this-document">A note on this document</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose">Purpose</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#initialize-ros">Initialize ROS:</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementing-the-chat-publisher">Implementing the chat publisher</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Import modules</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#talker-function">Talker Function</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Main</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-the-talker">Run the talker</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-the-listener">Create the listener</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ros-commands">ROS commands</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ros">ROS</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint">Checkpoint</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">🔧 Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-new-ros2-package">📦 Create a New ROS2 Package</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-the-ros2-node">📝 Write the ROS2 Node</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#update-setup-py">🛠 Update <code class="docutils literal notranslate"><span class="pre">setup.py</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-the-workspace">🔨 Build the Workspace</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-the-node">🚀 Run the Node</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#control-the-turtlebot3">🎮 Control the TurtleBot3</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">📌 <strong>Deliverables</strong></a></li>
 </ul>
   </nav></div>
 
@@ -943,7 +830,6 @@ By Stan Baek
   
   <div class="footer-item">
     
-
   <p class="copyright">
     
       © Copyright 2023.
@@ -970,8 +856,8 @@ By Stan Baek
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
   <footer class="bd-footer">
   </footer>
