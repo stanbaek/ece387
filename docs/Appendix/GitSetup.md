@@ -188,6 +188,7 @@ This section assumes you already have a GitHub account.
 
     ```bash
     $ git remote add upstream https://github.com/ECE-387/labs.git
+    $ git config pull.rebase true
     ```
 1. Verify that the upstream repository has been added successfully by typing 
     ``` bash
@@ -201,6 +202,7 @@ This section assumes you already have a GitHub account.
     ```
     <br>
 
+1. 
 1. If the instructor updates the code, you will be notified. To get the latest updates from the upstream repository, run
     ```bash
     git pull upstream main
