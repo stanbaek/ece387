@@ -5,6 +5,11 @@
 
 Set up a Logitech Gamepad on the `Master` to work with ROS2 Humble on Ubuntu. This will allow you to use a Logitech Gamepad for controlling robots. Follow these steps to install dependencies, configure the gamepads, and test them in your ROS2 workspace.
 
+```{image} ./figures/LogitechGamepad.png  
+:width: 280  
+:align: center  
+```  
+
 ## **Steps**  
 
 ### 1. Install the `joy` Package  
