@@ -9,13 +9,15 @@
 
 
 ## 📜 Overview  
-This lab provides insight into ROS topics and messages and how information is exchanged between nodes. A node can **publish** messages over a topic, and other nodes can **subscribe** to that topic to receive messages. Each message follows a predefined format, which all participating nodes must understand.  
 
-In this lab, you will develop a node that subscribes to joystick input (`/joy` topic) and publishes velocity commands (`/cmd_vel` topic) to control a robot.  
+This lab introduces ROS topics and messages, focusing on how nodes communicate by exchanging information. In ROS, a node can **publish** messages to a topic, while other nodes can **subscribe** to that topic to receive data. Each message follows a predefined format that all participating nodes must understand.  
 
-## 💻 Procedure
+The best way to learn ROS is through hands-on experience, so let's start by experimenting with a virtual **TurtleBot3**! Throughout this course, TurtleBot3 will serve as a key tool for applying and integrating robotics concepts. By the end of the course, you'll be developing complex embedded robotic systems to complete dedicated tasks, such as autonomously navigating the halls of DFEC. But for now, let’s begin with something simpler—getting the robot to drive around.  
 
-### 🔧 Pre-Lab: ROS2 Client Libraries  
+In this lab, you will develop a ROS2 node that listens for joystick input (`/joy` topic) and publishes velocity commands (`/cmd_vel` topic) to control the movement of the robot. 🚀
+
+## 🌱 Pre-Lab: ROS2 Client Libraries  
+
 The tutorials at [Beginner: Client Libraries](https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries.html) are a great introduction to ROS2 client libraries.  
 
 ```{image} ./figures/Lab2_ROS_Tutorials2.png  
@@ -55,19 +57,20 @@ Complete the following four tutorials. **Important:** Skip **C++** tutorials and
         [INFO] [minimal_subscriber]: I heard: "Hello World: 14"  
         ```  
 
+## 💻 Procedure
 
-## 🔧 Setup  
+### 🔧 Setup  
 
 1. Follow the [Gamepad Setup](../Appendix/GamepadSetup.md) guide to configure the Logitech Gamepad on your **Master** computer.  
 
 1. Open a terminal and navigate to the `src` directory in your workspace:  
    ```bash  
-   cd ~/master_ws/src  
+   $ cd ~/master_ws/src  
    ```  
 
 1. Install the TurtleBot3 Simulation Package:  
    ```bash  
-   git clone -b humble https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git  
+   $ git clone -b humble https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git  
    ```  
    - Ensure the `turtlebot3_simulations` directory is inside `~/master_ws/src`.  
 
@@ -75,8 +78,8 @@ Complete the following four tutorials. **Important:** Skip **C++** tutorials and
 **Important:** Always run `colcon build` from the root of your workspace (`~/master_ws`).  
 
    ```bash  
-   cd ~/master_ws  
-   colcon build --symlink-install  
+   $ cd ~/master_ws  
+   $ colcon build --symlink-install  
    ```  
 
     After running the command, you should see output similar to the following.
@@ -103,17 +106,125 @@ Complete the following four tutorials. **Important:** Skip **C++** tutorials and
     Finished <<< turtlebot3_simulations [0.90s]  
     ```  
 
+### 🚀 Running the TurtleBot3 Simulation
 
-## 📦 Create a New ROS2 Package  
+1. Source Your Workspace: Before launching the simulation, make sure your workspace is properly sourced:  
+    ```bash  
+    source ~/master_ws/install/setup.bash  
+    ```  
+
+1. Launch the TurtleBot3 Simulation in Gazebo: A **launch file** is used in ROS to start multiple nodes at once. We will learn more about them later. For now, launch the simulation:  
+    ```bash  
+    ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py  
+    ```  
+
+1. Open RViz for Visualization: In a **new terminal window or tab**, run the following command to start RViz:  
+    ```bash  
+    ros2 launch turtlebot3_gazebo turtlebot3_gazebo_rviz.launch  
+    ```  
+    These launch files will start the necessary nodes to simulate our robot and will open two windows:  
+
+    - **Gazebo:** A simulation environment that provides physics for the robot, allowing us to test algorithms before deploying them in the real world.  
+    - **RViz:** A visualization tool that helps us see how ROS topics interact.  
+
+    In **Gazebo**, you should see a TurtleBot3 positioned at (-2.0, -0.5) facing the positive x-direction inside a maze.  
+
+    🔹 **Camera Controls in Gazebo:**  
+    - **Left-click + Drag:** Pan the view  
+    - **Scroll Wheel:** Zoom in/out  
+    - **Hold Scroll Wheel + Drag:** Rotate the camera  
+
+    In **RViz**, you should see a series of red dots outlining obstacles in the maze. These are detected by the TurtleBot3's LIDAR sensor, which publishes data on the **/scan** topic.  
+
+    🔹 **Camera Controls in RViz:**  
+    - **Left-click + Drag:** Rotate the view  
+    - **Scroll Wheel:** Zoom in/out  
+    - **Hold Scroll Wheel + Drag:** Pan the view  
+
+    (Yes, the controls are slightly different in Gazebo and RViz. 😅)  
+
+📌 *We will explore these tools in more detail later, so don’t worry if you don’t understand everything yet!*  
+
+1. List Active Nodes in Your ROS Network: To check which nodes are currently running in the system, use:  
+    ```bash  
+    ros2 node list  
+    ```  
+    You should see five active nodes:  
+    - **Two nodes for Gazebo** (simulation environment)  
+    - **One node for RViz** (robot visualization)  
+    - **A default ROS2 communication node** (automatically created)  
+    - **A node for handling RViz visualization**  
+
+1. List Active Topics: Let’s see what topics are currently being published:  
+    ```bash  
+    ros2 topic list  
+    ```  
+    You will notice several topics related to the simulated robot. Some key ones to remember:  
+    - **/cmd_vel** → Controls robot movement (velocity commands)  
+    - **/imu** → Provides data from the robot’s orientation sensor  
+    - **/scan** → LIDAR sensor data (obstacle detection)  
+
+    The remaining topics handle simulation and visualization and can be ignored for now.  
+
+1. Visualizing ROS Connections Using `rqt_graph`: A useful tool for understanding how nodes and topics are connected is **rqt_graph**. Run:  
+    ```bash  
+    rqt_graph  
+    ```  
+    This will generate a visual representation of the active nodes and their connections.  
+
+    Right now, **Gazebo is publishing position and scan data**, which RViz uses to display the robot.  
+
+    📌 **Close rqt_graph when finished**. Now, let’s add another node to make things more interesting! 🚀  
+
+1. Sending Velocity Commands to the Robot: The **/cmd_vel** topic is used to send movement commands to the robot. These commands use **Twist** messages, which define movement in **linear (x, y, z) and angular (x, y, z) directions**. (Google `ROS twist message` for more information)  
+
+    Our TurtleBot3 moves in **two dimensions**, so we will only use:  
+    - **Linear x** → Moves the robot forward/backward  
+    - **Angular z** → Rotates the robot left/right  
+
+    To drive our simulated robot, we need a node that can publish *Twist* messages to the **/cmd_vel** topic. Instead of writing our own publisher, we can use an existing ROS2 node, `Teleop_Twist_Keyboard` that sends `Twist` messages using a keyboard.
+
+    Open a **new terminal tab** (`Ctrl + Shift + T`), then run:  
+    ```bash  
+    ros2 run teleop_twist_keyboard teleop_twist_keyboard.py  
+    ```  
+
+    This launches a keyboard teleoperation node that lets you control the robot!  
+
+    📌 **To drive the robot:**  
+    - Press **x** to decrease the linear speed to ~0.25 m/s.  
+    - Press **c** to decrease the angular speed to ~0.5 rad/s.  
+    - Follow the instructions to move the robot using your keyboard!  
+
+1. Checking ROS Graph After Movement: Once the robot moves, let's see how our ROS network has changed:  
+    ```bash  
+    rqt_graph  
+    ```  
+
+    Now, you should see a new node, **teleop_twist_keyboard**, which is publishing **Twist** messages to the **/cmd_vel** topic, allowing the robot to move in Gazebo.  
+
+    📌 **Close rqt_graph when finished**.  
+
+1. Recap  
+    - You launched the TurtleBot3 simulation in Gazebo.  
+    - You used RViz to visualize sensor data.  
+    - You explored active ROS2 nodes and topics.  
+    - You used `rqt_graph` to visualize connections in the ROS network.  
+    - You controlled the TurtleBot3 using keyboard teleoperation.  
+
+    🚀 *You’re now ready to move on to the next part of the lab!*  
+
+
+### 📦 Create a New ROS2 Package  
 
 1. Navigate to your local repository inside your workspace:  
    ```bash  
-   cd ~/master_ws/src/ece387_lastname  
+   $ cd ~/master_ws/src/ece387_lastname  
    ```  
 1. Create a new ROS2 package: Run the following command to create a new ROS 2 package named `lab4_gamepad`:  
 
     ```bash  
-    ros2 pkg create --build-type ament_python lab4_gamepad  
+    $ ros2 pkg create --build-type ament_python lab4_gamepad  
     ```  
 
     After running this command, your terminal will confirm the package creation and generate the necessary files and folders:  
@@ -128,19 +239,19 @@ Complete the following four tutorials. **Important:** Skip **C++** tutorials and
     ```  
 
 
-## 📝 Write the ROS2 Node  
+### 📝 Write the ROS2 Node  
 
 1. Navigate to the package directory:  
     ```bash  
-    cd lab4_gamepad/lab4_gamepad  
+    $ cd lab4_gamepad/lab4_gamepad  
     ```  
     **Note**: You need to enter the `lab4_gamepad` directory inside the `lab4_gamepad` package folder.
 
 1. Create a Python script for the node:  
-   ```bash  
-   touch gamepad.py  
-   chmod +x gamepad.py  
-   ```  
+    ```bash  
+    $ touch gamepad.py  
+    $ chmod +x gamepad.py  
+    ```  
     The `chmod +x` command makes the `gamepad.py` file executable so it can be run as a script.
 
 1. Open the `gamepad.py` file in VS Code and implement the **TODO** sections in the provided template.  
@@ -235,7 +346,7 @@ Use `ros2 topic info <topic_name>` to inspect topics and `ros2 interface show <m
 
 
 
-## 🛠 Update `setup.py`  
+### 🛠 Update `setup.py`  
 
 1. Open the `setup.py` file and modify the `entry_points` section:  
    ```python  
@@ -250,38 +361,26 @@ Use `ros2 topic info <topic_name>` to inspect topics and `ros2 interface show <m
 
 1. Navigate to the workspace root:  
    ```bash  
-   cd ~/master_ws  
+   $ cd ~/master_ws  
    ```  
 
 2. Build the workspace:  
    ```bash  
-   colcon build --symlink-install  
+   $ colcon build --symlink-install  
    ```  
 
-## 🚀 Run the Node  
-
-1. Source the workspace:  
+1. Run the `joy` node to publish gamepad data:  
    ```bash  
-   source ~/master_ws/install/setup.bash  
-   ```  
-
-2. Launch the TurtleBot3 simulation:  
-   ```bash  
-   ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py  
-   ```  
-
-3. Run the `joy` node to publish gamepad data:  
-   ```bash  
-   ros2 run joy joy_node  
+   $ ros2 run joy joy_node  
    ```  
 
 4. Start your `gamepad` node:  
    ```bash  
-   ros2 run lab4_gamepad gamepad  
+   $ ros2 run lab4_gamepad gamepad  
    ```  
 
 
-## 🎮 Control the TurtleBot3  
+### 🎮 Control the TurtleBot3  
 - Use the **left stick** to move forward/backward.  
 - Use the **right stick** to rotate left/right.  
 
