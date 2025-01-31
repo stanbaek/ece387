@@ -21,7 +21,7 @@ parts:
     - file: Labs/Lab2_ROS.md    
     - file: Labs/Lab3_Python.md
     - file: Labs/Lab4_Gamepad.md
-    - file: Labs/Lab5_Messages.md    
+    - file: Labs/Lab5_TurtleBot.md    
     - file: Labs/Lab6_IMU.md
     - file: Labs/Lab7_LaunchFile.md
     - file: Labs/Lab8_LIDAR.md

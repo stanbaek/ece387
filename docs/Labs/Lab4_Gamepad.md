@@ -40,20 +40,20 @@ Complete the following four tutorials. **Important:** Skip **C++** tutorials and
 1. **Writing a Simple Publisher and Subscriber (Python)**  
    - Select **Linux** in the operating system tab.  
 
-1. **Demo the Terminal Outputs to Your Instructor**  
-  - One terminal should display messages every 0.5 seconds:  
-    ```bash  
-    [INFO] [minimal_publisher]: Publishing: "Hello World: 0"  
-    [INFO] [minimal_publisher]: Publishing: "Hello World: 1"  
-    [INFO] [minimal_publisher]: Publishing: "Hello World: 2"  
-    ```  
-  - Another terminal should print messages like:  
-    ```bash  
-    [INFO] [minimal_subscriber]: I heard: "Hello World: 12"  
-    [INFO] [minimal_subscriber]: I heard: "Hello World: 13"  
-    [INFO] [minimal_subscriber]: I heard: "Hello World: 14"  
-    ```  
-
+1. **Demo the Terminal Outputs**
+    - Demo the terminal outputs at the beginning of the lab.
+    - One terminal should display messages every 0.5 seconds:  
+        ```bash  
+        [INFO] [minimal_publisher]: Publishing: "Hello World: 0"  
+        [INFO] [minimal_publisher]: Publishing: "Hello World: 1"  
+        [INFO] [minimal_publisher]: Publishing: "Hello World: 2"  
+        ```  
+    - Another terminal should print messages like:  
+        ```bash  
+        [INFO] [minimal_subscriber]: I heard: "Hello World: 12"  
+        [INFO] [minimal_subscriber]: I heard: "Hello World: 13"  
+        [INFO] [minimal_subscriber]: I heard: "Hello World: 14"  
+        ```  
 
 
 ## 🔧 Setup  
@@ -110,7 +110,7 @@ Complete the following four tutorials. **Important:** Skip **C++** tutorials and
    ```bash  
    cd ~/master_ws/src/ece387_lastname  
    ```  
-1. Create a New ROS2 Package: Run the following command to create a new ROS 2 package named `lab4_gamepad`:  
+1. Create a new ROS2 package: Run the following command to create a new ROS 2 package named `lab4_gamepad`:  
 
     ```bash  
     ros2 pkg create --build-type ament_python lab4_gamepad  
@@ -296,7 +296,7 @@ This will display joystick data, allowing you to adjust mappings in `joy_callbac
 ## 📌 **Deliverables**  
 
 1. **Complete all TODO sections** in `gamepad.py`.  
-2. **Verify joystick control** over the TurtleBot3 in simulation.  
+2. **Demo joystick control** over the TurtleBot3 in simulation.  
 3. **Push your code** to your GitHub repository.  
 4. **Submit your assignment** on Gradescope.  
 
