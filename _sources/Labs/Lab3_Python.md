@@ -1,10 +1,5 @@
 # 🔬 Lab3: Python
 
-```{note}
-Lab 3 is not ready yet!
-```
-
-# **Simplified Risk Game in Python**
 
 ## 📌 Objectives
 
@@ -14,7 +9,7 @@ Lab 3 is not ready yet!
 
 ---
 
-## 📜 Overview of the Game
+## 📜 Overview of the Simplified Risk Game 
 
 This simplified version of the Risk board game involves:
 - Two players (a user and the computer).
