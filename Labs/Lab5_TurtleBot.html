@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>🔬 Lab4: Driving the Robot &#8212; Introduction to Robotic Systems</title>
+    <title>🔬 Lab5: Driving the Robot &#8212; Introduction to Robotic Systems</title>
   
   
   
@@ -187,8 +187,7 @@
 <li class="toctree-l1"><a class="reference internal" href="Lab2_ROS.html">🔬 Lab2: ROS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Lab3_Python.html">🔬 Lab3: Python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Lab4_Gamepad.html">🔬 Lab4: Gamepad</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">🔬 Lab4: Driving the Robot</a></li>
-
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">🔬 Lab5: Driving the Robot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Lab6_IMU.html">🔬 Lab6: IMU</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Lab7_LaunchFile.html">🔬 Lab7: Launch Files</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Lab8_LIDAR.html">🔬 Lab8: LIDAR</a></li>
@@ -381,7 +380,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>🔬 Lab4: Driving the Robot</h1>
+    <h1>🔬 Lab5: Driving the Robot</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -391,7 +390,6 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">🔬 Lab4: Driving the Robot</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lesson-objectives">Lesson Objectives:</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agenda">Agenda:</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#running-the-turtlebot3-simulation">Running the TurtleBot3 simulation</a></li>
@@ -400,9 +398,7 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gain-familiarity-with-turtlebot3-robotics-platform">Gain Familiarity with Turtlebot3 Robotics Platform.</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#assignments">Assignments.</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-time">Next time.</a></li>
-</ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#ice4-driving-the-robot">ICE4: Driving the Robot</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ice4-driving-the-robot">ICE4: Driving the Robot</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose">Purpose</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-used-to-drive-the-robot">Code used to drive the robot</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#driving-the-robot">Driving the robot</a></li>
@@ -411,9 +407,6 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cleanup">Cleanup</a></li>
 </ul>
-</li>
-</ul>
-
             </nav>
         </div>
     </div>
@@ -424,8 +417,8 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="lab4-driving-the-robot">
-<h1>🔬 Lab4: Driving the Robot<a class="headerlink" href="#lab4-driving-the-robot" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="lab5-driving-the-robot">
+<h1>🔬 Lab5: Driving the Robot<a class="headerlink" href="#lab5-driving-the-robot" title="Link to this heading">#</a></h1>
 <section id="lesson-objectives">
 <h2>Lesson Objectives:<a class="headerlink" href="#lesson-objectives" title="Link to this heading">#</a></h2>
 <ol class="arabic simple">
@@ -441,41 +434,6 @@
 <li><p>Use Linux terminals to launch and control actual Turtlebot 3.</p></li>
 </ol>
 <p>Sure, I can help with that! Here are the step-by-step instructions to use your Logitech F310 with ROS2:</p>
-<ol class="arabic">
-<li><p><strong>Plug in your Logitech F310 controller</strong> to your computer via USB.</p></li>
-<li><p><strong>Install the necessary dependencies</strong> for ROS2 and joystick support. You can do this by running:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt-get<span class="w"> </span>update
-sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>ros-&lt;ros_version&gt;-joy
-</pre></div>
-</div>
-<p>Replace <code class="docutils literal notranslate"><span class="pre">&lt;ros_version&gt;</span></code> with your ROS2 version (e.g., <code class="docutils literal notranslate"><span class="pre">foxy</span></code>, <code class="docutils literal notranslate"><span class="pre">galactic</span></code>).</p>
-</li>
-<li><p><strong>Set up the udev rules</strong> for your controller. Create a file named <code class="docutils literal notranslate"><span class="pre">99-joystick.rules</span></code> in the <code class="docutils literal notranslate"><span class="pre">/etc/udev/rules.d/</span></code> directory with the following content:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">SUBSYSTEM</span><span class="o">==</span><span class="s2">&quot;input&quot;</span>,<span class="w"> </span>ATTRS<span class="o">{</span>name<span class="o">}==</span><span class="s2">&quot;Logitech USB Gamepad&quot;</span>,<span class="w"> </span><span class="nv">MODE</span><span class="o">=</span><span class="s2">&quot;0666&quot;</span>
-</pre></div>
-</div>
-</li>
-<li><p><strong>Reload the udev rules</strong> to apply the changes:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>udevadm<span class="w"> </span>control<span class="w"> </span>--reload-rules
-sudo<span class="w"> </span>udevadm<span class="w"> </span>trigger
-</pre></div>
-</div>
-</li>
-<li><p><strong>Launch the teleop_f310 node</strong> in ROS2:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>roslaunch<span class="w"> </span>teleop_f310<span class="w"> </span>teleop_f310.launch
-</pre></div>
-</div>
-<p>This will start the node that allows you to control your robot using the Logitech F310 joystick.</p>
-</li>
-<li><p><strong>Verify the joystick input</strong> by echoing the <code class="docutils literal notranslate"><span class="pre">joy</span></code> topic:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rostopic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>joy
-</pre></div>
-</div>
-<p>You should see the joystick inputs being published if everything is set up correctly.</p>
-</li>
-<li><p><strong>Adjust the joystick configuration</strong> if needed using the dynamic reconfigure plugin in <code class="docutils literal notranslate"><span class="pre">rqt</span></code>. This allows you to change the joystick mappings on-the-fly.</p></li>
-</ol>
-<p>That’s it! You should now be able to use your Logitech F310 with ROS2. If you encounter any issues, feel free to ask for more help!</p>
 </section>
 <section id="running-the-turtlebot3-simulation">
 <h2>Running the TurtleBot3 simulation<a class="headerlink" href="#running-the-turtlebot3-simulation" title="Link to this heading">#</a></h2>
@@ -649,9 +607,9 @@ robot for the first time.</p>
 <li><p>Lesson 10: Module 5 - Custom Messages</p></li>
 </ul>
 </section>
+<section id="ice4-driving-the-robot">
+<h2>ICE4: Driving the Robot<a class="headerlink" href="#ice4-driving-the-robot" title="Link to this heading">#</a></h2>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="ice4-driving-the-robot">
-<h1>ICE4: Driving the Robot<a class="headerlink" href="#ice4-driving-the-robot" title="Link to this heading">#</a></h1>
 <section id="purpose">
 <h2>Purpose<a class="headerlink" href="#purpose" title="Link to this heading">#</a></h2>
 <p>This In-Class Exercise will introduce you to utilizing pre-built ROS packages to accomplish a task. It will also provide you experience interacting with someone else’s source code (.py files) to learn how that component works. You will use ROS to run two nodes, <strong>turtlebot3_core</strong> and <strong>teleop_twist_keyboard</strong>, to drive the Turtlebot3 with a keyboard. You will continue to practice using ROS tools to observe how these components communicate.</p>
@@ -820,7 +778,6 @@ robot for the first time.</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">🔬 Lab4: Driving the Robot</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lesson-objectives">Lesson Objectives:</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agenda">Agenda:</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#running-the-turtlebot3-simulation">Running the TurtleBot3 simulation</a></li>
@@ -829,9 +786,7 @@ robot for the first time.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gain-familiarity-with-turtlebot3-robotics-platform">Gain Familiarity with Turtlebot3 Robotics Platform.</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#assignments">Assignments.</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-time">Next time.</a></li>
-</ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#ice4-driving-the-robot">ICE4: Driving the Robot</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ice4-driving-the-robot">ICE4: Driving the Robot</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose">Purpose</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-used-to-drive-the-robot">Code used to drive the robot</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#driving-the-robot">Driving the robot</a></li>
@@ -840,9 +795,6 @@ robot for the first time.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cleanup">Cleanup</a></li>
 </ul>
-</li>
-</ul>
-
   </nav></div>
 
 </div></div>
