@@ -390,7 +390,6 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose">Purpose</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ros-msgs">ROS msgs</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#msg">msg</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#custom-messages">Custom messages</a></li>
@@ -413,11 +412,8 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compile-and-run-the-code">Compile and run the code</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint">Checkpoint</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cleanup">Cleanup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab8-custom-messages">Lab8: Custom Messages</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#synopsis">Synopsis</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#due-by-0730-lesson-13-m-or-t-depending-on-which-day-your-class-meets">Due by 0730 Lesson 13 (M or T depending on which day your class meets)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-objectives">Lab Objectives:</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mouse-node">Mouse Node:</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#controller-node">Controller Node:</a></li>
@@ -440,10 +436,6 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="lab5-messages">
 <h1>🔬 Lab5: Messages<a class="headerlink" href="#lab5-messages" title="Link to this heading">#</a></h1>
-<section id="purpose">
-<h2>Purpose<a class="headerlink" href="#purpose" title="Link to this heading">#</a></h2>
-<p>This In-Class Exercise will provide you more insight into ROS messages and how information is passed between two nodes. A node can publish specific messages over a topic and other nodes are able to subscribe to that topic to receive the message. The format of these messages must be pre-defined and each node needs to know the format of the message. ROS provides a number of pre-built messages, but also allows for developers to create custom messages. In this lesson you will learn the method for and practice creating custom messages. In the corresponding lab you will develop a custom message to drive the robot. The custom message will eventually be used to enable a controller to drive the robot based on multiple data sources (e.g., IMU, LIDAR, keyboard).</p>
-</section>
 <section id="ros-msgs">
 <h2>ROS msgs<a class="headerlink" href="#ros-msgs" title="Link to this heading">#</a></h2>
 <section id="msg">
@@ -804,27 +796,12 @@ catkin_make
 </ol>
 </section>
 </section>
-<section id="checkpoint">
-<h2>Checkpoint<a class="headerlink" href="#checkpoint" title="Link to this heading">#</a></h2>
-<p>Once complete, get checked off by an instructor showing the output of each of the above.</p>
-</section>
-<section id="summary">
-<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
-<p>In this lesson you learned about ROS pre-built and custom messages! You created your own message which described a Person. You then developed a publisher to send information about the Person to a subscriber.</p>
-</section>
-<section id="cleanup">
-<h2>Cleanup<a class="headerlink" href="#cleanup" title="Link to this heading">#</a></h2>
-<p>In each terminal window, close the node by typing <code class="docutils literal notranslate"><span class="pre">ctrl+c</span></code>. Exit any SSH connections. Shutdown the notebook server by typing <code class="docutils literal notranslate"><span class="pre">ctrl+c</span></code> within the terminal you ran <code class="docutils literal notranslate"><span class="pre">jupyter-notebook</span></code> in. Select ‘y’.</p>
-<p><strong>Ensure roscore is terminated before moving on to the lab.</strong></p>
-<p>##Lab8: Custom Messages</p>
+<section id="lab8-custom-messages">
+<h2>Lab8: Custom Messages<a class="headerlink" href="#lab8-custom-messages" title="Link to this heading">#</a></h2>
 </section>
 <section id="synopsis">
 <h2>Synopsis<a class="headerlink" href="#synopsis" title="Link to this heading">#</a></h2>
 <p>This lab will provide practice in creating custom messages.  You will use provided code that listens for events from the mouse.  Specifically, the code is listening to the position of the cursor, and any buttons pressed.  You will create a custom message that is going to pass the cursor position and mouse button events across the <code class="docutils literal notranslate"><span class="pre">/mouse_info</span></code> topic.  You will develop a controller that will subscribe to the <code class="docutils literal notranslate"><span class="pre">/mouse_info</span></code> topic and then publish a Twist message to <code class="docutils literal notranslate"><span class="pre">/cmd_vel</span></code> according to the requirements in the lab handout.</p>
-</section>
-<section id="due-by-0730-lesson-13-m-or-t-depending-on-which-day-your-class-meets">
-<h2>Due by 0730 Lesson 13 (M or T depending on which day your class meets)<a class="headerlink" href="#due-by-0730-lesson-13-m-or-t-depending-on-which-day-your-class-meets" title="Link to this heading">#</a></h2>
-<p>Before starting this lab, you NEED to complete ICE5. We will work most of this together as a class, but some will be self effort to practice the concepts needed for this lab.</p>
 </section>
 <section id="lab-objectives">
 <h2>Lab Objectives:<a class="headerlink" href="#lab-objectives" title="Link to this heading">#</a></h2>
@@ -871,7 +848,7 @@ message, you can use the built in ROS functionality to see what the format of th
 <h2>Additional Requirements.<a class="headerlink" href="#additional-requirements" title="Link to this heading">#</a></h2>
 <p>Your code must adhere to the following additional requirements:</p>
 <ol class="arabic simple">
-<li><p>All code and message files should be stored in a package within the master folder called lab1. <strong>DO NOT EDIT THE CODE FILES IN THE Module05 FOLDER IN THE ECE387 CURRICULUM!!!</strong></p></li>
+<li><p>All code and message files should be stored in a package within the master folder called lab1.</p></li>
 <li><p>The controller will only be activated by scrolling down with the mouse (on the center scroll wheel)</p></li>
 <li><p>The controller will be immediately deactivated by scrolling up with the mouse.</p></li>
 <li><p>If the controller is deactivated, the robot will stop all movement, until an override by another module.</p></li>
@@ -958,7 +935,6 @@ message, you can use the built in ROS functionality to see what the format of th
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose">Purpose</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ros-msgs">ROS msgs</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#msg">msg</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#custom-messages">Custom messages</a></li>
@@ -981,11 +957,8 @@ message, you can use the built in ROS functionality to see what the format of th
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compile-and-run-the-code">Compile and run the code</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint">Checkpoint</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cleanup">Cleanup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab8-custom-messages">Lab8: Custom Messages</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#synopsis">Synopsis</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#due-by-0730-lesson-13-m-or-t-depending-on-which-day-your-class-meets">Due by 0730 Lesson 13 (M or T depending on which day your class meets)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-objectives">Lab Objectives:</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mouse-node">Mouse Node:</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#controller-node">Controller Node:</a></li>

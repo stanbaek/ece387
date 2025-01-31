@@ -1,7 +1,5 @@
 # 🔬 Lab5: Messages
 
-## Purpose
-This In-Class Exercise will provide you more insight into ROS messages and how information is passed between two nodes. A node can publish specific messages over a topic and other nodes are able to subscribe to that topic to receive the message. The format of these messages must be pre-defined and each node needs to know the format of the message. ROS provides a number of pre-built messages, but also allows for developers to create custom messages. In this lesson you will learn the method for and practice creating custom messages. In the corresponding lab you will develop a custom message to drive the robot. The custom message will eventually be used to enable a controller to drive the robot based on multiple data sources (e.g., IMU, LIDAR, keyboard).
 
 ## ROS msgs
 ### msg
@@ -354,29 +352,14 @@ There are a number of settings that have to be set within the `package.xml` and 
     rostopic type person | rosmsg show
     ```
 
-## Checkpoint
-Once complete, get checked off by an instructor showing the output of each of the above.
-
-## Summary
-In this lesson you learned about ROS pre-built and custom messages! You created your own message which described a Person. You then developed a publisher to send information about the Person to a subscriber.
-
-## Cleanup
-In each terminal window, close the node by typing `ctrl+c`. Exit any SSH connections. Shutdown the notebook server by typing `ctrl+c` within the terminal you ran `jupyter-notebook` in. Select 'y'.
-
-**Ensure roscore is terminated before moving on to the lab.**
 
 
 
-
-
-##Lab8: Custom Messages
+## Lab8: Custom Messages
 
 ## Synopsis
 This lab will provide practice in creating custom messages.  You will use provided code that listens for events from the mouse.  Specifically, the code is listening to the position of the cursor, and any buttons pressed.  You will create a custom message that is going to pass the cursor position and mouse button events across the `/mouse_info` topic.  You will develop a controller that will subscribe to the `/mouse_info` topic and then publish a Twist message to `/cmd_vel` according to the requirements in the lab handout.
 
-
-## Due by 0730 Lesson 13 (M or T depending on which day your class meets)
-Before starting this lab, you NEED to complete ICE5. We will work most of this together as a class, but some will be self effort to practice the concepts needed for this lab.
 
 ## Lab Objectives:
 In this lab, we will be building upon everything we have learned in the first 5 modules of the course. We are
@@ -422,7 +405,7 @@ dfec@master:∼$ rosmsg info std_msgs/Bool
 
 ## Additional Requirements.
 Your code must adhere to the following additional requirements:
-1. All code and message files should be stored in a package within the master folder called lab1. **DO NOT EDIT THE CODE FILES IN THE Module05 FOLDER IN THE ECE387 CURRICULUM!!!**
+1. All code and message files should be stored in a package within the master folder called lab1. 
 1. The controller will only be activated by scrolling down with the mouse (on the center scroll wheel)
 1. The controller will be immediately deactivated by scrolling up with the mouse.
 1. If the controller is deactivated, the robot will stop all movement, until an override by another module.

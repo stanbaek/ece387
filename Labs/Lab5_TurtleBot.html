@@ -433,58 +433,9 @@
 <li><p>Use Linux terminals to launch and control Turtlebot 3 in simulation environment.</p></li>
 <li><p>Use Linux terminals to launch and control actual Turtlebot 3.</p></li>
 </ol>
-<p>Sure, I can help with that! Here are the step-by-step instructions to use your Logitech F310 with ROS2:</p>
 </section>
 <section id="running-the-turtlebot3-simulation">
 <h2>Running the TurtleBot3 simulation<a class="headerlink" href="#running-the-turtlebot3-simulation" title="Link to this heading">#</a></h2>
-<p>The best way to learn about ROS is through implementation, however, let’s start off by playing around with a virtual TurtleBot3! The TurtleBot3 is a tool we will utilize throughout this course to apply and integrate robotics systems. Ultimately you will create a complex embedded robotics system to perform a specific dedicated task, such as navigating the halls of DFEC. But let’s see if we can get the robot to drive around first.</p>
-<ol class="arabic">
-<li><p>In a terminal (<strong>Pro tip:</strong> ctrl+alt+t opens a new terminal window, while ctrl+shift+t opens a new terminal tab in an existing window) and initialize the ROS network:</p>
-<p><code class="docutils literal notranslate"><span class="pre">roscore</span></code></p>
-</li>
-<li><p>That terminal is now occupied. Open a new terminal tab/window and launch the TurtleBot3 gazebo launch file (A launch file is a way to run one or more nodes at once, we will learn about launch files later):</p>
-<p><code class="docutils literal notranslate"><span class="pre">roslaunch</span> <span class="pre">turtlebot3_gazebo</span> <span class="pre">turtlebot3_world.launch</span></code></p>
-</li>
-</ol>
-<blockquote>
-<div><p>⌨️ <strong>Syntax:</strong> <code class="docutils literal notranslate"><span class="pre">roslaunch</span> <span class="pre">&lt;package&gt;</span> <span class="pre">&lt;launchfile&gt;</span></code></p>
-</div></blockquote>
-<ol class="arabic" start="3">
-<li><p>Open another terminal tab/window and launch the following:</p>
-<p><code class="docutils literal notranslate"><span class="pre">roslaunch</span> <span class="pre">turtlebot3_gazebo</span> <span class="pre">turtlebot3_gazebo_rviz.launch</span></code></p>
-</li>
-</ol>
-<p>The launch files will run the nodes necessary to simulate our robot and opens two windows: Gazebo and rviz. Gazebo is a simulation tool that provides physics for our robot and enables the testing of algorithms prior to real-world implementation. You should see a TurtleBot3 sitting at (-2.0, -0.5) facing the positive x direction surrounded by a maze. Using the mouse, left-click and holding will pan, holding the scroll wheel will change the orientation of the camera, and scrolling will zoom in and out.</p>
-<p>The second window is rviz, a tool that visualizes topics interacting in our system. You should see a number of red dots outlining the location of the obstacles in our simulation. These are objects detected by our LIDAR which is communicating over a scan topic. Using the mouse, left-click will change the orientation of the camera, holding the scroll wheel will pan, and scrolling will zoom in and out (would be nice if they were the same).</p>
-<p>Don’t worry! We will learn more about both of these tools at a later time.</p>
-<p>Let’s go ahead and take a look at what nodes and topics currently running in our system.</p>
-<p>The “!” character in front of the following commands allows us to run bash commands from the Jupyter NB and would <strong>NOT</strong> be used in the command line.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rosnode</span> <span class="nb">list</span>
-</pre></div>
-</div>
-<p>There are five nodes running, the first two enable the Gazebo simulation, the third allows for the visualization of the simulated robot, the fourth is created every time <em>roscore</em> is ran and helps with communication in our network, and the last enables rviz.</p>
-<p>Not too exciting yet, so lets see what topics are active.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rostopic</span> <span class="nb">list</span>
-</pre></div>
-</div>
-<p>There are a lot of topics that are utilized to simulate our robot. Our real-world robot will eventually have most of these, such as <strong>/cmd_vel</strong>, <strong>/imu</strong>, and <strong>/scan</strong>. These are topics that allow us to communicate with some of the simulated hardware, such as the orientation sensor (/imu), LIDAR (/scan), and driving the robot (/cmd_vel). The rest of the topics enable visualization and movement within the simulation and can be ignored for now.</p>
-<p>Another useful tool for visualizing nodes and topics is called <em>rqt_graph</em>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rqt_graph</span>
-</pre></div>
-</div>
-<p>All that is going on right now is Gazebo is publishing the position and scan data which rviz uses to visualize the robot. <strong>Close your rqt_graph</strong> and let’s add another node to make things a bit more interesting.</p>
-<p>Earlier we saw the topic <strong>/cmd_vel</strong>. This is a topic used to send <em>Twist</em> messages to a robot. A <em>Twist</em> message includes linear and angular x, y, z values to move a robot in a 3-dimensional space (google <code class="docutils literal notranslate"><span class="pre">ROS</span> <span class="pre">twist</span> <span class="pre">message</span></code> for more information). Our robot only drives in 2-dimensions and the wheels can only move forward and backward, so we will only use the linear x (forward and backward) and angular z (turning) attributes of the <em>Twist</em> message. To drive our simulated robot, we need a node that can publish <em>Twist</em> messages to the <strong>/cmd_vel</strong> topic. Luckily, there is a pre-built node called Teleop_Twist_Keyboard that sends <em>Twist</em> messages using a keyboard!</p>
-<p>Open a new terminal tab (select the terminal and press ctrl+shift+t) and run the following (<strong>Pro tip</strong>: in a Linux terminal if you type the first couple letters of a command and then hit tab it will autocomplete the command for you):</p>
-<p><code class="docutils literal notranslate"><span class="pre">rosrun</span> <span class="pre">teleop_twist_keyboard</span> <span class="pre">teleop_twist_keyboard.py</span></code></p>
-<blockquote>
-<div><p>⌨️ <strong>Syntax:</strong> <code class="docutils literal notranslate"><span class="pre">rosrun</span> <span class="pre">&lt;package&gt;</span> <span class="pre">&lt;executable&gt;</span></code></p>
-</div></blockquote>
-<p>To drive the robot use the ‘x’ key to decrease linear x speed to about .25 m/s and use the ‘c’ key to decrease angular z speed to about .5 rad/s. Now follow the directions to utilize the keyboard to drive the robot! You should see the robot move in the simulation.</p>
-<p>Let’s take a look at our rqt_graph to see if anything has changed.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rqt_graph</span>
-</pre></div>
-</div>
-<p>You should now see the teleop_twist_keyboard node which sends messages over <strong>/cmd_vel</strong> topic to Gazebo. <strong>Close the rqt_graph window</strong>. Let’s run through a number of commands that will provide you more information about your ROS network. You will use these throughout the course to determine what is going on in your ROS network.</p>
 </section>
 <section id="common-ros-commands">
 <h2>Common ROS commands<a class="headerlink" href="#common-ros-commands" title="Link to this heading">#</a></h2>
