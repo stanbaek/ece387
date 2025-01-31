@@ -429,7 +429,7 @@ document.write(`
 <a class="reference internal image-reference" href="../_images/Lab2_ROS_Tutorials2.png"><img alt="../_images/Lab2_ROS_Tutorials2.png" class="align-center" src="../_images/Lab2_ROS_Tutorials2.png" style="width: 800px;" /></a>
 <br>  
 <p>Complete the following four tutorials. <strong>Important:</strong> Skip <strong>C++</strong> tutorials and complete only the <strong>Python</strong> ones.</p>
-<ol class="arabic simple">
+<ol class="arabic">
 <li><p><strong>Using <code class="docutils literal notranslate"><span class="pre">colcon</span></code> to Build Packages</strong></p>
 <ul class="simple">
 <li><p>Create a new workspace: <code class="docutils literal notranslate"><span class="pre">~/ros2_ws</span></code> (not <code class="docutils literal notranslate"><span class="pre">~/master_ws</span></code>).</p></li>
@@ -452,9 +452,9 @@ document.write(`
 <li><p>Select <strong>Linux</strong> in the operating system tab.</p></li>
 </ul>
 </li>
-<li><p><strong>Demo the Terminal Outputs to Your Instructor</strong></p></li>
-</ol>
+<li><p><strong>Demo the Terminal Outputs</strong></p>
 <ul>
+<li><p>Demo the terminal outputs at the beginning of the lab.</p></li>
 <li><p>One terminal should display messages every 0.5 seconds:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span>minimal_publisher<span class="o">]</span>:<span class="w"> </span>Publishing:<span class="w"> </span><span class="s2">&quot;Hello World: 0&quot;</span><span class="w">  </span>
 <span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span>minimal_publisher<span class="o">]</span>:<span class="w"> </span>Publishing:<span class="w"> </span><span class="s2">&quot;Hello World: 1&quot;</span><span class="w">  </span>
@@ -470,6 +470,8 @@ document.write(`
 </div>
 </li>
 </ul>
+</li>
+</ol>
 </section>
 </section>
 <section id="setup">
@@ -528,7 +530,7 @@ Finished<span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="
 </pre></div>
 </div>
 </li>
-<li><p>Create a New ROS2 Package: Run the following command to create a new ROS 2 package named <code class="docutils literal notranslate"><span class="pre">lab4_gamepad</span></code>:</p>
+<li><p>Create a new ROS2 package: Run the following command to create a new ROS 2 package named <code class="docutils literal notranslate"><span class="pre">lab4_gamepad</span></code>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>pkg<span class="w"> </span>create<span class="w"> </span>--build-type<span class="w"> </span>ament_python<span class="w"> </span>lab4_gamepad<span class="w">  </span>
 </pre></div>
 </div>
@@ -722,7 +724,7 @@ chmod<span class="w"> </span>+x<span class="w"> </span>gamepad.py<span class="w"
 <h2>📌 <strong>Deliverables</strong><a class="headerlink" href="#deliverables" title="Permalink to this heading">#</a></h2>
 <ol class="arabic simple">
 <li><p><strong>Complete all TODO sections</strong> in <code class="docutils literal notranslate"><span class="pre">gamepad.py</span></code>.</p></li>
-<li><p><strong>Verify joystick control</strong> over the TurtleBot3 in simulation.</p></li>
+<li><p><strong>Demo joystick control</strong> over the TurtleBot3 in simulation.</p></li>
 <li><p><strong>Push your code</strong> to your GitHub repository.</p></li>
 <li><p><strong>Submit your assignment</strong> on Gradescope.</p></li>
 </ol>
