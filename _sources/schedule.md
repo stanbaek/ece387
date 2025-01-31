@@ -17,12 +17,12 @@ This schedule is subject to change as appropriate.
 | 7      | Lec 3: Python                                |                   | Lab 2        |
 | 8      | [Lab 3: Python](Labs/Lab3_Python.md)         |                   |              |
 | 9      | [Lab 3: Python](Labs/Lab3_Python.md)         |                   |              |
-| 10     | Lec 4: TurtleBot                             |                   | Lab 3        |
-| 11     | [Lab 4: TurtleBot](Labs/Lab4_Gamepad.md)     |                   |              |
-| 12     | Lec 5: ROS Messages                          |                   | Lab 4        |
-| 13     | [Lab 5: ROS Messages](Labs/Lab5_Messages.md) |                   |              |
+| 10     | Lec 4: Gamepad                               |                   | Lab 3        |
+| 11     | [Lab 4: Gamepad](Labs/Lab4_Gamepad.md)       |                   | Quiz 1       |
+| 12     | Lec 5: TurtleBot                             |                   | Lab 4        |
+| 13     | [Lab 5: Turtlebot](Labs/Lab5_TurtleBot.md)   |                   | Quiz 2       |
 | 14     | Lec 6: IMU                                   |                   | Lab 5        |
-| 15     | [Lab 6: IMU](Labs/Lab6_IMU.md)               |                   |              |
+| 15     | [Lab 6: IMU](Labs/Lab6_IMU.md)               |                   | Quiz 3       |
 | 16     | Lec 7: Launch Files                          |                   | Lab 6        |
 | 17     | [Lab 7: Launch Files](Labs/Lab7_LaunchFile.md)|                  |              |
 | 18     | Lec 8: LIDAR                                 |                   | Lab 7        |
