@@ -285,14 +285,7 @@ There are a number of settings that have to be set within the `package.xml` and 
     
     1. Save and exit.
 
-### Compile and run the code
-1. Make and source your package:
 
-    ```bash
-    cd ~/master_ws
-    catkin_make
-    source ~/.bashrc
-    ```
     
 1. Run roscore!
     
@@ -301,56 +294,8 @@ There are a number of settings that have to be set within the `package.xml` and 
     ```bash
     rosparam set enable_statistics true
     ```
-    
-1. Run the publisher:
 
-    ```bash
-    rosrun ice5 ice5_publisher.py
-    ```
     
-1. In a new terminal, run the subscriber:
-
-    ```bash
-    rosrun ice5 ice5_subscriber.py
-    ```
-    
-1. In a new terminal observe the nodes running:
-
-    ```bash
-    rosnode list
-    ```
-    
-1. Observe information about each node:
-
-    ```bash
-    rosnode info /talker
-    ```
-    
-1. Observe how information is being passed:
-
-    ```bash
-    rosrun rqt_graph rqt_graph
-    ```
-    
-    > 📝️ **Note:** You may have to hit refresh a few times to get the statistics previously mentioned.
-    
-1. Observe all active topics:
-
-    ```bash
-    rostopic list
-    ```
-    
-1. Observe the information about the message sent over the topics (repeat for each topic, remember we do not care about topics we did not create (e.g., rosout, rosout_agg, statistics)).
-
-    ```bash
-    rostopic info person
-    ```
-    
-1. Observe the fields of the message sent over each topic:
-
-    ```bash
-    rostopic type person | rosmsg show
-    ```
 
 
 

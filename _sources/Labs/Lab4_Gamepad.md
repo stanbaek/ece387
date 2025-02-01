@@ -350,40 +350,68 @@ Complete the following four tutorials. **Important:** Skip **C++** tutorials and
 
     ```
 
-
-
 ### 🛠 Update `setup.py`  
 
-1. Open the `setup.py` file and modify the `entry_points` section:  
-   ```python  
-   entry_points={  
-       'console_scripts': [  
-           'gamepad = lab4_gamepad.gamepad:main',  
-       ],  
-   },  
-   ```  
+1. Open the `setup.py` file in your preferred text editor:  
+    ```bash  
+    $ gedit ~/master_ws/src/ece387_lastname/lab4_gamepad/setup.py  
+    ```  
+
+1. Locate the `entry_points` section and modify it to include the `gamepad` node:  
+    ```python  
+    entry_points={  
+        'console_scripts': [  
+            'gamepad = lab4_gamepad.gamepad:main',  # Maps the gamepad script to the ROS2 command-line tool
+        ],  
+    },  
+    ```  
+
+1. Save the changes and exit the editor.  
+
 
 ### 🔨 Build the Workspace  
 
-1. Navigate to the workspace root:  
-   ```bash  
-   $ cd ~/master_ws  
-   ```  
+1. Navigate to the root of your workspace:
+    ```bash  
+    $ cd ~/master_ws  
+    ```  
 
-2. Build the workspace:  
-   ```bash  
-   $ colcon build --symlink-install  
-   ```  
+1. Build the workspace:
+    ```bash  
+    $ colcon build --symlink-install  
+    ```  
+    - This compiles the package and ensures all dependencies are correctly linked.  
+    - If you encounter any errors, check the terminal output for missing dependencies or syntax errors.  
 
-1. Run the `joy` node to publish gamepad data:  
+1. Source the package:
+    ```bash  
+    $ source install/setup.bash  
+    ```  
+    - This step ensures that the newly built package is recognized in your ROS2 environment.  
+
+
+### 🚀 Run and Test the Nodes
+
+1. Start the `joy` node to publish gamepad data:  
    ```bash  
    $ ros2 run joy joy_node  
    ```  
+   - This node reads input from the gamepad and publishes joystick data to the **/joy** topic.  
 
-4. Start your `gamepad` node:  
+1. Start your `gamepad` node:  
    ```bash  
    $ ros2 run lab4_gamepad gamepad  
    ```  
+   - This node subscribes to the **/joy** topic and publishes velocity commands to **/cmd_vel**.  
+
+1. Visualize ROS node communication using `rqt_graph`:  
+    ```bash  
+    $ ros2 run rqt_graph rqt_graph  
+    ```  
+    - This tool provides a graphical representation of the active nodes and their topic connections.  
+    - The `joy_node` should be publishing to **/joy**, and your `gamepad` node should be subscribing to it while publishing commands to **/cmd_vel**.  
+
+    **Note:** You may need to hit the **refresh** button in `rqt_graph` a few times for the updated statistics to appear.  
 
 
 ### 🎮 Control the TurtleBot3  
