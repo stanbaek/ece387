@@ -389,29 +389,67 @@ Complete the following four tutorials. **Important:** Skip **C++** tutorials and
     ```  
     - This step ensures that the newly built package is recognized in your ROS2 environment.  
 
-
-### 🚀 Run and Test the Nodes
+### 🚀 Run and Test the Nodes  
 
 1. Start the `joy` node to publish gamepad data:  
    ```bash  
-   $ ros2 run joy joy_node  
+   ros2 run joy joy_node  
    ```  
    - This node reads input from the gamepad and publishes joystick data to the **/joy** topic.  
 
 1. Start your `gamepad` node:  
    ```bash  
-   $ ros2 run lab4_gamepad gamepad  
+   ros2 run lab4_gamepad gamepad  
    ```  
    - This node subscribes to the **/joy** topic and publishes velocity commands to **/cmd_vel**.  
 
 1. Visualize ROS node communication using `rqt_graph`:  
-    ```bash  
-    $ ros2 run rqt_graph rqt_graph  
-    ```  
-    - This tool provides a graphical representation of the active nodes and their topic connections.  
-    - The `joy_node` should be publishing to **/joy**, and your `gamepad` node should be subscribing to it while publishing commands to **/cmd_vel**.  
+   ```bash  
+   ros2 run rqt_graph rqt_graph  
+   ```  
+   or simply:  
+   ```bash  
+   rqt_graph  
+   ```  
 
-    **Note:** You may need to hit the **refresh** button in `rqt_graph` a few times for the updated statistics to appear.  
+   - This tool provides a graphical representation of the active nodes and their topic connections.  
+   - The `joy_node` should be publishing to **/joy**, and your `gamepad` node should be subscribing to it while publishing commands to **/cmd_vel**.  
+
+   **🔹 Note:** You may need to hit the **refresh** button in `rqt_graph` a few times for the updated statistics to appear.  
+
+
+### 📊 Monitor ROS2 System Using `rqt`  
+
+1. Launch `rqt_gui`:  
+   ```bash  
+   ros2 run rqt_gui rqt_gui  
+   ```  
+   or simply:  
+   ```bash  
+   rqt  
+   ```  
+
+1. Enable the Topic Monitor: 
+   - If the topic monitor window is not displayed, go to:  
+     **`Plugins` → `Topics` → `Topic Monitor`**  
+   - Once the topic monitor loads, topics are not monitored by default. Check the box next to each topic to enable monitoring.  
+   - To view more details about a topic, click the **▶** icon next to the checkbox.  
+
+1. Monitor the `cmd_vel` and `joy` topics:  
+   - Right-click the title bar and select **"Take Screenshot."**  
+   - **Submit the screenshot on Gradescope.**  
+
+---
+
+### 📝 **Understanding `rqt` vs. `rqt_graph`**  
+
+> 🔹 `rqt` is a **graphical toolset** that provides a user-friendly interface for monitoring, debugging, and visualizing various aspects of the ROS2 system. It acts as a plugin framework, allowing you to load different tools as needed, such as topic monitors, node viewers, and service callers.  
+
+> 🔹 `rqt_graph` is a **specific plugin** within `rqt`. It **visualizes the ROS graph**, showing all running nodes and their topic connections. It helps you understand **which nodes are publishing and subscribing**, but it does **not** display ROS services.  
+
+📌 **Summary:**  
+- **`rqt`** is the **main toolset** with multiple monitoring plugins.  
+- **`rqt_graph`** is just **one plugin** within `rqt` that visualizes topic connections.  
 
 
 ### 🎮 Control the TurtleBot3  
@@ -429,8 +467,8 @@ This will display joystick data, allowing you to adjust mappings in `joy_callbac
 ## 📌 **Deliverables**  
 
 1. **Complete all TODO sections** in `gamepad.py`.  
-2. **Demo joystick control** over the TurtleBot3 in simulation.  
-3. **Push your code** to your GitHub repository.  
-4. **Submit your assignment** on Gradescope.  
+1. **Demo joystick control** over the TurtleBot3 in simulation.  
+1. **Push your code** to your GitHub repository.  
+1. **Submit your assignment** on Gradescope.  
 
 
