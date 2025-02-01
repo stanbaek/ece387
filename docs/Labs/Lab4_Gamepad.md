@@ -57,7 +57,7 @@ Complete the following four tutorials. **Important:** Skip **C++** tutorials and
         [INFO] [minimal_subscriber]: I heard: "Hello World: 14"  
         ```  
 
-## 💻 Procedure
+## 💻 Lab Procedure
 
 ### 🔧 Setup  
 
@@ -110,17 +110,17 @@ Complete the following four tutorials. **Important:** Skip **C++** tutorials and
 
 1. Source Your Workspace: Before launching the simulation, make sure your workspace is properly sourced:  
     ```bash  
-    source ~/master_ws/install/setup.bash  
+    $ source ~/master_ws/install/setup.bash  
     ```  
 
 1. Launch the TurtleBot3 Simulation in Gazebo: A **launch file** is used in ROS to start multiple nodes at once. We will learn more about them later. For now, launch the simulation:  
     ```bash  
-    ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py  
+    $ ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py  
     ```  
 
 1. Open RViz for Visualization: In a **new terminal window or tab**, run the following command to start RViz:  
     ```bash  
-    ros2 launch turtlebot3_gazebo turtlebot3_gazebo_rviz.launch  
+    $ ros2 launch turtlebot3_bringup rviz2.launch.py
     ```  
     These launch files will start the necessary nodes to simulate our robot and will open two windows:  
 
@@ -143,13 +143,13 @@ Complete the following four tutorials. **Important:** Skip **C++** tutorials and
 
     (Yes, the controls are slightly different in Gazebo and RViz. 😅)  
 
-📌 *We will explore these tools in more detail later, so don’t worry if you don’t understand everything yet!*  
+    📌 *We will explore these tools in more detail later, so don’t worry if you don’t understand everything yet!*  
 
 1. List Active Nodes in Your ROS Network: To check which nodes are currently running in the system, use:  
     ```bash  
-    ros2 node list  
+    $ ros2 node list  
     ```  
-    You should see five active nodes:  
+    You should see several active nodes:  
     - **Two nodes for Gazebo** (simulation environment)  
     - **One node for RViz** (robot visualization)  
     - **A default ROS2 communication node** (automatically created)  
@@ -157,7 +157,7 @@ Complete the following four tutorials. **Important:** Skip **C++** tutorials and
 
 1. List Active Topics: Let’s see what topics are currently being published:  
     ```bash  
-    ros2 topic list  
+    $ ros2 topic list  
     ```  
     You will notice several topics related to the simulated robot. Some key ones to remember:  
     - **/cmd_vel** → Controls robot movement (velocity commands)  
@@ -168,7 +168,7 @@ Complete the following four tutorials. **Important:** Skip **C++** tutorials and
 
 1. Visualizing ROS Connections Using `rqt_graph`: A useful tool for understanding how nodes and topics are connected is **rqt_graph**. Run:  
     ```bash  
-    rqt_graph  
+    $ rqt_graph  
     ```  
     This will generate a visual representation of the active nodes and their connections.  
 
@@ -186,7 +186,7 @@ Complete the following four tutorials. **Important:** Skip **C++** tutorials and
 
     Open a **new terminal tab** (`Ctrl + Shift + T`), then run:  
     ```bash  
-    ros2 run teleop_twist_keyboard teleop_twist_keyboard.py  
+    $ ros2 run teleop_twist_keyboard teleop_twist_keyboard.py  
     ```  
 
     This launches a keyboard teleoperation node that lets you control the robot!  
@@ -198,7 +198,7 @@ Complete the following four tutorials. **Important:** Skip **C++** tutorials and
 
 1. Checking ROS Graph After Movement: Once the robot moves, let's see how our ROS network has changed:  
     ```bash  
-    rqt_graph  
+    $ rqt_graph  
     ```  
 
     Now, you should see a new node, **teleop_twist_keyboard**, which is publishing **Twist** messages to the **/cmd_vel** topic, allowing the robot to move in Gazebo.  
@@ -256,6 +256,10 @@ Complete the following four tutorials. **Important:** Skip **C++** tutorials and
 
 1. Open the `gamepad.py` file in VS Code and implement the **TODO** sections in the provided template.  
 
+    ```{hint}  
+    Use `ros2 topic info <topic_name>` to inspect topics and `ros2 interface show <message_name>` to see message structures.  
+    ```  
+
     ```python
     #!/usr/bin/env python3
     # The above line is a shebang, which tells the system to run this script using Python 3.
@@ -308,14 +312,20 @@ Complete the following four tutorials. **Important:** Skip **C++** tutorials and
             Args:
                 msg (Joy): The incoming joystick message containing axes and button states.
             """
-            # TODO: Create a new Twist message (velocity command)
+            # TODO: Create a new Twist message for velocity commands.
+
 
             # TODO: Map joystick axes to robot velocity:
-            # The left stick up/down controls linear speed (forward/backward)
-            # The right stick left/right controls angular speed (rotation)
+            # - The left stick (up/down) controls linear speed (forward/backward).
+            # - The right stick (left/right) controls angular speed (rotation).
+            # Ensure that the joystick axis values are properly scaled to match 
+            # the robot's velocity limits:
+            # - Max Linear Velocity: 0.22 m/s
+            # - Max Angular Velocity: 2.84 rad/s
 
 
-            # TODO: Publish the velocity command to the 'cmd_vel' topic
+            # TODO: Publish the velocity command to the '/cmd_vel' topic.
+
 
 
     def main(args=None):
@@ -340,10 +350,6 @@ Complete the following four tutorials. **Important:** Skip **C++** tutorials and
 
     ```
 
-```{hint}  
-Use `ros2 topic info <topic_name>` to inspect topics and `ros2 interface show <message_name>` to see message structures.  
-```  
-
 
 
 ### 🛠 Update `setup.py`  
@@ -357,7 +363,7 @@ Use `ros2 topic info <topic_name>` to inspect topics and `ros2 interface show <m
    },  
    ```  
 
-## 🔨 Build the Workspace  
+### 🔨 Build the Workspace  
 
 1. Navigate to the workspace root:  
    ```bash  
