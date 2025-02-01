@@ -1,4 +1,4 @@
-# 🔬 Lab4: Driving the Robot
+# 🔬 Lab5: Driving the Robot
 
 
 ## Lesson Objectives:
@@ -20,125 +20,11 @@
 
 
 
-
-
-
-
-Sure, I can help with that! Here are the step-by-step instructions to use your Logitech F310 with ROS2:
-
-1. **Plug in your Logitech F310 controller** to your computer via USB.
-2. **Install the necessary dependencies** for ROS2 and joystick support. You can do this by running:
-   ```bash
-   sudo apt-get update
-   sudo apt-get install ros-<ros_version>-joy
-   ```
-   Replace `<ros_version>` with your ROS2 version (e.g., `foxy`, `galactic`).
-3. **Set up the udev rules** for your controller. Create a file named `99-joystick.rules` in the `/etc/udev/rules.d/` directory with the following content:
-   ```bash
-   SUBSYSTEM=="input", ATTRS{name}=="Logitech USB Gamepad", MODE="0666"
-   ```
-4. **Reload the udev rules** to apply the changes:
-   ```bash
-   sudo udevadm control --reload-rules
-   sudo udevadm trigger
-   ```
-5. **Launch the teleop_f310 node** in ROS2:
-   ```bash
-   roslaunch teleop_f310 teleop_f310.launch
-   ```
-   This will start the node that allows you to control your robot using the Logitech F310 joystick.
-
-6. **Verify the joystick input** by echoing the `joy` topic:
-   ```bash
-   rostopic echo joy
-   ```
-   You should see the joystick inputs being published if everything is set up correctly.
-
-7. **Adjust the joystick configuration** if needed using the dynamic reconfigure plugin in `rqt`. This allows you to change the joystick mappings on-the-fly.
-
-That's it! You should now be able to use your Logitech F310 with ROS2. If you encounter any issues, feel free to ask for more help!
-
-
-
-
-
-
-
-
-
-
-
 ## Running the TurtleBot3 simulation
 
-The best way to learn about ROS is through implementation, however, let's start off by playing around with a virtual TurtleBot3! The TurtleBot3 is a tool we will utilize throughout this course to apply and integrate robotics systems. Ultimately you will create a complex embedded robotics system to perform a specific dedicated task, such as navigating the halls of DFEC. But let's see if we can get the robot to drive around first.
-
-1. In a terminal (**Pro tip:** ctrl+alt+t opens a new terminal window, while ctrl+shift+t opens a new terminal tab in an existing window) and initialize the ROS network:
-
-    `roscore`
-
-1. That terminal is now occupied. Open a new terminal tab/window and launch the TurtleBot3 gazebo launch file (A launch file is a way to run one or more nodes at once, we will learn about launch files later):
-
-    `roslaunch turtlebot3_gazebo turtlebot3_world.launch`
-
-> ⌨️ **Syntax:** `roslaunch <package> <launchfile>`
-
- 
-3. Open another terminal tab/window and launch the following:
-
-    `roslaunch turtlebot3_gazebo turtlebot3_gazebo_rviz.launch`
-
-The launch files will run the nodes necessary to simulate our robot and opens two windows: Gazebo and rviz. Gazebo is a simulation tool that provides physics for our robot and enables the testing of algorithms prior to real-world implementation. You should see a TurtleBot3 sitting at (-2.0, -0.5) facing the positive x direction surrounded by a maze. Using the mouse, left-click and holding will pan, holding the scroll wheel will change the orientation of the camera, and scrolling will zoom in and out.
-
-The second window is rviz, a tool that visualizes topics interacting in our system. You should see a number of red dots outlining the location of the obstacles in our simulation. These are objects detected by our LIDAR which is communicating over a scan topic. Using the mouse, left-click will change the orientation of the camera, holding the scroll wheel will pan, and scrolling will zoom in and out (would be nice if they were the same).
-
-Don't worry! We will learn more about both of these tools at a later time.
-
-Let's go ahead and take a look at what nodes and topics currently running in our system. 
-
-The "!" character in front of the following commands allows us to run bash commands from the Jupyter NB and would **NOT** be used in the command line.
 
 
-```python
-rosnode list
-```
 
-There are five nodes running, the first two enable the Gazebo simulation, the third allows for the visualization of the simulated robot, the fourth is created every time *roscore* is ran and helps with communication in our network, and the last enables rviz.
-
-Not too exciting yet, so lets see what topics are active.
-
-
-```python
-rostopic list
-```
-
-There are a lot of topics that are utilized to simulate our robot. Our real-world robot will eventually have most of these, such as **/cmd_vel**, **/imu**, and **/scan**. These are topics that allow us to communicate with some of the simulated hardware, such as the orientation sensor (/imu), LIDAR (/scan), and driving the robot (/cmd_vel). The rest of the topics enable visualization and movement within the simulation and can be ignored for now.
-
-Another useful tool for visualizing nodes and topics is called *rqt_graph*:
-
-
-```python
-rqt_graph
-```
-
-All that is going on right now is Gazebo is publishing the position and scan data which rviz uses to visualize the robot. **Close your rqt_graph** and let's add another node to make things a bit more interesting. 
-
-Earlier we saw the topic **/cmd_vel**. This is a topic used to send *Twist* messages to a robot. A *Twist* message includes linear and angular x, y, z values to move a robot in a 3-dimensional space (google `ROS twist message` for more information). Our robot only drives in 2-dimensions and the wheels can only move forward and backward, so we will only use the linear x (forward and backward) and angular z (turning) attributes of the *Twist* message. To drive our simulated robot, we need a node that can publish *Twist* messages to the **/cmd_vel** topic. Luckily, there is a pre-built node called Teleop_Twist_Keyboard that sends *Twist* messages using a keyboard!
-
-Open a new terminal tab (select the terminal and press ctrl+shift+t) and run the following (**Pro tip**: in a Linux terminal if you type the first couple letters of a command and then hit tab it will autocomplete the command for you):
-
-`rosrun teleop_twist_keyboard teleop_twist_keyboard.py`
-
-> ⌨️ **Syntax:** `rosrun <package> <executable>`
-
-To drive the robot use the 'x' key to decrease linear x speed to about .25 m/s and use the 'c' key to decrease angular z speed to about .5 rad/s. Now follow the directions to utilize the keyboard to drive the robot! You should see the robot move in the simulation.
-
-Let's take a look at our rqt_graph to see if anything has changed.
-
-```python
-rqt_graph
-```
-
-You should now see the teleop_twist_keyboard node which sends messages over **/cmd_vel** topic to Gazebo. **Close the rqt_graph window**. Let's run through a number of commands that will provide you more information about your ROS network. You will use these throughout the course to determine what is going on in your ROS network.
 
 ## Common ROS commands
 
@@ -218,10 +104,6 @@ rostopic type /cmd_vel | rosmsg show
 
 
 
-
-
-
-
 ## Gain Additional Familiarity with Simulation Environment.
 At this point we are nearly 20% complete with the course, and we have the foundational knowledge required about the ecosystem we will be working in. In short we will be using the Linux operating system to host ROS. We will use ROS to execute python code to control and interact with the various subsystems on our robotics platform.
 
@@ -290,8 +172,7 @@ $ cd ~/master_ws/src/ece387_lastname/Module04_DrivingTheRobot
 
 
 
-
-# ICE4: Driving the Robot
+## ICE4: Driving the Robot
 
 ## Purpose
 This In-Class Exercise will introduce you to utilizing pre-built ROS packages to accomplish a task. It will also provide you experience interacting with someone else's source code (.py files) to learn how that component works. You will use ROS to run two nodes, **turtlebot3_core** and **teleop_twist_keyboard**, to drive the Turtlebot3 with a keyboard. You will continue to practice using ROS tools to observe how these components communicate.
