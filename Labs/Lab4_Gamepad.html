@@ -390,6 +390,8 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#update-setup-py">🛠 Update <code class="docutils literal notranslate"><span class="pre">setup.py</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-the-workspace">🔨 Build the Workspace</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-and-test-the-nodes">🚀 Run and Test the Nodes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#monitor-ros2-system-using-rqt">📊 Monitor ROS2 System Using <code class="docutils literal notranslate"><span class="pre">rqt</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-rqt-vs-rqt-graph">📝 <strong>Understanding <code class="docutils literal notranslate"><span class="pre">rqt</span></code> vs. <code class="docutils literal notranslate"><span class="pre">rqt_graph</span></code></strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#control-the-turtlebot3">🎮 Control the TurtleBot3</a></li>
 </ul>
 </li>
@@ -818,7 +820,7 @@ $<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>
 <h3>🚀 Run and Test the Nodes<a class="headerlink" href="#run-and-test-the-nodes" title="Permalink to this heading">#</a></h3>
 <ol class="arabic">
 <li><p>Start the <code class="docutils literal notranslate"><span class="pre">joy</span></code> node to publish gamepad data:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ros2<span class="w"> </span>run<span class="w"> </span>joy<span class="w"> </span>joy_node<span class="w">  </span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>joy<span class="w"> </span>joy_node<span class="w">  </span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -826,7 +828,7 @@ $<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>
 </ul>
 </li>
 <li><p>Start your <code class="docutils literal notranslate"><span class="pre">gamepad</span></code> node:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ros2<span class="w"> </span>run<span class="w"> </span>lab4_gamepad<span class="w"> </span>gamepad<span class="w">  </span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>lab4_gamepad<span class="w"> </span>gamepad<span class="w">  </span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -834,16 +836,63 @@ $<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>
 </ul>
 </li>
 <li><p>Visualize ROS node communication using <code class="docutils literal notranslate"><span class="pre">rqt_graph</span></code>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ros2<span class="w"> </span>run<span class="w"> </span>rqt_graph<span class="w"> </span>rqt_graph<span class="w">  </span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>rqt_graph<span class="w"> </span>rqt_graph<span class="w">  </span>
+</pre></div>
+</div>
+<p>or simply:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rqt_graph<span class="w">  </span>
 </pre></div>
 </div>
 <ul class="simple">
 <li><p>This tool provides a graphical representation of the active nodes and their topic connections.</p></li>
 <li><p>The <code class="docutils literal notranslate"><span class="pre">joy_node</span></code> should be publishing to <strong>/joy</strong>, and your <code class="docutils literal notranslate"><span class="pre">gamepad</span></code> node should be subscribing to it while publishing commands to <strong>/cmd_vel</strong>.</p></li>
 </ul>
-<p><strong>Note:</strong> You may need to hit the <strong>refresh</strong> button in <code class="docutils literal notranslate"><span class="pre">rqt_graph</span></code> a few times for the updated statistics to appear.</p>
+<p><strong>🔹 Note:</strong> You may need to hit the <strong>refresh</strong> button in <code class="docutils literal notranslate"><span class="pre">rqt_graph</span></code> a few times for the updated statistics to appear.</p>
 </li>
 </ol>
+</section>
+<section id="monitor-ros2-system-using-rqt">
+<h3>📊 Monitor ROS2 System Using <code class="docutils literal notranslate"><span class="pre">rqt</span></code><a class="headerlink" href="#monitor-ros2-system-using-rqt" title="Permalink to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Launch <code class="docutils literal notranslate"><span class="pre">rqt_gui</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>rqt_gui<span class="w"> </span>rqt_gui<span class="w">  </span>
+</pre></div>
+</div>
+<p>or simply:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rqt<span class="w">  </span>
+</pre></div>
+</div>
+</li>
+<li><p>Enable the Topic Monitor:</p>
+<ul class="simple">
+<li><p>If the topic monitor window is not displayed, go to:<br />
+<strong><code class="docutils literal notranslate"><span class="pre">Plugins</span></code> → <code class="docutils literal notranslate"><span class="pre">Topics</span></code> → <code class="docutils literal notranslate"><span class="pre">Topic</span> <span class="pre">Monitor</span></code></strong></p></li>
+<li><p>Once the topic monitor loads, topics are not monitored by default. Check the box next to each topic to enable monitoring.</p></li>
+<li><p>To view more details about a topic, click the <strong>▶</strong> icon next to the checkbox.</p></li>
+</ul>
+</li>
+<li><p>Monitor the <code class="docutils literal notranslate"><span class="pre">cmd_vel</span></code> and <code class="docutils literal notranslate"><span class="pre">joy</span></code> topics:</p>
+<ul class="simple">
+<li><p>Right-click the title bar and select <strong>“Take Screenshot.”</strong></p></li>
+<li><p><strong>Submit the screenshot on Gradescope.</strong></p></li>
+</ul>
+</li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="understanding-rqt-vs-rqt-graph">
+<h3>📝 <strong>Understanding <code class="docutils literal notranslate"><span class="pre">rqt</span></code> vs. <code class="docutils literal notranslate"><span class="pre">rqt_graph</span></code></strong><a class="headerlink" href="#understanding-rqt-vs-rqt-graph" title="Permalink to this heading">#</a></h3>
+<blockquote>
+<div><p>🔹 <code class="docutils literal notranslate"><span class="pre">rqt</span></code> is a <strong>graphical toolset</strong> that provides a user-friendly interface for monitoring, debugging, and visualizing various aspects of the ROS2 system. It acts as a plugin framework, allowing you to load different tools as needed, such as topic monitors, node viewers, and service callers.</p>
+</div></blockquote>
+<blockquote>
+<div><p>🔹 <code class="docutils literal notranslate"><span class="pre">rqt_graph</span></code> is a <strong>specific plugin</strong> within <code class="docutils literal notranslate"><span class="pre">rqt</span></code>. It <strong>visualizes the ROS graph</strong>, showing all running nodes and their topic connections. It helps you understand <strong>which nodes are publishing and subscribing</strong>, but it does <strong>not</strong> display ROS services.</p>
+</div></blockquote>
+<p>📌 <strong>Summary:</strong></p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">rqt</span></code></strong> is the <strong>main toolset</strong> with multiple monitoring plugins.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">rqt_graph</span></code></strong> is just <strong>one plugin</strong> within <code class="docutils literal notranslate"><span class="pre">rqt</span></code> that visualizes topic connections.</p></li>
+</ul>
 </section>
 <section id="control-the-turtlebot3">
 <h3>🎮 Control the TurtleBot3<a class="headerlink" href="#control-the-turtlebot3" title="Permalink to this heading">#</a></h3>
@@ -948,6 +997,8 @@ $<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#update-setup-py">🛠 Update <code class="docutils literal notranslate"><span class="pre">setup.py</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-the-workspace">🔨 Build the Workspace</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-and-test-the-nodes">🚀 Run and Test the Nodes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#monitor-ros2-system-using-rqt">📊 Monitor ROS2 System Using <code class="docutils literal notranslate"><span class="pre">rqt</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-rqt-vs-rqt-graph">📝 <strong>Understanding <code class="docutils literal notranslate"><span class="pre">rqt</span></code> vs. <code class="docutils literal notranslate"><span class="pre">rqt_graph</span></code></strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#control-the-turtlebot3">🎮 Control the TurtleBot3</a></li>
 </ul>
 </li>
