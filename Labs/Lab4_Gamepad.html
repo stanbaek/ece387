@@ -393,15 +393,13 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">📌 Objectives</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">📜 Overview</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-lab-ros2-client-libraries">🌱 Pre-Lab: ROS2 Client Libraries</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#procedure">💻 Procedure</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-procedure">💻 Lab Procedure</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">🔧 Setup</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#running-the-turtlebot3-simulation">🚀 Running the TurtleBot3 Simulation</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-new-ros2-package">📦 Create a New ROS2 Package</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#write-the-ros2-node">📝 Write the ROS2 Node</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#update-setup-py">🛠 Update <code class="docutils literal notranslate"><span class="pre">setup.py</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-the-workspace">🔨 Build the Workspace</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-the-workspace">🔨 Build the Workspace</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#control-the-turtlebot3">🎮 Control the TurtleBot3</a></li>
 </ul>
 </li>
@@ -483,8 +481,8 @@
 </li>
 </ol>
 </section>
-<section id="procedure">
-<h2>💻 Procedure<a class="headerlink" href="#procedure" title="Link to this heading">#</a></h2>
+<section id="lab-procedure">
+<h2>💻 Lab Procedure<a class="headerlink" href="#lab-procedure" title="Link to this heading">#</a></h2>
 <section id="setup">
 <h3>🔧 Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h3>
 <ol class="arabic">
@@ -537,17 +535,17 @@ Finished<span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="
 <h3>🚀 Running the TurtleBot3 Simulation<a class="headerlink" href="#running-the-turtlebot3-simulation" title="Link to this heading">#</a></h3>
 <ol class="arabic">
 <li><p>Source Your Workspace: Before launching the simulation, make sure your workspace is properly sourced:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span>~/master_ws/install/setup.bash<span class="w">  </span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">source</span><span class="w"> </span>~/master_ws/install/setup.bash<span class="w">  </span>
 </pre></div>
 </div>
 </li>
 <li><p>Launch the TurtleBot3 Simulation in Gazebo: A <strong>launch file</strong> is used in ROS to start multiple nodes at once. We will learn more about them later. For now, launch the simulation:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_gazebo<span class="w"> </span>turtlebot3_world.launch.py<span class="w">  </span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_gazebo<span class="w"> </span>turtlebot3_world.launch.py<span class="w">  </span>
 </pre></div>
 </div>
 </li>
 <li><p>Open RViz for Visualization: In a <strong>new terminal window or tab</strong>, run the following command to start RViz:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_gazebo<span class="w"> </span>turtlebot3_gazebo_rviz.launch<span class="w">  </span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_bringup<span class="w"> </span>rviz2.launch.py
 </pre></div>
 </div>
 <p>These launch files will start the necessary nodes to simulate our robot and will open two windows:</p>
@@ -570,15 +568,13 @@ Finished<span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="
 <li><p><strong>Hold Scroll Wheel + Drag:</strong> Pan the view</p></li>
 </ul>
 <p>(Yes, the controls are slightly different in Gazebo and RViz. 😅)</p>
-</li>
-</ol>
 <p>📌 <em>We will explore these tools in more detail later, so don’t worry if you don’t understand everything yet!</em></p>
-<ol class="arabic">
+</li>
 <li><p>List Active Nodes in Your ROS Network: To check which nodes are currently running in the system, use:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>node<span class="w"> </span>list<span class="w">  </span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ros2<span class="w"> </span>node<span class="w"> </span>list<span class="w">  </span>
 </pre></div>
 </div>
-<p>You should see five active nodes:</p>
+<p>You should see several active nodes:</p>
 <ul class="simple">
 <li><p><strong>Two nodes for Gazebo</strong> (simulation environment)</p></li>
 <li><p><strong>One node for RViz</strong> (robot visualization)</p></li>
@@ -587,7 +583,7 @@ Finished<span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="
 </ul>
 </li>
 <li><p>List Active Topics: Let’s see what topics are currently being published:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>topic<span class="w"> </span>list<span class="w">  </span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ros2<span class="w"> </span>topic<span class="w"> </span>list<span class="w">  </span>
 </pre></div>
 </div>
 <p>You will notice several topics related to the simulated robot. Some key ones to remember:</p>
@@ -599,7 +595,7 @@ Finished<span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="
 <p>The remaining topics handle simulation and visualization and can be ignored for now.</p>
 </li>
 <li><p>Visualizing ROS Connections Using <code class="docutils literal notranslate"><span class="pre">rqt_graph</span></code>: A useful tool for understanding how nodes and topics are connected is <strong>rqt_graph</strong>. Run:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rqt_graph<span class="w">  </span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>rqt_graph<span class="w">  </span>
 </pre></div>
 </div>
 <p>This will generate a visual representation of the active nodes and their connections.</p>
@@ -614,7 +610,7 @@ Finished<span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="
 </ul>
 <p>To drive our simulated robot, we need a node that can publish <em>Twist</em> messages to the <strong>/cmd_vel</strong> topic. Instead of writing our own publisher, we can use an existing ROS2 node, <code class="docutils literal notranslate"><span class="pre">Teleop_Twist_Keyboard</span></code> that sends <code class="docutils literal notranslate"><span class="pre">Twist</span></code> messages using a keyboard.</p>
 <p>Open a <strong>new terminal tab</strong> (<code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">Shift</span> <span class="pre">+</span> <span class="pre">T</span></code>), then run:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>teleop_twist_keyboard<span class="w"> </span>teleop_twist_keyboard.py<span class="w">  </span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ros2<span class="w"> </span>run<span class="w"> </span>teleop_twist_keyboard<span class="w"> </span>teleop_twist_keyboard.py<span class="w">  </span>
 </pre></div>
 </div>
 <p>This launches a keyboard teleoperation node that lets you control the robot!</p>
@@ -626,7 +622,7 @@ Finished<span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="
 </ul>
 </li>
 <li><p>Checking ROS Graph After Movement: Once the robot moves, let’s see how our ROS network has changed:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rqt_graph<span class="w">  </span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>rqt_graph<span class="w">  </span>
 </pre></div>
 </div>
 <p>Now, you should see a new node, <strong>teleop_twist_keyboard</strong>, which is publishing <strong>Twist</strong> messages to the <strong>/cmd_vel</strong> topic, allowing the robot to move in Gazebo.</p>
@@ -685,6 +681,10 @@ $<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>
 <p>The <code class="docutils literal notranslate"><span class="pre">chmod</span> <span class="pre">+x</span></code> command makes the <code class="docutils literal notranslate"><span class="pre">gamepad.py</span></code> file executable so it can be run as a script.</p>
 </li>
 <li><p>Open the <code class="docutils literal notranslate"><span class="pre">gamepad.py</span></code> file in VS Code and implement the <strong>TODO</strong> sections in the provided template.</p>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">topic</span> <span class="pre">info</span> <span class="pre">&lt;topic_name&gt;</span></code> to inspect topics and <code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">interface</span> <span class="pre">show</span> <span class="pre">&lt;message_name&gt;</span></code> to see message structures.</p>
+</div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="c1"># The above line is a shebang, which tells the system to run this script using Python 3.</span>
 
@@ -736,14 +736,20 @@ $<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>
 <span class="sd">        Args:</span>
 <span class="sd">            msg (Joy): The incoming joystick message containing axes and button states.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># TODO: Create a new Twist message (velocity command)</span>
+        <span class="c1"># TODO: Create a new Twist message for velocity commands.</span>
+
 
         <span class="c1"># TODO: Map joystick axes to robot velocity:</span>
-        <span class="c1"># The left stick up/down controls linear speed (forward/backward)</span>
-        <span class="c1"># The right stick left/right controls angular speed (rotation)</span>
+        <span class="c1"># - The left stick (up/down) controls linear speed (forward/backward).</span>
+        <span class="c1"># - The right stick (left/right) controls angular speed (rotation).</span>
+        <span class="c1"># Ensure that the joystick axis values are properly scaled to match </span>
+        <span class="c1"># the robot&#39;s velocity limits:</span>
+        <span class="c1"># - Max Linear Velocity: 0.22 m/s</span>
+        <span class="c1"># - Max Angular Velocity: 2.84 rad/s</span>
 
 
-        <span class="c1"># TODO: Publish the velocity command to the &#39;cmd_vel&#39; topic</span>
+        <span class="c1"># TODO: Publish the velocity command to the &#39;/cmd_vel&#39; topic.</span>
+
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -770,10 +776,6 @@ $<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>
 </div>
 </li>
 </ol>
-<div class="admonition hint">
-<p class="admonition-title">Hint</p>
-<p>Use <code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">topic</span> <span class="pre">info</span> <span class="pre">&lt;topic_name&gt;</span></code> to inspect topics and <code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">interface</span> <span class="pre">show</span> <span class="pre">&lt;message_name&gt;</span></code> to see message structures.</p>
-</div>
 </section>
 <section id="update-setup-py">
 <h3>🛠 Update <code class="docutils literal notranslate"><span class="pre">setup.py</span></code><a class="headerlink" href="#update-setup-py" title="Link to this heading">#</a></h3>
@@ -789,9 +791,8 @@ $<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>
 </li>
 </ol>
 </section>
-</section>
 <section id="build-the-workspace">
-<h2>🔨 Build the Workspace<a class="headerlink" href="#build-the-workspace" title="Link to this heading">#</a></h2>
+<h3>🔨 Build the Workspace<a class="headerlink" href="#build-the-workspace" title="Link to this heading">#</a></h3>
 <ol class="arabic">
 <li><p>Navigate to the workspace root:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/master_ws<span class="w">  </span>
@@ -814,6 +815,7 @@ $<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>
 </div>
 </li>
 </ol>
+</section>
 <section id="control-the-turtlebot3">
 <h3>🎮 Control the TurtleBot3<a class="headerlink" href="#control-the-turtlebot3" title="Link to this heading">#</a></h3>
 <ul class="simple">
@@ -907,15 +909,13 @@ $<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">📌 Objectives</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">📜 Overview</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-lab-ros2-client-libraries">🌱 Pre-Lab: ROS2 Client Libraries</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#procedure">💻 Procedure</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-procedure">💻 Lab Procedure</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">🔧 Setup</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#running-the-turtlebot3-simulation">🚀 Running the TurtleBot3 Simulation</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-new-ros2-package">📦 Create a New ROS2 Package</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#write-the-ros2-node">📝 Write the ROS2 Node</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#update-setup-py">🛠 Update <code class="docutils literal notranslate"><span class="pre">setup.py</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-the-workspace">🔨 Build the Workspace</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-the-workspace">🔨 Build the Workspace</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#control-the-turtlebot3">🎮 Control the TurtleBot3</a></li>
 </ul>
 </li>
