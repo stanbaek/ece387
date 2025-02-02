@@ -126,7 +126,7 @@ Complete the following four tutorials. **Important:** Skip **C++** tutorials and
    - The robot should be positioned at (-2.0, -0.5), facing the positive x-direction (yaw = 0.0) inside a maze.
 
     ```{image} ./figures/Lab4_Gazebo_Pose.png
-    :width: 800
+    :width: 700
     :align: center
     ```
     <br>
@@ -259,7 +259,7 @@ Complete the following four tutorials. **Important:** Skip **C++** tutorials and
     Use `ros2 topic info <topic_name>` to inspect topics and `ros2 interface show <message_name>` to see message structures.  
     ```  
     <br>
-    
+
     ```python
     #!/usr/bin/env python3
     # The above line is a shebang, which tells the system to run this script using Python 3.
@@ -434,6 +434,12 @@ Complete the following four tutorials. **Important:** Skip **C++** tutorials and
      **`Plugins` → `Topics` → `Topic Monitor`**  
    - Once the topic monitor loads, topics are not monitored by default. Check the box next to each topic to enable monitoring.  
    - To view more details about a topic, click the **▶** icon next to the checkbox.  
+
+    ```{image} ./figures/Lab4_rqt_odom.png
+    :width: 800
+    :align: center
+    ```
+    <br>
 
 1. Monitor the `cmd_vel` and `joy` topics:  
    - Right-click the title bar and select **"Take Screenshot."**  
