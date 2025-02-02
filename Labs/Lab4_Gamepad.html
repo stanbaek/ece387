@@ -526,101 +526,93 @@ Finished<span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="
 <section id="running-the-turtlebot3-simulation">
 <h3>🚀 Running the TurtleBot3 Simulation<a class="headerlink" href="#running-the-turtlebot3-simulation" title="Permalink to this heading">#</a></h3>
 <ol class="arabic">
-<li><p>Source Your Workspace: Before launching the simulation, make sure your workspace is properly sourced:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">source</span><span class="w"> </span>~/master_ws/install/setup.bash<span class="w">  </span>
+<li><p>Source your workspace before launching the simulation to ensure all necessary environment variables are set:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span>~/master_ws/install/setup.bash
 </pre></div>
 </div>
 </li>
-<li><p>Launch the TurtleBot3 Simulation in Gazebo: A <strong>launch file</strong> is used in ROS to start multiple nodes at once. We will learn more about them later. For now, launch the simulation:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_gazebo<span class="w"> </span>turtlebot3_world.launch.py<span class="w">  </span>
+<li><p>Launch the TurtleBot3 simulation in <code class="docutils literal notranslate"><span class="pre">Gazebo</span></code>. A <strong>launch file</strong> is used in ROS to start multiple nodes at once. You will learn more about them later. For now, launch the simulation:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_gazebo<span class="w"> </span>turtlebot3_world.launch.py
 </pre></div>
 </div>
 </li>
-<li><p>Open RViz for Visualization: In a <strong>new terminal window or tab</strong>, run the following command to start RViz:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_bringup<span class="w"> </span>rviz2.launch.py
+<li><p><code class="docutils literal notranslate"><span class="pre">Gazebo</span></code> is a simulation environment that provides physics for the robot, allowing you to test algorithms before deploying them in the real world.</p></li>
+<li><p>To check the robot’s current position and orientation in <code class="docutils literal notranslate"><span class="pre">Gazebo</span></code>, navigate to:</p>
+<ul class="simple">
+<li><p>Click <strong>Models</strong> &gt; <strong>burger</strong> &gt; <strong>pose</strong></p></li>
+<li><p>The robot should be positioned at (-2.0, -0.5), facing the positive x-direction (yaw = 0.0) inside a maze.</p></li>
+</ul>
+<a class="reference internal image-reference" href="../_images/Lab4_Gazebo_Pose.png"><img alt="../_images/Lab4_Gazebo_Pose.png" class="align-center" src="../_images/Lab4_Gazebo_Pose.png" style="width: 800px;" /></a>
+ <br>
+<p>🔹 Camera controls in Gazebo:</p>
+<ul class="simple">
+<li><p>Left-click + Drag: Pan the view</p></li>
+<li><p>Scroll Wheel: Zoom in/out</p></li>
+<li><p>Hold Scroll Wheel + Drag: Rotate the camera</p></li>
+</ul>
+</li>
+<li><p>Open <code class="docutils literal notranslate"><span class="pre">RViz</span></code> for visualization. In a new terminal window or tab, run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_bringup<span class="w"> </span>rviz2.launch.py
 </pre></div>
 </div>
-<p>These launch files will start the necessary nodes to simulate our robot and will open two windows:</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RViz</span></code> is a visualization tool that helps you see how the robot perceives its surroundings. In <code class="docutils literal notranslate"><span class="pre">RViz</span></code>, you should see a series of red dots outlining obstacles in the maze. These dots represent objects detected by the TurtleBot3’s LIDAR sensor, which publishes data to the <code class="docutils literal notranslate"><span class="pre">/scan</span></code> topic.</p></li>
+<li><p>Try enabling and disabling different checkboxes to explore how various visualizations affect the display.</p>
+<a class="reference internal image-reference" href="../_images/Lab4_RViz.png"><img alt="../_images/Lab4_RViz.png" class="align-center" src="../_images/Lab4_RViz.png" style="width: 800px;" /></a>
+ <br>
+<p>🔹 Camera controls in RViz:</p>
 <ul class="simple">
-<li><p><strong>Gazebo:</strong> A simulation environment that provides physics for the robot, allowing us to test algorithms before deploying them in the real world.</p></li>
-<li><p><strong>RViz:</strong> A visualization tool that helps us see how ROS topics interact.</p></li>
-</ul>
-<p>In <strong>Gazebo</strong>, you should see a TurtleBot3 positioned at (-2.0, -0.5) facing the positive x-direction inside a maze.</p>
-<p>🔹 <strong>Camera Controls in Gazebo:</strong></p>
-<ul class="simple">
-<li><p><strong>Left-click + Drag:</strong> Pan the view</p></li>
-<li><p><strong>Scroll Wheel:</strong> Zoom in/out</p></li>
-<li><p><strong>Hold Scroll Wheel + Drag:</strong> Rotate the camera</p></li>
-</ul>
-<p>In <strong>RViz</strong>, you should see a series of red dots outlining obstacles in the maze. These are detected by the TurtleBot3’s LIDAR sensor, which publishes data on the <strong>/scan</strong> topic.</p>
-<p>🔹 <strong>Camera Controls in RViz:</strong></p>
-<ul class="simple">
-<li><p><strong>Left-click + Drag:</strong> Rotate the view</p></li>
-<li><p><strong>Scroll Wheel:</strong> Zoom in/out</p></li>
-<li><p><strong>Hold Scroll Wheel + Drag:</strong> Pan the view</p></li>
+<li><p>Left-click + Drag: Rotate the view</p></li>
+<li><p>Scroll Wheel: Zoom in/out</p></li>
+<li><p>Hold Scroll Wheel + Drag: Pan the view</p></li>
 </ul>
 <p>(Yes, the controls are slightly different in Gazebo and RViz. 😅)</p>
-<p>📌 <em>We will explore these tools in more detail later, so don’t worry if you don’t understand everything yet!</em></p>
 </li>
-<li><p>List Active Nodes in Your ROS Network: To check which nodes are currently running in the system, use:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ros2<span class="w"> </span>node<span class="w"> </span>list<span class="w">  </span>
+<li><p>List active topics to see what topics are currently being published:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>topic<span class="w"> </span>list
 </pre></div>
 </div>
-<p>You should see several active nodes:</p>
+<p>Key topics to remember:</p>
 <ul class="simple">
-<li><p><strong>Two nodes for Gazebo</strong> (simulation environment)</p></li>
-<li><p><strong>One node for RViz</strong> (robot visualization)</p></li>
-<li><p><strong>A default ROS2 communication node</strong> (automatically created)</p></li>
-<li><p><strong>A node for handling RViz visualization</strong></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/cmd_vel</span></code>: Controls robot movement (velocity commands)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/imu</span></code>: Provides data from the robot’s orientation sensor</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/scan</span></code>: LIDAR sensor data (obstacle detection)</p></li>
 </ul>
 </li>
-<li><p>List Active Topics: Let’s see what topics are currently being published:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ros2<span class="w"> </span>topic<span class="w"> </span>list<span class="w">  </span>
+<li><p>Visualize ROS connections using <code class="docutils literal notranslate"><span class="pre">rqt_graph</span></code>. This tool provides a graphical representation of how nodes and topics are connected:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rqt_graph
 </pre></div>
 </div>
-<p>You will notice several topics related to the simulated robot. Some key ones to remember:</p>
-<ul class="simple">
-<li><p><strong>/cmd_vel</strong> → Controls robot movement (velocity commands)</p></li>
-<li><p><strong>/imu</strong> → Provides data from the robot’s orientation sensor</p></li>
-<li><p><strong>/scan</strong> → LIDAR sensor data (obstacle detection)</p></li>
-</ul>
-<p>The remaining topics handle simulation and visualization and can be ignored for now.</p>
+<p>This will generate a diagram displaying how Gazebo is publishing position and scan data, which RViz then uses to visualize the robot.</p>
+<p>📌 Close <code class="docutils literal notranslate"><span class="pre">rqt_graph</span></code> when finished. Now, let’s add another node to make things more interesting! 🚀</p>
 </li>
-<li><p>Visualizing ROS Connections Using <code class="docutils literal notranslate"><span class="pre">rqt_graph</span></code>: A useful tool for understanding how nodes and topics are connected is <strong>rqt_graph</strong>. Run:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>rqt_graph<span class="w">  </span>
-</pre></div>
-</div>
-<p>This will generate a visual representation of the active nodes and their connections.</p>
-<p>Right now, <strong>Gazebo is publishing position and scan data</strong>, which RViz uses to display the robot.</p>
-<p>📌 <strong>Close rqt_graph when finished</strong>. Now, let’s add another node to make things more interesting! 🚀</p>
-</li>
-<li><p>Sending Velocity Commands to the Robot: The <strong>/cmd_vel</strong> topic is used to send movement commands to the robot. These commands use <strong>Twist</strong> messages, which define movement in <strong>linear (x, y, z) and angular (x, y, z) directions</strong>. (Google <code class="docutils literal notranslate"><span class="pre">ROS</span> <span class="pre">twist</span> <span class="pre">message</span></code> for more information)</p>
-<p>Our TurtleBot3 moves in <strong>two dimensions</strong>, so we will only use:</p>
+<li><p>Sending velocity commands to the robot: The <code class="docutils literal notranslate"><span class="pre">/cmd_vel</span></code> topic is used to send movement commands to the robot. These commands use <code class="docutils literal notranslate"><span class="pre">Twist</span></code> messages, which define movement in terms of linear and angular velocity. (You can Google <code class="docutils literal notranslate"><span class="pre">ROS</span> <span class="pre">twist</span> <span class="pre">message</span></code> for more details.)</p>
+<p>Since our TurtleBot3 operates in two dimensions:</p>
 <ul class="simple">
 <li><p><strong>Linear x</strong> → Moves the robot forward/backward</p></li>
 <li><p><strong>Angular z</strong> → Rotates the robot left/right</p></li>
 </ul>
-<p>To drive our simulated robot, we need a node that can publish <em>Twist</em> messages to the <strong>/cmd_vel</strong> topic. Instead of writing our own publisher, we can use an existing ROS2 node, <code class="docutils literal notranslate"><span class="pre">Teleop_Twist_Keyboard</span></code> that sends <code class="docutils literal notranslate"><span class="pre">Twist</span></code> messages using a keyboard.</p>
-<p>Open a <strong>new terminal tab</strong> (<code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">Shift</span> <span class="pre">+</span> <span class="pre">T</span></code>), then run:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ros2<span class="w"> </span>run<span class="w"> </span>teleop_twist_keyboard<span class="w"> </span>teleop_twist_keyboard.py<span class="w">  </span>
+<p>To drive the simulated robot, we need a node that publishes <code class="docutils literal notranslate"><span class="pre">Twist</span></code> messages to <code class="docutils literal notranslate"><span class="pre">/cmd_vel</span></code>. Instead of writing our own, we will use an existing ROS2 node called <code class="docutils literal notranslate"><span class="pre">Teleop_Twist_Keyboard</span></code>, which allows you to control the robot using your keyboard.</p>
+<p>Open a <strong>new terminal tab</strong> (Ctrl + Shift + T) and run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>teleop_twist_keyboard<span class="w"> </span>teleop_twist_keyboard.py
 </pre></div>
 </div>
-<p>This launches a keyboard teleoperation node that lets you control the robot!</p>
-<p>📌 <strong>To drive the robot:</strong></p>
+<p>This launches a keyboard teleoperation node that lets you manually drive the robot.</p>
+<p>📌 To control the robot:</p>
 <ul class="simple">
 <li><p>Press <strong>x</strong> to decrease the linear speed to ~0.25 m/s.</p></li>
 <li><p>Press <strong>c</strong> to decrease the angular speed to ~0.5 rad/s.</p></li>
-<li><p>Follow the instructions to move the robot using your keyboard!</p></li>
+<li><p>Follow the instructions to move the robot using your keyboard.</p></li>
 </ul>
 </li>
-<li><p>Checking ROS Graph After Movement: Once the robot moves, let’s see how our ROS network has changed:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>rqt_graph<span class="w">  </span>
+<li><p>Checking the ROS graph after movement. Once the robot moves, let’s see how our ROS network has changed:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rqt_graph
 </pre></div>
 </div>
-<p>Now, you should see a new node, <strong>teleop_twist_keyboard</strong>, which is publishing <strong>Twist</strong> messages to the <strong>/cmd_vel</strong> topic, allowing the robot to move in Gazebo.</p>
-<p>📌 <strong>Close rqt_graph when finished</strong>.</p>
+<p>You should now see a new node, <strong>teleop_twist_keyboard</strong>, which publishes <code class="docutils literal notranslate"><span class="pre">Twist</span></code> messages to <code class="docutils literal notranslate"><span class="pre">/cmd_vel</span></code>, allowing the robot to move in Gazebo.</p>
+<p>📌 Close <code class="docutils literal notranslate"><span class="pre">rqt_graph</span></code> when finished.</p>
 </li>
-<li><p>Recap</p>
+<li><p>Recap:</p>
 <ul class="simple">
 <li><p>You launched the TurtleBot3 simulation in Gazebo.</p></li>
 <li><p>You used RViz to visualize sensor data.</p></li>
@@ -628,7 +620,7 @@ Finished<span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="
 <li><p>You used <code class="docutils literal notranslate"><span class="pre">rqt_graph</span></code> to visualize connections in the ROS network.</p></li>
 <li><p>You controlled the TurtleBot3 using keyboard teleoperation.</p></li>
 </ul>
-<p>🚀 <em>You’re now ready to move on to the next part of the lab!</em></p>
+<p>🚀 You’re now ready to move on to the next part of the lab!</p>
 </li>
 </ol>
 </section>
@@ -645,12 +637,14 @@ Finished<span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="
 </pre></div>
 </div>
 <p>After running this command, your terminal will confirm the package creation and generate the necessary files and folders:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>lab4_gamepad/<span class="w">  </span>
-<span class="w">    </span>lab4_gamepad/<span class="w">  </span>
-<span class="w">    </span>resource/lab4_gamepad<span class="w">  </span>
-<span class="w">    </span>package.xml<span class="w">  </span>
-<span class="w">    </span>setup.cfg<span class="w">  </span>
-<span class="w">    </span>setup.py<span class="w">  </span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>src/
+<span class="w">    </span>ece387_lastname/<span class="w">  </span>
+<span class="w">        </span>lab4_gamepad/<span class="w">  </span>
+<span class="w">            </span>lab4_gamepad/<span class="w">  </span>
+<span class="w">            </span>resource/lab4_gamepad<span class="w">  </span>
+<span class="w">            </span>package.xml<span class="w">  </span>
+<span class="w">            </span>setup.cfg<span class="w">  </span>
+<span class="w">            </span>setup.py<span class="w">  </span>
 </pre></div>
 </div>
 </li>
@@ -677,6 +671,7 @@ $<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>
 <p class="admonition-title">Hint</p>
 <p>Use <code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">topic</span> <span class="pre">info</span> <span class="pre">&lt;topic_name&gt;</span></code> to inspect topics and <code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">interface</span> <span class="pre">show</span> <span class="pre">&lt;message_name&gt;</span></code> to see message structures.</p>
 </div>
+ <br>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="c1"># The above line is a shebang, which tells the system to run this script using Python 3.</span>
 
