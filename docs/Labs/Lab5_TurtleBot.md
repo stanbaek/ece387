@@ -24,7 +24,7 @@ In this course, you'll drive your TurtleBot without the need for a monitor and k
     :align: center
     ```
     <br>
-    
+
 1. **Check Connectivity**:
     - The Raspberry Pi on your robot acts as a Wi-Fi access point (AP), allowing communication with your master computer.
     - Open a terminal on your master computer.
@@ -63,17 +63,10 @@ In this course, you'll drive your TurtleBot without the need for a monitor and k
 
     - The robots for our class have two different LIDAR variants: LDS-01 and LDS-02 (pictured below).
 
-        <div style="display: flex; justify-content: center; text-align: center;">
-            <div style="margin-right: 10px;">
-                <img src="./figures/lds_small.png" width="180" />
-                <p style="text-align: center;">LDS-01</p>
-            </div>
-            <div>
-                <img src="./figures/lds_ld08_small.png" width="180" />
-                <p style="text-align: center;">LDC-02</p>
-            </div>
-        </div>
-
+        ```{image} ./figures/Lab5_LDS.png
+        :width: 380
+        :align: center
+                
     - If you have the LDS-02, update `export LDS_MODEL=LDS-01` to `export LDS_MODEL=LDS-02` inside the `.bashrc` file.
 
     - Save the changes and exit the editor.
