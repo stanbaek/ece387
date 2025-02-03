@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>🔬 Lab6: IMU &#8212; Introduction to Robotic Systems</title>
+    <title>🔬 Lab5: IMU &#8212; Introduction to Robotic Systems</title>
   
   
   
@@ -176,7 +176,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="Lab3_Python.html">🔬 Lab3: Python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Lab4_Gamepad.html">🔬 Lab4: Gamepad</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Lab5_TurtleBot.html">🔬 Lab5: Driving the Robot</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">🔬 Lab6: IMU</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">🔬 Lab5: IMU</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Lab7_LaunchFile.html">🔬 Lab7: Launch Files</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Lab8_LIDAR.html">🔬 Lab8: LIDAR</a></li>
 </ul>
@@ -369,7 +369,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>🔬 Lab6: IMU</h1>
+    <h1>🔬 Lab5: IMU</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -380,23 +380,22 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose">Purpose</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calibrating-the-imu">Calibrating the IMU</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-the-imu">Test the IMU</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-the-subscriber">Write the Subscriber</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint">Checkpoint</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cleanup">Cleanup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Purpose</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#master">Master</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Setup:</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#controller-py">controller.py</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-your-nodes">Run your nodes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#report">Report</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#turn-in-requirements">Turn-in Requirements</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ice6-imu">ICE6: IMU</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Purpose</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calibrating-the-imu">Calibrating the IMU</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Setup</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-the-imu">Test the IMU</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-the-subscriber">Write the Subscriber</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint">Checkpoint</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cleanup">Cleanup</a></li>
 </ul>
             </nav>
         </div>
@@ -408,136 +407,22 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="lab6-imu">
-<h1>🔬 Lab6: IMU<a class="headerlink" href="#lab6-imu" title="Permalink to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="lab5-imu">
+<h1>🔬 Lab5: IMU<a class="headerlink" href="#lab5-imu" title="Permalink to this heading">#</a></h1>
 <section id="purpose">
 <h2>Purpose<a class="headerlink" href="#purpose" title="Permalink to this heading">#</a></h2>
-<p>This lab will integrate the on-board IMU with the Turtlebot3 controller to turn the robot 90 degrees left or right.  Do not disable any of the mouse controller functionality in the turtlebot_controller.py code.  The IMU and mouse control functionality should be able to coexist seemlessly.</p>
-</section>
-<section id="master">
-<h2>Master<a class="headerlink" href="#master" title="Permalink to this heading">#</a></h2>
-<section id="setup">
-<h3>Setup:<a class="headerlink" href="#setup" title="Permalink to this heading">#</a></h3>
-<p>In the <code class="docutils literal notranslate"><span class="pre">/master_ws/src/ece387_master_sp2X-USERNAME/master</span></code> folder, create a <strong>lab2</strong> package which depends on <strong>std_msgs</strong>, <strong>rospy</strong>, <strong>geometry_msgs</strong>, and <strong>turtlebot3_bringup</strong>.</p>
-</section>
-<section id="controller-py">
-<h3><a class="reference external" href="http://controller.py">controller.py</a><a class="headerlink" href="#controller-py" title="Permalink to this heading">#</a></h3>
-<ol class="arabic simple">
-<li><p>Copy the turtlebot_controller.py file from lab1 into the lab2 package.</p></li>
-<li><p>Open the turtlebot_controller.py file from lab2 using an editor.</p></li>
-<li><p>Import the squaternion library and Imu message used in ICE6.</p></li>
-<li><p>Add the following Class variables within the class <strong>above</strong> the <code class="docutils literal notranslate"><span class="pre">__init__()</span></code> function:</p>
-<ol class="arabic simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">K_HDG</span> <span class="pre">=</span> <span class="pre">0.1</span> <span class="pre">#</span> <span class="pre">rotation</span> <span class="pre">controller</span> <span class="pre">constant</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">HDG_TOL</span> <span class="pre">=</span> <span class="pre">10</span> <span class="pre">#</span> <span class="pre">heading</span> <span class="pre">tolerance</span> <span class="pre">+/-</span> <span class="pre">degrees</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">MIN_ANG_Z</span> <span class="pre">=</span> <span class="pre">0.5</span> <span class="pre">#</span> <span class="pre">limit</span> <span class="pre">rad/s</span> <span class="pre">values</span> <span class="pre">sent</span> <span class="pre">to</span> <span class="pre">Turtlebot3</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">MAX_ANG_Z</span> <span class="pre">=</span> <span class="pre">1.5</span> <span class="pre">#</span> <span class="pre">limit</span> <span class="pre">rad/s</span> <span class="pre">values</span> <span class="pre">sent</span> <span class="pre">to</span> <span class="pre">Turtlebot3</span></code></p></li>
-</ol>
-</li>
-<li><p>Add the following to the <code class="docutils literal notranslate"><span class="pre">__init__()</span></code> function:</p>
-<ol class="arabic simple">
-<li><p>Instance variable, <code class="docutils literal notranslate"><span class="pre">self.curr_yaw</span></code>, initialized to 0 to store the current orientation of the robot</p></li>
-<li><p>Instance variable, <code class="docutils literal notranslate"><span class="pre">self.goal_yaw</span></code>, initialized to 0 to store the goal orientation of the robot</p></li>
-<li><p>Instance variable, <code class="docutils literal notranslate"><span class="pre">self.turning</span></code>, initialized to <code class="docutils literal notranslate"><span class="pre">False</span></code> to store if the robot is currently turning</p></li>
-<li><p>A subscriber to the IMU topic of interest with a callback to the callback_imu() function</p></li>
-</ol>
-</li>
-<li><p>Add the <code class="docutils literal notranslate"><span class="pre">convert_yaw()</span></code> function from ICE6.</p></li>
-<li><p>Add the <code class="docutils literal notranslate"><span class="pre">callback_imu()</span></code> function from ICE6, removing print statements and setting the instance variable, <code class="docutils literal notranslate"><span class="pre">self.curr_yaw</span></code>.</p></li>
-<li><p>Edit the <code class="docutils literal notranslate"><span class="pre">callback_controller()</span></code> function so it turns the robot 90 degrees in the direction inputed by the user (left or right). Below is some pseudo-code to help you code the controller function</p></li>
-</ol>
-<blockquote>
-<div><p>⚠️ <strong>WARNING:</strong> Pseudo-code is not actual code and cannot be copied and expected to work!</p>
-</div></blockquote>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">callback_controller</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-    <span class="c1"># local variables do not need the self</span>
-	<span class="n">yaw_err</span> <span class="o">=</span> <span class="mi">0</span>
-	<span class="n">ang_z</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="c1"># not turning, so get user input</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">turning</span><span class="p">:</span>
-        <span class="n">read</span> <span class="kn">from</span> <span class="nn">user</span> <span class="ow">and</span> <span class="nb">set</span> <span class="n">value</span> <span class="n">to</span> <span class="n">instance</span> <span class="n">variable</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">goal_yaw</span>
-        <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Input l or r to turn 90 deg&quot;</span><span class="p">)</span>
-        
-        <span class="c1"># check input and determine goal yaw</span>
-        <span class="k">if</span> <span class="nb">input</span> <span class="ow">is</span> <span class="n">equal</span> <span class="n">to</span> <span class="s2">&quot;l&quot;</span> 
-            <span class="nb">set</span> <span class="n">goal</span> <span class="n">yaw</span> <span class="n">to</span> <span class="n">curr</span> <span class="n">yaw</span> <span class="n">plus</span><span class="o">/</span><span class="n">minus</span> <span class="mi">90</span>
-            <span class="n">turning</span> <span class="n">equals</span> <span class="kc">True</span>
-        <span class="k">else</span> <span class="k">if</span> <span class="nb">input</span> <span class="ow">is</span> <span class="n">equal</span> <span class="n">to</span> <span class="s2">&quot;r&quot;</span>
-           	<span class="nb">set</span> <span class="n">goal</span> <span class="n">yaw</span> <span class="n">to</span> <span class="n">curr</span> <span class="n">yaw</span> <span class="n">plus</span><span class="o">/</span><span class="n">minus</span> <span class="mi">90</span>
-            <span class="n">turning</span> <span class="n">equals</span> <span class="kc">True</span>
-        <span class="k">else</span> 
-        	<span class="nb">print</span> <span class="n">error</span> <span class="ow">and</span> <span class="n">tell</span> <span class="n">user</span> <span class="n">valid</span> <span class="n">inputs</span>
-            
-        <span class="c1"># check bounds</span>
-        <span class="k">if</span> <span class="n">goal_yaw</span> <span class="ow">is</span> <span class="n">less</span> <span class="n">than</span> <span class="mi">0</span> <span class="n">then</span> <span class="n">add</span> <span class="mi">360</span>
-        <span class="k">else</span> <span class="k">if</span> <span class="n">goal_yaw</span> <span class="ow">is</span> <span class="n">greater</span> <span class="n">than</span> <span class="mi">360</span> <span class="n">then</span> <span class="n">subtract</span> <span class="mi">360</span>
-    
-    <span class="c1"># turn until goal is reached</span>
-    <span class="k">elif</span> <span class="n">turning</span><span class="p">:</span>
-        <span class="n">yaw_err</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">goal_yaw</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">curr_yaw</span>
-        
-        <span class="c1"># determine if robot should turn clockwise or counterclockwise</span>
-        <span class="k">if</span> <span class="n">yaw_err</span> <span class="o">&gt;</span> <span class="mi">180</span><span class="p">:</span>
-            <span class="n">yaw_err</span> <span class="o">=</span> <span class="n">yaw_err</span> <span class="o">-</span> <span class="mi">360</span>
-        <span class="k">elif</span> <span class="n">yaw_err</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">180</span><span class="p">:</span>
-            <span class="n">yaw_err</span> <span class="o">=</span> <span class="n">yaw_err</span> <span class="o">+</span> <span class="mi">360</span>
-            
-        <span class="c1"># proportional controller that turns the robot until goal </span>
-        <span class="c1"># yaw is reached</span>
-        <span class="n">ang_z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">K_HDG</span> <span class="o">*</span> <span class="n">yaw_err</span>
-        
-        <span class="k">if</span> <span class="n">ang_z</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">MIN</span><span class="p">:</span> <span class="n">ang_z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MIN</span>		<span class="c1"># need to add negative test as well!</span>
-        <span class="k">elif</span> <span class="n">ang_Z</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">MAX</span><span class="p">:</span> <span class="n">ang_z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MAX</span>	<span class="c1"># need to add negative test as well!</span>
-        
-        <span class="c1"># check goal orientation</span>
-        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">yaw_err</span><span class="p">)</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">HDG_TOL</span>
-            <span class="n">turning</span> <span class="n">equals</span> <span class="kc">False</span>
-            <span class="n">ang_z</span> <span class="o">=</span> <span class="mi">0</span>
-            
-   <span class="c1"># set twist message and publish</span>
-   <span class="bp">self</span><span class="o">.</span><span class="n">cmd</span><span class="o">.</span><span class="n">linear</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
-   <span class="bp">self</span><span class="o">.</span><span class="n">cmd</span><span class="o">.</span><span class="n">angular</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="n">ang_z</span>
-   <span class="n">publish</span> <span class="n">message</span>
-</pre></div>
-</div>
-</section>
-</section>
-<section id="run-your-nodes">
-<h2>Run your nodes<a class="headerlink" href="#run-your-nodes" title="Permalink to this heading">#</a></h2>
-<ol class="arabic simple">
-<li><p>On the <strong>Master</strong> open a terminal and run <strong>roscore</strong>.</p></li>
-<li><p>Open another terminal and enable statistics for <strong>rqt_graph</strong>.</p></li>
-<li><p>Run the controller node.</p></li>
-<li><p>Open secure shell into the <strong>Robot</strong> and run the <strong>turtlebot3_core</strong> launch file.</p></li>
-<li><p>Type “l” or “r” to turn the robot 90 degrees.</p></li>
-</ol>
-</section>
-<section id="report">
-<h2>Report<a class="headerlink" href="#report" title="Permalink to this heading">#</a></h2>
-<p>Complete a short 2-3 page report that utilizes the format and answers the questions within the report template. The report template and an example report can be found within the Team under <code class="docutils literal notranslate"><span class="pre">Resources/Lab</span> <span class="pre">Template</span></code>.</p>
-</section>
-<section id="turn-in-requirements">
-<h2>Turn-in Requirements<a class="headerlink" href="#turn-in-requirements" title="Permalink to this heading">#</a></h2>
-<p><strong>[25 points]</strong> Demonstration of keyboard control of Turtlebot3 (preferably in person, but can be recorded and posted to Teams under the Lab 2 channel).</p>
-<p><strong>[50 points]</strong> Report via Gradescope.</p>
-<p><strong>[25 points]</strong> Code: push your code to your repository. Also, include a screen shot of the <strong>turtlebot_controller.py</strong> file at the end of your report.</p>
-</section>
-<section id="ice6-imu">
-<h2>ICE6: IMU<a class="headerlink" href="#ice6-imu" title="Permalink to this heading">#</a></h2>
-</section>
-<section id="id1">
-<h2>Purpose<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
 <p>In practice, an inertial measurement unit (IMU) device provides orientation, angular velocity, and linear acceleration. The <a class="reference external" href="https://invensense.tdk.com/products/motion-tracking/6-axis/icm-20648/">ICM-20648 6-Axis MEMS MotionTracking Device</a> from TDK includes a 3-axis gyroscope, 3-axis accelerometer, and a Digital Motion Processor (DMP). This IMU is integrated on the OpenCR1.0 board, an open source robot controller embedded with an ARM Cortex-M7 processor. The OpenCR combines sensor data using an EKF to generate IMU estimates 170 times a second.</p>
-<p><img alt="logo" src="../_images/IMU.jpg" /></p>
+<a class="reference internal image-reference" href="../_images/IMU.jpg"><img alt="../_images/IMU.jpg" class="align-center" src="../_images/IMU.jpg" style="width: 380px;" /></a>
+<br>
 <p>The IMU provides values that are part of the robot state and allow the robot to navigate more accurately. Combined with data from the tachometers these values provide the odometry of the robot to estimate change in position over time. We will primarily use the IMU to perform 90 and 180 degree turns.</p>
-<p><img alt="logo" src="../_images/bot.PNG" /></p>
+<a class="reference internal image-reference" href="../_images/TurtleBot3_Coordinates.png"><img alt="../_images/TurtleBot3_Coordinates.png" class="align-center" src="../_images/TurtleBot3_Coordinates.png" style="width: 280px;" /></a>
 </section>
 <section id="calibrating-the-imu">
 <h2>Calibrating the IMU<a class="headerlink" href="#calibrating-the-imu" title="Permalink to this heading">#</a></h2>
-<p>As described above, there are a number of different sensors that work together to provide the attitude and heading estimates for the Turtlebot3. These sensors are sensitive to magnetic fields which are unique to locale and device. As you will learn in future ECE classes, all electronic devices create small magnetic fields. Even electrons traveling over a wire create magnetic fields. The OpenCR board and IMU are strategically placed in the center of the robot for best attitude and heading performance, however, this location is also in the center of a number of magnetic fields. Luckily for us, the creators of the Turtlebot3 were aware of these issues and whenever you run the serial node to connect to the robot the IMU is calibrated.</p>
+<p>As described above, there are a number of different sensors that work together to provide the attitude and heading estimates for the TurtleBot3. These sensors are sensitive to magnetic fields which are unique to locale and device. As you will learn in future ECE classes, all electronic devices create small magnetic fields. Even electrons traveling over a wire create magnetic fields. The OpenCR board and IMU are strategically placed in the center of the robot for best attitude and heading performance, however, this location is also in the center of a number of magnetic fields. Luckily for us, the creators of the Turtlebot3 were aware of these issues and whenever you run the serial node to connect to the robot the IMU is calibrated.</p>
 </section>
-<section id="id2">
-<h2>Setup<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this heading">#</a></h2>
 <p>The ICM-20648 is already integrated into the Turtlebot3 robot, therefore, there is no setup required. Whenever the serial node is ran to connect to the OpenCR board, the IMU is initialized and will start publishing data.</p>
 </section>
 <section id="test-the-imu">
@@ -660,6 +545,118 @@ touch<span class="w"> </span>imu_sub.py
 <p>In each terminal window, close the node by typing <code class="docutils literal notranslate"><span class="pre">ctrl+c</span></code>. Exit any SSH connections. Shutdown the notebook server by typing <code class="docutils literal notranslate"><span class="pre">ctrl+c</span></code> within the terminal you ran <code class="docutils literal notranslate"><span class="pre">jupyter-lab</span></code> in. Select ‘y’.</p>
 <p><strong>Ensure roscore is terminated before moving on to the lab.</strong></p>
 </section>
+<section id="id1">
+<h2>Purpose<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<p>This lab will integrate the on-board IMU with the Turtlebot3 controller to turn the robot 90 degrees left or right.  Do not disable any of the mouse controller functionality in the turtlebot_controller.py code.  The IMU and mouse control functionality should be able to coexist seemlessly.</p>
+</section>
+<section id="master">
+<h2>Master<a class="headerlink" href="#master" title="Permalink to this heading">#</a></h2>
+<section id="id2">
+<h3>Setup:<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
+<p>In the <code class="docutils literal notranslate"><span class="pre">/master_ws/src/ece387_master_sp2X-USERNAME/master</span></code> folder, create a <strong>lab2</strong> package which depends on <strong>std_msgs</strong>, <strong>rospy</strong>, <strong>geometry_msgs</strong>, and <strong>turtlebot3_bringup</strong>.</p>
+</section>
+<section id="controller-py">
+<h3><a class="reference external" href="http://controller.py">controller.py</a><a class="headerlink" href="#controller-py" title="Permalink to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Copy the turtlebot_controller.py file from lab1 into the lab2 package.</p></li>
+<li><p>Open the turtlebot_controller.py file from lab2 using an editor.</p></li>
+<li><p>Import the squaternion library and Imu message used in ICE6.</p></li>
+<li><p>Add the following Class variables within the class <strong>above</strong> the <code class="docutils literal notranslate"><span class="pre">__init__()</span></code> function:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">K_HDG</span> <span class="pre">=</span> <span class="pre">0.1</span> <span class="pre">#</span> <span class="pre">rotation</span> <span class="pre">controller</span> <span class="pre">constant</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">HDG_TOL</span> <span class="pre">=</span> <span class="pre">10</span> <span class="pre">#</span> <span class="pre">heading</span> <span class="pre">tolerance</span> <span class="pre">+/-</span> <span class="pre">degrees</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MIN_ANG_Z</span> <span class="pre">=</span> <span class="pre">0.5</span> <span class="pre">#</span> <span class="pre">limit</span> <span class="pre">rad/s</span> <span class="pre">values</span> <span class="pre">sent</span> <span class="pre">to</span> <span class="pre">Turtlebot3</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MAX_ANG_Z</span> <span class="pre">=</span> <span class="pre">1.5</span> <span class="pre">#</span> <span class="pre">limit</span> <span class="pre">rad/s</span> <span class="pre">values</span> <span class="pre">sent</span> <span class="pre">to</span> <span class="pre">Turtlebot3</span></code></p></li>
+</ol>
+</li>
+<li><p>Add the following to the <code class="docutils literal notranslate"><span class="pre">__init__()</span></code> function:</p>
+<ol class="arabic simple">
+<li><p>Instance variable, <code class="docutils literal notranslate"><span class="pre">self.curr_yaw</span></code>, initialized to 0 to store the current orientation of the robot</p></li>
+<li><p>Instance variable, <code class="docutils literal notranslate"><span class="pre">self.goal_yaw</span></code>, initialized to 0 to store the goal orientation of the robot</p></li>
+<li><p>Instance variable, <code class="docutils literal notranslate"><span class="pre">self.turning</span></code>, initialized to <code class="docutils literal notranslate"><span class="pre">False</span></code> to store if the robot is currently turning</p></li>
+<li><p>A subscriber to the IMU topic of interest with a callback to the callback_imu() function</p></li>
+</ol>
+</li>
+<li><p>Add the <code class="docutils literal notranslate"><span class="pre">convert_yaw()</span></code> function from ICE6.</p></li>
+<li><p>Add the <code class="docutils literal notranslate"><span class="pre">callback_imu()</span></code> function from ICE6, removing print statements and setting the instance variable, <code class="docutils literal notranslate"><span class="pre">self.curr_yaw</span></code>.</p></li>
+<li><p>Edit the <code class="docutils literal notranslate"><span class="pre">callback_controller()</span></code> function so it turns the robot 90 degrees in the direction inputed by the user (left or right). Below is some pseudo-code to help you code the controller function</p></li>
+</ol>
+<blockquote>
+<div><p>⚠️ <strong>WARNING:</strong> Pseudo-code is not actual code and cannot be copied and expected to work!</p>
+</div></blockquote>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">callback_controller</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+    <span class="c1"># local variables do not need the self</span>
+	<span class="n">yaw_err</span> <span class="o">=</span> <span class="mi">0</span>
+	<span class="n">ang_z</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1"># not turning, so get user input</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">turning</span><span class="p">:</span>
+        <span class="n">read</span> <span class="kn">from</span> <span class="nn">user</span> <span class="ow">and</span> <span class="nb">set</span> <span class="n">value</span> <span class="n">to</span> <span class="n">instance</span> <span class="n">variable</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">goal_yaw</span>
+        <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Input l or r to turn 90 deg&quot;</span><span class="p">)</span>
+        
+        <span class="c1"># check input and determine goal yaw</span>
+        <span class="k">if</span> <span class="nb">input</span> <span class="ow">is</span> <span class="n">equal</span> <span class="n">to</span> <span class="s2">&quot;l&quot;</span> 
+            <span class="nb">set</span> <span class="n">goal</span> <span class="n">yaw</span> <span class="n">to</span> <span class="n">curr</span> <span class="n">yaw</span> <span class="n">plus</span><span class="o">/</span><span class="n">minus</span> <span class="mi">90</span>
+            <span class="n">turning</span> <span class="n">equals</span> <span class="kc">True</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="nb">input</span> <span class="ow">is</span> <span class="n">equal</span> <span class="n">to</span> <span class="s2">&quot;r&quot;</span>
+           	<span class="nb">set</span> <span class="n">goal</span> <span class="n">yaw</span> <span class="n">to</span> <span class="n">curr</span> <span class="n">yaw</span> <span class="n">plus</span><span class="o">/</span><span class="n">minus</span> <span class="mi">90</span>
+            <span class="n">turning</span> <span class="n">equals</span> <span class="kc">True</span>
+        <span class="k">else</span> 
+        	<span class="nb">print</span> <span class="n">error</span> <span class="ow">and</span> <span class="n">tell</span> <span class="n">user</span> <span class="n">valid</span> <span class="n">inputs</span>
+            
+        <span class="c1"># check bounds</span>
+        <span class="k">if</span> <span class="n">goal_yaw</span> <span class="ow">is</span> <span class="n">less</span> <span class="n">than</span> <span class="mi">0</span> <span class="n">then</span> <span class="n">add</span> <span class="mi">360</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="n">goal_yaw</span> <span class="ow">is</span> <span class="n">greater</span> <span class="n">than</span> <span class="mi">360</span> <span class="n">then</span> <span class="n">subtract</span> <span class="mi">360</span>
+    
+    <span class="c1"># turn until goal is reached</span>
+    <span class="k">elif</span> <span class="n">turning</span><span class="p">:</span>
+        <span class="n">yaw_err</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">goal_yaw</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">curr_yaw</span>
+        
+        <span class="c1"># determine if robot should turn clockwise or counterclockwise</span>
+        <span class="k">if</span> <span class="n">yaw_err</span> <span class="o">&gt;</span> <span class="mi">180</span><span class="p">:</span>
+            <span class="n">yaw_err</span> <span class="o">=</span> <span class="n">yaw_err</span> <span class="o">-</span> <span class="mi">360</span>
+        <span class="k">elif</span> <span class="n">yaw_err</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">180</span><span class="p">:</span>
+            <span class="n">yaw_err</span> <span class="o">=</span> <span class="n">yaw_err</span> <span class="o">+</span> <span class="mi">360</span>
+            
+        <span class="c1"># proportional controller that turns the robot until goal </span>
+        <span class="c1"># yaw is reached</span>
+        <span class="n">ang_z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">K_HDG</span> <span class="o">*</span> <span class="n">yaw_err</span>
+        
+        <span class="k">if</span> <span class="n">ang_z</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">MIN</span><span class="p">:</span> <span class="n">ang_z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MIN</span>		<span class="c1"># need to add negative test as well!</span>
+        <span class="k">elif</span> <span class="n">ang_Z</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">MAX</span><span class="p">:</span> <span class="n">ang_z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MAX</span>	<span class="c1"># need to add negative test as well!</span>
+        
+        <span class="c1"># check goal orientation</span>
+        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">yaw_err</span><span class="p">)</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">HDG_TOL</span>
+            <span class="n">turning</span> <span class="n">equals</span> <span class="kc">False</span>
+            <span class="n">ang_z</span> <span class="o">=</span> <span class="mi">0</span>
+            
+   <span class="c1"># set twist message and publish</span>
+   <span class="bp">self</span><span class="o">.</span><span class="n">cmd</span><span class="o">.</span><span class="n">linear</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
+   <span class="bp">self</span><span class="o">.</span><span class="n">cmd</span><span class="o">.</span><span class="n">angular</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="n">ang_z</span>
+   <span class="n">publish</span> <span class="n">message</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="run-your-nodes">
+<h2>Run your nodes<a class="headerlink" href="#run-your-nodes" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>On the <strong>Master</strong> open a terminal and run <strong>roscore</strong>.</p></li>
+<li><p>Open another terminal and enable statistics for <strong>rqt_graph</strong>.</p></li>
+<li><p>Run the controller node.</p></li>
+<li><p>Open secure shell into the <strong>Robot</strong> and run the <strong>turtlebot3_core</strong> launch file.</p></li>
+<li><p>Type “l” or “r” to turn the robot 90 degrees.</p></li>
+</ol>
+</section>
+<section id="report">
+<h2>Report<a class="headerlink" href="#report" title="Permalink to this heading">#</a></h2>
+<p>Complete a short 2-3 page report that utilizes the format and answers the questions within the report template. The report template and an example report can be found within the Team under <code class="docutils literal notranslate"><span class="pre">Resources/Lab</span> <span class="pre">Template</span></code>.</p>
+</section>
+<section id="turn-in-requirements">
+<h2>Turn-in Requirements<a class="headerlink" href="#turn-in-requirements" title="Permalink to this heading">#</a></h2>
+<p><strong>[25 points]</strong> Demonstration of keyboard control of Turtlebot3 (preferably in person, but can be recorded and posted to Teams under the Lab 2 channel).</p>
+<p><strong>[50 points]</strong> Report via Gradescope.</p>
+<p><strong>[25 points]</strong> Code: push your code to your repository. Also, include a screen shot of the <strong>turtlebot_controller.py</strong> file at the end of your report.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -730,23 +727,22 @@ touch<span class="w"> </span>imu_sub.py
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose">Purpose</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calibrating-the-imu">Calibrating the IMU</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-the-imu">Test the IMU</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-the-subscriber">Write the Subscriber</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint">Checkpoint</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cleanup">Cleanup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Purpose</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#master">Master</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Setup:</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#controller-py">controller.py</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-your-nodes">Run your nodes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#report">Report</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#turn-in-requirements">Turn-in Requirements</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ice6-imu">ICE6: IMU</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Purpose</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calibrating-the-imu">Calibrating the IMU</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Setup</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-the-imu">Test the IMU</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-the-subscriber">Write the Subscriber</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint">Checkpoint</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cleanup">Cleanup</a></li>
 </ul>
   </nav></div>
 

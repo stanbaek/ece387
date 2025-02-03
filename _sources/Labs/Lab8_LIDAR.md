@@ -86,8 +86,7 @@ In this lesson we will enable the robot to avoid obstacles. Many sensors provide
 
 [Turtlebot3 LDS](https://www.youtube.com/watch?v=9oic8aT3wIc&t)
 
-## Quick Check on LIDAR Variant
-The robots for our class have two different LIDAR variants.  The older bots have the LDS-01 which is exactly what is pictured above.  The newer bots likely have the LDS-02 (pictured below).  If you have the LDS-02, you will need to go into the .bashrc file and change the last line in the file to indicate the proper variant.  
+
 
 ![logo](Figures/LDS02.jpeg)
 

@@ -176,7 +176,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="Lab3_Python.html">🔬 Lab3: Python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Lab4_Gamepad.html">🔬 Lab4: Gamepad</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Lab5_TurtleBot.html">🔬 Lab5: Driving the Robot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Lab6_IMU.html">🔬 Lab6: IMU</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lab6_IMU.html">🔬 Lab5: IMU</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Lab7_LaunchFile.html">🔬 Lab7: Launch Files</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">🔬 Lab8: LIDAR</a></li>
 </ul>
@@ -395,7 +395,6 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#videos">Videos:</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-check-on-lidar-variant">Quick Check on LIDAR Variant</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Setup</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-lidar">Testing LIDAR</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lidar-subscriber">LIDAR Subscriber</a></li>
@@ -510,11 +509,6 @@ document.write(`
 <h3>Videos:<a class="headerlink" href="#videos" title="Permalink to this heading">#</a></h3>
 <p><a class="reference external" href="https://www.youtube.com/watch?v=EYbhNSUnIdU">Airborne LiDAR</a></p>
 <p><a class="reference external" href="https://www.youtube.com/watch?v=9oic8aT3wIc&amp;t">Turtlebot3 LDS</a></p>
-</section>
-</section>
-<section id="quick-check-on-lidar-variant">
-<h2>Quick Check on LIDAR Variant<a class="headerlink" href="#quick-check-on-lidar-variant" title="Permalink to this heading">#</a></h2>
-<p>The robots for our class have two different LIDAR variants.  The older bots have the LDS-01 which is exactly what is pictured above.  The newer bots likely have the LDS-02 (pictured below).  If you have the LDS-02, you will need to go into the .bashrc file and change the last line in the file to indicate the proper variant.</p>
 <p><img alt="logo" src="../_images/LDS02.jpeg" /></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nano<span class="w"> </span>~/.bashrc
 </pre></div>
@@ -524,6 +518,7 @@ document.write(`
 </pre></div>
 </div>
 <p>You will need to change that line to LDS-02.  <strong>You will need to accomplish this on both the master and the robot</strong></p>
+</section>
 </section>
 <section id="id2">
 <h2>Setup<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
@@ -759,7 +754,6 @@ touch<span class="w"> </span>lidar_sub.py
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#videos">Videos:</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-check-on-lidar-variant">Quick Check on LIDAR Variant</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Setup</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-lidar">Testing LIDAR</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lidar-subscriber">LIDAR Subscriber</a></li>
