@@ -166,6 +166,12 @@ Complete the following four tutorials. **Important:** Skip **C++** tutorials and
     - `/imu`: Provides data from the robot’s orientation sensor
     - `/scan`: LIDAR sensor data (obstacle detection)
 
+
+    ```{important}
+    RViz shows you what the robot thinks is happening, while Gazebo shows you what is really happening.
+    ```
+
+
 1. Visualize ROS connections using `rqt_graph`. This tool provides a graphical representation of how nodes and topics are connected:
     ```bash
     rqt_graph
