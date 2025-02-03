@@ -23,7 +23,8 @@ In this course, you'll drive your TurtleBot without the need for a monitor and k
     :width: 420
     :align: center
     ```
-
+    <br>
+    
 1. **Check Connectivity**:
     - The Raspberry Pi on your robot acts as a Wi-Fi access point (AP), allowing communication with your master computer.
     - Open a terminal on your master computer.
