@@ -1,58 +1,184 @@
 # 🔬 Lab5: Driving the Robot
 
+## 📌 Objectives
 
-## Lesson Objectives:
-1. Gain additional familiarity with simulation environment
-1. Gain familiarity with Turtlebot 3 robotics platform
-1. Practice with ROS diagnostic tools
+- Students should be able to
 
-## Agenda:
-1. Use Linux terminals to launch and control Turtlebot 3 in simulation environment.
-1. Use Linux terminals to launch and control actual Turtlebot 3.
-
-
-
-
-
-
-
-
-
-
-
-```{tip} 
-I strongly recommend that you commit the above sequence of commands to memory, or at a minimum
-have them in a place that you can quickly recall them. There is nothing until Module 9 that absolutely requires the real robot, as everything else can be simulated.
-```
-
-## Gain Familiarity with Turtlebot3 Robotics Platform.
-The Module04 Jupyter Notebook will guide you through the process of connecting to and activating your
-robot for the first time.
-
-1. On the master, open the Jupyter Notebook server (if it is not already open):
-```bash
-$ cd ~/master_ws/src/ece387_lastname/Module04_DrivingTheRobot
-```
-
-2. Open ICE4: Driving the Robot and follow the instructions.
-
-## Assignments.
-- Complete ICE4 if not accomplished during class.
-- Push screen captures into your repo/master/module04 on github
-
-## Next time.
-- Lesson 10: Module 5 - Custom Messages
-
-
-
-
-
-
-
-## ICE4: Driving the Robot
-
-## Purpose
+## 📜 Overview
 This In-Class Exercise will introduce you to utilizing pre-built ROS packages to accomplish a task. It will also provide you experience interacting with someone else's source code (.py files) to learn how that component works. You will use ROS to run two nodes, **turtlebot3_core** and **teleop_twist_keyboard**, to drive the Turtlebot3 with a keyboard. You will continue to practice using ROS tools to observe how these components communicate.
+
+
+
+## 💻 Lab Procedure
+
+### Working with a Remote Machine
+
+In this course, you'll drive your TurtleBot without the need for a monitor and keyboard. However, you'll still need access to the Raspberry Pi on the robot to run ROS nodes. One of the easiest ways to remotely access a Linux machine is through a secure shell (SSH). To create an SSH connection, you'll need the username and hostname (or IP address) of the computer you want to access. For the Raspberry Pis, the username is `pi` and the hostname is your robot number (e.g., `robot98`).
+
+1. **Connect to the Robot's Wi-Fi Network**:
+    - Click the system menu in the top-right corner to open the Wi-Fi Networks setting.
+    - Choose `RobotXX`, where `XX` corresponds to the `XX` in `MasterXX`.
+
+    ```{image} ./figures/Lab5_ConnectToRobotWifi.png
+    :width: 420
+    :align: center
+    ```
+
+1. **Check Connectivity**:
+    - The Raspberry Pi on your robot acts as a Wi-Fi access point (AP), allowing communication with your master computer.
+    - Open a terminal on your master computer.
+    - Check connectivity to the robot using its IP address, `192.168.4.1`:
+      ```sh
+      ping 192.168.4.1
+      ```
+
+1. **Create a Secure Shell Connection**:
+    - To access the robot remotely, create an SSH connection:
+      ```sh
+      ssh pi@192.168.4.1
+      ```
+      > ⌨️ **Syntax:** `ssh <username>@<hostname/IP address>`
+
+1. **Enter the Robot's Password**:
+    - After entering the robot's password, the terminal should display the `pi` username and your robot's hostname, `robotX`. Any commands you run in this shell will execute on the robot.
+
+1. **Edit the `.bashrc` File**:
+    - Open the `.bashrc` file by running the following command:
+      ```sh
+      nano ~/.bashrc
+      ```   
+   - You should see the following lines at the bottom of the `.bashrc` file:
+      ```bash
+      source /opt/ros/humble/setup.bash
+      source ~/robot_ws/install/setup.bash
+      source /usr/share/colcon_cd/function/colcon_cd.sh
+      export ROS_DOMAIN_ID=0  # For master0 and robot0
+      export _colcon_cd_root=/opt/ros/humble/
+      export TURTLEBOT3_MODEL=burger
+      export LDS_MODEL=LDS-01  # Replace with LDS-02 if using new LIDAR
+      source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
+      ```
+    - Your `ROS_DOMAIN_ID=XX` should match your computer ID, where `XX` corresponds to the `XX` in `MasterXX`.
+
+    - The robots for our class have two different LIDAR variants: LDS-01 and LDS-02 (pictured below).
+
+        <div style="display: flex; justify-content: center; text-align: center;">
+            <div style="margin-right: 10px;">
+                <img src="./figures/lds_small.png" width="180" />
+                <p style="text-align: center;">LDS-01</p>
+            </div>
+            <div>
+                <img src="./figures/lds_ld08_small.png" width="180" />
+                <p style="text-align: center;">LDC-02</p>
+            </div>
+        </div>
+
+    - If you have the LDS-02, update `export LDS_MODEL=LDS-01` to `export LDS_MODEL=LDS-02` inside the `.bashrc` file.
+
+    - Save the changes and exit the editor.
+    
+1. **Close the SSH Connection**:
+    - You can type `exit` to close the SSH connection.
+
+
+### Updating the Hosts File
+
+As it is much easier to remember and use the host name than the IP address, let's modify the `hosts` file so that the master computer recognizes the host name of the Raspberry Pi.
+
+1. **Update the Hosts File**
+
+    - To add the robot's IP address to the hosts file, follow these steps on the master computer:
+      ```sh
+      sudo gedit /etc/hosts
+      ```
+    - Add the following line to the file:
+      ```sh
+      192.168.4.1    robotXX
+      ```
+    - Replace `robotXX` with your specific robot number.
+
+1. **Save and Close the Hosts File**:
+    - Save the changes and close the file by pressing `Ctrl+X`, then `Y` to confirm, and `Enter` to exit.
+
+1. **Check Connectivity**:
+    - Check connectivity to the robot using its host name, `robotXX`:
+      ```sh
+      ping robotXX
+      ```
+
+1. **Create a Secure Shell Connection**:
+    - To access the robot remotely, create an SSH connection:
+      ```sh
+      ssh pi@robotXX
+      ```
+      > ⌨️ **Syntax:** `ssh <username>@<hostname/IP address>`
+
+1. **Enter the Robot's Password**:
+    - After entering the robot's password, the terminal should display the `pi` username and your robot's hostname, `robotXX`. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+> 📝️ **Note:** At times, there may be network issues and name resolution will fail. What this means is if you try to ping the robot from the master or vice versa using the hostname (e.g., `ping master0`) it will not work. However, it will work if you use the IP address (e.g., `ping 192.168.2.120`). To do this, you need the IP address of the machine you want to access. This IP address will change periodically. The easiest way to determine the current IP Address is, with the machine plugged into a monitor and keyboard, type `ip addr` in a terminal. This will list all of the network interfaces on the machine (such as *eth0* for ethernet and *wlan0* for wireless). You are looking for the `inet` field under `wlan0` (may be called `wlo1`). Now you can unplug the roobt from the monitor, ping the IP address to check connectivity, and then SSH into the robot.
+
+The other remote tool you may want to take advantage of is SCP, which securely copies a file to a remote machine.
+
+> ⌨️ **Syntax:**  `scp <src location> <username>@<hostname>:<dest location>`
+
+For example, copy the `move_turtlebot_square.py` file to your robot by typing the following in a new terminal on the master:
+
+`roscd module02/my_scripts`
+
+`scp move_turtlebot_square.py pi@robot0:/home/pi/robot_ws/src/ece387_robot_sp23-USERNAME/robot/module02/src/`
+
+> 📝️ **Note:** The destination uses the absolute path you printed earlier.
+
+In your secure shell list the contents of your 'my_scripts' folder. You should see the `move_turtlebot_square.py` file. Check that it is executable. If it is not, make it executable.
+
+Now let's move our TurtleBot using the script on the robot:
+
+1. Run roscore on the master.
+
+1. Run the simulated robot on the master.
+
+1. SSH into your robot Raspberry Pi.
+
+1. Run the move_turtlebot_square.py using the `rosrun` command on the robot.
+
+You are now controlling your simulation (which is running on the master) remotely from the robot. In future lessons you will have nodes running on your robot to drive the robot and will control the robot remotely from the master.
+
+
+
+
+
+
+
+
+
+
 
 ## Code used to drive the robot
 
@@ -167,3 +293,48 @@ In this exercise you examined and used pre-built packages and source code to dri
 
 ## Cleanup
 In each terminal window, close the node by typing `ctrl+c`. Exit any SSH connections. 
+
+
+
+
+## Lesson Objectives:
+1. Gain additional familiarity with simulation environment
+1. Gain familiarity with Turtlebot 3 robotics platform
+1. Practice with ROS diagnostic tools
+
+## Agenda:
+1. Use Linux terminals to launch and control Turtlebot 3 in simulation environment.
+1. Use Linux terminals to launch and control actual Turtlebot 3.
+
+
+
+
+
+```{tip} 
+I strongly recommend that you commit the above sequence of commands to memory, or at a minimum
+have them in a place that you can quickly recall them. There is nothing until Module 9 that absolutely requires the real robot, as everything else can be simulated.
+```
+
+## Gain Familiarity with Turtlebot3 Robotics Platform.
+The Module04 Jupyter Notebook will guide you through the process of connecting to and activating your
+robot for the first time.
+
+1. On the master, open the Jupyter Notebook server (if it is not already open):
+```bash
+$ cd ~/master_ws/src/ece387_lastname/Module04_DrivingTheRobot
+```
+
+2. Open ICE4: Driving the Robot and follow the instructions.
+
+## Assignments.
+- Complete ICE4 if not accomplished during class.
+- Push screen captures into your repo/master/module04 on github
+
+## Next time.
+- Lesson 10: Module 5 - Custom Messages
+
+
+
+
+
+

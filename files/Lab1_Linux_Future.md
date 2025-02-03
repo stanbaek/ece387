@@ -491,63 +491,6 @@ There are a lot, so this isn't very helpful, but we can filter this command!
 
 The vertical line, '|', pipes the results of the first command into the second command, so we can filter all packages looking only for turtlebot packages.
 
-## Working with a remote machine
-Later in this course you will drive your TurtleBot around unplugged from a monitor and keyboard, but you will still need access to the Raspberry Pi on the robot to run ROS nodes. One of the easiest ways to remotely access a Linux machine is through a secure shell. To create a secure shell, you need the uesrname and hostname of the computer you want to remote into. For the Raspberry Pis, all usernames are `pi` and the hostname is your robot number (e.g., `robot0`).
-
-1. Open a terminal on your master
-1. Check connectivity to the robot:
-
-    `ping robotX`
-    <br>
-1. Create a secure shell to the robot:
-
-    `ssh pi@robotX`
-> ⌨️ **Syntax:**  `ssh <username>@<hostname/IP address>`
-
-1. Enter the robot's password
-
-    You should see that the terminal lists the `pi` username and your robot's hostname, `robotX`. Any command you run in this shell will execute on the robot.
-    <br>
-1. Create a new package on the robot we can use to store scripts for this module. This package should be called 'module02' and should be in your student repo.  From the terminal ssh'd into the robot, type:
-
-`cd ece387_robot_sp23-USERNAME/robot/`
-
-`catkin_create_pkg module02`
-
-1. Change directories to your new folder.
-
-1. Print the working directory. You should get "/home/pi/robot_ws/src/ece387_robot_sp23-USERNAME/robot/"
-
-1. You can type `exit` to close an SSH connection (but don't close the connection yet!).
-
-> 📝️ **Note:** At times, there may be network issues and name resolution will fail. What this means is if you try to ping the robot from the master or vice versa using the hostname (e.g., `ping master0`) it will not work. However, it will work if you use the IP address (e.g., `ping 192.168.2.120`). To do this, you need the IP address of the machine you want to access. This IP address will change periodically. The easiest way to determine the current IP Address is, with the machine plugged into a monitor and keyboard, type `ip addr` in a terminal. This will list all of the network interfaces on the machine (such as *eth0* for ethernet and *wlan0* for wireless). You are looking for the `inet` field under `wlan0` (may be called `wlo1`). Now you can unplug the roobt from the monitor, ping the IP address to check connectivity, and then SSH into the robot.
-
-The other remote tool you may want to take advantage of is SCP, which securely copies a file to a remote machine.
-
-> ⌨️ **Syntax:**  `scp <src location> <username>@<hostname>:<dest location>`
-
-For example, copy the `move_turtlebot_square.py` file to your robot by typing the following in a new terminal on the master:
-
-`roscd module02/my_scripts`
-
-`scp move_turtlebot_square.py pi@robot0:/home/pi/robot_ws/src/ece387_robot_sp23-USERNAME/robot/module02/src/`
-
-> 📝️ **Note:** The destination uses the absolute path you printed earlier.
-
-In your secure shell list the contents of your 'my_scripts' folder. You should see the `move_turtlebot_square.py` file. Check that it is executable. If it is not, make it executable.
-
-Now let's move our TurtleBot using the script on the robot:
-
-1. Run roscore on the master.
-
-1. Run the simulated robot on the master.
-
-1. SSH into your robot Raspberry Pi.
-
-1. Run the move_turtlebot_square.py using the `rosrun` command on the robot.
-
-You are now controlling your simulation (which is running on the master) remotely from the robot. In future lessons you will have nodes running on your robot to drive the robot and will control the robot remotely from the master.
-
 ## ROS
 Below you will run ROS commands. The "!" character in the front allows us to run bash commands from Jupter and would **NOT** be used in the command line.
 
