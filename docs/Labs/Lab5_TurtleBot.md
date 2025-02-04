@@ -162,19 +162,30 @@ Using password-free SSH authentication improves both security and convenience. I
 
 ### Driving the Robot
 
-1. Using the secure shell, run the **turtlebot3_core.launch** file on the robot. 
-    ```bash
-    $ ros2 launch turtlebot3_bringup turtlebot3_core.launch
-    ```
+1. Using the secure shell, run the **turtlebot3_core.launch** file on the robot.     **Note:** The following command has a typo. Use the `tab` key to autocomplete the command.
 
+    ```bash
+    $ ros2 launch turtlebot3_bringup robot.launch
+    ```
     > ⌨️ **Syntax:** `ros2 launch <package> <launchfile>`
 
+    It will print something similar to:
+    ```bash
+    [turtlebot3_ros-3] [INFO] [1738299487.825470539] [turtlebot3_node]: Succeeded to create battery state publisher
+    [turtlebot3_ros-3] [INFO] [1738299487.829476168] [turtlebot3_node]: Succeeded to create imu publisher
+    [turtlebot3_ros-3] [INFO] [1738299487.841928335] [turtlebot3_node]: Succeeded to create sensor state publisher
+    [turtlebot3_ros-3] [INFO] [1738299487.844016446] [turtlebot3_node]: Succeeded to create joint state publisher
+    [turtlebot3_ros-3] [INFO] [1738299487.844149094] [turtlebot3_node]: Add Devices
+    [turtlebot3_ros-3] [INFO] [1738299487.844204353] [turtlebot3_node]: Succeeded to create motor power server
+    [turtlebot3_ros-3] [INFO] [1738299487.849349150] [turtlebot3_node]: Succeeded to create reset server
+    [turtlebot3_ros-3] [INFO] [1738299487.851512798] [turtlebot3_node]: Succeeded to create sound server
+    [turtlebot3_ros-3] [INFO] [1738299487.853739761] [turtlebot3_node]: Run!
+    [turtlebot3_ros-3] [INFO] [1738299487.890749557] [diff_drive_controller]: Init Odometry
+    [turtlebot3_ros-3] [INFO] [1738299487.909780816] [diff_drive_controller]: Run!
+    ```
  
     We will learn more about launch files in a few modules, but just understand that a launch file is used to launch one or more ROS nodes. 
     
-    This particular launch file only launches one node, **serial_node.py**. This node will connect to the OpenCR controller on the Turtlebot3 using the port and baud rate parameters. This connection will enable us to send *Twist* messages over the **/cmd_vel** topic to drive the Turtlebot3 using the keyboard.
-
-
     Your Turtlebot3 is now ready to drive and should be listening for *Twist* messages to be sent over the **/cmd_vel** topic.
 
 
@@ -183,24 +194,50 @@ Using password-free SSH authentication improves both security and convenience. I
     $ ros2 topic list
     ```
     
-    If all is well, then there should be two topics provided by **roscore** running on the Master: **/rosout** and **/rosout_agg**. We will typically ignore these topics.
+    If all is well, it should display something similar to 
+    ```bash
+    /battery_state
+    /cmd_vel
+    /imu
+    /joint_states
+    /magnetic_field
+    /odom
+    /parameter_events
+    /robot_description
+    /rosout
+    /sensor_state
+    /tf
+    /tf_static
+    ```
 
 1. Open a new terminal on the Master and observe the nodes currently running:
     ```bash
-    $ rqt_graph
+    $ rqt_graph`
+    ```
+    You should see `/turtlebot3_node` subscribing to the `\cmd_vel` topic and publishing multiple topics including `\imu`. 
+    
+1. Open a new terminal and run 
+    ```bash
+    $ ros2 node info /turtlebot3_node
+    ```
+    You should be able to find the topics `/turtlebot3_node` is publishing and subscribing to.
+
+    
+1. We used the **/cmd_vel** topic when driving the simulated Turtlebot3, but let's refresh our memory about the topic:
+    ```bash
+    $ ros2 topic info /cmd_vel`
+    ```
+
+    We can find that topic utilizes the *Twist* message type. We can also verify this by
+    ```bash
+    $ ros2 topic type /cmd_vel
     ```
     
-    You should only see one node running right now, **turtlebot3_core**, with no connections.
-    
-1. Open a new terminal tab and list the active topics. There should be one active topic other than the ones created by **roscore**: **/cmd_vel**.
-
-1. We used the **/cmd_vel** topic when driving the simulated Turtlebot3, but let's refresh our memory about the topic:
-
-    `rostopic info cmd_vel`
-    
-    As you can see the **/cmd_vel** topic is currently subscribed to by the **turtlebot3_core** with no publishers (just as we would expect after seeing the rqt_graph). We also note that topic utilizes the *Twist* message type. The following will show information about the fields within the *Twist* message sent over the **/cmd_vel** topic:
-    
-    `rostopic type cmd_vel | rosmsg show`
+    The following will show information about the fields within the *Twist* message sent over the **/cmd_vel** topic:
+    **Note:** The following command has a typo. Use the `tab` key for autocompletion.
+    ```bash
+    $ ros2 interface show geometry_msg/msg/Twist
+    ```
 
     
 1. Run the **teleop_twist_keyboard** node on the Master:
