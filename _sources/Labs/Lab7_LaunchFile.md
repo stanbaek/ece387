@@ -239,7 +239,7 @@ Open a new terminal and list the running nodes. You should see *rosout* (*roscor
 
 In a separate terminal, bring up **rqt_graph**. Your output should look similar to this:
 
-![logo](Figures/rqt_graph.png)
+![logo](figures/rqt_graph.png)
 
 ## Checkpoint
 Once complete, get checked off by an instructor showing the output of your **rqt_graph** node.

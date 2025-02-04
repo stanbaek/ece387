@@ -33,7 +33,7 @@ In this course, you'll drive your TurtleBot without the need for a monitor and k
     - Click the system menu in the top-right corner to open the Wi-Fi Networks setting.
     - Choose `RobotXX`, where `XX` corresponds to the `XX` in `MasterXX`.
 
-    ```{image} ./figures/Lab5_ConnectToRobotWifi.png
+    ```{image} ./figures/Lab5_ConnectToRobotWiFi.png
     :width: 420
     :align: center
     ```

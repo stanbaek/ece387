@@ -504,12 +504,12 @@ document.write(`
 <section id="lidar">
 <h2>LIDAR<a class="headerlink" href="#lidar" title="Permalink to this heading">#</a></h2>
 <p><a class="reference external" href="https://www.robotis.us/360-laser-distance-sensor-lds-01-lidar/">Robotis’s LDS-01</a> is a 360 deg Laser Distance Sensor (LDS). It is based on laser triangulation ranging principles and uses high-speed vision acquisition and processing hardware. It measures distance data in more than 1800 times per second. It has a detection range between .12 m and 3.5 m and an angular resolution of 1 degree. The distance accuracy is .015 m between .12 m and .499 m then +/- 5% up to 3.5 m.</p>
-<p><img alt="logo" src="Labs/Figures/rplidar.png" /></p>
+<p><img alt="logo" src="../_images/rplidar.png" /></p>
 <section id="videos">
 <h3>Videos:<a class="headerlink" href="#videos" title="Permalink to this heading">#</a></h3>
 <p><a class="reference external" href="https://www.youtube.com/watch?v=EYbhNSUnIdU">Airborne LiDAR</a></p>
 <p><a class="reference external" href="https://www.youtube.com/watch?v=9oic8aT3wIc&amp;t">Turtlebot3 LDS</a></p>
-<p><img alt="logo" src="Labs/Figures/LDS02.jpeg" /></p>
+<p><img alt="logo" src="../_images/LDS02.jpeg" /></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nano<span class="w"> </span>~/.bashrc
 </pre></div>
 </div>
@@ -557,7 +557,7 @@ rosparam<span class="w"> </span><span class="nb">set</span><span class="w"> </sp
 </div>
 <p>This should open an RVIZ window where we can visualize ROS components of our system. In the “Displays” menu on the left you should see two submenus of interest: “LaserScan” and “RobotModel”. These allow us to depict the Turtlebot3 and LIDAR data.</p>
 <p>You should see red dots fill the <strong>rviz</strong> map where obstacles exist as shown below.</p>
-<p><img alt="logo" src="Labs/Figures/lidarscan_example.png" /></p>
+<p><img alt="logo" src="../_images/lidarscan_example.png" /></p>
 <p>Investigate what data the <strong>hls_laser_publisher</strong> is sending. Type the following and observe the command output:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rostopic<span class="w"> </span>list
 rostopic<span class="w"> </span>info<span class="w"> </span>/scan

@@ -29,7 +29,7 @@ A Raspberry Pi 4 B with 8 GB of RAM is used throughout this curriculum. Ensure h
 
 Also, a small fan can be installed to help with cooling. We used this 3D printed bracket to mount the fan.
 
-```{image} ./Figures/fan.jpg
+```{image} ./figures/fan.jpg
 :width: 380
 :align: center
 ```
@@ -37,7 +37,7 @@ Also, a small fan can be installed to help with cooling. We used this 3D printed
 ### Camera
 After installing the Raspberry pi level of the TurtleBot3 you need to install the USB Camera Mount prior to finishing the robot build. The mount used in this course can be found in the [curriculum material](../stl/burger_usbcam_mount.stl) and is installed on two of the front standoffs on the TurtleBot3.
 
-```{image} ./Figures/camera_mount.jpg
+```{image} ./figures/camera_mount.jpg
 :width: 380
 :align: center
 ```
@@ -49,7 +49,7 @@ There are multiple ways to download and install Ubuntu 22.04 to a MicroSD card, 
 
 Once installed, start the imager and select the "CHOOSE OS" button.
 
-```{image} ./Figures/installer1.png
+```{image} ./figures/installer1.png
 :width: 480
 :align: center
 ```
@@ -58,7 +58,7 @@ Scroll down the menu and select "Other general purpose OS".
 
 <br>
 
-```{image} ./Figures/installer2.png
+```{image} ./figures/installer2.png
 :width: 480
 :align: center
 ```
@@ -67,7 +67,7 @@ Scroll down the menu and select "Other general purpose OS".
 
 Next, select "Ubuntu".
 
-```{image} ./Figures/installer3.png
+```{image} ./figures/installer3.png
 :width: 480
 :align: center
 ```
@@ -76,7 +76,7 @@ Lastly, scroll and select the latest 64-bit version of "Ubuntu Server 22.04 LTS"
 
 <br>
 
-```{image} ./Figures/installer4.png
+```{image} ./figures/installer4.png
 :width: 480
 :align: center
 ```
@@ -369,7 +369,7 @@ sudo reboot
 #### Verify changes
 After reboot and you log in your new hostname should be listed at the terminal (e.g., `pi@robot0`). Additionally, you should be connected to Wi-Fi and have an IP Address. You can confirm by typing the following and observing the IP address in the output:
 
-![logo](Figures/wifi3.png)
+![logo](figures/wifi3.png)
 
 You can now use this IP address to create a remote secure shell into the TurtleBot3 using either the IP address or hostname if your network provides Dynamic DNS. From another machine connected to your network type one of the following:
 
@@ -463,7 +463,7 @@ In the upper-right corner of any page, click your profile photo, then click **Se
 
 <br>
 
-```{image} ./Figures/ssh1.png
+```{image} ./figures/ssh1.png
 :width: 240
 :align: center
 ```
@@ -473,7 +473,7 @@ In the user settings sidebar, click **SSH and GPG keys**:
 
 <br>
 
-```{image} ./Figures/ssh2.png
+```{image} ./figures/ssh2.png
 :width: 240
 :align: center
 ```
@@ -482,7 +482,7 @@ In the user settings sidebar, click **SSH and GPG keys**:
 Click **New SSH key**:
 <br>
 
-```{image} ./Figures/ssh3.png
+```{image} ./figures/ssh3.png
 :width: 640
 :align: center
 ```
@@ -629,7 +629,7 @@ sudo udevadm trigger
 LDS Configuration: The TurtleBot3 LDS has been updated to LDS-02 since 2022.
 For the Turtlebots we have purchased after 2022, use LDS-02 for the LDS_MODEL.
 
-```{image} ./Figures/lds_small.png
+```{image} ./figures/lds_small.png
 :width: 420
 :align: center
 ```
