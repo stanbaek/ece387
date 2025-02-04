@@ -28,6 +28,7 @@ This lab will introduce you to utilizing pre-built ROS packages to accomplish a 
 
 In this course, you'll drive your TurtleBot without the need for a monitor and keyboard. However, you'll still need access to the Raspberry Pi on the robot to run ROS nodes. One of the easiest ways to remotely access a Linux machine is through a secure shell (SSH). To create an SSH connection, you'll need the username and hostname (or IP address) of the computer you want to access. For the Raspberry Pis, the username is `pi` and the hostname is your robot number (e.g., `robot98`).
 
+(AccessPoint)=
 1. **Connect to the Robot's Wi-Fi Network**:
     - Click the system menu in the top-right corner to open the Wi-Fi Networks setting.
     - Choose `RobotXX`, where `XX` corresponds to the `XX` in `MasterXX`.
