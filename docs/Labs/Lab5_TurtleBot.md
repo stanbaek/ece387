@@ -33,7 +33,7 @@ In this course, you'll drive your TurtleBot without the need for a monitor and k
     - Click the system menu in the top-right corner to open the Wi-Fi Networks setting.
     - Choose `RobotXX`, where `XX` corresponds to the `XX` in `MasterXX`.
 
-    ```{image} ./figures/Lab5_ConnectToRobotWifi.png
+    ```{image} ./figures/Lab5_ConnectToRobotWiFi.png
     :width: 420
     :align: center
     ```
@@ -164,28 +164,18 @@ Using password-free SSH authentication improves both security and convenience. I
 
 ### Driving the Robot
 
-1. Using the secure shell, Run the **turtlebot3_core.launch** file on the robot. 
+1. Using the secure shell, run the **turtlebot3_core.launch** file on the robot. 
     ```bash
     $ ros2 launch turtlebot3_bringup turtlebot3_core.launch
     ```
 
-    > ⌨️ **Syntax:** `roslaunch <package> <launchfile>`
+    > ⌨️ **Syntax:** `ros2 launch <package> <launchfile>`
     
     Your Turtlebot3 is now ready to drive and should be listening for *Twist* messages to be sent over the **/cmd_vel** topic.
 
-
+1. It is always a good idea to check that the Turtlebot3 is communicating with the Master. To do this, we can list the active topics the Turtlebot3 is publishing. Run the following within your **Master**:
     ```bash
-    $ rosed turtlebot3_bringup turtlebot3_core.launch
-    ```
-
-
-
-
-
-1. It is always a good idea to check that the Turtlebot3 is communicating with the Master. To do this, we can list the active topics the Turtlebot3 sees. Run the following within your secure shell:
-
-    ```bash
-    $ rostopic list`
+    $ ros2 topic list
     ```
     
     If all is well, then there should be two topics provided by **roscore** running on the Master: **/rosout** and **/rosout_agg**. We will typically ignore these topics.

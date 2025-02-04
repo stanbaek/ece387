@@ -79,7 +79,7 @@ In this lesson we will enable the robot to avoid obstacles. Many sensors provide
 ## LIDAR
 [Robotis's LDS-01](https://www.robotis.us/360-laser-distance-sensor-lds-01-lidar/) is a 360 deg Laser Distance Sensor (LDS). It is based on laser triangulation ranging principles and uses high-speed vision acquisition and processing hardware. It measures distance data in more than 1800 times per second. It has a detection range between .12 m and 3.5 m and an angular resolution of 1 degree. The distance accuracy is .015 m between .12 m and .499 m then +/- 5% up to 3.5 m.
 
-![logo](Figures/rplidar.png)
+![logo](figures/rplidar.png)
 
 ### Videos:
 [Airborne LiDAR](https://www.youtube.com/watch?v=EYbhNSUnIdU)
@@ -88,7 +88,7 @@ In this lesson we will enable the robot to avoid obstacles. Many sensors provide
 
 
 
-![logo](Figures/LDS02.jpeg)
+![logo](figures/LDS02.jpeg)
 
 ```bash
 sudo nano ~/.bashrc
@@ -151,7 +151,7 @@ This should open an RVIZ window where we can visualize ROS components of our sys
 
 You should see red dots fill the **rviz** map where obstacles exist as shown below.
 
-![logo](Figures/lidarscan_example.png)
+![logo](figures/lidarscan_example.png)
 
 
 Investigate what data the **hls_laser_publisher** is sending. Type the following and observe the command output:
