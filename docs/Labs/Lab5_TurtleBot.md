@@ -44,12 +44,12 @@ In this course, you'll drive your TurtleBot without the need for a monitor and k
     - Open a terminal on your master computer.
     - Check connectivity to the robot using its IP address, `192.168.4.1`:
       ```sh
-      ping 192.168.4.1
+      $ ping 192.168.4.1
       ```
 
 1. **Create a Secure Shell Connection**: To access the robot remotely, create an SSH connection:
       ```sh
-      ssh pi@192.168.4.1
+      $ ssh pi@192.168.4.1
       ```
       > ⌨️ **Syntax:** `ssh <username>@<hostname/IP address>`
 
@@ -58,7 +58,7 @@ In this course, you'll drive your TurtleBot without the need for a monitor and k
 1. **Change Your Password**: 
     - Once logged in, type the following command:
         ```bash
-        passwd
+        $ passwd
         ```
     - You will be prompted to enter your **current password**. Type it and press **Enter**.
     - Next, you will be asked to enter a **new password**. Type a password and press **Enter**.
@@ -69,15 +69,15 @@ In this course, you'll drive your TurtleBot without the need for a monitor and k
 
     - To ensure that your new password works, you can open a new terminal and try logging in again:
         ```bash
-        ssh pi@192.168.4.1
+        $ ssh pi@192.168.4.1
         ```
         Enter the **new password** when prompted.
 
 1. **Edit the `.bashrc` File**:
     - Open the `.bashrc` file by running the following command:
-      ```sh
-      nano ~/.bashrc
-      ```   
+        ```sh
+        $ nano ~/.bashrc
+        ```   
    - You should see the following lines at the bottom of the `.bashrc` file:
       ```bash
       source /opt/ros/humble/setup.bash
@@ -112,7 +112,7 @@ Ensure that you execute the commands in this section on the **Master** computer.
 
 1. **Update the Hosts File on Master**: To add the robot's IP address to the hosts file, follow these steps on the **`Master`** computer:
     ```sh
-    sudo gedit /etc/hosts
+    $ sudo gedit /etc/hosts
     ```
     Add the following line to the file:
     ```sh
@@ -124,12 +124,12 @@ Ensure that you execute the commands in this section on the **Master** computer.
 
 1. **Check Connectivity**: Check connectivity to the robot using its host name, `robotXX`:
     ```sh
-    ping robotXX
+    $ ping robotXX
     ```
 
 1. **Create a Secure Shell Connection**: To access the robot remotely, create an SSH connection:
     ```sh
-    ssh pi@robotXX
+    $ ssh pi@robotXX
     ```
     > ⌨️ **Syntax:** `ssh <username>@<hostname>`
 
@@ -142,20 +142,20 @@ Using password-free SSH authentication improves both security and convenience. I
 
 1. **Generate an SSH Key Pair on the Client**: Open a terminal on the client machine and run the following command to generate an RSA key pair:
     ```bash
-    ssh-keygen -t rsa -b 4096
+    $ ssh-keygen -t rsa -b 4096
     ```
     When prompted to enter a file to save the key, press **Enter** to accept the default location (`~/.ssh/id_rsa`).  If prompted for a passphrase, leave it **empty** (just press Enter) to enable password-free login.
 
 
 1. **Copy the Public Key to the Remote Server**: You need to transfer your public key to the server. Run the following command, replacing `username` and `hostname` with your actual credentials:
     ```bash
-    ssh-copy-id username@hostname
+    $ ssh-copy-id username@hostname
     ```
     If prompted, enter your password for the remote machine. After this, the key will be added to the server's authorized keys.
 
 1. **Test the Connection**: Now, try logging into the remote machine without a password:
     ```bash
-    ssh username@server_ip
+    $ ssh username@hostname
     ```
     If everything is set up correctly, you should log in without being prompted for a password.
 
@@ -186,8 +186,9 @@ Using password-free SSH authentication improves both security and convenience. I
     If all is well, then there should be two topics provided by **roscore** running on the Master: **/rosout** and **/rosout_agg**. We will typically ignore these topics.
 
 1. Open a new terminal on the Master and observe the nodes currently running:
-
-    `rqt_graph`
+    ```bash
+    $ rqt_graph
+    ```
     
     You should only see one node running right now, **turtlebot3_core**, with no connections.
     
@@ -212,9 +213,9 @@ Using password-free SSH authentication improves both security and convenience. I
     
 1. Before we get too excited and drive the Turtlebot3 off a cliff, observe how the nodes communicate using the **rqt_graph** tool in a new terminal (if you still have the previous rqt_graph running, you can hit the refresh button in the top left corner).
 
-1. Select the terminal that has the **teleop_twist_keyboard** node running and observe the instructions for sending *Twist* messages. These are the same as when driving the simulated Turtlebot3.
+1. Select the terminal that has the **teleop_twist_keyboard** node running and observe the instructions for sending `Twist` messages. These are the same as when driving the simulated Turtlebot3.
 
-1. The Turtlebot3 operates best with a linear velocity between 0.2 m/s and 0.5 m/s. It turns best with an angular velocity between 0.5 rad/s and 1.5 rad/s. Drive the Turtlebot3 using these parameters.
+1. The Turtlebot3 operates best with a linear velocity between 0.2 m/s and 0.5 m/s. It turns best with an angular velocity between 0.5 rad/s and 1.5 rad/s. Drive the TurtleBot3 using these parameters.
 
 ## ROS
 
@@ -241,33 +242,10 @@ Once complete, push screenshots showing the output of each of the above to your 
 In this exercise you examined and used pre-built packages and source code to drive the Turtlebot3 and understand how the system worked. You then were able to analyze the topics, nodes, and messages within the ROS system to better understand the flow of information and control. The **pro-tips** presented throughout this exercise will make you a better user of Linux and ROS.
 
 
-
-
-
-
-
 ```{tip} 
 I strongly recommend that you commit the above sequence of commands to memory, or at a minimum
 have them in a place that you can quickly recall them. There is nothing until Module 9 that absolutely requires the real robot, as everything else can be simulated.
 ```
-
-## Gain Familiarity with Turtlebot3 Robotics Platform.
-The Module04 Jupyter Notebook will guide you through the process of connecting to and activating your
-robot for the first time.
-
-1. On the master, open the Jupyter Notebook server (if it is not already open):
-```bash
-$ cd ~/master_ws/src/ece387_lastname/Module04_DrivingTheRobot
-```
-
-2. Open ICE4: Driving the Robot and follow the instructions.
-
-## Assignments.
-- Complete ICE4 if not accomplished during class.
-- Push screen captures into your repo/master/module04 on github
-
-## Next time.
-- Lesson 10: Module 5 - Custom Messages
 
 
 
