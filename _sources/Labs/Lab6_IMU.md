@@ -1,4 +1,4 @@
-# 🔬 Lab5: IMU
+# 🔬 Lab6: IMU
 
 
 ## Purpose

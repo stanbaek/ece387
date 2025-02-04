@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>🔬 Lab5: IMU &#8212; Introduction to Robotic Systems</title>
+    <title>🔬 Lab6: IMU &#8212; Introduction to Robotic Systems</title>
   
   
   
@@ -176,7 +176,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="Lab3_Python.html">🔬 Lab3: Python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Lab4_Gamepad.html">🔬 Lab4: Gamepad</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Lab5_TurtleBot.html">🔬 Lab5: Driving the Robot</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">🔬 Lab5: IMU</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">🔬 Lab6: IMU</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Lab7_LaunchFile.html">🔬 Lab7: Launch Files</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Lab8_LIDAR.html">🔬 Lab8: LIDAR</a></li>
 </ul>
@@ -369,7 +369,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>🔬 Lab5: IMU</h1>
+    <h1>🔬 Lab6: IMU</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -407,8 +407,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="lab5-imu">
-<h1>🔬 Lab5: IMU<a class="headerlink" href="#lab5-imu" title="Permalink to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="lab6-imu">
+<h1>🔬 Lab6: IMU<a class="headerlink" href="#lab6-imu" title="Permalink to this heading">#</a></h1>
 <section id="purpose">
 <h2>Purpose<a class="headerlink" href="#purpose" title="Permalink to this heading">#</a></h2>
 <p>In practice, an inertial measurement unit (IMU) device provides orientation, angular velocity, and linear acceleration. The <a class="reference external" href="https://invensense.tdk.com/products/motion-tracking/6-axis/icm-20648/">ICM-20648 6-Axis MEMS MotionTracking Device</a> from TDK includes a 3-axis gyroscope, 3-axis accelerometer, and a Digital Motion Processor (DMP). This IMU is integrated on the OpenCR1.0 board, an open source robot controller embedded with an ARM Cortex-M7 processor. The OpenCR combines sensor data using an EKF to generate IMU estimates 170 times a second.</p>

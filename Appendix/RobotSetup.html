@@ -176,7 +176,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="../Labs/Lab3_Python.html">🔬 Lab3: Python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Labs/Lab4_Gamepad.html">🔬 Lab4: Gamepad</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Labs/Lab5_TurtleBot.html">🔬 Lab5: Driving the Robot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Labs/Lab6_IMU.html">🔬 Lab5: IMU</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Labs/Lab6_IMU.html">🔬 Lab6: IMU</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Labs/Lab7_LaunchFile.html">🔬 Lab7: Launch Files</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Labs/Lab8_LIDAR.html">🔬 Lab8: LIDAR</a></li>
 </ul>
@@ -452,12 +452,12 @@ document.write(`
 <h3>Raspberry Pi<a class="headerlink" href="#raspberry-pi" title="Permalink to this heading">#</a></h3>
 <p>A Raspberry Pi 4 B with 8 GB of RAM is used throughout this curriculum. Ensure heat sinks are propertly installed on the Pi such as these from <a class="reference external" href="https://www.canakit.com/raspberry-pi-4-heat-sinks.html">CanaKit</a>.</p>
 <p>Also, a small fan can be installed to help with cooling. We used this 3D printed bracket to mount the fan.</p>
-<a class="reference internal image-reference" href="../_images/fan.jpg"><img alt="../_images/fan.jpg" class="align-center" src="../_images/fan.jpg" style="width: 380px;" /></a>
+<a class="reference internal image-reference" href="Appendix/Figures/fan.jpg"><img alt="Appendix/Figures/fan.jpg" class="align-center" src="Appendix/Figures/fan.jpg" style="width: 380px;" /></a>
 </section>
 <section id="camera">
 <h3>Camera<a class="headerlink" href="#camera" title="Permalink to this heading">#</a></h3>
 <p>After installing the Raspberry pi level of the TurtleBot3 you need to install the USB Camera Mount prior to finishing the robot build. The mount used in this course can be found in the <a class="reference download internal" download="" href="../_downloads/3a3cd348ff4a2bc81ddea473f4ae906f/burger_usbcam_mount.stl"><span class="xref download myst">curriculum material</span></a> and is installed on two of the front standoffs on the TurtleBot3.</p>
-<a class="reference internal image-reference" href="../_images/camera_mount.jpg"><img alt="../_images/camera_mount.jpg" class="align-center" src="../_images/camera_mount.jpg" style="width: 380px;" /></a>
+<a class="reference internal image-reference" href="Appendix/Figures/camera_mount.jpg"><img alt="Appendix/Figures/camera_mount.jpg" class="align-center" src="Appendix/Figures/camera_mount.jpg" style="width: 380px;" /></a>
 </section>
 </section>
 <section id="ubuntu-installation">
@@ -466,18 +466,18 @@ document.write(`
 <h3>Download Ubuntu and flash MicroSD card<a class="headerlink" href="#download-ubuntu-and-flash-microsd-card" title="Permalink to this heading">#</a></h3>
 <p>There are multiple ways to download and install Ubuntu 22.04 to a MicroSD card, but the Raspberry Pi Imager is one of the easiest. Instructions for installing the imager on your operating system can be found on the <a class="reference external" href="https://www.raspberrypi.com/software/">Raspberry Pi OS software page</a>.</p>
 <p>Once installed, start the imager and select the “CHOOSE OS” button.</p>
-<a class="reference internal image-reference" href="../_images/installer1.png"><img alt="../_images/installer1.png" class="align-center" src="../_images/installer1.png" style="width: 480px;" /></a>
+<a class="reference internal image-reference" href="Appendix/Figures/installer1.png"><img alt="Appendix/Figures/installer1.png" class="align-center" src="Appendix/Figures/installer1.png" style="width: 480px;" /></a>
 <br>
 Scroll down the menu and select "Other general purpose OS".
 <br>
-<a class="reference internal image-reference" href="../_images/installer2.png"><img alt="../_images/installer2.png" class="align-center" src="../_images/installer2.png" style="width: 480px;" /></a>
+<a class="reference internal image-reference" href="Appendix/Figures/installer2.png"><img alt="Appendix/Figures/installer2.png" class="align-center" src="Appendix/Figures/installer2.png" style="width: 480px;" /></a>
 <br>
 <p>Next, select “Ubuntu”.</p>
-<a class="reference internal image-reference" href="../_images/installer3.png"><img alt="../_images/installer3.png" class="align-center" src="../_images/installer3.png" style="width: 480px;" /></a>
+<a class="reference internal image-reference" href="Appendix/Figures/installer3.png"><img alt="Appendix/Figures/installer3.png" class="align-center" src="Appendix/Figures/installer3.png" style="width: 480px;" /></a>
 <br>
 Lastly, scroll and select the latest 64-bit version of "Ubuntu Server 22.04 LTS".
 <br>
-<a class="reference internal image-reference" href="../_images/installer4.png"><img alt="../_images/installer4.png" class="align-center" src="../_images/installer4.png" style="width: 480px;" /></a>
+<a class="reference internal image-reference" href="Appendix/Figures/installer4.png"><img alt="Appendix/Figures/installer4.png" class="align-center" src="Appendix/Figures/installer4.png" style="width: 480px;" /></a>
 <br>
 <p>Now that you have the correct image selected, you need to choose the correct storage device that corresponds to the MicroSD card. Select “CHOOSE STORAGE”.</p>
 <div class="admonition warning">
@@ -715,7 +715,7 @@ NAME<span class="w">      </span>TYPE<span class="w"> </span>SIZE<span class="w"
 <section id="verify-changes">
 <h4>Verify changes<a class="headerlink" href="#verify-changes" title="Permalink to this heading">#</a></h4>
 <p>After reboot and you log in your new hostname should be listed at the terminal (e.g., <code class="docutils literal notranslate"><span class="pre">pi&#64;robot0</span></code>). Additionally, you should be connected to Wi-Fi and have an IP Address. You can confirm by typing the following and observing the IP address in the output:</p>
-<p><img alt="logo" src="../_images/wifi3.png" /></p>
+<p><img alt="logo" src="Appendix/Figures/wifi3.png" /></p>
 <p>You can now use this IP address to create a remote secure shell into the TurtleBot3 using either the IP address or hostname if your network provides Dynamic DNS. From another machine connected to your network type one of the following:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>username@IP_ADDRESS
 </pre></div>
@@ -789,15 +789,15 @@ ssh-add<span class="w"> </span>~/.ssh/id_ed25519
 <p>Open a web browser and sign in to your GitHub account.</p>
 <p>In the upper-right corner of any page, click your profile photo, then click <strong>Settings</strong>:</p>
 <br>
-<a class="reference internal image-reference" href="../_images/ssh11.png"><img alt="../_images/ssh11.png" class="align-center" src="../_images/ssh11.png" style="width: 240px;" /></a>
+<a class="reference internal image-reference" href="Appendix/Figures/ssh1.png"><img alt="Appendix/Figures/ssh1.png" class="align-center" src="Appendix/Figures/ssh1.png" style="width: 240px;" /></a>
 <br>
 <p>In the user settings sidebar, click <strong>SSH and GPG keys</strong>:</p>
 <br>
-<a class="reference internal image-reference" href="../_images/ssh21.png"><img alt="../_images/ssh21.png" class="align-center" src="../_images/ssh21.png" style="width: 240px;" /></a>
+<a class="reference internal image-reference" href="Appendix/Figures/ssh2.png"><img alt="Appendix/Figures/ssh2.png" class="align-center" src="Appendix/Figures/ssh2.png" style="width: 240px;" /></a>
 <br>
 <p>Click <strong>New SSH key</strong>:
 <br></p>
-<a class="reference internal image-reference" href="../_images/ssh31.png"><img alt="../_images/ssh31.png" class="align-center" src="../_images/ssh31.png" style="width: 640px;" /></a>
+<a class="reference internal image-reference" href="Appendix/Figures/ssh3.png"><img alt="Appendix/Figures/ssh3.png" class="align-center" src="Appendix/Figures/ssh3.png" style="width: 640px;" /></a>
 <br>
 <p>In the <code class="docutils literal notranslate"><span class="pre">Title</span></code> field, add a descriptive label for the new key, such as “robot0”.</p>
 <p>Paste your key into the <code class="docutils literal notranslate"><span class="pre">Key</span></code> field (contents of the <code class="docutils literal notranslate"><span class="pre">.pub</span></code> file).</p>
@@ -908,7 +908,7 @@ sudo udevadm trigger
 </div>
 <p>LDS Configuration: The TurtleBot3 LDS has been updated to LDS-02 since 2022.
 For the Turtlebots we have purchased after 2022, use LDS-02 for the LDS_MODEL.</p>
-<a class="reference internal image-reference" href="../_images/lds_small.png"><img alt="../_images/lds_small.png" class="align-center" src="../_images/lds_small.png" style="width: 420px;" /></a>
+<a class="reference internal image-reference" href="Appendix/Figures/lds_small.png"><img alt="Appendix/Figures/lds_small.png" class="align-center" src="Appendix/Figures/lds_small.png" style="width: 420px;" /></a>
 <br>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="s1">&#39;export LDS_MODEL=LDS-02&#39;</span> <span class="o">&gt;&gt;</span> <span class="o">~/.</span><span class="n">bashrc</span>
 <span class="n">echo</span> <span class="s1">&#39;export TURTLEBOT3_MODEL=burger&#39;</span> <span class="o">&gt;&gt;</span> <span class="o">~/.</span><span class="n">bashrc</span>

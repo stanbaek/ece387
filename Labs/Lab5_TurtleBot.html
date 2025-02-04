@@ -67,7 +67,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="🔬 Lab5: IMU" href="Lab6_IMU.html" />
+    <link rel="next" title="🔬 Lab6: IMU" href="Lab6_IMU.html" />
     <link rel="prev" title="🔬 Lab4: Gamepad" href="Lab4_Gamepad.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -176,7 +176,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="Lab3_Python.html">🔬 Lab3: Python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Lab4_Gamepad.html">🔬 Lab4: Gamepad</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">🔬 Lab5: Driving the Robot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Lab6_IMU.html">🔬 Lab5: IMU</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lab6_IMU.html">🔬 Lab6: IMU</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Lab7_LaunchFile.html">🔬 Lab7: Launch Files</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Lab8_LIDAR.html">🔬 Lab8: LIDAR</a></li>
 </ul>
@@ -380,20 +380,20 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">📌 Objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lesson-objectives">Lesson Objectives:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agenda">Agenda:</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">📜 Overview</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-procedure">💻 Lab Procedure</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-a-remote-machine">Working with a Remote Machine</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#updating-the-hosts-file">Updating the Hosts File</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#updating-the-hosts-file-on-master">Updating the Hosts File on Master</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-password-free-ssh-using-rsa-keys">Setting Up Password-Free SSH Using RSA Keys</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#driving-the-robot">Driving the Robot</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-used-to-drive-the-robot">Code used to drive the robot</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#driving-the-robot">Driving the robot</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Driving the robot</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ros">ROS</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint">Checkpoint</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cleanup">Cleanup</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lesson-objectives">Lesson Objectives:</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agenda">Agenda:</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gain-familiarity-with-turtlebot3-robotics-platform">Gain Familiarity with Turtlebot3 Robotics Platform.</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#assignments">Assignments.</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-time">Next time.</a></li>
@@ -416,22 +416,37 @@ document.write(`
 <li><p>Students should be able to</p></li>
 </ul>
 </section>
+<section id="lesson-objectives">
+<h2>Lesson Objectives:<a class="headerlink" href="#lesson-objectives" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Gain additional familiarity with simulation environment</p></li>
+<li><p>Gain familiarity with Turtlebot 3 robotics platform</p></li>
+<li><p>Practice with ROS diagnostic tools</p></li>
+</ol>
+</section>
+<section id="agenda">
+<h2>Agenda:<a class="headerlink" href="#agenda" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Use Linux terminals to launch and control Turtlebot 3 in simulation environment.</p></li>
+<li><p>Use Linux terminals to launch and control actual Turtlebot 3.</p></li>
+</ol>
+</section>
 <section id="overview">
 <h2>📜 Overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h2>
-<p>This In-Class Exercise will introduce you to utilizing pre-built ROS packages to accomplish a task. It will also provide you experience interacting with someone else’s source code (.py files) to learn how that component works. You will use ROS to run two nodes, <strong>turtlebot3_core</strong> and <strong>teleop_twist_keyboard</strong>, to drive the Turtlebot3 with a keyboard. You will continue to practice using ROS tools to observe how these components communicate.</p>
+<p>This lab will introduce you to utilizing pre-built ROS packages to accomplish a task. It will also provide you experience interacting with someone else’s source code (.py files) to learn how that component works. You will use ROS to run two nodes, <strong>turtlebot3_core</strong> and <strong>teleop_twist_keyboard</strong>, to drive the Turtlebot3 with a keyboard. You will continue to practice using ROS tools to observe how these components communicate.</p>
 </section>
 <section id="lab-procedure">
 <h2>💻 Lab Procedure<a class="headerlink" href="#lab-procedure" title="Permalink to this heading">#</a></h2>
 <section id="working-with-a-remote-machine">
 <h3>Working with a Remote Machine<a class="headerlink" href="#working-with-a-remote-machine" title="Permalink to this heading">#</a></h3>
 <p>In this course, you’ll drive your TurtleBot without the need for a monitor and keyboard. However, you’ll still need access to the Raspberry Pi on the robot to run ROS nodes. One of the easiest ways to remotely access a Linux machine is through a secure shell (SSH). To create an SSH connection, you’ll need the username and hostname (or IP address) of the computer you want to access. For the Raspberry Pis, the username is <code class="docutils literal notranslate"><span class="pre">pi</span></code> and the hostname is your robot number (e.g., <code class="docutils literal notranslate"><span class="pre">robot98</span></code>).</p>
-<ol class="arabic">
+<ol class="arabic" id="accesspoint">
 <li><p><strong>Connect to the Robot’s Wi-Fi Network</strong>:</p>
 <ul class="simple">
 <li><p>Click the system menu in the top-right corner to open the Wi-Fi Networks setting.</p></li>
 <li><p>Choose <code class="docutils literal notranslate"><span class="pre">RobotXX</span></code>, where <code class="docutils literal notranslate"><span class="pre">XX</span></code> corresponds to the <code class="docutils literal notranslate"><span class="pre">XX</span></code> in <code class="docutils literal notranslate"><span class="pre">MasterXX</span></code>.</p></li>
 </ul>
-<a class="reference internal image-reference" href="../_images/Lab5_ConnectToRobotWifi.png"><img alt="../_images/Lab5_ConnectToRobotWifi.png" class="align-center" src="../_images/Lab5_ConnectToRobotWifi.png" style="width: 420px;" /></a>
+<a class="reference internal image-reference" href="Labs/figures/Lab5_ConnectToRobotWifi.png"><img alt="Labs/figures/Lab5_ConnectToRobotWifi.png" class="align-center" src="Labs/figures/Lab5_ConnectToRobotWifi.png" style="width: 420px;" /></a>
  <br>
 </li>
 <li><p><strong>Check Connectivity</strong>:</p>
@@ -445,9 +460,7 @@ document.write(`
 </li>
 </ul>
 </li>
-<li><p><strong>Create a Secure Shell Connection</strong>:</p>
-<ul>
-<li><p>To access the robot remotely, create an SSH connection:</p>
+<li><p><strong>Create a Secure Shell Connection</strong>: To access the robot remotely, create an SSH connection:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>pi@192.168.4.1
 </pre></div>
 </div>
@@ -455,11 +468,27 @@ document.write(`
 <div><p>⌨️ <strong>Syntax:</strong> <code class="docutils literal notranslate"><span class="pre">ssh</span> <span class="pre">&lt;username&gt;&#64;&lt;hostname/IP</span> <span class="pre">address&gt;</span></code></p>
 </div></blockquote>
 </li>
-</ul>
+<li><p><strong>Enter the Robot’s Password</strong>: After entering the robot’s password, the terminal should display the <code class="docutils literal notranslate"><span class="pre">pi</span></code> username and your robot’s hostname, <code class="docutils literal notranslate"><span class="pre">robotX</span></code>. Any commands you run in this shell will execute on the robot.</p></li>
+<li><p><strong>Change Your Password</strong>:</p>
+<ul>
+<li><p>Once logged in, type the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>passwd
+</pre></div>
+</div>
 </li>
-<li><p><strong>Enter the Robot’s Password</strong>:</p>
-<ul class="simple">
-<li><p>After entering the robot’s password, the terminal should display the <code class="docutils literal notranslate"><span class="pre">pi</span></code> username and your robot’s hostname, <code class="docutils literal notranslate"><span class="pre">robotX</span></code>. Any commands you run in this shell will execute on the robot.</p></li>
+<li><p>You will be prompted to enter your <strong>current password</strong>. Type it and press <strong>Enter</strong>.</p></li>
+<li><p>Next, you will be asked to enter a <strong>new password</strong>. Type a password and press <strong>Enter</strong>.</p></li>
+<li><p>Retype the <strong>new password</strong> to confirm and press <strong>Enter</strong>.  If successful, you will see the message:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">password</span> <span class="n">updated</span> <span class="n">successfully</span>
+</pre></div>
+</div>
+</li>
+<li><p>To ensure that your new password works, you can open a new terminal and try logging in again:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>pi@192.168.4.1
+</pre></div>
+</div>
+<p>Enter the <strong>new password</strong> when prompted.</p>
+</li>
 </ul>
 </li>
 <li><p><strong>Edit the <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> File</strong>:</p>
@@ -483,103 +512,92 @@ document.write(`
 </li>
 <li><p>Your <code class="docutils literal notranslate"><span class="pre">ROS_DOMAIN_ID=XX</span></code> should match your computer ID, where <code class="docutils literal notranslate"><span class="pre">XX</span></code> corresponds to the <code class="docutils literal notranslate"><span class="pre">XX</span></code> in <code class="docutils literal notranslate"><span class="pre">MasterXX</span></code>.</p></li>
 <li><p>The robots for our class have two different LIDAR variants: LDS-01 and LDS-02 (pictured below).</p>
-<a class="reference internal image-reference" href="../_images/Lab5_LDS.png"><img alt="../_images/Lab5_LDS.png" class="align-center" src="../_images/Lab5_LDS.png" style="width: 380px;" /></a>
+<a class="reference internal image-reference" href="../_images/Lab5_LDS.png"><img alt="../_images/Lab5_LDS.png" class="align-center" src="../_images/Lab5_LDS.png" style="width: 480px;" /></a>
+  <br>
 </li>
 <li><p>If you have the LDS-02, update <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">LDS_MODEL=LDS-01</span></code> to <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">LDS_MODEL=LDS-02</span></code> inside the <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> file.</p></li>
 <li><p>Save the changes and exit the editor.</p></li>
 </ul>
 </li>
-<li><p><strong>Close the SSH Connection</strong>:</p>
-<ul class="simple">
-<li><p>You can type <code class="docutils literal notranslate"><span class="pre">exit</span></code> to close the SSH connection.</p></li>
-</ul>
-</li>
+<li><p><strong>Close the SSH Connection</strong>: You can type <code class="docutils literal notranslate"><span class="pre">exit</span></code> to close the SSH connection.</p></li>
 </ol>
 </section>
-<section id="updating-the-hosts-file">
-<h3>Updating the Hosts File<a class="headerlink" href="#updating-the-hosts-file" title="Permalink to this heading">#</a></h3>
+<section id="updating-the-hosts-file-on-master">
+<h3>Updating the Hosts File on Master<a class="headerlink" href="#updating-the-hosts-file-on-master" title="Permalink to this heading">#</a></h3>
 <p>As it is much easier to remember and use the host name than the IP address, let’s modify the <code class="docutils literal notranslate"><span class="pre">hosts</span></code> file so that the master computer recognizes the host name of the Raspberry Pi.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Ensure that you execute the commands in this section on the <strong>Master</strong> computer. Do not execute them on the Raspberry Pi.</p>
+</div>
 <ol class="arabic">
-<li><p><strong>Update the Hosts File</strong></p>
-<ul>
-<li><p>To add the robot’s IP address to the hosts file, follow these steps on the master computer:</p>
+<li><p><strong>Update the Hosts File on Master</strong>: To add the robot’s IP address to the hosts file, follow these steps on the <strong><code class="docutils literal notranslate"><span class="pre">Master</span></code></strong> computer:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>gedit<span class="w"> </span>/etc/hosts
 </pre></div>
 </div>
-</li>
-<li><p>Add the following line to the file:</p>
+<p>Add the following line to the file:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="m">192</span>.168.4.1<span class="w">    </span>robotXX
 </pre></div>
 </div>
+<p>Replace <code class="docutils literal notranslate"><span class="pre">robotXX</span></code> with your specific robot number.</p>
 </li>
-<li><p>Replace <code class="docutils literal notranslate"><span class="pre">robotXX</span></code> with your specific robot number.</p></li>
-</ul>
-</li>
-<li><p><strong>Save and Close the Hosts File</strong>:</p>
-<ul class="simple">
-<li><p>Save the changes and close the file by pressing <code class="docutils literal notranslate"><span class="pre">Ctrl+X</span></code>, then <code class="docutils literal notranslate"><span class="pre">Y</span></code> to confirm, and <code class="docutils literal notranslate"><span class="pre">Enter</span></code> to exit.</p></li>
-</ul>
-</li>
-<li><p><strong>Check Connectivity</strong>:</p>
-<ul>
-<li><p>Check connectivity to the robot using its host name, <code class="docutils literal notranslate"><span class="pre">robotXX</span></code>:</p>
+<li><p><strong>Save and Close the Hosts File</strong>: Save the changes and close the file by pressing <code class="docutils literal notranslate"><span class="pre">Ctrl+X</span></code>, then <code class="docutils literal notranslate"><span class="pre">Y</span></code> to confirm, and <code class="docutils literal notranslate"><span class="pre">Enter</span></code> to exit.</p></li>
+<li><p><strong>Check Connectivity</strong>: Check connectivity to the robot using its host name, <code class="docutils literal notranslate"><span class="pre">robotXX</span></code>:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>ping<span class="w"> </span>robotXX
 </pre></div>
 </div>
 </li>
-</ul>
-</li>
-<li><p><strong>Create a Secure Shell Connection</strong>:</p>
-<ul>
-<li><p>To access the robot remotely, create an SSH connection:</p>
+<li><p><strong>Create a Secure Shell Connection</strong>: To access the robot remotely, create an SSH connection:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>pi@robotXX
 </pre></div>
 </div>
 <blockquote>
-<div><p>⌨️ <strong>Syntax:</strong> <code class="docutils literal notranslate"><span class="pre">ssh</span> <span class="pre">&lt;username&gt;&#64;&lt;hostname/IP</span> <span class="pre">address&gt;</span></code></p>
+<div><p>⌨️ <strong>Syntax:</strong> <code class="docutils literal notranslate"><span class="pre">ssh</span> <span class="pre">&lt;username&gt;&#64;&lt;hostname&gt;</span></code></p>
 </div></blockquote>
 </li>
-</ul>
-</li>
-<li><p><strong>Enter the Robot’s Password</strong>:</p>
-<ul class="simple">
-<li><p>After entering the robot’s password, the terminal should display the <code class="docutils literal notranslate"><span class="pre">pi</span></code> username and your robot’s hostname, <code class="docutils literal notranslate"><span class="pre">robotXX</span></code>.</p></li>
-</ul>
-</li>
+<li><p><strong>Enter the Robot’s Password</strong>: After entering the robot’s password, the terminal should display the <code class="docutils literal notranslate"><span class="pre">pi</span></code> username and your robot’s hostname, <code class="docutils literal notranslate"><span class="pre">robotXX</span></code>.</p></li>
 </ol>
-<blockquote>
-<div><p>📝️ <strong>Note:</strong> At times, there may be network issues and name resolution will fail. What this means is if you try to ping the robot from the master or vice versa using the hostname (e.g., <code class="docutils literal notranslate"><span class="pre">ping</span> <span class="pre">master0</span></code>) it will not work. However, it will work if you use the IP address (e.g., <code class="docutils literal notranslate"><span class="pre">ping</span> <span class="pre">192.168.2.120</span></code>). To do this, you need the IP address of the machine you want to access. This IP address will change periodically. The easiest way to determine the current IP Address is, with the machine plugged into a monitor and keyboard, type <code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">addr</span></code> in a terminal. This will list all of the network interfaces on the machine (such as <em>eth0</em> for ethernet and <em>wlan0</em> for wireless). You are looking for the <code class="docutils literal notranslate"><span class="pre">inet</span></code> field under <code class="docutils literal notranslate"><span class="pre">wlan0</span></code> (may be called <code class="docutils literal notranslate"><span class="pre">wlo1</span></code>). Now you can unplug the roobt from the monitor, ping the IP address to check connectivity, and then SSH into the robot.</p>
-</div></blockquote>
-<p>The other remote tool you may want to take advantage of is SCP, which securely copies a file to a remote machine.</p>
-<blockquote>
-<div><p>⌨️ <strong>Syntax:</strong>  <code class="docutils literal notranslate"><span class="pre">scp</span> <span class="pre">&lt;src</span> <span class="pre">location&gt;</span> <span class="pre">&lt;username&gt;&#64;&lt;hostname&gt;:&lt;dest</span> <span class="pre">location&gt;</span></code></p>
-</div></blockquote>
-<p>For example, copy the <code class="docutils literal notranslate"><span class="pre">move_turtlebot_square.py</span></code> file to your robot by typing the following in a new terminal on the master:</p>
-<p><code class="docutils literal notranslate"><span class="pre">roscd</span> <span class="pre">module02/my_scripts</span></code></p>
-<p><code class="docutils literal notranslate"><span class="pre">scp</span> <span class="pre">move_turtlebot_square.py</span> <span class="pre">pi&#64;robot0:/home/pi/robot_ws/src/ece387_robot_sp23-USERNAME/robot/module02/src/</span></code></p>
-<blockquote>
-<div><p>📝️ <strong>Note:</strong> The destination uses the absolute path you printed earlier.</p>
-</div></blockquote>
-<p>In your secure shell list the contents of your ‘my_scripts’ folder. You should see the <code class="docutils literal notranslate"><span class="pre">move_turtlebot_square.py</span></code> file. Check that it is executable. If it is not, make it executable.</p>
-<p>Now let’s move our TurtleBot using the script on the robot:</p>
-<ol class="arabic simple">
-<li><p>Run roscore on the master.</p></li>
-<li><p>Run the simulated robot on the master.</p></li>
-<li><p>SSH into your robot Raspberry Pi.</p></li>
-<li><p>Run the move_turtlebot_square.py using the <code class="docutils literal notranslate"><span class="pre">rosrun</span></code> command on the robot.</p></li>
-</ol>
-<p>You are now controlling your simulation (which is running on the master) remotely from the robot. In future lessons you will have nodes running on your robot to drive the robot and will control the robot remotely from the master.</p>
 </section>
-</section>
-<section id="code-used-to-drive-the-robot">
-<h2>Code used to drive the robot<a class="headerlink" href="#code-used-to-drive-the-robot" title="Permalink to this heading">#</a></h2>
+<section id="setting-up-password-free-ssh-using-rsa-keys">
+<h3>Setting Up Password-Free SSH Using RSA Keys<a class="headerlink" href="#setting-up-password-free-ssh-using-rsa-keys" title="Permalink to this heading">#</a></h3>
+<p>Using password-free SSH authentication improves both security and convenience. Instead of manually entering a password each time, SSH keys provide a more secure and automated way to log in. This also makes remote access faster and more efficient.</p>
 <ol class="arabic">
-<li><p>On the Master, open a terminal and run <strong>roscore</strong>.</p></li>
-<li><p>Open a new terminal on the Master and create a secure shell into the Turtlebot3 using the SSH command you learned during Module 2. This will allow you to run commands as if you were on the Turtlebot3.</p></li>
-<li><p>Using the secure shell, open the source code for the <strong>turtlebot3_core</strong> launch using the nano command line editor tool through the rosed command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>rosed<span class="w"> </span>turtlebot3_bringup<span class="w"> </span>turtlebot3_core.launch
+<li><p><strong>Generate an SSH Key Pair on the Client</strong>: Open a terminal on the client machine and run the following command to generate an RSA key pair:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh-keygen<span class="w"> </span>-t<span class="w"> </span>rsa<span class="w"> </span>-b<span class="w"> </span><span class="m">4096</span>
 </pre></div>
 </div>
+<p>When prompted to enter a file to save the key, press <strong>Enter</strong> to accept the default location (<code class="docutils literal notranslate"><span class="pre">~/.ssh/id_rsa</span></code>).  If prompted for a passphrase, leave it <strong>empty</strong> (just press Enter) to enable password-free login.</p>
+</li>
+<li><p><strong>Copy the Public Key to the Remote Server</strong>: You need to transfer your public key to the server. Run the following command, replacing <code class="docutils literal notranslate"><span class="pre">username</span></code> and <code class="docutils literal notranslate"><span class="pre">hostname</span></code> with your actual credentials:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh-copy-id<span class="w"> </span>username@hostname
+</pre></div>
+</div>
+<p>If prompted, enter your password for the remote machine. After this, the key will be added to the server’s authorized keys.</p>
+</li>
+<li><p><strong>Test the Connection</strong>: Now, try logging into the remote machine without a password:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>username@server_ip
+</pre></div>
+</div>
+<p>If everything is set up correctly, you should log in without being prompted for a password.</p>
+</li>
+</ol>
+</section>
+<section id="driving-the-robot">
+<h3>Driving the Robot<a class="headerlink" href="#driving-the-robot" title="Permalink to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Using the secure shell, run the <strong>turtlebot3_core.launch</strong> file on the robot.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_bringup<span class="w"> </span>turtlebot3_core.launch
+</pre></div>
+</div>
+<blockquote>
+<div><p>⌨️ <strong>Syntax:</strong> <code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">launch</span> <span class="pre">&lt;package&gt;</span> <span class="pre">&lt;launchfile&gt;</span></code></p>
+</div></blockquote>
+<p>Your Turtlebot3 is now ready to drive and should be listening for <em>Twist</em> messages to be sent over the <strong>/cmd_vel</strong> topic.</p>
+</li>
+<li><p>It is always a good idea to check that the Turtlebot3 is communicating with the Master. To do this, we can list the active topics the Turtlebot3 is publishing. Run the following within your <strong>Master</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ros2<span class="w"> </span>topic<span class="w"> </span>list
+</pre></div>
+</div>
+<p>If all is well, then there should be two topics provided by <strong>roscore</strong> running on the Master: <strong>/rosout</strong> and <strong>/rosout_agg</strong>. We will typically ignore these topics.</p>
 <blockquote>
 <div><p>⌨️ <strong>Syntax:</strong>  <code class="docutils literal notranslate"><span class="pre">rosed</span> <span class="pre">&lt;package&gt;</span> <span class="pre">&lt;filename&gt;</span></code></p>
 </div></blockquote>
@@ -590,25 +608,11 @@ document.write(`
 <p>We will learn more about launch files in a few modules, but just understand that a launch file is used to launch one or more ROS nodes. This particular launch file only launches one node, <strong>serial_node.py</strong>. This node will connect to the OpenCR controller on the Turtlebot3 using the port and baud rate parameters. This connection will enable us to send <em>Twist</em> messages over the <strong>/cmd_vel</strong> topic to drive the Turtlebot3 using the keyboard.</p>
 </li>
 <li><p>Close the editor by hitting <code class="docutils literal notranslate"><span class="pre">ctrl+x</span></code>.</p></li>
-<li><p>It is always a good idea to check that the Turtlebot3 is communicating with the Master. To do this, we can list the active topics the Turtlebot3 sees. Run the following within your secure shell:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>rostopic<span class="w"> </span>list<span class="sb">`</span>
-</pre></div>
-</div>
-<p>If all is well, then there should be two topics provided by <strong>roscore</strong> running on the Master: <strong>/rosout</strong> and <strong>/rosout_agg</strong>. We will typically ignore these topics.</p>
-</li>
-<li><p>Run the <strong>turtlebot3_core.launch</strong> file using the <code class="docutils literal notranslate"><span class="pre">roslaunch</span></code> command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>roslaunch<span class="w"> </span>turtlebot3_bringup<span class="w"> </span>turtlebot3_core.launch<span class="sb">`</span>
-</pre></div>
-</div>
-<blockquote>
-<div><p>⌨️ <strong>Syntax:</strong> <code class="docutils literal notranslate"><span class="pre">roslaunch</span> <span class="pre">&lt;package&gt;</span> <span class="pre">&lt;launchfile&gt;</span></code></p>
-</div></blockquote>
-<p>Your Turtlebot3 is now ready to drive and should be listening for <em>Twist</em> messages to be sent over the <strong>/cmd_vel</strong> topic.</p>
-</li>
 </ol>
 </section>
-<section id="driving-the-robot">
-<h2>Driving the robot<a class="headerlink" href="#driving-the-robot" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="id1">
+<h2>Driving the robot<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
 <ol class="arabic">
 <li><p>Open a new terminal on the Master and observe the nodes currently running:</p>
 <p><code class="docutils literal notranslate"><span class="pre">rosrun</span> <span class="pre">rqt_graph</span> <span class="pre">rqt_graph</span></code></p>
@@ -663,25 +667,6 @@ document.write(`
 <section id="summary">
 <h2>Summary<a class="headerlink" href="#summary" title="Permalink to this heading">#</a></h2>
 <p>In this exercise you examined and used pre-built packages and source code to drive the Turtlebot3 and understand how the system worked. You then were able to analyze the topics, nodes, and messages within the ROS system to better understand the flow of information and control. The <strong>pro-tips</strong> presented throughout this exercise will make you a better user of Linux and ROS.</p>
-</section>
-<section id="cleanup">
-<h2>Cleanup<a class="headerlink" href="#cleanup" title="Permalink to this heading">#</a></h2>
-<p>In each terminal window, close the node by typing <code class="docutils literal notranslate"><span class="pre">ctrl+c</span></code>. Exit any SSH connections.</p>
-</section>
-<section id="lesson-objectives">
-<h2>Lesson Objectives:<a class="headerlink" href="#lesson-objectives" title="Permalink to this heading">#</a></h2>
-<ol class="arabic simple">
-<li><p>Gain additional familiarity with simulation environment</p></li>
-<li><p>Gain familiarity with Turtlebot 3 robotics platform</p></li>
-<li><p>Practice with ROS diagnostic tools</p></li>
-</ol>
-</section>
-<section id="agenda">
-<h2>Agenda:<a class="headerlink" href="#agenda" title="Permalink to this heading">#</a></h2>
-<ol class="arabic simple">
-<li><p>Use Linux terminals to launch and control Turtlebot 3 in simulation environment.</p></li>
-<li><p>Use Linux terminals to launch and control actual Turtlebot 3.</p></li>
-</ol>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>I strongly recommend that you commit the above sequence of commands to memory, or at a minimum
@@ -762,7 +747,7 @@ robot for the first time.</p>
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">🔬 Lab5: IMU</p>
+        <p class="prev-next-title">🔬 Lab6: IMU</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -785,20 +770,20 @@ robot for the first time.</p>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">📌 Objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lesson-objectives">Lesson Objectives:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agenda">Agenda:</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">📜 Overview</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-procedure">💻 Lab Procedure</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-a-remote-machine">Working with a Remote Machine</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#updating-the-hosts-file">Updating the Hosts File</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#updating-the-hosts-file-on-master">Updating the Hosts File on Master</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-password-free-ssh-using-rsa-keys">Setting Up Password-Free SSH Using RSA Keys</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#driving-the-robot">Driving the Robot</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-used-to-drive-the-robot">Code used to drive the robot</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#driving-the-robot">Driving the robot</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Driving the robot</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ros">ROS</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint">Checkpoint</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cleanup">Cleanup</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lesson-objectives">Lesson Objectives:</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agenda">Agenda:</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gain-familiarity-with-turtlebot3-robotics-platform">Gain Familiarity with Turtlebot3 Robotics Platform.</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#assignments">Assignments.</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-time">Next time.</a></li>

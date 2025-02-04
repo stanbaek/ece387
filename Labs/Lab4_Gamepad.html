@@ -176,7 +176,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="Lab3_Python.html">🔬 Lab3: Python</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">🔬 Lab4: Gamepad</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Lab5_TurtleBot.html">🔬 Lab5: Driving the Robot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Lab6_IMU.html">🔬 Lab5: IMU</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lab6_IMU.html">🔬 Lab6: IMU</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Lab7_LaunchFile.html">🔬 Lab7: Launch Files</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Lab8_LIDAR.html">🔬 Lab8: LIDAR</a></li>
 </ul>
@@ -598,7 +598,7 @@ Finished<span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="
 </ul>
 <p>To drive the simulated robot, we need a node that publishes <code class="docutils literal notranslate"><span class="pre">Twist</span></code> messages to <code class="docutils literal notranslate"><span class="pre">/cmd_vel</span></code>. Instead of writing our own, we will use an existing ROS2 node called <code class="docutils literal notranslate"><span class="pre">Teleop_Twist_Keyboard</span></code>, which allows you to control the robot using your keyboard.</p>
 <p>Open a <strong>new terminal tab</strong> (Ctrl + Shift + T) and run:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>teleop_twist_keyboard<span class="w"> </span>teleop_twist_keyboard.py
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>teleop_twist_keyboard<span class="w"> </span>teleop_twist_keyboard
 </pre></div>
 </div>
 <p>This launches a keyboard teleoperation node that lets you manually drive the robot.</p>

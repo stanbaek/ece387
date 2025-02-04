@@ -190,7 +190,7 @@ Complete the following four tutorials. **Important:** Skip **C++** tutorials and
 
     Open a **new terminal tab** (Ctrl + Shift + T) and run:
     ```bash
-    ros2 run teleop_twist_keyboard teleop_twist_keyboard.py
+    ros2 run teleop_twist_keyboard teleop_twist_keyboard
     ```
 
     This launches a keyboard teleoperation node that lets you manually drive the robot.
