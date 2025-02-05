@@ -22,7 +22,7 @@ The Raspberry Pi on your robot acts as a Wi-Fi access point (AP), allowing direc
    - Click the **system menu** (top-right corner of the screen).  
    - Select **Wi-Fi Networks** and choose `RobotXX`, where `XX` is your assigned robot number.  
    
-2. **Check Connectivity**  
+1. **Check Connectivity**  
 
    - Open a terminal on your Master computer and run:  
      ```bash
@@ -31,7 +31,7 @@ The Raspberry Pi on your robot acts as a Wi-Fi access point (AP), allowing direc
    - If the connection is successful, you will see responses from the robot’s IP address.  
    - If you don’t receive a response, check that you are connected to the correct Wi-Fi network.  
 
-3. **Establish an SSH Connection**  
+1. **Establish an SSH Connection**  
 
    - Access the robot remotely by running:  
      ```bash
@@ -41,7 +41,7 @@ The Raspberry Pi on your robot acts as a Wi-Fi access point (AP), allowing direc
    - When prompted, enter the default password (provided by your instructor).  
    - Once connected, any commands entered in this terminal will execute on the robot.  
 
-4. **Change Your Password (First-Time Setup)**  
+1. **Change Your Password (First-Time Setup)**  
 
    - To secure your connection, update the password:  
         ```bash
@@ -53,154 +53,191 @@ The Raspberry Pi on your robot acts as a Wi-Fi access point (AP), allowing direc
         ```
    - Test the new password by opening a **new terminal** and reconnecting to the robot via SSH.  
 
-5. **Edit the `.bashrc` File**  
+1. **Edit the `.bashrc` File**  
 
    - Open the file for editing:  
      ```bash
-     nano ~/.bashrc
+     $ nano ~/.bashrc
      ```
    - Ensure the following lines are at the bottom of the file:  
-     ```bash
-     source /opt/ros/humble/setup.bash
-     source ~/robot_ws/install/setup.bash
-     export ROS_DOMAIN_ID=XX  # Replace XX with your assigned robot number
-     export TURTLEBOT3_MODEL=burger
-     export LDS_MODEL=LDS-01  # Change to LDS-02 if using the new LIDAR
-     ```
-   - Save your changes and exit the editor:  
-     - Press **Ctrl + X**, then **Y**, and hit **Enter**.  
+      ```bash
+      source /opt/ros/humble/setup.bash
+      source ~/robot_ws/install/setup.bash
+      source /usr/share/colcon_cd/function/colcon_cd.sh
+      export ROS_DOMAIN_ID=0  # For master0 and robot0
+      export _colcon_cd_root=/opt/ros/humble/
+      export TURTLEBOT3_MODEL=burger
+      export LDS_MODEL=LDS-01  # Replace with LDS-02 if using new LIDAR
+      source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
+      ```
 
-6. **Close the SSH Connection**  
+   - Ensure your `ROS_DOMAIN_ID=XX` matches your computer ID, where `XX` aligns with the `XX` in `MasterXX`.
+   - Our class robots have two different LIDAR variants: LDS-01 and LDS-02 (shown below).
+      ```{image} ./figures/Lab5_LDS.png
+      :width: 480
+      :align: center
+      ```
+      <br>
+   - If you have the LDS-02, change `export LDS_MODEL=LDS-01` to `export LDS_MODEL=LDS-02` in your `.bashrc` file.
+   - Save your changes and exit the editor.
+
+1. **Close the SSH Connection**  
 
    - To disconnect from the robot, type:  
      ```bash
-     exit
+     $ exit
      ```  
    - This will return you to your Master computer’s terminal.  
 
 
+### Updating the Hosts File on **Master**
 
+To make it easier to remember and use the hostname instead of the IP address, let's modify the `hosts` file so that the master computer recognizes the hostname of the Raspberry Pi.
 
+```{warning}
+Ensure you execute the commands in this section on the **Master** computer. Do not execute them on the Raspberry Pi.
+```
 
+1. **Update the Hosts File on the Master Computer**: To add the robot's IP address to the hosts file, follow these steps on the **`Master`** computer:
+   ```sh
+   $ sudo gedit /etc/hosts
+   ```
+   Add the following line to the file:
+   ```sh
+   192.168.4.1    robotXX
+   ```
+   Replace `robotXX` with your specific robot number.
 
-
-
-
-
-4. **Edit the ********`.bashrc`******** File**
-
-   - Open the file for editing:
-     ```bash
-     nano ~/.bashrc
-     ```
-   - Ensure the following lines are at the bottom of the file:
-     ```bash
-     source /opt/ros/humble/setup.bash
-     source ~/robot_ws/install/setup.bash
-     export ROS_DOMAIN_ID=XX
-     export TURTLEBOT3_MODEL=burger
-     export LDS_MODEL=LDS-01  # Change to LDS-02 if using new LIDAR
-     ```
-   - Save and exit the editor.
-
-5. **Close the SSH Connection**
-
-   - Type `exit` to disconnect.
-
-### Updating the Hosts File on Master
-
-1. **Modify the Hosts File**
-
-   - Run:
-     ```bash
-     sudo gedit /etc/hosts
-     ```
-   - Add the following line:
-     ```bash
-     192.168.4.1    robotXX
-     ```
-
-2. **Check Connectivity Using Hostname**
-
+1. **Check Connectivity Using Hostname**
    ```bash
-   ping robotXX
+   $ ping robotXX
    ```
 
-3. **Reconnect Using Hostname Instead of IP**
-
+1. **Reconnect Using Hostname Instead of IP**
    ```bash
-   ssh pi@robotXX
+   $ ssh pi@robotXX
    ```
+   > ⌨️ **Syntax:** `ssh <username>@<hostname>`
 
 ### Setting Up Password-Free SSH Authentication
+Using password-free SSH authentication improves both security and convenience. Instead of manually entering a password each time, SSH keys provide a more secure and automated way to log in. This also makes remote access faster and more efficient.
 
-1. **Generate SSH Keys**
-
+1. **Generate an SSH Key Pair on the Client**: 
+   - Open a terminal on the client (`Master`) machine and run the following command to generate an RSA key pair:
    ```bash
-   ssh-keygen -t rsa -b 4096
+   $ ssh-keygen -t rsa -b 4096
    ```
+   - When prompted to enter a file to save the key, press **Enter** to accept the default location (`~/.ssh/id_rsa`).
+   - If prompted for a passphrase, leave it **empty** (just press Enter) to enable password-free login.
 
-2. **Copy the Public Key to the Robot**
-
+1. **Copy the Public Key to the Remote Server**: 
+   - Transfer your public key to the server by running the following command, replacing `username` and `hostname` with your actual credentials:
    ```bash
-   ssh-copy-id pi@robotXX
+   $ ssh-copy-id username@hostname
    ```
+   - If prompted, enter your password for the remote machine. After this, the key will be added to the server's authorized keys.
 
-3. **Test the Connection**
-
-   ```bash
-   ssh pi@robotXX
-   ```
+1. **Test the Connection**: Now, try logging into the remote machine without a password:
+    ```bash
+    $ ssh username@hostname
+    ```
+    If everything is set up correctly, you should log in without being prompted for a password.
 
 ### Driving the Robot
 
-1. **Launch the Core TurtleBot3 Node**
+1. **Using SSH, launch the `robot.launch.py` file on the robot**:
 
+    ```{tip}
+    Use tab completion to make your life easier! Start typing a package name or node, then press **Tab** to auto-complete the command.
+    ```
+    **Note:** The following command contains a deliberate typo to prevent copying and pasting. Be sure to type it out manually or use **Tab** for auto-completion:
+    ```bash
+    $ ros2 launch turt1ebot3_bringup robot.launch
+    ```
+    > ⌨️ **Syntax:** `ros2 launch <package> <launchfile>`
+
+    You should see something like this:
+    ```bash
+    [turtlebot3_ros-3] [INFO] [1738299487.825470539] [turtlebot3_node]: Succeeded to create battery state publisher
+    [turtlebot3_ros-3] [INFO] [1738299487.829476168] [turtlebot3_node]: Succeeded to create imu publisher
+    [turtlebot3_ros-3] [INFO] [1738299487.841928335] [turtlebot3_node]: Succeeded to create sensor state publisher
+    [turtlebot3_ros-3] [INFO] [1738299487.844016446] [turtlebot3_node]: Succeeded to create joint state publisher
+    [turtlebot3_ros-3] [INFO] [1738299487.844149094] [turtlebot3_node]: Add Devices
+    [turtlebot3_ros-3] [INFO] [1738299487.844204353] [turtlebot3_node]: Succeeded to create motor power server
+    [turtlebot3_ros-3] [INFO] [1738299487.849349150] [turtlebot3_node]: Succeeded to create reset server
+    [turtlebot3_ros-3] [INFO] [1738299487.851512798] [turtlebot3_node]: Succeeded to create sound server
+    [turtlebot3_ros-3] [INFO] [1738299487.853739761] [turtlebot3_node]: Run!
+    [turtlebot3_ros-3] [INFO] [1738299487.890749557] [diff_drive_controller]: Init Odometry
+    [turtlebot3_ros-3] [INFO] [1738299487.909780816] [diff_drive_controller]: Run!
+    ```
+
+    We will delve deeper into launch files in future lessons, but for now, understand that a launch file is used to initiate one or more ROS nodes.
+
+    Your Turtlebot3 is now ready to drive and should be listening for *Twist* messages sent over the **/cmd_vel** topic.
+
+1. **Verify Turtlebot3's Communication with the Master**:
+   - It's always a good idea to check that the Turtlebot3 is communicating with the Master. To do this, list the active topics that the Turtlebot3 is publishing. Run the following command on your **Master**:
    ```bash
-   ros2 launch turtlebot3_bringup robot.launch.py
+   $ ros2 topic list
    ```
 
-2. **Verify Active Topics**
-
+   If everything is working correctly, you should see something like this:
    ```bash
-   ros2 topic list
+   /battery_state
+   /cmd_vel
+   /imu
+   /joint_states
+   /magnetic_field
+   /odom   
+   /tf_static
    ```
 
-3. **Check Node Connections**
+1. **Observe the Nodes Running on the Master**:
+    - Open a new terminal on the Master and run the following command to observe the currently running nodes:
+    ```bash
+    $ rqt_graph
+    ```
+    - You should see `/turtlebot3_node` subscribing to the **/cmd_vel** topic and publishing multiple topics including **/imu**.
 
-   ```bash
-   rqt_graph
-   ```
+1. **Get Information About `/turtlebot3_node`**:
+    - Open another terminal and run the following command to get information about the `/turtlebot3_node`:
+    ```bash
+    $ ros2 node info /turtlebot13_node
+    ```
+    - This will show the topics `/turtlebot3_node` is publishing and subscribing to.
 
-4. **Check Node Information**
+1. **Review the **/cmd_vel** Topic**:
+    - We used the **/cmd_vel** topic when driving the simulated Turtlebot3. To refresh our memory, let's check the topic information:
+    ```bash
+    $ ros2 topic info /cmd_vel
+    ```
+    - This shows that the **/cmd_vel** topic uses the *Twist* message type. We can verify this by running:
+    ```bash
+    $ ros2 topic type /cmd_vel
+    ```
 
-   ```bash
-   ros2 node info /turtlebot3_node
-   ```
+1. **Show Information About the *Twist* Message**:
+    - To see information about the fields within the *Twist* message sent over the **/cmd_vel** topic, run the following command:
+    ```bash
+    $ ros2 interface show geometry_msg/msg/Twist
+    ```
 
-5. \*\*View Message Type for \*\***`/cmd_vel`**
+1. **Run the `teleop_keyboard` Node on the Master**:
+    - Open a terminal on the Master and run the following command:
+    ```bash
+    $ ros2 run turtlebot3_teleop te1eop_keyboard
+    ```
 
-   ```bash
-   ros2 topic type /cmd_vel
-   ```
+    ```{warning}
+    If you run `ros2 run teleop_twist_keyboard teleop_twist_keyboard`, the minimum linear x speed of the `cmd_vel` published by the `teleop_twist_keyboard` node is 0.5 m/s, which is greater than the maximum speed of TurtleBot3, so TurtleBot3 will ignore the topic.
+    ```
 
-6. **View Message Structure**
+2. **Observe Node Communication with `rqt_graph`**:
+    - Before driving the Turtlebot3, observe how the nodes communicate using the `rqt_graph` tool. Open a new terminal (or refresh the existing `rqt_graph` window if it's still open) to see the interactions.
 
-   ```bash
-   ros2 interface show geometry_msgs/msg/Twist
-   ```
+3. **Operate Turtlebot3 with Optimal Parameters**:
+    - The Turtlebot3 operates best with a linear velocity between 0.1 m/s and 0.2 m/s. It turns best with an angular velocity between 0.5 rad/s and 1.5 rad/s. Use these parameters to drive the TurtleBot3 safely.
 
-7. **Run the Teleop Node**
-
-   ```bash
-   ros2 run turtlebot3_teleop teleop_keyboard
-   ```
-
-8. \*\*Monitor the System Using \*\***`rqt_graph`**
-
-   ```bash
-   rqt_graph
-   ```
 
 9. **Drive the TurtleBot3**
 
@@ -256,7 +293,6 @@ In this lab, you learned how to:
 
 Mastering these skills will be essential for future labs, especially as you begin developing your own ROS nodes for autonomous naation!
 
-dfs
 
 
 
@@ -267,191 +303,10 @@ dfs
 
 
 
-
-
-
-
-
-
-
-1. **Edit the `.bashrc` File**:
-    - Open the `.bashrc` file by running the following command:
-        ```sh
-        $ nano ~/.bashrc
-        ```   
-   - You should see the following lines at the bottom of the `.bashrc` file:
-      ```bash
-      source /opt/ros/humble/setup.bash
-      source ~/robot_ws/install/setup.bash
-      source /usr/share/colcon_cd/function/colcon_cd.sh
-      export ROS_DOMAIN_ID=0  # For master0 and robot0
-      export _colcon_cd_root=/opt/ros/humble/
-      export TURTLEBOT3_MODEL=burger
-      export LDS_MODEL=LDS-01  # Replace with LDS-02 if using new LIDAR
-      source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
-      ```
-    - Your `ROS_DOMAIN_ID=XX` should match your computer ID, where `XX` corresponds to the `XX` in `MasterXX`.
-    - The robots for our class have two different LIDAR variants: LDS-01 and LDS-02 (pictured below).
-        ```{image} ./figures/Lab5_LDS.png
-        :width: 480
-        :align: center
-        ```
-        <br>
-    - If you have the LDS-02, update `export LDS_MODEL=LDS-01` to `export LDS_MODEL=LDS-02` inside the `.bashrc` file.
-    - Save the changes and exit the editor.
-    
-1. **Close the SSH Connection**: You can type `exit` to close the SSH connection.
-
-
-### Updating the Hosts File on Master
-
-As it is much easier to remember and use the host name than the IP address, let's modify the `hosts` file so that the master computer recognizes the host name of the Raspberry Pi.
-
-```{warning}
-Ensure that you execute the commands in this section on the **Master** computer. Do not execute them on the Raspberry Pi.
-```
-
-1. **Update the Hosts File on Master**: To add the robot's IP address to the hosts file, follow these steps on the **`Master`** computer:
-    ```sh
-    $ sudo gedit /etc/hosts
-    ```
-    Add the following line to the file:
-    ```sh
-    192.168.4.1    robotXX
-    ```
-    Replace `robotXX` with your specific robot number.
-
-1. **Save and Close the Hosts File**: Save the changes and close the file by pressing `Ctrl+X`, then `Y` to confirm, and `Enter` to exit.
-
-1. **Check Connectivity**: Check connectivity to the robot using its host name, `robotXX`:
-    ```sh
-    $ ping robotXX
-    ```
-
-1. **Create a Secure Shell Connection**: To access the robot remotely, create an SSH connection:
-    ```sh
-    $ ssh pi@robotXX
-    ```
-    > ⌨️ **Syntax:** `ssh <username>@<hostname>`
-
-1. **Enter the Robot's Password**: After entering the robot's password, the terminal should display the `pi` username and your robot's hostname, `robotXX`. 
-
-
-### Setting Up Password-Free SSH Using RSA Keys
-
-Using password-free SSH authentication improves both security and convenience. Instead of manually entering a password each time, SSH keys provide a more secure and automated way to log in. This also makes remote access faster and more efficient.
-
-1. **Generate an SSH Key Pair on the Client**: Open a terminal on the client machine and run the following command to generate an RSA key pair:
-    ```bash
-    $ ssh-keygen -t rsa -b 4096
-    ```
-    When prompted to enter a file to save the key, press **Enter** to accept the default location (`~/.ssh/id_rsa`).  If prompted for a passphrase, leave it **empty** (just press Enter) to enable password-free login.
-
-
-1. **Copy the Public Key to the Remote Server**: You need to transfer your public key to the server. Run the following command, replacing `username` and `hostname` with your actual credentials:
-    ```bash
-    $ ssh-copy-id username@hostname
-    ```
-    If prompted, enter your password for the remote machine. After this, the key will be added to the server's authorized keys.
-
-1. **Test the Connection**: Now, try logging into the remote machine without a password:
-    ```bash
-    $ ssh username@hostname
-    ```
-    If everything is set up correctly, you should log in without being prompted for a password.
-
-
-### Driving the Robot
-
-1. Using the secure shell, run the **turtlebot3_core.launch** file on the robot.     
-    ```{tip}  
-    Take advantage of tab completion! Start typing a package name or node, then press **Tab** to auto-complete the command.  
-    ```  
-    **Note:** The following command contains a deliberate typo to prevent copying and pasting. Be sure to type it out manually or use **Tab** for auto-completion.
-
-    ```bash
-    $ ros2 launch turt1ebot3_bringup robot.launch
-    ```
-    > ⌨️ **Syntax:** `ros2 launch <package> <launchfile>`
-
-    It will print something similar to:
-    ```bash
-    [turtlebot3_ros-3] [INFO] [1738299487.825470539] [turtlebot3_node]: Succeeded to create battery state publisher
-    [turtlebot3_ros-3] [INFO] [1738299487.829476168] [turtlebot3_node]: Succeeded to create imu publisher
-    [turtlebot3_ros-3] [INFO] [1738299487.841928335] [turtlebot3_node]: Succeeded to create sensor state publisher
-    [turtlebot3_ros-3] [INFO] [1738299487.844016446] [turtlebot3_node]: Succeeded to create joint state publisher
-    [turtlebot3_ros-3] [INFO] [1738299487.844149094] [turtlebot3_node]: Add Devices
-    [turtlebot3_ros-3] [INFO] [1738299487.844204353] [turtlebot3_node]: Succeeded to create motor power server
-    [turtlebot3_ros-3] [INFO] [1738299487.849349150] [turtlebot3_node]: Succeeded to create reset server
-    [turtlebot3_ros-3] [INFO] [1738299487.851512798] [turtlebot3_node]: Succeeded to create sound server
-    [turtlebot3_ros-3] [INFO] [1738299487.853739761] [turtlebot3_node]: Run!
-    [turtlebot3_ros-3] [INFO] [1738299487.890749557] [diff_drive_controller]: Init Odometry
-    [turtlebot3_ros-3] [INFO] [1738299487.909780816] [diff_drive_controller]: Run!
-    ```
- 
-    We will learn more about launch files in a few modules, but just understand that a launch file is used to launch one or more ROS nodes. 
-    
-    Your Turtlebot3 is now ready to drive and should be listening for *Twist* messages to be sent over the **/cmd_vel** topic.
-
-
-1. It is always a good idea to check that the Turtlebot3 is communicating with the Master. To do this, we can list the active topics the Turtlebot3 is publishing. Run the following within your **Master**:
-    ```bash
-    $ ros2 topic 1ist
-    ```
-    
-    If all is well, it should display something similar to 
-    ```bash
-    /battery_state
-    /cmd_vel
-    /imu
-    /joint_states
-    /magnetic_field
-    /odom   
-    /tf_static
-    ```
-
-1. Open a new terminal on the Master and observe the nodes currently running:
-    ```bash
-    $ rqt_graph`
-    ```
-    You should see `/turtlebot3_node` subscribing to the `\cmd_vel` topic and publishing multiple topics including `\imu`. 
-    
-1. Open a new terminal and run 
-    ```bash
-    $ ros2 node info /turtlebot3_node
-    ```
-    You should be able to find the topics `/turtlebot3_node` is publishing and subscribing to.
 
     
-1. We used the **/cmd_vel** topic when driving the simulated Turtlebot3, but let's refresh our memory about the topic:
-    ```bash
-    $ ros2 topic info /cmd_vel
-    ```
 
-    We can find that topic utilizes the *Twist* message type. We can also verify this by
-    ```bash
-    $ ros2 topic type /cmd_vel
-    ```
-    
-    The following will show information about the fields within the *Twist* message sent over the **/cmd_vel** topic:
-    ```bash
-    $ ros2 interface show geometry_msg/msg/Twist
-    ```
 
-    
-1. Run the **teleop_keyboard** node on the Master:
-
-    ```bash
-    $ ros2 run turtlebot3_teleop te1eop_keyboard
-    ```
-    
-    ```{warning}
-    If you run `ros2 run teleop_twist_keyboard teleop_twist_keyboard`, the minimum linear x speed of the `cmd_vel` published by the `teleop_twist_keyboard` node is 0.5 m/s which is greater than the maximum speed of TurtleBot3 and so TurtleBot2 will ignore the topic.
-    ```
-
-1. Before we get too excited and drive the Turtlebot3 off a cliff, observe how the nodes communicate using the **rqt_graph** tool in a new terminal (if you still have the previous rqt_graph running, you can hit the refresh button in the top left corner).
-
-1. The Turtlebot3 operates best with a linear velocity between 0.1 m/s and 0.2 m/s. It turns best with an angular velocity between 0.5 rad/s and 1.5 rad/s. Drive the TurtleBot3 using these parameters.
 
 ## ROS
 
