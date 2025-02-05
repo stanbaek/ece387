@@ -143,7 +143,7 @@ Using password-free SSH authentication improves both security and convenience. I
     ```
     If everything is set up correctly, you should log in without being prompted for a password.
 
-### Driving the Robot
+### Driving the Robot with Keyboard
 
 1. **Using SSH, launch the `robot.launch.py` file on the robot**:
 
@@ -232,112 +232,29 @@ Using password-free SSH authentication improves both security and convenience. I
     If you run `ros2 run teleop_twist_keyboard teleop_twist_keyboard`, the minimum linear x speed of the `cmd_vel` published by the `teleop_twist_keyboard` node is 0.5 m/s, which is greater than the maximum speed of TurtleBot3, so TurtleBot3 will ignore the topic.
     ```
 
-2. **Observe Node Communication with `rqt_graph`**:
-    - Before driving the Turtlebot3, observe how the nodes communicate using the `rqt_graph` tool. Open a new terminal (or refresh the existing `rqt_graph` window if it's still open) to see the interactions.
-
-3. **Operate Turtlebot3 with Optimal Parameters**:
-    - The Turtlebot3 operates best with a linear velocity between 0.1 m/s and 0.2 m/s. It turns best with an angular velocity between 0.5 rad/s and 1.5 rad/s. Use these parameters to drive the TurtleBot3 safely.
-
-
-9. **Drive the TurtleBot3**
-
+1. **Drive the TurtleBot3**:
    - Use arrow keys to navigate.
    - Adjust linear velocity (0.1-0.2 m/s) and angular velocity (0.5-1.5 rad/s) for best control.
 
-## 🛠️ ROS Diagnostics
+1. **Operate Turtlebot3 with Optimal Parameters**:
+    - The Turtlebot3 operates best with a linear velocity between 0.1 m/s and 0.2 m/s. It turns best with an angular velocity between 0.5 rad/s and 1.5 rad/s. Use these parameters to drive the TurtleBot3 safely.
 
-1. **List all running nodes**
+1. **Observe Node Communication with `rqt_graph`**:
+    - Before driving the Turtlebot3, observe how the nodes communicate using the `rqt_graph` tool. Open a new terminal (or refresh the existing `rqt_graph` window if it's still open) to see the interactions.
 
-   ```bash
-   ros2 node list
-   ```
 
-2. **Display ROS graph**
+### Driving the Robot with Gamepad
 
-   ```bash
-   rqt_graph
-   ```
+1. **Stop the current node**: Go to the terminal running the `teleop_keyboard` node and stop it by pressing `Ctrl+C`.
+1. **Run the `gamepad` node**: Execute the `gamepad` node that you developed in the previous lab.
+1. **Run the `joy` node**: Start the `joy` node.
+1. **Adjust angular speed**: If the angular speed is too fast, modify your code so that the joystick range (-1 to 1) corresponds to a smaller range of angular speed.
+1. **Demonstrate movement**: Show that the robot can move on the floor using the gamepad.
+1. **Capture screenshot**: Capture a screenshot of `rqt_graph`.
 
-3. **List active topics**
-
-   ```bash
-   ros2 topic list
-   ```
-
-4. **Check message types for topics**
-
-   ```bash
-   ros2 topic type <topic_name>
-   ```
-
-5. **View topic messages in real-time**
-
-   ```bash
-   ros2 topic echo <topic_name>
-   ```
 
 ## 🚚 Deliverables
-
-- Push screenshots showing output from ROS commands to your student repository under `/master/module04/`.
-- Demonstrate that you can successfully drive the TurtleBot3 using keyboard teleoperation.
-- Submit a summary of your findings on how the ROS nodes and topics interact.
-
-## 📄 Summary
-
-In this lab, you learned how to:
-
-- Connect to a remote robot using SSH.
-- Use ROS diagnostic tools to examine nodes, topics, and messages.
-- Launch pre-built ROS packages to drive the TurtleBot3.
-- Observe real-time system communication using `rqt_graph`.
-
-Mastering these skills will be essential for future labs, especially as you begin developing your own ROS nodes for autonomous naation!
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-## ROS
-
-In labs throughout this course we will request information about the topics, nodes, and messages within your system. Accomplish the following in a new terminal on your Master.
-
-1. List all running nodes.
-
-1. Display running nodes and communication between them.
-
-1. List the active topics.
-
-1. Determine the type of messages sent over the topics (repeat for each topic).
-
-1. Determine the fields of the messages.
-
-1. Observe the information sent over a topic (repeat for each topic).
-
-## Checkpoint
-Once complete, push screenshots showing the output of each of the above to your student repo on github in a /master/module04 folder.
-
-## Summary
-In this exercise you examined and used pre-built packages and source code to drive the Turtlebot3 and understand how the system worked. You then were able to analyze the topics, nodes, and messages within the ROS system to better understand the flow of information and control. The **pro-tips** presented throughout this exercise will make you a better user of Linux and ROS.
-
-
-```{tip} 
-I strongly recommend that you commit the above sequence of commands to memory, or at a minimum
-have them in a place that you can quickly recall them. There is nothing until Module 9 that absolutely requires the real robot, as everything else can be simulated.
-```
-
-
-
-
+1. Demonstrate that you can successfully drive the TurtleBot3 using gamepad teleoperation.
+2. Submit the screenshot of `rqt_graph` on Gradescope.
 
 
