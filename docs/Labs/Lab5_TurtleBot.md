@@ -163,10 +163,10 @@ Using password-free SSH authentication improves both security and convenience. I
 ### Driving the Robot
 
 1. Using the secure shell, run the **turtlebot3_core.launch** file on the robot.     
-    ```{tip}
-    Don't forget your tab completion! You can start typing a package name or node and then hit tab for it to complete the command for you!
-    ```
-    **Note:** The following command has a typo. Use the `tab` key to autocomplete the command.
+    ```{tip}  
+    Take advantage of tab completion! Start typing a package name or node, then press **Tab** to auto-complete the command.  
+    ```  
+    **Note:** The following command contains a deliberate typo to prevent copying and pasting. Be sure to type it out manually or use **Tab** for auto-completion.
 
     ```bash
     $ ros2 launch turt1ebot3_bringup robot.launch
@@ -245,23 +245,18 @@ Using password-free SSH authentication improves both security and convenience. I
     ```
     
     ```{warning}
-    If you run `ros2 run teleop_twist_keyboard teleop_twist_keyboard`, the minimum linear x speed of the `cmd_vel` published by the `teleop_twist_keyboard` node is 0.5 which is greater than the maximum speed of TurtleBot3 and so TurtleBot2 will ignore the topic.
+    If you run `ros2 run teleop_twist_keyboard teleop_twist_keyboard`, the minimum linear x speed of the `cmd_vel` published by the `teleop_twist_keyboard` node is 0.5 m/s which is greater than the maximum speed of TurtleBot3 and so TurtleBot2 will ignore the topic.
     ```
-
 
 1. Before we get too excited and drive the Turtlebot3 off a cliff, observe how the nodes communicate using the **rqt_graph** tool in a new terminal (if you still have the previous rqt_graph running, you can hit the refresh button in the top left corner).
 
-1. Select the terminal that has the **teleop_twist_keyboard** node running and observe the instructions for sending `Twist` messages. These are the same as when driving the simulated Turtlebot3.
-
-1. The Turtlebot3 operates best with a linear velocity between 0.2 m/s and 0.5 m/s. It turns best with an angular velocity between 0.5 rad/s and 1.5 rad/s. Drive the TurtleBot3 using these parameters.
+1. The Turtlebot3 operates best with a linear velocity between 0.1 m/s and 0.2 m/s. It turns best with an angular velocity between 0.5 rad/s and 1.5 rad/s. Drive the TurtleBot3 using these parameters.
 
 ## ROS
 
-In labs throughout this course we will request information about the topics, nodes, and messages within your system. Accomplish the following in a new terminal on your Master (you can ignore all nodes/topics that result from **roscore**).
+In labs throughout this course we will request information about the topics, nodes, and messages within your system. Accomplish the following in a new terminal on your Master.
 
 1. List all running nodes.
-
-1. Determine what topics the nodes subscribe and publish to (repeat for each node).
 
 1. Display running nodes and communication between them.
 
