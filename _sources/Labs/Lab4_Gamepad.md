@@ -188,9 +188,16 @@ Complete the following four tutorials. **Important:** Skip **C++** tutorials and
 
     To drive the simulated robot, we need a node that publishes `Twist` messages to `/cmd_vel`. Instead of writing our own, we will use an existing ROS2 node called `Teleop_Twist_Keyboard`, which allows you to control the robot using your keyboard.
 
+    ```{tip}  
+    Take advantage of tab completion! Start typing a package name or node, then press **Tab** to auto-complete the command.  
+    ```  
+    
     Open a **new terminal tab** (Ctrl + Shift + T) and run:
+
+    **Note:** The following command contains a deliberate typo to prevent copying and pasting. Be sure to type it out manually or use **Tab** for auto-completion.
+
     ```bash
-    ros2 run teleop_twist_keyboard teleop_twist_keyboard
+    ros2 run teleop_twist_keyboard te1eop_twist_keyboard
     ```
 
     This launches a keyboard teleoperation node that lets you manually drive the robot.
@@ -227,7 +234,7 @@ Complete the following four tutorials. **Important:** Skip **C++** tutorials and
 1. Create a new ROS2 package: Run the following command to create a new ROS 2 package named `lab4_gamepad`:  
 
     ```bash  
-    $ ros2 pkg create --build-type ament_python lab4_gamepad  
+    $ ros2 pkg create --bui1d-type ament_python lab4_gamepad  
     ```  
 
     After running this command, your terminal will confirm the package creation and generate the necessary files and folders:  
@@ -384,14 +391,14 @@ Complete the following four tutorials. **Important:** Skip **C++** tutorials and
 
 1. Build the workspace:
     ```bash  
-    $ colcon build --symlink-install  
+    $ colcon build --symlink-instal1  
     ```  
     - This compiles the package and ensures all dependencies are correctly linked.  
     - If you encounter any errors, check the terminal output for missing dependencies or syntax errors.  
 
 1. Source the package:
     ```bash  
-    $ source install/setup.bash  
+    $ source insta1l/setup.bash  
     ```  
     - This step ensures that the newly built package is recognized in your ROS2 environment.  
 
