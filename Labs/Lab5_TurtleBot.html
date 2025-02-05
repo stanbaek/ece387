@@ -397,6 +397,7 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#updating-the-hosts-file-on-master">Updating the Hosts File on <strong>Master</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-password-free-ssh-authentication">Setting Up Password-Free SSH Authentication</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#driving-the-robot-with-keyboard">Driving the Robot with Keyboard</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-team-repository">Setting up Team Repository.</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#driving-the-robot-with-gamepad">Driving the Robot with Gamepad</a></li>
 </ul>
 </li>
@@ -711,6 +712,24 @@
 </li>
 </ol>
 </section>
+<section id="setting-up-team-repository">
+<h3>Setting up Team Repository.<a class="headerlink" href="#setting-up-team-repository" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Go to <a class="reference internal" href="../Appendix/GitSetup.html#teamrepo"><span class="std std-ref">Create a Team Repository within GitHub Classroom</span></a> to setup a new GitHub repository for your team.</p></li>
+<li><p>Move the <code class="docutils literal notranslate"><span class="pre">Lab4_gamepad</span></code> directory from the <code class="docutils literal notranslate"><span class="pre">ece387_lastname</span></code> directory to <code class="docutils literal notranslate"><span class="pre">ece387_ws</span></code>. You no longer need the old code. Push all the code in the <code class="docutils literal notranslate"><span class="pre">ece387_lastname</span></code> directory to your GitHub repository as a backup and delete the <code class="docutils literal notranslate"><span class="pre">ece387_lastname</span></code> directory.</p></li>
+<li><p>Navigate to your ROS2 workspace, <code class="docutils literal notranslate"><span class="pre">~/master_ws</span></code> and remove the old files by running</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/install<span class="w"> </span>/build<span class="w"> </span>/log
+</pre></div>
+</div>
+</li>
+<li><p>Ensure you still have the <code class="docutils literal notranslate"><span class="pre">turtlebot3_simulations</span></code> and <code class="docutils literal notranslate"><span class="pre">ece387_ws</span></code> directories within the <code class="docutils literal notranslate"><span class="pre">src</span></code> directory.</p></li>
+<li><p>Rebuild the local pacakages</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>colcon<span class="w"> </span>build<span class="w"> </span>--symlink-1nstall
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
 <section id="driving-the-robot-with-gamepad">
 <h3>Driving the Robot with Gamepad<a class="headerlink" href="#driving-the-robot-with-gamepad" title="Link to this heading">#</a></h3>
 <ol class="arabic simple">
@@ -804,6 +823,7 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#updating-the-hosts-file-on-master">Updating the Hosts File on <strong>Master</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-password-free-ssh-authentication">Setting Up Password-Free SSH Authentication</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#driving-the-robot-with-keyboard">Driving the Robot with Keyboard</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-team-repository">Setting up Team Repository.</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#driving-the-robot-with-gamepad">Driving the Robot with Gamepad</a></li>
 </ul>
 </li>

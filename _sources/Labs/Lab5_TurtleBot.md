@@ -243,6 +243,22 @@ Using password-free SSH authentication improves both security and convenience. I
     - Before driving the Turtlebot3, observe how the nodes communicate using the `rqt_graph` tool. Open a new terminal (or refresh the existing `rqt_graph` window if it's still open) to see the interactions.
 
 
+
+
+### Setting up Team Repository.
+
+1. Go to [Create a Team Repository within GitHub Classroom](TeamRepo) to setup a new GitHub repository for your team. 
+2. Move the `Lab4_gamepad` directory from the `ece387_lastname` directory to `ece387_ws`. You no longer need the old code. Push all the code in the `ece387_lastname` directory to your GitHub repository as a backup and delete the `ece387_lastname` directory.  
+3. Navigate to your ROS2 workspace, `~/master_ws` and remove the old files by running
+   ```bash
+   $ rm -rf /install /build /log
+   ```
+4. Ensure you still have the `turtlebot3_simulations` and `ece387_ws` directories within the `src` directory.
+5. Rebuild the local pacakages
+   ```bash
+   $ colcon build --symlink-1nstall
+   ```
+
 ### Driving the Robot with Gamepad
 
 1. **Stop the current node**: Go to the terminal running the `teleop_keyboard` node and stop it by pressing `Ctrl+C`.
