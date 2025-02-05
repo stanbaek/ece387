@@ -2,76 +2,277 @@
 
 ## 📌 Objectives
 
-- Students should be able to
+- Students should be able to remotely access and control the TurtleBot3 robot using SSH.
+- Students should be able to configure and verify ROS communication between the Master computer and the TurtleBot3.
+- Students should be able to launch and analyze ROS nodes and topics using ROS diagnostic tools.
+- Students should be able to use pre-built ROS packages to drive the TurtleBot3.
 
+## 📝 Overview
 
-## Lesson Objectives:
-1. Gain additional familiarity with simulation environment
-1. Gain familiarity with Turtlebot 3 robotics platform
-1. Practice with ROS diagnostic tools
-
-## Agenda:
-1. Use Linux terminals to launch and control Turtlebot 3 in simulation environment.
-1. Use Linux terminals to launch and control actual Turtlebot 3.
-
-
-
-
-## 📜 Overview
-This lab will introduce you to utilizing pre-built ROS packages to accomplish a task. It will also provide you experience interacting with someone else's source code (.py files) to learn how that component works. You will use ROS to run two nodes, **turtlebot3_core** and **teleop_twist_keyboard**, to drive the Turtlebot3 with a keyboard. You will continue to practice using ROS tools to observe how these components communicate.
-
-
+In this lab, you will learn how to interact with a remote robot via SSH and use ROS tools to communicate with and control a TurtleBot3. You will work with pre-built ROS packages, such as **turtlebot3_bringup** and **turtlebot3_teleop**, to establish and analyze communication between different ROS components. Additionally, you will use the **gamepad** node from the previous lab to control the robot, reinforcing your understanding of ROS topics, nodes, and message exchange.
 
 ## 💻 Lab Procedure
 
 ### Working with a Remote Machine
 
-In this course, you'll drive your TurtleBot without the need for a monitor and keyboard. However, you'll still need access to the Raspberry Pi on the robot to run ROS nodes. One of the easiest ways to remotely access a Linux machine is through a secure shell (SSH). To create an SSH connection, you'll need the username and hostname (or IP address) of the computer you want to access. For the Raspberry Pis, the username is `pi` and the hostname is your robot number (e.g., `robot98`).
+The Raspberry Pi on your robot acts as a Wi-Fi access point (AP), allowing direct communication between your Master computer and the robot without requiring an external network. Since the TurtleBot3 does not have a dedicated monitor and keyboard, you will connect to it remotely using SSH. This will allow you to run ROS nodes and send commands from your Master computer.
 
 (AccessPoint)=
-1. **Connect to the Robot's Wi-Fi Network**:
-    - Click the system menu in the top-right corner to open the Wi-Fi Networks setting.
-    - Choose `RobotXX`, where `XX` corresponds to the `XX` in `MasterXX`.
+1. **Connect to the Robot's Wi-Fi Network**
+   - Click the **system menu** (top-right corner of the screen).  
+   - Select **Wi-Fi Networks** and choose `RobotXX`, where `XX` is your assigned robot number.  
+   
+2. **Check Connectivity**  
 
-    ```{image} ./figures/Lab5_ConnectToRobotWiFi.png
-    :width: 420
-    :align: center
-    ```
-    <br>
+   - Open a terminal on your Master computer and run:  
+     ```bash
+     $ ping 192.168.4.1
+     ```
+   - If the connection is successful, you will see responses from the robot’s IP address.  
+   - If you don’t receive a response, check that you are connected to the correct Wi-Fi network.  
 
-1. **Check Connectivity**:
-    - The Raspberry Pi on your robot acts as a Wi-Fi access point (AP), allowing communication with your master computer.
-    - Open a terminal on your master computer.
-    - Check connectivity to the robot using its IP address, `192.168.4.1`:
-      ```sh
-      $ ping 192.168.4.1
-      ```
+3. **Establish an SSH Connection**  
 
-1. **Create a Secure Shell Connection**: To access the robot remotely, create an SSH connection:
-      ```sh
-      $ ssh pi@192.168.4.1
-      ```
-      > ⌨️ **Syntax:** `ssh <username>@<hostname/IP address>`
+   - Access the robot remotely by running:  
+     ```bash
+     $ ssh pi@192.168.4.1
+     ```
+     > ⌨️ **Syntax:** `ssh <username>@<hostname/IP address>`
+   - When prompted, enter the default password (provided by your instructor).  
+   - Once connected, any commands entered in this terminal will execute on the robot.  
 
-1. **Enter the Robot's Password**: After entering the robot's password, the terminal should display the `pi` username and your robot's hostname, `robotX`. Any commands you run in this shell will execute on the robot.
+4. **Change Your Password (First-Time Setup)**  
 
-1. **Change Your Password**: 
-    - Once logged in, type the following command:
+   - To secure your connection, update the password:  
         ```bash
         $ passwd
         ```
-    - You will be prompted to enter your **current password**. Type it and press **Enter**.
-    - Next, you will be asked to enter a **new password**. Type a password and press **Enter**.
-    - Retype the **new password** to confirm and press **Enter**.  If successful, you will see the message:
+   - Follow the prompts to enter and confirm your new password. If successful, you will see the message:
         ```
         password updated successfully
         ```
+   - Test the new password by opening a **new terminal** and reconnecting to the robot via SSH.  
 
-    - To ensure that your new password works, you can open a new terminal and try logging in again:
-        ```bash
-        $ ssh pi@192.168.4.1
-        ```
-        Enter the **new password** when prompted.
+5. **Edit the `.bashrc` File**  
+
+   - Open the file for editing:  
+     ```bash
+     nano ~/.bashrc
+     ```
+   - Ensure the following lines are at the bottom of the file:  
+     ```bash
+     source /opt/ros/humble/setup.bash
+     source ~/robot_ws/install/setup.bash
+     export ROS_DOMAIN_ID=XX  # Replace XX with your assigned robot number
+     export TURTLEBOT3_MODEL=burger
+     export LDS_MODEL=LDS-01  # Change to LDS-02 if using the new LIDAR
+     ```
+   - Save your changes and exit the editor:  
+     - Press **Ctrl + X**, then **Y**, and hit **Enter**.  
+
+6. **Close the SSH Connection**  
+
+   - To disconnect from the robot, type:  
+     ```bash
+     exit
+     ```  
+   - This will return you to your Master computer’s terminal.  
+
+
+
+
+
+
+
+
+
+
+4. **Edit the ********`.bashrc`******** File**
+
+   - Open the file for editing:
+     ```bash
+     nano ~/.bashrc
+     ```
+   - Ensure the following lines are at the bottom of the file:
+     ```bash
+     source /opt/ros/humble/setup.bash
+     source ~/robot_ws/install/setup.bash
+     export ROS_DOMAIN_ID=XX
+     export TURTLEBOT3_MODEL=burger
+     export LDS_MODEL=LDS-01  # Change to LDS-02 if using new LIDAR
+     ```
+   - Save and exit the editor.
+
+5. **Close the SSH Connection**
+
+   - Type `exit` to disconnect.
+
+### Updating the Hosts File on Master
+
+1. **Modify the Hosts File**
+
+   - Run:
+     ```bash
+     sudo gedit /etc/hosts
+     ```
+   - Add the following line:
+     ```bash
+     192.168.4.1    robotXX
+     ```
+
+2. **Check Connectivity Using Hostname**
+
+   ```bash
+   ping robotXX
+   ```
+
+3. **Reconnect Using Hostname Instead of IP**
+
+   ```bash
+   ssh pi@robotXX
+   ```
+
+### Setting Up Password-Free SSH Authentication
+
+1. **Generate SSH Keys**
+
+   ```bash
+   ssh-keygen -t rsa -b 4096
+   ```
+
+2. **Copy the Public Key to the Robot**
+
+   ```bash
+   ssh-copy-id pi@robotXX
+   ```
+
+3. **Test the Connection**
+
+   ```bash
+   ssh pi@robotXX
+   ```
+
+### Driving the Robot
+
+1. **Launch the Core TurtleBot3 Node**
+
+   ```bash
+   ros2 launch turtlebot3_bringup robot.launch.py
+   ```
+
+2. **Verify Active Topics**
+
+   ```bash
+   ros2 topic list
+   ```
+
+3. **Check Node Connections**
+
+   ```bash
+   rqt_graph
+   ```
+
+4. **Check Node Information**
+
+   ```bash
+   ros2 node info /turtlebot3_node
+   ```
+
+5. \*\*View Message Type for \*\***`/cmd_vel`**
+
+   ```bash
+   ros2 topic type /cmd_vel
+   ```
+
+6. **View Message Structure**
+
+   ```bash
+   ros2 interface show geometry_msgs/msg/Twist
+   ```
+
+7. **Run the Teleop Node**
+
+   ```bash
+   ros2 run turtlebot3_teleop teleop_keyboard
+   ```
+
+8. \*\*Monitor the System Using \*\***`rqt_graph`**
+
+   ```bash
+   rqt_graph
+   ```
+
+9. **Drive the TurtleBot3**
+
+   - Use arrow keys to navigate.
+   - Adjust linear velocity (0.1-0.2 m/s) and angular velocity (0.5-1.5 rad/s) for best control.
+
+## 🛠️ ROS Diagnostics
+
+1. **List all running nodes**
+
+   ```bash
+   ros2 node list
+   ```
+
+2. **Display ROS graph**
+
+   ```bash
+   rqt_graph
+   ```
+
+3. **List active topics**
+
+   ```bash
+   ros2 topic list
+   ```
+
+4. **Check message types for topics**
+
+   ```bash
+   ros2 topic type <topic_name>
+   ```
+
+5. **View topic messages in real-time**
+
+   ```bash
+   ros2 topic echo <topic_name>
+   ```
+
+## 🚚 Deliverables
+
+- Push screenshots showing output from ROS commands to your student repository under `/master/module04/`.
+- Demonstrate that you can successfully drive the TurtleBot3 using keyboard teleoperation.
+- Submit a summary of your findings on how the ROS nodes and topics interact.
+
+## 📄 Summary
+
+In this lab, you learned how to:
+
+- Connect to a remote robot using SSH.
+- Use ROS diagnostic tools to examine nodes, topics, and messages.
+- Launch pre-built ROS packages to drive the TurtleBot3.
+- Observe real-time system communication using `rqt_graph`.
+
+Mastering these skills will be essential for future labs, especially as you begin developing your own ROS nodes for autonomous naation!
+
+dfs
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 1. **Edit the `.bashrc` File**:
     - Open the `.bashrc` file by running the following command:
