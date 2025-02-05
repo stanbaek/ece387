@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>🔬 Lab5: Driving the Robot &#8212; Introduction to Robotic Systems</title>
   
@@ -15,62 +14,63 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=4c969af8" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
-
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
-  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
-    <script src="../_static/tabs.js"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/tabs.js?v=3ee01567"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'Labs/Lab5_TurtleBot';</script>
-    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="🔬 Lab6: IMU" href="Lab6_IMU.html" />
     <link rel="prev" title="🔬 Lab4: Gamepad" href="Lab4_Gamepad.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -78,23 +78,16 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+  <div id="pst-scroll-pixel-helper"></div>
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
   
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../search.html"
       method="get">
@@ -102,7 +95,6 @@ const thebe_selector_output = ".output, .cell_output"
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -110,16 +102,25 @@ const thebe_selector_output = ".output, .cell_output"
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -132,9 +133,13 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
+  
+    
   
 
 <a class="navbar-brand logo" href="../intro.html">
+  
   
   
   
@@ -144,12 +149,19 @@ const thebe_selector_output = ".output, .cell_output"
       
     
     
-    <img src="../_static/ece387.png" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="../_static/ece387.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+    <img src="../_static/ece387.png" class="logo__image only-light" alt="Introduction to Robotic Systems - Home"/>
+    <img src="../_static/ece387.png" class="logo__image only-dark pst-js-only" alt="Introduction to Robotic Systems - Home"/>
   
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -194,14 +206,19 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -210,14 +227,14 @@ const thebe_selector_output = ".output, .cell_output"
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -339,26 +356,20 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
-<script>
-document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
-  </button>
-`);
-</script>
 
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-  </button>
-`);
-</script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -380,19 +391,16 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">📌 Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lesson-objectives">Lesson Objectives:</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agenda">Agenda:</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">📜 Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">📝 Overview</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-procedure">💻 Lab Procedure</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-a-remote-machine">Working with a Remote Machine</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#updating-the-hosts-file-on-master">Updating the Hosts File on Master</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-password-free-ssh-using-rsa-keys">Setting Up Password-Free SSH Using RSA Keys</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#driving-the-robot">Driving the Robot</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#updating-the-hosts-file-on-master">Updating the Hosts File on <strong>Master</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-password-free-ssh-authentication">Setting Up Password-Free SSH Authentication</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#driving-the-robot-with-keyboard">Driving the Robot with Keyboard</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#driving-the-robot-with-gamepad">Driving the Robot with Gamepad</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ros">ROS</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint">Checkpoint</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">🚚 Deliverables</a></li>
 </ul>
             </nav>
         </div>
@@ -402,99 +410,83 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="lab5-driving-the-robot">
-<h1>🔬 Lab5: Driving the Robot<a class="headerlink" href="#lab5-driving-the-robot" title="Permalink to this heading">#</a></h1>
+<h1>🔬 Lab5: Driving the Robot<a class="headerlink" href="#lab5-driving-the-robot" title="Link to this heading">#</a></h1>
 <section id="objectives">
-<h2>📌 Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
+<h2>📌 Objectives<a class="headerlink" href="#objectives" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Students should be able to</p></li>
+<li><p>Students should be able to remotely access and control the TurtleBot3 robot using SSH.</p></li>
+<li><p>Students should be able to configure and verify ROS communication between the Master computer and the TurtleBot3.</p></li>
+<li><p>Students should be able to launch and analyze ROS nodes and topics using ROS diagnostic tools.</p></li>
+<li><p>Students should be able to use pre-built ROS packages to drive the TurtleBot3.</p></li>
 </ul>
-</section>
-<section id="lesson-objectives">
-<h2>Lesson Objectives:<a class="headerlink" href="#lesson-objectives" title="Permalink to this heading">#</a></h2>
-<ol class="arabic simple">
-<li><p>Gain additional familiarity with simulation environment</p></li>
-<li><p>Gain familiarity with Turtlebot 3 robotics platform</p></li>
-<li><p>Practice with ROS diagnostic tools</p></li>
-</ol>
-</section>
-<section id="agenda">
-<h2>Agenda:<a class="headerlink" href="#agenda" title="Permalink to this heading">#</a></h2>
-<ol class="arabic simple">
-<li><p>Use Linux terminals to launch and control Turtlebot 3 in simulation environment.</p></li>
-<li><p>Use Linux terminals to launch and control actual Turtlebot 3.</p></li>
-</ol>
 </section>
 <section id="overview">
-<h2>📜 Overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h2>
-<p>This lab will introduce you to utilizing pre-built ROS packages to accomplish a task. It will also provide you experience interacting with someone else’s source code (.py files) to learn how that component works. You will use ROS to run two nodes, <strong>turtlebot3_core</strong> and <strong>teleop_twist_keyboard</strong>, to drive the Turtlebot3 with a keyboard. You will continue to practice using ROS tools to observe how these components communicate.</p>
+<h2>📝 Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
+<p>In this lab, you will learn how to interact with a remote robot via SSH and use ROS tools to communicate with and control a TurtleBot3. You will work with pre-built ROS packages, such as <strong>turtlebot3_bringup</strong> and <strong>turtlebot3_teleop</strong>, to establish and analyze communication between different ROS components. Additionally, you will use the <strong>gamepad</strong> node from the previous lab to control the robot, reinforcing your understanding of ROS topics, nodes, and message exchange.</p>
 </section>
 <section id="lab-procedure">
-<h2>💻 Lab Procedure<a class="headerlink" href="#lab-procedure" title="Permalink to this heading">#</a></h2>
+<h2>💻 Lab Procedure<a class="headerlink" href="#lab-procedure" title="Link to this heading">#</a></h2>
 <section id="working-with-a-remote-machine">
-<h3>Working with a Remote Machine<a class="headerlink" href="#working-with-a-remote-machine" title="Permalink to this heading">#</a></h3>
-<p>In this course, you’ll drive your TurtleBot without the need for a monitor and keyboard. However, you’ll still need access to the Raspberry Pi on the robot to run ROS nodes. One of the easiest ways to remotely access a Linux machine is through a secure shell (SSH). To create an SSH connection, you’ll need the username and hostname (or IP address) of the computer you want to access. For the Raspberry Pis, the username is <code class="docutils literal notranslate"><span class="pre">pi</span></code> and the hostname is your robot number (e.g., <code class="docutils literal notranslate"><span class="pre">robot98</span></code>).</p>
+<h3>Working with a Remote Machine<a class="headerlink" href="#working-with-a-remote-machine" title="Link to this heading">#</a></h3>
+<p>The Raspberry Pi on your robot acts as a Wi-Fi access point (AP), allowing direct communication between your Master computer and the robot without requiring an external network. Since the TurtleBot3 does not have a dedicated monitor and keyboard, you will connect to it remotely using SSH. This will allow you to run ROS nodes and send commands from your Master computer.</p>
 <ol class="arabic" id="accesspoint">
-<li><p><strong>Connect to the Robot’s Wi-Fi Network</strong>:</p>
+<li><p><strong>Connect to the Robot’s Wi-Fi Network</strong></p>
 <ul class="simple">
-<li><p>Click the system menu in the top-right corner to open the Wi-Fi Networks setting.</p></li>
-<li><p>Choose <code class="docutils literal notranslate"><span class="pre">RobotXX</span></code>, where <code class="docutils literal notranslate"><span class="pre">XX</span></code> corresponds to the <code class="docutils literal notranslate"><span class="pre">XX</span></code> in <code class="docutils literal notranslate"><span class="pre">MasterXX</span></code>.</p></li>
+<li><p>Click the <strong>system menu</strong> (top-right corner of the screen).</p></li>
+<li><p>Select <strong>Wi-Fi Networks</strong> and choose <code class="docutils literal notranslate"><span class="pre">RobotXX</span></code>, where <code class="docutils literal notranslate"><span class="pre">XX</span></code> is your assigned robot number.</p></li>
 </ul>
-<a class="reference internal image-reference" href="../_images/Lab5_ConnectToRobotWiFi.png"><img alt="../_images/Lab5_ConnectToRobotWiFi.png" class="align-center" src="../_images/Lab5_ConnectToRobotWiFi.png" style="width: 420px;" /></a>
- <br>
 </li>
-<li><p><strong>Check Connectivity</strong>:</p>
+<li><p><strong>Check Connectivity</strong></p>
 <ul>
-<li><p>The Raspberry Pi on your robot acts as a Wi-Fi access point (AP), allowing communication with your master computer.</p></li>
-<li><p>Open a terminal on your master computer.</p></li>
-<li><p>Check connectivity to the robot using its IP address, <code class="docutils literal notranslate"><span class="pre">192.168.4.1</span></code>:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ping<span class="w"> </span><span class="m">192</span>.168.4.1
+<li><p>Open a terminal on your Master computer and run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ping<span class="w"> </span><span class="m">192</span>.168.4.1
 </pre></div>
 </div>
 </li>
+<li><p>If the connection is successful, you will see responses from the robot’s IP address.</p></li>
+<li><p>If you don’t receive a response, check that you are connected to the correct Wi-Fi network.</p></li>
 </ul>
 </li>
-<li><p><strong>Create a Secure Shell Connection</strong>: To access the robot remotely, create an SSH connection:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ssh<span class="w"> </span>pi@192.168.4.1
+<li><p><strong>Establish an SSH Connection</strong></p>
+<ul>
+<li><p>Access the robot remotely by running:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ssh<span class="w"> </span>pi@192.168.4.1
 </pre></div>
 </div>
 <blockquote>
 <div><p>⌨️ <strong>Syntax:</strong> <code class="docutils literal notranslate"><span class="pre">ssh</span> <span class="pre">&lt;username&gt;&#64;&lt;hostname/IP</span> <span class="pre">address&gt;</span></code></p>
 </div></blockquote>
 </li>
-<li><p><strong>Enter the Robot’s Password</strong>: After entering the robot’s password, the terminal should display the <code class="docutils literal notranslate"><span class="pre">pi</span></code> username and your robot’s hostname, <code class="docutils literal notranslate"><span class="pre">robotX</span></code>. Any commands you run in this shell will execute on the robot.</p></li>
-<li><p><strong>Change Your Password</strong>:</p>
+<li><p>When prompted, enter the default password (provided by your instructor).</p></li>
+<li><p>Once connected, any commands entered in this terminal will execute on the robot.</p></li>
+</ul>
+</li>
+<li><p><strong>Change Your Password (First-Time Setup)</strong></p>
 <ul>
-<li><p>Once logged in, type the following command:</p>
+<li><p>To secure your connection, update the password:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>passwd
 </pre></div>
 </div>
 </li>
-<li><p>You will be prompted to enter your <strong>current password</strong>. Type it and press <strong>Enter</strong>.</p></li>
-<li><p>Next, you will be asked to enter a <strong>new password</strong>. Type a password and press <strong>Enter</strong>.</p></li>
-<li><p>Retype the <strong>new password</strong> to confirm and press <strong>Enter</strong>.  If successful, you will see the message:</p>
+<li><p>Follow the prompts to enter and confirm your new password. If successful, you will see the message:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">password</span> <span class="n">updated</span> <span class="n">successfully</span>
 </pre></div>
 </div>
 </li>
-<li><p>To ensure that your new password works, you can open a new terminal and try logging in again:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ssh<span class="w"> </span>pi@192.168.4.1
-</pre></div>
-</div>
-<p>Enter the <strong>new password</strong> when prompted.</p>
-</li>
+<li><p>Test the new password by opening a <strong>new terminal</strong> and reconnecting to the robot via SSH.</p></li>
 </ul>
 </li>
-<li><p><strong>Edit the <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> File</strong>:</p>
+<li><p><strong>Edit the <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> File</strong></p>
 <ul>
-<li><p>Open the <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> file by running the following command:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>nano<span class="w"> </span>~/.bashrc
+<li><p>Open the file for editing:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>nano<span class="w"> </span>~/.bashrc
 </pre></div>
 </div>
 </li>
-<li><p>You should see the following lines at the bottom of the <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> file:</p>
+<li><p>Ensure the following lines are at the bottom of the file:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span>/opt/ros/humble/setup.bash
 <span class="nb">source</span><span class="w"> </span>~/robot_ws/install/setup.bash
 <span class="nb">source</span><span class="w"> </span>/usr/share/colcon_cd/function/colcon_cd.sh
@@ -506,27 +498,36 @@ document.write(`
 </pre></div>
 </div>
 </li>
-<li><p>Your <code class="docutils literal notranslate"><span class="pre">ROS_DOMAIN_ID=XX</span></code> should match your computer ID, where <code class="docutils literal notranslate"><span class="pre">XX</span></code> corresponds to the <code class="docutils literal notranslate"><span class="pre">XX</span></code> in <code class="docutils literal notranslate"><span class="pre">MasterXX</span></code>.</p></li>
-<li><p>The robots for our class have two different LIDAR variants: LDS-01 and LDS-02 (pictured below).</p>
+<li><p>Ensure your <code class="docutils literal notranslate"><span class="pre">ROS_DOMAIN_ID=XX</span></code> matches your computer ID, where <code class="docutils literal notranslate"><span class="pre">XX</span></code> aligns with the <code class="docutils literal notranslate"><span class="pre">XX</span></code> in <code class="docutils literal notranslate"><span class="pre">MasterXX</span></code>.</p></li>
+<li><p>Our class robots have two different LIDAR variants: LDS-01 and LDS-02 (shown below).</p>
 <a class="reference internal image-reference" href="../_images/Lab5_LDS.png"><img alt="../_images/Lab5_LDS.png" class="align-center" src="../_images/Lab5_LDS.png" style="width: 480px;" /></a>
-  <br>
+ <br>
 </li>
-<li><p>If you have the LDS-02, update <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">LDS_MODEL=LDS-01</span></code> to <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">LDS_MODEL=LDS-02</span></code> inside the <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> file.</p></li>
-<li><p>Save the changes and exit the editor.</p></li>
+<li><p>If you have the LDS-02, change <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">LDS_MODEL=LDS-01</span></code> to <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">LDS_MODEL=LDS-02</span></code> in your <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> file.</p></li>
+<li><p>Save your changes and exit the editor.</p></li>
 </ul>
 </li>
-<li><p><strong>Close the SSH Connection</strong>: You can type <code class="docutils literal notranslate"><span class="pre">exit</span></code> to close the SSH connection.</p></li>
+<li><p><strong>Close the SSH Connection</strong></p>
+<ul>
+<li><p>To disconnect from the robot, type:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">exit</span>
+</pre></div>
+</div>
+</li>
+<li><p>This will return you to your Master computer’s terminal.</p></li>
+</ul>
+</li>
 </ol>
 </section>
 <section id="updating-the-hosts-file-on-master">
-<h3>Updating the Hosts File on Master<a class="headerlink" href="#updating-the-hosts-file-on-master" title="Permalink to this heading">#</a></h3>
-<p>As it is much easier to remember and use the host name than the IP address, let’s modify the <code class="docutils literal notranslate"><span class="pre">hosts</span></code> file so that the master computer recognizes the host name of the Raspberry Pi.</p>
+<h3>Updating the Hosts File on <strong>Master</strong><a class="headerlink" href="#updating-the-hosts-file-on-master" title="Link to this heading">#</a></h3>
+<p>To make it easier to remember and use the hostname instead of the IP address, let’s modify the <code class="docutils literal notranslate"><span class="pre">hosts</span></code> file so that the master computer recognizes the hostname of the Raspberry Pi.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Ensure that you execute the commands in this section on the <strong>Master</strong> computer. Do not execute them on the Raspberry Pi.</p>
+<p>Ensure you execute the commands in this section on the <strong>Master</strong> computer. Do not execute them on the Raspberry Pi.</p>
 </div>
 <ol class="arabic">
-<li><p><strong>Update the Hosts File on Master</strong>: To add the robot’s IP address to the hosts file, follow these steps on the <strong><code class="docutils literal notranslate"><span class="pre">Master</span></code></strong> computer:</p>
+<li><p><strong>Update the Hosts File on the Master Computer</strong>: To add the robot’s IP address to the hosts file, follow these steps on the <strong><code class="docutils literal notranslate"><span class="pre">Master</span></code></strong> computer:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>gedit<span class="w"> </span>/etc/hosts
 </pre></div>
 </div>
@@ -536,38 +537,47 @@ document.write(`
 </div>
 <p>Replace <code class="docutils literal notranslate"><span class="pre">robotXX</span></code> with your specific robot number.</p>
 </li>
-<li><p><strong>Save and Close the Hosts File</strong>: Save the changes and close the file by pressing <code class="docutils literal notranslate"><span class="pre">Ctrl+X</span></code>, then <code class="docutils literal notranslate"><span class="pre">Y</span></code> to confirm, and <code class="docutils literal notranslate"><span class="pre">Enter</span></code> to exit.</p></li>
-<li><p><strong>Check Connectivity</strong>: Check connectivity to the robot using its host name, <code class="docutils literal notranslate"><span class="pre">robotXX</span></code>:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ping<span class="w"> </span>robotXX
+<li><p><strong>Check Connectivity Using Hostname</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ping<span class="w"> </span>robotXX
 </pre></div>
 </div>
 </li>
-<li><p><strong>Create a Secure Shell Connection</strong>: To access the robot remotely, create an SSH connection:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ssh<span class="w"> </span>pi@robotXX
+<li><p><strong>Reconnect Using Hostname Instead of IP</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ssh<span class="w"> </span>pi@robotXX
 </pre></div>
 </div>
 <blockquote>
 <div><p>⌨️ <strong>Syntax:</strong> <code class="docutils literal notranslate"><span class="pre">ssh</span> <span class="pre">&lt;username&gt;&#64;&lt;hostname&gt;</span></code></p>
 </div></blockquote>
 </li>
-<li><p><strong>Enter the Robot’s Password</strong>: After entering the robot’s password, the terminal should display the <code class="docutils literal notranslate"><span class="pre">pi</span></code> username and your robot’s hostname, <code class="docutils literal notranslate"><span class="pre">robotXX</span></code>.</p></li>
 </ol>
 </section>
-<section id="setting-up-password-free-ssh-using-rsa-keys">
-<h3>Setting Up Password-Free SSH Using RSA Keys<a class="headerlink" href="#setting-up-password-free-ssh-using-rsa-keys" title="Permalink to this heading">#</a></h3>
+<section id="setting-up-password-free-ssh-authentication">
+<h3>Setting Up Password-Free SSH Authentication<a class="headerlink" href="#setting-up-password-free-ssh-authentication" title="Link to this heading">#</a></h3>
 <p>Using password-free SSH authentication improves both security and convenience. Instead of manually entering a password each time, SSH keys provide a more secure and automated way to log in. This also makes remote access faster and more efficient.</p>
 <ol class="arabic">
-<li><p><strong>Generate an SSH Key Pair on the Client</strong>: Open a terminal on the client machine and run the following command to generate an RSA key pair:</p>
+<li><p><strong>Generate an SSH Key Pair on the Client</strong>:</p>
+<ul class="simple">
+<li><p>Open a terminal on the client (<code class="docutils literal notranslate"><span class="pre">Master</span></code>) machine and run the following command to generate an RSA key pair:</p></li>
+</ul>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ssh-keygen<span class="w"> </span>-t<span class="w"> </span>rsa<span class="w"> </span>-b<span class="w"> </span><span class="m">4096</span>
 </pre></div>
 </div>
-<p>When prompted to enter a file to save the key, press <strong>Enter</strong> to accept the default location (<code class="docutils literal notranslate"><span class="pre">~/.ssh/id_rsa</span></code>).  If prompted for a passphrase, leave it <strong>empty</strong> (just press Enter) to enable password-free login.</p>
+<ul class="simple">
+<li><p>When prompted to enter a file to save the key, press <strong>Enter</strong> to accept the default location (<code class="docutils literal notranslate"><span class="pre">~/.ssh/id_rsa</span></code>).</p></li>
+<li><p>If prompted for a passphrase, leave it <strong>empty</strong> (just press Enter) to enable password-free login.</p></li>
+</ul>
 </li>
-<li><p><strong>Copy the Public Key to the Remote Server</strong>: You need to transfer your public key to the server. Run the following command, replacing <code class="docutils literal notranslate"><span class="pre">username</span></code> and <code class="docutils literal notranslate"><span class="pre">hostname</span></code> with your actual credentials:</p>
+<li><p><strong>Copy the Public Key to the Remote Server</strong>:</p>
+<ul class="simple">
+<li><p>Transfer your public key to the server by running the following command, replacing <code class="docutils literal notranslate"><span class="pre">username</span></code> and <code class="docutils literal notranslate"><span class="pre">hostname</span></code> with your actual credentials:</p></li>
+</ul>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ssh-copy-id<span class="w"> </span>username@hostname
 </pre></div>
 </div>
-<p>If prompted, enter your password for the remote machine. After this, the key will be added to the server’s authorized keys.</p>
+<ul class="simple">
+<li><p>If prompted, enter your password for the remote machine. After this, the key will be added to the server’s authorized keys.</p></li>
+</ul>
 </li>
 <li><p><strong>Test the Connection</strong>: Now, try logging into the remote machine without a password:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ssh<span class="w"> </span>username@hostname
@@ -577,22 +587,22 @@ document.write(`
 </li>
 </ol>
 </section>
-<section id="driving-the-robot">
-<h3>Driving the Robot<a class="headerlink" href="#driving-the-robot" title="Permalink to this heading">#</a></h3>
+<section id="driving-the-robot-with-keyboard">
+<h3>Driving the Robot with Keyboard<a class="headerlink" href="#driving-the-robot-with-keyboard" title="Link to this heading">#</a></h3>
 <ol class="arabic">
-<li><p>Using the secure shell, run the <strong>turtlebot3_core.launch</strong> file on the robot.</p>
+<li><p><strong>Using SSH, launch the <code class="docutils literal notranslate"><span class="pre">robot.launch.py</span></code> file on the robot</strong>:</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>Take advantage of tab completion! Start typing a package name or node, then press <strong>Tab</strong> to auto-complete the command.</p>
+<p>Use tab completion to make your life easier! Start typing a package name or node, then press <strong>Tab</strong> to auto-complete the command.</p>
 </div>
-<p><strong>Note:</strong> The following command contains a deliberate typo to prevent copying and pasting. Be sure to type it out manually or use <strong>Tab</strong> for auto-completion.</p>
+<p><strong>Note:</strong> The following command contains a deliberate typo to prevent copying and pasting. Be sure to type it out manually or use <strong>Tab</strong> for auto-completion:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>turt1ebot3_bringup<span class="w"> </span>robot.launch
 </pre></div>
 </div>
 <blockquote>
 <div><p>⌨️ <strong>Syntax:</strong> <code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">launch</span> <span class="pre">&lt;package&gt;</span> <span class="pre">&lt;launchfile&gt;</span></code></p>
 </div></blockquote>
-<p>It will print something similar to:</p>
+<p>You should see something like this:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>turtlebot3_ros-3<span class="o">]</span><span class="w"> </span><span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1738299487</span>.825470539<span class="o">]</span><span class="w"> </span><span class="o">[</span>turtlebot3_node<span class="o">]</span>:<span class="w"> </span>Succeeded<span class="w"> </span>to<span class="w"> </span>create<span class="w"> </span>battery<span class="w"> </span>state<span class="w"> </span>publisher
 <span class="o">[</span>turtlebot3_ros-3<span class="o">]</span><span class="w"> </span><span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1738299487</span>.829476168<span class="o">]</span><span class="w"> </span><span class="o">[</span>turtlebot3_node<span class="o">]</span>:<span class="w"> </span>Succeeded<span class="w"> </span>to<span class="w"> </span>create<span class="w"> </span>imu<span class="w"> </span>publisher
 <span class="o">[</span>turtlebot3_ros-3<span class="o">]</span><span class="w"> </span><span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1738299487</span>.841928335<span class="o">]</span><span class="w"> </span><span class="o">[</span>turtlebot3_node<span class="o">]</span>:<span class="w"> </span>Succeeded<span class="w"> </span>to<span class="w"> </span>create<span class="w"> </span>sensor<span class="w"> </span>state<span class="w"> </span>publisher
@@ -606,14 +616,17 @@ document.write(`
 <span class="o">[</span>turtlebot3_ros-3<span class="o">]</span><span class="w"> </span><span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1738299487</span>.909780816<span class="o">]</span><span class="w"> </span><span class="o">[</span>diff_drive_controller<span class="o">]</span>:<span class="w"> </span>Run!
 </pre></div>
 </div>
-<p>We will learn more about launch files in a few modules, but just understand that a launch file is used to launch one or more ROS nodes.</p>
-<p>Your Turtlebot3 is now ready to drive and should be listening for <em>Twist</em> messages to be sent over the <strong>/cmd_vel</strong> topic.</p>
+<p>We will delve deeper into launch files in future lessons, but for now, understand that a launch file is used to initiate one or more ROS nodes.</p>
+<p>Your Turtlebot3 is now ready to drive and should be listening for <em>Twist</em> messages sent over the <strong>/cmd_vel</strong> topic.</p>
 </li>
-<li><p>It is always a good idea to check that the Turtlebot3 is communicating with the Master. To do this, we can list the active topics the Turtlebot3 is publishing. Run the following within your <strong>Master</strong>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ros2<span class="w"> </span>topic<span class="w"> </span>1ist
+<li><p><strong>Verify Turtlebot3’s Communication with the Master</strong>:</p>
+<ul class="simple">
+<li><p>It’s always a good idea to check that the Turtlebot3 is communicating with the Master. To do this, list the active topics that the Turtlebot3 is publishing. Run the following command on your <strong>Master</strong>:</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ros2<span class="w"> </span>topic<span class="w"> </span>list
 </pre></div>
 </div>
-<p>If all is well, it should display something similar to</p>
+<p>If everything is working correctly, you should see something like this:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/battery_state
 /cmd_vel
 /imu
@@ -624,69 +637,98 @@ document.write(`
 </pre></div>
 </div>
 </li>
-<li><p>Open a new terminal on the Master and observe the nodes currently running:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>rqt_graph<span class="sb">`</span>
+<li><p><strong>Observe the Nodes Running on the Master</strong>:</p>
+<ul class="simple">
+<li><p>Open a new terminal on the Master and run the following command to observe the currently running nodes:</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>rqt_graph
 </pre></div>
 </div>
-<p>You should see <code class="docutils literal notranslate"><span class="pre">/turtlebot3_node</span></code> subscribing to the <code class="docutils literal notranslate"><span class="pre">\cmd_vel</span></code> topic and publishing multiple topics including <code class="docutils literal notranslate"><span class="pre">\imu</span></code>.</p>
+<ul class="simple">
+<li><p>You should see <code class="docutils literal notranslate"><span class="pre">/turtlebot3_node</span></code> subscribing to the <strong>/cmd_vel</strong> topic and publishing multiple topics including <strong>/imu</strong>.</p></li>
+</ul>
 </li>
-<li><p>Open a new terminal and run</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ros2<span class="w"> </span>node<span class="w"> </span>info<span class="w"> </span>/turtlebot3_node
+<li><p><strong>Get Information About <code class="docutils literal notranslate"><span class="pre">/turtlebot3_node</span></code></strong>:</p>
+<ul class="simple">
+<li><p>Open another terminal and run the following command to get information about the <code class="docutils literal notranslate"><span class="pre">/turtlebot3_node</span></code>:</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ros2<span class="w"> </span>node<span class="w"> </span>info<span class="w"> </span>/turtlebot13_node
 </pre></div>
 </div>
-<p>You should be able to find the topics <code class="docutils literal notranslate"><span class="pre">/turtlebot3_node</span></code> is publishing and subscribing to.</p>
+<ul class="simple">
+<li><p>This will show the topics <code class="docutils literal notranslate"><span class="pre">/turtlebot3_node</span></code> is publishing and subscribing to.</p></li>
+</ul>
 </li>
-<li><p>We used the <strong>/cmd_vel</strong> topic when driving the simulated Turtlebot3, but let’s refresh our memory about the topic:</p>
+<li><p><strong>Review the <strong>/cmd_vel</strong> Topic</strong>:</p>
+<ul class="simple">
+<li><p>We used the <strong>/cmd_vel</strong> topic when driving the simulated Turtlebot3. To refresh our memory, let’s check the topic information:</p></li>
+</ul>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ros2<span class="w"> </span>topic<span class="w"> </span>info<span class="w"> </span>/cmd_vel
 </pre></div>
 </div>
-<p>We can find that topic utilizes the <em>Twist</em> message type. We can also verify this by</p>
+<ul class="simple">
+<li><p>This shows that the <strong>/cmd_vel</strong> topic uses the <em>Twist</em> message type. We can verify this by running:</p></li>
+</ul>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">type</span><span class="w"> </span>/cmd_vel
 </pre></div>
 </div>
-<p>The following will show information about the fields within the <em>Twist</em> message sent over the <strong>/cmd_vel</strong> topic:</p>
+</li>
+<li><p><strong>Show Information About the <em>Twist</em> Message</strong>:</p>
+<ul class="simple">
+<li><p>To see information about the fields within the <em>Twist</em> message sent over the <strong>/cmd_vel</strong> topic, run the following command:</p></li>
+</ul>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ros2<span class="w"> </span>interface<span class="w"> </span>show<span class="w"> </span>geometry_msg/msg/Twist
 </pre></div>
 </div>
 </li>
-<li><p>Run the <strong>teleop_keyboard</strong> node on the Master:</p>
+<li><p><strong>Run the <code class="docutils literal notranslate"><span class="pre">teleop_keyboard</span></code> Node on the Master</strong>:</p>
+<ul class="simple">
+<li><p>Open a terminal on the Master and run the following command:</p></li>
+</ul>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ros2<span class="w"> </span>run<span class="w"> </span>turtlebot3_teleop<span class="w"> </span>te1eop_keyboard
 </pre></div>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>If you run <code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">run</span> <span class="pre">teleop_twist_keyboard</span> <span class="pre">teleop_twist_keyboard</span></code>, the minimum linear x speed of the <code class="docutils literal notranslate"><span class="pre">cmd_vel</span></code> published by the <code class="docutils literal notranslate"><span class="pre">teleop_twist_keyboard</span></code> node is 0.5 m/s which is greater than the maximum speed of TurtleBot3 and so TurtleBot2 will ignore the topic.</p>
+<p>If you run <code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">run</span> <span class="pre">teleop_twist_keyboard</span> <span class="pre">teleop_twist_keyboard</span></code>, the minimum linear x speed of the <code class="docutils literal notranslate"><span class="pre">cmd_vel</span></code> published by the <code class="docutils literal notranslate"><span class="pre">teleop_twist_keyboard</span></code> node is 0.5 m/s, which is greater than the maximum speed of TurtleBot3, so TurtleBot3 will ignore the topic.</p>
 </div>
 </li>
-<li><p>Before we get too excited and drive the Turtlebot3 off a cliff, observe how the nodes communicate using the <strong>rqt_graph</strong> tool in a new terminal (if you still have the previous rqt_graph running, you can hit the refresh button in the top left corner).</p></li>
-<li><p>The Turtlebot3 operates best with a linear velocity between 0.1 m/s and 0.2 m/s. It turns best with an angular velocity between 0.5 rad/s and 1.5 rad/s. Drive the TurtleBot3 using these parameters.</p></li>
+<li><p><strong>Drive the TurtleBot3</strong>:</p>
+<ul class="simple">
+<li><p>Use arrow keys to navigate.</p></li>
+<li><p>Adjust linear velocity (0.1-0.2 m/s) and angular velocity (0.5-1.5 rad/s) for best control.</p></li>
+</ul>
+</li>
+<li><p><strong>Operate Turtlebot3 with Optimal Parameters</strong>:</p>
+<ul class="simple">
+<li><p>The Turtlebot3 operates best with a linear velocity between 0.1 m/s and 0.2 m/s. It turns best with an angular velocity between 0.5 rad/s and 1.5 rad/s. Use these parameters to drive the TurtleBot3 safely.</p></li>
+</ul>
+</li>
+<li><p><strong>Observe Node Communication with <code class="docutils literal notranslate"><span class="pre">rqt_graph</span></code></strong>:</p>
+<ul class="simple">
+<li><p>Before driving the Turtlebot3, observe how the nodes communicate using the <code class="docutils literal notranslate"><span class="pre">rqt_graph</span></code> tool. Open a new terminal (or refresh the existing <code class="docutils literal notranslate"><span class="pre">rqt_graph</span></code> window if it’s still open) to see the interactions.</p></li>
+</ul>
+</li>
 </ol>
 </section>
-</section>
-<section id="ros">
-<h2>ROS<a class="headerlink" href="#ros" title="Permalink to this heading">#</a></h2>
-<p>In labs throughout this course we will request information about the topics, nodes, and messages within your system. Accomplish the following in a new terminal on your Master.</p>
+<section id="driving-the-robot-with-gamepad">
+<h3>Driving the Robot with Gamepad<a class="headerlink" href="#driving-the-robot-with-gamepad" title="Link to this heading">#</a></h3>
 <ol class="arabic simple">
-<li><p>List all running nodes.</p></li>
-<li><p>Display running nodes and communication between them.</p></li>
-<li><p>List the active topics.</p></li>
-<li><p>Determine the type of messages sent over the topics (repeat for each topic).</p></li>
-<li><p>Determine the fields of the messages.</p></li>
-<li><p>Observe the information sent over a topic (repeat for each topic).</p></li>
+<li><p><strong>Stop the current node</strong>: Go to the terminal running the <code class="docutils literal notranslate"><span class="pre">teleop_keyboard</span></code> node and stop it by pressing <code class="docutils literal notranslate"><span class="pre">Ctrl+C</span></code>.</p></li>
+<li><p><strong>Run the <code class="docutils literal notranslate"><span class="pre">gamepad</span></code> node</strong>: Execute the <code class="docutils literal notranslate"><span class="pre">gamepad</span></code> node that you developed in the previous lab.</p></li>
+<li><p><strong>Run the <code class="docutils literal notranslate"><span class="pre">joy</span></code> node</strong>: Start the <code class="docutils literal notranslate"><span class="pre">joy</span></code> node.</p></li>
+<li><p><strong>Adjust angular speed</strong>: If the angular speed is too fast, modify your code so that the joystick range (-1 to 1) corresponds to a smaller range of angular speed.</p></li>
+<li><p><strong>Demonstrate movement</strong>: Show that the robot can move on the floor using the gamepad.</p></li>
+<li><p><strong>Capture screenshot</strong>: Capture a screenshot of <code class="docutils literal notranslate"><span class="pre">rqt_graph</span></code>.</p></li>
 </ol>
 </section>
-<section id="checkpoint">
-<h2>Checkpoint<a class="headerlink" href="#checkpoint" title="Permalink to this heading">#</a></h2>
-<p>Once complete, push screenshots showing the output of each of the above to your student repo on github in a /master/module04 folder.</p>
 </section>
-<section id="summary">
-<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this heading">#</a></h2>
-<p>In this exercise you examined and used pre-built packages and source code to drive the Turtlebot3 and understand how the system worked. You then were able to analyze the topics, nodes, and messages within the ROS system to better understand the flow of information and control. The <strong>pro-tips</strong> presented throughout this exercise will make you a better user of Linux and ROS.</p>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>I strongly recommend that you commit the above sequence of commands to memory, or at a minimum
-have them in a place that you can quickly recall them. There is nothing until Module 9 that absolutely requires the real robot, as everything else can be simulated.</p>
-</div>
+<section id="deliverables">
+<h2>🚚 Deliverables<a class="headerlink" href="#deliverables" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Demonstrate that you can successfully drive the TurtleBot3 using gamepad teleoperation.</p></li>
+<li><p>Submit the screenshot of <code class="docutils literal notranslate"><span class="pre">rqt_graph</span></code> on Gradescope.</p></li>
+</ol>
 </section>
 </section>
 
@@ -715,11 +757,10 @@ have them in a place that you can quickly recall them. There is nothing until Mo
 
               
               
-                <footer class="bd-footer-article">
+              
+              
+                <footer class="prev-next-footer d-print-none">
                   
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="Lab4_Gamepad.html"
@@ -739,17 +780,16 @@ have them in a place that you can quickly recall them. There is nothing until Mo
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -758,19 +798,16 @@ have them in a place that you can quickly recall them. There is nothing until Mo
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">📌 Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lesson-objectives">Lesson Objectives:</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agenda">Agenda:</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">📜 Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">📝 Overview</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-procedure">💻 Lab Procedure</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-a-remote-machine">Working with a Remote Machine</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#updating-the-hosts-file-on-master">Updating the Hosts File on Master</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-password-free-ssh-using-rsa-keys">Setting Up Password-Free SSH Using RSA Keys</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#driving-the-robot">Driving the Robot</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#updating-the-hosts-file-on-master">Updating the Hosts File on <strong>Master</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-password-free-ssh-authentication">Setting Up Password-Free SSH Authentication</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#driving-the-robot-with-keyboard">Driving the Robot with Keyboard</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#driving-the-robot-with-gamepad">Driving the Robot with Gamepad</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ros">ROS</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint">Checkpoint</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">🚚 Deliverables</a></li>
 </ul>
   </nav></div>
 
@@ -792,6 +829,7 @@ By Stan Baek
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2023.
@@ -818,8 +856,8 @@ By Stan Baek
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
   </footer>
