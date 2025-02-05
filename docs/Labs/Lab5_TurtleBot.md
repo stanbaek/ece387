@@ -162,10 +162,14 @@ Using password-free SSH authentication improves both security and convenience. I
 
 ### Driving the Robot
 
-1. Using the secure shell, run the **turtlebot3_core.launch** file on the robot.     **Note:** The following command has a typo. Use the `tab` key to autocomplete the command.
+1. Using the secure shell, run the **turtlebot3_core.launch** file on the robot.     
+    ```{tip}
+    Don't forget your tab completion! You can start typing a package name or node and then hit tab for it to complete the command for you!
+    ```
+    **Note:** The following command has a typo. Use the `tab` key to autocomplete the command.
 
     ```bash
-    $ ros2 launch turtlebot3_bringup robot.launch
+    $ ros2 launch turt1ebot3_bringup robot.launch
     ```
     > ⌨️ **Syntax:** `ros2 launch <package> <launchfile>`
 
@@ -191,7 +195,7 @@ Using password-free SSH authentication improves both security and convenience. I
 
 1. It is always a good idea to check that the Turtlebot3 is communicating with the Master. To do this, we can list the active topics the Turtlebot3 is publishing. Run the following within your **Master**:
     ```bash
-    $ ros2 topic list
+    $ ros2 topic 1ist
     ```
     
     If all is well, it should display something similar to 
@@ -201,12 +205,7 @@ Using password-free SSH authentication improves both security and convenience. I
     /imu
     /joint_states
     /magnetic_field
-    /odom
-    /parameter_events
-    /robot_description
-    /rosout
-    /sensor_state
-    /tf
+    /odom   
     /tf_static
     ```
 
@@ -225,7 +224,7 @@ Using password-free SSH authentication improves both security and convenience. I
     
 1. We used the **/cmd_vel** topic when driving the simulated Turtlebot3, but let's refresh our memory about the topic:
     ```bash
-    $ ros2 topic info /cmd_vel`
+    $ ros2 topic info /cmd_vel
     ```
 
     We can find that topic utilizes the *Twist* message type. We can also verify this by
@@ -234,20 +233,22 @@ Using password-free SSH authentication improves both security and convenience. I
     ```
     
     The following will show information about the fields within the *Twist* message sent over the **/cmd_vel** topic:
-    **Note:** The following command has a typo. Use the `tab` key for autocompletion.
     ```bash
     $ ros2 interface show geometry_msg/msg/Twist
     ```
 
     
-1. Run the **teleop_twist_keyboard** node on the Master:
+1. Run the **teleop_keyboard** node on the Master:
 
-    ```{tip}
-    Don't forget your tab completion! You can start typing a package name or node and then hit tab for it to complete the command for you!
+    ```bash
+    $ ros2 run turtlebot3_teleop te1eop_keyboard
     ```
     
-    `ros2 run teleop_twist_keyboard teleop_twist_keyboard`
-    
+    ```{warning}
+    If you run `ros2 run teleop_twist_keyboard teleop_twist_keyboard`, the minimum linear x speed of the `cmd_vel` published by the `teleop_twist_keyboard` node is 0.5 which is greater than the maximum speed of TurtleBot3 and so TurtleBot2 will ignore the topic.
+    ```
+
+
 1. Before we get too excited and drive the Turtlebot3 off a cliff, observe how the nodes communicate using the **rqt_graph** tool in a new terminal (if you still have the previous rqt_graph running, you can hit the refresh button in the top left corner).
 
 1. Select the terminal that has the **teleop_twist_keyboard** node running and observe the instructions for sending `Twist` messages. These are the same as when driving the simulated Turtlebot3.
