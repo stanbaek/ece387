@@ -251,7 +251,7 @@ Using password-free SSH authentication improves both security and convenience. I
 2. Move the `Lab4_gamepad` directory from the `ece387_lastname` directory to `ece387_ws`. You no longer need the old code. Push all the code in the `ece387_lastname` directory to your GitHub repository as a backup and delete the `ece387_lastname` directory.  
 3. Navigate to your ROS2 workspace, `~/master_ws` and remove the old files by running
    ```bash
-   $ rm -rf /install /build /log
+   $ rm -rf install/ build/ log/
    ```
 4. Ensure you still have the `turtlebot3_simulations` and `ece387_ws` directories within the `src` directory.
 5. Rebuild the local pacakages
