@@ -259,3 +259,142 @@ Complete a short 2-3 page report that utilizes the format and answers the questi
 
 
 
+
+
+
+
+
+
+
+
+Here’s a **step-by-step guide** to create a **Python ROS2 package** that moves the TurtleBot3 to a desired **location and orientation** using **IMU (`/imu`) and ODOM (`/odom`)** topics in **ROS2 Humble**.  
+
+---
+
+## **🛠 Step 1: Create a New ROS2 Package**  
+Open a terminal and create a new package:  
+```bash
+cd ~/ros2_ws/src  
+ros2 pkg create turtlebot3_navigation --build-type ament_python --dependencies rclpy geometry_msgs nav_msgs sensor_msgs
+```
+This creates a package named `turtlebot3_navigation` with dependencies:  
+✅ `rclpy` → ROS2 Python API  
+✅ `geometry_msgs` → For `Twist` messages (velocity commands)  
+✅ `nav_msgs` → For `Odometry` messages  
+✅ `sensor_msgs` → For `IMU` messages  
+
+---
+
+## **📝 Step 2: Write the Python Node**
+Create a Python script inside the package:  
+```bash
+cd ~/ros2_ws/src/turtlebot3_navigation/turtlebot3_navigation
+touch move_to_goal.py
+chmod +x move_to_goal.py
+```
+
+Now, open `move_to_goal.py` and add the following code:  
+
+```python
+import rclpy
+from rclpy.node import Node
+from geometry_msgs.msg import Twist
+from nav_msgs.msg import Odometry
+from sensor_msgs.msg import Imu
+import math
+
+class MoveToGoal(Node):
+    def __init__(self):
+        super().__init__('move_to_goal')
+
+        # Publisher for velocity commands
+        self.cmd_vel_pub = self.create_publisher(Twist, '/cmd_vel', 10)
+
+        # Subscribers for odometry and IMU
+        self.odom_sub = self.create_subscription(Odometry, '/odom', self.odom_callback, 10)
+        self.imu_sub = self.create_subscription(Imu, '/imu', self.imu_callback, 10)
+
+        # Robot's current state
+        self.x = 0.0
+        self.y = 0.0
+        self.yaw = 0.0
+
+        # Desired goal
+        self.goal_x = 1.0  # Set target x position
+        self.goal_y = 1.0  # Set target y position
+        self.goal_yaw = math.radians(90)  # Set target yaw (90 degrees)
+
+        self.timer = self.create_timer(0.1, self.control_loop)
+
+    def odom_callback(self, msg):
+        self.x = msg.pose.pose.position.x
+        self.y = msg.pose.pose.position.y
+
+    def imu_callback(self, msg):
+        # Extract yaw (rotation around Z-axis) from quaternion
+        q = msg.orientation
+        siny_cosp = 2 * (q.w * q.z + q.x * q.y)
+        cosy_cosp = 1 - 2 * (q.y * q.y + q.z * q.z)
+        self.yaw = math.atan2(siny_cosp, cosy_cosp)
+
+    def control_loop(self):
+        cmd = Twist()
+
+        # Calculate error
+        error_x = self.goal_x - self.x
+        error_y = self.goal_y - self.y
+        distance = math.sqrt(error_x**2 + error_y**2)
+
+        # Move forward if not at goal
+        if distance > 0.05:
+            cmd.linear.x = 0.1  # Move forward
+        else:
+            # Rotate to desired yaw
+            angle_error = self.goal_yaw - self.yaw
+            if abs(angle_error) > 0.05:
+                cmd.angular.z = 0.2 * angle_error
+
+        self.cmd_vel_pub.publish(cmd)
+
+def main(args=None):
+    rclpy.init(args=args)
+    node = MoveToGoal()
+    rclpy.spin(node)
+    node.destroy_node()
+    rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()
+```
+
+---
+
+## **📦 Step 3: Update `setup.py`**
+Open `setup.py` and modify `entry_points` to include the new script:
+```python
+entry_points={
+    'console_scripts': [
+        'move_to_goal = turtlebot3_navigation.move_to_goal:main',
+    ],
+},
+```
+
+---
+
+## **🔧 Step 4: Build and Source the Package**
+```bash
+cd ~/ros2_ws
+colcon build --packages-select turtlebot3_navigation
+source install/setup.bash
+```
+
+---
+
+## **🚀 Step 5: Run the Node**
+```bash
+ros2 run turtlebot3_navigation move_to_goal
+```
+
+The robot will move to `(1.0, 1.0)` and rotate to face `90°`.
+
+Would you like improvements such as dynamic goal input or PID control for smoother movement? 🚀
