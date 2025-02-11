@@ -389,6 +389,7 @@ document.write(`
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ros-environment">ROS Environment</a></li>
 </ul>
 </li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tp-link-ac600-archer-t2u-plus-driver">TP-Link AC600 Archer T2U Plus Driver</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pip">PIP</a></li>
 </ul>
 </li>
@@ -446,6 +447,7 @@ document.write(`
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ros-humble-gazebo-*
 sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ros-humble-cartographer
 sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ros-humble-cartographer-ros
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ros-humble-tf-transformations
 </pre></div>
 </div>
 <p>Install TurtleBot3 packages</p>
@@ -489,12 +491,36 @@ git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </spa
 </div>
 </section>
 </section>
-<section id="pip">
-<h3>PIP<a class="headerlink" href="#pip" title="Permalink to this heading">#</a></h3>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>python3-pip
+<section id="tp-link-ac600-archer-t2u-plus-driver">
+<h3>TP-Link AC600 Archer T2U Plus Driver<a class="headerlink" href="#tp-link-ac600-archer-t2u-plus-driver" title="Permalink to this heading">#</a></h3>
+<a class="reference internal image-reference" href="../_images/tp-link-archer.jpg"><img alt="../_images/tp-link-archer.jpg" class="align-center" src="../_images/tp-link-archer.jpg" style="width: 380px;" /></a>
+<ol class="arabic">
+<li><p>Ensure the wireless dual-band USB adapter is plugged in.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>lsusb<span class="w"> </span>
+Bus<span class="w"> </span><span class="m">005</span><span class="w"> </span>Device<span class="w"> </span><span class="m">002</span>:<span class="w"> </span>ID<span class="w"> </span><span class="m">2357</span>:0120<span class="w"> </span>TP-Link<span class="w"> </span><span class="m">802</span>.11ac<span class="w"> </span>WLAN<span class="w"> </span>Adapter
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>dlib
+</li>
+<li><p>Install the driver with this commands:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>git<span class="w"> </span>dkms
+$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/aircrack-ng/rtl8812au.git
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>rtl8812au
+$<span class="w"> </span>sudo<span class="w"> </span>make<span class="w"> </span>dkms_install
+</pre></div>
+</div>
+<p>If you don’t hace permission try to execute:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>chmod<span class="w"> </span><span class="m">777</span><span class="w"> </span>rtl8812au
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="pip">
+<h3>PIP<a class="headerlink" href="#pip" title="Permalink to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>python3-pip
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>dlib
 </pre></div>
 </div>
 <div class="admonition note">
@@ -582,6 +608,7 @@ git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </spa
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ros-environment">ROS Environment</a></li>
 </ul>
 </li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tp-link-ac600-archer-t2u-plus-driver">TP-Link AC600 Archer T2U Plus Driver</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pip">PIP</a></li>
 </ul>
 </li>
