@@ -53,6 +53,7 @@ Install ROS dependencies for building packages:
 sudo apt install ros-humble-gazebo-*
 sudo apt install ros-humble-cartographer
 sudo apt install ros-humble-cartographer-ros
+sudo apt install ros-humble-tf-transformations
 ```
 
 Install TurtleBot3 packages
@@ -101,15 +102,42 @@ Any time you make changes to your `~/.bashrc` file you must source it:
 source ~/.bashrc
 ```
 
+### TP-Link AC600 Archer T2U Plus Driver
+
+```{image} ./figures/tp-link-archer.jpg
+:width: 380
+:align: center
+```
+
+1. Ensure the wireless dual-band USB adapter is plugged in.
+
+    ```bash
+    $ lsusb 
+    Bus 005 Device 002: ID 2357:0120 TP-Link 802.11ac WLAN Adapter
+    ```
+
+2. Install the driver with this commands:
+    ```bash
+    $ sudo apt install git dkms
+    $ git clone https://github.com/aircrack-ng/rtl8812au.git
+    $ cd rtl8812au
+    $ sudo make dkms_install
+    ```
+    
+    If you don't hace permission try to execute:
+    ```bash
+    $ chmod 777 rtl8812au
+    ```
 
 ### PIP
 
 ```bash
-sudo apt install python3-pip
+$ sudo apt install python3-pip
 ```
 
+
 ```bash
-sudo pip install dlib
+$ sudo pip install dlib
 ```
 
 ```{note}
