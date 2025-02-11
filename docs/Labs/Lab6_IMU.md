@@ -1,7 +1,13 @@
 # 🔬 Lab6: IMU
 
 
-## Purpose
+## 📌 Objectives
+
+- Students should be able to u
+
+
+## 📜 Overview  
+
 In practice, an inertial measurement unit (IMU) device provides orientation, angular velocity, and linear acceleration. The [ICM-20648 6-Axis MEMS MotionTracking Device](https://invensense.tdk.com/products/motion-tracking/6-axis/icm-20648/) from TDK includes a 3-axis gyroscope, 3-axis accelerometer, and a Digital Motion Processor (DMP). This IMU is integrated on the OpenCR1.0 board, an open source robot controller embedded with an ARM Cortex-M7 processor. The OpenCR combines sensor data using an EKF to generate IMU estimates 170 times a second.
 
 ```{image} ./figures/IMU.jpg
@@ -17,19 +23,66 @@ The IMU provides values that are part of the robot state and allow the robot to 
 :align: center
 ```
 
-## Calibrating the IMU
+### Calibrating the IMU
 As described above, there are a number of different sensors that work together to provide the attitude and heading estimates for the TurtleBot3. These sensors are sensitive to magnetic fields which are unique to locale and device. As you will learn in future ECE classes, all electronic devices create small magnetic fields. Even electrons traveling over a wire create magnetic fields. The OpenCR board and IMU are strategically placed in the center of the robot for best attitude and heading performance, however, this location is also in the center of a number of magnetic fields. Luckily for us, the creators of the Turtlebot3 were aware of these issues and whenever you run the serial node to connect to the robot the IMU is calibrated.
 
-## Setup
-The ICM-20648 is already integrated into the Turtlebot3 robot, therefore, there is no setup required. Whenever the serial node is ran to connect to the OpenCR board, the IMU is initialized and will start publishing data.
 
-## Test the IMU
-Open a new terminal on the master and run roscore and setup for statistics:
+## 🌱 Pre-Lab: Test the IMU  
 
-```bash
-roscore
-rosparam set enable_statistics true
-```
+
+### Test the IMU
+
+1. Launch the TurtleBot3 simulation in `Gazebo`:  
+    ```bash
+    ros2 launch turt1ebot3_gazebo turtlebot_world.launch
+    ```
+
+1. **Verify Turtlebot3's Communication with the Master**:
+   - Always check that the Turtlebot3 is communicating with the Master by listing the active topics that the Turtlebot3 is publishing. 
+   ```bash
+   $ ros2 topic list
+   ```
+
+   You should see the `/imu` and `/odom` topics:
+   ```bash
+   /battery_state
+   /cmd_vel
+   /imu
+   /joint_states
+   /magnetic_field
+   /odom   
+   /tf_static
+   ```
+
+1. **Review the */imu* and */odom* Topics**:
+
+    - Run the `gamepad` node and the `joy` node.
+    - As you move around the robot in Gazebo, carefully observe the `/imu` and `/odom` topics. 
+
+        ```bash
+        $ ros2 topic echo /imu
+        ```
+        and 
+        ```bash
+        $ ros2 topic echo /odom
+        ```
+        Take a close look at the `pose` field and take note of the hierarchy of the `pose` field of the `Imu` and `Odom` messages. There are multiple poses in the messages and these hierarchy should not be confused in the future labs.  
+
+
+1. **Examinie the */imu* and */odom* Topics in rqt**:
+
+    - Run `rqt` 
+    - We will be using the */imu* and */odom* topics in this lab. Let's check the topics
+
+        ```bash
+        $ ros2 topic echo /imu
+        ```
+        and 
+        ```bash
+        $ ros2 topic echo /odom
+        ```
+        Take a close look at the `pose` field and take note of the hierarchy of the `pose` field of the `Imu` and `Odom` messages. There are multiple poses in the messages and these hierarchy should not be confused in the future labs.  
+
 
 Create a secure shell connection to your **Robot** and launch the Turtlebot3 core launchfile.
 
@@ -46,6 +99,34 @@ Echo the output of each of the topics and rotate the **Robot** to see the values
 The **/imu** topic combines information from the gyroscope and accelerometer to provide orientation, angular velocity, and linear acceleration. The **/odom** topic combines the information from the **/imu** topic and tachometers to estimate position, orientation, and linear and angular velocities.
 
 Both of these topics provide the orientation of the robot using a quaternion representation. While quaternions can make computation easier, they are not very human readable, so we will convert to Euler angles. To do this we will use a Python library called [squaternion](https://pypi.org/project/squaternion/).
+
+
+
+
+
+## 💻 Lab Procedure
+
+### 🔧 Setup  
+
+### Setup
+The ICM-20648 is already integrated into the Turtlebot3 robot, therefore, there is no setup required. Whenever the serial node is ran to connect to the OpenCR board, the IMU is initialized and will start publishing data.
+
+
+
+1. **Using SSH, launch the `robot.launch.py` file on the robot**:
+
+    ```bash
+    $ ros2 launch turt1ebot3_bringup robot.launch
+    ```
+
+    Ensure you see **"Run!"** at the end of the output:
+    ```bash
+    [turtlebot3_ros-3] [INFO] [1738299487.851512798] [turtlebot3_node]: Succeeded to create sound server
+    [turtlebot3_ros-3] [INFO] [1738299487.853739761] [turtlebot3_node]: Run!
+    [turtlebot3_ros-3] [INFO] [1738299487.890749557] [diff_drive_controller]: Init Odometry
+    [turtlebot3_ros-3] [INFO] [1738299487.909780816] [diff_drive_controller]: Run!
+    ```
+
 
 The two main functions we will use from the squaternion library:
 
