@@ -379,17 +379,30 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose">Purpose</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calibrating-the-imu">Calibrating the IMU</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-the-imu">Test the IMU</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">📌 Objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">📜 Overview</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#imu-calibration">IMU Calibration</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-lab-testing-the-imu">🌱 Pre-Lab: Testing the IMU</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-launch-the-turtlebot3-simulation">Step 1: Launch the TurtleBot3 Simulation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-verify-communication-with-the-master">Step 2: Verify Communication with the Master</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-examine-the-imu-and-odom-topics">Step 3: Examine the <code class="docutils literal notranslate"><span class="pre">/imu</span></code> and <code class="docutils literal notranslate"><span class="pre">/odom</span></code> Topics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-visualizing-data-in-rqt">Step 4: Visualizing Data in <code class="docutils literal notranslate"><span class="pre">rqt</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-procedure">🛠 Lab Procedure</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">🔧 Setup</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-imu-on-the-physical-robot">🛠 Testing IMU on the Physical Robot</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-the-subscriber">Write the Subscriber</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint">Checkpoint</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cleanup">Cleanup</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Purpose</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose">Purpose</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#master">Master</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Setup:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Setup:</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#controller-py">controller.py</a></li>
 </ul>
 </li>
@@ -414,29 +427,154 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="lab6-imu">
 <h1>🔬 Lab6: IMU<a class="headerlink" href="#lab6-imu" title="Permalink to this heading">#</a></h1>
-<section id="purpose">
-<h2>Purpose<a class="headerlink" href="#purpose" title="Permalink to this heading">#</a></h2>
-<p>In practice, an inertial measurement unit (IMU) device provides orientation, angular velocity, and linear acceleration. The <a class="reference external" href="https://invensense.tdk.com/products/motion-tracking/6-axis/icm-20648/">ICM-20648 6-Axis MEMS MotionTracking Device</a> from TDK includes a 3-axis gyroscope, 3-axis accelerometer, and a Digital Motion Processor (DMP). This IMU is integrated on the OpenCR1.0 board, an open source robot controller embedded with an ARM Cortex-M7 processor. The OpenCR combines sensor data using an EKF to generate IMU estimates 170 times a second.</p>
+<section id="objectives">
+<h2>📌 Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Students should be able to u</p></li>
+</ul>
+</section>
+<section id="overview">
+<h2>📜 Overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h2>
+<p>In real-world applications, an Inertial Measurement Unit (IMU) provides essential motion data, including orientation, angular velocity, and linear acceleration. The <a class="reference external" href="https://invensense.tdk.com/products/motion-tracking/6-axis/icm-20648/">ICM-20648 6-Axis MEMS MotionTracking Device</a> from TDK integrates a 3-axis gyroscope, a 3-axis accelerometer, and a Digital Motion Processor (DMP). This IMU is embedded in the OpenCR1.0 board, an open-source robot controller featuring an ARM Cortex-M7 processor. The OpenCR board uses an Extended Kalman Filter (EKF) to fuse sensor data, generating IMU estimates at a rate of 170 updates per second.</p>
 <a class="reference internal image-reference" href="../_images/IMU.jpg"><img alt="../_images/IMU.jpg" class="align-center" src="../_images/IMU.jpg" style="width: 380px;" /></a>
 <br>
-<p>The IMU provides values that are part of the robot state and allow the robot to navigate more accurately. Combined with data from the tachometers these values provide the odometry of the robot to estimate change in position over time. We will primarily use the IMU to perform 90 and 180 degree turns.</p>
+<p>The IMU plays a crucial role in determining the robot’s state and enhancing navigation accuracy. When combined with tachometer data, it helps estimate the robot’s position over time (odometry).</p>
 <a class="reference internal image-reference" href="../_images/TurtleBot3_Coordinates.png"><img alt="../_images/TurtleBot3_Coordinates.png" class="align-center" src="../_images/TurtleBot3_Coordinates.png" style="width: 280px;" /></a>
+<section id="imu-calibration">
+<h3>IMU Calibration<a class="headerlink" href="#imu-calibration" title="Permalink to this heading">#</a></h3>
+<p>As mentioned earlier, multiple sensors work together to estimate the TurtleBot3’s attitude and heading. These sensors are highly sensitive to magnetic fields, which vary by location and device. Even common electronic components generate small magnetic fields, including those from the OpenCR board itself. While the IMU is strategically placed at the center of the robot for optimal performance, it is still exposed to various magnetic interferences.</p>
+<p>Fortunately, the TurtleBot3 developers accounted for this challenge. Each time you run the serial node to connect to the robot, the IMU automatically calibrates itself, ensuring more reliable readings.</p>
 </section>
-<section id="calibrating-the-imu">
-<h2>Calibrating the IMU<a class="headerlink" href="#calibrating-the-imu" title="Permalink to this heading">#</a></h2>
-<p>As described above, there are a number of different sensors that work together to provide the attitude and heading estimates for the TurtleBot3. These sensors are sensitive to magnetic fields which are unique to locale and device. As you will learn in future ECE classes, all electronic devices create small magnetic fields. Even electrons traveling over a wire create magnetic fields. The OpenCR board and IMU are strategically placed in the center of the robot for best attitude and heading performance, however, this location is also in the center of a number of magnetic fields. Luckily for us, the creators of the Turtlebot3 were aware of these issues and whenever you run the serial node to connect to the robot the IMU is calibrated.</p>
 </section>
-<section id="setup">
-<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this heading">#</a></h2>
-<p>The ICM-20648 is already integrated into the Turtlebot3 robot, therefore, there is no setup required. Whenever the serial node is ran to connect to the OpenCR board, the IMU is initialized and will start publishing data.</p>
-</section>
-<section id="test-the-imu">
-<h2>Test the IMU<a class="headerlink" href="#test-the-imu" title="Permalink to this heading">#</a></h2>
-<p>Open a new terminal on the master and run roscore and setup for statistics:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>roscore
-rosparam<span class="w"> </span><span class="nb">set</span><span class="w"> </span>enable_statistics<span class="w"> </span><span class="nb">true</span>
+<section id="pre-lab-testing-the-imu">
+<h2>🌱 Pre-Lab: Testing the IMU<a class="headerlink" href="#pre-lab-testing-the-imu" title="Permalink to this heading">#</a></h2>
+<section id="step-1-launch-the-turtlebot3-simulation">
+<h3>Step 1: Launch the TurtleBot3 Simulation<a class="headerlink" href="#step-1-launch-the-turtlebot3-simulation" title="Permalink to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Open a terminal and start the TurtleBot3 simulation in Gazebo:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_gazebo<span class="w"> </span>turtlebot_world.launch
 </pre></div>
 </div>
+</li>
+</ol>
+</section>
+<section id="step-2-verify-communication-with-the-master">
+<h3>Step 2: Verify Communication with the Master<a class="headerlink" href="#step-2-verify-communication-with-the-master" title="Permalink to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Ensure the TurtleBot3 is properly communicating with the Master by listing active topics:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ros2<span class="w"> </span>topic<span class="w"> </span>list
+</pre></div>
+</div>
+</li>
+<li><p>You should see the following topics, including <code class="docutils literal notranslate"><span class="pre">/imu</span></code> and <code class="docutils literal notranslate"><span class="pre">/odom</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/battery_state
+/cmd_vel
+/imu
+/joint_states
+/magnetic_field
+/odom<span class="w">   </span>
+/tf_static
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="step-3-examine-the-imu-and-odom-topics">
+<h3>Step 3: Examine the <code class="docutils literal notranslate"><span class="pre">/imu</span></code> and <code class="docutils literal notranslate"><span class="pre">/odom</span></code> Topics<a class="headerlink" href="#step-3-examine-the-imu-and-odom-topics" title="Permalink to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Run the <code class="docutils literal notranslate"><span class="pre">gamepad</span></code> and <code class="docutils literal notranslate"><span class="pre">joy</span></code> nodes.</p></li>
+<li><p>As you move the robot in Gazebo, observe the <code class="docutils literal notranslate"><span class="pre">/imu</span></code> and <code class="docutils literal notranslate"><span class="pre">/odom</span></code> topics:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/imu
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/odom
+</pre></div>
+</div>
+</li>
+<li><p>Pay close attention to the <code class="docutils literal notranslate"><span class="pre">pose</span></code> field. In future labs, be careful not to confuse the different pose hierarchies within the <code class="docutils literal notranslate"><span class="pre">Imu</span></code> and <code class="docutils literal notranslate"><span class="pre">Odom</span></code> messages.</p></li>
+</ol>
+</section>
+<section id="step-4-visualizing-data-in-rqt">
+<h3>Step 4: Visualizing Data in <code class="docutils literal notranslate"><span class="pre">rqt</span></code><a class="headerlink" href="#step-4-visualizing-data-in-rqt" title="Permalink to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Open <code class="docutils literal notranslate"><span class="pre">rqt</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>rqt
+</pre></div>
+</div>
+</li>
+<li><p>Move the robot in Gazebo and observe the <code class="docutils literal notranslate"><span class="pre">/imu</span></code> and <code class="docutils literal notranslate"><span class="pre">/odom</span></code> topics in <code class="docutils literal notranslate"><span class="pre">rqt</span></code>.</p></li>
+<li><p>In Gazebo, navigate to <code class="docutils literal notranslate"><span class="pre">Models</span></code> &gt; <code class="docutils literal notranslate"><span class="pre">burger</span></code>, then in the <code class="docutils literal notranslate"><span class="pre">property</span></code> section, select <code class="docutils literal notranslate"><span class="pre">pose</span></code> to display the robot’s position and orientation (expressed in roll-pitch-yaw format).</p></li>
+<li><p>In <code class="docutils literal notranslate"><span class="pre">rqt</span></code>, activate the <code class="docutils literal notranslate"><span class="pre">Topic</span> <span class="pre">Monitor</span></code> and enable <code class="docutils literal notranslate"><span class="pre">/imu</span></code> and <code class="docutils literal notranslate"><span class="pre">/odom</span></code> to track orientation and position in real time.</p></li>
+<li><p>Note that orientation in <code class="docutils literal notranslate"><span class="pre">rqt</span></code> is shown using quaternions.</p></li>
+<li><p>The pose values in Gazebo and rqt are not the same. Gazebo simulation publishes position and orientation with noise. By default, Gazebo adds Gaussian noise to the data generated by its sensors to simulate real-world conditions.</p></li>
+</ol>
+</section>
+</section>
+<section id="lab-procedure">
+<h2>🛠 Lab Procedure<a class="headerlink" href="#lab-procedure" title="Permalink to this heading">#</a></h2>
+<section id="setup">
+<h3>🔧 Setup<a class="headerlink" href="#setup" title="Permalink to this heading">#</a></h3>
+<p>Many cadets frequently make mistakes when running <code class="docutils literal notranslate"><span class="pre">colcon</span> <span class="pre">build</span></code>. It is crucial to run it inside the <code class="docutils literal notranslate"><span class="pre">~/master_ws</span></code> directory and then source <code class="docutils literal notranslate"><span class="pre">install/setup.bash</span></code>. To prevent errors, follow these instructions carefully:</p>
+<ol class="arabic">
+<li><p>Open <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> using <code class="docutils literal notranslate"><span class="pre">gedit</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>gedit<span class="w"> </span>~/.bashrc
+</pre></div>
+</div>
+</li>
+<li><p>Add the following function at the end of the file:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Function to build with optional arguments</span>
+<span class="k">function</span><span class="w"> </span>ccbuild<span class="o">()</span><span class="w"> </span><span class="o">{</span>
+<span class="nb">cd</span><span class="w"> </span>~/master_ws<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>colcon<span class="w"> </span>build<span class="w"> </span>--symlink-install<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span>
+<span class="nb">source</span><span class="w"> </span>~/master_ws/install/setup.bash
+<span class="o">}</span>
+
+<span class="c1"># Export the function to make it available in the shell</span>
+<span class="nb">export</span><span class="w"> </span>-f<span class="w"> </span>ccbuild
+</pre></div>
+</div>
+</li>
+<li><p>Save the file, exit the editor, and restart your terminal.</p></li>
+<li><p>Instead of manually navigating to <code class="docutils literal notranslate"><span class="pre">~/master_ws</span></code>, running <code class="docutils literal notranslate"><span class="pre">colcon</span> <span class="pre">build</span> <span class="pre">--symlink-install</span></code>, and sourcing <code class="docutils literal notranslate"><span class="pre">install/setup.bash</span></code>, you can now simply run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ccbuild
+</pre></div>
+</div>
+<p>This ensures <code class="docutils literal notranslate"><span class="pre">colcon</span> <span class="pre">build</span></code> runs in the correct directory and sources the necessary setup file.</p>
+</li>
+<li><p>You can also pass additional arguments to <code class="docutils literal notranslate"><span class="pre">colcon</span> <span class="pre">build</span></code>. For example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ccbuild<span class="w"> </span>--packages-select<span class="w"> </span>lab6_nav
+</pre></div>
+</div>
+<p>This builds only the <code class="docutils literal notranslate"><span class="pre">lab6_nav</span></code> package, saving time by skipping previously built packages.</p>
+</li>
+</ol>
+<p>By following these steps, you’ll streamline your workflow and minimize build-related errors.</p>
+</section>
+</section>
+<section id="testing-imu-on-the-physical-robot">
+<h2>🛠 Testing IMU on the Physical Robot<a class="headerlink" href="#testing-imu-on-the-physical-robot" title="Permalink to this heading">#</a></h2>
+<ol class="arabic">
+<li><p><strong>Establish a Secure Shell (SSH) Connection</strong> to your TurtleBot3 and launch the core launch file:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>roslaunch<span class="w"> </span>turtlebot3_bringup<span class="w"> </span>turtlebot3_core.launch
+</pre></div>
+</div>
+</li>
+<li><p><strong>Check Active Topics</strong> from your Master terminal:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>topic<span class="w"> </span>list
+</pre></div>
+</div>
+<p>Look for <code class="docutils literal notranslate"><span class="pre">/imu</span></code> and <code class="docutils literal notranslate"><span class="pre">/odom</span></code> in the list.</p>
+</li>
+<li><p><strong>Observe the IMU Data</strong>:</p>
+<ul class="simple">
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">topic</span> <span class="pre">echo</span></code> to display live data from the <code class="docutils literal notranslate"><span class="pre">/imu</span></code> and <code class="docutils literal notranslate"><span class="pre">/odom</span></code> topics.</p></li>
+<li><p>Rotate the robot and watch the values change.</p></li>
+</ul>
+</li>
+</ol>
+<p>The <code class="docutils literal notranslate"><span class="pre">/imu</span></code> topic fuses data from the gyroscope and accelerometer to provide orientation, angular velocity, and linear acceleration. The <code class="docutils literal notranslate"><span class="pre">/odom</span></code> topic further incorporates tachometer data to estimate position, orientation, and velocity.</p>
+<p>Since both topics report orientation using quaternions, we will convert them to Euler angles for better readability. For this, we will use the Python library <a class="reference external" href="https://pypi.org/project/squaternion/">squaternion</a>.</p>
+<hr class="docutils" />
+<p>By completing this pre-lab, you will gain hands-on experience interpreting IMU data and understanding how it integrates with the robot’s navigation system. In the next lab, we will use these values to execute precise robot movements.</p>
 <p>Create a secure shell connection to your <strong>Robot</strong> and launch the Turtlebot3 core launchfile.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>roslaunch<span class="w"> </span>turtlebot3_bringup<span class="w"> </span>turtlebot3_core.launch
 </pre></div>
@@ -446,6 +584,20 @@ rosparam<span class="w"> </span><span class="nb">set</span><span class="w"> </sp
 <p>Echo the output of each of the topics and rotate the <strong>Robot</strong> to see the values change.</p>
 <p>The <strong>/imu</strong> topic combines information from the gyroscope and accelerometer to provide orientation, angular velocity, and linear acceleration. The <strong>/odom</strong> topic combines the information from the <strong>/imu</strong> topic and tachometers to estimate position, orientation, and linear and angular velocities.</p>
 <p>Both of these topics provide the orientation of the robot using a quaternion representation. While quaternions can make computation easier, they are not very human readable, so we will convert to Euler angles. To do this we will use a Python library called <a class="reference external" href="https://pypi.org/project/squaternion/">squaternion</a>.</p>
+<ol class="arabic">
+<li><p><strong>Using SSH, launch the <code class="docutils literal notranslate"><span class="pre">robot.launch.py</span></code> file on the robot</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>turt1ebot3_bringup<span class="w"> </span>robot.launch
+</pre></div>
+</div>
+<p>Ensure you see <strong>“Run!”</strong> at the end of the output:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>turtlebot3_ros-3<span class="o">]</span><span class="w"> </span><span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1738299487</span>.851512798<span class="o">]</span><span class="w"> </span><span class="o">[</span>turtlebot3_node<span class="o">]</span>:<span class="w"> </span>Succeeded<span class="w"> </span>to<span class="w"> </span>create<span class="w"> </span>sound<span class="w"> </span>server
+<span class="o">[</span>turtlebot3_ros-3<span class="o">]</span><span class="w"> </span><span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1738299487</span>.853739761<span class="o">]</span><span class="w"> </span><span class="o">[</span>turtlebot3_node<span class="o">]</span>:<span class="w"> </span>Run!
+<span class="o">[</span>turtlebot3_ros-3<span class="o">]</span><span class="w"> </span><span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1738299487</span>.890749557<span class="o">]</span><span class="w"> </span><span class="o">[</span>diff_drive_controller<span class="o">]</span>:<span class="w"> </span>Init<span class="w"> </span>Odometry
+<span class="o">[</span>turtlebot3_ros-3<span class="o">]</span><span class="w"> </span><span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1738299487</span>.909780816<span class="o">]</span><span class="w"> </span><span class="o">[</span>diff_drive_controller<span class="o">]</span>:<span class="w"> </span>Run!
+</pre></div>
+</div>
+</li>
+</ol>
 <p>The two main functions we will use from the squaternion library:</p>
 <p>First we will need to create a Quaternion object:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">q</span> <span class="o">=</span> <span class="n">Quaternion</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
@@ -550,14 +702,14 @@ touch<span class="w"> </span>imu_sub.py
 <p>In each terminal window, close the node by typing <code class="docutils literal notranslate"><span class="pre">ctrl+c</span></code>. Exit any SSH connections. Shutdown the notebook server by typing <code class="docutils literal notranslate"><span class="pre">ctrl+c</span></code> within the terminal you ran <code class="docutils literal notranslate"><span class="pre">jupyter-lab</span></code> in. Select ‘y’.</p>
 <p><strong>Ensure roscore is terminated before moving on to the lab.</strong></p>
 </section>
-<section id="id1">
-<h2>Purpose<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<section id="purpose">
+<h2>Purpose<a class="headerlink" href="#purpose" title="Permalink to this heading">#</a></h2>
 <p>This lab will integrate the on-board IMU with the Turtlebot3 controller to turn the robot 90 degrees left or right.  Do not disable any of the mouse controller functionality in the turtlebot_controller.py code.  The IMU and mouse control functionality should be able to coexist seemlessly.</p>
 </section>
 <section id="master">
 <h2>Master<a class="headerlink" href="#master" title="Permalink to this heading">#</a></h2>
-<section id="id2">
-<h3>Setup:<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
+<section id="id1">
+<h3>Setup:<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
 <p>In the <code class="docutils literal notranslate"><span class="pre">/master_ws/src/ece387_master_sp2X-USERNAME/master</span></code> folder, create a <strong>lab2</strong> package which depends on <strong>std_msgs</strong>, <strong>rospy</strong>, <strong>geometry_msgs</strong>, and <strong>turtlebot3_bringup</strong>.</p>
 </section>
 <section id="controller-py">
@@ -858,17 +1010,30 @@ colcon<span class="w"> </span>build<span class="w"> </span>--packages-select<spa
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose">Purpose</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calibrating-the-imu">Calibrating the IMU</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-the-imu">Test the IMU</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">📌 Objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">📜 Overview</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#imu-calibration">IMU Calibration</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-lab-testing-the-imu">🌱 Pre-Lab: Testing the IMU</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-launch-the-turtlebot3-simulation">Step 1: Launch the TurtleBot3 Simulation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-verify-communication-with-the-master">Step 2: Verify Communication with the Master</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-examine-the-imu-and-odom-topics">Step 3: Examine the <code class="docutils literal notranslate"><span class="pre">/imu</span></code> and <code class="docutils literal notranslate"><span class="pre">/odom</span></code> Topics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-visualizing-data-in-rqt">Step 4: Visualizing Data in <code class="docutils literal notranslate"><span class="pre">rqt</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-procedure">🛠 Lab Procedure</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">🔧 Setup</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-imu-on-the-physical-robot">🛠 Testing IMU on the Physical Robot</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-the-subscriber">Write the Subscriber</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint">Checkpoint</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cleanup">Cleanup</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Purpose</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose">Purpose</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#master">Master</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Setup:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Setup:</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#controller-py">controller.py</a></li>
 </ul>
 </li>
