@@ -1,33 +1,31 @@
-# 🔬 Lab6: IMU
-
+# 🔬 Lab6: IMU-Based Navigation
 
 ## 📌 Objectives
-
 - Students should be able to describe how IMU data is used in ROS2 and interpret IMU messages.
-- Students will complete a ROS2 Python node to navigate a robot towards a specified goal position using odometry and IMU data. The robot will follow these steps:
+- Students should be able to set up and analyze IMU (`/imu`) and odometry (`/odom`) topics in ROS2.
+- Students should be able to modify a ROS2 gamepad node to relinquish and regain robot control using button presses.
+- Students should be able to implement a ROS2 Python node that navigates a robot to a goal using odometry and IMU data.
+- Students should be able to evaluate and analyze errors in robot navigation and suggest potential improvements.
 
-## 📜 Overview  
-
-In real-world applications, an Inertial Measurement Unit (IMU) provides essential motion data, including orientation, angular velocity, and linear acceleration. The [ICM-20648 6-Axis MEMS MotionTracking Device](https://invensense.tdk.com/products/motion-tracking/6-axis/icm-20648/) from TDK integrates a 3-axis gyroscope, a 3-axis accelerometer, and a Digital Motion Processor (DMP). This IMU is embedded in the OpenCR1.0 board, an open-source robot controller featuring an ARM Cortex-M7 processor. The OpenCR board uses an Extended Kalman Filter (EKF) to fuse sensor data, generating IMU estimates at a rate of 170 updates per second.
+## 📜 Overview
+In real-world robotics, an Inertial Measurement Unit (IMU) is essential for tracking motion by measuring orientation, angular velocity, and linear acceleration. The [ICM-20648 6-Axis MEMS MotionTracking Device](https://invensense.tdk.com/products/motion-tracking/6-axis/icm-20648/) from TDK integrates a 3-axis gyroscope, a 3-axis accelerometer, and a Digital Motion Processor (DMP). This IMU is embedded in the OpenCR1.0 board, an open-source robot controller featuring an ARM Cortex-M7 processor. The OpenCR board applies an Extended Kalman Filter (EKF) to fuse sensor data, generating IMU estimates at 170 Hz.
 
 ```{image} ./figures/IMU.jpg
 :width: 380
 :align: center
 ```
 <br>
-
-The IMU plays a crucial role in determining the robot's state and enhancing navigation accuracy. When combined with tachometer data, it helps estimate the robot's position over time (odometry). 
+The IMU significantly enhances navigation accuracy when combined with odometry. It helps estimate the robot's position over time and improves localization.
 
 ```{image} ./figures/TurtleBot3_Coordinates.png
 :width: 280
 :align: center
 ```
 
-### IMU Calibration
+As we discussed earlier, multiple sensors work together to estimate the TurtleBot3's attitude and heading. These sensors are highly sensitive to magnetic fields, which can vary depending on the location and the device. Even everyday electronic components, including those on the OpenCR board, generate small magnetic fields. Although the IMU is placed at the center of the robot for optimal performance, it is still exposed to various magnetic interferences.
 
-As mentioned earlier, multiple sensors work together to estimate the TurtleBot3's attitude and heading. These sensors are highly sensitive to magnetic fields, which vary by location and device. Even common electronic components generate small magnetic fields, including those from the OpenCR board itself. While the IMU is strategically placed at the center of the robot for optimal performance, it is still exposed to various magnetic interferences.
+Fortunately, the TurtleBot3 developers anticipated this issue. Each time you run the serial node to connect to the robot, the IMU automatically calibrates itself, ensuring more accurate readings.
 
-Fortunately, the TurtleBot3 developers accounted for this challenge. Each time you run the serial node to connect to the robot, the IMU automatically calibrates itself, ensuring more reliable readings.
 
 ## 🌱 Pre-Lab: Testing the IMU  
 
@@ -56,239 +54,271 @@ Fortunately, the TurtleBot3 developers accounted for this challenge. Each time y
     ```
 
 ### Step 3: Examine the `/imu` and `/odom` Topics
-
 1. Run the `gamepad` and `joy` nodes.
-1. As you move the robot in Gazebo, observe the `/imu` and `/odom` topics:
+1. Observe the IMU and odometry messages while moving the robot:
+    ```bash
+    $ ros2 topic echo /imu
+    $ ros2 topic echo /odom
+    ```
+    Pay close attention to the `pose` field. In future labs, be mindful not to confuse the different pose hierarchies within the Imu and Odom messages.
+
+
+### Step 4: Visualizing Data in `rqt`
+1. Open `rqt`:
+    ```bash
+    $ rqt
+    ```
+1. Monitor `/imu` and `/odom` data in `rqt` while moving the robot.
+1. Compare the pose data from Gazebo and `rqt`, noting how simulation noise affects readings.
+1. Monitor the `/imu` and `/odom` topics using `rqt` as you move the robot in Gazebo.
+1. In Gazebo, go to `Models` > `burger`, then in the `property` section, select `pose` to view the robot's position and orientation in roll-pitch-yaw format.
+1. In `rqt`, enable the `Topic Monitor` and activate the `/imu` and `/odom` topics to track orientation and position in real time.
+1. Note that orientation in `rqt` is shown using quaternions.
+1. The pose values in Gazebo and rqt are not the same. Gazebo simulation publishes position and orientation with noise. By default, Gazebo adds Gaussian noise to the data generated by its sensors to simulate real-world conditions.
+
+## 💻 Lab Procedure
+
+In this lab, you will create a ROS2 Python package that enables the TurtleBot3 to navigate to a desired **location and orientation** using data from the **IMU (`/imu`)** and **ODOM (`/odom`)** topics.
+
+### 🛠 Update `.bashrc` for Easier Builds
+
+To avoid common mistakes when running `colcon build`, follow these steps to streamline your workflow. This will ensure that `colcon build` is always run in the correct directory and that the necessary setup file is sourced automatically.
+
+1. Use `gedit` to open the `.bashrc` file:
+   ```bash
+   $ gedit ~/.bashrc
+   ```
+
+1. At the end of the file, add the following function:
+   ```bash
+   # Function to build with optional arguments
+   function ccbuild() {
+       cd ~/master_ws && colcon build --symlink-install "$@"
+       source ~/master_ws/install/setup.bash
+   }
+
+   # Export the function to make it available in the shell
+   export -f ccbuild
+   ```
+
+1. Save the file, exit the editor, and restart your terminal for the changes to take effect.
+
+1. Instead of manually navigating to `~/master_ws`, running `colcon build --symlink-install`, and sourcing `install/setup.bash`, you can now simply run:
+   ```bash
+   $ ccbuild
+   ```
+   This ensures the build process is executed correctly every time and and sources the necessary setup file.
+
+1. You can also pass arguments to `colcon build` through the `ccbuild` function. For example:
+   ```bash
+   $ ccbuild --packages-select lab6_nav
+   ```
+    This builds only the `lab6_nav` package, saving time by skipping previously built packages.
+
+1. By following these steps, you'll streamline your workflow and minimize build-related errors.
+
+### 🛠 Testing IMU on the Physical Robot
+
+To test the IMU on the physical robot, follow these steps:
+
+1. Use SSH to launch the `robot.launch.py` file on the robot.
+1. Start the `gamepad` and `joy` nodes on your master computer.
+1. As you move the robot in Gazebo, monitor the `/imu` and `/odom` topics using:
    ```bash
    $ ros2 topic echo /imu
    ```
    ```bash
    $ ros2 topic echo /odom
    ```
-1. Pay close attention to the `pose` field. In future labs, be careful not to confuse the different pose hierarchies within the `Imu` and `Odom` messages.
-
-### Step 4: Visualizing Data in `rqt`
-
-1. Open `rqt`:
+1. The raw output of these topics can be overwhelming. Use the following commands to filter and display only the relevant sections:
    ```bash
-   $ rqt
+   ros2 topic echo /imu | grep -A 4 'orientation'
    ```
-1. Move the robot in Gazebo and observe the `/imu` and `/odom` topics in `rqt`.
-1. In Gazebo, navigate to `Models` > `burger`, then in the `property` section, select `pose` to display the robot's position and orientation (expressed in roll-pitch-yaw format).
-1. In `rqt`, activate the `Topic Monitor` and enable `/imu` and `/odom` to track orientation and position in real time.
-1. Note that orientation in `rqt` is shown using quaternions.
-1. The pose values in Gazebo and rqt are not the same. Gazebo simulation publishes position and orientation with noise. By default, Gazebo adds Gaussian noise to the data generated by its sensors to simulate real-world conditions.
+   ```bash
+   ros2 topic echo /odom | grep -A 3 'position'
+   ```
+   - The `-A` option in `grep` stands for "after context." It displays the specified number of lines following the matching line.
+   - For `/imu`, this command shows the `orientation` section and the next 4 lines.
+   - For `/odom`, it shows the `position` section and the next 3 lines.
 
-## 💻 Lab Procedure
-
-### 🛠 Update `.bashrc`  
-
-Many cadets frequently make mistakes when running `colcon build`. It is crucial to run it inside the `~/master_ws` directory and then source `install/setup.bash`. To prevent errors, follow these instructions carefully:
-
-1. Open `.bashrc` using `gedit`:
-    ```bash
-    $ gedit ~/.bashrc
-    ```
-
-1. Add the following function at the end of the file:
-    ```bash
-    # Function to build with optional arguments
-    function ccbuild() {
-    cd ~/master_ws && colcon build --symlink-install "$@"
-    source ~/master_ws/install/setup.bash
-    }
-
-    # Export the function to make it available in the shell
-    export -f ccbuild
-    ```
-
-1. Save the file, exit the editor, and restart your terminal.
-
-1. Instead of manually navigating to `~/master_ws`, running `colcon build --symlink-install`, and sourcing `install/setup.bash`, you can now simply run:
-    ```bash
-    ccbuild
-    ```
-    This ensures `colcon build` runs in the correct directory and sources the necessary setup file.
-
-1. You can also pass additional arguments to `colcon build`. For example:
-    ```bash
-    $ ccbuild --packages-select lab6_nav
-    ```
-    This builds only the `lab6_nav` package, saving time by skipping previously built packages.
-
-By following these steps, you'll streamline your workflow and minimize build-related errors.
+1. **Convert quaternions to Euler angles:** Both topics use quaternions to represent orientation, which are not human-readable. Later, we will convert these quaternions into Euler angles for easier interpretation.
 
 
-### 🛠 Testing IMU on the Physical Robot
+### 🛠 Modify `gamepad.py` to Include Control Relinquishment
 
-1. Use SSH to launch `robot.launch.py` on the robot.
-1. Run the `gamepad` and `joy` nodes on the master computer.
-1. As you move the robot in Gazebo, observe the `/imu` and `/odom` topics:
-    ```bash
-    $ ros2 topic echo /imu
-    ```
-    ```bash
-    $ ros2 topic echo /odom
-    ```
-1. Both topics have too many lines of outputs to easily examine them. Run
-    ```bash
-    $ ros2 topic echo /imu | grep -A 4 'orientation'
-    ```
-    ```bash
-    $ ros2 topic echo /odom | grep -A 3 'position' 
-    ```
-    The `-A 3` option in the `grep` command stands for "after context." It tells `grep` to display the specified number of lines following the matching line.
-    This command will:
-    - Echo messages from the /odom topic.
-    - Pipe the output to grep to search for the string 'position'.
-    - Display the matching line and the next 3 lines following each match.
+In this section, you'll modify the `gamepad.py` script to add functionality for relinquishing and regaining control of the robot. This will allow users to toggle control states using specific gamepad buttons.
 
-    This can be useful when you want to see additional context around the matched lines. In this case, you will see the 'position' section and the next three lines that follow it in the /odom topic messages.
-
-    Both of these topics provide the orientation of the robot using a quaternion representation. While quaternions can make computation easier, they are not very human readable, so we will convert to Euler angles. To do this we will convert quaternions into Euler angles. 
-
-### 🛠 **Modify `gamepad.py` to Include Control Relinquishment**
-
-You will modify an existing ROS2 gamepad control node to add functionality for relinquishing and regaining control of the robot. You will implement logic that allows a user to press specific gamepad buttons to toggle control states.
-
-1. Open the `gamepad.py` file located inside `gamepad_control/gamepad.py`:
-1. Locate the contructor of the `Gamepad` class and **add the following attributes**:
+1. Locate and open the `gamepad.py` file.
+1. In the constructor of the `Gamepad` class, add the following attributes:
    ```python
-    # Flag to track control status (default: True)
-    self.has_control = True
+   # Flag to track control status (default: True)
+   self.has_control = True
 
-    # Create a publisher for control relinquishment messages.
-    # - Publishes to the 'ctrl_relinq' topic.
-    # - Uses Bool messages to indicate control status.
-    # - Queue size of 1 ensures only the latest control state is kept.
-    self.ctrl_pub = self.create_publisher(Bool, 'ctrl_relinq', 1)
-    ```
+   # Create a publisher for control relinquishment messages.
+   # - Publishes to the 'ctrl_relinq' topic.
+   # - Uses Bool messages to indicate control status.
+   # - Queue size of 1 ensures only the latest control state is kept.
+   self.ctrl_pub = self.create_publisher(Bool, 'ctrl_relinq', 1)
+   ```
 
-1. In the `joy_callback` method, **add logic for control toggling using buttons 0 and 1**:
+1. In the `joy_callback` method, implement the following logic to toggle control using buttons A (Green) and B (Red):
+   ```python
+   # Create a new Bool message for "control relinquishment status"
+   relinquish = Bool()
 
-    ```python
-    # Create a new Bool message for "control relinquishment status"
-    relinquish = Bool()
+   # TODO: Check if the RC (Remote Control) has control and button A (Green) is pressed
+       # Set control flag to False (relinquish control)
+       # Change "control status" to relinquished.
+       # Publish the control status
+       
+       # Log status update
+       self.get_logger().info("RC has relinquished control.")  
 
-    # TODO: Check if the RC (Remote Control) has control and button O is pressed
-        # Set control flag to False (relinquish control)
-        # Change "control  status" to relinquished.
-        # Publish the control status
-        
-        # Log status update
-        self.get_logger().info("RC has relinquished control.")  
+   # TODO: Check if RC does not have control and button B (Red) is pressed
+       # Set control flag to True (regain control)
+       # Set control status to regained.
+       # Publish the control status
+       
+       # Log status update
+       self.get_logger().info("RC has taken over control.")  
 
-    # TODO: Check if RC does not have control and button X is pressed
-        # Set control flag to True (regain control)
-        # Set control status to regained.
-        # Publish the control status
-        
-        # Log status update
-        self.get_logger().info("RC has taken over control.")  
-
-    # If control is relinquished, stop further processing
-    if not self.has_control:
-        return
-    ```
-
-1. Run the gamepad node. 
-1. Open another terminal and monitor the `cmd_vel` topic:
-1. Press **button O** on the gamepad and verify that control is relinquished (no movement commands should be published).
-1. Press **button X** and verify that control is regained (movement commands should be published again).
-1. Check the `ctrl_relinq` topic to see if control status messages are published:
-
-
-### **Create a Python ROS2 Package**
-
-We want to create a new Python ROS2 package that moves the TurtleBot3 to a desired **location and orientation** using **IMU (`/imu`) and ODOM (`/odom`)** topics.
-
-1. **Create a New ROS2 Package**: Open a terminal and create a new package:  
-    ```bash
-    $ cd ~/master_ws/src/ece387_ws  
-    $ ros2 pkg create lab6_nav --build-type ament_python --dependencies rclpy geometry_msgs nav_msgs sensor_msgs
-    ```
-    This creates a package named `lab6_nav` with dependencies:  
-    - `rclpy` for ROS2 Python API  
-    - `geometry_msgs` for `Twist` messages (velocity commands)  
-    - `nav_msgs` for `Odometry` messages  
-    - `sensor_msgs` for `IMU` messages  
-
-1. **Download `move2goal.py`**: Download [move2goal.py](../files/move2goal.py) and save it under the `~/master_ws/src/ece387_ws/lab6_nav/lab6_nav` directory.
-
-1. **Update `setup.py`**: Open `setup.py` and modify `entry_points` to include the new script:
-    ```python
-    entry_points={
-        'console_scripts': [
-            'move2goal = lab6_nav.move2goal:main',
-        ],
-    },
-    ```
-
-1. **Build and Source the Package**
-    ```bash
-    $ ccbuild 
-    ```
-
-### **Write Code for `move2goal.py`**
-
-1. **Initialize Publishers and Subscribers**
-   - Implement the missing publisher for `/cmd_vel` to send velocity commands.
-   - Implement subscribers for:
-     - Odometry (`/odom`) to track position.
-     - IMU (`/imu`) to get orientation data.
-     - Control status (`/ctrl_relinq`) to check if this node has control.
-
-1. **Implement `odom_callback` Function**
-   - Extract `x` and `y` position from the received `Odometry` message.
-
-1. **Implement `imu_callback` Function**
-   - Extract quaternion orientation from the `Imu` message.
-   - Convert quaternion to Euler angles using `euler_from_quaternion`.
-   - Update `yaw` value.
-
-1. **Implement `ctrl_relinq_callback` Function**
-   - Update `self.has_control` based on the received `Bool` message.
-   - Log a message indicating whether control is taken or relinquished.
-
-1. **Implement `control_loop` Function**
-   - Compute the **angle to the goal** and normalize it to `[-$\pi$, $\pi$]`.
-   - Compute the **distance to the goal** using Euclidean distance formula.
-
-1. **Complete the State Machine Logic:**
-   - **ROTATE_TO_GOAL:**
-     - If the angle error is greater than 0.05 radians, rotate with angular speed proportional to the error (`0.3 * angle_error`). Feel free to change this proportional coefficient as you feel better suited. 
-     - Otherwise, transition to `MOVE_FORWARD`.
+   # If control is relinquished, stop further processing
+   if not self.has_control:
+       return
+   ```
    
-   - **MOVE_FORWARD:**
-     - Move forward at a constant speed of `0.15` if the goal is not reached. Feed free to change this speed as you like, but the maximum speed of the robot is 0.22.
-     - If the distance is less than `0.15`, transition to `ROTATE_TO_FINAL`.
-
-   - **ROTATE_TO_FINAL:**
-     - Compute the final orientation error and normalize it.
-     - If error is greater than 0.05 radians, rotate with speed proportional to error (`0.5 * final_angle_error`).
-     - Otherwise, transition to `GOAL_REACHED`.
-   
-   - **GOAL_REACHED:**
-     - Log a message confirming the goal is reached.
-     - Stop publishing movement commands.
-
-1. **Publish the velocity commands in `control_loop`**
-   - Ensure `cmd_vel` messages are published correctly in each state.
+   This is a common safety practice in robotics to halt autonomous tasks a robot is executing.  Another safety practice is to integrating an easily accessible emergency stop switch that cuts off the main power to the robot.  
 
 
-1. **Build the package** 
-    ```bash
-    $ ccbuild --packages-select Lab6_nav
-    ```
+1. Test the gamepad node:
+   - Run the gamepad node.
+   - Open another terminal and monitor the `cmd_vel` topic.
+   - Press **button A** on the gamepad and verify that control is relinquished (no movement commands should be published by the gamepad).
+   - Press **button B** and verify that control is regained (movement commands should be published again).
+   - Check the `ctrl_relinq` topic to confirm that control status messages are being published.
 
-1. Demo your robot moving to (-0.61, 0.61) in meters and rotate to face 90$^\circ$. Hint: Most tiles on the floor and ceiling in the U.S. are measured in feet (of course) and they are usually 1' by 1' and 2' by 2'. How many centimeters is one foot?   
+
+### **Create a New ROS2 Package**
+
+1. Open a terminal and navigate to the `src` directory of your workspace:
+   ```bash
+   $ cd ~/master_ws/src/ece387_ws
+   ```
+
+1. Use the following command to create a new ROS2 package named `lab6_nav`:
+   ```bash
+   $ ros2 pkg create lab6_nav --build-type ament_python --dependencies rclpy geometry_msgs nav_msgs sensor_msgs
+   ```
+   - **Dependencies:**
+     - `rclpy`: ROS2 Python API.
+     - `geometry_msgs`: For `Twist` messages (velocity commands).
+     - `nav_msgs`: For `Odometry` messages.
+     - `sensor_msgs`: For `IMU` messages.
+
+1. Download the [`move2goal.py`](../files/move2goal.py) file and save it in the `lab6_nav` package directory:
+   ```
+   ~/master_ws/src/ece387_ws/lab6_nav/lab6_nav/
+   ```
+
+1. Open the `setup.py` file and modify the `entry_points` section to include the `move2goal` script:
+   ```python
+   entry_points={
+       'console_scripts': [
+           'move2goal = lab6_nav.move2goal:main',
+       ],
+   },
+   ```
+
+1. Build the package using the `ccbuild` command:
+   ```bash
+   ccbuild
+   ```
+
+### **Implement the `move2goal.py` Script**
+
+The `move2goal.py` script will control the TurtleBot3 to move to a specified goal location and orientation. Follow these steps to complete the implementation:
+
+1. Initialize publishers and subscribers.
+    - **Publisher:** Create a publisher for `/cmd_vel` to send velocity commands to the robot.
+    - **Subscribers:** Subscribe to:
+        - `/odom` to track the robot's position.
+        - `/imu` to get orientation data.
+        - `/ctrl_relinq` to check if the node has control.
+
+1. Implement the `odom_callback` function
+    - Extract the `x` and `y` position from the received `Odometry` message.
+
+1. Implement the `imu_callback` function
+    - Extract the quaternion orientation from the `Imu` message.
+    - Convert the quaternion to Euler angles using the `euler_from_quaternion` function.
+    - Update the `yaw` value.
+
+1. Implement the `ctrl_relinq_callback` function
+    - Update the `self.has_control` flag based on the received `Bool` message.
+    - Log a message indicating whether control is taken or relinquished.
+
+1. Implement the `control_loop` function
+    - Compute the **angle to the goal** and normalize it to the range [-$\pi$, $\pi$].
+    - Compute the **distance to the goal** using the Euclidean distance formula.
+
+1. Complete the state machine logic: The state machine consists of four states:
+
+    - **ROTATE_TO_GOAL:**
+        - If the angle error is greater than `0.05` radians, rotate the robot with an angular speed proportional to the error (`0.3 * angle_error`). Adjust the proportional coefficient as needed.
+        - If the angle error is within the threshold, transition to `MOVE_FORWARD`.
+
+    - **MOVE_FORWARD:**
+        - Move the robot forward at a constant speed of `0.15` (adjustable, but the robot's maximum speed is `0.22`).
+        - If the distance to the goal is less than `0.15`, transition to `ROTATE_TO_FINAL`.
+
+    - **ROTATE_TO_FINAL:**
+        - Compute the final orientation error and normalize it.
+        - If the error is greater than `0.05` radians, rotate the robot with a speed proportional to the error (`0.5 * final_angle_error`).
+        - If the error is within the threshold, transition to `GOAL_REACHED`.
+
+    - **GOAL_REACHED:**
+        - Log a message confirming the goal has been reached.
+        - Stop publishing movement commands.
+
+1. Publish velocity commands: Ensure `cmd_vel` messages are published correctly in each state of the state machine.
 
 
+### **Build and Test the Package**
 
-###🚚 Deliverables
-- Completed `move_to_goal.py` script.
-- Demonstration of the working implementation in a real-world setup.
-- Carefully examine the distance errors and angle errors printed by move2goal.py and discuss the performance of your robot. If you want to move your robot to a farther distance, e.g., (-3, 3), would it still work? Why and why not?  How would you improve it?
+1. Install `tf-transformations` using
+   ```bash
+   $ sudo apt install ros-humble-tf-transformations
+   ```
+
+1. Build the `lab6_nav` package using:
+   ```bash
+   $ ccbuild --packages-select lab6_nav
+   ```
+
+1. Demo the robot:
+   - Run the `move2goal` node and demonstrate the robot moving to the goal location `(-0.61, 0.61)` in meters.
+   - Rotate the robot to face `90°`.
+   - **Hint:** Most floor and ceiling tiles in the U.S. are 1' by 1' or 2' by 2'. Use this to estimate distances. (1 foot = 30.48 cm).
+
+
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/OXq5pgE4C6M?si=R9m2p0erJwloZ9VT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</center>
+
+
+### 🚚 Deliverables
+
+1. **Completed `move2goal.py` Script:**
+   - Ensure the script is fully functional and implements all required features.
+
+1. **Demonstration:**
+   - Show the robot successfully navigating to the goal location and orientation in a real-world setup.
+
+1. **Performance Analysis:**
+   - Examine the distance and angle errors printed by `move2goal.py`.
+   - Discuss the robot's performance:
+     - Can the robot navigate to a farther distance, such as `(-3, 3)`? Why or why not?
+     - Suggest improvements to enhance the robot's navigation capabilities.
 
 
 

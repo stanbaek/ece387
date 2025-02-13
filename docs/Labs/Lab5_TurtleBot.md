@@ -254,7 +254,7 @@ Using password-free SSH authentication improves both security and convenience. I
    $ rm -rf install/ build/ log/
    ```
 4. Ensure you still have the `turtlebot3_simulations` and `ece387_ws` directories within the `src` directory.
-5. Rebuild the local pacakages
+5. Rebuild the local packages
    ```bash
    $ colcon build --symlink-1nstall
    ```
