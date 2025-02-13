@@ -3,7 +3,8 @@
 
 ## 📌 Objectives
 
-- Students should be able to u
+- Students should be able to describe how IMU data is used in ROS2 and interpret IMU messages.
+
 
 ## 📜 Overview  
 
@@ -117,6 +118,50 @@ Many cadets frequently make mistakes when running `colcon build`. It is crucial 
 
 By following these steps, you'll streamline your workflow and minimize build-related errors.
 
+
+
+
+
+
+
+
+
+
+The `-A 3` option in the `grep` command stands for "after context." It tells `grep` to display the specified number of lines following the matching line.
+
+In your command:
+
+```bash
+rostopic echo /odom | grep -A 3 'position'
+```
+
+This command will:
+1. Echo messages from the `/odom` topic.
+2. Pipe the output to `grep` to search for the string 'position'.
+3. Display the matching line and the next 3 lines following each match.
+
+This can be useful when you want to see additional context around the matched lines. In this case, you will see the 'position' section and the next three lines that follow it in the `/odom` topic messages.
+
+If you have any more questions or need further assistance, feel free to ask!
+
+
+
+
+
+To get both position and orientation from the `/odom` topic in ROS2 and display them, you can use the `rostopic echo` command along with `grep` for filtering specific lines. Since the position and orientation fields are nested within the Odometry message, you can capture them using the following command:
+
+```bash
+rostopic echo /odom | grep -A 5 'position' | grep -A 4 'orientation'
+```
+
+Here's a breakdown of the command:
+1. `rostopic echo /odom`: This command subscribes to the `/odom` topic and prints the messages.
+2. `| grep -A 5 'position'`: This filters the output to include the line containing 'position' and the next 5 lines, which should capture the full position data.
+3. `| grep -A 4 'orientation'`: This further filters to include the line containing 'orientation' and the next 4 lines, capturing the orientation data.
+
+This command will display both the position and orientation parts of the Odometry message. You may need to adjust the number of lines with `-A` depending on the structure of your specific message.
+
+If you need more help or have any specific requirements, feel free to ask!
 
 
 
