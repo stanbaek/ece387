@@ -147,7 +147,6 @@ By following these steps, you'll streamline your workflow and minimize build-rel
 
     Both of these topics provide the orientation of the robot using a quaternion representation. While quaternions can make computation easier, they are not very human readable, so we will convert to Euler angles. To do this we will convert quaternions into Euler angles. 
 
-
 ### 🛠 **Modify `gamepad.py` to Include Control Relinquishment**
 
 You will modify an existing ROS2 gamepad control node to add functionality for relinquishing and regaining control of the robot. You will implement logic that allows a user to press specific gamepad buttons to toggle control states.
@@ -167,7 +166,7 @@ You will modify an existing ROS2 gamepad control node to add functionality for r
 
 1. In the `joy_callback` method, **add logic for control toggling using buttons 0 and 1**:
 
-   ```python
+    ```python
     # Create a new Bool message for "control relinquishment status"
     relinquish = Bool()
 
@@ -190,7 +189,7 @@ You will modify an existing ROS2 gamepad control node to add functionality for r
     # If control is relinquished, stop further processing
     if not self.has_control:
         return
-   ```
+    ```
 
 1. Run the gamepad node. 
 1. Open another terminal and monitor the `cmd_vel` topic:
@@ -199,7 +198,38 @@ You will modify an existing ROS2 gamepad control node to add functionality for r
 1. Check the `ctrl_relinq` topic to see if control status messages are published:
 
 
-### **Implementing a ROS2 MoveToGoal Node**
+### **Create a Python ROS2 Package**
+
+We want to create a new Python ROS2 package that moves the TurtleBot3 to a desired **location and orientation** using **IMU (`/imu`) and ODOM (`/odom`)** topics.
+
+1. **Create a New ROS2 Package**: Open a terminal and create a new package:  
+    ```bash
+    $ cd ~/master_ws/src/ece387_ws  
+    $ ros2 pkg create lab6_nav --build-type ament_python --dependencies rclpy geometry_msgs nav_msgs sensor_msgs
+    ```
+    This creates a package named `lab6_nav` with dependencies:  
+    - `rclpy` for ROS2 Python API  
+    - `geometry_msgs` for `Twist` messages (velocity commands)  
+    - `nav_msgs` for `Odometry` messages  
+    - `sensor_msgs` for `IMU` messages  
+
+1. **Download `move2goal.py`**: Download [move2goal.py](../files/move2goal.py) and save it under the `~/master_ws/src/ece387_ws/lab6_nav/lab6_nav` directory.
+
+1. **Update `setup.py`**: Open `setup.py` and modify `entry_points` to include the new script:
+    ```python
+    entry_points={
+        'console_scripts': [
+            'move2goal = lab6_nav.move2goal:main',
+        ],
+    },
+    ```
+
+1. **Build and Source the Package**
+    ```bash
+    $ ccbuild 
+    ```
+
+### **Write Code for `move2goal.py`**
 
 1. **Initialize Publishers and Subscribers**
    - Implement the missing publisher for `/cmd_vel` to send velocity commands.
@@ -226,12 +256,12 @@ You will modify an existing ROS2 gamepad control node to add functionality for r
 
 1. **Complete the State Machine Logic:**
    - **ROTATE_TO_GOAL:**
-     - If the angle error is greater than 0.05 radians, rotate with angular speed proportional to the error (`0.5 * angle_error`).
+     - If the angle error is greater than 0.05 radians, rotate with angular speed proportional to the error (`0.3 * angle_error`). Feel free to change this proportional coefficient as you feel better suited. 
      - Otherwise, transition to `MOVE_FORWARD`.
    
    - **MOVE_FORWARD:**
-     - Move forward at a constant speed of `0.15` if the goal is not reached.
-     - If the distance is less than `0.05`, transition to `ROTATE_TO_FINAL`.
+     - Move forward at a constant speed of `0.15` if the goal is not reached. Feed free to change this speed as you like, but the maximum speed of the robot is 0.22.
+     - If the distance is less than `0.15`, transition to `ROTATE_TO_FINAL`.
 
    - **ROTATE_TO_FINAL:**
      - Compute the final orientation error and normalize it.
@@ -245,12 +275,20 @@ You will modify an existing ROS2 gamepad control node to add functionality for r
 1. **Publish the velocity commands in `control_loop`**
    - Ensure `cmd_vel` messages are published correctly in each state.
 
-### Demo:
-1. Run the node and verify the robot correctly follows the path towards the goal.
 
-### Deliverables:
+1. **Build the package** 
+    ```bash
+    $ ccbuild --packages-select Lab6_nav
+    ```
+
+1. Demo your robot moving to (-0.61, 0.61) in meters and rotate to face 90$^\circ$. Hint: Most tiles on the floor and ceiling in the U.S. are measured in feet (of course) and they are usually 1' by 1' and 2' by 2'. How many centimeters is one foot?   
+
+
+
+###🚚 Deliverables
 - Completed `move_to_goal.py` script.
-- Demonstration of the working implementation in a simulation or real-world setup.
+- Demonstration of the working implementation in a real-world setup.
+- Carefully examine the distance errors and angle errors printed by move2goal.py and discuss the performance of your robot. If you want to move your robot to a farther distance, e.g., (-3, 3), would it still work? Why and why not?  How would you improve it?
 
 
 
@@ -259,64 +297,3 @@ You will modify an existing ROS2 gamepad control node to add functionality for r
 
 
 
-
-
-Here’s a **step-by-step guide** to create a **Python ROS2 package** that moves the TurtleBot3 to a desired **location and orientation** using **IMU (`/imu`) and ODOM (`/odom`)** topics in **ROS2 Humble**.  
-
----
-
-## **🛠 Step 1: Create a New ROS2 Package**  
-Open a terminal and create a new package:  
-```bash
-cd ~/ros2_ws/src  
-ros2 pkg create turtlebot3_navigation --build-type ament_python --dependencies rclpy geometry_msgs nav_msgs sensor_msgs
-```
-This creates a package named `turtlebot3_navigation` with dependencies:  
-✅ `rclpy` → ROS2 Python API  
-✅ `geometry_msgs` → For `Twist` messages (velocity commands)  
-✅ `nav_msgs` → For `Odometry` messages  
-✅ `sensor_msgs` → For `IMU` messages  
-
----
-
-## **📝 Step 2: Write the Python Node**
-Create a Python script inside the package:  
-```bash
-cd ~/ros2_ws/src/turtlebot3_navigation/turtlebot3_navigation
-touch move_to_goal.py
-chmod +x move_to_goal.py
-```
-
-Now, open `move_to_goal.py` and add the following code:  
-
----
-
-## **📦 Step 3: Update `setup.py`**
-Open `setup.py` and modify `entry_points` to include the new script:
-```python
-entry_points={
-    'console_scripts': [
-        'move_to_goal = turtlebot3_navigation.move_to_goal:main',
-    ],
-},
-```
-
----
-
-## **🔧 Step 4: Build and Source the Package**
-```bash
-cd ~/ros2_ws
-colcon build --packages-select turtlebot3_navigation
-source install/setup.bash
-```
-
----
-
-## **🚀 Step 5: Run the Node**
-```bash
-ros2 run turtlebot3_navigation move_to_goal
-```
-
-The robot will move to `(1.0, 1.0)` and rotate to face `90°`.
-
-Would you like improvements such as dynamic goal input or PID control for smoother movement? 🚀
