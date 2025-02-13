@@ -131,10 +131,10 @@ By following these steps, you'll streamline your workflow and minimize build-rel
     ```
 1. Both topics have too many lines of outputs to easily examine them. Run
     ```bash
-    $ ros2 topic echo /imu | grep -A 4 'orientation`
+    $ ros2 topic echo /imu | grep -A 4 'orientation'
     ```
     ```bash
-    $ ros2 topic echo /odom | grep -A 3 'position' | grep -A 4 'orientation`
+    $ ros2 topic echo /odom | grep -A 3 'position' | grep -A 4 'orientation'
     ```
     The `-A 3` option in the `grep` command stands for "after context." It tells `grep` to display the specified number of lines following the matching line.
     This command will:
