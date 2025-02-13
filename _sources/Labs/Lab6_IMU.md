@@ -205,7 +205,7 @@ In this section, you'll modify the `gamepad.py` script to add functionality for 
    $ cd ~/master_ws/src/ece387_ws
    ```
 
-2. Use the following command to create a new ROS2 package named `lab6_nav`:
+1. Use the following command to create a new ROS2 package named `lab6_nav`:
    ```bash
    $ ros2 pkg create lab6_nav --build-type ament_python --dependencies rclpy geometry_msgs nav_msgs sensor_msgs
    ```
@@ -215,18 +215,12 @@ In this section, you'll modify the `gamepad.py` script to add functionality for 
      - `nav_msgs`: For `Odometry` messages.
      - `sensor_msgs`: For `IMU` messages.
 
----
-
-### **Step 2: Add the `move2goal.py` Script**
-
-1. **Download the script:**
-   Download the [`move2goal.py`](../files/move2goal.py) file and save it in the `lab6_nav` package directory:
+1. Download the [`move2goal.py`](../files/move2goal.py) file and save it in the `lab6_nav` package directory:
    ```
    ~/master_ws/src/ece387_ws/lab6_nav/lab6_nav/
    ```
 
-2. **Update `setup.py`:**
-   Open the `setup.py` file and modify the `entry_points` section to include the `move2goal` script:
+1. Open the `setup.py` file and modify the `entry_points` section to include the `move2goal` script:
    ```python
    entry_points={
        'console_scripts': [
@@ -235,80 +229,77 @@ In this section, you'll modify the `gamepad.py` script to add functionality for 
    },
    ```
 
-3. **Build and source the package:**
-   Build the package using the `ccbuild` command:
+1. Build the package using the `ccbuild` command:
    ```bash
    ccbuild
    ```
 
-### **Step 3: Implement the `move2goal.py` Script**
+### **Implement the `move2goal.py` Script**
 
 The `move2goal.py` script will control the TurtleBot3 to move to a specified goal location and orientation. Follow these steps to complete the implementation:
 
-#### **1. Initialize Publishers and Subscribers**
-- **Publisher:**
-  - Create a publisher for `/cmd_vel` to send velocity commands to the robot.
-- **Subscribers:**
-  - Subscribe to:
-    - `/odom` to track the robot's position.
-    - `/imu` to get orientation data.
-    - `/ctrl_relinq` to check if the node has control.
+1. Initialize publishers and subscribers.
+    - **Publisher:** Create a publisher for `/cmd_vel` to send velocity commands to the robot.
+    - **Subscribers:** Subscribe to:
+        - `/odom` to track the robot's position.
+        - `/imu` to get orientation data.
+        - `/ctrl_relinq` to check if the node has control.
 
-#### **2. Implement the `odom_callback` Function**
-- Extract the `x` and `y` position from the received `Odometry` message.
+1. Implement the `odom_callback` function
+    - Extract the `x` and `y` position from the received `Odometry` message.
 
-#### **3. Implement the `imu_callback` Function**
-- Extract the quaternion orientation from the `Imu` message.
-- Convert the quaternion to Euler angles using the `euler_from_quaternion` function.
-- Update the `yaw` value.
+1. Implement the `imu_callback` function
+    - Extract the quaternion orientation from the `Imu` message.
+    - Convert the quaternion to Euler angles using the `euler_from_quaternion` function.
+    - Update the `yaw` value.
 
-#### **4. Implement the `ctrl_relinq_callback` Function**
-- Update the `self.has_control` flag based on the received `Bool` message.
-- Log a message indicating whether control is taken or relinquished.
+1. Implement the `ctrl_relinq_callback` function
+    - Update the `self.has_control` flag based on the received `Bool` message.
+    - Log a message indicating whether control is taken or relinquished.
 
-#### **5. Implement the `control_loop` Function**
-- Compute the **angle to the goal** and normalize it to the range `[-π, π]`.
-- Compute the **distance to the goal** using the Euclidean distance formula.
+1. Implement the `control_loop` function
+    - Compute the **angle to the goal** and normalize it to the range [-$\pi$, $\pi$].
+    - Compute the **distance to the goal** using the Euclidean distance formula.
 
-#### **6. Complete the State Machine Logic**
-The state machine consists of four states:
+1. Complete the state machine logic: The state machine consists of four states:
 
-- **ROTATE_TO_GOAL:**
-  - If the angle error is greater than `0.05` radians, rotate the robot with an angular speed proportional to the error (`0.3 * angle_error`). Adjust the proportional coefficient as needed.
-  - If the angle error is within the threshold, transition to `MOVE_FORWARD`.
+    - **ROTATE_TO_GOAL:**
+        - If the angle error is greater than `0.05` radians, rotate the robot with an angular speed proportional to the error (`0.3 * angle_error`). Adjust the proportional coefficient as needed.
+        - If the angle error is within the threshold, transition to `MOVE_FORWARD`.
 
-- **MOVE_FORWARD:**
-  - Move the robot forward at a constant speed of `0.15` (adjustable, but the robot's maximum speed is `0.22`).
-  - If the distance to the goal is less than `0.15`, transition to `ROTATE_TO_FINAL`.
+    - **MOVE_FORWARD:**
+        - Move the robot forward at a constant speed of `0.15` (adjustable, but the robot's maximum speed is `0.22`).
+        - If the distance to the goal is less than `0.15`, transition to `ROTATE_TO_FINAL`.
 
-- **ROTATE_TO_FINAL:**
-  - Compute the final orientation error and normalize it.
-  - If the error is greater than `0.05` radians, rotate the robot with a speed proportional to the error (`0.5 * final_angle_error`).
-  - If the error is within the threshold, transition to `GOAL_REACHED`.
+    - **ROTATE_TO_FINAL:**
+        - Compute the final orientation error and normalize it.
+        - If the error is greater than `0.05` radians, rotate the robot with a speed proportional to the error (`0.5 * final_angle_error`).
+        - If the error is within the threshold, transition to `GOAL_REACHED`.
 
-- **GOAL_REACHED:**
-  - Log a message confirming the goal has been reached.
-  - Stop publishing movement commands.
+    - **GOAL_REACHED:**
+        - Log a message confirming the goal has been reached.
+        - Stop publishing movement commands.
 
-#### **7. Publish Velocity Commands**
-- Ensure `cmd_vel` messages are published correctly in each state of the state machine.
+1. Publish velocity commands: Ensure `cmd_vel` messages are published correctly in each state of the state machine.
 
----
 
-### **Step 4: Build and Test the Package**
+### **Build and Test the Package**
 
-1. **Build the package:**
-   Build the `lab6_nav` package using:
+1. Build the `lab6_nav` package using:
    ```bash
-   ccbuild --packages-select lab6_nav
+   $ ccbuild --packages-select lab6_nav
    ```
 
-2. **Demo the robot:**
+2. Demo the robot:
    - Run the `move2goal` node and demonstrate the robot moving to the goal location `(-0.61, 0.61)` in meters.
    - Rotate the robot to face `90°`.
    - **Hint:** Most floor and ceiling tiles in the U.S. are 1' by 1' or 2' by 2'. Use this to estimate distances. (1 foot = 30.48 cm).
 
----
+
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/OXq5pgE4C6M?si=R9m2p0erJwloZ9VT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</center>
+
 
 ### 🚚 Deliverables
 
@@ -323,139 +314,6 @@ The state machine consists of four states:
    - Discuss the robot's performance:
      - Can the robot navigate to a farther distance, such as `(-3, 3)`? Why or why not?
      - Suggest improvements to enhance the robot's navigation capabilities.
-
----
-
-This version organizes the instructions into clear, logical steps and provides a natural flow for your students to follow. Let me know if you need further refinements!
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/OXq5pgE4C6M?si=R9m2p0erJwloZ9VT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### **Create a Python ROS2 Package**
-
-We want to create a new Python ROS2 package that moves the TurtleBot3 to a desired **location and orientation** using **IMU (`/imu`) and ODOM (`/odom`)** topics.
-
-1. **Create a New ROS2 Package**: Open a terminal and create a new package:  
-    ```bash
-    $ cd ~/master_ws/src/ece387_ws  
-    $ ros2 pkg create lab6_nav --build-type ament_python --dependencies rclpy geometry_msgs nav_msgs sensor_msgs
-    ```
-    This creates a package named `lab6_nav` with dependencies:  
-    - `rclpy` for ROS2 Python API  
-    - `geometry_msgs` for `Twist` messages (velocity commands)  
-    - `nav_msgs` for `Odometry` messages  
-    - `sensor_msgs` for `IMU` messages  
-
-1. **Download `move2goal.py`**: Download [move2goal.py](../files/move2goal.py) and save it under the `~/master_ws/src/ece387_ws/lab6_nav/lab6_nav` directory.
-
-1. **Update `setup.py`**: Open `setup.py` and modify `entry_points` to include the new script:
-    ```python
-    entry_points={
-        'console_scripts': [
-            'move2goal = lab6_nav.move2goal:main',
-        ],
-    },
-    ```
-
-1. **Build and Source the Package**
-    ```bash
-    $ ccbuild 
-    ```
-
-### **Write Code for `move2goal.py`**
-
-1. **Initialize Publishers and Subscribers**
-   - Implement the missing publisher for `/cmd_vel` to send velocity commands.
-   - Implement subscribers for:
-     - Odometry (`/odom`) to track position.
-     - IMU (`/imu`) to get orientation data.
-     - Control status (`/ctrl_relinq`) to check if this node has control.
-
-1. **Implement `odom_callback` Function**
-   - Extract `x` and `y` position from the received `Odometry` message.
-
-1. **Implement `imu_callback` Function**
-   - Extract quaternion orientation from the `Imu` message.
-   - Convert quaternion to Euler angles using `euler_from_quaternion`.
-   - Update `yaw` value.
-
-1. **Implement `ctrl_relinq_callback` Function**
-   - Update `self.has_control` based on the received `Bool` message.
-   - Log a message indicating whether control is taken or relinquished.
-
-1. **Implement `control_loop` Function**
-   - Compute the **angle to the goal** and normalize it to `[-$\pi$, $\pi$]`.
-   - Compute the **distance to the goal** using Euclidean distance formula.
-
-1. **Complete the State Machine Logic:**
-   - **ROTATE_TO_GOAL:**
-     - If the angle error is greater than 0.05 radians, rotate with angular speed proportional to the error (`0.3 * angle_error`). Feel free to change this proportional coefficient as it fits better. 
-     - Otherwise, transition to `MOVE_FORWARD`.
-   
-   - **MOVE_FORWARD:**
-     - Move forward at a constant speed of `0.15` if the goal is not reached. Feed free to change this speed as you like, but the maximum speed of the robot is 0.22.
-     - If the distance is less than `0.15`, transition to `ROTATE_TO_FINAL`.
-
-   - **ROTATE_TO_FINAL:**
-     - Compute the final orientation error and normalize it.
-     - If error is greater than 0.05 radians, rotate with speed proportional to error (`0.5 * final_angle_error`).
-     - Otherwise, transition to `GOAL_REACHED`.
-   
-   - **GOAL_REACHED:**
-     - Log a message confirming the goal is reached.
-     - Stop publishing movement commands.
-
-1. **Publish the velocity commands in `control_loop`**
-   - Ensure `cmd_vel` messages are published correctly in each state.
-
-
-1. **Build the package** 
-    ```bash
-    $ ccbuild --packages-select Lab6_nav
-    ```
-
-1. Demo your robot moving to (-0.61, 0.61) in meters and rotate to face 90$^\circ$. Hint: Most tiles on the floor and ceiling in the U.S. are measured in feet (of course) and they are usually 1' by 1' and 2' by 2'. How many centimeters is one foot?   
-
-
-
-###🚚 Deliverables
-- Completed `move_to_goal.py` script.
-- Demonstration of the working implementation in a real-world setup.
-- Carefully examine the distance errors and angle errors printed by move2goal.py and discuss the performance of your robot. If you want to move your robot to a farther distance, e.g., (-3, 3), would it still work? Why and why not?  How would you improve it?
 
 
 

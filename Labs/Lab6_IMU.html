@@ -406,21 +406,9 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-imu-on-the-physical-robot">🛠 Testing IMU on the Physical Robot</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modify-gamepad-py-to-include-control-relinquishment">🛠 Modify <code class="docutils literal notranslate"><span class="pre">gamepad.py</span></code> to Include Control Relinquishment</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-new-ros2-package"><strong>Create a New ROS2 Package</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-add-the-move2goal-py-script"><strong>Step 2: Add the <code class="docutils literal notranslate"><span class="pre">move2goal.py</span></code> Script</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-implement-the-move2goal-py-script"><strong>Step 3: Implement the <code class="docutils literal notranslate"><span class="pre">move2goal.py</span></code> Script</strong></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#initialize-publishers-and-subscribers"><strong>1. Initialize Publishers and Subscribers</strong></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#implement-the-odom-callback-function"><strong>2. Implement the <code class="docutils literal notranslate"><span class="pre">odom_callback</span></code> Function</strong></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#implement-the-imu-callback-function"><strong>3. Implement the <code class="docutils literal notranslate"><span class="pre">imu_callback</span></code> Function</strong></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#implement-the-ctrl-relinq-callback-function"><strong>4. Implement the <code class="docutils literal notranslate"><span class="pre">ctrl_relinq_callback</span></code> Function</strong></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#implement-the-control-loop-function"><strong>5. Implement the <code class="docutils literal notranslate"><span class="pre">control_loop</span></code> Function</strong></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#complete-the-state-machine-logic"><strong>6. Complete the State Machine Logic</strong></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#publish-velocity-commands"><strong>7. Publish Velocity Commands</strong></a></li>
-</ul>
-</li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-build-and-test-the-package"><strong>Step 4: Build and Test the Package</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implement-the-move2goal-py-script"><strong>Implement the <code class="docutils literal notranslate"><span class="pre">move2goal.py</span></code> Script</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-and-test-the-package"><strong>Build and Test the Package</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">🚚 Deliverables</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-python-ros2-package"><strong>Create a Python ROS2 Package</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#write-code-for-move2goal-py"><strong>Write Code for <code class="docutils literal notranslate"><span class="pre">move2goal.py</span></code></strong></a></li>
 </ul>
 </li>
 </ul>
@@ -668,20 +656,12 @@ $<span class="w"> </span>ros2<span class="w"> </span>topic<span class="w"> </spa
 </li>
 </ul>
 </li>
-</ol>
-</section>
-<hr class="docutils" />
-<section id="step-2-add-the-move2goal-py-script">
-<h3><strong>Step 2: Add the <code class="docutils literal notranslate"><span class="pre">move2goal.py</span></code> Script</strong><a class="headerlink" href="#step-2-add-the-move2goal-py-script" title="Link to this heading">#</a></h3>
-<ol class="arabic">
-<li><p><strong>Download the script:</strong>
-Download the <a class="reference download internal" download="" href="../_downloads/f1b3794f9ac6b2b5c578e1db16e65d18/move2goal.py"><span class="xref download myst"><code class="docutils literal notranslate"><span class="pre">move2goal.py</span></code></span></a> file and save it in the <code class="docutils literal notranslate"><span class="pre">lab6_nav</span></code> package directory:</p>
+<li><p>Download the <a class="reference download internal" download="" href="../_downloads/f1b3794f9ac6b2b5c578e1db16e65d18/move2goal.py"><span class="xref download myst"><code class="docutils literal notranslate"><span class="pre">move2goal.py</span></code></span></a> file and save it in the <code class="docutils literal notranslate"><span class="pre">lab6_nav</span></code> package directory:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">~/</span><span class="n">master_ws</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">ece387_ws</span><span class="o">/</span><span class="n">lab6_nav</span><span class="o">/</span><span class="n">lab6_nav</span><span class="o">/</span>
 </pre></div>
 </div>
 </li>
-<li><p><strong>Update <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>:</strong>
-Open the <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> file and modify the <code class="docutils literal notranslate"><span class="pre">entry_points</span></code> section to include the <code class="docutils literal notranslate"><span class="pre">move2goal</span></code> script:</p>
+<li><p>Open the <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> file and modify the <code class="docutils literal notranslate"><span class="pre">entry_points</span></code> section to include the <code class="docutils literal notranslate"><span class="pre">move2goal</span></code> script:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">entry_points</span><span class="o">=</span><span class="p">{</span>
     <span class="s1">&#39;console_scripts&#39;</span><span class="p">:</span> <span class="p">[</span>
         <span class="s1">&#39;move2goal = lab6_nav.move2goal:main&#39;</span><span class="p">,</span>
@@ -690,28 +670,21 @@ Open the <code class="docutils literal notranslate"><span class="pre">setup.py</
 </pre></div>
 </div>
 </li>
-<li><p><strong>Build and source the package:</strong>
-Build the package using the <code class="docutils literal notranslate"><span class="pre">ccbuild</span></code> command:</p>
+<li><p>Build the package using the <code class="docutils literal notranslate"><span class="pre">ccbuild</span></code> command:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ccbuild
 </pre></div>
 </div>
 </li>
 </ol>
 </section>
-<section id="step-3-implement-the-move2goal-py-script">
-<h3><strong>Step 3: Implement the <code class="docutils literal notranslate"><span class="pre">move2goal.py</span></code> Script</strong><a class="headerlink" href="#step-3-implement-the-move2goal-py-script" title="Link to this heading">#</a></h3>
+<section id="implement-the-move2goal-py-script">
+<h3><strong>Implement the <code class="docutils literal notranslate"><span class="pre">move2goal.py</span></code> Script</strong><a class="headerlink" href="#implement-the-move2goal-py-script" title="Link to this heading">#</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">move2goal.py</span></code> script will control the TurtleBot3 to move to a specified goal location and orientation. Follow these steps to complete the implementation:</p>
-<section id="initialize-publishers-and-subscribers">
-<h4><strong>1. Initialize Publishers and Subscribers</strong><a class="headerlink" href="#initialize-publishers-and-subscribers" title="Link to this heading">#</a></h4>
+<ol class="arabic simple">
+<li><p>Initialize publishers and subscribers.</p>
 <ul class="simple">
-<li><p><strong>Publisher:</strong></p>
-<ul>
-<li><p>Create a publisher for <code class="docutils literal notranslate"><span class="pre">/cmd_vel</span></code> to send velocity commands to the robot.</p></li>
-</ul>
-</li>
-<li><p><strong>Subscribers:</strong></p>
-<ul>
-<li><p>Subscribe to:</p>
+<li><p><strong>Publisher:</strong> Create a publisher for <code class="docutils literal notranslate"><span class="pre">/cmd_vel</span></code> to send velocity commands to the robot.</p></li>
+<li><p><strong>Subscribers:</strong> Subscribe to:</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">/odom</span></code> to track the robot’s position.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">/imu</span></code> to get orientation data.</p></li>
@@ -720,39 +693,31 @@ Build the package using the <code class="docutils literal notranslate"><span cla
 </li>
 </ul>
 </li>
-</ul>
-</section>
-<section id="implement-the-odom-callback-function">
-<h4><strong>2. Implement the <code class="docutils literal notranslate"><span class="pre">odom_callback</span></code> Function</strong><a class="headerlink" href="#implement-the-odom-callback-function" title="Link to this heading">#</a></h4>
+<li><p>Implement the <code class="docutils literal notranslate"><span class="pre">odom_callback</span></code> function</p>
 <ul class="simple">
 <li><p>Extract the <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> position from the received <code class="docutils literal notranslate"><span class="pre">Odometry</span></code> message.</p></li>
 </ul>
-</section>
-<section id="implement-the-imu-callback-function">
-<h4><strong>3. Implement the <code class="docutils literal notranslate"><span class="pre">imu_callback</span></code> Function</strong><a class="headerlink" href="#implement-the-imu-callback-function" title="Link to this heading">#</a></h4>
+</li>
+<li><p>Implement the <code class="docutils literal notranslate"><span class="pre">imu_callback</span></code> function</p>
 <ul class="simple">
 <li><p>Extract the quaternion orientation from the <code class="docutils literal notranslate"><span class="pre">Imu</span></code> message.</p></li>
 <li><p>Convert the quaternion to Euler angles using the <code class="docutils literal notranslate"><span class="pre">euler_from_quaternion</span></code> function.</p></li>
 <li><p>Update the <code class="docutils literal notranslate"><span class="pre">yaw</span></code> value.</p></li>
 </ul>
-</section>
-<section id="implement-the-ctrl-relinq-callback-function">
-<h4><strong>4. Implement the <code class="docutils literal notranslate"><span class="pre">ctrl_relinq_callback</span></code> Function</strong><a class="headerlink" href="#implement-the-ctrl-relinq-callback-function" title="Link to this heading">#</a></h4>
+</li>
+<li><p>Implement the <code class="docutils literal notranslate"><span class="pre">ctrl_relinq_callback</span></code> function</p>
 <ul class="simple">
 <li><p>Update the <code class="docutils literal notranslate"><span class="pre">self.has_control</span></code> flag based on the received <code class="docutils literal notranslate"><span class="pre">Bool</span></code> message.</p></li>
 <li><p>Log a message indicating whether control is taken or relinquished.</p></li>
 </ul>
-</section>
-<section id="implement-the-control-loop-function">
-<h4><strong>5. Implement the <code class="docutils literal notranslate"><span class="pre">control_loop</span></code> Function</strong><a class="headerlink" href="#implement-the-control-loop-function" title="Link to this heading">#</a></h4>
+</li>
+<li><p>Implement the <code class="docutils literal notranslate"><span class="pre">control_loop</span></code> function</p>
 <ul class="simple">
-<li><p>Compute the <strong>angle to the goal</strong> and normalize it to the range <code class="docutils literal notranslate"><span class="pre">[-π,</span> <span class="pre">π]</span></code>.</p></li>
+<li><p>Compute the <strong>angle to the goal</strong> and normalize it to the range [-<span class="math notranslate nohighlight">\(\pi\)</span>, <span class="math notranslate nohighlight">\(\pi\)</span>].</p></li>
 <li><p>Compute the <strong>distance to the goal</strong> using the Euclidean distance formula.</p></li>
 </ul>
-</section>
-<section id="complete-the-state-machine-logic">
-<h4><strong>6. Complete the State Machine Logic</strong><a class="headerlink" href="#complete-the-state-machine-logic" title="Link to this heading">#</a></h4>
-<p>The state machine consists of four states:</p>
+</li>
+<li><p>Complete the state machine logic: The state machine consists of four states:</p>
 <ul class="simple">
 <li><p><strong>ROTATE_TO_GOAL:</strong></p>
 <ul>
@@ -780,25 +745,19 @@ Build the package using the <code class="docutils literal notranslate"><span cla
 </ul>
 </li>
 </ul>
+</li>
+<li><p>Publish velocity commands: Ensure <code class="docutils literal notranslate"><span class="pre">cmd_vel</span></code> messages are published correctly in each state of the state machine.</p></li>
+</ol>
 </section>
-<section id="publish-velocity-commands">
-<h4><strong>7. Publish Velocity Commands</strong><a class="headerlink" href="#publish-velocity-commands" title="Link to this heading">#</a></h4>
-<ul class="simple">
-<li><p>Ensure <code class="docutils literal notranslate"><span class="pre">cmd_vel</span></code> messages are published correctly in each state of the state machine.</p></li>
-</ul>
-</section>
-</section>
-<hr class="docutils" />
-<section id="step-4-build-and-test-the-package">
-<h3><strong>Step 4: Build and Test the Package</strong><a class="headerlink" href="#step-4-build-and-test-the-package" title="Link to this heading">#</a></h3>
+<section id="build-and-test-the-package">
+<h3><strong>Build and Test the Package</strong><a class="headerlink" href="#build-and-test-the-package" title="Link to this heading">#</a></h3>
 <ol class="arabic">
-<li><p><strong>Build the package:</strong>
-Build the <code class="docutils literal notranslate"><span class="pre">lab6_nav</span></code> package using:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ccbuild<span class="w"> </span>--packages-select<span class="w"> </span>lab6_nav
+<li><p>Build the <code class="docutils literal notranslate"><span class="pre">lab6_nav</span></code> package using:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ccbuild<span class="w"> </span>--packages-select<span class="w"> </span>lab6_nav
 </pre></div>
 </div>
 </li>
-<li><p><strong>Demo the robot:</strong></p>
+<li><p>Demo the robot:</p>
 <ul class="simple">
 <li><p>Run the <code class="docutils literal notranslate"><span class="pre">move2goal</span></code> node and demonstrate the robot moving to the goal location <code class="docutils literal notranslate"><span class="pre">(-0.61,</span> <span class="pre">0.61)</span></code> in meters.</p></li>
 <li><p>Rotate the robot to face <code class="docutils literal notranslate"><span class="pre">90°</span></code>.</p></li>
@@ -806,8 +765,10 @@ Build the <code class="docutils literal notranslate"><span class="pre">lab6_nav<
 </ul>
 </li>
 </ol>
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/OXq5pgE4C6M?si=R9m2p0erJwloZ9VT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</center>
 </section>
-<hr class="docutils" />
 <section id="deliverables">
 <h3>🚚 Deliverables<a class="headerlink" href="#deliverables" title="Link to this heading">#</a></h3>
 <ol class="arabic simple">
@@ -833,130 +794,6 @@ Build the <code class="docutils literal notranslate"><span class="pre">lab6_nav<
 </ul>
 </li>
 </ol>
-<hr class="docutils" />
-<p>This version organizes the instructions into clear, logical steps and provides a natural flow for your students to follow. Let me know if you need further refinements!</p>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/OXq5pgE4C6M?si=R9m2p0erJwloZ9VT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-</section>
-<section id="create-a-python-ros2-package">
-<h3><strong>Create a Python ROS2 Package</strong><a class="headerlink" href="#create-a-python-ros2-package" title="Link to this heading">#</a></h3>
-<p>We want to create a new Python ROS2 package that moves the TurtleBot3 to a desired <strong>location and orientation</strong> using <strong>IMU (<code class="docutils literal notranslate"><span class="pre">/imu</span></code>) and ODOM (<code class="docutils literal notranslate"><span class="pre">/odom</span></code>)</strong> topics.</p>
-<ol class="arabic">
-<li><p><strong>Create a New ROS2 Package</strong>: Open a terminal and create a new package:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/master_ws/src/ece387_ws<span class="w">  </span>
-$<span class="w"> </span>ros2<span class="w"> </span>pkg<span class="w"> </span>create<span class="w"> </span>lab6_nav<span class="w"> </span>--build-type<span class="w"> </span>ament_python<span class="w"> </span>--dependencies<span class="w"> </span>rclpy<span class="w"> </span>geometry_msgs<span class="w"> </span>nav_msgs<span class="w"> </span>sensor_msgs
-</pre></div>
-</div>
-<p>This creates a package named <code class="docutils literal notranslate"><span class="pre">lab6_nav</span></code> with dependencies:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">rclpy</span></code> for ROS2 Python API</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">geometry_msgs</span></code> for <code class="docutils literal notranslate"><span class="pre">Twist</span></code> messages (velocity commands)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">nav_msgs</span></code> for <code class="docutils literal notranslate"><span class="pre">Odometry</span></code> messages</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">sensor_msgs</span></code> for <code class="docutils literal notranslate"><span class="pre">IMU</span></code> messages</p></li>
-</ul>
-</li>
-<li><p><strong>Download <code class="docutils literal notranslate"><span class="pre">move2goal.py</span></code></strong>: Download <a class="reference download internal" download="" href="../_downloads/f1b3794f9ac6b2b5c578e1db16e65d18/move2goal.py"><span class="xref download myst">move2goal.py</span></a> and save it under the <code class="docutils literal notranslate"><span class="pre">~/master_ws/src/ece387_ws/lab6_nav/lab6_nav</span></code> directory.</p></li>
-<li><p><strong>Update <code class="docutils literal notranslate"><span class="pre">setup.py</span></code></strong>: Open <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> and modify <code class="docutils literal notranslate"><span class="pre">entry_points</span></code> to include the new script:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">entry_points</span><span class="o">=</span><span class="p">{</span>
-    <span class="s1">&#39;console_scripts&#39;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s1">&#39;move2goal = lab6_nav.move2goal:main&#39;</span><span class="p">,</span>
-    <span class="p">],</span>
-<span class="p">},</span>
-</pre></div>
-</div>
-</li>
-<li><p><strong>Build and Source the Package</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ccbuild<span class="w"> </span>
-</pre></div>
-</div>
-</li>
-</ol>
-</section>
-<section id="write-code-for-move2goal-py">
-<h3><strong>Write Code for <code class="docutils literal notranslate"><span class="pre">move2goal.py</span></code></strong><a class="headerlink" href="#write-code-for-move2goal-py" title="Link to this heading">#</a></h3>
-<ol class="arabic">
-<li><p><strong>Initialize Publishers and Subscribers</strong></p>
-<ul class="simple">
-<li><p>Implement the missing publisher for <code class="docutils literal notranslate"><span class="pre">/cmd_vel</span></code> to send velocity commands.</p></li>
-<li><p>Implement subscribers for:</p>
-<ul>
-<li><p>Odometry (<code class="docutils literal notranslate"><span class="pre">/odom</span></code>) to track position.</p></li>
-<li><p>IMU (<code class="docutils literal notranslate"><span class="pre">/imu</span></code>) to get orientation data.</p></li>
-<li><p>Control status (<code class="docutils literal notranslate"><span class="pre">/ctrl_relinq</span></code>) to check if this node has control.</p></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><strong>Implement <code class="docutils literal notranslate"><span class="pre">odom_callback</span></code> Function</strong></p>
-<ul class="simple">
-<li><p>Extract <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> position from the received <code class="docutils literal notranslate"><span class="pre">Odometry</span></code> message.</p></li>
-</ul>
-</li>
-<li><p><strong>Implement <code class="docutils literal notranslate"><span class="pre">imu_callback</span></code> Function</strong></p>
-<ul class="simple">
-<li><p>Extract quaternion orientation from the <code class="docutils literal notranslate"><span class="pre">Imu</span></code> message.</p></li>
-<li><p>Convert quaternion to Euler angles using <code class="docutils literal notranslate"><span class="pre">euler_from_quaternion</span></code>.</p></li>
-<li><p>Update <code class="docutils literal notranslate"><span class="pre">yaw</span></code> value.</p></li>
-</ul>
-</li>
-<li><p><strong>Implement <code class="docutils literal notranslate"><span class="pre">ctrl_relinq_callback</span></code> Function</strong></p>
-<ul class="simple">
-<li><p>Update <code class="docutils literal notranslate"><span class="pre">self.has_control</span></code> based on the received <code class="docutils literal notranslate"><span class="pre">Bool</span></code> message.</p></li>
-<li><p>Log a message indicating whether control is taken or relinquished.</p></li>
-</ul>
-</li>
-<li><p><strong>Implement <code class="docutils literal notranslate"><span class="pre">control_loop</span></code> Function</strong></p>
-<ul class="simple">
-<li><p>Compute the <strong>angle to the goal</strong> and normalize it to <code class="docutils literal notranslate"><span class="pre">[-$\pi$,</span> <span class="pre">$\pi$]</span></code>.</p></li>
-<li><p>Compute the <strong>distance to the goal</strong> using Euclidean distance formula.</p></li>
-</ul>
-</li>
-<li><p><strong>Complete the State Machine Logic:</strong></p>
-<ul class="simple">
-<li><p><strong>ROTATE_TO_GOAL:</strong></p>
-<ul>
-<li><p>If the angle error is greater than 0.05 radians, rotate with angular speed proportional to the error (<code class="docutils literal notranslate"><span class="pre">0.3</span> <span class="pre">*</span> <span class="pre">angle_error</span></code>). Feel free to change this proportional coefficient as it fits better.</p></li>
-<li><p>Otherwise, transition to <code class="docutils literal notranslate"><span class="pre">MOVE_FORWARD</span></code>.</p></li>
-</ul>
-</li>
-<li><p><strong>MOVE_FORWARD:</strong></p>
-<ul>
-<li><p>Move forward at a constant speed of <code class="docutils literal notranslate"><span class="pre">0.15</span></code> if the goal is not reached. Feed free to change this speed as you like, but the maximum speed of the robot is 0.22.</p></li>
-<li><p>If the distance is less than <code class="docutils literal notranslate"><span class="pre">0.15</span></code>, transition to <code class="docutils literal notranslate"><span class="pre">ROTATE_TO_FINAL</span></code>.</p></li>
-</ul>
-</li>
-<li><p><strong>ROTATE_TO_FINAL:</strong></p>
-<ul>
-<li><p>Compute the final orientation error and normalize it.</p></li>
-<li><p>If error is greater than 0.05 radians, rotate with speed proportional to error (<code class="docutils literal notranslate"><span class="pre">0.5</span> <span class="pre">*</span> <span class="pre">final_angle_error</span></code>).</p></li>
-<li><p>Otherwise, transition to <code class="docutils literal notranslate"><span class="pre">GOAL_REACHED</span></code>.</p></li>
-</ul>
-</li>
-<li><p><strong>GOAL_REACHED:</strong></p>
-<ul>
-<li><p>Log a message confirming the goal is reached.</p></li>
-<li><p>Stop publishing movement commands.</p></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><strong>Publish the velocity commands in <code class="docutils literal notranslate"><span class="pre">control_loop</span></code></strong></p>
-<ul class="simple">
-<li><p>Ensure <code class="docutils literal notranslate"><span class="pre">cmd_vel</span></code> messages are published correctly in each state.</p></li>
-</ul>
-</li>
-<li><p><strong>Build the package</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ccbuild<span class="w"> </span>--packages-select<span class="w"> </span>Lab6_nav
-</pre></div>
-</div>
-</li>
-<li><p>Demo your robot moving to (-0.61, 0.61) in meters and rotate to face 90<span class="math notranslate nohighlight">\(^\circ\)</span>. Hint: Most tiles on the floor and ceiling in the U.S. are measured in feet (of course) and they are usually 1’ by 1’ and 2’ by 2’. How many centimeters is one foot?</p></li>
-</ol>
-<p>###🚚 Deliverables</p>
-<ul class="simple">
-<li><p>Completed <code class="docutils literal notranslate"><span class="pre">move_to_goal.py</span></code> script.</p></li>
-<li><p>Demonstration of the working implementation in a real-world setup.</p></li>
-<li><p>Carefully examine the distance errors and angle errors printed by <a class="reference external" href="http://move2goal.py">move2goal.py</a> and discuss the performance of your robot. If you want to move your robot to a farther distance, e.g., (-3, 3), would it still work? Why and why not?  How would you improve it?</p></li>
-</ul>
 </section>
 </section>
 </section>
@@ -1040,21 +877,9 @@ $<span class="w"> </span>ros2<span class="w"> </span>pkg<span class="w"> </span>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-imu-on-the-physical-robot">🛠 Testing IMU on the Physical Robot</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modify-gamepad-py-to-include-control-relinquishment">🛠 Modify <code class="docutils literal notranslate"><span class="pre">gamepad.py</span></code> to Include Control Relinquishment</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-new-ros2-package"><strong>Create a New ROS2 Package</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-add-the-move2goal-py-script"><strong>Step 2: Add the <code class="docutils literal notranslate"><span class="pre">move2goal.py</span></code> Script</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-implement-the-move2goal-py-script"><strong>Step 3: Implement the <code class="docutils literal notranslate"><span class="pre">move2goal.py</span></code> Script</strong></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#initialize-publishers-and-subscribers"><strong>1. Initialize Publishers and Subscribers</strong></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#implement-the-odom-callback-function"><strong>2. Implement the <code class="docutils literal notranslate"><span class="pre">odom_callback</span></code> Function</strong></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#implement-the-imu-callback-function"><strong>3. Implement the <code class="docutils literal notranslate"><span class="pre">imu_callback</span></code> Function</strong></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#implement-the-ctrl-relinq-callback-function"><strong>4. Implement the <code class="docutils literal notranslate"><span class="pre">ctrl_relinq_callback</span></code> Function</strong></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#implement-the-control-loop-function"><strong>5. Implement the <code class="docutils literal notranslate"><span class="pre">control_loop</span></code> Function</strong></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#complete-the-state-machine-logic"><strong>6. Complete the State Machine Logic</strong></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#publish-velocity-commands"><strong>7. Publish Velocity Commands</strong></a></li>
-</ul>
-</li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-build-and-test-the-package"><strong>Step 4: Build and Test the Package</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implement-the-move2goal-py-script"><strong>Implement the <code class="docutils literal notranslate"><span class="pre">move2goal.py</span></code> Script</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-and-test-the-package"><strong>Build and Test the Package</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">🚚 Deliverables</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-python-ros2-package"><strong>Create a Python ROS2 Package</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#write-code-for-move2goal-py"><strong>Write Code for <code class="docutils literal notranslate"><span class="pre">move2goal.py</span></code></strong></a></li>
 </ul>
 </li>
 </ul>
