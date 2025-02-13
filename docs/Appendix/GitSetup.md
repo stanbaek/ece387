@@ -228,21 +228,18 @@ Only one person per group should complete these steps.
 ```
 
 1. Visit the [GitHub Classroom Assignment](https://classroom.github.com/a/kJc_PfII).
-2. Click `Create team`.
-3. Select `Accept this assignment`.
-4. Navigate to your repository and go to `Settings`. Change your repository name to `ece387-lastname_lastname` (e.g., `ece387-baek_pirate`).
+1. Click `Create team` and select `Accept this assignment`.
+1. Navigate to your repository and go to `Settings`. Change your repository name to `ece387-lastname_lastname` (e.g., `ece387-baek_pirate`).
 
     ```{important}
     Please name your repository as `ece387-lastname_lastname` (all lowercase). This makes it easier for instructors to locate your repository.
     ```
 
-5. Go to `Settings` > `Collaborators and teams` > `Manage access`.
-6. Invite your partners by entering their GitHub usernames.
-7. If you are using a different computer from the previous labs, go to [this section](GitHubSSHKey) to set up a new SSH key for the remote GitHub repository.
-
-8. Clone your repository. Ensure that the name of your local repository is `ece387_ws` by running:
+1. Go to `Settings` > `Collaborators and teams` > `Manage access`.
+1. Invite your partners by entering their GitHub usernames.
+1. If you are using a different computer from the previous labs, go to [this section](GitHubSSHKey) to set up a new SSH key for the remote GitHub repository.
+1. Clone your repository. Ensure that the name of your local repository is `ece387_ws` by running:
 
     ```bash
     $ git clone git@github.com:ECE387/ece387_lastname_lastname.git ~/master_ws/src/ece387_ws
     ```
-
