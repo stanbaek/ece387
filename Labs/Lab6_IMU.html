@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>🔬 Lab6: IMU &#8212; Introduction to Robotic Systems</title>
+    <title>🔬 Lab6: IMU-Based Navigation &#8212; Introduction to Robotic Systems</title>
   
   
   
@@ -190,7 +190,7 @@
 <li class="toctree-l1"><a class="reference internal" href="Lab3_Python.html">🔬 Lab3: Python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Lab4_Gamepad.html">🔬 Lab4: Gamepad</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Lab5_TurtleBot.html">🔬 Lab5: Driving the Robot</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">🔬 Lab6: IMU</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">🔬 Lab6: IMU-Based Navigation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Lab7_LaunchFile.html">🔬 Lab7: Launch Files</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Lab8_LIDAR.html">🔬 Lab8: LIDAR</a></li>
 </ul>
@@ -382,7 +382,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>🔬 Lab6: IMU</h1>
+    <h1>🔬 Lab6: IMU-Based Navigation</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -393,10 +393,7 @@
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">📌 Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">📜 Overview</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#imu-calibration">IMU Calibration</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">📜 Overview</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-lab-testing-the-imu">🌱 Pre-Lab: Testing the IMU</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-launch-the-turtlebot3-simulation">Step 1: Launch the TurtleBot3 Simulation</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-verify-communication-with-the-master">Step 2: Verify Communication with the Master</a></li>
@@ -405,9 +402,23 @@
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-procedure">💻 Lab Procedure</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#update-bashrc">🛠 Update <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#update-bashrc-for-easier-builds">🛠 Update <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> for Easier Builds</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-imu-on-the-physical-robot">🛠 Testing IMU on the Physical Robot</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modify-gamepad-py-to-include-control-relinquishment">🛠 <strong>Modify <code class="docutils literal notranslate"><span class="pre">gamepad.py</span></code> to Include Control Relinquishment</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modify-gamepad-py-to-include-control-relinquishment">🛠 Modify <code class="docutils literal notranslate"><span class="pre">gamepad.py</span></code> to Include Control Relinquishment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-new-ros2-package"><strong>Create a New ROS2 Package</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-add-the-move2goal-py-script"><strong>Step 2: Add the <code class="docutils literal notranslate"><span class="pre">move2goal.py</span></code> Script</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-implement-the-move2goal-py-script"><strong>Step 3: Implement the <code class="docutils literal notranslate"><span class="pre">move2goal.py</span></code> Script</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#initialize-publishers-and-subscribers"><strong>1. Initialize Publishers and Subscribers</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#implement-the-odom-callback-function"><strong>2. Implement the <code class="docutils literal notranslate"><span class="pre">odom_callback</span></code> Function</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#implement-the-imu-callback-function"><strong>3. Implement the <code class="docutils literal notranslate"><span class="pre">imu_callback</span></code> Function</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#implement-the-ctrl-relinq-callback-function"><strong>4. Implement the <code class="docutils literal notranslate"><span class="pre">ctrl_relinq_callback</span></code> Function</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#implement-the-control-loop-function"><strong>5. Implement the <code class="docutils literal notranslate"><span class="pre">control_loop</span></code> Function</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#complete-the-state-machine-logic"><strong>6. Complete the State Machine Logic</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#publish-velocity-commands"><strong>7. Publish Velocity Commands</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-build-and-test-the-package"><strong>Step 4: Build and Test the Package</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">🚚 Deliverables</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-python-ros2-package"><strong>Create a Python ROS2 Package</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#write-code-for-move2goal-py"><strong>Write Code for <code class="docutils literal notranslate"><span class="pre">move2goal.py</span></code></strong></a></li>
 </ul>
@@ -423,27 +434,27 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="lab6-imu">
-<h1>🔬 Lab6: IMU<a class="headerlink" href="#lab6-imu" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="lab6-imu-based-navigation">
+<h1>🔬 Lab6: IMU-Based Navigation<a class="headerlink" href="#lab6-imu-based-navigation" title="Link to this heading">#</a></h1>
 <section id="objectives">
 <h2>📌 Objectives<a class="headerlink" href="#objectives" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Students should be able to describe how IMU data is used in ROS2 and interpret IMU messages.</p></li>
-<li><p>Students will complete a ROS2 Python node to navigate a robot towards a specified goal position using odometry and IMU data. The robot will follow these steps:</p></li>
+<li><p>Students should be able to set up and analyze IMU (<code class="docutils literal notranslate"><span class="pre">/imu</span></code>) and odometry (<code class="docutils literal notranslate"><span class="pre">/odom</span></code>) topics in ROS2.</p></li>
+<li><p>Students should be able to modify a ROS2 gamepad node to relinquish and regain robot control using button presses.</p></li>
+<li><p>Students should be able to implement a ROS2 Python node that navigates a robot to a goal using odometry and IMU data.</p></li>
+<li><p>Students should be able to evaluate and analyze errors in robot navigation and suggest potential improvements.</p></li>
 </ul>
 </section>
 <section id="overview">
 <h2>📜 Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
-<p>In real-world applications, an Inertial Measurement Unit (IMU) provides essential motion data, including orientation, angular velocity, and linear acceleration. The <a class="reference external" href="https://invensense.tdk.com/products/motion-tracking/6-axis/icm-20648/">ICM-20648 6-Axis MEMS MotionTracking Device</a> from TDK integrates a 3-axis gyroscope, a 3-axis accelerometer, and a Digital Motion Processor (DMP). This IMU is embedded in the OpenCR1.0 board, an open-source robot controller featuring an ARM Cortex-M7 processor. The OpenCR board uses an Extended Kalman Filter (EKF) to fuse sensor data, generating IMU estimates at a rate of 170 updates per second.</p>
+<p>In real-world robotics, an Inertial Measurement Unit (IMU) is essential for tracking motion by measuring orientation, angular velocity, and linear acceleration. The <a class="reference external" href="https://invensense.tdk.com/products/motion-tracking/6-axis/icm-20648/">ICM-20648 6-Axis MEMS MotionTracking Device</a> from TDK integrates a 3-axis gyroscope, a 3-axis accelerometer, and a Digital Motion Processor (DMP). This IMU is embedded in the OpenCR1.0 board, an open-source robot controller featuring an ARM Cortex-M7 processor. The OpenCR board applies an Extended Kalman Filter (EKF) to fuse sensor data, generating IMU estimates at 170 Hz.</p>
 <a class="reference internal image-reference" href="../_images/IMU.jpg"><img alt="../_images/IMU.jpg" class="align-center" src="../_images/IMU.jpg" style="width: 380px;" /></a>
 <br>
-<p>The IMU plays a crucial role in determining the robot’s state and enhancing navigation accuracy. When combined with tachometer data, it helps estimate the robot’s position over time (odometry).</p>
+The IMU significantly enhances navigation accuracy when combined with odometry. It helps estimate the robot's position over time and improves localization.
 <a class="reference internal image-reference" href="../_images/TurtleBot3_Coordinates.png"><img alt="../_images/TurtleBot3_Coordinates.png" class="align-center" src="../_images/TurtleBot3_Coordinates.png" style="width: 280px;" /></a>
-<section id="imu-calibration">
-<h3>IMU Calibration<a class="headerlink" href="#imu-calibration" title="Link to this heading">#</a></h3>
-<p>As mentioned earlier, multiple sensors work together to estimate the TurtleBot3’s attitude and heading. These sensors are highly sensitive to magnetic fields, which vary by location and device. Even common electronic components generate small magnetic fields, including those from the OpenCR board itself. While the IMU is strategically placed at the center of the robot for optimal performance, it is still exposed to various magnetic interferences.</p>
-<p>Fortunately, the TurtleBot3 developers accounted for this challenge. Each time you run the serial node to connect to the robot, the IMU automatically calibrates itself, ensuring more reliable readings.</p>
-</section>
+<p>As we discussed earlier, multiple sensors work together to estimate the TurtleBot3’s attitude and heading. These sensors are highly sensitive to magnetic fields, which can vary depending on the location and the device. Even everyday electronic components, including those on the OpenCR board, generate small magnetic fields. Although the IMU is placed at the center of the robot for optimal performance, it is still exposed to various magnetic interferences.</p>
+<p>Fortunately, the TurtleBot3 developers anticipated this issue. Each time you run the serial node to connect to the robot, the IMU automatically calibrates itself, ensuring more accurate readings.</p>
 </section>
 <section id="pre-lab-testing-the-imu">
 <h2>🌱 Pre-Lab: Testing the IMU<a class="headerlink" href="#pre-lab-testing-the-imu" title="Link to this heading">#</a></h2>
@@ -482,15 +493,13 @@
 <h3>Step 3: Examine the <code class="docutils literal notranslate"><span class="pre">/imu</span></code> and <code class="docutils literal notranslate"><span class="pre">/odom</span></code> Topics<a class="headerlink" href="#step-3-examine-the-imu-and-odom-topics" title="Link to this heading">#</a></h3>
 <ol class="arabic">
 <li><p>Run the <code class="docutils literal notranslate"><span class="pre">gamepad</span></code> and <code class="docutils literal notranslate"><span class="pre">joy</span></code> nodes.</p></li>
-<li><p>As you move the robot in Gazebo, observe the <code class="docutils literal notranslate"><span class="pre">/imu</span></code> and <code class="docutils literal notranslate"><span class="pre">/odom</span></code> topics:</p>
+<li><p>Observe the IMU and odometry messages while moving the robot:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/imu
+$<span class="w"> </span>ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/odom
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/odom
-</pre></div>
-</div>
+<p>Pay close attention to the <code class="docutils literal notranslate"><span class="pre">pose</span></code> field. In future labs, be mindful not to confuse the different pose hierarchies within the Imu and Odom messages.</p>
 </li>
-<li><p>Pay close attention to the <code class="docutils literal notranslate"><span class="pre">pose</span></code> field. In future labs, be careful not to confuse the different pose hierarchies within the <code class="docutils literal notranslate"><span class="pre">Imu</span></code> and <code class="docutils literal notranslate"><span class="pre">Odom</span></code> messages.</p></li>
 </ol>
 </section>
 <section id="step-4-visualizing-data-in-rqt">
@@ -501,9 +510,11 @@
 </pre></div>
 </div>
 </li>
-<li><p>Move the robot in Gazebo and observe the <code class="docutils literal notranslate"><span class="pre">/imu</span></code> and <code class="docutils literal notranslate"><span class="pre">/odom</span></code> topics in <code class="docutils literal notranslate"><span class="pre">rqt</span></code>.</p></li>
-<li><p>In Gazebo, navigate to <code class="docutils literal notranslate"><span class="pre">Models</span></code> &gt; <code class="docutils literal notranslate"><span class="pre">burger</span></code>, then in the <code class="docutils literal notranslate"><span class="pre">property</span></code> section, select <code class="docutils literal notranslate"><span class="pre">pose</span></code> to display the robot’s position and orientation (expressed in roll-pitch-yaw format).</p></li>
-<li><p>In <code class="docutils literal notranslate"><span class="pre">rqt</span></code>, activate the <code class="docutils literal notranslate"><span class="pre">Topic</span> <span class="pre">Monitor</span></code> and enable <code class="docutils literal notranslate"><span class="pre">/imu</span></code> and <code class="docutils literal notranslate"><span class="pre">/odom</span></code> to track orientation and position in real time.</p></li>
+<li><p>Monitor <code class="docutils literal notranslate"><span class="pre">/imu</span></code> and <code class="docutils literal notranslate"><span class="pre">/odom</span></code> data in <code class="docutils literal notranslate"><span class="pre">rqt</span></code> while moving the robot.</p></li>
+<li><p>Compare the pose data from Gazebo and <code class="docutils literal notranslate"><span class="pre">rqt</span></code>, noting how simulation noise affects readings.</p></li>
+<li><p>Monitor the <code class="docutils literal notranslate"><span class="pre">/imu</span></code> and <code class="docutils literal notranslate"><span class="pre">/odom</span></code> topics using <code class="docutils literal notranslate"><span class="pre">rqt</span></code> as you move the robot in Gazebo.</p></li>
+<li><p>In Gazebo, go to <code class="docutils literal notranslate"><span class="pre">Models</span></code> &gt; <code class="docutils literal notranslate"><span class="pre">burger</span></code>, then in the <code class="docutils literal notranslate"><span class="pre">property</span></code> section, select <code class="docutils literal notranslate"><span class="pre">pose</span></code> to view the robot’s position and orientation in roll-pitch-yaw format.</p></li>
+<li><p>In <code class="docutils literal notranslate"><span class="pre">rqt</span></code>, enable the <code class="docutils literal notranslate"><span class="pre">Topic</span> <span class="pre">Monitor</span></code> and activate the <code class="docutils literal notranslate"><span class="pre">/imu</span></code> and <code class="docutils literal notranslate"><span class="pre">/odom</span></code> topics to track orientation and position in real time.</p></li>
 <li><p>Note that orientation in <code class="docutils literal notranslate"><span class="pre">rqt</span></code> is shown using quaternions.</p></li>
 <li><p>The pose values in Gazebo and rqt are not the same. Gazebo simulation publishes position and orientation with noise. By default, Gazebo adds Gaussian noise to the data generated by its sensors to simulate real-world conditions.</p></li>
 </ol>
@@ -511,20 +522,21 @@
 </section>
 <section id="lab-procedure">
 <h2>💻 Lab Procedure<a class="headerlink" href="#lab-procedure" title="Link to this heading">#</a></h2>
-<section id="update-bashrc">
-<h3>🛠 Update <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code><a class="headerlink" href="#update-bashrc" title="Link to this heading">#</a></h3>
-<p>Many cadets frequently make mistakes when running <code class="docutils literal notranslate"><span class="pre">colcon</span> <span class="pre">build</span></code>. It is crucial to run it inside the <code class="docutils literal notranslate"><span class="pre">~/master_ws</span></code> directory and then source <code class="docutils literal notranslate"><span class="pre">install/setup.bash</span></code>. To prevent errors, follow these instructions carefully:</p>
+<p>In this lab, you will create a ROS2 Python package that enables the TurtleBot3 to navigate to a desired <strong>location and orientation</strong> using data from the <strong>IMU (<code class="docutils literal notranslate"><span class="pre">/imu</span></code>)</strong> and <strong>ODOM (<code class="docutils literal notranslate"><span class="pre">/odom</span></code>)</strong> topics.</p>
+<section id="update-bashrc-for-easier-builds">
+<h3>🛠 Update <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> for Easier Builds<a class="headerlink" href="#update-bashrc-for-easier-builds" title="Link to this heading">#</a></h3>
+<p>To avoid common mistakes when running <code class="docutils literal notranslate"><span class="pre">colcon</span> <span class="pre">build</span></code>, follow these steps to streamline your workflow. This will ensure that <code class="docutils literal notranslate"><span class="pre">colcon</span> <span class="pre">build</span></code> is always run in the correct directory and that the necessary setup file is sourced automatically.</p>
 <ol class="arabic">
-<li><p>Open <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> using <code class="docutils literal notranslate"><span class="pre">gedit</span></code>:</p>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">gedit</span></code> to open the <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> file:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>gedit<span class="w"> </span>~/.bashrc
 </pre></div>
 </div>
 </li>
-<li><p>Add the following function at the end of the file:</p>
+<li><p>At the end of the file, add the following function:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Function to build with optional arguments</span>
 <span class="k">function</span><span class="w"> </span>ccbuild<span class="o">()</span><span class="w"> </span><span class="o">{</span>
-<span class="nb">cd</span><span class="w"> </span>~/master_ws<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>colcon<span class="w"> </span>build<span class="w"> </span>--symlink-install<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span>
-<span class="nb">source</span><span class="w"> </span>~/master_ws/install/setup.bash
+<span class="w">    </span><span class="nb">cd</span><span class="w"> </span>~/master_ws<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>colcon<span class="w"> </span>build<span class="w"> </span>--symlink-install<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span>
+<span class="w">    </span><span class="nb">source</span><span class="w"> </span>~/master_ws/install/setup.bash
 <span class="o">}</span>
 
 <span class="c1"># Export the function to make it available in the shell</span>
@@ -532,28 +544,29 @@
 </pre></div>
 </div>
 </li>
-<li><p>Save the file, exit the editor, and restart your terminal.</p></li>
+<li><p>Save the file, exit the editor, and restart your terminal for the changes to take effect.</p></li>
 <li><p>Instead of manually navigating to <code class="docutils literal notranslate"><span class="pre">~/master_ws</span></code>, running <code class="docutils literal notranslate"><span class="pre">colcon</span> <span class="pre">build</span> <span class="pre">--symlink-install</span></code>, and sourcing <code class="docutils literal notranslate"><span class="pre">install/setup.bash</span></code>, you can now simply run:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ccbuild
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ccbuild
 </pre></div>
 </div>
-<p>This ensures <code class="docutils literal notranslate"><span class="pre">colcon</span> <span class="pre">build</span></code> runs in the correct directory and sources the necessary setup file.</p>
+<p>This ensures the build process is executed correctly every time and and sources the necessary setup file.</p>
 </li>
-<li><p>You can also pass additional arguments to <code class="docutils literal notranslate"><span class="pre">colcon</span> <span class="pre">build</span></code>. For example:</p>
+<li><p>You can also pass arguments to <code class="docutils literal notranslate"><span class="pre">colcon</span> <span class="pre">build</span></code> through the <code class="docutils literal notranslate"><span class="pre">ccbuild</span></code> function. For example:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ccbuild<span class="w"> </span>--packages-select<span class="w"> </span>lab6_nav
 </pre></div>
 </div>
 <p>This builds only the <code class="docutils literal notranslate"><span class="pre">lab6_nav</span></code> package, saving time by skipping previously built packages.</p>
 </li>
+<li><p>By following these steps, you’ll streamline your workflow and minimize build-related errors.</p></li>
 </ol>
-<p>By following these steps, you’ll streamline your workflow and minimize build-related errors.</p>
 </section>
 <section id="testing-imu-on-the-physical-robot">
 <h3>🛠 Testing IMU on the Physical Robot<a class="headerlink" href="#testing-imu-on-the-physical-robot" title="Link to this heading">#</a></h3>
+<p>To test the IMU on the physical robot, follow these steps:</p>
 <ol class="arabic">
-<li><p>Use SSH to launch <code class="docutils literal notranslate"><span class="pre">robot.launch.py</span></code> on the robot.</p></li>
-<li><p>Run the <code class="docutils literal notranslate"><span class="pre">gamepad</span></code> and <code class="docutils literal notranslate"><span class="pre">joy</span></code> nodes on the master computer.</p></li>
-<li><p>As you move the robot in Gazebo, observe the <code class="docutils literal notranslate"><span class="pre">/imu</span></code> and <code class="docutils literal notranslate"><span class="pre">/odom</span></code> topics:</p>
+<li><p>Use SSH to launch the <code class="docutils literal notranslate"><span class="pre">robot.launch.py</span></code> file on the robot.</p></li>
+<li><p>Start the <code class="docutils literal notranslate"><span class="pre">gamepad</span></code> and <code class="docutils literal notranslate"><span class="pre">joy</span></code> nodes on your master computer.</p></li>
+<li><p>As you move the robot in Gazebo, monitor the <code class="docutils literal notranslate"><span class="pre">/imu</span></code> and <code class="docutils literal notranslate"><span class="pre">/odom</span></code> topics using:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/imu
 </pre></div>
 </div>
@@ -561,55 +574,52 @@
 </pre></div>
 </div>
 </li>
-<li><p>Both topics have too many lines of outputs to easily examine them. Run</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/imu<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="s1">&#39;orientation&#39;</span>
+<li><p>The raw output of these topics can be overwhelming. Use the following commands to filter and display only the relevant sections:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/imu<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="s1">&#39;orientation&#39;</span>
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/odom<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="s1">&#39;position&#39;</span><span class="w"> </span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/odom<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="s1">&#39;position&#39;</span>
 </pre></div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">-A</span> <span class="pre">3</span></code> option in the <code class="docutils literal notranslate"><span class="pre">grep</span></code> command stands for “after context.” It tells <code class="docutils literal notranslate"><span class="pre">grep</span></code> to display the specified number of lines following the matching line.
-This command will:</p>
 <ul class="simple">
-<li><p>Echo messages from the /odom topic.</p></li>
-<li><p>Pipe the output to grep to search for the string ‘position’.</p></li>
-<li><p>Display the matching line and the next 3 lines following each match.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">-A</span></code> option in <code class="docutils literal notranslate"><span class="pre">grep</span></code> stands for “after context.” It displays the specified number of lines following the matching line.</p></li>
+<li><p>For <code class="docutils literal notranslate"><span class="pre">/imu</span></code>, this command shows the <code class="docutils literal notranslate"><span class="pre">orientation</span></code> section and the next 4 lines.</p></li>
+<li><p>For <code class="docutils literal notranslate"><span class="pre">/odom</span></code>, it shows the <code class="docutils literal notranslate"><span class="pre">position</span></code> section and the next 3 lines.</p></li>
 </ul>
-<p>This can be useful when you want to see additional context around the matched lines. In this case, you will see the ‘position’ section and the next three lines that follow it in the /odom topic messages.</p>
-<p>Both of these topics provide the orientation of the robot using a quaternion representation. While quaternions can make computation easier, they are not very human readable, so we will convert to Euler angles. To do this we will convert quaternions into Euler angles.</p>
 </li>
+<li><p><strong>Convert quaternions to Euler angles:</strong> Both topics use quaternions to represent orientation, which are not human-readable. Later, we will convert these quaternions into Euler angles for easier interpretation.</p></li>
 </ol>
 </section>
 <section id="modify-gamepad-py-to-include-control-relinquishment">
-<h3>🛠 <strong>Modify <code class="docutils literal notranslate"><span class="pre">gamepad.py</span></code> to Include Control Relinquishment</strong><a class="headerlink" href="#modify-gamepad-py-to-include-control-relinquishment" title="Link to this heading">#</a></h3>
-<p>You will modify an existing ROS2 gamepad control node to add functionality for relinquishing and regaining control of the robot. You will implement logic that allows a user to press specific gamepad buttons to toggle control states.</p>
+<h3>🛠 Modify <code class="docutils literal notranslate"><span class="pre">gamepad.py</span></code> to Include Control Relinquishment<a class="headerlink" href="#modify-gamepad-py-to-include-control-relinquishment" title="Link to this heading">#</a></h3>
+<p>In this section, you’ll modify the <code class="docutils literal notranslate"><span class="pre">gamepad.py</span></code> script to add functionality for relinquishing and regaining control of the robot. This will allow users to toggle control states using specific gamepad buttons.</p>
 <ol class="arabic">
-<li><p>Open the <code class="docutils literal notranslate"><span class="pre">gamepad.py</span></code> file located inside <code class="docutils literal notranslate"><span class="pre">gamepad_control/gamepad.py</span></code>:</p></li>
-<li><p>Locate the contructor of the <code class="docutils literal notranslate"><span class="pre">Gamepad</span></code> class and <strong>add the following attributes</strong>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="c1"># Flag to track control status (default: True)</span>
- <span class="bp">self</span><span class="o">.</span><span class="n">has_control</span> <span class="o">=</span> <span class="kc">True</span>
+<li><p>Locate and open the <code class="docutils literal notranslate"><span class="pre">gamepad.py</span></code> file.</p></li>
+<li><p>In the constructor of the <code class="docutils literal notranslate"><span class="pre">Gamepad</span></code> class, add the following attributes:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Flag to track control status (default: True)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">has_control</span> <span class="o">=</span> <span class="kc">True</span>
 
- <span class="c1"># Create a publisher for control relinquishment messages.</span>
- <span class="c1"># - Publishes to the &#39;ctrl_relinq&#39; topic.</span>
- <span class="c1"># - Uses Bool messages to indicate control status.</span>
- <span class="c1"># - Queue size of 1 ensures only the latest control state is kept.</span>
- <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_pub</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_publisher</span><span class="p">(</span><span class="n">Bool</span><span class="p">,</span> <span class="s1">&#39;ctrl_relinq&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="c1"># Create a publisher for control relinquishment messages.</span>
+<span class="c1"># - Publishes to the &#39;ctrl_relinq&#39; topic.</span>
+<span class="c1"># - Uses Bool messages to indicate control status.</span>
+<span class="c1"># - Queue size of 1 ensures only the latest control state is kept.</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">ctrl_pub</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_publisher</span><span class="p">(</span><span class="n">Bool</span><span class="p">,</span> <span class="s1">&#39;ctrl_relinq&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 </li>
-<li><p>In the <code class="docutils literal notranslate"><span class="pre">joy_callback</span></code> method, <strong>add logic for control toggling using buttons 0 and 1</strong>:</p>
+<li><p>In the <code class="docutils literal notranslate"><span class="pre">joy_callback</span></code> method, implement the following logic to toggle control using buttons A (Green) and B (Red):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a new Bool message for &quot;control relinquishment status&quot;</span>
 <span class="n">relinquish</span> <span class="o">=</span> <span class="n">Bool</span><span class="p">()</span>
 
-<span class="c1"># TODO: Check if the RC (Remote Control) has control and button O is pressed</span>
+<span class="c1"># TODO: Check if the RC (Remote Control) has control and button A (Green) is pressed</span>
     <span class="c1"># Set control flag to False (relinquish control)</span>
-    <span class="c1"># Change &quot;control  status&quot; to relinquished.</span>
+    <span class="c1"># Change &quot;control status&quot; to relinquished.</span>
     <span class="c1"># Publish the control status</span>
     
     <span class="c1"># Log status update</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;RC has relinquished control.&quot;</span><span class="p">)</span>  
 
-<span class="c1"># TODO: Check if RC does not have control and button X is pressed</span>
+<span class="c1"># TODO: Check if RC does not have control and button B (Red) is pressed</span>
     <span class="c1"># Set control flag to True (regain control)</span>
     <span class="c1"># Set control status to regained.</span>
     <span class="c1"># Publish the control status</span>
@@ -622,13 +632,210 @@ This command will:</p>
     <span class="k">return</span>
 </pre></div>
 </div>
+<p>This is a common safety practice in robotics to halt autonomous tasks a robot is executing.  Another safety practice is to integrating an easily accessible emergency stop switch that cuts off the main power to the robot.</p>
 </li>
+<li><p>Test the gamepad node:</p>
+<ul class="simple">
 <li><p>Run the gamepad node.</p></li>
-<li><p>Open another terminal and monitor the <code class="docutils literal notranslate"><span class="pre">cmd_vel</span></code> topic:</p></li>
-<li><p>Press <strong>button O</strong> on the gamepad and verify that control is relinquished (no movement commands should be published).</p></li>
-<li><p>Press <strong>button X</strong> and verify that control is regained (movement commands should be published again).</p></li>
-<li><p>Check the <code class="docutils literal notranslate"><span class="pre">ctrl_relinq</span></code> topic to see if control status messages are published:</p></li>
+<li><p>Open another terminal and monitor the <code class="docutils literal notranslate"><span class="pre">cmd_vel</span></code> topic.</p></li>
+<li><p>Press <strong>button A</strong> on the gamepad and verify that control is relinquished (no movement commands should be published by the gamepad).</p></li>
+<li><p>Press <strong>button B</strong> and verify that control is regained (movement commands should be published again).</p></li>
+<li><p>Check the <code class="docutils literal notranslate"><span class="pre">ctrl_relinq</span></code> topic to confirm that control status messages are being published.</p></li>
+</ul>
+</li>
 </ol>
+</section>
+<section id="create-a-new-ros2-package">
+<h3><strong>Create a New ROS2 Package</strong><a class="headerlink" href="#create-a-new-ros2-package" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Open a terminal and navigate to the <code class="docutils literal notranslate"><span class="pre">src</span></code> directory of your workspace:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/master_ws/src/ece387_ws
+</pre></div>
+</div>
+</li>
+<li><p>Use the following command to create a new ROS2 package named <code class="docutils literal notranslate"><span class="pre">lab6_nav</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ros2<span class="w"> </span>pkg<span class="w"> </span>create<span class="w"> </span>lab6_nav<span class="w"> </span>--build-type<span class="w"> </span>ament_python<span class="w"> </span>--dependencies<span class="w"> </span>rclpy<span class="w"> </span>geometry_msgs<span class="w"> </span>nav_msgs<span class="w"> </span>sensor_msgs
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>Dependencies:</strong></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">rclpy</span></code>: ROS2 Python API.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">geometry_msgs</span></code>: For <code class="docutils literal notranslate"><span class="pre">Twist</span></code> messages (velocity commands).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nav_msgs</span></code>: For <code class="docutils literal notranslate"><span class="pre">Odometry</span></code> messages.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sensor_msgs</span></code>: For <code class="docutils literal notranslate"><span class="pre">IMU</span></code> messages.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="step-2-add-the-move2goal-py-script">
+<h3><strong>Step 2: Add the <code class="docutils literal notranslate"><span class="pre">move2goal.py</span></code> Script</strong><a class="headerlink" href="#step-2-add-the-move2goal-py-script" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p><strong>Download the script:</strong>
+Download the <a class="reference download internal" download="" href="../_downloads/f1b3794f9ac6b2b5c578e1db16e65d18/move2goal.py"><span class="xref download myst"><code class="docutils literal notranslate"><span class="pre">move2goal.py</span></code></span></a> file and save it in the <code class="docutils literal notranslate"><span class="pre">lab6_nav</span></code> package directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">~/</span><span class="n">master_ws</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">ece387_ws</span><span class="o">/</span><span class="n">lab6_nav</span><span class="o">/</span><span class="n">lab6_nav</span><span class="o">/</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Update <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>:</strong>
+Open the <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> file and modify the <code class="docutils literal notranslate"><span class="pre">entry_points</span></code> section to include the <code class="docutils literal notranslate"><span class="pre">move2goal</span></code> script:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">entry_points</span><span class="o">=</span><span class="p">{</span>
+    <span class="s1">&#39;console_scripts&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s1">&#39;move2goal = lab6_nav.move2goal:main&#39;</span><span class="p">,</span>
+    <span class="p">],</span>
+<span class="p">},</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Build and source the package:</strong>
+Build the package using the <code class="docutils literal notranslate"><span class="pre">ccbuild</span></code> command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ccbuild
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="step-3-implement-the-move2goal-py-script">
+<h3><strong>Step 3: Implement the <code class="docutils literal notranslate"><span class="pre">move2goal.py</span></code> Script</strong><a class="headerlink" href="#step-3-implement-the-move2goal-py-script" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">move2goal.py</span></code> script will control the TurtleBot3 to move to a specified goal location and orientation. Follow these steps to complete the implementation:</p>
+<section id="initialize-publishers-and-subscribers">
+<h4><strong>1. Initialize Publishers and Subscribers</strong><a class="headerlink" href="#initialize-publishers-and-subscribers" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Publisher:</strong></p>
+<ul>
+<li><p>Create a publisher for <code class="docutils literal notranslate"><span class="pre">/cmd_vel</span></code> to send velocity commands to the robot.</p></li>
+</ul>
+</li>
+<li><p><strong>Subscribers:</strong></p>
+<ul>
+<li><p>Subscribe to:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">/odom</span></code> to track the robot’s position.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/imu</span></code> to get orientation data.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/ctrl_relinq</span></code> to check if the node has control.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="implement-the-odom-callback-function">
+<h4><strong>2. Implement the <code class="docutils literal notranslate"><span class="pre">odom_callback</span></code> Function</strong><a class="headerlink" href="#implement-the-odom-callback-function" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Extract the <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> position from the received <code class="docutils literal notranslate"><span class="pre">Odometry</span></code> message.</p></li>
+</ul>
+</section>
+<section id="implement-the-imu-callback-function">
+<h4><strong>3. Implement the <code class="docutils literal notranslate"><span class="pre">imu_callback</span></code> Function</strong><a class="headerlink" href="#implement-the-imu-callback-function" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Extract the quaternion orientation from the <code class="docutils literal notranslate"><span class="pre">Imu</span></code> message.</p></li>
+<li><p>Convert the quaternion to Euler angles using the <code class="docutils literal notranslate"><span class="pre">euler_from_quaternion</span></code> function.</p></li>
+<li><p>Update the <code class="docutils literal notranslate"><span class="pre">yaw</span></code> value.</p></li>
+</ul>
+</section>
+<section id="implement-the-ctrl-relinq-callback-function">
+<h4><strong>4. Implement the <code class="docutils literal notranslate"><span class="pre">ctrl_relinq_callback</span></code> Function</strong><a class="headerlink" href="#implement-the-ctrl-relinq-callback-function" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Update the <code class="docutils literal notranslate"><span class="pre">self.has_control</span></code> flag based on the received <code class="docutils literal notranslate"><span class="pre">Bool</span></code> message.</p></li>
+<li><p>Log a message indicating whether control is taken or relinquished.</p></li>
+</ul>
+</section>
+<section id="implement-the-control-loop-function">
+<h4><strong>5. Implement the <code class="docutils literal notranslate"><span class="pre">control_loop</span></code> Function</strong><a class="headerlink" href="#implement-the-control-loop-function" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Compute the <strong>angle to the goal</strong> and normalize it to the range <code class="docutils literal notranslate"><span class="pre">[-π,</span> <span class="pre">π]</span></code>.</p></li>
+<li><p>Compute the <strong>distance to the goal</strong> using the Euclidean distance formula.</p></li>
+</ul>
+</section>
+<section id="complete-the-state-machine-logic">
+<h4><strong>6. Complete the State Machine Logic</strong><a class="headerlink" href="#complete-the-state-machine-logic" title="Link to this heading">#</a></h4>
+<p>The state machine consists of four states:</p>
+<ul class="simple">
+<li><p><strong>ROTATE_TO_GOAL:</strong></p>
+<ul>
+<li><p>If the angle error is greater than <code class="docutils literal notranslate"><span class="pre">0.05</span></code> radians, rotate the robot with an angular speed proportional to the error (<code class="docutils literal notranslate"><span class="pre">0.3</span> <span class="pre">*</span> <span class="pre">angle_error</span></code>). Adjust the proportional coefficient as needed.</p></li>
+<li><p>If the angle error is within the threshold, transition to <code class="docutils literal notranslate"><span class="pre">MOVE_FORWARD</span></code>.</p></li>
+</ul>
+</li>
+<li><p><strong>MOVE_FORWARD:</strong></p>
+<ul>
+<li><p>Move the robot forward at a constant speed of <code class="docutils literal notranslate"><span class="pre">0.15</span></code> (adjustable, but the robot’s maximum speed is <code class="docutils literal notranslate"><span class="pre">0.22</span></code>).</p></li>
+<li><p>If the distance to the goal is less than <code class="docutils literal notranslate"><span class="pre">0.15</span></code>, transition to <code class="docutils literal notranslate"><span class="pre">ROTATE_TO_FINAL</span></code>.</p></li>
+</ul>
+</li>
+<li><p><strong>ROTATE_TO_FINAL:</strong></p>
+<ul>
+<li><p>Compute the final orientation error and normalize it.</p></li>
+<li><p>If the error is greater than <code class="docutils literal notranslate"><span class="pre">0.05</span></code> radians, rotate the robot with a speed proportional to the error (<code class="docutils literal notranslate"><span class="pre">0.5</span> <span class="pre">*</span> <span class="pre">final_angle_error</span></code>).</p></li>
+<li><p>If the error is within the threshold, transition to <code class="docutils literal notranslate"><span class="pre">GOAL_REACHED</span></code>.</p></li>
+</ul>
+</li>
+<li><p><strong>GOAL_REACHED:</strong></p>
+<ul>
+<li><p>Log a message confirming the goal has been reached.</p></li>
+<li><p>Stop publishing movement commands.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="publish-velocity-commands">
+<h4><strong>7. Publish Velocity Commands</strong><a class="headerlink" href="#publish-velocity-commands" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Ensure <code class="docutils literal notranslate"><span class="pre">cmd_vel</span></code> messages are published correctly in each state of the state machine.</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="step-4-build-and-test-the-package">
+<h3><strong>Step 4: Build and Test the Package</strong><a class="headerlink" href="#step-4-build-and-test-the-package" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p><strong>Build the package:</strong>
+Build the <code class="docutils literal notranslate"><span class="pre">lab6_nav</span></code> package using:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ccbuild<span class="w"> </span>--packages-select<span class="w"> </span>lab6_nav
+</pre></div>
+</div>
+</li>
+<li><p><strong>Demo the robot:</strong></p>
+<ul class="simple">
+<li><p>Run the <code class="docutils literal notranslate"><span class="pre">move2goal</span></code> node and demonstrate the robot moving to the goal location <code class="docutils literal notranslate"><span class="pre">(-0.61,</span> <span class="pre">0.61)</span></code> in meters.</p></li>
+<li><p>Rotate the robot to face <code class="docutils literal notranslate"><span class="pre">90°</span></code>.</p></li>
+<li><p><strong>Hint:</strong> Most floor and ceiling tiles in the U.S. are 1’ by 1’ or 2’ by 2’. Use this to estimate distances. (1 foot = 30.48 cm).</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="deliverables">
+<h3>🚚 Deliverables<a class="headerlink" href="#deliverables" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Completed <code class="docutils literal notranslate"><span class="pre">move2goal.py</span></code> Script:</strong></p>
+<ul class="simple">
+<li><p>Ensure the script is fully functional and implements all required features.</p></li>
+</ul>
+</li>
+<li><p><strong>Demonstration:</strong></p>
+<ul class="simple">
+<li><p>Show the robot successfully navigating to the goal location and orientation in a real-world setup.</p></li>
+</ul>
+</li>
+<li><p><strong>Performance Analysis:</strong></p>
+<ul class="simple">
+<li><p>Examine the distance and angle errors printed by <code class="docutils literal notranslate"><span class="pre">move2goal.py</span></code>.</p></li>
+<li><p>Discuss the robot’s performance:</p>
+<ul>
+<li><p>Can the robot navigate to a farther distance, such as <code class="docutils literal notranslate"><span class="pre">(-3,</span> <span class="pre">3)</span></code>? Why or why not?</p></li>
+<li><p>Suggest improvements to enhance the robot’s navigation capabilities.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<hr class="docutils" />
+<p>This version organizes the instructions into clear, logical steps and provides a natural flow for your students to follow. Let me know if you need further refinements!</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/OXq5pgE4C6M?si=R9m2p0erJwloZ9VT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </section>
 <section id="create-a-python-ros2-package">
 <h3><strong>Create a Python ROS2 Package</strong><a class="headerlink" href="#create-a-python-ros2-package" title="Link to this heading">#</a></h3>
@@ -707,7 +914,7 @@ $<span class="w"> </span>ros2<span class="w"> </span>pkg<span class="w"> </span>
 <ul class="simple">
 <li><p><strong>ROTATE_TO_GOAL:</strong></p>
 <ul>
-<li><p>If the angle error is greater than 0.05 radians, rotate with angular speed proportional to the error (<code class="docutils literal notranslate"><span class="pre">0.3</span> <span class="pre">*</span> <span class="pre">angle_error</span></code>). Feel free to change this proportional coefficient as you feel better suited.</p></li>
+<li><p>If the angle error is greater than 0.05 radians, rotate with angular speed proportional to the error (<code class="docutils literal notranslate"><span class="pre">0.3</span> <span class="pre">*</span> <span class="pre">angle_error</span></code>). Feel free to change this proportional coefficient as it fits better.</p></li>
 <li><p>Otherwise, transition to <code class="docutils literal notranslate"><span class="pre">MOVE_FORWARD</span></code>.</p></li>
 </ul>
 </li>
@@ -820,10 +1027,7 @@ $<span class="w"> </span>ros2<span class="w"> </span>pkg<span class="w"> </span>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">📌 Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">📜 Overview</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#imu-calibration">IMU Calibration</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">📜 Overview</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-lab-testing-the-imu">🌱 Pre-Lab: Testing the IMU</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-launch-the-turtlebot3-simulation">Step 1: Launch the TurtleBot3 Simulation</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-verify-communication-with-the-master">Step 2: Verify Communication with the Master</a></li>
@@ -832,9 +1036,23 @@ $<span class="w"> </span>ros2<span class="w"> </span>pkg<span class="w"> </span>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-procedure">💻 Lab Procedure</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#update-bashrc">🛠 Update <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#update-bashrc-for-easier-builds">🛠 Update <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> for Easier Builds</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-imu-on-the-physical-robot">🛠 Testing IMU on the Physical Robot</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modify-gamepad-py-to-include-control-relinquishment">🛠 <strong>Modify <code class="docutils literal notranslate"><span class="pre">gamepad.py</span></code> to Include Control Relinquishment</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modify-gamepad-py-to-include-control-relinquishment">🛠 Modify <code class="docutils literal notranslate"><span class="pre">gamepad.py</span></code> to Include Control Relinquishment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-new-ros2-package"><strong>Create a New ROS2 Package</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-add-the-move2goal-py-script"><strong>Step 2: Add the <code class="docutils literal notranslate"><span class="pre">move2goal.py</span></code> Script</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-implement-the-move2goal-py-script"><strong>Step 3: Implement the <code class="docutils literal notranslate"><span class="pre">move2goal.py</span></code> Script</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#initialize-publishers-and-subscribers"><strong>1. Initialize Publishers and Subscribers</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#implement-the-odom-callback-function"><strong>2. Implement the <code class="docutils literal notranslate"><span class="pre">odom_callback</span></code> Function</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#implement-the-imu-callback-function"><strong>3. Implement the <code class="docutils literal notranslate"><span class="pre">imu_callback</span></code> Function</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#implement-the-ctrl-relinq-callback-function"><strong>4. Implement the <code class="docutils literal notranslate"><span class="pre">ctrl_relinq_callback</span></code> Function</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#implement-the-control-loop-function"><strong>5. Implement the <code class="docutils literal notranslate"><span class="pre">control_loop</span></code> Function</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#complete-the-state-machine-logic"><strong>6. Complete the State Machine Logic</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#publish-velocity-commands"><strong>7. Publish Velocity Commands</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-build-and-test-the-package"><strong>Step 4: Build and Test the Package</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">🚚 Deliverables</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-python-ros2-package"><strong>Create a Python ROS2 Package</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#write-code-for-move2goal-py"><strong>Write Code for <code class="docutils literal notranslate"><span class="pre">move2goal.py</span></code></strong></a></li>
 </ul>
