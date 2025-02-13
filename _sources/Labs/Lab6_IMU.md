@@ -141,7 +141,7 @@ To test the IMU on the physical robot, follow these steps:
    - For `/imu`, this command shows the `orientation` section and the next 4 lines.
    - For `/odom`, it shows the `position` section and the next 3 lines.
 
-5. **Convert quaternions to Euler angles:** Both topics use quaternions to represent orientation, which are not human-readable. Later, we will convert these quaternions into Euler angles for easier interpretation.
+1. **Convert quaternions to Euler angles:** Both topics use quaternions to represent orientation, which are not human-readable. Later, we will convert these quaternions into Euler angles for easier interpretation.
 
 
 ### 🛠 Modify `gamepad.py` to Include Control Relinquishment
@@ -285,12 +285,17 @@ The `move2goal.py` script will control the TurtleBot3 to move to a specified goa
 
 ### **Build and Test the Package**
 
+1. Install `tf-transformations` using
+   ```bash
+   $ sudo apt install ros-humble-tf-transformations
+   ```
+
 1. Build the `lab6_nav` package using:
    ```bash
    $ ccbuild --packages-select lab6_nav
    ```
 
-2. Demo the robot:
+1. Demo the robot:
    - Run the `move2goal` node and demonstrate the robot moving to the goal location `(-0.61, 0.61)` in meters.
    - Rotate the robot to face `90°`.
    - **Hint:** Most floor and ceiling tiles in the U.S. are 1' by 1' or 2' by 2'. Use this to estimate distances. (1 foot = 30.48 cm).
@@ -306,10 +311,10 @@ The `move2goal.py` script will control the TurtleBot3 to move to a specified goa
 1. **Completed `move2goal.py` Script:**
    - Ensure the script is fully functional and implements all required features.
 
-2. **Demonstration:**
+1. **Demonstration:**
    - Show the robot successfully navigating to the goal location and orientation in a real-world setup.
 
-3. **Performance Analysis:**
+1. **Performance Analysis:**
    - Examine the distance and angle errors printed by `move2goal.py`.
    - Discuss the robot's performance:
      - Can the robot navigate to a farther distance, such as `(-3, 3)`? Why or why not?
