@@ -1,12 +1,12 @@
+import math
+
 import rclpy
-from rclpy.node import Node
 from geometry_msgs.msg import Twist
 from nav_msgs.msg import Odometry
+from rclpy.node import Node
 from sensor_msgs.msg import Imu
 from std_msgs.msg import Bool
-
 from tf_transformations import euler_from_quaternion
-import math
 
 
 class MoveToGoal(Node):
@@ -25,13 +25,16 @@ class MoveToGoal(Node):
 
     Velocity commands are published to the '/cmd_vel' topic to control the robot's movement.
     """
+
     def __init__(self):
-        super().__init__('move_to_goal')  # Initialize the ROS2 node with name 'move_to_goal'
+        super().__init__(
+            "move_to_goal"
+        )  # Initialize the ROS2 node with name 'move_to_goal'
 
         # TODO: Publisher for sending velocity commands to the robot
 
         # TODO: Subscribers to receive odom and imu data
-        
+
         # TODO: Subscriber to receive control status
 
         # Variables to store the robot's current position and orientation
@@ -42,14 +45,13 @@ class MoveToGoal(Node):
         self.has_control = False  # Flag indicating whether this node has control
 
         # Goal position and final orientation
-        self.goal_x = 0.61   # Target x position
-        self.goal_y = -0.30  # Target y position
-        self.goal_yaw = math.radians(90)  # Final orientation (90 degrees in radians)
+        self.goal_x = -0.61  # Target x position
+        self.goal_y = 0.61  # Target y position
+        self.goal_yaw = math.radians(0)  # Final orientation (0 degrees in radians)
 
         self.state = "ROTATE_TO_GOAL"  # Initial state of the robot
 
         # TODO: Timer to run the control loop at a fixed rate (every 0.1 seconds)
-
 
     def odom_callback(self, msg: Odometry) -> None:
         """
@@ -64,7 +66,7 @@ class MoveToGoal(Node):
         Callback function for handling IMU messages.
         Extracts yaw (rotation around Z-axis) from the quaternion orientation.
         """
-        # TODO: 
+        # TODO:
         # Extract quaternion values
         # Convert quaternion to Euler angles - use euler_from_quaternion
         # Update yaw value
@@ -75,13 +77,11 @@ class MoveToGoal(Node):
         Updates the control status based on received messages.
         """
         # TODO: Update control flag
-        
-        
+
         if self.has_control:
             self.get_logger().info("move2goal has taken control")
         else:
             self.get_logger().info("move2goal has lost control")
-
 
     def control_loop(self) -> None:
         """
@@ -108,34 +108,36 @@ class MoveToGoal(Node):
         # Difference in y direction
         error_y = 0
         # Euclidean distance to goal
-        distance = 0 
+        distance = 0
 
         if self.state == "ROTATE_TO_GOAL":
             """
             First state: Rotate the robot towards the goal.
             """
             if abs(angle_error) > 0.05:  # Allow small tolerance
-                cmd.angular.z = 0.5 * angle_error  # Adjust rotation speed based on error
+                cmd.angular.z = (
+                    0.3 * angle_error
+                )  # Adjust rotation speed based on error
             else:
                 cmd.angular.z = 0.0  # Stop rotating when aligned
                 self.state = "MOVE_FORWARD"  # Transition to next state
 
-            self.get_logger().info(f"yaw={math.degrees(self.yaw):.2f}, angle_error={math.degrees(angle_error):.2f}")
+            self.get_logger().info(
+                f"yaw={math.degrees(self.yaw):.2f}, angle_error={math.degrees(angle_error):.2f}"
+            )
 
         elif self.state == "MOVE_FORWARD":
             """
             Second state: Move towards the goal in a straight line.
             """
-            self.get_logger().info(f"x={self.x:.3f}, y={self.y:.3f}, distance={distance:.3f}")
+            self.get_logger().info(
+                f"x={self.x:.3f}, y={self.y:.3f}, distance={distance:.3f}"
+            )
 
-            # TODO: 
+            # TODO:
             # Continue moving if not at goal - Move forward at constant speed of 0.15
-            # If the distance is less than 0.05, stop moving and transition to final rotation
-            
-            
-            
-            
-            
+            # If the distance is less than 0.15, stop moving and transition to final rotation
+
         elif self.state == "ROTATE_TO_FINAL":
             """
             Third state: Rotate to match the final desired orientation.
@@ -143,14 +145,11 @@ class MoveToGoal(Node):
             # TODO: Compute final angle error and normalize it.
             final_angle_error = 0
 
-            self.get_logger().info(f"yaw={math.degrees(self.yaw):.2f}, final_angle_error={math.degrees(final_angle_error):.2f}")
+            self.get_logger().info(
+                f"yaw={math.degrees(self.yaw):.2f}, final_angle_error={math.degrees(final_angle_error):.2f}"
+            )
 
-
-            # TODO: Continue ratating if not at goal - the angular speed is proportional to the final angle error by 0.5
-            # If the error is less than 0.05, stop rotating and transition to goal reached. 
-
-
-
+            # TODO: If the error is greater than 0.05 radians, rotate the robot with a speed proportional to the error (0.5 * final_angle_error).
 
         elif self.state == "GOAL_REACHED":
             """
@@ -158,7 +157,6 @@ class MoveToGoal(Node):
             """
             self.get_logger().info("Goal reached!")
             return  # Exit the function to stop publishing commands
-
 
         # TODO: Publish velocity command
 
@@ -174,5 +172,5 @@ def main(args=None):
     rclpy.shutdown()  # Shutdown ROS2
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()  # Execute the script
