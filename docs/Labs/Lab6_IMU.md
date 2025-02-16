@@ -309,7 +309,8 @@ The `move2goal.py` script will control the TurtleBot3 to move to a specified goa
 ### 🚚 Deliverables
 
 1. **Completed `move2goal.py` Script:**
-   - Ensure the script is fully functional and implements all required features.
+    - Ensure the script is fully functional and implements all required features.
+    - Push your code to GitHub and confirm that it has been successfully uploaded. **NOTE:** _If the instructor can't find your code in your repository, you will receive a grade of 0 for the coding part._
 
 1. **Demonstration:**
    - Show the robot successfully navigating to the goal location and orientation in a real-world setup.
