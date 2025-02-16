@@ -308,23 +308,18 @@ The `move2goal.py` script will control the TurtleBot3 to move to a specified goa
 
 ### 🚚 Deliverables
 
-1. **Completed `move2goal.py` Script:**
+1. **[15 Points] Complete the `move2goal.py` Script:**
     - Ensure the script is fully functional and implements all required features.
     - Push your code to GitHub and confirm that it has been successfully uploaded. **NOTE:** _If the instructor can't find your code in your repository, you will receive a grade of 0 for the coding part._
 
-1. **Demonstration:**
+1. **[15 Points] Demonstration:**
    - Show the robot successfully navigating to the goal location and orientation in a real-world setup.
 
-1. **Performance Analysis:**
-   - Examine the distance and angle errors printed by `move2goal.py`.
-   - Discuss the robot's performance:
-     - Can the robot navigate to a farther distance, such as `(-3, 3)`? Why or why not?
-     - Suggest improvements to enhance the robot's navigation capabilities.
-
-
-
-
-
-
-
-
+1. **[20 Points] Performance Analysis:**
+    - Examine the distance and angle errors printed by `move2goal.py`.
+    - Discuss the robot's performance:
+        - Can the robot navigate to a farther distance, such as `(-3, 3)`? Why or why not?
+        - After the robot reaches the goal, restart the demo without rebooting the robot. Does it work as before? If not, why doesn't it work anymore?
+        - Suggest improvements to enhance the robot's navigation capabilities.
+    - Note 1: This deliverable is worth 20 points, more than the other deliverables. Therefore, a detailed and rigorous analysis is expected. Treat this as the analysis section of your project report.
+    - Note 2: Provide quantitative analysis, not qualitative. You don't need to include plots of measured data, but you should provide the measured data for your analysis. For example, instead of saying, "The robot's orientation drifted quite a bit as it traveled almost one meter," you should say, "With its initial orientation of 43.5$^\circ$, the robot gradually drifted to 39.3$^\circ$ after traveling 0.73 meters." For your project, you will need to provide plots for the measured data.
