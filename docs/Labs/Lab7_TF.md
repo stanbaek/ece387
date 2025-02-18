@@ -94,6 +94,7 @@ Previously, to drive a physical TurtleBot3, we had to log into the remote host u
 This alias will allow you to run the `robot.launch.py` script on your TurtleBot3 without needing to log into the remote computer each time.
 
 
+## 💻 Lab Procedure
 
 
 
@@ -101,76 +102,8 @@ This alias will allow you to run the `robot.launch.py` script on your TurtleBot3
 
 
 
+### 🚚 Deliverables
 
-
-
-
-
-
-
-
-
-
-3. If you scroll all the way up to the beginning of the `.bashrc` file, we will be able to find the following lines
-    ```sh
-    # If not running interactively, don't do anything
-    case $- in
-        *i*) ;;
-          *) return;;
-    esac
-    ```
-    Don't worry about this strange code, but what it does is simply to exit the `.bashrc` file without executing the rest if the shell is not in the interactive mode. The way we ran the command using the `ssh` is not an interactive mode.  If you run commands after logging into the host computer via SSH, the shell becomes the interactive mode. Every command we have had so far is in the interactive mode.  
-    
-4. Open `VS Code` and click on the `Extensions` icon on the left side bar or Ctrl+Shift+X. Type `remote` and select `Remote-SSH`. Install it if it is not installed. 
-
-5. Open Command Palette by type `Ctrl+Shift+P` or View > Command Palette. Type the first few letters of `Remote-SSH` and select `Remote-SSH: Connect to Host`  Type `pi@robotX` and hit Enter. Type the password if you are asked, but it should be password-free because we have already setup an ssh-key. It may take a couple of minutes for the first time to setup the `vscode server` on the remote computer. 
-
-6. Click `Explorer` on the left sidebar and choose `/home/pi` for the `Open Folder` option and hit OK. Now you should be able to see all the files under the home directory.  Click `.bashrc` to open it. Replace the following lines 
-    ```sh
-    # If not running interactively, don't do anything
-    case $- in
-        *i*) ;;
-          *) return;;
-    esac
-    ```
-    with 
-    ```bash
-    # If not running interactively, set the following environment variables
-    if [[ $- != *i* ]]; then
-        source /opt/ros/humble/setup.bash
-        source ~/robot_ws/install/setup.bash
-        export TURTLEBOT3_MODEL=burger
-        export ROS_DOMAIN_ID=98     #TURTLEBOT3
-        export LDS_MODEL=LDS-02
-        return
-    fi
-    ```
-    Please ensure that you have your domain ID for `ROS_DOMAIN_ID=98`. Save the file.
-
-7. On a terminal, try
-    ```bash
-    $ ssh pi@robotX 'echo $ROS_DOMAIN_ID`
-    ```
-    It should return your domain ID.
-
-### Running `robot.launch.py` without SSH into the Robot
-
-The very step to drive a physical turtlebot3, we had to log into the remote host using SSH, Raspberry Pi, and ran `ros launch turtlebot3_bringup robot.launch.py`. In this section, we will implement a convenient method to accomplish the same thing but without logging into the remote computer.   
-
-1. On a terminal, run
-    ```bash
-    $ ssh pi@robotX 'ros2 launch turt1ebot3_bringup robot.launch.py`
-    ```
-
-1. Now add the following line to the `.bashrc` on your master computer.
-    ```bash
-    alias bringup='ssh pi@robotX '\''ros2 launch turt1ebot3_bringup robot.launch.py'\'
-    ```
-
-1. source the `.bashrc` file or restart the terminal. Now run
-    ```bash
-    $ bringup
-    ```
 
 
 
