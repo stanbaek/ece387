@@ -297,7 +297,7 @@ The `move2goal.py` script will control the TurtleBot3 to move to a specified goa
 
 1. Demo the robot:
    - Run the `move2goal` node and demonstrate the robot moving to the goal location `(-0.61, 0.61)` in meters.
-   - Rotate the robot to face `90°`.
+   - Rotate the robot to face `0°`.
    - **Hint:** Most floor and ceiling tiles in the U.S. are 1' by 1' or 2' by 2'. Use this to estimate distances. (1 foot = 30.48 cm).
 
 
