@@ -389,6 +389,18 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">📌 Objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">📜 Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-lab-testing-the-imu">🌱 Pre-Lab: Testing the IMU</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#non-interactive-ssh-sessions">Non-Interactive SSH Sessions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#running-robot-launch-py-without-ssh-into-the-robot">Running <code class="docutils literal notranslate"><span class="pre">robot.launch.py</span></code> without SSH into the Robot</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">🌱 Pre-Lab: Testing the IMU</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Non-Interactive SSH Sessions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Running <code class="docutils literal notranslate"><span class="pre">robot.launch.py</span></code> without SSH into the Robot</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose">Purpose</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#roslaunch">roslaunch</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#current-state">Current State</a></li>
@@ -412,6 +424,193 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="lab7-transformation">
 <h1>🔬 Lab7: Transformation<a class="headerlink" href="#lab7-transformation" title="Link to this heading">#</a></h1>
+<section id="objectives">
+<h2>📌 Objectives<a class="headerlink" href="#objectives" title="Link to this heading">#</a></h2>
+</section>
+<section id="overview">
+<h2>📜 Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
+<p>Sure, I’ll make the instructions clearer and more detailed for your students. Here we go:</p>
+</section>
+<section id="pre-lab-testing-the-imu">
+<h2>🌱 Pre-Lab: Testing the IMU<a class="headerlink" href="#pre-lab-testing-the-imu" title="Link to this heading">#</a></h2>
+<section id="non-interactive-ssh-sessions">
+<h3>Non-Interactive SSH Sessions<a class="headerlink" href="#non-interactive-ssh-sessions" title="Link to this heading">#</a></h3>
+<p>Sometimes, we need to execute commands remotely without logging into the remote host via SSH. Here’s how you can run commands remotely from your local computer:</p>
+<ol class="arabic">
+<li><p>Run the following command on your master computer:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ssh<span class="w"> </span>pi@robotX<span class="w"> </span><span class="s1">&#39;ls&#39;</span>
+</pre></div>
+</div>
+<p>Here, X is the number assigned to your robot. This command will display the files and directories in the <code class="docutils literal notranslate"><span class="pre">pi</span></code> user’s home directory, allowing us to execute commands on the remote computer without actually logging into it.</p>
+</li>
+<li><p>Try running this command next:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ssh<span class="w"> </span>pi@robotX<span class="w"> </span><span class="s1">&#39;echo $ROS_DOMAIN_ID&#39;</span>
+</pre></div>
+</div>
+<p>You may notice that it returns an empty string, even though we have already defined <code class="docutils literal notranslate"><span class="pre">ROS_DOMAIN_ID</span></code> inside the <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> file. To verify it’s defined correctly, run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ssh<span class="w"> </span>pi@robotX<span class="w"> </span><span class="s1">&#39;cat ~/.bashrc&#39;</span>
+</pre></div>
+</div>
+<p>Look for the line:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">ROS_DOMAIN_ID</span><span class="o">=</span><span class="m">99</span>
+</pre></div>
+</div>
+<p>It confirms that <code class="docutils literal notranslate"><span class="pre">ROS_DOMAIN_ID</span></code> is defined correctly in the <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> file.</p>
+</li>
+<li><p>At the beginning of the <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> file, you will find the following lines:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># If not running interactively, don&#39;t do anything</span>
+<span class="k">case</span><span class="w"> </span><span class="nv">$-</span><span class="w"> </span><span class="k">in</span>
+<span class="w">    </span>*i*<span class="o">)</span><span class="w"> </span><span class="p">;;</span>
+<span class="w">      </span>*<span class="o">)</span><span class="w"> </span><span class="k">return</span><span class="p">;;</span>
+<span class="k">esac</span>
+</pre></div>
+</div>
+<p>This code prevents the <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> file from executing if the shell is not in interactive mode. Since our <code class="docutils literal notranslate"><span class="pre">ssh</span></code> command runs in non-interactive mode, this code skips the rest of the <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> file. When you log into the host computer via SSH, the shell is in interactive mode, and all commands are executed normally.</p>
+</li>
+<li><p>Open Visual Studio Code (<code class="docutils literal notranslate"><span class="pre">VS</span> <span class="pre">Code</span></code>) and click on the <code class="docutils literal notranslate"><span class="pre">Extensions</span></code> icon on the left sidebar or press <code class="docutils literal notranslate"><span class="pre">Ctrl+Shift+X</span></code>. Type <code class="docutils literal notranslate"><span class="pre">remote</span></code> and select <code class="docutils literal notranslate"><span class="pre">Remote-SSH</span></code>. Install it if it’s not already installed.</p></li>
+<li><p>Open the Command Palette by pressing <code class="docutils literal notranslate"><span class="pre">Ctrl+Shift+P</span></code> or navigating to <code class="docutils literal notranslate"><span class="pre">View</span> <span class="pre">&gt;</span> <span class="pre">Command</span> <span class="pre">Palette</span></code>. Type the first few letters of <code class="docutils literal notranslate"><span class="pre">Remote-SSH</span></code> and select <code class="docutils literal notranslate"><span class="pre">Remote-SSH:</span> <span class="pre">Connect</span> <span class="pre">to</span> <span class="pre">Host</span></code>. Enter <code class="docutils literal notranslate"><span class="pre">pi&#64;robotX</span></code> and hit Enter. Type the password if prompted, though it should be password-free if you’ve set up an SSH key. It may take a couple of minutes to set up the <code class="docutils literal notranslate"><span class="pre">vscode</span> <span class="pre">server</span></code> on the remote computer for the first time.</p></li>
+<li><p>Click <code class="docutils literal notranslate"><span class="pre">Explorer</span></code> on the left sidebar, choose <code class="docutils literal notranslate"><span class="pre">/home/pi</span></code> for the <code class="docutils literal notranslate"><span class="pre">Open</span> <span class="pre">Folder</span></code> option, and hit OK. You should now see all the files in the home directory. Click on <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> to open it. Replace the following lines:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># If not running interactively, don&#39;t do anything</span>
+<span class="k">case</span><span class="w"> </span><span class="nv">$-</span><span class="w"> </span><span class="k">in</span>
+<span class="w">    </span>*i*<span class="o">)</span><span class="w"> </span><span class="p">;;</span>
+<span class="w">      </span>*<span class="o">)</span><span class="w"> </span><span class="k">return</span><span class="p">;;</span>
+<span class="k">esac</span>
+</pre></div>
+</div>
+<p>with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># If not running interactively, set the following environment variables</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$-</span><span class="w"> </span>!<span class="o">=</span><span class="w"> </span>*i*<span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">source</span><span class="w"> </span>/opt/ros/humble/setup.bash
+<span class="w">    </span><span class="nb">source</span><span class="w"> </span>~/robot_ws/install/setup.bash
+<span class="w">    </span><span class="nb">export</span><span class="w"> </span><span class="nv">TURTLEBOT3_MODEL</span><span class="o">=</span>burger
+<span class="w">    </span><span class="nb">export</span><span class="w"> </span><span class="nv">ROS_DOMAIN_ID</span><span class="o">=</span><span class="m">98</span><span class="w">     </span><span class="c1"># TURTLEBOT3</span>
+<span class="w">    </span><span class="nb">export</span><span class="w"> </span><span class="nv">LDS_MODEL</span><span class="o">=</span>LDS-02
+<span class="w">    </span><span class="k">return</span>
+<span class="k">fi</span>
+</pre></div>
+</div>
+<p>Ensure that <code class="docutils literal notranslate"><span class="pre">ROS_DOMAIN_ID=98</span></code> is set with your domain ID. Save the file.</p>
+</li>
+<li><p>On a terminal, try:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ssh<span class="w"> </span>pi@robotX<span class="w"> </span><span class="s1">&#39;echo $ROS_DOMAIN_ID&#39;</span>
+</pre></div>
+</div>
+<p>It should now return your domain ID.</p>
+</li>
+</ol>
+</section>
+<section id="running-robot-launch-py-without-ssh-into-the-robot">
+<h3>Running <code class="docutils literal notranslate"><span class="pre">robot.launch.py</span></code> without SSH into the Robot<a class="headerlink" href="#running-robot-launch-py-without-ssh-into-the-robot" title="Link to this heading">#</a></h3>
+<p>Previously, to drive a physical TurtleBot3, we had to log into the remote host using SSH and run <code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">launch</span> <span class="pre">turtlebot3_bringup</span> <span class="pre">robot.launch.py</span></code>. Here, we will implement a more convenient method to accomplish the same task without logging into the remote computer:</p>
+<ol class="arabic">
+<li><p>On a terminal, run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ssh<span class="w"> </span>pi@robotX<span class="w"> </span><span class="s1">&#39;ros2 launch turtlebot3_bringup robot.launch.py&#39;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Add the following line to the <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> file on your master computer:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">alias</span><span class="w"> </span><span class="nv">bringup</span><span class="o">=</span><span class="s1">&#39;ssh pi@robotX &#39;</span><span class="se">\&#39;</span><span class="s1">&#39;ros2 launch turtlebot3_bringup robot.launch.py&#39;</span><span class="se">\&#39;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Source the <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> file or restart the terminal. Now, simply run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>bringup
+</pre></div>
+</div>
+</li>
+</ol>
+<p>This alias will allow you to run the <code class="docutils literal notranslate"><span class="pre">robot.launch.py</span></code> script on your TurtleBot3 without needing to log into the remote computer each time.</p>
+</section>
+</section>
+<section id="id1">
+<h2>🌱 Pre-Lab: Testing the IMU<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<section id="id2">
+<h3>Non-Interactive SSH Sessions<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p>Sometimes we would like to execute commands remotely without acutally logging into a remote host via SSH.  Here is how to run commands remotely from your local computer.</p>
+<ol class="arabic">
+<li><p>Run the following command on the master computer</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ssh<span class="w"> </span>pi@robotX<span class="w"> </span><span class="err">&#39;</span>ls<span class="sb">`</span>
+</pre></div>
+</div>
+<p>where X is the robot number.  It will display the files and directories in the <code class="docutils literal notranslate"><span class="pre">pi</span></code>’s home directory. This means that we can execute command on the remote computer without actually logging into it.</p>
+</li>
+<li><p>Now try the following command.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ssh<span class="w"> </span>pi@robotX<span class="w"> </span><span class="err">&#39;</span><span class="nb">echo</span><span class="w"> </span><span class="nv">$ROS_DOMAIN_ID</span><span class="sb">`</span>
+</pre></div>
+</div>
+<p>It will return an empty string. However, we have already defined it inside the <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> file. let’s verify if it is indeed defined correctly by running</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ssh<span class="w"> </span>pi@robotX<span class="w"> </span><span class="err">&#39;</span>cat<span class="w"> </span>~/.bashrc<span class="sb">`</span>
+</pre></div>
+</div>
+<p>You can find that <code class="docutils literal notranslate"><span class="pre">ROS_DOMAIN_ID</span></code> is defined correctly inside the <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> file, e.g.,</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">ROS_DOMAIN_ID</span><span class="o">=</span><span class="m">99</span>
+</pre></div>
+</div>
+</li>
+<li><p>If you scroll all the way up to the beginning of the <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> file, we will be able to find the following lines</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># If not running interactively, don&#39;t do anything</span>
+<span class="k">case</span><span class="w"> </span><span class="nv">$-</span><span class="w"> </span><span class="k">in</span>
+<span class="w">    </span>*i*<span class="o">)</span><span class="w"> </span><span class="p">;;</span>
+<span class="w">      </span>*<span class="o">)</span><span class="w"> </span><span class="k">return</span><span class="p">;;</span>
+<span class="k">esac</span>
+</pre></div>
+</div>
+<p>Don’t worry about this strange code, but what it does is simply to exit the <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> file without executing the rest if the shell is not in the interactive mode. The way we ran the command using the <code class="docutils literal notranslate"><span class="pre">ssh</span></code> is not an interactive mode.  If you run commands after logging into the host computer via SSH, the shell becomes the interactive mode. Every command we have had so far is in the interactive mode.</p>
+</li>
+<li><p>Open <code class="docutils literal notranslate"><span class="pre">VS</span> <span class="pre">Code</span></code> and click on the <code class="docutils literal notranslate"><span class="pre">Extensions</span></code> icon on the left side bar or Ctrl+Shift+X. Type <code class="docutils literal notranslate"><span class="pre">remote</span></code> and select <code class="docutils literal notranslate"><span class="pre">Remote-SSH</span></code>. Install it if it is not installed.</p></li>
+<li><p>Open Command Palette by type <code class="docutils literal notranslate"><span class="pre">Ctrl+Shift+P</span></code> or View &gt; Command Palette. Type the first few letters of <code class="docutils literal notranslate"><span class="pre">Remote-SSH</span></code> and select <code class="docutils literal notranslate"><span class="pre">Remote-SSH:</span> <span class="pre">Connect</span> <span class="pre">to</span> <span class="pre">Host</span></code>  Type <code class="docutils literal notranslate"><span class="pre">pi&#64;robotX</span></code> and hit Enter. Type the password if you are asked, but it should be password-free because we have already setup an ssh-key. It may take a couple of minutes for the first time to setup the <code class="docutils literal notranslate"><span class="pre">vscode</span> <span class="pre">server</span></code> on the remote computer.</p></li>
+<li><p>Click <code class="docutils literal notranslate"><span class="pre">Explorer</span></code> on the left sidebar and choose <code class="docutils literal notranslate"><span class="pre">/home/pi</span></code> for the <code class="docutils literal notranslate"><span class="pre">Open</span> <span class="pre">Folder</span></code> option and hit OK. Now you should be able to see all the files under the home directory.  Click <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> to open it. Replace the following lines</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># If not running interactively, don&#39;t do anything</span>
+<span class="k">case</span><span class="w"> </span><span class="nv">$-</span><span class="w"> </span><span class="k">in</span>
+<span class="w">    </span>*i*<span class="o">)</span><span class="w"> </span><span class="p">;;</span>
+<span class="w">      </span>*<span class="o">)</span><span class="w"> </span><span class="k">return</span><span class="p">;;</span>
+<span class="k">esac</span>
+</pre></div>
+</div>
+<p>with</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># If not running interactively, set the following environment variables</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$-</span><span class="w"> </span>!<span class="o">=</span><span class="w"> </span>*i*<span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">source</span><span class="w"> </span>/opt/ros/humble/setup.bash
+<span class="w">    </span><span class="nb">source</span><span class="w"> </span>~/robot_ws/install/setup.bash
+<span class="w">    </span><span class="nb">export</span><span class="w"> </span><span class="nv">TURTLEBOT3_MODEL</span><span class="o">=</span>burger
+<span class="w">    </span><span class="nb">export</span><span class="w"> </span><span class="nv">ROS_DOMAIN_ID</span><span class="o">=</span><span class="m">98</span><span class="w">     </span><span class="c1">#TURTLEBOT3</span>
+<span class="w">    </span><span class="nb">export</span><span class="w"> </span><span class="nv">LDS_MODEL</span><span class="o">=</span>LDS-02
+<span class="w">    </span><span class="k">return</span>
+<span class="k">fi</span>
+</pre></div>
+</div>
+<p>Please ensure that you have your domain ID for <code class="docutils literal notranslate"><span class="pre">ROS_DOMAIN_ID=98</span></code>. Save the file.</p>
+</li>
+<li><p>On a terminal, try</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ssh<span class="w"> </span>pi@robotX<span class="w"> </span><span class="err">&#39;</span><span class="nb">echo</span><span class="w"> </span><span class="nv">$ROS_DOMAIN_ID</span><span class="sb">`</span>
+</pre></div>
+</div>
+<p>It should return your domain ID.</p>
+</li>
+</ol>
+</section>
+<section id="id3">
+<h3>Running <code class="docutils literal notranslate"><span class="pre">robot.launch.py</span></code> without SSH into the Robot<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>The very step to drive a physical turtlebot3, we had to log into the remote host using SSH, Raspberry Pi, and ran <code class="docutils literal notranslate"><span class="pre">ros</span> <span class="pre">launch</span> <span class="pre">turtlebot3_bringup</span> <span class="pre">robot.launch.py</span></code>. In this section, we will implement a convenient method to accomplish the same thing but without logging into the remote computer.</p>
+<ol class="arabic">
+<li><p>On a terminal, run</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ssh<span class="w"> </span>pi@robotX<span class="w"> </span><span class="err">&#39;</span>ros2<span class="w"> </span>launch<span class="w"> </span>turt1ebot3_bringup<span class="w"> </span>robot.launch.py<span class="sb">`</span>
+</pre></div>
+</div>
+</li>
+<li><p>Now add the following line to the <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> on your master computer.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">alias</span><span class="w"> </span><span class="nv">bringup</span><span class="o">=</span><span class="s1">&#39;ssh pi@robotX &#39;</span><span class="se">\&#39;</span><span class="s1">&#39;ros2 launch turt1ebot3_bringup robot.launch.py&#39;</span><span class="se">\&#39;</span>
+</pre></div>
+</div>
+</li>
+<li><p>source the <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> file or restart the terminal. Now run</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>bringup
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+</section>
 <section id="purpose">
 <h2>Purpose<a class="headerlink" href="#purpose" title="Link to this heading">#</a></h2>
 <p>Large applications in robotics typically involve several interconnected ROS nodes, each of which have many parameters. Your current setup is a good example: as you experienced in the IMU lab, you had to open 3 different terminals to run all of the nodes necessary for our system to that point:</p>
@@ -677,6 +876,18 @@ nano<span class="w"> </span>remote_env_loader.sh
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">📌 Objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">📜 Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-lab-testing-the-imu">🌱 Pre-Lab: Testing the IMU</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#non-interactive-ssh-sessions">Non-Interactive SSH Sessions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#running-robot-launch-py-without-ssh-into-the-robot">Running <code class="docutils literal notranslate"><span class="pre">robot.launch.py</span></code> without SSH into the Robot</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">🌱 Pre-Lab: Testing the IMU</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Non-Interactive SSH Sessions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Running <code class="docutils literal notranslate"><span class="pre">robot.launch.py</span></code> without SSH into the Robot</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose">Purpose</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#roslaunch">roslaunch</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#current-state">Current State</a></li>
