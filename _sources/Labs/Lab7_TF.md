@@ -4,7 +4,6 @@
 
 ## 📜 Overview
 
-Sure, I'll make the instructions clearer and more detailed for your students. Here we go:
 
 ## 🌱 Pre-Lab: Testing the IMU  
 
@@ -14,7 +13,7 @@ Sometimes, we need to execute commands remotely without logging into the remote 
 
 1. Run the following command on your master computer:
     ```bash
-    $ ssh pi@robotX 'ls'
+    $ ssh pi@robotX 'ls -la'
     ```
     Here, X is the number assigned to your robot. This command will display the files and directories in the `pi` user's home directory, allowing us to execute commands on the remote computer without actually logging into it.
 
@@ -110,30 +109,7 @@ This alias will allow you to run the `robot.launch.py` script on your TurtleBot3
 
 
 
-## 🌱 Pre-Lab: Testing the IMU  
 
-### Non-Interactive SSH Sessions
-
-Sometimes we would like to execute commands remotely without acutally logging into a remote host via SSH.  Here is how to run commands remotely from your local computer. 
-
-1. Run the following command on the master computer
-    ```bash
-    $ ssh pi@robotX 'ls`
-    ```
-    where X is the robot number.  It will display the files and directories in the `pi`'s home directory. This means that we can execute command on the remote computer without actually logging into it.  
-    
-2. Now try the following command.
-    ```bash
-    $ ssh pi@robotX 'echo $ROS_DOMAIN_ID`
-    ```
-    It will return an empty string. However, we have already defined it inside the `.bashrc` file. let's verify if it is indeed defined correctly by running
-    ```bash
-    $ ssh pi@robotX 'cat ~/.bashrc`
-    ```
-    You can find that `ROS_DOMAIN_ID` is defined correctly inside the `.bashrc` file, e.g.,
-    ```sh 
-    export ROS_DOMAIN_ID=99
-    ```
 
 3. If you scroll all the way up to the beginning of the `.bashrc` file, we will be able to find the following lines
     ```sh
