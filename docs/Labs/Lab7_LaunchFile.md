@@ -1,5 +1,50 @@
 # 🔬 Lab7: Launch Files
 
+
+
+A
+
+
+
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
+
+
+# If not running interactively:
+if [[ $- != *i* ]]; then
+    # Non-interactive shell, source ROS2 environment
+    source /opt/ros/humble/setup.bash
+    source ~/robot_ws/install/setup.bash
+    export TURTLEBOT3_MODEL=burger
+    export ROS_DOMAIN_ID=98 #TURTLEBOT3
+    export LDS_MODEL=LDS-02
+    return
+fi
+
+
+
+
+ssh pi@robot 'ros2 launch turtlebot3_bringup robot.launch.py'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Purpose
 Large applications in robotics typically involve several interconnected ROS nodes, each of which have many parameters. Your current setup is a good example: as you experienced in the IMU lab, you had to open 3 different terminals to run all of the nodes necessary for our system to that point:
 
