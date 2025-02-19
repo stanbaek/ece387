@@ -108,19 +108,50 @@ This alias will allow you to run the `robot.launch.py` script on your TurtleBot3
 ### 🚚 Deliverables
 
 
+In this lab, you will create a ROS2 Python package that enables the TurtleBot3 to navigate to a desired **location and orientation** using data from the **IMU (`/imu`)** and **ODOM (`/odom`)** topics.
 
 
 
 
+### **Create a New ROS2 Package**
+
+1. Open a terminal and navigate to the `ece387_ws` directory of your workspace:
+   ```bash
+   $ cd ~/master_ws/src/ece387_ws
+   ```
+
+1. Use the following command to create a new ROS2 package named `lab7_tf` with the BSD-3 license:
+   ```bash
+   $ ros2 pkg create --build-type ament_python --license BSD-3-Clause lab7_tf
+   ```
+
+1. Copy the `move2goal.py` file from Lab6 to `ece387_ws/lab7_tf/lab7_tf/` and rename it to `move2goal_tf.py`
+
+1. Add the following lines as a dependency in your `package.xlm`. 
+    ```sh
+    <depend>rclpy</depend>
+    <depend>geometry_msgs</depend>
+    <depend>nav_msgs</depend>
+    <depend>sensor_msgs</depend>
+    <depend>std_srvs</depend>
+    ```
+
+1. Open the `setup.py` file and modify the `entry_points` section to include the `move2goal_tf` script:
+   ```python
+   entry_points={
+       'console_scripts': [
+           'move2goal_tf = lab7_tf.move2goal_tf:main',
+       ],
+   },
+   ```
+
+1. In `setup.py`, add `'std_srvs'` to the `install_requires` list:
+    ```python
+    'std_srvs',
+    ```
 
 
-
-Here’s how you can add a ROS2 service to reset `self.local_x`, `self.local_y`, and `self.local_yaw` to zero in your existing ROS2 package.
-
----
-
-### **1. Define the Service in `MoveToGoal` Node**
-Modify your `MoveToGoal` class to include a ROS2 service.
+### **Modify the `move2goal_tf.py` Script**
 
 1. Import the required ROS2 service type:
    ```python
@@ -129,40 +160,32 @@ Modify your `MoveToGoal` class to include a ROS2 service.
 
 2. Add a service server in the `__init__` method:
    ```python
-   self.reset_service = self.create_service(Empty, 'reset_local_position', self.reset_local_position_callback)
+    # TODO: Create a service server that will handle 'reset_pose' service requests
+    # - Service type: 'Empty' (no data is exchanged)
+    # - Service name: 'reset_pose'
+    # - Callback function: 'self.reset_pose_callback' to execute when the service is called
+    self.reset_service = 0 # Update this line.
    ```
 
 3. Define the callback function for the service:
-   ```python
-   def reset_local_position_callback(self, request, response):
-       self.local_x = 0.0
-       self.local_y = 0.0
-       self.local_yaw = 0.0
+    ```python
+    def reset_pose_callback(self, request, response):
+    # Reset the local position coordinates to zero
+    self.local_x = 0.0
+    self.local_y = 0.0
+    self.local_yaw = 0.0
 
-       self.prev_x = None
-       self.prev_y = None
-       self.prev_yaw = None
+    # Clear the previous position coordinates
+    self.prev_x = None
+    self.prev_y = None
+    self.prev_yaw = None
 
-       self.get_logger().info("Local position reset to zero.")
-       return response
-   ```
-
----
-
-### **2. Modify `setup.py` (If Necessary)**
-Ensure that `std_srvs` is listed as a dependency in your `package.xml` and `setup.py`. 
-
-- **In `package.xml`**, add:
-  ```xml
-  <depend>std_srvs</depend>
-  ```
-
-- **In `setup.py`**, add `'std_srvs'` to the `install_requires` list:
-  ```python
-  'std_srvs',
-  ```
-
----
+    # Log a message to indicate the local position has been reset
+    self.get_logger().info("Local position reset to zero.")
+    
+    # Return the response to the service caller
+    return response
+    ```
 
 ### **3. Build and Source the Package**
 Run the following in your ROS2 workspace:
