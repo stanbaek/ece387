@@ -23,7 +23,7 @@ parts:
     - file: Labs/Lab4_Gamepad.md
     - file: Labs/Lab5_TurtleBot.md    
     - file: Labs/Lab6_IMU.md
-    - file: Labs/Lab7_LaunchFile.md
+    - file: Labs/Lab7_TF.md
     - file: Labs/Lab8_LIDAR.md
 
   - caption: Appendix

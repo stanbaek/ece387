@@ -1,261 +1,325 @@
-# 🔬 Lab6: IMU
+# 🔬 Lab6: IMU-Based Navigation
 
+## 📌 Objectives
+- Students should be able to describe how IMU data is used in ROS2 and interpret IMU messages.
+- Students should be able to set up and analyze IMU (`/imu`) and odometry (`/odom`) topics in ROS2.
+- Students should be able to modify a ROS2 gamepad node to relinquish and regain robot control using button presses.
+- Students should be able to implement a ROS2 Python node that navigates a robot to a goal using odometry and IMU data.
+- Students should be able to evaluate and analyze errors in robot navigation and suggest potential improvements.
 
-## Purpose
-In practice, an inertial measurement unit (IMU) device provides orientation, angular velocity, and linear acceleration. The [ICM-20648 6-Axis MEMS MotionTracking Device](https://invensense.tdk.com/products/motion-tracking/6-axis/icm-20648/) from TDK includes a 3-axis gyroscope, 3-axis accelerometer, and a Digital Motion Processor (DMP). This IMU is integrated on the OpenCR1.0 board, an open source robot controller embedded with an ARM Cortex-M7 processor. The OpenCR combines sensor data using an EKF to generate IMU estimates 170 times a second.
+## 📜 Overview
+In real-world robotics, an Inertial Measurement Unit (IMU) is essential for tracking motion by measuring orientation, angular velocity, and linear acceleration. The [ICM-20648 6-Axis MEMS MotionTracking Device](https://invensense.tdk.com/products/motion-tracking/6-axis/icm-20648/) from TDK integrates a 3-axis gyroscope, a 3-axis accelerometer, and a Digital Motion Processor (DMP). This IMU is embedded in the OpenCR1.0 board, an open-source robot controller featuring an ARM Cortex-M7 processor. The OpenCR board applies an Extended Kalman Filter (EKF) to fuse sensor data, generating IMU estimates at 170 Hz.
 
 ```{image} ./figures/IMU.jpg
 :width: 380
 :align: center
 ```
 <br>
-
-The IMU provides values that are part of the robot state and allow the robot to navigate more accurately. Combined with data from the tachometers these values provide the odometry of the robot to estimate change in position over time. We will primarily use the IMU to perform 90 and 180 degree turns.
+The IMU significantly enhances navigation accuracy when combined with odometry. It helps estimate the robot's position over time and improves localization.
 
 ```{image} ./figures/TurtleBot3_Coordinates.png
 :width: 280
 :align: center
 ```
 
-## Calibrating the IMU
-As described above, there are a number of different sensors that work together to provide the attitude and heading estimates for the TurtleBot3. These sensors are sensitive to magnetic fields which are unique to locale and device. As you will learn in future ECE classes, all electronic devices create small magnetic fields. Even electrons traveling over a wire create magnetic fields. The OpenCR board and IMU are strategically placed in the center of the robot for best attitude and heading performance, however, this location is also in the center of a number of magnetic fields. Luckily for us, the creators of the Turtlebot3 were aware of these issues and whenever you run the serial node to connect to the robot the IMU is calibrated.
+As we discussed earlier, multiple sensors work together to estimate the TurtleBot3's attitude and heading. These sensors are highly sensitive to magnetic fields, which can vary depending on the location and the device. Even everyday electronic components, including those on the OpenCR board, generate small magnetic fields. Although the IMU is placed at the center of the robot for optimal performance, it is still exposed to various magnetic interferences.
 
-## Setup
-The ICM-20648 is already integrated into the Turtlebot3 robot, therefore, there is no setup required. Whenever the serial node is ran to connect to the OpenCR board, the IMU is initialized and will start publishing data.
+Fortunately, the TurtleBot3 developers anticipated this issue. Each time you run the serial node to connect to the robot, the IMU automatically calibrates itself, ensuring more accurate readings.
 
-## Test the IMU
-Open a new terminal on the master and run roscore and setup for statistics:
 
-```bash
-roscore
-rosparam set enable_statistics true
-```
+## 🌱 Pre-Lab: Testing the IMU  
 
-Create a secure shell connection to your **Robot** and launch the Turtlebot3 core launchfile.
+### Step 1: Launch the TurtleBot3 Simulation
 
-```bash
-roslaunch turtlebot3_bringup turtlebot3_core.launch
-```
+1. Open a terminal and start the TurtleBot3 simulation in Gazebo:
+   ```bash
+   $ ros2 launch turtlebot3_gazebo turtlebot_world.launch
+   ```
 
-Open a new terminal on your **Master** and observe what topics are running.
+### Step 2: Verify Communication with the Master
 
-You should note two topics of interest: **/imu** and **/odom**.
-
-Echo the output of each of the topics and rotate the **Robot** to see the values change.
-
-The **/imu** topic combines information from the gyroscope and accelerometer to provide orientation, angular velocity, and linear acceleration. The **/odom** topic combines the information from the **/imu** topic and tachometers to estimate position, orientation, and linear and angular velocities.
-
-Both of these topics provide the orientation of the robot using a quaternion representation. While quaternions can make computation easier, they are not very human readable, so we will convert to Euler angles. To do this we will use a Python library called [squaternion](https://pypi.org/project/squaternion/).
-
-The two main functions we will use from the squaternion library:
-
-First we will need to create a Quaternion object:
-```
-q = Quaternion(w, x, y, z)
-```
-
-Then we will conver that Quaternion to an Euler:
-```
-e = q.to_euler(degrees=True)
-```
-
-Now we have `e`, an array representing our Euler angles, `e[roll, pitch, yaw]`.
-
-You can keep the node running for the next portion of the lesson.
-
-## Write the Subscriber
-1. In a new terminal on the **Master**, create an **ice6** package which depends on the *geometry_msgs*, *rospy*, and *turtlebot3_bringup* packages, compile and source the workspace:
-
-    ```bash
-    cd ~/master_ws/src/ece387_master_sp2X-USERNAME/master
-    catkin_create_pkg ice6 std_msgs rospy turtlebot3_bringup
-    cd ~/master_ws
-    catkin_make
-    source ~/.bashrc
+1. Ensure the TurtleBot3 is properly communicating with the Master by listing active topics:
+   ```bash
+   $ ros2 topic list
+   ```
+1. You should see the following topics, including `/imu` and `/odom`:
+   ```bash
+   /battery_state
+   /cmd_vel
+   /imu
+   /joint_states
+   /magnetic_field
+   /odom   
+   /tf_static
     ```
 
-1. Create an IMU node:
-
+### Step 3: Examine the `/imu` and `/odom` Topics
+1. Run the `gamepad` and `joy` nodes.
+1. Observe the IMU and odometry messages while moving the robot:
     ```bash
-    roscd ice6/src
-    touch imu_sub.py
+    $ ros2 topic echo /imu
+    $ ros2 topic echo /odom
     ```
-    
-1. Copy and complete the below code using a GUI editor tool, such as **Sublime** or **VS Code**. Browse to the subscriber you just created and double-click. This will open the file in **Sublime** or **VS Code** (if it is open in any other editor, stop, raise your hand, and get help from an instructor)
-> 💡️ **Tip:** Look for the **"TODO"** tag which indicates where you should insert your own code.
-
-```python
-#!/usr/bin/env python3
-import rospy
-from squaternion import Quaternion
-# TODO: import message type sent over imu topic
+    Pay close attention to the `pose` field. In future labs, be mindful not to confuse the different pose hierarchies within the Imu and Odom messages.
 
 
-class IMU:
-    """Class to read orientation data from Turtlebot3 IMU"""
-    def __init__(self):        
-        # TODO: subscribe to the imu topic that is published by the
-        # Turtlebot3 and provides the robot orientation
+### Step 4: Visualizing Data in `rqt`
+1. Open `rqt`:
+    ```bash
+    $ rqt
+    ```
+1. Monitor `/imu` and `/odom` data in `rqt` while moving the robot.
+1. Compare the pose data from Gazebo and `rqt`, noting how simulation noise affects readings.
+1. Monitor the `/imu` and `/odom` topics using `rqt` as you move the robot in Gazebo.
+1. In Gazebo, go to `Models` > `burger`, then in the `property` section, select `pose` to view the robot's position and orientation in roll-pitch-yaw format.
+1. In `rqt`, enable the `Topic Monitor` and activate the `/imu` and `/odom` topics to track orientation and position in real time.
+1. Note that orientation in `rqt` is shown using quaternions.
+1. The pose values in Gazebo and rqt are not the same. Gazebo simulation publishes position and orientation with noise. By default, Gazebo adds Gaussian noise to the data generated by its sensors to simulate real-world conditions.
+
+## 💻 Lab Procedure
+
+In this lab, you will create a ROS2 Python package that enables the TurtleBot3 to navigate to a desired **location and orientation** using data from the **IMU (`/imu`)** and **ODOM (`/odom`)** topics.
+
+### 🛠 Update `.bashrc` for Easier Builds
+
+To avoid common mistakes when running `colcon build`, follow these steps to streamline your workflow. This will ensure that `colcon build` is always run in the correct directory and that the necessary setup file is sourced automatically.
+
+1. Use `gedit` to open the `.bashrc` file:
+   ```bash
+   $ gedit ~/.bashrc
+   ```
+
+1. At the end of the file, add the following function:
+   ```bash
+   # Function to build with optional arguments
+   function ccbuild() {
+       cd ~/master_ws && colcon build --symlink-install "$@"
+       source ~/master_ws/install/setup.bash
+   }
+
+   # Export the function to make it available in the shell
+   export -f ccbuild
+   ```
+
+1. Save the file, exit the editor, and restart your terminal for the changes to take effect.
+
+1. Instead of manually navigating to `~/master_ws`, running `colcon build --symlink-install`, and sourcing `install/setup.bash`, you can now simply run:
+   ```bash
+   $ ccbuild
+   ```
+   This ensures the build process is executed correctly every time and and sources the necessary setup file.
+
+1. You can also pass arguments to `colcon build` through the `ccbuild` function. For example:
+   ```bash
+   $ ccbuild --packages-select lab6_nav
+   ```
+    This builds only the `lab6_nav` package, saving time by skipping previously built packages.
+
+1. By following these steps, you'll streamline your workflow and minimize build-related errors.
+
+### 🛠 Testing IMU on the Physical Robot
+
+To test the IMU on the physical robot, follow these steps:
+
+1. Use SSH to launch the `robot.launch.py` file on the robot.
+1. Start the `gamepad` and `joy` nodes on your master computer.
+1. As you move the robot in Gazebo, monitor the `/imu` and `/odom` topics using:
+   ```bash
+   $ ros2 topic echo /imu
+   ```
+   ```bash
+   $ ros2 topic echo /odom
+   ```
+1. The raw output of these topics can be overwhelming. Use the following commands to filter and display only the relevant sections:
+   ```bash
+   ros2 topic echo /imu | grep -A 4 'orientation'
+   ```
+   ```bash
+   ros2 topic echo /odom | grep -A 3 'position'
+   ```
+   - The `-A` option in `grep` stands for "after context." It displays the specified number of lines following the matching line.
+   - For `/imu`, this command shows the `orientation` section and the next 4 lines.
+   - For `/odom`, it shows the `position` section and the next 3 lines.
+
+1. **Convert quaternions to Euler angles:** Both topics use quaternions to represent orientation, which are not human-readable. Later, we will convert these quaternions into Euler angles for easier interpretation.
 
 
-        # nicely handle shutdown (Ctrl+c)
-        self.ctrl_c = False
-        rospy.on_shutdown(self.shutdownhook)
+### 🛠 Modify `gamepad.py` to Include Control Relinquishment
 
-    # The IMU provides yaw from -180 to 180. This function
-    # converts the yaw (in degrees) to 0 to 360
-    def convert_yaw (self, yaw):
-        return 360 + yaw if yaw < 0 else yaw		
+In this section, you'll modify the `gamepad.py` script to add functionality for relinquishing and regaining control of the robot. This will allow users to toggle control states using specific gamepad buttons.
 
-    # Print the current Yaw
-    def callback_imu(self, imu):
-        if not self.ctrl_c:
-            # TODO: create a quaternion using the x, y, z, and w values
-            # from the correct imu message
-            
-            
-            # TODO: convert the quaternion to euler in degrees
-            
-            
-            # TODO: get the yaw component of the euler
-            yaw = 
+1. Locate and open the `gamepad.py` file.
+1. In the constructor of the `Gamepad` class, add the following attributes:
+   ```python
+   # Flag to track control status (default: True)
+   self.has_control = True
 
-            # convert yaw from -180 to 180 to 0 to 360
-            yaw = self.convert_yaw(yaw)
-            print("Current heading is %f degrees." % (yaw))
+   # Create a publisher for control relinquishment messages.
+   # - Publishes to the 'ctrl_relinq' topic.
+   # - Uses Bool messages to indicate control status.
+   # - Queue size of 1 ensures only the latest control state is kept.
+   self.ctrl_pub = self.create_publisher(Bool, 'ctrl_relinq', 1)
+   ```
 
-    # clean shutdown
-    def shutdownhook(self):
-        print("Shutting down the IMU subscriber")
-        self.ctrl_c = True
+1. In the `joy_callback` method, implement the following logic to toggle control using buttons A (Green) and B (Red):
+   ```python
+   # Create a new Bool message for "control relinquishment status"
+   relinquish = Bool()
 
-if __name__ == '__main__':
-    rospy.init_node('imu_sub')
-    IMU()
-    rospy.spin()
-```
+   # TODO: Check if the RC (Remote Control) has control and button A (Green) is pressed
+       # Set control flag to False (relinquish control)
+       # Change "control status" to relinquished.
+       # Publish the control status
+       
+       # Log status update
+       self.get_logger().info("RC has relinquished control.")  
 
-4. Save, exit, and make the node executable.
+   # TODO: Check if RC does not have control and button B (Red) is pressed
+       # Set control flag to True (regain control)
+       # Set control status to regained.
+       # Publish the control status
+       
+       # Log status update
+       self.get_logger().info("RC has taken over control.")  
 
-4. Open a new terminal on the **Master** and run the **imu_sub.py** node.
-
-4. Rotate the **Robot** and observe the output.
-
-## Checkpoint
-Once complete, get checked off by an instructor showing the output of your **imu_sub** and **rqt_graph** node.  Push your ice6 package to your repo for credit
-
-## Summary
-In this lesson you learned how to utilize the on-board IMU and determine the orientation of the Turtlebot3. In the lab that corresponds to this lesson you will apply this knowledge to turn the robot in 90 and 180 degree turns.ROS
-
-## Cleanup
-In each terminal window, close the node by typing `ctrl+c`. Exit any SSH connections. Shutdown the notebook server by typing `ctrl+c` within the terminal you ran `jupyter-lab` in. Select 'y'.
-
-**Ensure roscore is terminated before moving on to the lab.**
-
-## Purpose
-This lab will integrate the on-board IMU with the Turtlebot3 controller to turn the robot 90 degrees left or right.  Do not disable any of the mouse controller functionality in the turtlebot_controller.py code.  The IMU and mouse control functionality should be able to coexist seemlessly.
-
-## Master
-### Setup:
-In the `/master_ws/src/ece387_master_sp2X-USERNAME/master` folder, create a **lab2** package which depends on **std_msgs**, **rospy**, **geometry_msgs**, and **turtlebot3_bringup**.
-
-### controller.py
-1. Copy the turtlebot_controller.py file from lab1 into the lab2 package.
-
-1. Open the turtlebot_controller.py file from lab2 using an editor.
-
-1. Import the squaternion library and Imu message used in ICE6.
-
-1. Add the following Class variables within the class **above** the `__init__()` function:
-
-    1. `K_HDG = 0.1 # rotation controller constant`
-    1. `HDG_TOL = 10 # heading tolerance +/- degrees`
-    1. `MIN_ANG_Z = 0.5 # limit rad/s values sent to Turtlebot3`
-    1. `MAX_ANG_Z = 1.5 # limit rad/s values sent to Turtlebot3`
-    
-1. Add the following to the `__init__()` function:
-
-    1. Instance variable, `self.curr_yaw`, initialized to 0 to store the current orientation of the robot
-    1. Instance variable, `self.goal_yaw`, initialized to 0 to store the goal orientation of the robot
-    1. Instance variable, `self.turning`, initialized to `False` to store if the robot is currently turning
-    1. A subscriber to the IMU topic of interest with a callback to the callback_imu() function
-    
-1. Add the `convert_yaw()` function from ICE6.
-    
-1. Add the `callback_imu()` function from ICE6, removing print statements and setting the instance variable, `self.curr_yaw`.
-
-1. Edit the `callback_controller()` function so it turns the robot 90 degrees in the direction inputed by the user (left or right). Below is some pseudo-code to help you code the controller function 
-
-> ⚠️ **WARNING:** Pseudo-code is not actual code and cannot be copied and expected to work!
-
-```python
-def callback_controller(self, event):
-    # local variables do not need the self
-	yaw_err = 0
-	ang_z = 0
-    # not turning, so get user input
-    if not turning:
-        read from user and set value to instance variable, self.goal_yaw
-        input("Input l or r to turn 90 deg")
-        
-        # check input and determine goal yaw
-        if input is equal to "l" 
-            set goal yaw to curr yaw plus/minus 90
-            turning equals True
-        else if input is equal to "r"
-           	set goal yaw to curr yaw plus/minus 90
-            turning equals True
-        else 
-        	print error and tell user valid inputs
-            
-        # check bounds
-        if goal_yaw is less than 0 then add 360
-        else if goal_yaw is greater than 360 then subtract 360
-    
-    # turn until goal is reached
-    elif turning:
-        yaw_err = self.goal_yaw - self.curr_yaw
-        
-        # determine if robot should turn clockwise or counterclockwise
-        if yaw_err > 180:
-            yaw_err = yaw_err - 360
-        elif yaw_err < -180:
-            yaw_err = yaw_err + 360
-            
-        # proportional controller that turns the robot until goal 
-        # yaw is reached
-        ang_z = self.K_HDG * yaw_err
-        
-        if ang_z < self.MIN: ang_z = self.MIN		# need to add negative test as well!
-        elif ang_Z > self.MAX: ang_z = self.MAX	# need to add negative test as well!
-        
-        # check goal orientation
-        if abs(yaw_err) < self.HDG_TOL
-            turning equals False
-            ang_z = 0
-            
-   # set twist message and publish
-   self.cmd.linear.x = 0
-   self.cmd.angular.z = ang_z
-   publish message
-```
-
-## Run your nodes
-1. On the **Master** open a terminal and run **roscore**.
-1. Open another terminal and enable statistics for **rqt_graph**.
-1. Run the controller node.
-1. Open secure shell into the **Robot** and run the **turtlebot3_core** launch file.
-1. Type "l" or "r" to turn the robot 90 degrees.
-
-## Report
-Complete a short 2-3 page report that utilizes the format and answers the questions within the report template. The report template and an example report can be found within the Team under `Resources/Lab Template`.
-
-## Turn-in Requirements
-**[25 points]** Demonstration of keyboard control of Turtlebot3 (preferably in person, but can be recorded and posted to Teams under the Lab 2 channel).
-
-**[50 points]** Report via Gradescope.
-
-**[25 points]** Code: push your code to your repository. Also, include a screen shot of the **turtlebot_controller.py** file at the end of your report.
+   # If control is relinquished, stop further processing
+   if not self.has_control:
+       return
+   ```
+   
+   This is a common safety practice in robotics to halt autonomous tasks a robot is executing.  Another safety practice is to integrating an easily accessible emergency stop switch that cuts off the main power to the robot.  
 
 
+1. Test the gamepad node:
+   - Run the gamepad node.
+   - Open another terminal and monitor the `cmd_vel` topic.
+   - Press **button A** on the gamepad and verify that control is relinquished (no movement commands should be published by the gamepad).
+   - Press **button B** and verify that control is regained (movement commands should be published again).
+   - Check the `ctrl_relinq` topic to confirm that control status messages are being published.
 
+
+### **Create a New ROS2 Package**
+
+1. Open a terminal and navigate to the `src` directory of your workspace:
+   ```bash
+   $ cd ~/master_ws/src/ece387_ws
+   ```
+
+1. Use the following command to create a new ROS2 package named `lab6_nav`:
+   ```bash
+   $ ros2 pkg create lab6_nav --build-type ament_python --dependencies rclpy geometry_msgs nav_msgs sensor_msgs
+   ```
+   - **Dependencies:**
+     - `rclpy`: ROS2 Python API.
+     - `geometry_msgs`: For `Twist` messages (velocity commands).
+     - `nav_msgs`: For `Odometry` messages.
+     - `sensor_msgs`: For `IMU` messages.
+
+1. Download the [`move2goal.py`](../files/move2goal.py) file and save it in the `lab6_nav` package directory:
+   ```
+   ~/master_ws/src/ece387_ws/lab6_nav/lab6_nav/
+   ```
+
+1. Open the `setup.py` file and modify the `entry_points` section to include the `move2goal` script:
+   ```python
+   entry_points={
+       'console_scripts': [
+           'move2goal = lab6_nav.move2goal:main',
+       ],
+   },
+   ```
+
+1. Build the package using the `ccbuild` command:
+   ```bash
+   ccbuild
+   ```
+
+### **Implement the `move2goal.py` Script**
+
+The `move2goal.py` script will control the TurtleBot3 to move to a specified goal location and orientation. Follow these steps to complete the implementation:
+
+1. Initialize publishers and subscribers.
+    - **Publisher:** Create a publisher for `/cmd_vel` to send velocity commands to the robot.
+    - **Subscribers:** Subscribe to:
+        - `/odom` to track the robot's position.
+        - `/imu` to get orientation data.
+        - `/ctrl_relinq` to check if the node has control.
+
+1. Implement the `odom_callback` function
+    - Extract the `x` and `y` position from the received `Odometry` message.
+
+1. Implement the `imu_callback` function
+    - Extract the quaternion orientation from the `Imu` message.
+    - Convert the quaternion to Euler angles using the `euler_from_quaternion` function.
+    - Update the `yaw` value.
+
+1. Implement the `ctrl_relinq_callback` function
+    - Update the `self.has_control` flag based on the received `Bool` message.
+    - Log a message indicating whether control is taken or relinquished.
+
+1. Implement the `control_loop` function
+    - Compute the **angle to the goal** and normalize it to the range [-$\pi$, $\pi$].
+    - Compute the **distance to the goal** using the Euclidean distance formula.
+
+1. Complete the state machine logic: The state machine consists of four states:
+
+    - **ROTATE_TO_GOAL:**
+        - If the angle error is greater than `0.05` radians, rotate the robot with an angular speed proportional to the error (`0.3 * angle_error`). Adjust the proportional coefficient as needed.
+        - If the angle error is within the threshold, transition to `MOVE_FORWARD`.
+
+    - **MOVE_FORWARD:**
+        - Move the robot forward at a constant speed of `0.15` (adjustable, but the robot's maximum speed is `0.22`).
+        - If the distance to the goal is less than `0.15`, transition to `ROTATE_TO_FINAL`.
+
+    - **ROTATE_TO_FINAL:**
+        - Compute the final orientation error and normalize it.
+        - If the error is greater than `0.05` radians, rotate the robot with a speed proportional to the error (`0.5 * final_angle_error`).
+        - If the error is within the threshold, transition to `GOAL_REACHED`.
+
+    - **GOAL_REACHED:**
+        - Log a message confirming the goal has been reached.
+        - Stop publishing movement commands.
+
+1. Publish velocity commands: Ensure `cmd_vel` messages are published correctly in each state of the state machine.
+
+
+### **Build and Test the Package**
+
+1. Install `tf-transformations` using
+   ```bash
+   $ sudo apt install ros-humble-tf-transformations
+   ```
+
+1. Build the `lab6_nav` package using:
+   ```bash
+   $ ccbuild --packages-select lab6_nav
+   ```
+
+1. Demo the robot:
+   - Run the `move2goal` node and demonstrate the robot moving to the goal location `(-0.61, 0.61)` in meters.
+   - Rotate the robot to face `0°`.
+   - **Hint:** Most floor and ceiling tiles in the U.S. are 1' by 1' or 2' by 2'. Use this to estimate distances. (1 foot = 30.48 cm).
+
+
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/OXq5pgE4C6M?si=R9m2p0erJwloZ9VT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</center>
+
+
+### 🚚 Deliverables
+
+1. **[15 Points] Complete the `move2goal.py` Script:**
+    - Ensure the script is fully functional and implements all required features.
+    - Push your code to GitHub and confirm that it has been successfully uploaded. **NOTE:** _If the instructor can't find your code in your repository, you will receive a grade of 0 for the coding part._
+
+1. **[15 Points] Demonstration:**
+   - Show the robot successfully navigating to the goal location and orientation in a real-world setup.
+
+1. **[20 Points] Performance Analysis:**
+    - Examine the distance and angle errors printed by `move2goal.py`.
+    - Discuss the robot's performance:
+        - Can the robot navigate to a farther distance, such as `(-3, 3)`? Why or why not?
+        - After the robot reaches the goal, restart the demo without rebooting the robot. Does it work as before? If not, why doesn't it work anymore?
+        - Suggest improvements to enhance the robot's navigation capabilities.
+    - Note 1: This deliverable is worth 20 points, more than the other deliverables. Therefore, a detailed and rigorous analysis is expected. Treat this as the analysis section of your project report.
+    - Note 2: Provide quantitative analysis, not qualitative. You don't need to include plots of measured data, but you should provide the measured data for your analysis. For example, instead of saying, "The robot's orientation drifted quite a bit as it traveled almost one meter," you should say, "With its initial orientation of 43.5$^\circ$, the robot gradually drifted to 39.3$^\circ$ after traveling 0.73 meters." For your project, you will need to provide plots for the measured data.
