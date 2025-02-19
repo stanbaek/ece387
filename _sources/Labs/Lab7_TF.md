@@ -94,6 +94,9 @@ Previously, to drive a physical TurtleBot3, we had to log into the remote host u
 This alias will allow you to run the `robot.launch.py` script on your TurtleBot3 without needing to log into the remote computer each time.
 
 
+
+(Not ready yet!)
+
 ## 💻 Lab Procedure
 
 
@@ -103,6 +106,104 @@ This alias will allow you to run the `robot.launch.py` script on your TurtleBot3
 
 
 ### 🚚 Deliverables
+
+
+
+
+
+
+
+
+
+Here’s how you can add a ROS2 service to reset `self.local_x`, `self.local_y`, and `self.local_yaw` to zero in your existing ROS2 package.
+
+---
+
+### **1. Define the Service in `MoveToGoal` Node**
+Modify your `MoveToGoal` class to include a ROS2 service.
+
+1. Import the required ROS2 service type:
+   ```python
+   from std_srvs.srv import Empty
+   ```
+
+2. Add a service server in the `__init__` method:
+   ```python
+   self.reset_service = self.create_service(Empty, 'reset_local_position', self.reset_local_position_callback)
+   ```
+
+3. Define the callback function for the service:
+   ```python
+   def reset_local_position_callback(self, request, response):
+       self.local_x = 0.0
+       self.local_y = 0.0
+       self.local_yaw = 0.0
+
+       self.prev_x = None
+       self.prev_y = None
+       self.prev_yaw = None
+
+       self.get_logger().info("Local position reset to zero.")
+       return response
+   ```
+
+---
+
+### **2. Modify `setup.py` (If Necessary)**
+Ensure that `std_srvs` is listed as a dependency in your `package.xml` and `setup.py`. 
+
+- **In `package.xml`**, add:
+  ```xml
+  <depend>std_srvs</depend>
+  ```
+
+- **In `setup.py`**, add `'std_srvs'` to the `install_requires` list:
+  ```python
+  'std_srvs',
+  ```
+
+---
+
+### **3. Build and Source the Package**
+Run the following in your ROS2 workspace:
+```bash
+colcon build --packages-select <your_package_name>
+source install/setup.bash
+```
+
+---
+
+### **4. Test the Service**
+Run your node:
+```bash
+ros2 run <your_package_name> move_to_goal
+```
+Then, in another terminal, call the service:
+```bash
+ros2 service call /reset_local_position std_srvs/srv/Empty
+```
+This should reset `local_x`, `local_y`, and `local_yaw` to zero, and you should see a log message confirming the reset.
+
+---
+
+This should successfully integrate a ROS2 service for resetting the local position variables! Let me know if you need additional details. 🚀
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
