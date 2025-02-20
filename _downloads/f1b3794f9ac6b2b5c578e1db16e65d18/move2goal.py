@@ -27,10 +27,9 @@ class MoveToGoal(Node):
     """
 
     def __init__(self):
-        super().__init__(
-            "move_to_goal"
-        )  # Initialize the ROS2 node with name 'move_to_goal'
-
+        # Initialize the ROS2 node with name 'move_to_goal'
+        super().__init__("move_to_goal")  
+        
         # TODO: Publisher for sending velocity commands to the robot
 
         # TODO: Subscribers to receive odom and imu data
@@ -66,9 +65,8 @@ class MoveToGoal(Node):
         Callback function for handling IMU messages.
         Extracts yaw (rotation around Z-axis) from the quaternion orientation.
         """
-        # TODO:
-        # Extract quaternion values
-        # Convert quaternion to Euler angles - use euler_from_quaternion
+        # TODO: Extract quaternion values and convert quaternion to 
+        # Euler angles - use euler_from_quaternion
         # Update yaw value
 
     def ctrl_relinq_callback(self, relinq_msg: Bool) -> None:

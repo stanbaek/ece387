@@ -63,6 +63,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'Labs/Lab7_TF';</script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -387,23 +389,15 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-procedure">💻 Lab Procedure</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-new-ros2-package"><strong>Create a New ROS2 Package</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implement-the-reset-pose-service"><strong>Implement the <code class="docutils literal notranslate"><span class="pre">reset_pose</span></code> Service</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implement-coordinate-transformation"><strong>Implement Coordinate Transformation</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">🚚 Deliverables</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#define-the-service-in-movetogoal-node"><strong>1. Define the Service in <code class="docutils literal notranslate"><span class="pre">MoveToGoal</span></code> Node</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modify-setup-py-if-necessary"><strong>2. Modify <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> (If Necessary)</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-and-source-the-package"><strong>3. Build and Source the Package</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#test-the-service"><strong>4. Test the Service</strong></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose">Purpose</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#roslaunch">roslaunch</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#current-state">Current State</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#roslaunch-on-the-robot">roslaunch on the Robot</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#roslaunch-on-the-master">roslaunch on the Master</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-remote-connectivity">Setting up remote connectivity</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#running-launch-files">Running Launch Files</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint">Checkpoint</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cleanup">Cleanup</a></li>
 </ul>
             </nav>
         </div>
@@ -422,6 +416,26 @@ document.write(`
 </section>
 <section id="overview">
 <h2>📜 Overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h2>
+<p>In this lab, we will learn how to transform coordinates from the global coordinate system to the local coordinate system. When you power on the TurtleBot3, its initial position and orientation (pose) are automatically set to zero. However, if you want to start a new task after completing a previous one, the initial pose will no longer be zero.</p>
+<p>To reset the pose, you could power-cycle the robot or press the reset button on the OpenCR board, but this also requires restarting <code class="docutils literal notranslate"><span class="pre">bringup</span></code>, which is not always convenient. Instead, we will implement a method to reset the local coordinates without having to restart the board.</p>
+<a class="reference internal image-reference" href="../_images/Lab7_CoordTransformation.png"><img alt="../_images/Lab7_CoordTransformation.png" class="align-center" src="../_images/Lab7_CoordTransformation.png" style="width: 300px;" /></a>
+<p>As discussed in the lecture, a coordinate transformation allows us to express a point’s position in one frame relative to another. The rotational matrix that rotates Frame {B} with respect to Frame {A} by an angle <span class="math notranslate nohighlight">\(\theta\)</span> in a 2D space is given by:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}{}^{A}R_B = \begin{bmatrix} \cos\theta &amp; -\sin\theta \\ \sin\theta &amp; \cos\theta \end{bmatrix} \end{split}\]</div>
+<p>Using this transformation, a position <span class="math notranslate nohighlight">\(\mathbf{p}\)</span> in the figure above can be represented in both Frame {A} (the global frame) and Frame {B} (the local frame). The coordinate transformation equation is:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{bmatrix} {}^{A}x \\ {}^{A}y \end{bmatrix} = {}^{A}R_B  \begin{bmatrix} {}^{B}x \\ {}^{B}y \end{bmatrix} - \begin{bmatrix} x \\ y \end{bmatrix} \end{split}\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\([{}^{A}x \quad {}^{A}y]^\top\)</span> represents the position in the global frame, measured by the TurtleBot’s IMU and odometry sensors.</p></li>
+<li><p><span class="math notranslate nohighlight">\([{}^{B}x \quad {}^{B}y]^\top\)</span> represents the position in the local frame, which we aim to determine.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\theta\)</span> is the orientation of Frame {B} relative to Frame {A}.</p></li>
+<li><p><span class="math notranslate nohighlight">\([x \quad y]^\top\)</span> represents the displacement between Frame {A} and Frame {B}.</p></li>
+</ul>
+<p>To find the local coordinates <span class="math notranslate nohighlight">\([{}^{B}x \quad {}^{B}y]^\top\)</span>, we rearrange the equation:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{bmatrix} {}^{B}x \\ {}^{B}y \end{bmatrix} = R^{-1} \left(\begin{bmatrix} x \\ y \end{bmatrix} - \begin{bmatrix} {}^{A}x \\ {}^{A}y \end{bmatrix}\right)\end{split}\]</div>
+<p>This transformation allows us to reset the local coordinates programmatically rather than manually restarting the TurtleBot3, making our system more efficient and flexible.</p>
 </section>
 <section id="pre-lab-testing-the-imu">
 <h2>🌱 Pre-Lab: Testing the IMU<a class="headerlink" href="#pre-lab-testing-the-imu" title="Permalink to this heading">#</a></h2>
@@ -517,14 +531,47 @@ document.write(`
 </section>
 <section id="lab-procedure">
 <h2>💻 Lab Procedure<a class="headerlink" href="#lab-procedure" title="Permalink to this heading">#</a></h2>
-<section id="deliverables">
-<h3>🚚 Deliverables<a class="headerlink" href="#deliverables" title="Permalink to this heading">#</a></h3>
-<p>Here’s how you can add a ROS2 service to reset <code class="docutils literal notranslate"><span class="pre">self.local_x</span></code>, <code class="docutils literal notranslate"><span class="pre">self.local_y</span></code>, and <code class="docutils literal notranslate"><span class="pre">self.local_yaw</span></code> to zero in your existing ROS2 package.</p>
+<section id="create-a-new-ros2-package">
+<h3><strong>Create a New ROS2 Package</strong><a class="headerlink" href="#create-a-new-ros2-package" title="Permalink to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Open a terminal and navigate to the <code class="docutils literal notranslate"><span class="pre">ece387_ws</span></code> directory of your workspace:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/master_ws/src/ece387_ws
+</pre></div>
+</div>
+</li>
+<li><p>Use the following command to create a new ROS2 package named <code class="docutils literal notranslate"><span class="pre">lab7_tf</span></code> with the BSD-3 license:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ros2<span class="w"> </span>pkg<span class="w"> </span>create<span class="w"> </span>--build-type<span class="w"> </span>ament_python<span class="w"> </span>--license<span class="w"> </span>BSD-3-Clause<span class="w"> </span>lab7_tf
+</pre></div>
+</div>
+</li>
+<li><p>Copy the <code class="docutils literal notranslate"><span class="pre">move2goal.py</span></code> file from Lab6 to <code class="docutils literal notranslate"><span class="pre">ece387_ws/lab7_tf/lab7_tf/</span></code> and rename it to <code class="docutils literal notranslate"><span class="pre">move2goal_tf.py</span></code></p></li>
+<li><p>Add the following lines as a dependency in your <code class="docutils literal notranslate"><span class="pre">package.xlm</span></code>.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>&lt;depend&gt;rclpy&lt;/depend&gt;
+&lt;depend&gt;geometry_msgs&lt;/depend&gt;
+&lt;depend&gt;nav_msgs&lt;/depend&gt;
+&lt;depend&gt;sensor_msgs&lt;/depend&gt;
+&lt;depend&gt;std_srvs&lt;/depend&gt;
+</pre></div>
+</div>
+</li>
+<li><p>Open the <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> file and modify the <code class="docutils literal notranslate"><span class="pre">entry_points</span></code> section to include the <code class="docutils literal notranslate"><span class="pre">move2goal_tf</span></code> script:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">entry_points</span><span class="o">=</span><span class="p">{</span>
+    <span class="s1">&#39;console_scripts&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s1">&#39;move2goal_tf = lab7_tf.move2goal_tf:main&#39;</span><span class="p">,</span>
+    <span class="p">],</span>
+<span class="p">},</span>
+</pre></div>
+</div>
+</li>
+<li><p>In <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>, add <code class="docutils literal notranslate"><span class="pre">'std_srvs'</span></code> to the <code class="docutils literal notranslate"><span class="pre">install_requires</span></code> list:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;std_srvs&#39;</span><span class="p">,</span>
+</pre></div>
+</div>
+</li>
+</ol>
 </section>
-<hr class="docutils" />
-<section id="define-the-service-in-movetogoal-node">
-<h3><strong>1. Define the Service in <code class="docutils literal notranslate"><span class="pre">MoveToGoal</span></code> Node</strong><a class="headerlink" href="#define-the-service-in-movetogoal-node" title="Permalink to this heading">#</a></h3>
-<p>Modify your <code class="docutils literal notranslate"><span class="pre">MoveToGoal</span></code> class to include a ROS2 service.</p>
+<section id="implement-the-reset-pose-service">
+<h3><strong>Implement the <code class="docutils literal notranslate"><span class="pre">reset_pose</span></code> Service</strong><a class="headerlink" href="#implement-the-reset-pose-service" title="Permalink to this heading">#</a></h3>
 <ol class="arabic">
 <li><p>Import the required ROS2 service type:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">std_srvs.srv</span> <span class="kn">import</span> <span class="n">Empty</span>
@@ -532,81 +579,136 @@ document.write(`
 </div>
 </li>
 <li><p>Add a service server in the <code class="docutils literal notranslate"><span class="pre">__init__</span></code> method:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">reset_service</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_service</span><span class="p">(</span><span class="n">Empty</span><span class="p">,</span> <span class="s1">&#39;reset_local_position&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset_local_position_callback</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="c1"># TODO: Create a service server that will handle &#39;reset_pose&#39; service requests</span>
+ <span class="c1"># - Service type: &#39;Empty&#39; (no data is exchanged)</span>
+ <span class="c1"># - Service name: &#39;reset_pose&#39;</span>
+ <span class="c1"># - Callback function: &#39;self.reset_pose_callback&#39; to execute when the service is called</span>
+ <span class="bp">self</span><span class="o">.</span><span class="n">reset_service</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># Update this line.</span>
 </pre></div>
 </div>
 </li>
-<li><p>Define the callback function for the service:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">reset_local_position_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+<li><p>Replace the following lines in the <code class="docutils literal notranslate"><span class="pre">__init__</span></code> method</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Variables to store the robot&#39;s current position and orientation</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Current x-coordinate</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Current y-coordinate</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">yaw</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Current orientation (yaw angle in radians)</span>
+</pre></div>
+</div>
+<p>with</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Local Position Variables (Start at 0,0,0)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">local_x</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">local_y</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">local_yaw</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+<span class="c1"># Variables for previous position to compute displacement</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">initial_global_x</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">initial_global_y</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">initial_global_yaw</span> <span class="o">=</span> <span class="kc">None</span>
+</pre></div>
+</div>
+</li>
+<li><p>Define the callback function for the service to reset local pose and initial global pose:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">reset_pose_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">Empty</span><span class="p">,</span> <span class="n">response</span><span class="p">:</span> <span class="n">Empty</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Empty</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Resets the local position coordinates to zero and clears the previous position coordinates.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Reset the local position coordinates to zero</span>
+    <span class="c1"># This sets the current local position to the origin (0, 0, 0)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">local_x</span> <span class="o">=</span> <span class="mf">0.0</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">local_y</span> <span class="o">=</span> <span class="mf">0.0</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">local_yaw</span> <span class="o">=</span> <span class="mf">0.0</span>
 
-    <span class="bp">self</span><span class="o">.</span><span class="n">prev_x</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">prev_y</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">prev_yaw</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="c1"># Clear the previous position coordinates</span>
+    <span class="c1"># This ensures that any previous position data is discarded</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">initial_global_x</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">initial_global_y</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">initial_global_yaw</span> <span class="o">=</span> <span class="kc">None</span>
 
-    <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Local position reset to zero.&quot;</span><span class="p">)</span>
+    <span class="c1"># Log a message to indicate the local position has been reset</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Local pose reset to zero.&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Return the response to the service caller</span>
     <span class="k">return</span> <span class="n">response</span>
 </pre></div>
 </div>
 </li>
-</ol>
-</section>
-<hr class="docutils" />
-<section id="modify-setup-py-if-necessary">
-<h3><strong>2. Modify <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> (If Necessary)</strong><a class="headerlink" href="#modify-setup-py-if-necessary" title="Permalink to this heading">#</a></h3>
-<p>Ensure that <code class="docutils literal notranslate"><span class="pre">std_srvs</span></code> is listed as a dependency in your <code class="docutils literal notranslate"><span class="pre">package.xml</span></code> and <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>.</p>
-<ul>
-<li><p><strong>In <code class="docutils literal notranslate"><span class="pre">package.xml</span></code></strong>, add:</p>
-<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;depend&gt;</span>std_srvs<span class="nt">&lt;/depend&gt;</span>
-</pre></div>
-</div>
-</li>
-<li><p><strong>In <code class="docutils literal notranslate"><span class="pre">setup.py</span></code></strong>, add <code class="docutils literal notranslate"><span class="pre">'std_srvs'</span></code> to the <code class="docutils literal notranslate"><span class="pre">install_requires</span></code> list:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;std_srvs&#39;</span><span class="p">,</span>
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<hr class="docutils" />
-<section id="build-and-source-the-package">
-<h3><strong>3. Build and Source the Package</strong><a class="headerlink" href="#build-and-source-the-package" title="Permalink to this heading">#</a></h3>
-<p>Run the following in your ROS2 workspace:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>colcon<span class="w"> </span>build<span class="w"> </span>--packages-select<span class="w"> </span>&lt;your_package_name&gt;
-<span class="nb">source</span><span class="w"> </span>install/setup.bash
-</pre></div>
-</div>
-</section>
-<hr class="docutils" />
-<section id="test-the-service">
-<h3><strong>4. Test the Service</strong><a class="headerlink" href="#test-the-service" title="Permalink to this heading">#</a></h3>
-<p>Run your node:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>&lt;your_package_name&gt;<span class="w"> </span>move_to_goal
+<li><p>Test the service
+Run this node:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ros2<span class="w"> </span>run<span class="w"> </span>lab7_tf<span class="w"> </span>move_to_goal
 </pre></div>
 </div>
 <p>Then, in another terminal, call the service:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/reset_local_position<span class="w"> </span>std_srvs/srv/Empty
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/reset_pose<span class="w"> </span>std_srvs/srv/Empty
 </pre></div>
 </div>
 <p>This should reset <code class="docutils literal notranslate"><span class="pre">local_x</span></code>, <code class="docutils literal notranslate"><span class="pre">local_y</span></code>, and <code class="docutils literal notranslate"><span class="pre">local_yaw</span></code> to zero, and you should see a log message confirming the reset.</p>
-<hr class="docutils" />
-<p>This should successfully integrate a ROS2 service for resetting the local position variables! Let me know if you need additional details. 🚀</p>
+</li>
+</ol>
+</section>
+<section id="implement-coordinate-transformation">
+<h3><strong>Implement Coordinate Transformation</strong><a class="headerlink" href="#implement-coordinate-transformation" title="Permalink to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Modify the <code class="docutils literal notranslate"><span class="pre">odom_callback</span></code> method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">imu_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">imu_msg</span><span class="p">:</span> <span class="n">Imu</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Callback function for handling control relinquishment messages.</span>
+<span class="sd">    Updates local yaw relative to the starting orientation.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">q</span> <span class="o">=</span> <span class="n">imu_msg</span><span class="o">.</span><span class="n">orientation</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">global_yaw</span> <span class="o">=</span> <span class="n">euler_from_quaternion</span><span class="p">([</span><span class="n">q</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">q</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">q</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="n">q</span><span class="o">.</span><span class="n">w</span><span class="p">])</span>
+
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">initial_global_yaw</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># Store the initial yaw as a reference</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">initial_global_yaw</span> <span class="o">=</span> <span class="n">global_yaw</span>
+        <span class="k">return</span>  <span class="c1"># Skip first iteration</span>
+
+    <span class="c1"># TODOL Compute local yaw relative to the initial global yaw</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">local_yaw</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</li>
+<li><p>Modify the <code class="docutils literal notranslate"><span class="pre">odom_callback</span></code> method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">odom_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">:</span> <span class="n">Odometry</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Callback function for handling odometry messages.</span>
+<span class="sd">    Updates the local x and y coordinates relative to the starting position.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Extract global x and y coordinates from the odometry message</span>
+    <span class="n">global_x</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">x</span>
+    <span class="n">global_y</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">y</span>
+
+    <span class="c1"># Check if this is the first iteration (initial global position not set)</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">initial_global_x</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># Store the initial global position as the reference point</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">initial_global_x</span> <span class="o">=</span> <span class="n">global_x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">initial_global_y</span> <span class="o">=</span> <span class="n">global_y</span>
+        <span class="c1"># Skip processing for the first iteration</span>
+        <span class="k">return</span>
+
+    <span class="c1"># TODO: Compute the displacement of the global position from the initial global position</span>
+    <span class="n">dx</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">dy</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># TODO: Rotate displacement to align with the initial local frame</span>
+    <span class="c1"># This step is necessary to ensure the local coordinates are relative to the starting orientation</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">local_x</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">local_y</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</li>
+<li><p>Make necessary changes in the <code class="docutils literal notranslate"><span class="pre">control_loop</span></code> method.</p></li>
+</ol>
+</section>
+<section id="deliverables">
+<h3>🚚 Deliverables<a class="headerlink" href="#deliverables" title="Permalink to this heading">#</a></h3>
+<p>In this lab, you will create a ROS2 Python package that enables the TurtleBot3 to navigate to a desired <strong>location and orientation</strong> using data from the <strong>IMU (<code class="docutils literal notranslate"><span class="pre">/imu</span></code>)</strong> and <strong>ODOM (<code class="docutils literal notranslate"><span class="pre">/odom</span></code>)</strong> topics.</p>
 </section>
 </section>
 <section id="purpose">
 <h2>Purpose<a class="headerlink" href="#purpose" title="Permalink to this heading">#</a></h2>
 <p>Large applications in robotics typically involve several interconnected ROS nodes, each of which have many parameters. Your current setup is a good example: as you experienced in the IMU lab, you had to open 3 different terminals to run all of the nodes necessary for our system to that point:</p>
-<p><strong>Robot:</strong></p>
-<ul class="simple">
-<li><p>turtlebot3_core.launch</p></li>
-</ul>
-<p><strong>Master:</strong></p>
-<ul class="simple">
-<li><p>roscore</p></li>
-<li><p>lab2/turtlebot_controller.py</p></li>
-</ul>
 <p>This problem is only going to get more complex as we add additional functionality to our robot. As it stands right now, every node requires a separate terminal window and the associated command to run it. Using the <em>roslaunch</em> tool, we can eliminate that administrivia of running each node separately. We will create/edit two launch files to bring up the nodes on the master and robot.</p>
 </section>
 <section id="roslaunch">
@@ -625,191 +727,11 @@ document.write(`
 <section id="current-state">
 <h2>Current State<a class="headerlink" href="#current-state" title="Permalink to this heading">#</a></h2>
 <p>In this section we will first use the conventional technique to bring up all of the nodes required for <strong>Lab 2</strong> using the currently understood techniques.</p>
-<p>Open a new terminal on your <strong>Master</strong> and start <em>roscore</em>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>roscore
-</pre></div>
-</div>
 <p>Notice, running <strong>roscore</strong> now monopolized that terminal and you can no longer use it for anything else.</p>
 <p>Open a new terminal or tab on your <strong>Master</strong> and run the <strong><a class="reference external" href="http://controller.py">controller.py</a></strong> node:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rosrun<span class="w"> </span>lab2<span class="w"> </span>turtlebot_controller.py
 </pre></div>
 </div>
-<p>At this point we are done with the master. We only needed to bring up two terminals, however, this is still a relatively simple system in teh grand scheme of things.</p>
-<blockquote>
-<div><p>📝️ <strong>Note:</strong> We did need to keep the terminal with the <strong>turtlebot_controller.py</strong> node open so we can enter commands.</p>
-</div></blockquote>
-<p>We can now transition to the robot and bring up the required nodes.</p>
-<p>Open a new terminal window on the <strong>Master</strong> and use SSH to create a secure shell into the <strong>Robot</strong>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>pi@robotX
-</pre></div>
-</div>
-<p>Utilize the SSH instance to start the <strong>turtlebot3_core</strong> launch file:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>roslaunch<span class="w"> </span>turtlebot3_bringup<span class="w"> </span>turtlebot3_core.launch
-</pre></div>
-</div>
-<p>Overall you needed 3 terminal windows, including one SSH connection, to bring up this relatively simple system of sensors.</p>
-<p>Kill all nodes and roscore.</p>
-</section>
-<section id="roslaunch-on-the-robot">
-<h2>roslaunch on the Robot<a class="headerlink" href="#roslaunch-on-the-robot" title="Permalink to this heading">#</a></h2>
-<p>Navigate to one of the terminals with a secure shell connection to the robot.</p>
-<p>Open the <em>turtlebot3_core.launch</em> file:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rosed<span class="w"> </span>turtlebot3_bringup<span class="w"> </span>turtlebot3_core.launch
-</pre></div>
-</div>
-<p>At this time, the <em>turtlebot3_core.launch</em> file includes everything you need to run the robot’s core functionality (driving and reading data from the IMU). Let’s talk about each line of the file:</p>
-<p>The XML declaration <?xml version="1.0"?> is typically included at the beginning of an XML file to indicate the version of XML being used (in this case, version 1.0). However, when writing ROS (Robot Operating System) launch files in XML format, you generally do not need to include this declaration.</p>
-<p>ROS launch files typically have a specific structure and do not require the XML version declaration. Instead, a ROS launch file typically starts with the <launch> tag. For example:</p>
-<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
-<span class="w">    </span><span class="cm">&lt;!-- Your ROS launch file content goes here --&gt;</span>
-<span class="nt">&lt;/launch&gt;</span>
-</pre></div>
-</div>
-<p>In ROS launch files, the <launch> tag serves as the root element for defining various nodes, parameters, and other configurations. Therefore, every launch file opens and closes with the <em>launch</em> root element.</p>
-<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
-<span class="w">    </span><span class="nt">&lt;node</span><span class="w"> </span><span class="na">pkg=</span><span class="s">&quot;rosserial_python&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;serial_node.py&quot;</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;turtlebot3_core&quot;</span><span class="w"> </span><span class="na">output=</span><span class="s">&quot;screen&quot;</span><span class="nt">&gt;</span>
-<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;port&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;/dev/ttyACM0&quot;</span><span class="nt">/&gt;</span>
-<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;baud&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;115200&quot;</span><span class="nt">/&gt;</span>
-<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;tf_prefix&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;$(arg multi_robot_name)&quot;</span><span class="nt">/&gt;</span>
-<span class="w">    </span><span class="nt">&lt;/node&gt;</span>
-<span class="nt">&lt;/launch&gt;</span>
-</pre></div>
-</div>
-<p>The above establishes the node to create a serial connection to the Turtlebot3. We can see a few parameters were set, <code class="docutils literal notranslate"><span class="pre">port</span></code> and <code class="docutils literal notranslate"><span class="pre">baud</span></code>, to help in establishing the connection.</p>
-<p>Close the editor: <code class="docutils literal notranslate"><span class="pre">ctrl+x</span></code></p>
-</section>
-<section id="roslaunch-on-the-master">
-<h2>roslaunch on the Master<a class="headerlink" href="#roslaunch-on-the-master" title="Permalink to this heading">#</a></h2>
-<p>Navigate to your <strong>lab2</strong> package on the <strong>Master</strong> and create a launch directory:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>roscd<span class="w"> </span>lab2
-mkdir<span class="w"> </span>launch
-<span class="nb">cd</span><span class="w"> </span>launch
-touch<span class="w"> </span>lab2.launch
-</pre></div>
-</div>
-<p>Open the launch file to edit (I recommend using <strong>sublime</strong>).</p>
-<p>Now we are going to edit the launch file to bring up all of the nodes (both on the <strong>Master</strong> locally and remotely on the <strong>Robot</strong>)</p>
-<blockquote>
-<div><p>📝️ <strong>Note:</strong> <em>roslaunch</em> will look to see if <em>roscore</em> is started. If it is not, it will automatically run <em>roscore</em>.</p>
-</div></blockquote>
-<p>Add the following to the <strong>lab2.launch</strong> file</p>
-<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
-<span class="w">  </span><span class="cm">&lt;!-- Bring up all local nodes first --&gt;</span>
-<span class="w">    </span>
-<span class="w">  </span><span class="cm">&lt;!-- model to visualize the Turtlebot3 in RVIZ --&gt;</span>
-<span class="w">  </span><span class="nt">&lt;include</span><span class="w"> </span><span class="na">file=</span><span class="s">&quot;$(find turtlebot3_bringup)/launch/turtlebot3_model.launch&quot;</span><span class="nt">/&gt;</span>
-
-<span class="w">  </span><span class="cm">&lt;!-- controller to rotate the robot --&gt;</span><span class="w"> </span>
-<span class="w">  </span><span class="nt">&lt;node</span>
-<span class="w">    </span><span class="na">name=</span><span class="s">&quot;controller&quot;</span><span class="w"> </span><span class="na">pkg=</span><span class="s">&quot;lab2&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;turtlebot_controller.py&quot;</span>
-<span class="w">    </span><span class="na">output=</span><span class="s">&quot;screen&quot;</span><span class="w"> </span><span class="na">launch-prefix=</span><span class="s">&quot;xterm -e&quot;</span>
-<span class="w">  </span><span class="nt">/&gt;</span>
-
-<span class="w">  </span><span class="cm">&lt;!-- remote nodes --&gt;</span>
-<span class="w">  </span><span class="nt">&lt;machine</span>
-<span class="w">    </span><span class="na">name=</span><span class="s">&quot;robot0&quot;</span>
-<span class="w">    </span><span class="na">address=</span><span class="s">&quot;robot0&quot;</span>
-<span class="w">    </span><span class="na">env-loader=</span><span class="s">&quot;/home/pi/robot_ws/devel/remote_env_loader.sh&quot;</span>
-<span class="w">    </span><span class="na">default=</span><span class="s">&quot;true&quot;</span>
-<span class="w">    </span><span class="na">user=</span><span class="s">&quot;pi&quot;</span>
-<span class="w">  </span><span class="nt">/&gt;</span>
-
-<span class="w">  </span><span class="cm">&lt;!-- core functionality of the Turtlebot3 --&gt;</span>
-<span class="w">  </span><span class="nt">&lt;node</span><span class="w"> </span><span class="na">machine=</span><span class="s">&quot;robot0&quot;</span><span class="w"> </span><span class="na">pkg=</span><span class="s">&quot;rosserial_python&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;serial_node.py&quot;</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;turtlebot3_core&quot;</span><span class="w"> </span><span class="na">output=</span><span class="s">&quot;screen&quot;</span><span class="nt">&gt;</span>
-<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;port&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;/dev/ttyACM0&quot;</span><span class="nt">/&gt;</span>
-<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;baud&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;115200&quot;</span><span class="nt">/&gt;</span>
-<span class="w">  </span><span class="nt">&lt;/node&gt;</span>
-
-<span class="nt">&lt;/launch&gt;</span>
-</pre></div>
-</div>
-<blockquote>
-<div><p>📝️ <strong>Note:</strong> Remember earlier how we reminded you that we need to keep the terminal available for the controller to type commands. By using the two additional parameters <em>screen</em> and <em>launch-prefix</em>, we can ensure the terminal is available for use.</p>
-</div></blockquote>
-<p>Save and close the launch file.</p>
-</section>
-<section id="setting-up-remote-connectivity">
-<h2>Setting up remote connectivity<a class="headerlink" href="#setting-up-remote-connectivity" title="Permalink to this heading">#</a></h2>
-<p>Before we can run the above launch file we need to accomplish some steps to ensure we can connect remotely to our <strong>Robot</strong>.</p>
-<ol class="arabic">
-<li><p>Open a terminal on your <strong>Master</strong> and type the following:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>-oHostKeyAlgorithms<span class="o">=</span><span class="s1">&#39;ssh-rsa&#39;</span><span class="w"> </span>pi@robotX
-</pre></div>
-</div>
-</li>
-<li><p>Type <code class="docutils literal notranslate"><span class="pre">yes</span></code> and press <strong>Enter</strong>.</p></li>
-<li><p>When prompted, type in the password for the pi user on the robot.</p></li>
-<li><p>Type <code class="docutils literal notranslate"><span class="pre">exit</span></code>.</p></li>
-<li><p>On the <strong>Master</strong> type the following to create private and public keys:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh-keygen<span class="w"> </span>-t<span class="w"> </span>rsa
-</pre></div>
-</div>
-</li>
-<li><p>Press <strong>Enter</strong></p></li>
-<li><p>Press <strong>Enter</strong> twice more for <em>no passphrase</em>*</p></li>
-<li><p>On the <strong>Master</strong> send the public key to the <strong>Robot</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh-copy-id<span class="w"> </span>pi@robotX
-</pre></div>
-</div>
-</li>
-<li><p>Test that you can now create an SSH connection to the <strong>Robot</strong> without having to enter a password.</p></li>
-<li><p>In your secure shell to the <strong>Robot</strong> create a remote ROS environment shell script file:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>robot_ws/devel/
-nano<span class="w"> </span>remote_env_loader.sh
-</pre></div>
-</div>
-</li>
-<li><p>Copy the following environmental variables into the file:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
-
-<span class="nb">source</span><span class="w"> </span>/opt/ros/noetic/setup.bash
-<span class="nb">source</span><span class="w"> </span>~/robot_ws/devel/setup.bash
-<span class="nb">export</span><span class="w"> </span><span class="nv">ROS_PACKAGE_PATH</span><span class="o">=</span>~/robot_ws/src:/opt/ros/noetic/share
-<span class="nb">export</span><span class="w"> </span><span class="nv">ROS_HOSTNAME</span><span class="o">=</span><span class="sb">`</span>hostname<span class="sb">`</span>
-<span class="nb">export</span><span class="w"> </span><span class="nv">ROS_MASTER_URI</span><span class="o">=</span>http://masterX:11311
-<span class="nb">export</span><span class="w"> </span><span class="nv">EDITOR</span><span class="o">=</span><span class="s1">&#39;nano -w&#39;</span>
-<span class="nb">export</span><span class="w"> </span><span class="nv">HOSTNAME</span><span class="o">=</span><span class="sb">`</span>hostname<span class="sb">`</span>
-<span class="nb">export</span><span class="w"> </span><span class="nv">TURTLEBOT3_MODEL</span><span class="o">=</span>burger
-<span class="nb">export</span><span class="w"> </span><span class="nv">LDS_MODEL</span><span class="o">=</span>LDS-01
-
-<span class="nb">exec</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span>
-</pre></div>
-</div>
-<blockquote>
-<div><p>📝️ <strong>Note:</strong> These are the same environmental variables we have inserted to our <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> files on the <strong>Master</strong> and <strong>Robot</strong>. When we run nodes remotely on a system the <code class="docutils literal notranslate"><span class="pre">remote_env_loader.sh</span></code> file is loaded instead of the <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> file.</p>
-</div></blockquote>
-</li>
-<li><p>Save and exit.</p></li>
-<li><p>Make the file executable:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chmod<span class="w"> </span>+x<span class="w"> </span>remote_env_loader.sh
-</pre></div>
-</div>
-</li>
-</ol>
-</section>
-<section id="running-launch-files">
-<h2>Running Launch Files<a class="headerlink" href="#running-launch-files" title="Permalink to this heading">#</a></h2>
-<p>Browse to a terminal on the <strong>Master</strong> and make and source your workspace:</p>
-<p>Utilize the <em>roslaunch</em> utility to execute the <strong>lab2</strong> launch file on your <strong>Master</strong>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>roslaunch<span class="w"> </span>lab2<span class="w"> </span>lab2.launch
-</pre></div>
-</div>
-<p>Open a new terminal and list the running nodes. You should see <em>rosout</em> (<em>roscore</em>), <em>controller</em>, <em>joint</em> and <em>robot</em> state publishers, <em>rviz</em> and the remote node, <em>turtlebot3_core</em>.</p>
-<p>In a separate terminal, bring up <strong>rqt_graph</strong>. Your output should look similar to this:</p>
-<p><img alt="logo" src="../_images/rqt_graph.png" /></p>
-</section>
-<section id="checkpoint">
-<h2>Checkpoint<a class="headerlink" href="#checkpoint" title="Permalink to this heading">#</a></h2>
-<p>Once complete, get checked off by an instructor showing the output of your <strong>rqt_graph</strong> node.</p>
-</section>
-<section id="summary">
-<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this heading">#</a></h2>
-<p>There is clearly a lot more we can do with launch files, but this will get you started. You now know how to run nodes, other launch files, and provide parameters to a node using a launch file. I encourage you to visit the ROS tutorials online if you need to do more complex functions with the launch files.</p>
-</section>
-<section id="cleanup">
-<h2>Cleanup<a class="headerlink" href="#cleanup" title="Permalink to this heading">#</a></h2>
-<p>In each terminal window, close the nodes by typing <code class="docutils literal notranslate"><span class="pre">ctrl+c</span></code>. Exit any SSH connections. Shutdown the notebook server by typing <code class="docutils literal notranslate"><span class="pre">ctrl+c</span></code> within the terminal you ran <code class="docutils literal notranslate"><span class="pre">jupyter-notebook</span></code> in. Select ‘y’.</p>
-<p><strong>Ensure roscore is terminated before moving on to the next lesson.</strong></p>
 </section>
 </section>
 
@@ -888,23 +810,15 @@ nano<span class="w"> </span>remote_env_loader.sh
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-procedure">💻 Lab Procedure</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-new-ros2-package"><strong>Create a New ROS2 Package</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implement-the-reset-pose-service"><strong>Implement the <code class="docutils literal notranslate"><span class="pre">reset_pose</span></code> Service</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implement-coordinate-transformation"><strong>Implement Coordinate Transformation</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">🚚 Deliverables</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#define-the-service-in-movetogoal-node"><strong>1. Define the Service in <code class="docutils literal notranslate"><span class="pre">MoveToGoal</span></code> Node</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modify-setup-py-if-necessary"><strong>2. Modify <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> (If Necessary)</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-and-source-the-package"><strong>3. Build and Source the Package</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#test-the-service"><strong>4. Test the Service</strong></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose">Purpose</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#roslaunch">roslaunch</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#current-state">Current State</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#roslaunch-on-the-robot">roslaunch on the Robot</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#roslaunch-on-the-master">roslaunch on the Master</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-remote-connectivity">Setting up remote connectivity</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#running-launch-files">Running Launch Files</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint">Checkpoint</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cleanup">Cleanup</a></li>
 </ul>
   </nav></div>
 
