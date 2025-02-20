@@ -23,8 +23,8 @@ This schedule is subject to change as appropriate.
 | 13   |[Lab 5: TurtleBot](Labs/Lab5_TurtleBot.md)|       |Quiz 2   |
 | 14   |Lec 6: IMU                                |       |Lab 5    |
 | 15   |[Lab 6: IMU](Labs/Lab6_IMU.md)            |       |Quiz 3   |
-| 16   |Lec 7: Launch Files                       |       |Lab 6    |
-| 17   |[Lab 7: Launch Files](Labs/Lab7_TF.md)    |       |         |
+| 16   |Lec 7: Transformation                     |       |Lab 6    |
+| 17   |[Lab 7: Transformation](Labs/Lab7_TF.md)  |       |         |
 | 18   |Lec 8: LIDAR                              |       |Lab 7    |
 | 19   |GR 1                                      |       |         |
 | 20   |[Lab 8: LIDAR](Labs/Lab8_LIDAR.md)        |       |         |
