@@ -334,7 +334,30 @@ Following these steps will ensure a seamless and efficient workflow for launchin
 
 
 
+That's a great question! In ROS 2, services define both request and response types. When you define a service, it automatically generates classes for the request and response messages.
 
+In the case of using a Pose2D message within a service, you reference the request part of the service. This is why you see Pose2D.Request() instead of just Pose2D(). The .Request() is a way to specify that you are creating an instance of the request part of the service.
+
+Here's a brief explanation of why it's structured this way:
+
+Service Structure
+A service in ROS 2 consists of:
+
+Request: The input data that the client sends to the service.
+
+Response: The output data that the service returns to the client.
+
+When you create a service in ROS 2, it generates three types:
+
+Service type (e.g., Pose2D): The overall service type.
+
+Request type (e.g., Pose2D.Request): The type for the request message.
+
+Response type (e.g., Pose2D.Response): The type for the response message.
+
+By using Pose2D.Request(), you're explicitly creating a request object to be sent to the service.
+
+Here's an example of how it is used in context:
 
 
 
