@@ -153,9 +153,6 @@ Previously, to drive a physical TurtleBot3, we had to log into the remote host u
 
 Following these steps will ensure a seamless and efficient workflow for launching ROS2 on your TurtleBot3 without needing manual SSH logins each time.
 
-
-(Not ready yet!)
-
 ## 💻 Lab Procedure
 
 ### **Create a New ROS2 Package**
@@ -269,6 +266,7 @@ Following these steps will ensure a seamless and efficient workflow for launchin
     This should reset `local_x`, `local_y`, and `local_yaw` to zero, and you should see a log message confirming the reset.
 
 
+(Not ready yet!)
 ### **Implement Coordinate Transformation**
 
 1. Modify the `odom_callback` method:
@@ -331,10 +329,6 @@ Following these steps will ensure a seamless and efficient workflow for launchin
 
 
 ### 🚚 Deliverables
-
-
-In this lab, you will create a ROS2 Python package that enables the TurtleBot3 to navigate to a desired **location and orientation** using data from the **IMU (`/imu`)** and **ODOM (`/odom`)** topics.
-
 
 
 
