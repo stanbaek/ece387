@@ -443,6 +443,8 @@ document.write(`
 <p>To find the local coordinates <span class="math notranslate nohighlight">\([{}^{B}x \quad {}^{B}y]^\top\)</span>, we rearrange the equation:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{bmatrix} {}^{B}x \\ {}^{B}y \end{bmatrix} = R^{-1} \left(\begin{bmatrix} x \\ y \end{bmatrix} - \begin{bmatrix} {}^{A}x \\ {}^{A}y \end{bmatrix}\right)\end{split}\]</div>
+<p>The orientation with respect to Frame {B}, <span class="math notranslate nohighlight">\({}^{B}\theta\)</span> can be obtained by <span class="math notranslate nohighlight">\({}^{B}\theta = {}^{A}\theta - \theta\)</span> as shown in the figure below</p>
+<a class="reference internal image-reference" href="../_images/Lab7_Orientation.png"><img alt="../_images/Lab7_Orientation.png" class="align-center" src="../_images/Lab7_Orientation.png" style="width: 300px;" /></a>
 <p>This transformation allows us to reset the local coordinates programmatically rather than manually restarting the TurtleBot3, making our system more efficient and flexible.</p>
 </section>
 <section id="pre-lab-testing-the-imu">

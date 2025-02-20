@@ -38,6 +38,13 @@ To find the local coordinates $[{}^{B}x \quad {}^{B}y]^\top$, we rearrange the e
 
 $$\begin{bmatrix} {}^{B}x \\ {}^{B}y \end{bmatrix} = R^{-1} \left(\begin{bmatrix} x \\ y \end{bmatrix} - \begin{bmatrix} {}^{A}x \\ {}^{A}y \end{bmatrix}\right)$$
 
+The orientation with respect to Frame {B}, ${}^{B}\theta$ can be obtained by ${}^{B}\theta = {}^{A}\theta - \theta$ as shown in the figure below
+
+```{image} ./figures/Lab7_Orientation.png
+:width: 300
+:align: center
+```
+
 This transformation allows us to reset the local coordinates programmatically rather than manually restarting the TurtleBot3, making our system more efficient and flexible.
 
 
