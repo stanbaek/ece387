@@ -1,6 +1,13 @@
 # 🔬 Lab7: Transformation
 
 ## 📌 Objectives
+- Students should be able to explain the concept of coordinate transformation between global and local frames.
+- Students should be able to implement a method to reset local coordinates without restarting the TurtleBot3.
+- Students should be able to apply the rotational transformation matrix to convert coordinates between different frames.
+- Students should be able to utilize IMU and odometry sensor data to determine the robot’s pose.
+- Students should be able to develop and test a ROS2 service to reset the TurtleBot3’s pose programmatically.
+- Students should be able to debug and troubleshoot coordinate transformation issues in a real-world robotic system.
+
 
 ## 📜 Overview
 
@@ -110,18 +117,34 @@ Previously, to drive a physical TurtleBot3, we had to log into the remote host u
     ```bash
     $ ssh pi@robotX 'ros2 launch turtlebot3_bringup robot.launch.py'
     ```
+    This command remotely starts the `robot.launch.py` script on the TurtleBot3.
 
-2. Add the following line to the `.bashrc` file on your master computer:
+1. To simplify this process, add the following alias to the `.bashrc` file on your `master` computer:
     ```bash
     alias bringup='ssh pi@robotX '\''ros2 launch turtlebot3_bringup robot.launch.py'\'
     ```
 
-3. Source the `.bashrc` file or restart the terminal. Now, simply run:
+1. Apply the changes by sourcing the `.bashrc` file or restarting the terminal. Now, simply run:
     ```bash
     $ bringup
     ```
-This alias will allow you to run the `robot.launch.py` script on your TurtleBot3 without needing to log into the remote computer each time.
+    This alias will allow you to run the `robot.launch.py` script on your TurtleBot3 without needing to log into the remote computer each time.
 
+1. To verify that the launch file is running correctly, check the active ROS nodes on the `master` computer:
+    ```bash
+    $ ros2 node list
+    ```
+    If the expected nodes are running, your setup is correct.
+
+<!--
+1. (Optional) If you need to stop the launch file remotely, you can use:
+    ```bash
+    $ ssh pi@robotX 'pkill -f robot.launch.py'
+    ```
+    This will terminate the running launch process on the TurtleBot3.
+-->
+
+Following these steps will ensure a seamless and efficient workflow for launching ROS2 on your TurtleBot3 without needing manual SSH logins each time.
 
 
 (Not ready yet!)

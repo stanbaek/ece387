@@ -413,6 +413,14 @@ document.write(`
 <h1>🔬 Lab7: Transformation<a class="headerlink" href="#lab7-transformation" title="Permalink to this heading">#</a></h1>
 <section id="objectives">
 <h2>📌 Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Students should be able to explain the concept of coordinate transformation between global and local frames.</p></li>
+<li><p>Students should be able to implement a method to reset local coordinates without restarting the TurtleBot3.</p></li>
+<li><p>Students should be able to apply the rotational transformation matrix to convert coordinates between different frames.</p></li>
+<li><p>Students should be able to utilize IMU and odometry sensor data to determine the robot’s pose.</p></li>
+<li><p>Students should be able to develop and test a ROS2 service to reset the TurtleBot3’s pose programmatically.</p></li>
+<li><p>Students should be able to debug and troubleshoot coordinate transformation issues in a real-world robotic system.</p></li>
+</ul>
 </section>
 <section id="overview">
 <h2>📜 Overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h2>
@@ -513,19 +521,34 @@ document.write(`
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ssh<span class="w"> </span>pi@robotX<span class="w"> </span><span class="s1">&#39;ros2 launch turtlebot3_bringup robot.launch.py&#39;</span>
 </pre></div>
 </div>
+<p>This command remotely starts the <code class="docutils literal notranslate"><span class="pre">robot.launch.py</span></code> script on the TurtleBot3.</p>
 </li>
-<li><p>Add the following line to the <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> file on your master computer:</p>
+<li><p>To simplify this process, add the following alias to the <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> file on your <code class="docutils literal notranslate"><span class="pre">master</span></code> computer:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">alias</span><span class="w"> </span><span class="nv">bringup</span><span class="o">=</span><span class="s1">&#39;ssh pi@robotX &#39;</span><span class="se">\&#39;</span><span class="s1">&#39;ros2 launch turtlebot3_bringup robot.launch.py&#39;</span><span class="se">\&#39;</span>
 </pre></div>
 </div>
 </li>
-<li><p>Source the <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> file or restart the terminal. Now, simply run:</p>
+<li><p>Apply the changes by sourcing the <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> file or restarting the terminal. Now, simply run:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>bringup
 </pre></div>
 </div>
+<p>This alias will allow you to run the <code class="docutils literal notranslate"><span class="pre">robot.launch.py</span></code> script on your TurtleBot3 without needing to log into the remote computer each time.</p>
+</li>
+<li><p>To verify that the launch file is running correctly, check the active ROS nodes on the <code class="docutils literal notranslate"><span class="pre">master</span></code> computer:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ros2<span class="w"> </span>node<span class="w"> </span>list
+</pre></div>
+</div>
+<p>If the expected nodes are running, your setup is correct.</p>
 </li>
 </ol>
-<p>This alias will allow you to run the <code class="docutils literal notranslate"><span class="pre">robot.launch.py</span></code> script on your TurtleBot3 without needing to log into the remote computer each time.</p>
+<!--
+1. (Optional) If you need to stop the launch file remotely, you can use:
+    ```bash
+    $ ssh pi@robotX 'pkill -f robot.launch.py'
+    ```
+    This will terminate the running launch process on the TurtleBot3.
+-->
+<p>Following these steps will ensure a seamless and efficient workflow for launching ROS2 on your TurtleBot3 without needing manual SSH logins each time.</p>
 <p>(Not ready yet!)</p>
 </section>
 </section>
