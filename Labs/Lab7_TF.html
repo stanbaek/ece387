@@ -389,9 +389,9 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-procedure">💻 Lab Procedure</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-new-ros2-package"><strong>Create a New ROS2 Package</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implement-the-service-server"><strong>Implement the Service Server</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implement-the-service-client"><strong>Implement the Service Client</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-new-ros2-package"><strong>Creating a New ROS2 Package</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementing-the-service-server"><strong>Implementing the Service Server</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementing-the-service-client"><strong>Implementing the Service Client</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implement-coordinate-transformation"><strong>Implement Coordinate Transformation</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-and-test-the-package"><strong>Build and Test the Package</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">🚚 Deliverables</a></li>
@@ -552,32 +552,34 @@ document.write(`
 <p>Following these steps will ensure a seamless and efficient workflow for launching ROS2 on your TurtleBot3 without needing manual SSH logins each time.</p>
 </section>
 </section>
+<hr class="docutils" />
 <section id="lab-procedure">
 <h2>💻 Lab Procedure<a class="headerlink" href="#lab-procedure" title="Permalink to this heading">#</a></h2>
-<section id="create-a-new-ros2-package">
-<h3><strong>Create a New ROS2 Package</strong><a class="headerlink" href="#create-a-new-ros2-package" title="Permalink to this heading">#</a></h3>
+<section id="creating-a-new-ros2-package">
+<h3><strong>Creating a New ROS2 Package</strong><a class="headerlink" href="#creating-a-new-ros2-package" title="Permalink to this heading">#</a></h3>
+<p>Follow these steps to set up a new ROS2 package for this lab:</p>
 <ol class="arabic">
-<li><p>Open a terminal and navigate to the <code class="docutils literal notranslate"><span class="pre">ece387_ws</span></code> directory of your workspace:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/master_ws/src/ece387_ws
+<li><p><strong>Navigate to Your Workspace:</strong> Open a terminal and move into the <code class="docutils literal notranslate"><span class="pre">ece387_ws</span></code> directory within your ROS2 workspace:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/master_ws/src/ece387_ws
 </pre></div>
 </div>
 </li>
-<li><p>Use the following command to create a new ROS2 package named <code class="docutils literal notranslate"><span class="pre">lab7_tf</span></code> with the BSD-3 license:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ros2<span class="w"> </span>pkg<span class="w"> </span>create<span class="w"> </span>--build-type<span class="w"> </span>ament_python<span class="w"> </span>--license<span class="w"> </span>BSD-3-Clause<span class="w"> </span>lab7_tf
+<li><p><strong>Create a New ROS2 Package:</strong> Use the following command to create a new package named <code class="docutils literal notranslate"><span class="pre">lab7_tf</span></code> with the BSD-3 license:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>pkg<span class="w"> </span>create<span class="w"> </span>--build-type<span class="w"> </span>ament_python<span class="w"> </span>--license<span class="w"> </span>BSD-3-Clause<span class="w"> </span>lab7_tf
 </pre></div>
 </div>
 </li>
-<li><p>Copy the <code class="docutils literal notranslate"><span class="pre">move2goal.py</span></code> file from Lab6 to <code class="docutils literal notranslate"><span class="pre">ece387_ws/lab7_tf/lab7_tf/</span></code> and rename it to <code class="docutils literal notranslate"><span class="pre">move2goal_tf.py</span></code></p></li>
-<li><p>Add the following lines as a dependency in your <code class="docutils literal notranslate"><span class="pre">package.xlm</span></code>.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>&lt;depend&gt;rclpy&lt;/depend&gt;
-&lt;depend&gt;geometry_msgs&lt;/depend&gt;
-&lt;depend&gt;nav2_msgs&lt;/depend&gt;
-&lt;depend&gt;sensor_msgs&lt;/depend&gt;
-&lt;depend&gt;std_srvs&lt;/depend&gt;
+<li><p><strong>Copy the <code class="docutils literal notranslate"><span class="pre">move2goal.py</span></code> Script:</strong> Copy the <code class="docutils literal notranslate"><span class="pre">move2goal.py</span></code> file from Lab 6 into the <code class="docutils literal notranslate"><span class="pre">ece387_ws/lab7_tf/lab7_tf/</span></code> directory and rename it to <code class="docutils literal notranslate"><span class="pre">move2goal_tf.py</span></code></p></li>
+<li><p><strong>Add Dependencies:</strong> Edit <code class="docutils literal notranslate"><span class="pre">package.xml</span></code> to include the following dependencies:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;depend&gt;</span>rclpy<span class="nt">&lt;/depend&gt;</span>
+<span class="nt">&lt;depend&gt;</span>geometry_msgs<span class="nt">&lt;/depend&gt;</span>
+<span class="nt">&lt;depend&gt;</span>nav2_msgs<span class="nt">&lt;/depend&gt;</span>
+<span class="nt">&lt;depend&gt;</span>sensor_msgs<span class="nt">&lt;/depend&gt;</span>
+<span class="nt">&lt;depend&gt;</span>std_srvs<span class="nt">&lt;/depend&gt;</span>
 </pre></div>
 </div>
 </li>
-<li><p>Open the <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> file and modify the <code class="docutils literal notranslate"><span class="pre">entry_points</span></code> section to include the <code class="docutils literal notranslate"><span class="pre">move2goal_tf</span></code> script:</p>
+<li><p><strong>Modify <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>:</strong> Update the <code class="docutils literal notranslate"><span class="pre">entry_points</span></code> section to include the <code class="docutils literal notranslate"><span class="pre">move2goal_tf</span></code> script:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">entry_points</span><span class="o">=</span><span class="p">{</span>
     <span class="s1">&#39;console_scripts&#39;</span><span class="p">:</span> <span class="p">[</span>
         <span class="s1">&#39;move2goal_tf = lab7_tf.move2goal_tf:main&#39;</span><span class="p">,</span>
@@ -588,21 +590,17 @@ document.write(`
 </li>
 </ol>
 </section>
-<section id="implement-the-service-server">
-<h3><strong>Implement the Service Server</strong><a class="headerlink" href="#implement-the-service-server" title="Permalink to this heading">#</a></h3>
+<section id="implementing-the-service-server">
+<h3><strong>Implementing the Service Server</strong><a class="headerlink" href="#implementing-the-service-server" title="Permalink to this heading">#</a></h3>
 <ol class="arabic">
-<li><p>Open <code class="docutils literal notranslate"><span class="pre">move2goal_tf.py</span></code> and import the required ROS2 service type:</p>
+<li><p><strong>Import Required Libraries:</strong>  Open <code class="docutils literal notranslate"><span class="pre">move2goal_tf.py</span></code> and add the following imports:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">std_srvs.srv</span> <span class="kn">import</span> <span class="n">Empty</span>
 <span class="kn">from</span> <span class="nn">nav2_msgs.srv</span> <span class="kn">import</span> <span class="n">SetInitialPose</span>
+<span class="kn">import</span> <span class="nn">math</span>
 </pre></div>
 </div>
 </li>
-<li><p>Import the <code class="docutils literal notranslate"><span class="pre">math</span></code> package for trigonometric functions</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
-</pre></div>
-</div>
-</li>
-<li><p>Add a service server in the <code class="docutils literal notranslate"><span class="pre">__init__</span></code> method:</p>
+<li><p><strong>Create a Service Server:</strong> Add the following service server inside the <code class="docutils literal notranslate"><span class="pre">__init__</span></code> method:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="c1"># TODO: Create a service server that will handle &#39;/set_pose&#39; service requests</span>
  <span class="c1"># - Service type: &#39;SetInitialPose&#39;</span>
  <span class="c1"># - Service name: &#39;/set_pose&#39;</span>
@@ -611,7 +609,7 @@ document.write(`
 </pre></div>
 </div>
 </li>
-<li><p>Replace the following lines in the <code class="docutils literal notranslate"><span class="pre">__init__</span></code> method</p>
+<li><p><strong>Update Position Variables:</strong> Replace the following lines in the <code class="docutils literal notranslate"><span class="pre">__init__</span></code> method</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Variables to store the robot&#39;s current position and orientation</span>
 <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mf">0.0</span>    <span class="c1"># Current x-coordinate</span>
 <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mf">0.0</span>    <span class="c1"># Current y-coordinate</span>
@@ -631,7 +629,7 @@ document.write(`
 </pre></div>
 </div>
 </li>
-<li><p>Define the callback function for the service to reset local pose and initial global pose:</p>
+<li><p><strong>Define the Callback Function:</strong> Implement the service callback function to reset the local pose:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">set_pose_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">SetInitialPose</span><span class="o">.</span><span class="n">Request</span><span class="p">,</span> <span class="n">response</span><span class="p">:</span> <span class="n">Empty</span><span class="o">.</span><span class="n">Response</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Empty</span><span class="o">.</span><span class="n">Response</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Resets the local position coordinates to zero and clears the previous position coordinates.</span>
@@ -663,35 +661,29 @@ document.write(`
 </pre></div>
 </div>
 </li>
-<li><p>Test the service
-Run this node:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ros2<span class="w"> </span>run<span class="w"> </span>lab7_tf<span class="w"> </span>move_to_goal
+<li><p><strong>Test the Service:</strong> First, run the node:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>lab7_tf<span class="w"> </span>move2goal_tf
 </pre></div>
 </div>
 <p>Then, in another terminal, call the service:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/set_pose<span class="w"> </span>custom_msgs/srv/SetInitialPose<span class="w"> </span><span class="s2">&quot;{pose: {pose: {pose: {position: {x: 0.0, y: 0.0, z: 0.0}, orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}}}}}&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/set_pose<span class="w"> </span>custom_msgs/srv/SetInitialPose<span class="w"> </span><span class="s2">&quot;{pose: {pose: {pose: {position: {x: 0.0, y: 0.0, z: 0.0}, orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}}}}}&quot;</span>
 </pre></div>
 </div>
-<p>This should reset <code class="docutils literal notranslate"><span class="pre">local_x</span></code>, <code class="docutils literal notranslate"><span class="pre">local_y</span></code>, and <code class="docutils literal notranslate"><span class="pre">local_yaw</span></code> to zero, and you should see a log message confirming the reset.</p>
+<p>You should see a confirmation message indicating that the local pose has been reset.</p>
 </li>
 </ol>
-<p>(Not ready yet!)</p>
 </section>
-<section id="implement-the-service-client">
-<h3><strong>Implement the Service Client</strong><a class="headerlink" href="#implement-the-service-client" title="Permalink to this heading">#</a></h3>
+<section id="implementing-the-service-client">
+<h3><strong>Implementing the Service Client</strong><a class="headerlink" href="#implementing-the-service-client" title="Permalink to this heading">#</a></h3>
 <ol class="arabic">
-<li><p>Open <code class="docutils literal notranslate"><span class="pre">gamepad.py</span></code> and import the required ROS2 service and message types:</p>
+<li><p><strong>Modify <code class="docutils literal notranslate"><span class="pre">gamepad.py</span></code>:</strong> Import the required libraries:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">std_srvs.srv</span> <span class="kn">import</span> <span class="n">Empty</span>
 <span class="kn">from</span> <span class="nn">geometry_msgs.msg</span> <span class="kn">import</span> <span class="n">PoseWithCovarianceStamped</span>
+<span class="kn">import</span> <span class="nn">math</span>
 </pre></div>
 </div>
 </li>
-<li><p>Import the <code class="docutils literal notranslate"><span class="pre">math</span></code> package for trigonometric functions</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
-</pre></div>
-</div>
-</li>
-<li><p>Add a service client in the <code class="docutils literal notranslate"><span class="pre">__init__</span></code> method:</p>
+<li><p><strong>Create a Service Client:</strong> Inside the <code class="docutils literal notranslate"><span class="pre">__init__</span></code> method, add:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="c1"># TODO: Create a service client to call the &#39;/set_pose&#39; service</span>
  <span class="c1"># - Service type: &#39;SetInitialPose&#39;</span>
  <span class="c1"># - Service name: &#39;/set_pose&#39;</span>
@@ -699,14 +691,14 @@ Run this node:</p>
 </pre></div>
 </div>
 </li>
-<li><p>In the <code class="docutils literal notranslate"><span class="pre">joy_callback</span></code> method, call <code class="docutils literal notranslate"><span class="pre">send_set_pose_request</span></code> when button Y is pressed.</p>
+<li><p><strong>Call the Service on Button Press:</strong> Modify <code class="docutils literal notranslate"><span class="pre">joy_callback</span></code> to call the reset function when the Y button is pressed:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check if button 2 (Y) is pressed to reset the pose</span>
 <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="n">buttons</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">send_set_pose_request</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>  <span class="c1"># Call the reset_pose service</span>
 </pre></div>
 </div>
 </li>
-<li><p>Implement the following method within the <code class="docutils literal notranslate"><span class="pre">Gamepad</span></code> class:</p>
+<li><p><strong>Define the Request Function:</strong> Implement <code class="docutils literal notranslate"><span class="pre">send_set_pose_request</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">send_set_pose_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span><span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span><span class="nb">float</span><span class="p">,</span> <span class="n">theta</span><span class="p">:</span><span class="nb">float</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calls the &#39;reset_pose&#39; service to reset the robot&#39;s pose.</span>
@@ -742,7 +734,7 @@ Run this node:</p>
 </pre></div>
 </div>
 </li>
-<li><p>Add the following method to the <code class="docutils literal notranslate"><span class="pre">Gamepad</span></code> class:</p>
+<li><p><strong>Handle Service Response:</strong> Add the following method to the <code class="docutils literal notranslate"><span class="pre">Gamepad</span></code> class:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">reset_pose_done_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">future</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Callback function to handle the response from the &#39;reset_pose&#39; service.</span>
@@ -764,13 +756,12 @@ Run this node:</p>
 <section id="implement-coordinate-transformation">
 <h3><strong>Implement Coordinate Transformation</strong><a class="headerlink" href="#implement-coordinate-transformation" title="Permalink to this heading">#</a></h3>
 <ol class="arabic">
-<li><p>Modify the <code class="docutils literal notranslate"><span class="pre">imu_callback</span></code> method in the <code class="docutils literal notranslate"><span class="pre">MoveToGoal</span></code> class:</p>
+<li><p><strong>Modify the <code class="docutils literal notranslate"><span class="pre">imu_callback</span></code> Method</strong> First, update the <code class="docutils literal notranslate"><span class="pre">imu_callback</span></code> method in the <code class="docutils literal notranslate"><span class="pre">MoveToGoal</span></code> class as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">imu_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">imu_msg</span><span class="p">:</span> <span class="n">Imu</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Callback function for handling control relinquishment messages.</span>
 <span class="sd">    Updates local yaw relative to the starting orientation.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
     <span class="n">q</span> <span class="o">=</span> <span class="n">imu_msg</span><span class="o">.</span><span class="n">orientation</span>
     <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">global_yaw</span> <span class="o">=</span> <span class="n">euler_from_quaternion</span><span class="p">([</span><span class="n">q</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">q</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">q</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="n">q</span><span class="o">.</span><span class="n">w</span><span class="p">])</span>
 
@@ -784,7 +775,7 @@ Run this node:</p>
 </pre></div>
 </div>
 </li>
-<li><p>Modify the <code class="docutils literal notranslate"><span class="pre">odom_callback</span></code> method:</p>
+<li><p><strong>Modify the <code class="docutils literal notranslate"><span class="pre">odom_callback</span></code> Method</strong> Update the <code class="docutils literal notranslate"><span class="pre">odom_callback</span></code> method to handle odometry messages and update the local x and y coordinates relative to the starting position:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">odom_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">:</span> <span class="n">Odometry</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Callback function for handling odometry messages.</span>
@@ -813,20 +804,21 @@ Run this node:</p>
 </pre></div>
 </div>
 </li>
-<li><p>Make necessary changes in the <code class="docutils literal notranslate"><span class="pre">control_loop</span></code> method.</p></li>
+<li><p><strong>Update the <code class="docutils literal notranslate"><span class="pre">control_loop</span></code> Method</strong> Finally, ensure that the <code class="docutils literal notranslate"><span class="pre">control_loop</span></code> method is updated to reflect the changes in the coordinate transformation.</p></li>
 </ol>
 </section>
 <section id="build-and-test-the-package">
 <h3><strong>Build and Test the Package</strong><a class="headerlink" href="#build-and-test-the-package" title="Permalink to this heading">#</a></h3>
+<p>Let’s ensure your package is built and tested properly:</p>
 <ol class="arabic">
-<li><p>Build the <code class="docutils literal notranslate"><span class="pre">lab7_tf</span></code> package using:</p>
+<li><p><strong>Build the <code class="docutils literal notranslate"><span class="pre">lab7_tf</span></code> Package</strong>  Use the following command to build your package:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ccbuild<span class="w"> </span>--packages-select<span class="w"> </span>lab7_tf
 </pre></div>
 </div>
 </li>
-<li><p>Demo the robot:</p>
+<li><p><strong>Demo the Robot</strong></p>
 <ul class="simple">
-<li><p>Run the <code class="docutils literal notranslate"><span class="pre">move2goal_tf</span></code> node and demonstrate the robot moving to the goal location <code class="docutils literal notranslate"><span class="pre">(-0.61,</span> <span class="pre">0.61)</span></code> in meters and rotate the robot to face <code class="docutils literal notranslate"><span class="pre">0°</span></code>.</p></li>
+<li><p>Run the <code class="docutils literal notranslate"><span class="pre">move2goal_tf</span></code> node to demonstrate the robot moving to the goal location <code class="docutils literal notranslate"><span class="pre">(-0.61,</span> <span class="pre">0.61)</span></code> in meters and rotate the robot to face <code class="docutils literal notranslate"><span class="pre">0°</span></code>.</p></li>
 <li><p>Press Button Y to reset the pose and redo the previous task.</p></li>
 </ul>
 </li>
@@ -835,22 +827,25 @@ Run this node:</p>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/bXpObdI8I-I?si=2L-dptYn9npyBbLc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </center>
 </section>
+<hr class="docutils" />
 <section id="deliverables">
 <h3>🚚 Deliverables<a class="headerlink" href="#deliverables" title="Permalink to this heading">#</a></h3>
 <ol class="arabic simple">
-<li><p><strong>[20 Points] Complete the <code class="docutils literal notranslate"><span class="pre">move2goal_tf.py</span></code> Script:</strong></p>
+<li><p><strong>[20 Points] Complete the <code class="docutils literal notranslate"><span class="pre">move2goal_tf.py</span></code> Script</strong></p>
 <ul class="simple">
 <li><p>Ensure the script is fully functional and implements all required features.</p></li>
-<li><p>Push your code to GitHub and confirm that it has been successfully uploaded. <strong>NOTE:</strong> <em>If the instructor can’t find your code in your repository, you will receive a grade of 0 for the coding part.</em></p></li>
+<li><p>Push your code to GitHub and confirm that it has been successfully uploaded.
+<strong>NOTE:</strong> <em>If the instructor can’t find your code in your repository, you will receive a grade of 0 for the coding part.</em></p></li>
 </ul>
 </li>
-<li><p><strong>[15 Points] Complete the <code class="docutils literal notranslate"><span class="pre">gamepad.py</span></code> Script:</strong></p>
+<li><p><strong>[15 Points] Complete the <code class="docutils literal notranslate"><span class="pre">gamepad.py</span></code> Script</strong></p>
 <ul class="simple">
 <li><p>Ensure the script is fully functional and implements all required features.</p></li>
-<li><p>Push your code to GitHub and confirm that it has been successfully uploaded. <strong>NOTE:</strong> <em>If the instructor can’t find your code in your repository, you will receive a grade of 0 for the coding part.</em></p></li>
+<li><p>Push your code to GitHub and confirm that it has been successfully uploaded.
+<strong>NOTE:</strong> <em>If the instructor can’t find your code in your repository, you will receive a grade of 0 for the coding part.</em></p></li>
 </ul>
 </li>
-<li><p><strong>[15 Points] Demonstration:</strong></p>
+<li><p><strong>[15 Points] Demonstration</strong></p>
 <ul class="simple">
 <li><p>Show the robot successfully navigating to the goal location and orientation in a real-world setup.</p></li>
 </ul>
@@ -935,9 +930,9 @@ Run this node:</p>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-procedure">💻 Lab Procedure</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-new-ros2-package"><strong>Create a New ROS2 Package</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implement-the-service-server"><strong>Implement the Service Server</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implement-the-service-client"><strong>Implement the Service Client</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-new-ros2-package"><strong>Creating a New ROS2 Package</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementing-the-service-server"><strong>Implementing the Service Server</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementing-the-service-client"><strong>Implementing the Service Client</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implement-coordinate-transformation"><strong>Implement Coordinate Transformation</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-and-test-the-package"><strong>Build and Test the Package</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">🚚 Deliverables</a></li>

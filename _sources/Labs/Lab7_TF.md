@@ -153,32 +153,36 @@ Previously, to drive a physical TurtleBot3, we had to log into the remote host u
 
 Following these steps will ensure a seamless and efficient workflow for launching ROS2 on your TurtleBot3 without needing manual SSH logins each time.
 
+---
+
 ## 💻 Lab Procedure
 
-### **Create a New ROS2 Package**
+### **Creating a New ROS2 Package**
 
-1. Open a terminal and navigate to the `ece387_ws` directory of your workspace:
+Follow these steps to set up a new ROS2 package for this lab:
+
+1. **Navigate to Your Workspace:** Open a terminal and move into the `ece387_ws` directory within your ROS2 workspace:
    ```bash
-   $ cd ~/master_ws/src/ece387_ws
+   cd ~/master_ws/src/ece387_ws
    ```
 
-1. Use the following command to create a new ROS2 package named `lab7_tf` with the BSD-3 license:
+1. **Create a New ROS2 Package:** Use the following command to create a new package named `lab7_tf` with the BSD-3 license:
    ```bash
-   $ ros2 pkg create --build-type ament_python --license BSD-3-Clause lab7_tf
+   ros2 pkg create --build-type ament_python --license BSD-3-Clause lab7_tf
    ```
 
-1. Copy the `move2goal.py` file from Lab6 to `ece387_ws/lab7_tf/lab7_tf/` and rename it to `move2goal_tf.py`
+1. **Copy the `move2goal.py` Script:** Copy the `move2goal.py` file from Lab 6 into the `ece387_ws/lab7_tf/lab7_tf/` directory and rename it to `move2goal_tf.py`
 
-1. Add the following lines as a dependency in your `package.xlm`. 
-    ```sh
-    <depend>rclpy</depend>
-    <depend>geometry_msgs</depend>
-    <depend>nav2_msgs</depend>
-    <depend>sensor_msgs</depend>
-    <depend>std_srvs</depend>
-    ```
+1. **Add Dependencies:** Edit `package.xml` to include the following dependencies:
+   ```xml
+   <depend>rclpy</depend>
+   <depend>geometry_msgs</depend>
+   <depend>nav2_msgs</depend>
+   <depend>sensor_msgs</depend>
+   <depend>std_srvs</depend>
+   ```
 
-1. Open the `setup.py` file and modify the `entry_points` section to include the `move2goal_tf` script:
+1. **Modify `setup.py`:** Update the `entry_points` section to include the `move2goal_tf` script:
    ```python
    entry_points={
        'console_scripts': [
@@ -187,20 +191,16 @@ Following these steps will ensure a seamless and efficient workflow for launchin
    },
    ```
 
-### **Implement the Service Server**
+### **Implementing the Service Server**
 
-1. Open `move2goal_tf.py` and import the required ROS2 service type:
-    ```python
-    from std_srvs.srv import Empty
-    from nav2_msgs.srv import SetInitialPose
-    ```
-1. Import the `math` package for trigonometric functions
-    ```python
-    import math
-    ```
+1. **Import Required Libraries:**  Open `move2goal_tf.py` and add the following imports:
+   ```python
+   from std_srvs.srv import Empty
+   from nav2_msgs.srv import SetInitialPose
+   import math
+   ```
 
-
-1. Add a service server in the `__init__` method:
+1. **Create a Service Server:** Add the following service server inside the `__init__` method:
    ```python
     # TODO: Create a service server that will handle '/set_pose' service requests
     # - Service type: 'SetInitialPose'
@@ -209,7 +209,7 @@ Following these steps will ensure a seamless and efficient workflow for launchin
     self.reset_service = 0 # Update this line.
    ```
 
-1. Replace the following lines in the `__init__` method
+1. **Update Position Variables:** Replace the following lines in the `__init__` method
     ```python
     # Variables to store the robot's current position and orientation
     self.x = 0.0    # Current x-coordinate
@@ -230,7 +230,7 @@ Following these steps will ensure a seamless and efficient workflow for launchin
     self.initial_global_yaw = None
     ```
 
-1. Define the callback function for the service to reset local pose and initial global pose:
+1. **Define the Callback Function:** Implement the service callback function to reset the local pose:
     ```python
     def set_pose_callback(self, request: SetInitialPose.Request, response: Empty.Response) -> Empty.Response:
         """
@@ -262,31 +262,26 @@ Following these steps will ensure a seamless and efficient workflow for launchin
         return response
     ```
 
-1. Test the service
-    Run this node:
-    ```bash
-    $ ros2 run lab7_tf move_to_goal
-    ```
-    Then, in another terminal, call the service:
-    ```bash
-    $ ros2 service call /set_pose custom_msgs/srv/SetInitialPose "{pose: {pose: {pose: {position: {x: 0.0, y: 0.0, z: 0.0}, orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}}}}}"
+1. **Test the Service:** First, run the node:
+   ```bash
+   ros2 run lab7_tf move2goal_tf
+   ```
+   Then, in another terminal, call the service:
+   ```bash
+   ros2 service call /set_pose custom_msgs/srv/SetInitialPose "{pose: {pose: {pose: {position: {x: 0.0, y: 0.0, z: 0.0}, orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}}}}}"
+   ```
+   You should see a confirmation message indicating that the local pose has been reset.
 
-    ```
-    This should reset `local_x`, `local_y`, and `local_yaw` to zero, and you should see a log message confirming the reset.
+### **Implementing the Service Client**
 
-(Not ready yet!)
-### **Implement the Service Client**
-1. Open `gamepad.py` and import the required ROS2 service and message types:
-    ```python
-    from std_srvs.srv import Empty
-    from geometry_msgs.msg import PoseWithCovarianceStamped
-    ```
-1. Import the `math` package for trigonometric functions
-    ```python
-    import math
-    ```
+1. **Modify `gamepad.py`:** Import the required libraries:
+   ```python
+   from std_srvs.srv import Empty
+   from geometry_msgs.msg import PoseWithCovarianceStamped
+   import math
+   ```
 
-1. Add a service client in the `__init__` method:
+1. **Create a Service Client:** Inside the `__init__` method, add:
    ```python
     # TODO: Create a service client to call the '/set_pose' service
     # - Service type: 'SetInitialPose'
@@ -294,14 +289,14 @@ Following these steps will ensure a seamless and efficient workflow for launchin
     self.reset_pose_client = 0  # Update this line
    ```
 
-1. In the `joy_callback` method, call `send_set_pose_request` when button Y is pressed.
+1. **Call the Service on Button Press:** Modify `joy_callback` to call the reset function when the Y button is pressed:
     ```python
     # Check if button 2 (Y) is pressed to reset the pose
     if msg.buttons[2]:
         self.send_set_pose_request(0.0, 0.0, 0.0)  # Call the reset_pose service
     ```
 
-1. Implement the following method within the `Gamepad` class:
+1. **Define the Request Function:** Implement `send_set_pose_request`:
     ```python
     def send_set_pose_request(self, x:float, y:float, theta:float):
         """
@@ -337,7 +332,7 @@ Following these steps will ensure a seamless and efficient workflow for launchin
         future.add_done_callback(self.reset_pose_done_callback)
     ```
 
-1. Add the following method to the `Gamepad` class:
+1. **Handle Service Response:** Add the following method to the `Gamepad` class:
     ```python
     def reset_pose_done_callback(self, future):
         """
@@ -354,87 +349,91 @@ Following these steps will ensure a seamless and efficient workflow for launchin
             self.get_logger().error(f"Service call failed: {e}")
     ```
 
-
 ### **Implement Coordinate Transformation**
 
-1. Modify the `imu_callback` method in the `MoveToGoal` class:
-    ```python
-    def imu_callback(self, imu_msg: Imu) -> None:
-        """
-        Callback function for handling control relinquishment messages.
-        Updates local yaw relative to the starting orientation.
-        """
+1. **Modify the `imu_callback` Method** First, update the `imu_callback` method in the `MoveToGoal` class as follows:
 
-        q = imu_msg.orientation
-        _, _, global_yaw = euler_from_quaternion([q.x, q.y, q.z, q.w])
+   ```python
+   def imu_callback(self, imu_msg: Imu) -> None:
+       """
+       Callback function for handling control relinquishment messages.
+       Updates local yaw relative to the starting orientation.
+       """
+       q = imu_msg.orientation
+       _, _, global_yaw = euler_from_quaternion([q.x, q.y, q.z, q.w])
 
-        if self.initial_global_yaw is None:
-            # Store the initial yaw as a reference
-            self.initial_global_yaw = global_yaw
-            return  # Skip first iteration
+       if self.initial_global_yaw is None:
+           # Store the initial yaw as a reference
+           self.initial_global_yaw = global_yaw
+           return  # Skip first iteration
 
-        # TODO: Compute local yaw relative to the initial global yaw
-        self.local_yaw = 0
-    ```
+       # TODO: Compute local yaw relative to the initial global yaw
+       self.local_yaw = 0
+   ```
 
-1. Modify the `odom_callback` method:
+2. **Modify the `odom_callback` Method** Update the `odom_callback` method to handle odometry messages and update the local x and y coordinates relative to the starting position:
 
-    ```python
-    def odom_callback(self, msg: Odometry) -> None:
-        """
-        Callback function for handling odometry messages.
-        Updates the local x and y coordinates relative to the starting position.
-        """
-        # Extract global x and y coordinates from the odometry message
-        global_x = msg.pose.pose.position.x
-        global_y = msg.pose.pose.position.y
+   ```python
+   def odom_callback(self, msg: Odometry) -> None:
+       """
+       Callback function for handling odometry messages.
+       Updates the local x and y coordinates relative to the starting position.
+       """
+       # Extract global x and y coordinates from the odometry message
+       global_x = msg.pose.pose.position.x
+       global_y = msg.pose.pose.position.y
 
-        # Check if this is the first iteration (initial global position not set)
-        if self.initial_global_x is None:
-            # Store the initial global position as the reference point
-            self.initial_global_x = global_x
-            self.initial_global_y = global_y
-            # Skip processing for the first iteration
-            return
+       # Check if this is the first iteration (initial global position not set)
+       if self.initial_global_x is None:
+           # Store the initial global position as the reference point
+           self.initial_global_x = global_x
+           self.initial_global_y = global_y
+           # Skip processing for the first iteration
+           return
 
-        # TODO: Compute the displacement of the global position from the initial global position
-        dx = 0
-        dy = 0
+       # TODO: Compute the displacement of the global position from the initial global position
+       dx = 0
+       dy = 0
 
-        # TODO: Rotate displacement to align with the initial local frame
-        # This step is necessary to ensure the local coordinates are relative to the starting orientation
-        self.local_x = 0
-        self.local_y = 0
-    ```
+       # TODO: Rotate displacement to align with the initial local frame
+       # This step is necessary to ensure the local coordinates are relative to the starting orientation
+       self.local_x = 0
+       self.local_y = 0
+   ```
 
-1. Make necessary changes in the `control_loop` method.
+3. **Update the `control_loop` Method** Finally, ensure that the `control_loop` method is updated to reflect the changes in the coordinate transformation.
 
 
 ### **Build and Test the Package**
 
-1. Build the `lab7_tf` package using:
+Let's ensure your package is built and tested properly:
+
+1. **Build the `lab7_tf` Package**  Use the following command to build your package:
    ```bash
    $ ccbuild --packages-select lab7_tf
    ```
 
-1. Demo the robot:
-   - Run the `move2goal_tf` node and demonstrate the robot moving to the goal location `(-0.61, 0.61)` in meters and rotate the robot to face `0°`.
-   - Press Button Y to reset the pose and redo the previous task. 
+2. **Demo the Robot**
+   - Run the `move2goal_tf` node to demonstrate the robot moving to the goal location `(-0.61, 0.61)` in meters and rotate the robot to face `0°`.
+   - Press Button Y to reset the pose and redo the previous task.
 
 <center>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/bXpObdI8I-I?si=2L-dptYn9npyBbLc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </center>
 
+---
+
 ### 🚚 Deliverables
 
-1. **[20 Points] Complete the `move2goal_tf.py` Script:**
+1. **[20 Points] Complete the `move2goal_tf.py` Script**
     - Ensure the script is fully functional and implements all required features.
-    - Push your code to GitHub and confirm that it has been successfully uploaded. **NOTE:** _If the instructor can't find your code in your repository, you will receive a grade of 0 for the coding part._
+    - Push your code to GitHub and confirm that it has been successfully uploaded.
+    **NOTE:** _If the instructor can't find your code in your repository, you will receive a grade of 0 for the coding part._
 
-1. **[15 Points] Complete the `gamepad.py` Script:**
+2. **[15 Points] Complete the `gamepad.py` Script**
     - Ensure the script is fully functional and implements all required features.
-    - Push your code to GitHub and confirm that it has been successfully uploaded. **NOTE:** _If the instructor can't find your code in your repository, you will receive a grade of 0 for the coding part._
+    - Push your code to GitHub and confirm that it has been successfully uploaded.
+    **NOTE:** _If the instructor can't find your code in your repository, you will receive a grade of 0 for the coding part._
 
-1. **[15 Points] Demonstration:**
-   - Show the robot successfully navigating to the goal location and orientation in a real-world setup.
-
+3. **[15 Points] Demonstration**
+    - Show the robot successfully navigating to the goal location and orientation in a real-world setup.
