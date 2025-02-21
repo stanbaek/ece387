@@ -1,5 +1,31 @@
 # 🔬 Lab8: LIDAR
 
+
+
+## Purpose
+Large applications in robotics typically involve several interconnected ROS nodes, each of which have many parameters. Your current setup is a good example: as you experienced in the IMU lab, you had to open 3 different terminals to run all of the nodes necessary for our system to that point:
+
+
+
+This problem is only going to get more complex as we add additional functionality to our robot. As it stands right now, every node requires a separate terminal window and the associated command to run it. Using the *roslaunch* tool, we can eliminate that administrivia of running each node separately. We will create/edit two launch files to bring up the nodes on the master and robot.
+
+## [roslaunch](http://wiki.ros.org/roslaunch)
+The *roslaunch* tool is used to launch multiple ROS nodes locally and remotely via SSH. We can run nodes that we have created, nodes from pre-built packages, and other launch files. The roslaunch tool takes in one or more XML configuration files (with the .launch extension) that specify the parameters to set and nodes to launch.
+
+A launch file is an XML document which specifies:
+- which nodes to execute
+- their parameters
+- what other files to include
+
+An XML file stands for Extensible Markup Language (XML). This is a markup language that defines a set of rules for encoding documents in a format that is both human-readable and machine-readable. That isn't necessarily important for this class, but you can read about XML on Wikipedia if you are interested.
+
+We will then use a tool embedded within ROS called *roslaunch* to easily launch multiple nodes or even other launch files.
+
+By convention, we will give our launch files the *.launch* extension and store them in a *launch* folder within our package. This isn't required, but it is the common convention.
+
+
+
+
 ## Purpose
 This lab will integrate the Turtlebot3 LIDAR with the existing controller to drive the robot forward and turn 90 degrees when there is an obstacle.
 
