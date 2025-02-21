@@ -666,7 +666,7 @@ document.write(`
 </pre></div>
 </div>
 <p>Then, in another terminal, call the service:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/set_pose<span class="w"> </span>custom_msgs/srv/SetInitialPose<span class="w"> </span><span class="s2">&quot;{pose: {pose: {pose: {position: {x: 0.0, y: 0.0, z: 0.0}, orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}}}}}&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/set_pose<span class="w"> </span>nav2_msgs/srv/SetInitialPose<span class="w"> </span><span class="s2">&quot;{pose: {pose: {pose: {position: {x: 0.0, y: 0.0, z: 0.0}, orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}}}}}&quot;</span>
 </pre></div>
 </div>
 <p>You should see a confirmation message indicating that the local pose has been reset.</p>

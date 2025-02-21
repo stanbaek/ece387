@@ -268,7 +268,7 @@ Follow these steps to set up a new ROS2 package for this lab:
    ```
    Then, in another terminal, call the service:
    ```bash
-   ros2 service call /set_pose custom_msgs/srv/SetInitialPose "{pose: {pose: {pose: {position: {x: 0.0, y: 0.0, z: 0.0}, orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}}}}}"
+   ros2 service call /set_pose nav2_msgs/srv/SetInitialPose "{pose: {pose: {pose: {position: {x: 0.0, y: 0.0, z: 0.0}, orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}}}}}"
    ```
    You should see a confirmation message indicating that the local pose has been reset.
 
