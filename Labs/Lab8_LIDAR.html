@@ -380,6 +380,8 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose">Purpose</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#roslaunch">roslaunch</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Purpose</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#master">Master</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup:</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#controller-py">controller.py</a></li>
@@ -390,12 +392,12 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#report">Report</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#turn-in-requirements">Turn-in Requirements</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ice8-lidar">ICE8: LIDAR</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Purpose</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Purpose</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lidar">LIDAR</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#videos">Videos:</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Setup</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-lidar">Testing LIDAR</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lidar-subscriber">LIDAR Subscriber</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint">Checkpoint</a></li>
@@ -416,6 +418,24 @@ document.write(`
 <h1>🔬 Lab8: LIDAR<a class="headerlink" href="#lab8-lidar" title="Permalink to this heading">#</a></h1>
 <section id="purpose">
 <h2>Purpose<a class="headerlink" href="#purpose" title="Permalink to this heading">#</a></h2>
+<p>Large applications in robotics typically involve several interconnected ROS nodes, each of which have many parameters. Your current setup is a good example: as you experienced in the IMU lab, you had to open 3 different terminals to run all of the nodes necessary for our system to that point:</p>
+<p>This problem is only going to get more complex as we add additional functionality to our robot. As it stands right now, every node requires a separate terminal window and the associated command to run it. Using the <em>roslaunch</em> tool, we can eliminate that administrivia of running each node separately. We will create/edit two launch files to bring up the nodes on the master and robot.</p>
+</section>
+<section id="roslaunch">
+<h2><a class="reference external" href="http://wiki.ros.org/roslaunch">roslaunch</a><a class="headerlink" href="#roslaunch" title="Permalink to this heading">#</a></h2>
+<p>The <em>roslaunch</em> tool is used to launch multiple ROS nodes locally and remotely via SSH. We can run nodes that we have created, nodes from pre-built packages, and other launch files. The roslaunch tool takes in one or more XML configuration files (with the .launch extension) that specify the parameters to set and nodes to launch.</p>
+<p>A launch file is an XML document which specifies:</p>
+<ul class="simple">
+<li><p>which nodes to execute</p></li>
+<li><p>their parameters</p></li>
+<li><p>what other files to include</p></li>
+</ul>
+<p>An XML file stands for Extensible Markup Language (XML). This is a markup language that defines a set of rules for encoding documents in a format that is both human-readable and machine-readable. That isn’t necessarily important for this class, but you can read about XML on Wikipedia if you are interested.</p>
+<p>We will then use a tool embedded within ROS called <em>roslaunch</em> to easily launch multiple nodes or even other launch files.</p>
+<p>By convention, we will give our launch files the <em>.launch</em> extension and store them in a <em>launch</em> folder within our package. This isn’t required, but it is the common convention.</p>
+</section>
+<section id="id1">
+<h2>Purpose<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
 <p>This lab will integrate the Turtlebot3 LIDAR with the existing controller to drive the robot forward and turn 90 degrees when there is an obstacle.</p>
 </section>
 <section id="master">
@@ -497,8 +517,8 @@ document.write(`
 <section id="ice8-lidar">
 <h2>ICE8: LIDAR<a class="headerlink" href="#ice8-lidar" title="Permalink to this heading">#</a></h2>
 </section>
-<section id="id1">
-<h2>Purpose<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<section id="id2">
+<h2>Purpose<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
 <p>In this lesson we will enable the robot to avoid obstacles. Many sensors provide obstacle avoidance capabilities: camera, sonar, infrared, LIDAR, etc. All of these will work to enable the robot to avoid obstacles, but we will use LIDAR as it is an affordable, but very capable solution.</p>
 </section>
 <section id="lidar">
@@ -520,8 +540,8 @@ document.write(`
 <p>You will need to change that line to LDS-02.  <strong>You will need to accomplish this on both the master and the robot</strong></p>
 </section>
 </section>
-<section id="id2">
-<h2>Setup<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<section id="id3">
+<h2>Setup<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
 <p>The <a class="reference external" href="http://wiki.ros.org/hls_lfcd_lds_driver">hls_lfcd_lds_driver</a> package enables data to be received from the LIDAR over the <strong>/scan</strong> topic. The package is pre-installed on your <strong>Robot</strong>, but as always, trust, but verify. Open a new secure shell into your <strong>Robot</strong> and run the following:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rospack<span class="w"> </span>find<span class="w"> </span>hls_lfcd_lds_driver
 </pre></div>
@@ -739,6 +759,8 @@ touch<span class="w"> </span>lidar_sub.py
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose">Purpose</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#roslaunch">roslaunch</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Purpose</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#master">Master</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup:</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#controller-py">controller.py</a></li>
@@ -749,12 +771,12 @@ touch<span class="w"> </span>lidar_sub.py
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#report">Report</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#turn-in-requirements">Turn-in Requirements</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ice8-lidar">ICE8: LIDAR</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Purpose</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Purpose</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lidar">LIDAR</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#videos">Videos:</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Setup</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-lidar">Testing LIDAR</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lidar-subscriber">LIDAR Subscriber</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint">Checkpoint</a></li>

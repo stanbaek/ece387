@@ -390,14 +390,13 @@ document.write(`
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-procedure">💻 Lab Procedure</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-new-ros2-package"><strong>Create a New ROS2 Package</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implement-the-reset-pose-service"><strong>Implement the <code class="docutils literal notranslate"><span class="pre">reset_pose</span></code> Service</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implement-the-service-server"><strong>Implement the Service Server</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implement-the-service-client"><strong>Implement the Service Client</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implement-coordinate-transformation"><strong>Implement Coordinate Transformation</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-and-test-the-package"><strong>Build and Test the Package</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">🚚 Deliverables</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose">Purpose</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#roslaunch">roslaunch</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#current-state">Current State</a></li>
 </ul>
             </nav>
         </div>
@@ -572,7 +571,7 @@ document.write(`
 <li><p>Add the following lines as a dependency in your <code class="docutils literal notranslate"><span class="pre">package.xlm</span></code>.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>&lt;depend&gt;rclpy&lt;/depend&gt;
 &lt;depend&gt;geometry_msgs&lt;/depend&gt;
-&lt;depend&gt;nav_msgs&lt;/depend&gt;
+&lt;depend&gt;nav2_msgs&lt;/depend&gt;
 &lt;depend&gt;sensor_msgs&lt;/depend&gt;
 &lt;depend&gt;std_srvs&lt;/depend&gt;
 </pre></div>
@@ -587,39 +586,40 @@ document.write(`
 </pre></div>
 </div>
 </li>
-<li><p>In <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>, add <code class="docutils literal notranslate"><span class="pre">'std_srvs'</span></code> to the <code class="docutils literal notranslate"><span class="pre">install_requires</span></code> list:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;std_srvs&#39;</span><span class="p">,</span>
+</ol>
+</section>
+<section id="implement-the-service-server">
+<h3><strong>Implement the Service Server</strong><a class="headerlink" href="#implement-the-service-server" title="Permalink to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Open <code class="docutils literal notranslate"><span class="pre">move2goal_tf.py</span></code> and import the required ROS2 service type:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">std_srvs.srv</span> <span class="kn">import</span> <span class="n">Empty</span>
+<span class="kn">from</span> <span class="nn">nav2_msgs.srv</span> <span class="kn">import</span> <span class="n">SetInitialPose</span>
 </pre></div>
 </div>
 </li>
-</ol>
-</section>
-<section id="implement-the-reset-pose-service">
-<h3><strong>Implement the <code class="docutils literal notranslate"><span class="pre">reset_pose</span></code> Service</strong><a class="headerlink" href="#implement-the-reset-pose-service" title="Permalink to this heading">#</a></h3>
-<ol class="arabic">
-<li><p>Import the required ROS2 service type:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">std_srvs.srv</span> <span class="kn">import</span> <span class="n">Empty</span>
+<li><p>Import the <code class="docutils literal notranslate"><span class="pre">math</span></code> package for trigonometric functions</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
 </pre></div>
 </div>
 </li>
 <li><p>Add a service server in the <code class="docutils literal notranslate"><span class="pre">__init__</span></code> method:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="c1"># TODO: Create a service server that will handle &#39;reset_pose&#39; service requests</span>
- <span class="c1"># - Service type: &#39;Empty&#39; (no data is exchanged)</span>
- <span class="c1"># - Service name: &#39;reset_pose&#39;</span>
- <span class="c1"># - Callback function: &#39;self.reset_pose_callback&#39; to execute when the service is called</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="c1"># TODO: Create a service server that will handle &#39;/set_pose&#39; service requests</span>
+ <span class="c1"># - Service type: &#39;SetInitialPose&#39;</span>
+ <span class="c1"># - Service name: &#39;/set_pose&#39;</span>
+ <span class="c1"># - Callback function: &#39;self.set_pose_callback&#39; to execute when the service is called</span>
  <span class="bp">self</span><span class="o">.</span><span class="n">reset_service</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># Update this line.</span>
 </pre></div>
 </div>
 </li>
 <li><p>Replace the following lines in the <code class="docutils literal notranslate"><span class="pre">__init__</span></code> method</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Variables to store the robot&#39;s current position and orientation</span>
-<span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Current x-coordinate</span>
-<span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Current y-coordinate</span>
-<span class="bp">self</span><span class="o">.</span><span class="n">yaw</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Current orientation (yaw angle in radians)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mf">0.0</span>    <span class="c1"># Current x-coordinate</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mf">0.0</span>    <span class="c1"># Current y-coordinate</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">yaw</span> <span class="o">=</span> <span class="mf">0.0</span>  <span class="c1"># Current orientation (yaw angle in radians)</span>
 </pre></div>
 </div>
 <p>with</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Local Position Variables (Start at 0,0,0)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Local Position Variables (Start at 0.0, 0.0, 0.0)</span>
 <span class="bp">self</span><span class="o">.</span><span class="n">local_x</span> <span class="o">=</span> <span class="mf">0.0</span>
 <span class="bp">self</span><span class="o">.</span><span class="n">local_y</span> <span class="o">=</span> <span class="mf">0.0</span>
 <span class="bp">self</span><span class="o">.</span><span class="n">local_yaw</span> <span class="o">=</span> <span class="mf">0.0</span>
@@ -632,16 +632,22 @@ document.write(`
 </div>
 </li>
 <li><p>Define the callback function for the service to reset local pose and initial global pose:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">reset_pose_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">Empty</span><span class="p">,</span> <span class="n">response</span><span class="p">:</span> <span class="n">Empty</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Empty</span><span class="p">:</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">set_pose_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">SetInitialPose</span><span class="o">.</span><span class="n">Request</span><span class="p">,</span> <span class="n">response</span><span class="p">:</span> <span class="n">Empty</span><span class="o">.</span><span class="n">Response</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Empty</span><span class="o">.</span><span class="n">Response</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Resets the local position coordinates to zero and clears the previous position coordinates.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="c1"># Reset the local position coordinates to zero</span>
-    <span class="c1"># This sets the current local position to the origin (0, 0, 0)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">local_x</span> <span class="o">=</span> <span class="mf">0.0</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">local_y</span> <span class="o">=</span> <span class="mf">0.0</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">local_yaw</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="c1"># Reset the local position coordinates</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">local_x</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">x</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">local_y</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">y</span>
+
+    <span class="c1"># Convert Quaternion to Euler Angles (Extract Yaw)</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">orientation</span>
+    <span class="n">quaternion</span> <span class="o">=</span> <span class="p">[</span><span class="n">q</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">q</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">q</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="n">q</span><span class="o">.</span><span class="n">w</span><span class="p">]</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">local_yaw</span> <span class="o">=</span> <span class="n">euler_from_quaternion</span><span class="p">(</span><span class="n">quaternion</span><span class="p">)</span>
+
+    <span class="c1"># Reset the state</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="s2">&quot;ROTATE_TO_GOAL&quot;</span>
 
     <span class="c1"># Clear the previous position coordinates</span>
     <span class="c1"># This ensures that any previous position data is discarded</span>
@@ -650,7 +656,7 @@ document.write(`
     <span class="bp">self</span><span class="o">.</span><span class="n">initial_global_yaw</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="c1"># Log a message to indicate the local position has been reset</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Local pose reset to zero.&quot;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Local pose set to x=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">local_x</span><span class="si">}</span><span class="s2">, y=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">local_y</span><span class="si">}</span><span class="s2">, yaw=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">local_yaw</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
 
     <span class="c1"># Return the response to the service caller</span>
     <span class="k">return</span> <span class="n">response</span>
@@ -663,7 +669,7 @@ Run this node:</p>
 </pre></div>
 </div>
 <p>Then, in another terminal, call the service:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/reset_pose<span class="w"> </span>std_srvs/srv/Empty
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/set_pose<span class="w"> </span>custom_msgs/srv/SetInitialPose<span class="w"> </span><span class="s2">&quot;{pose: {pose: {pose: {position: {x: 0.0, y: 0.0, z: 0.0}, orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}}}}}&quot;</span>
 </pre></div>
 </div>
 <p>This should reset <code class="docutils literal notranslate"><span class="pre">local_x</span></code>, <code class="docutils literal notranslate"><span class="pre">local_y</span></code>, and <code class="docutils literal notranslate"><span class="pre">local_yaw</span></code> to zero, and you should see a log message confirming the reset.</p>
@@ -671,10 +677,94 @@ Run this node:</p>
 </ol>
 <p>(Not ready yet!)</p>
 </section>
+<section id="implement-the-service-client">
+<h3><strong>Implement the Service Client</strong><a class="headerlink" href="#implement-the-service-client" title="Permalink to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Open <code class="docutils literal notranslate"><span class="pre">gamepad.py</span></code> and import the required ROS2 service and message types:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">std_srvs.srv</span> <span class="kn">import</span> <span class="n">Empty</span>
+<span class="kn">from</span> <span class="nn">geometry_msgs.msg</span> <span class="kn">import</span> <span class="n">PoseWithCovarianceStamped</span>
+</pre></div>
+</div>
+</li>
+<li><p>Import the <code class="docutils literal notranslate"><span class="pre">math</span></code> package for trigonometric functions</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
+</pre></div>
+</div>
+</li>
+<li><p>Add a service client in the <code class="docutils literal notranslate"><span class="pre">__init__</span></code> method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="c1"># TODO: Create a service client to call the &#39;/set_pose&#39; service</span>
+ <span class="c1"># - Service type: &#39;SetInitialPose&#39;</span>
+ <span class="c1"># - Service name: &#39;/set_pose&#39;</span>
+ <span class="bp">self</span><span class="o">.</span><span class="n">reset_pose_client</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Update this line</span>
+</pre></div>
+</div>
+</li>
+<li><p>In the <code class="docutils literal notranslate"><span class="pre">joy_callback</span></code> method, call <code class="docutils literal notranslate"><span class="pre">send_set_pose_request</span></code> when button Y is pressed.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check if button 2 (Y) is pressed to reset the pose</span>
+<span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="n">buttons</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">send_set_pose_request</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>  <span class="c1"># Call the reset_pose service</span>
+</pre></div>
+</div>
+</li>
+<li><p>Implement the following method within the <code class="docutils literal notranslate"><span class="pre">Gamepad</span></code> class:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">send_set_pose_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span><span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span><span class="nb">float</span><span class="p">,</span> <span class="n">theta</span><span class="p">:</span><span class="nb">float</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calls the &#39;reset_pose&#39; service to reset the robot&#39;s pose.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Check if the service is available</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset_pose_client</span><span class="o">.</span><span class="n">wait_for_service</span><span class="p">(</span><span class="n">timeout_sec</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Service &#39;reset_pose&#39; not available.&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="c1"># Create a request object </span>
+    <span class="n">request</span> <span class="o">=</span> <span class="n">SetInitialPose</span><span class="o">.</span><span class="n">Request</span><span class="p">()</span>
+    <span class="n">request</span><span class="o">.</span><span class="n">pose</span> <span class="o">=</span> <span class="n">PoseWithCovarianceStamped</span><span class="p">()</span>  
+
+    <span class="c1"># Set Header</span>
+    <span class="n">request</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">frame_id</span> <span class="o">=</span> <span class="s2">&quot;map&quot;</span>
+    <span class="n">request</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">stamp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_clock</span><span class="p">()</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">to_msg</span><span class="p">()</span>
+
+    <span class="c1"># TODO: Set Position</span>
+    
+
+    <span class="c1"># TODO: Convert Yaw (theta) to Quaternion</span>
+    <span class="c1"># z = sin(theta/2), w = cos(theta/2)</span>
+
+
+    <span class="c1"># TODO: Set Covariance (required by AMCL, small uncertainty such as [0.1]*36)</span>
+    
+
+    <span class="c1"># Call the service asynchronously</span>
+    <span class="n">future</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset_pose_client</span><span class="o">.</span><span class="n">call_async</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+
+    <span class="c1"># Add a callback to handle the service response</span>
+    <span class="n">future</span><span class="o">.</span><span class="n">add_done_callback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reset_pose_done_callback</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Add the following method to the <code class="docutils literal notranslate"><span class="pre">Gamepad</span></code> class:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">reset_pose_done_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">future</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Callback function to handle the response from the &#39;reset_pose&#39; service.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># Check if the service call was successful</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">response</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Pose reset successfully.&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Pose reset failed.&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Service call failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
 <section id="implement-coordinate-transformation">
 <h3><strong>Implement Coordinate Transformation</strong><a class="headerlink" href="#implement-coordinate-transformation" title="Permalink to this heading">#</a></h3>
 <ol class="arabic">
-<li><p>Modify the <code class="docutils literal notranslate"><span class="pre">odom_callback</span></code> method:</p>
+<li><p>Modify the <code class="docutils literal notranslate"><span class="pre">imu_callback</span></code> method in the <code class="docutils literal notranslate"><span class="pre">MoveToGoal</span></code> class:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">imu_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">imu_msg</span><span class="p">:</span> <span class="n">Imu</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Callback function for handling control relinquishment messages.</span>
@@ -689,7 +779,7 @@ Run this node:</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">initial_global_yaw</span> <span class="o">=</span> <span class="n">global_yaw</span>
         <span class="k">return</span>  <span class="c1"># Skip first iteration</span>
 
-    <span class="c1"># TODOL Compute local yaw relative to the initial global yaw</span>
+    <span class="c1"># TODO: Compute local yaw relative to the initial global yaw</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">local_yaw</span> <span class="o">=</span> <span class="mi">0</span>
 </pre></div>
 </div>
@@ -726,36 +816,47 @@ Run this node:</p>
 <li><p>Make necessary changes in the <code class="docutils literal notranslate"><span class="pre">control_loop</span></code> method.</p></li>
 </ol>
 </section>
-<section id="deliverables">
-<h3>🚚 Deliverables<a class="headerlink" href="#deliverables" title="Permalink to this heading">#</a></h3>
-</section>
-</section>
-<section id="purpose">
-<h2>Purpose<a class="headerlink" href="#purpose" title="Permalink to this heading">#</a></h2>
-<p>Large applications in robotics typically involve several interconnected ROS nodes, each of which have many parameters. Your current setup is a good example: as you experienced in the IMU lab, you had to open 3 different terminals to run all of the nodes necessary for our system to that point:</p>
-<p>This problem is only going to get more complex as we add additional functionality to our robot. As it stands right now, every node requires a separate terminal window and the associated command to run it. Using the <em>roslaunch</em> tool, we can eliminate that administrivia of running each node separately. We will create/edit two launch files to bring up the nodes on the master and robot.</p>
-</section>
-<section id="roslaunch">
-<h2><a class="reference external" href="http://wiki.ros.org/roslaunch">roslaunch</a><a class="headerlink" href="#roslaunch" title="Permalink to this heading">#</a></h2>
-<p>The <em>roslaunch</em> tool is used to launch multiple ROS nodes locally and remotely via SSH. We can run nodes that we have created, nodes from pre-built packages, and other launch files. The roslaunch tool takes in one or more XML configuration files (with the .launch extension) that specify the parameters to set and nodes to launch.</p>
-<p>A launch file is an XML document which specifies:</p>
-<ul class="simple">
-<li><p>which nodes to execute</p></li>
-<li><p>their parameters</p></li>
-<li><p>what other files to include</p></li>
-</ul>
-<p>An XML file stands for Extensible Markup Language (XML). This is a markup language that defines a set of rules for encoding documents in a format that is both human-readable and machine-readable. That isn’t necessarily important for this class, but you can read about XML on Wikipedia if you are interested.</p>
-<p>We will then use a tool embedded within ROS called <em>roslaunch</em> to easily launch multiple nodes or even other launch files.</p>
-<p>By convention, we will give our launch files the <em>.launch</em> extension and store them in a <em>launch</em> folder within our package. This isn’t required, but it is the common convention.</p>
-</section>
-<section id="current-state">
-<h2>Current State<a class="headerlink" href="#current-state" title="Permalink to this heading">#</a></h2>
-<p>In this section we will first use the conventional technique to bring up all of the nodes required for <strong>Lab 2</strong> using the currently understood techniques.</p>
-<p>Notice, running <strong>roscore</strong> now monopolized that terminal and you can no longer use it for anything else.</p>
-<p>Open a new terminal or tab on your <strong>Master</strong> and run the <strong><a class="reference external" href="http://controller.py">controller.py</a></strong> node:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rosrun<span class="w"> </span>lab2<span class="w"> </span>turtlebot_controller.py
+<section id="build-and-test-the-package">
+<h3><strong>Build and Test the Package</strong><a class="headerlink" href="#build-and-test-the-package" title="Permalink to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Build the <code class="docutils literal notranslate"><span class="pre">lab7_tf</span></code> package using:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ccbuild<span class="w"> </span>--packages-select<span class="w"> </span>lab7_tf
 </pre></div>
 </div>
+</li>
+<li><p>Demo the robot:</p>
+<ul class="simple">
+<li><p>Run the <code class="docutils literal notranslate"><span class="pre">move2goal_tf</span></code> node and demonstrate the robot moving to the goal location <code class="docutils literal notranslate"><span class="pre">(-0.61,</span> <span class="pre">0.61)</span></code> in meters and rotate the robot to face <code class="docutils literal notranslate"><span class="pre">0°</span></code>.</p></li>
+<li><p>Press Button Y to reset the pose and redo the previous task.</p></li>
+</ul>
+</li>
+</ol>
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/bXpObdI8I-I?si=2L-dptYn9npyBbLc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</center>
+</section>
+<section id="deliverables">
+<h3>🚚 Deliverables<a class="headerlink" href="#deliverables" title="Permalink to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>[20 Points] Complete the <code class="docutils literal notranslate"><span class="pre">move2goal_tf.py</span></code> Script:</strong></p>
+<ul class="simple">
+<li><p>Ensure the script is fully functional and implements all required features.</p></li>
+<li><p>Push your code to GitHub and confirm that it has been successfully uploaded. <strong>NOTE:</strong> <em>If the instructor can’t find your code in your repository, you will receive a grade of 0 for the coding part.</em></p></li>
+</ul>
+</li>
+<li><p><strong>[15 Points] Complete the <code class="docutils literal notranslate"><span class="pre">gamepad.py</span></code> Script:</strong></p>
+<ul class="simple">
+<li><p>Ensure the script is fully functional and implements all required features.</p></li>
+<li><p>Push your code to GitHub and confirm that it has been successfully uploaded. <strong>NOTE:</strong> <em>If the instructor can’t find your code in your repository, you will receive a grade of 0 for the coding part.</em></p></li>
+</ul>
+</li>
+<li><p><strong>[15 Points] Demonstration:</strong></p>
+<ul class="simple">
+<li><p>Show the robot successfully navigating to the goal location and orientation in a real-world setup.</p></li>
+</ul>
+</li>
+</ol>
+</section>
 </section>
 </section>
 
@@ -835,14 +936,13 @@ Run this node:</p>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-procedure">💻 Lab Procedure</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-new-ros2-package"><strong>Create a New ROS2 Package</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implement-the-reset-pose-service"><strong>Implement the <code class="docutils literal notranslate"><span class="pre">reset_pose</span></code> Service</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implement-the-service-server"><strong>Implement the Service Server</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implement-the-service-client"><strong>Implement the Service Client</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implement-coordinate-transformation"><strong>Implement Coordinate Transformation</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-and-test-the-package"><strong>Build and Test the Package</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">🚚 Deliverables</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose">Purpose</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#roslaunch">roslaunch</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#current-state">Current State</a></li>
 </ul>
   </nav></div>
 

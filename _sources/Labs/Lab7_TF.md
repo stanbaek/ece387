@@ -173,7 +173,7 @@ Following these steps will ensure a seamless and efficient workflow for launchin
     ```sh
     <depend>rclpy</depend>
     <depend>geometry_msgs</depend>
-    <depend>nav_msgs</depend>
+    <depend>nav2_msgs</depend>
     <depend>sensor_msgs</depend>
     <depend>std_srvs</depend>
     ```
@@ -187,37 +187,39 @@ Following these steps will ensure a seamless and efficient workflow for launchin
    },
    ```
 
-1. In `setup.py`, add `'std_srvs'` to the `install_requires` list:
+### **Implement the Service Server**
+
+1. Open `move2goal_tf.py` and import the required ROS2 service type:
     ```python
-    'std_srvs',
+    from std_srvs.srv import Empty
+    from nav2_msgs.srv import SetInitialPose
+    ```
+1. Import the `math` package for trigonometric functions
+    ```python
+    import math
     ```
 
-### **Implement the `reset_pose` Service**
-
-1. Import the required ROS2 service type:
-   ```python
-   from std_srvs.srv import Empty
-   ```
 
 1. Add a service server in the `__init__` method:
    ```python
-    # TODO: Create a service server that will handle 'reset_pose' service requests
-    # - Service type: 'Empty' (no data is exchanged)
-    # - Service name: 'reset_pose'
-    # - Callback function: 'self.reset_pose_callback' to execute when the service is called
+    # TODO: Create a service server that will handle '/set_pose' service requests
+    # - Service type: 'SetInitialPose'
+    # - Service name: '/set_pose'
+    # - Callback function: 'self.set_pose_callback' to execute when the service is called
     self.reset_service = 0 # Update this line.
    ```
+
 1. Replace the following lines in the `__init__` method
     ```python
     # Variables to store the robot's current position and orientation
-    self.x = 0  # Current x-coordinate
-    self.y = 0  # Current y-coordinate
-    self.yaw = 0  # Current orientation (yaw angle in radians)
+    self.x = 0.0    # Current x-coordinate
+    self.y = 0.0    # Current y-coordinate
+    self.yaw = 0.0  # Current orientation (yaw angle in radians)
     ```
     with
 
     ```python
-    # Local Position Variables (Start at 0,0,0)
+    # Local Position Variables (Start at 0.0, 0.0, 0.0)
     self.local_x = 0.0
     self.local_y = 0.0
     self.local_yaw = 0.0
@@ -230,16 +232,22 @@ Following these steps will ensure a seamless and efficient workflow for launchin
 
 1. Define the callback function for the service to reset local pose and initial global pose:
     ```python
-    def reset_pose_callback(self, request: Empty, response: Empty) -> Empty:
+    def set_pose_callback(self, request: SetInitialPose.Request, response: Empty.Response) -> Empty.Response:
         """
         Resets the local position coordinates to zero and clears the previous position coordinates.
         """
 
-        # Reset the local position coordinates to zero
-        # This sets the current local position to the origin (0, 0, 0)
-        self.local_x = 0.0
-        self.local_y = 0.0
-        self.local_yaw = 0.0
+        # Reset the local position coordinates
+        self.local_x = request.pose.pose.pose.position.x
+        self.local_y = request.pose.pose.pose.position.y
+
+        # Convert Quaternion to Euler Angles (Extract Yaw)
+        q = request.pose.pose.pose.orientation
+        quaternion = [q.x, q.y, q.z, q.w]
+        _, _, self.local_yaw = euler_from_quaternion(quaternion)
+
+        # Reset the state
+        self.state = "ROTATE_TO_GOAL"
 
         # Clear the previous position coordinates
         # This ensures that any previous position data is discarded
@@ -248,7 +256,7 @@ Following these steps will ensure a seamless and efficient workflow for launchin
         self.initial_global_yaw = None
 
         # Log a message to indicate the local position has been reset
-        self.get_logger().info("Local pose reset to zero.")
+        self.get_logger().info(f"Local pose set to x={self.local_x}, y={self.local_y}, yaw={self.local_yaw}.")
 
         # Return the response to the service caller
         return response
@@ -261,15 +269,95 @@ Following these steps will ensure a seamless and efficient workflow for launchin
     ```
     Then, in another terminal, call the service:
     ```bash
-    $ ros2 service call /reset_pose std_srvs/srv/Empty
+    $ ros2 service call /set_pose custom_msgs/srv/SetInitialPose "{pose: {pose: {pose: {position: {x: 0.0, y: 0.0, z: 0.0}, orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}}}}}"
+
     ```
     This should reset `local_x`, `local_y`, and `local_yaw` to zero, and you should see a log message confirming the reset.
 
-
 (Not ready yet!)
+### **Implement the Service Client**
+1. Open `gamepad.py` and import the required ROS2 service and message types:
+    ```python
+    from std_srvs.srv import Empty
+    from geometry_msgs.msg import PoseWithCovarianceStamped
+    ```
+1. Import the `math` package for trigonometric functions
+    ```python
+    import math
+    ```
+
+1. Add a service client in the `__init__` method:
+   ```python
+    # TODO: Create a service client to call the '/set_pose' service
+    # - Service type: 'SetInitialPose'
+    # - Service name: '/set_pose'
+    self.reset_pose_client = 0  # Update this line
+   ```
+
+1. In the `joy_callback` method, call `send_set_pose_request` when button Y is pressed.
+    ```python
+    # Check if button 2 (Y) is pressed to reset the pose
+    if msg.buttons[2]:
+        self.send_set_pose_request(0.0, 0.0, 0.0)  # Call the reset_pose service
+    ```
+
+1. Implement the following method within the `Gamepad` class:
+    ```python
+    def send_set_pose_request(self, x:float, y:float, theta:float):
+        """
+        Calls the 'reset_pose' service to reset the robot's pose.
+        """
+        # Check if the service is available
+        if not self.reset_pose_client.wait_for_service(timeout_sec=1.0):
+            self.get_logger().warn("Service 'reset_pose' not available.")
+            return
+
+        # Create a request object 
+        request = SetInitialPose.Request()
+        request.pose = PoseWithCovarianceStamped()  
+
+        # Set Header
+        request.pose.header.frame_id = "map"
+        request.pose.header.stamp = self.get_clock().now().to_msg()
+
+        # TODO: Set Position
+        
+
+        # TODO: Convert Yaw (theta) to Quaternion
+        # z = sin(theta/2), w = cos(theta/2)
+
+
+        # TODO: Set Covariance (required by AMCL, small uncertainty such as [0.1]*36)
+        
+
+        # Call the service asynchronously
+        future = self.reset_pose_client.call_async(request)
+
+        # Add a callback to handle the service response
+        future.add_done_callback(self.reset_pose_done_callback)
+    ```
+
+1. Add the following method to the `Gamepad` class:
+    ```python
+    def reset_pose_done_callback(self, future):
+        """
+        Callback function to handle the response from the 'reset_pose' service.
+        """
+        try:
+            # Check if the service call was successful
+            response = future.result()
+            if response:
+                self.get_logger().info("Pose reset successfully.")
+            else:
+                self.get_logger().error("Pose reset failed.")
+        except Exception as e:
+            self.get_logger().error(f"Service call failed: {e}")
+    ```
+
+
 ### **Implement Coordinate Transformation**
 
-1. Modify the `odom_callback` method:
+1. Modify the `imu_callback` method in the `MoveToGoal` class:
     ```python
     def imu_callback(self, imu_msg: Imu) -> None:
         """
@@ -285,7 +373,7 @@ Following these steps will ensure a seamless and efficient workflow for launchin
             self.initial_global_yaw = global_yaw
             return  # Skip first iteration
 
-        # TODOL Compute local yaw relative to the initial global yaw
+        # TODO: Compute local yaw relative to the initial global yaw
         self.local_yaw = 0
     ```
 
@@ -322,61 +410,31 @@ Following these steps will ensure a seamless and efficient workflow for launchin
 1. Make necessary changes in the `control_loop` method.
 
 
+### **Build and Test the Package**
 
+1. Build the `lab7_tf` package using:
+   ```bash
+   $ ccbuild --packages-select lab7_tf
+   ```
 
+1. Demo the robot:
+   - Run the `move2goal_tf` node and demonstrate the robot moving to the goal location `(-0.61, 0.61)` in meters and rotate the robot to face `0°`.
+   - Press Button Y to reset the pose and redo the previous task. 
 
-
-
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/bXpObdI8I-I?si=2L-dptYn9npyBbLc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</center>
 
 ### 🚚 Deliverables
 
+1. **[20 Points] Complete the `move2goal_tf.py` Script:**
+    - Ensure the script is fully functional and implements all required features.
+    - Push your code to GitHub and confirm that it has been successfully uploaded. **NOTE:** _If the instructor can't find your code in your repository, you will receive a grade of 0 for the coding part._
 
+1. **[15 Points] Complete the `gamepad.py` Script:**
+    - Ensure the script is fully functional and implements all required features.
+    - Push your code to GitHub and confirm that it has been successfully uploaded. **NOTE:** _If the instructor can't find your code in your repository, you will receive a grade of 0 for the coding part._
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-## Purpose
-Large applications in robotics typically involve several interconnected ROS nodes, each of which have many parameters. Your current setup is a good example: as you experienced in the IMU lab, you had to open 3 different terminals to run all of the nodes necessary for our system to that point:
-
-
-
-This problem is only going to get more complex as we add additional functionality to our robot. As it stands right now, every node requires a separate terminal window and the associated command to run it. Using the *roslaunch* tool, we can eliminate that administrivia of running each node separately. We will create/edit two launch files to bring up the nodes on the master and robot.
-
-## [roslaunch](http://wiki.ros.org/roslaunch)
-The *roslaunch* tool is used to launch multiple ROS nodes locally and remotely via SSH. We can run nodes that we have created, nodes from pre-built packages, and other launch files. The roslaunch tool takes in one or more XML configuration files (with the .launch extension) that specify the parameters to set and nodes to launch.
-
-A launch file is an XML document which specifies:
-- which nodes to execute
-- their parameters
-- what other files to include
-
-An XML file stands for Extensible Markup Language (XML). This is a markup language that defines a set of rules for encoding documents in a format that is both human-readable and machine-readable. That isn't necessarily important for this class, but you can read about XML on Wikipedia if you are interested.
-
-We will then use a tool embedded within ROS called *roslaunch* to easily launch multiple nodes or even other launch files.
-
-By convention, we will give our launch files the *.launch* extension and store them in a *launch* folder within our package. This isn't required, but it is the common convention.
-
-## Current State
-In this section we will first use the conventional technique to bring up all of the nodes required for **Lab 2** using the currently understood techniques.
-
-
-Notice, running **roscore** now monopolized that terminal and you can no longer use it for anything else.
-
-Open a new terminal or tab on your **Master** and run the **controller.py** node:
-
-```bash
-rosrun lab2 turtlebot_controller.py
-```
-
-
+1. **[15 Points] Demonstration:**
+   - Show the robot successfully navigating to the goal location and orientation in a real-world setup.
 
