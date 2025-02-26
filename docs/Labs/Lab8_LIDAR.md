@@ -1,5 +1,56 @@
 # 🔬 Lab8: LIDAR
 
+**Not ready yet**
+
+
+## 📌 Objectives
+- Students should be able to 
+
+## 📜 Overview
+
+
+
+
+
+
+
+## 🌱 Pre-Lab: Testing the IMU  
+
+### Non-Interactive SSH Sessions
+
+
+
+
+
+## 💻 Lab Procedure
+
+### **Creating a New ROS2 Package**
+
+Follow these steps to set up a new ROS2 package for this lab:
+
+1. **Navigate to Your Workspace:** Open a terminal and move into the `ece387_ws` directory within your ROS2 workspace:
+   ```bash
+   cd ~/master_ws/src/ece387_ws
+   ```
+
+1. **Create a New ROS2 Package:** Create a new package named `lab7_lidar` with the BSD-3 license:
+
+1. Download the [`wall_detector.py`](../files/wall_detector.py) and [`line_follower.py`](../files/line_follower.py) files and save them in the `lab8_lidar` Python script directory:
+  
+
+1. **Add Dependencies:** Edit `package.xml` to include the following dependencies:
+    ```xml
+    <depend>rclpy</depend>
+    <depend>sensor_msgs</depend>
+    <depend>geometry_msgs</depend>
+    <depend>nav2_msgs</depend>
+    <depend>tf2_ros</depend>
+    <depend>visualization_msgs</depend>
+    <depend>numpy</depend>
+    <depend>scikit-learn</depend>
+    ```
+
+
 
 
 ## Purpose
