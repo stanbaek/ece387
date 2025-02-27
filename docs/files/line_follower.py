@@ -53,8 +53,9 @@ class LineFollower(Node):
         self.imu_sub = self.create_subscription(Imu, '/imu', self.imu_callback, 10)
 
         # TODO: Subscribe to the center line marker to get the detected line to follow
-        # Callback function: 'self.follow_line' to execute when the topic arrives
-        self.center_line_sub = 0
+        # Create a subscriber that listens to the center line marker topic and calls 'self.follow_line'
+        # when new data arrives. The topic name and message type should match the publisher in the wall detector.
+        self.center_line_sub = 0  # Update this line to create the subscriber
 
         # Publish velocity commands to control the robot's movement
         self.cmd_vel_pub = self.create_publisher(Twist, '/cmd_vel', 10)
@@ -65,7 +66,7 @@ class LineFollower(Node):
     def imu_callback(self, msg: Imu) -> None:
         """
         Callback function for IMU data.
-        Updates the robot's current position and orientation.
+        Updates the robot's current orientation using the quaternion data from the IMU.
         """
         self.current_orientation = msg.orientation
 
@@ -85,23 +86,22 @@ class LineFollower(Node):
         end_point = center_line.points[-1]
 
         # TODO: Compute the slope of the line and its angle relative to the x-axis.
-        # Then, find the slope (m) and intercept (k) for the line equation y = mx + k
-        # Hint: Find out the data type of start_point and end_point.
-        line_dx = 0 
-        line_dy = 0 
-        line_angle = 0  # Angle of the line relative to the x-axis       
-        m = 0   # slope
-        k = 0 # y-intercept
+          # The angle of the line relative to the x-axis is the arctangent of the slope.
+        line_dx = 0  # Update this line to compute the change in x (x2 - x1)
+        line_dy = 0  # Update this line to compute the change in y (y2 - y1)
+        line_angle = 0  # Update this line to compute the angle of the line 
+        m = 0  # Update this line to compute the slope (m)
+        k = 0  # Update this line to compute the y-intercept (k)
 
         # TODO: Convert the line equation y = mx + k into the standard form ax + by + c = 0
         # Here, a = -m, b = 1, c = -k
-        b = 0
-        a = 0
-        c = 0
+        a = 0  # Update this line to compute a
+        b = 0  # Update this line to compute b
+        c = 0  # Update this line to compute c
 
         # TODO: Compute the perpendicular distance (d) from the robot to the line
-        # Note that the robot is at the origin (0, 0)
-        distance_error = 0
+        # Note that the robot is at the origin (0, 0).
+        distance_error = 0  # Update this line to compute the distance error
 
         # Convert quaternion to yaw angle (robot's current orientation)
         q = self.current_orientation
@@ -110,23 +110,25 @@ class LineFollower(Node):
         robot_yaw = np.arctan2(siny_cosp, cosy_cosp)
 
         # TODO: Compute angular error to align with the center line
-        angle_error = 0
+        angle_error = 0  # Update this line to compute the angle error
 
         # Normalize angle error to range [-pi, pi] to avoid large jumps
         angle_error = (angle_error + np.pi) % (2 * np.pi) - np.pi
 
-        kh = 0.0    # TODO: Pick your heading controller gain
-        kd = 0.0    # TODO: Pick your distance controller gain
+        # TODO: Pick your controller gains
+        kh = 0.0  # Heading controller gain (adjusts rotation based on angle error)
+        kd = 0.0  # Distance controller gain (adjusts rotation based on distance error)
+
         # Adjust rotation speed based on angle error and distance error
-        gamma = 0
-        
+        gamma = 0  # Update this line to compute gamma (rotation speed)
+
         # To see this message in real-time, run the node with the `--log-level DEBUG` argument:
         # ros2 run lab8_lidar wall_detector --log-level DEBUG
         self.get_logger().debug(f'distance error: {distance_error}, angle error: {angle_error}, gamma={gamma}')
 
         # TODO: Publish the velocity command
-        # Note that the forward speed is constant
-        
+        # The forward speed should be constant.
+
 
 def main(args=None):
     """
@@ -141,3 +143,50 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
