@@ -41,6 +41,7 @@ from visualization_msgs.msg import Marker
 from geometry_msgs.msg import Point
 from sklearn.linear_model import RANSACRegressor
 from sklearn.cluster import DBSCAN
+from rclpy.qos import QoSProfile, QoSReliabilityPolicy, QoSDurabilityPolicy
 
 # Define a list of colors for visualization
 Colors = [
@@ -62,9 +63,18 @@ class WallDetector(Node):
     def __init__(self):
         super().__init__('wall_detector')
 
-        # Subscribe to LiDAR to detect walls
-        self.scan_sub = self.create_subscription(LaserScan, '/scan', self.scan_callback, 10)
+        # Define a QoS profile that matches the publisher
+        qos_profile = QoSProfile(
+            reliability=QoSReliabilityPolicy.BEST_EFFORT,  # Match the publisher's reliability
+            durability=QoSDurabilityPolicy.VOLATILE,        # Match the publisher's durability
+            depth=10                                        # Set the queue size
+        )
 
+        # TODO: Subscribe to LiDAR to detect walls
+        # Create a subscriber that will handle '/scan' topic
+        # Callback function: 'self.scan_callback' to execute when the topic arrives
+        self.scan_sub = 0 # Update this line
+         
         # Subscribe to IMU data to get the robot's current orientation
         self.imu_sub = self.create_subscription(Imu, '/imu', self.imu_callback, 10)
 
@@ -75,7 +85,7 @@ class WallDetector(Node):
         self.center_marker_pub = self.create_publisher(Marker, 'center_line', 10)
         self.get_logger().info("Wall Detector Node Started")
 
-    def imu_callback(self, msg):
+    def imu_callback(self, msg: Imu) -> None:
         """
         Callback function for IMU data to extract yaw (orientation of the robot).
         Converts the quaternion orientation to a yaw angle.
@@ -85,7 +95,7 @@ class WallDetector(Node):
         cosy_cosp = 1 - 2 * (q.y * q.y + q.z * q.z)
         self.yaw = np.arctan2(siny_cosp, cosy_cosp)
 
-    def scan_callback(self, msg):
+    def scan_callback(self, msg: LaserScan) -> None:
         """
         Callback function for LiDAR scan data.
         It processes the LiDAR points, applies clustering and RANSAC, and detects wall lines.
@@ -99,16 +109,23 @@ class WallDetector(Node):
         mask = ((angles < np.pi / 2) | (angles > 3 * np.pi / 2)) & \
             (np.array(msg.ranges) >= msg.range_min) & \
             (np.array(msg.ranges) <= msg.range_max)
+                
         angles = angles[mask]
         r = np.array(msg.ranges)[mask]
 
-        # Convert polar coordinates (angle, range) to Cartesian coordinates (x, y)
-        x_vals = r * np.cos(angles)
-        y_vals = r * np.sin(angles)
+        # TODO: Convert polar coordinates (angle, range) to Cartesian coordinates (x, y)
+        x_vals = 0
+        y_vals = 0
 
-        # Cluster LiDAR points using DBSCAN (Density-Based Spatial Clustering of Applications with Noise)
+        # Stack x and y values into a 2D array representing points
         points = np.column_stack((x_vals, y_vals))
-        clustering = DBSCAN(eps=0.25, min_samples=15).fit(points)
+
+        # TODO: Cluster LiDAR points using DBSCAN (Density-Based Spatial Clustering of Applications with Noise)
+        # eps: The maximum distance between two points for them to be considered as in the same neighborhood
+        # min_samples: The minimum number of points required to form a dense region (cluster)
+        clustering = DBSCAN(eps=10, min_samples=2).fit(points) # Update this line
+
+        # Get unique cluster labels. The label -1 is used for noise points.
         unique_labels = set(clustering.labels_)
 
         # To see this message in real-time, run the node with the `--log-level DEBUG` argument:
@@ -130,8 +147,9 @@ class WallDetector(Node):
             # ros2 run lab8_lidar wall_detector --log-level DEBUG
             self.get_logger().debug(f'label={label}, cluster size={len(cluster_points)}')
  
-            if len(cluster_points) < 15:
-                continue  # Skip clusters with too few points for reliable line fitting
+            # TODO: Skip clusters with too few points for reliable line fitting
+            if len(cluster_points) < 1:  # Update this line    
+                continue
 
             # Visualize the cluster in RViz (blue color)
             self.publish_marker(cluster_points[:, 0], cluster_points[:, 1], self.wall_marker_pub, [0.0, 0.0, 1.0])
@@ -143,28 +161,33 @@ class WallDetector(Node):
                 if len(remaining_points) < 12:
                     break  # Not enough points left for line fitting
 
-                # Initialize RANSAC for robust line fitting
-                # - min_samples: min number of points are required to fit a line.
-                # - residual_threshold: The maximum distance (in meters) a point
-                ransac = RANSACRegressor(min_samples=10, residual_threshold=0.05)
+                # TODO: Initialize RANSAC for robust line fitting
+                # - min_samples: The minimum number of points required to fit a line
+                # - residual_threshold: The maximum distance (in meters) a point can be from the fitted line to be considered an inlier
+                ransac = RANSACRegressor(min_samples=2, residual_threshold=0.5)  # Update this line
+
+                # Fit the RANSAC model using the x-coordinates as input and y-coordinates as output
                 ransac.fit(remaining_points[:, 0].reshape(-1, 1), remaining_points[:, 1])
 
+                # Get the mask of inliers (points that fit the line)
                 inliers = ransac.inlier_mask_
                 if inliers is None or not any(inliers):
-                    break  # No valid inliers found
+                    break  # No valid inliers found, exit the loop
 
-                # At this point, RANSAC has successfully fitted a line, and we have valid inliers.
+                # At this point, RANSAC has successfully fitted a line, and we have valid inliers
 
                 # Extract points that belong to the fitted line
                 fitted_points = remaining_points[inliers]
 
-                # Assign a color to the detected wall
+                # Assign a color to the detected wall from the predefined list of colors
                 color = Colors[color_index]
+                # Increment the color index and wrap around if necessary to cycle through the list of colors
                 color_index = (color_index + 1) % len(Colors)
 
-                # Visualize the detected wall in RViz
-                self.publish_marker(fitted_points[:, 0], fitted_points[:, 1], self.wall_marker_pub, color)
-
+                # TODO: Visualize the detected wall in RViz with a color from the the predefined list of colors
+                # Call self.publish_marker to publish the fitted points.
+                                
+                
                 # Extract the slope and intercept of the fitted line
                 slope = ransac.estimator_.coef_[0]
                 intercept = ransac.estimator_.intercept_
@@ -200,8 +223,8 @@ class WallDetector(Node):
             mid_x = np.linspace(min(x_vals), max(x_vals), num=10)
             mid_y = mid_m * mid_x + mid_c
 
-            # Visualize the center line in RViz (green color)
-            self.publish_marker(mid_x, mid_y, self.center_marker_pub, [0.0, 1.0, 0.0])
+            # TODO: Visualize the center line in RViz (green color)
+            # Call self.publish_marker to publish the center-line points.
 
     def publish_marker(self, x_vals, y_vals, publisher, color):
         """
@@ -235,6 +258,7 @@ def main(args=None):
     rclpy.spin(detector)
     detector.destroy_node()
     rclpy.shutdown()
+
 
 if __name__ == '__main__':
     main()
