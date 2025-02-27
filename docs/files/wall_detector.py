@@ -70,19 +70,22 @@ class WallDetector(Node):
             depth=10                                        # Set the queue size
         )
 
-        # TODO: Subscribe to LiDAR to detect walls
-        # Create a subscriber that will handle '/scan' topic
-        # Callback function: 'self.scan_callback' to execute when the topic arrives
-        self.scan_sub = 0 # Update this line
-         
+        # TODO: Subscribe to the LiDAR topic '/scan' to detect walls
+        # Create a subscriber that listens to the '/scan' topic and calls 'self.scan_callback'
+        # when new LiDAR data arrives. 
+        self.scan_sub = 0  # Update this line to create the subscriber
+
         # Subscribe to IMU data to get the robot's current orientation
         self.imu_sub = self.create_subscription(Imu, '/imu', self.imu_callback, 10)
 
         self.yaw = 0  # Robot's current orientation (yaw angle)
 
-        # Publishers for RViz visualization
-        self.wall_marker_pub = self.create_publisher(Marker, 'wall_markers', 10)
-        self.center_marker_pub = self.create_publisher(Marker, 'center_line', 10)
+        # Publisher for RViz visualization
+        self.wall_marker_pub = self.create_publisher(Marker, 'wall_markers', 10)  # Publish detected walls
+        
+        # Publisher for line follower
+        self.center_marker_pub = self.create_publisher(Marker, 'center_line', 10)  # Publish the center line
+        
         self.get_logger().info("Wall Detector Node Started")
 
     def imu_callback(self, msg: Imu) -> None:
@@ -114,21 +117,21 @@ class WallDetector(Node):
         r = np.array(msg.ranges)[mask]
 
         # TODO: Convert polar coordinates (angle, range) to Cartesian coordinates (x, y)
-        x_vals = 0
-        y_vals = 0
+        x_vals = 0  # Update this line to compute x values
+        y_vals = 0  # Update this line to compute y values
 
         # Stack x and y values into a 2D array representing points
         points = np.column_stack((x_vals, y_vals))
 
         # TODO: Cluster LiDAR points using DBSCAN (Density-Based Spatial Clustering of Applications with Noise)
-        # eps: The maximum distance between two points for them to be considered as in the same neighborhood
-        # min_samples: The minimum number of points required to form a dense region (cluster)
-        clustering = DBSCAN(eps=10, min_samples=2).fit(points) # Update this line
+        # - eps: The maximum distance between two points for them to be considered as in the same neighborhood
+        # - min_samples: The minimum number of points required to form a dense region (cluster)
+        clustering = DBSCAN(eps=10, min_samples=2).fit(points)  # Update this line with appropriate parameters
 
         # Get unique cluster labels. The label -1 is used for noise points.
         unique_labels = set(clustering.labels_)
 
-        # To see this message in real-time, run the node with the `--log-level DEBUG` argument:
+        # To see this message in real-time, run the node with the --log-level DEBUG argument:
         # ros2 run lab8_lidar wall_detector --log-level DEBUG
         self.get_logger().debug(f'unique labels: {unique_labels}')
                 
@@ -143,12 +146,12 @@ class WallDetector(Node):
             # Extract points belonging to the current cluster
             cluster_points = points[clustering.labels_ == label]
             
-            # To see this message in real-time, run the node with the `--log-level DEBUG` argument:
+            # To see this message in real-time, run the node with the --log-level DEBUG argument:
             # ros2 run lab8_lidar wall_detector --log-level DEBUG
             self.get_logger().debug(f'label={label}, cluster size={len(cluster_points)}')
  
             # TODO: Skip clusters with too few points for reliable line fitting
-            if len(cluster_points) < 1:  # Update this line    
+            if len(cluster_points) < 1:  # Update this line with an appropriate threshold    
                 continue
 
             # Visualize the cluster in RViz (blue color)
@@ -158,13 +161,13 @@ class WallDetector(Node):
             remaining_points = cluster_points.copy()
 
             for _ in range(2):  # Try to find up to 2 walls in the cluster
-                if len(remaining_points) < 12:
+                if len(remaining_points) < 12:  # Feel free to change this line as needed
                     break  # Not enough points left for line fitting
 
                 # TODO: Initialize RANSAC for robust line fitting
                 # - min_samples: The minimum number of points required to fit a line
                 # - residual_threshold: The maximum distance (in meters) a point can be from the fitted line to be considered an inlier
-                ransac = RANSACRegressor(min_samples=2, residual_threshold=0.5)  # Update this line
+                ransac = RANSACRegressor(min_samples=2, residual_threshold=0.5)  # Update this line with appropriate parameters
 
                 # Fit the RANSAC model using the x-coordinates as input and y-coordinates as output
                 ransac.fit(remaining_points[:, 0].reshape(-1, 1), remaining_points[:, 1])
@@ -184,7 +187,7 @@ class WallDetector(Node):
                 # Increment the color index and wrap around if necessary to cycle through the list of colors
                 color_index = (color_index + 1) % len(Colors)
 
-                # TODO: Visualize the detected wall in RViz with a color from the the predefined list of colors
+                # TODO: Visualize the detected wall in RViz with a color from the predefined list of colors
                 # Call self.publish_marker to publish the fitted points.
                                 
                 
@@ -192,7 +195,7 @@ class WallDetector(Node):
                 slope = ransac.estimator_.coef_[0]
                 intercept = ransac.estimator_.intercept_
 
-                # To see this message in real-time, run the node with the `--log-level DEBUG` argument:
+                # To see this message in real-time, run the node with the --log-level DEBUG argument:
                 # ros2 run lab8_lidar wall_detector --log-level DEBUG
                 self.get_logger().debug(f'slope={slope}, intercept={intercept}')
  
@@ -203,7 +206,7 @@ class WallDetector(Node):
                 # Remove inliers for the next iteration to find additional lines
                 remaining_points = remaining_points[~inliers]
 
-        # To see this message in real-time, run the node with the `--log-level DEBUG` argument:
+        # To see this message in real-time, run the node with the --log-level DEBUG argument:
         # ros2 run lab8_lidar wall_detector --log-level DEBUG
         self.get_logger().debug(f'Detected walls: [{", ".join(f"({m:.3f}, {c:.3f})" for m, c in wall_lines)}]')
 
