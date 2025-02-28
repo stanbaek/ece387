@@ -233,9 +233,9 @@ This will create a launch file that starts both the `lab4_gamepad` gamepad node 
     mkdir -p launch
     ```
 
-1. **Create the Launch File**: Inside the `launch` directory, create a new Python launch file named `gamepad_launch.py`:
+1. **Create the Launch File**: Inside the `launch` directory, create a new Python launch file named `gamepad.launch.py`:
 ```bash
-touch launch/gamepad_launch.py
+touch launch/gamepad.launch.py
 ```
 
 1. Now open this file with VS Code:
@@ -270,21 +270,20 @@ touch launch/gamepad_launch.py
         ])
     ```
 
+To ensure the launch file is installed and accessible, you need to modify your setup.py file. Add the launch directory to the data_files parameter in the setup() function.
 
-## **Step 5: Modify CMakeLists.txt**
-Open your `CMakeLists.txt` file:
-```bash
-nano CMakeLists.txt
-```
-Scroll to the bottom and **add the following line** to install the launch file:
+import os
+from glob import glob
+from setuptools import setup
 
-```cmake
-install(DIRECTORY launch
-  DESTINATION share/${PROJECT_NAME}
-)
-```
 
-Save and exit.
+    data_files=[
+        ('share/ament_index/resource_index/packages',
+            ['resource/' + package_name]),
+        ('share/' + package_name, ['package.xml']),
+        # Include the launch directory
+        (os.path.join('share', package_name, 'launch'), glob('launch/*.launch.py')),
+    ],
 
 
 
