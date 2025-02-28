@@ -37,7 +37,7 @@ Managing multiple ROS nodes can become overwhelming, especially as our system gr
 
 1. **Navigate to Your Package**: Open a terminal and move to the `lab4_gamepad` package.
    ```bash
-   cd ~/ros2_ws/src/ece387_ws/lab4_gamepad
+   cd ~/master_ws/src/ece387_ws/lab4_gamepad
    ```
 
 2. **Create a Launch Directory**: Create a `launch` directory:
