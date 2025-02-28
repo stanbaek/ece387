@@ -379,26 +379,17 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose">Purpose</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#roslaunch">roslaunch</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Purpose</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#master">Master</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup:</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#controller-py">controller.py</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">📌 Objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">📜 Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-lab-testing-the-imu">🌱 Pre-Lab: Testing the IMU</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#launch-file">Launch File</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-packages">Install Packages</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-launch-file">Create a launch file</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-your-nodes">Run your nodes</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#report">Report</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#turn-in-requirements">Turn-in Requirements</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ice8-lidar">ICE8: LIDAR</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Purpose</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lidar">LIDAR</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#videos">Videos:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-procedure">💻 Lab Procedure</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lidar-based-wall-detection"><strong>LiDAR-Based Wall Detection</strong></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Setup</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-lidar">Testing LIDAR</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lidar-subscriber">LIDAR Subscriber</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint">Checkpoint</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
@@ -416,152 +407,207 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="lab8-lidar">
 <h1>🔬 Lab8: LIDAR<a class="headerlink" href="#lab8-lidar" title="Permalink to this heading">#</a></h1>
-<section id="purpose">
-<h2>Purpose<a class="headerlink" href="#purpose" title="Permalink to this heading">#</a></h2>
-<p>Large applications in robotics typically involve several interconnected ROS nodes, each of which have many parameters. Your current setup is a good example: as you experienced in the IMU lab, you had to open 3 different terminals to run all of the nodes necessary for our system to that point:</p>
-<p>This problem is only going to get more complex as we add additional functionality to our robot. As it stands right now, every node requires a separate terminal window and the associated command to run it. Using the <em>roslaunch</em> tool, we can eliminate that administrivia of running each node separately. We will create/edit two launch files to bring up the nodes on the master and robot.</p>
-</section>
-<section id="roslaunch">
-<h2><a class="reference external" href="http://wiki.ros.org/roslaunch">roslaunch</a><a class="headerlink" href="#roslaunch" title="Permalink to this heading">#</a></h2>
-<p>The <em>roslaunch</em> tool is used to launch multiple ROS nodes locally and remotely via SSH. We can run nodes that we have created, nodes from pre-built packages, and other launch files. The roslaunch tool takes in one or more XML configuration files (with the .launch extension) that specify the parameters to set and nodes to launch.</p>
-<p>A launch file is an XML document which specifies:</p>
+<p><strong>Not ready yet</strong></p>
+<section id="objectives">
+<h2>📌 Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>which nodes to execute</p></li>
-<li><p>their parameters</p></li>
-<li><p>what other files to include</p></li>
+<li><p>Students should be able to implement a ROS2 node for detecting walls using LiDAR data, visualize the detected walls in RViz, and test the implementation using Gazebo.</p></li>
 </ul>
-<p>An XML file stands for Extensible Markup Language (XML). This is a markup language that defines a set of rules for encoding documents in a format that is both human-readable and machine-readable. That isn’t necessarily important for this class, but you can read about XML on Wikipedia if you are interested.</p>
-<p>We will then use a tool embedded within ROS called <em>roslaunch</em> to easily launch multiple nodes or even other launch files.</p>
-<p>By convention, we will give our launch files the <em>.launch</em> extension and store them in a <em>launch</em> folder within our package. This isn’t required, but it is the common convention.</p>
 </section>
-<section id="id1">
-<h2>Purpose<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
-<p>This lab will integrate the Turtlebot3 LIDAR with the existing controller to drive the robot forward and turn 90 degrees when there is an obstacle.</p>
+<section id="overview">
+<h2>📜 Overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h2>
+<p>In this lab we will enable the robot to follow the walls. Many sensors provide object detection capabilities: camera, sonar, infrared, LiDAR, etc. All of these will work to enable the robot to detect objects, but we will use LiDAR as it is an affordable, but very capable solution.</p>
+<p>The <a class="reference external" href="https://www.robotis.us/360-laser-distance-sensor-lds-01-lidar/">Robotis’s LiDARs</a> are 360-deg Laser Distance Sensors (LDS). It is based on laser triangulation ranging principles and uses high-speed vision acquisition and processing hardware. It measures distance data in more than 1800 times per second. It has a detection range between 0.12 m and 3.5 m and an angular resolution of 1 degree. The distance accuracy is .015 m between .12 m and .499 m then +/- 5% up to 3.5 m.</p>
+<a class="reference internal image-reference" href="../_images/rplidar.png"><img alt="../_images/rplidar.png" class="align-center" src="../_images/rplidar.png" style="width: 200px;" /></a>
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/EYbhNSUnIdU?si=idFVZOttywfaJ_Ys" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<br>
+How Does LiDAR Remote Sensing Work
+</center>
+</center>
+<br>
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/9oic8aT3wIc?si=nedLzJ4oj7beh2Xk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<br>
+TurtleBot3 26 Laser Distance Sensor (LDS) Example
+</center>
+</center>
 </section>
-<section id="master">
-<h2>Master<a class="headerlink" href="#master" title="Permalink to this heading">#</a></h2>
-<section id="setup">
-<h3>Setup:<a class="headerlink" href="#setup" title="Permalink to this heading">#</a></h3>
-<p>In the <code class="docutils literal notranslate"><span class="pre">/master_ws/src/ece387_master_spring202X-USERNAME/</span></code> folder, create a <strong>lab3</strong> package which depends on <strong>rospy</strong>, <strong>std_msgs</strong>, <strong>sensor_msgs</strong>, <strong>geometry_msgs</strong>, and <strong>turtlebot3_bringup</strong>.</p>
-<p>Make and source your workspace.</p>
-</section>
-<section id="controller-py">
-<h3><a class="reference external" href="http://controller.py">controller.py</a><a class="headerlink" href="#controller-py" title="Permalink to this heading">#</a></h3>
+<section id="pre-lab-testing-the-imu">
+<h2>🌱 Pre-Lab: Testing the IMU<a class="headerlink" href="#pre-lab-testing-the-imu" title="Permalink to this heading">#</a></h2>
+<section id="launch-file">
+<h3>Launch File<a class="headerlink" href="#launch-file" title="Permalink to this heading">#</a></h3>
+<p>Large applications in robotics typically involve several interconnected ROS nodes, each of which have many parameters. Your current setup is a good example: as you experienced in the IMU lab, you had to open 4 different terminals to run all of the nodes necessary for our system to that point:</p>
+<p>This problem is only going to get more complex as we add additional functionality to our robot. As it stands right now, every node requires a separate terminal window and the associated command to run it. Using the <em>launch</em> tool, we can eliminate that administrivia of running each node separately. We will create/edit two launch files to bring up the nodes on the master and robot. The <em>launch</em> tool is used to launch multiple ROS nodes. We can run nodes that we have created, nodes from pre-built packages, and other launch files. We will then use a tool embedded within ROS called <code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">launch</span></code> to easily launch multiple nodes or even other launch files.
+By convention, we will give our launch files the <em>.launch.py</em> extension and store them in a <em>launch</em> folder within our package.</p>
+<p>In this lab, we will create a launch file that starts both the <code class="docutils literal notranslate"><span class="pre">lab4_gamepad</span></code> gamepad node and the <code class="docutils literal notranslate"><span class="pre">joy</span></code> package’s <code class="docutils literal notranslate"><span class="pre">joy_node</span></code>.</p>
 <ol class="arabic">
-<li><p>Copy the <a class="reference external" href="http://controller.py">controller.py</a> file from lab2 into the lab3 package.</p></li>
-<li><p>Open the <a class="reference external" href="http://controller.py">controller.py</a> file from lab3 using the <strong>Atom</strong> editor.</p></li>
-<li><p>Import the laser message used in ICE8.</p></li>
-<li><p>Copy the 2 lambda functions from ICE8 (RAD2DEG &amp; DEG_CONV).</p></li>
-<li><p>Add the following Class variables within the class above the <code class="docutils literal notranslate"><span class="pre">__init__()</span></code> function:</p>
-<ol class="arabic simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">DISTANCE</span> <span class="pre">=</span> <span class="pre">0.4</span> <span class="pre">#</span> <span class="pre">distance</span> <span class="pre">from</span> <span class="pre">the</span> <span class="pre">wall</span> <span class="pre">to</span> <span class="pre">stop</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">K_POS</span> <span class="pre">=</span> <span class="pre">100</span> <span class="pre">#</span> <span class="pre">proportional</span> <span class="pre">constant</span> <span class="pre">for</span> <span class="pre">slowly</span> <span class="pre">stopping</span> <span class="pre">as</span> <span class="pre">you</span> <span class="pre">get</span> <span class="pre">closer</span> <span class="pre">to</span> <span class="pre">the</span> <span class="pre">wall</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">MIN_LIN_X</span> <span class="pre">=</span> <span class="pre">0.05</span> <span class="pre">#</span> <span class="pre">limit</span> <span class="pre">m/s</span> <span class="pre">values</span> <span class="pre">sent</span> <span class="pre">to</span> <span class="pre">Turtlebot3</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">MAX_LIN_X</span> <span class="pre">=</span> <span class="pre">0.2</span> <span class="pre">#</span> <span class="pre">limit</span> <span class="pre">m/s</span> <span class="pre">values</span> <span class="pre">sent</span> <span class="pre">to</span> <span class="pre">Turtlebot3</span></code></p></li>
-</ol>
+<li><p><strong>Navigate to Your Package</strong>: Open a terminal and navigate to the <code class="docutils literal notranslate"><span class="pre">lab4_gamepad</span></code> package.</p></li>
+<li><p><strong>Create a Launch Directory</strong>: Create a <code class="docutils literal notranslate"><span class="pre">launch</span></code> directory:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span>launch
+</pre></div>
+</div>
 </li>
-<li><p>Add the following to the <code class="docutils literal notranslate"><span class="pre">__init__()</span></code> function:</p>
-<ol class="arabic simple">
-<li><p>Instance variable, <code class="docutils literal notranslate"><span class="pre">self.avg_dist</span></code>, initialized to 0 to store the average dist off the nose.</p></li>
-<li><p>Instance variable, <code class="docutils literal notranslate"><span class="pre">self.got_avg</span></code>, initialized to False to store when an average is calculated.</p></li>
-<li><p>A subscriber to the LIDAR topic of interest with a callback to the callback_lidar() function.</p></li>
+<li><p><strong>Create the Launch File</strong>: Inside the <code class="docutils literal notranslate"><span class="pre">launch</span></code> directory, create a new Python launch file named <code class="docutils literal notranslate"><span class="pre">gamepad.launch.py</span></code>:</p></li>
 </ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>touch<span class="w"> </span>launch/gamepad.launch.py
+</pre></div>
+</div>
+<ol class="arabic">
+<li><p>Now open this file with VS Code:</p></li>
+<li><p><strong>Write the Launch File</strong>: Copy and paste the following ROS2 launch file code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">launch</span>
+<span class="kn">import</span> <span class="nn">launch_ros.actions</span>
+
+<span class="k">def</span> <span class="nf">generate_launch_description</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generate the launch description to run the gamepad node from lab4_gamepad</span>
+<span class="sd">    and the joy_node from the joy package.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">launch</span><span class="o">.</span><span class="n">LaunchDescription</span><span class="p">([</span>
+        <span class="c1"># Start the joy_node from the joy package</span>
+        <span class="n">launch_ros</span><span class="o">.</span><span class="n">actions</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span>
+            <span class="n">package</span><span class="o">=</span><span class="s1">&#39;joy&#39;</span><span class="p">,</span>
+            <span class="n">executable</span><span class="o">=</span><span class="s1">&#39;joy_node&#39;</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="s1">&#39;joy_node&#39;</span><span class="p">,</span>
+            <span class="n">output</span><span class="o">=</span><span class="s1">&#39;screen&#39;</span>
+        <span class="p">),</span>
+        
+        <span class="c1"># Start the gamepad node from lab4_gamepad</span>
+        <span class="n">launch_ros</span><span class="o">.</span><span class="n">actions</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span>
+            <span class="n">package</span><span class="o">=</span><span class="s1">&#39;lab4_gamepad&#39;</span><span class="p">,</span>  <span class="c1"># Change this if your package name is different</span>
+            <span class="n">executable</span><span class="o">=</span><span class="s1">&#39;gamepad&#39;</span><span class="p">,</span>  <span class="c1"># Change this if your node executable has a different name</span>
+            <span class="n">name</span><span class="o">=</span><span class="s1">&#39;gamepad_node&#39;</span><span class="p">,</span>
+            <span class="n">output</span><span class="o">=</span><span class="s1">&#39;screen&#39;</span>
+        <span class="p">),</span>
+    <span class="p">])</span>
+</pre></div>
+</div>
 </li>
-<li><p>Add the <code class="docutils literal notranslate"><span class="pre">callback_lidar()</span></code> function from ICE8, removing print statements and setting the instance variables, <code class="docutils literal notranslate"><span class="pre">self.avg_dist</span></code> and <code class="docutils literal notranslate"><span class="pre">self.got_avg</span></code>.</p></li>
-<li><p>Edit the <code class="docutils literal notranslate"><span class="pre">callback_controller()</span></code> to accomplish the following:</p>
-<ol class="arabic simple">
-<li><p>Remove user input.</p></li>
-<li><p>When not turning and you have an average LIDAR reading, calculate the distance error (<code class="docutils literal notranslate"><span class="pre">actual</span> <span class="pre">dist</span></code> - <code class="docutils literal notranslate"><span class="pre">desired</span> <span class="pre">dist</span></code>) and use that to drive your robot straight at a proportional rate (very similar to how we calculated the turn rate in lab 2).</p></li>
-<li><p>Limit the linear speed of the robot to <code class="docutils literal notranslate"><span class="pre">MIN_LIN_X</span></code> and <code class="docutils literal notranslate"><span class="pre">MAX_LIN_X</span></code>.</p></li>
-<li><p>If within <code class="docutils literal notranslate"><span class="pre">DISTANCE</span></code> of a wall, then stop and start turning (left or right, you decide).</p></li>
-</ol>
-<blockquote>
-<div><p>💡️ <strong>Tip:</strong> You should be able to reuse a lot of code for this step!</p>
-</div></blockquote>
-<ol class="arabic simple">
-<li><p>Save the linear x and angular z values to the <code class="docutils literal notranslate"><span class="pre">Twist</span></code> message and publish.</p></li>
-</ol>
+<li><p>Now we need to modify the <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> file. First, import the necessary packages:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
+<span class="kn">from</span> <span class="nn">setuptools</span> <span class="kn">import</span> <span class="n">setup</span>
+</pre></div>
+</div>
+<p>Then add the launch directory to the <code class="docutils literal notranslate"><span class="pre">data_files</span></code> parameter in the setup() function. It should read as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data_files</span><span class="o">=</span><span class="p">[</span>
+    <span class="p">(</span><span class="s1">&#39;share/ament_index/resource_index/packages&#39;</span><span class="p">,</span>
+        <span class="p">[</span><span class="s1">&#39;resource/&#39;</span> <span class="o">+</span> <span class="n">package_name</span><span class="p">]),</span>
+    <span class="p">(</span><span class="s1">&#39;share/&#39;</span> <span class="o">+</span> <span class="n">package_name</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;package.xml&#39;</span><span class="p">]),</span>
+    <span class="c1"># Include the launch directory</span>
+    <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;share&#39;</span><span class="p">,</span> <span class="n">package_name</span><span class="p">,</span> <span class="s1">&#39;launch&#39;</span><span class="p">),</span> <span class="n">glob</span><span class="p">(</span><span class="s1">&#39;launch/*.launch.py&#39;</span><span class="p">)),</span>
+<span class="p">],</span>
+</pre></div>
+</div>
 </li>
-<li><p>Save, exit, and make executable if necessary.</p></li>
+<li><p><strong>Modify package.xml</strong>: Ensure your <code class="docutils literal notranslate"><span class="pre">package.xml</span></code> includes a dependency for <code class="docutils literal notranslate"><span class="pre">launch</span></code> and <code class="docutils literal notranslate"><span class="pre">launch_ros</span></code>.</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;depend&gt;</span>launch<span class="nt">&lt;/depend&gt;</span>
+<span class="nt">&lt;depend&gt;</span>launch_ros<span class="nt">&lt;/depend&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Build the Package</strong>: Go back to the root of your workspace and build your package:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ccbuild<span class="w"> </span>--packages-select<span class="w"> </span>lab4_gamepad
+</pre></div>
+</div>
+</li>
+<li><p><strong>Run the Launch File</strong>: Now, you can run your new launch file:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>lab4_gamepad<span class="w"> </span>gamepad_launch.py
+</pre></div>
+</div>
+<p>This should start both:</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">joy_node</span></code> from the <code class="docutils literal notranslate"><span class="pre">joy</span></code> package (which reads gamepad inputs)</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gamepad</span></code> node from <code class="docutils literal notranslate"><span class="pre">lab4_gamepad</span></code></p></li>
+</ul>
+</li>
+<li><p><strong>Verify with <code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">topic</span> <span class="pre">list</span></code></strong> Run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>node<span class="w"> </span>list
+</pre></div>
+</div>
+<p>You should see both <code class="docutils literal notranslate"><span class="pre">gamepad</span></code> and <code class="docutils literal notranslate"><span class="pre">joy_node</span></code> nodes.</p>
+</li>
+</ol>
+</section>
+<section id="install-packages">
+<h3>Install Packages<a class="headerlink" href="#install-packages" title="Permalink to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Use the following command to install the <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> machine learning package for Python:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>scikit-learn
+</pre></div>
+</div>
+</li>
+<li><p>Download the <a class="reference download internal" download="" href="../_downloads/2844754c6fc74165cb2a5da1b8af483b/squarepath_gazebo.tar.xz"><span class="xref download myst"><code class="docutils literal notranslate"><span class="pre">square</span> <span class="pre">path</span> <span class="pre">Gazebo</span> <span class="pre">files</span></code></span></a>. Extract the file and move the files inside the directory to the <code class="docutils literal notranslate"><span class="pre">~/master_ws/src/turtlebot3_simulations/turtlebot3_gazebo</span></code> directory. Ensure the each new directory is moved to the existing directory with the same name.  For example, the files in the <code class="docutils literal notranslate"><span class="pre">lauch</span></code> directory inside the uncompressed directory should be moved to the same <code class="docutils literal notranslate"><span class="pre">launch</span></code> direcotry inside the target directory.</p></li>
+<li><p>Return to the ROS2 workspace root and build the package or simply run <code class="docutils literal notranslate"><span class="pre">ccbuild</span></code>.</p></li>
+<li><p>Open the Gazebo simulation using:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_gazebo<span class="w"> </span>square_path.launch.py
+</pre></div>
+</div>
+<p>It will open the Gazebo simulation as shown in the figure below.</p>
+<a class="reference internal image-reference" href="../_images/Lab8_SquarePathGazebo.png"><img alt="../_images/Lab8_SquarePathGazebo.png" class="align-center" src="../_images/Lab8_SquarePathGazebo.png" style="width: 500px;" /></a>
+</li>
+<li><p>Open the RViz visualization tool using:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_bringup<span class="w"> </span>rviz.launch.py
+</pre></div>
+</div>
+<p>It will open the Turtlebot3 RViz as shown in the figure below.</p>
+<a class="reference internal image-reference" href="../_images/Lab8_SquarePathRViz.png"><img alt="../_images/Lab8_SquarePathRViz.png" class="align-center" src="../_images/Lab8_SquarePathRViz.png" style="width: 500px;" /></a>
+</li>
 </ol>
 </section>
 </section>
-<section id="create-a-launch-file">
-<h2>Create a launch file<a class="headerlink" href="#create-a-launch-file" title="Permalink to this heading">#</a></h2>
-<ol class="arabic simple">
-<li><p>Create a launch directory in your lab3 folder.</p></li>
-<li><p>Copy the launch file from lab2 to lab3.</p></li>
-<li><p>Open the <strong>turtlebot3_lidar.launch</strong> file from the <em>turtlebot3_bringup</em> package and copy the arguments and nodes to your lab3 launch file.</p></li>
-<li><p>Add the machine tag to the lidar node.</p></li>
+<section id="lab-procedure">
+<h2>💻 Lab Procedure<a class="headerlink" href="#lab-procedure" title="Permalink to this heading">#</a></h2>
+<section id="lidar-based-wall-detection">
+<h3><strong>LiDAR-Based Wall Detection</strong><a class="headerlink" href="#lidar-based-wall-detection" title="Permalink to this heading">#</a></h3>
+<ol class="arabic">
+<li><p><strong>Navigate to Your Workspace:</strong> Open a terminal and move into the <code class="docutils literal notranslate"><span class="pre">ece387_ws</span></code> directory within your ROS2 workspace:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/master_ws/src/ece387_ws
+</pre></div>
+</div>
+</li>
+<li><p><strong>Create a New ROS2 Package:</strong> Create a new package named <code class="docutils literal notranslate"><span class="pre">lab8lidar</span></code> with the BSD-3 license:</p></li>
+<li><p>Download the <a class="reference download internal" download="" href="../_downloads/2150b18d25e96d634619e033fe30e3d3/wall_detector.py"><span class="xref download myst"><code class="docutils literal notranslate"><span class="pre">wall_detector.py</span></code></span></a> and <a class="reference download internal" download="" href="../_downloads/2bf3abb8e545a250ac7044c57c002cea/line_follower.py"><span class="xref download myst"><code class="docutils literal notranslate"><span class="pre">line_follower.py</span></code></span></a> files and save them in the <code class="docutils literal notranslate"><span class="pre">lab8_lidar</span></code> Python script directory:</p></li>
+<li><p><strong>Add Dependencies:</strong> Edit <code class="docutils literal notranslate"><span class="pre">package.xml</span></code> to include the following dependencies:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;depend&gt;</span>rclpy<span class="nt">&lt;/depend&gt;</span>
+<span class="nt">&lt;depend&gt;</span>sensor_msgs<span class="nt">&lt;/depend&gt;</span>
+<span class="nt">&lt;depend&gt;</span>geometry_msgs<span class="nt">&lt;/depend&gt;</span>
+<span class="nt">&lt;depend&gt;</span>nav2_msgs<span class="nt">&lt;/depend&gt;</span>
+<span class="nt">&lt;depend&gt;</span>tf2_ros<span class="nt">&lt;/depend&gt;</span>
+<span class="nt">&lt;depend&gt;</span>visualization_msgs<span class="nt">&lt;/depend&gt;</span>
+<span class="nt">&lt;depend&gt;</span>numpy<span class="nt">&lt;/depend&gt;</span>
+<span class="nt">&lt;depend&gt;</span>scikit-learn<span class="nt">&lt;/depend&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Modify <code class="docutils literal notranslate"><span class="pre">setup.py</span></code></strong>: Open the <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> script and update the <code class="docutils literal notranslate"><span class="pre">entry_points</span></code> section to include the wall_detector and line_follower nodes.</p></li>
+<li><p>Open the <code class="docutils literal notranslate"><span class="pre">wall_detector.py</span></code> script and complete it as instructed in the comments.</p></li>
+<li><p><strong>Build the Package</strong>: Return to the ROS2 workspace root and build the package or simply run <code class="docutils literal notranslate"><span class="pre">ccbuild</span></code></p></li>
+<li><p><strong>Launch Gazebo with TurtleBot3 and LiDAR</strong>: Start the TurtleBot3 simulation:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_gazebo<span class="w"> </span>square_path.launch.py
+</pre></div>
+</div>
+</li>
+<li><p><strong>Run RViz for Visualization</strong>: In a new terminal, launch RViz:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_bringup<span class="w"> </span>rviz.launch.py
+</pre></div>
+</div>
+</li>
+<li><p>Unselect <code class="docutils literal notranslate"><span class="pre">tf</span></code> and</p></li>
+<li><p>Click the <code class="docutils literal notranslate"><span class="pre">Add</span></code> button at the bottom left of the RViz window, click the <code class="docutils literal notranslate"><span class="pre">By</span> <span class="pre">Topics</span></code> tab, and select both</p></li>
+<li><p><strong>Run the Wall Detection Node</strong>: Run the node to process LiDAR data:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>lab8_lidar<span class="w"> </span>wall_detector
+</pre></div>
+</div>
+</li>
+<li><p><strong>Observe wall detection in RViz</strong>:</p></li>
+<li><p>Debug using:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>lab8_lidar<span class="w"> </span>wall_detector<span class="w"> </span>--ros-args<span class="w"> </span>--log-level<span class="w"> </span>debug
+</pre></div>
+</div>
+</li>
 </ol>
-</section>
-<section id="run-your-nodes">
-<h2>Run your nodes<a class="headerlink" href="#run-your-nodes" title="Permalink to this heading">#</a></h2>
-<ol class="arabic simple">
-<li><p>On the <strong>Master</strong>, open a terminal and run the <strong>lab3.launch</strong> file</p></li>
-</ol>
-</section>
-<section id="report">
-<h2>Report<a class="headerlink" href="#report" title="Permalink to this heading">#</a></h2>
-<p>Complete a short 2-3 page report that utilizes the format and answers the questions within the report template. The report template and an example report can be found within the Team under <code class="docutils literal notranslate"><span class="pre">Resources/Lab</span> <span class="pre">Template</span></code>.</p>
-<blockquote>
-<div><p>📝️ <strong>NOTE:</strong> We will be primarily grading sections 3.3 System level design and 3.4 Testing for this lab, but do include the entire lab as you will need other components for the final project report.</p>
-</div></blockquote>
-</section>
-<section id="turn-in-requirements">
-<h2>Turn-in Requirements<a class="headerlink" href="#turn-in-requirements" title="Permalink to this heading">#</a></h2>
-<p><strong>[25 points]</strong> Demonstration of Turtlebot3 driving and not hitting a wall (preferably in person, but can be recorded and posted to Teams under the Lab3 channel).</p>
-<p><strong>[50 points]</strong> Report via Gradescope.</p>
-<p><strong>[25 points]</strong> Code: push your code to your repository. Also, include a screen shot of the <strong><a class="reference external" href="http://controller.py">controller.py</a></strong> file at the end of your report.</p>
-</section>
-<section id="ice8-lidar">
-<h2>ICE8: LIDAR<a class="headerlink" href="#ice8-lidar" title="Permalink to this heading">#</a></h2>
-</section>
-<section id="id2">
-<h2>Purpose<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
-<p>In this lesson we will enable the robot to avoid obstacles. Many sensors provide obstacle avoidance capabilities: camera, sonar, infrared, LIDAR, etc. All of these will work to enable the robot to avoid obstacles, but we will use LIDAR as it is an affordable, but very capable solution.</p>
-</section>
-<section id="lidar">
-<h2>LIDAR<a class="headerlink" href="#lidar" title="Permalink to this heading">#</a></h2>
-<p><a class="reference external" href="https://www.robotis.us/360-laser-distance-sensor-lds-01-lidar/">Robotis’s LDS-01</a> is a 360 deg Laser Distance Sensor (LDS). It is based on laser triangulation ranging principles and uses high-speed vision acquisition and processing hardware. It measures distance data in more than 1800 times per second. It has a detection range between .12 m and 3.5 m and an angular resolution of 1 degree. The distance accuracy is .015 m between .12 m and .499 m then +/- 5% up to 3.5 m.</p>
-<p><img alt="logo" src="../_images/rplidar.png" /></p>
-<section id="videos">
-<h3>Videos:<a class="headerlink" href="#videos" title="Permalink to this heading">#</a></h3>
-<p><a class="reference external" href="https://www.youtube.com/watch?v=EYbhNSUnIdU">Airborne LiDAR</a></p>
-<p><a class="reference external" href="https://www.youtube.com/watch?v=9oic8aT3wIc&amp;t">Turtlebot3 LDS</a></p>
-<p><img alt="logo" src="../_images/LDS02.jpeg" /></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nano<span class="w"> </span>~/.bashrc
-</pre></div>
-</div>
-<p>You are looking for a line that looks like this:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">LDS_MODEL</span><span class="o">=</span>LDS-01<span class="w"> </span><span class="c1"># replace with LDS-02 if using new LIDAR</span>
-</pre></div>
-</div>
-<p>You will need to change that line to LDS-02.  <strong>You will need to accomplish this on both the master and the robot</strong></p>
-</section>
-</section>
-<section id="id3">
-<h2>Setup<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
-<p>The <a class="reference external" href="http://wiki.ros.org/hls_lfcd_lds_driver">hls_lfcd_lds_driver</a> package enables data to be received from the LIDAR over the <strong>/scan</strong> topic. The package is pre-installed on your <strong>Robot</strong>, but as always, trust, but verify. Open a new secure shell into your <strong>Robot</strong> and run the following:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rospack<span class="w"> </span>find<span class="w"> </span>hls_lfcd_lds_driver
-</pre></div>
-</div>
-<p>If installed, the command should return the absolute path to the package, similar to:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/opt/ros/noetic/share/hls_lfcd_lds_driver
-</pre></div>
-</div>
-<p>If the command instead returns an error, then you need to install the package.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ros-noetic-hls-lfcd-lds-driver
-</pre></div>
-</div>
-</section>
-<section id="testing-lidar">
-<h2>Testing LIDAR<a class="headerlink" href="#testing-lidar" title="Permalink to this heading">#</a></h2>
-<p>Open a new terminal on the master and run roscore and setup for statistics:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>roscore
-rosparam<span class="w"> </span><span class="nb">set</span><span class="w"> </span>enable_statistics<span class="w"> </span><span class="nb">true</span>
-</pre></div>
-</div>
 <p>Select the terminal with the secure shell connection to your <strong>Robot</strong> and open the <code class="docutils literal notranslate"><span class="pre">turtlebot3_lidar.launch</span></code> file:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rosed</span> <span class="n">turtlebot3_bringup</span> <span class="n">turtlebot3_lidar</span><span class="o">.</span><span class="n">launch</span>
 </pre></div>
@@ -587,6 +633,7 @@ rostopic<span class="w"> </span><span class="nb">echo</span><span class="w"> </s
 </pre></div>
 </div>
 <p>At this point you can kill all nodes on the master, but keep the <strong>turtlebot3_lidar</strong> launch file running on the <strong>Robot</strong>.</p>
+</section>
 </section>
 <section id="lidar-subscriber">
 <h2>LIDAR Subscriber<a class="headerlink" href="#lidar-subscriber" title="Permalink to this heading">#</a></h2>
@@ -758,26 +805,17 @@ touch<span class="w"> </span>lidar_sub.py
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose">Purpose</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#roslaunch">roslaunch</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Purpose</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#master">Master</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup:</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#controller-py">controller.py</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">📌 Objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">📜 Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-lab-testing-the-imu">🌱 Pre-Lab: Testing the IMU</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#launch-file">Launch File</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-packages">Install Packages</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-launch-file">Create a launch file</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-your-nodes">Run your nodes</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#report">Report</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#turn-in-requirements">Turn-in Requirements</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ice8-lidar">ICE8: LIDAR</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Purpose</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lidar">LIDAR</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#videos">Videos:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-procedure">💻 Lab Procedure</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lidar-based-wall-detection"><strong>LiDAR-Based Wall Detection</strong></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Setup</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-lidar">Testing LIDAR</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lidar-subscriber">LIDAR Subscriber</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint">Checkpoint</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
