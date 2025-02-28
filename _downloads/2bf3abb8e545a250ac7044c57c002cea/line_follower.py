@@ -33,12 +33,13 @@
 # Author: Stan Baek
 # Date Created: Feb 23, 2025
 
-import rclpy
-from rclpy.node import Node
-from geometry_msgs.msg import Twist
-from visualization_msgs.msg import Marker
-from sensor_msgs.msg import Imu
 import numpy as np
+import rclpy
+from geometry_msgs.msg import Twist
+from rclpy.node import Node
+from sensor_msgs.msg import Imu
+from std_msgs.msg import Bool
+from visualization_msgs.msg import Marker
 
 
 class LineFollower(Node):
@@ -46,11 +47,17 @@ class LineFollower(Node):
     A ROS2 node that follows a center line using odometry and a detected line.
     It calculates the robot's position relative to the line and adjusts its movement to stay aligned.
     """
+
     def __init__(self):
-        super().__init__('line_follower')
+        super().__init__("line_follower")
 
         # Subscribe to IMU data to get the robot's current orientation
-        self.imu_sub = self.create_subscription(Imu, '/imu', self.imu_callback, 10)
+        self.imu_sub = self.create_subscription(Imu, "/imu", self.imu_callback, 10)
+
+        # Subscribe to the ctrl relinquish topic to take control
+        self.ctrl_sub = self.create_subscription(
+            Bool, "/ctrl_relinq", self.ctrl_relinq_callback, 1
+        )
 
         # TODO: Subscribe to the center line marker to get the detected line to follow
         # Create a subscriber that listens to the center line marker topic and calls 'self.follow_line'
@@ -58,7 +65,7 @@ class LineFollower(Node):
         self.center_line_sub = 0  # Update this line to create the subscriber
 
         # Publish velocity commands to control the robot's movement
-        self.cmd_vel_pub = self.create_publisher(Twist, '/cmd_vel', 10)
+        self.cmd_vel_pub = self.create_publisher(Twist, "/cmd_vel", 10)
 
         # Variables to store the robot's current orientation
         self.current_orientation = None
@@ -70,11 +77,32 @@ class LineFollower(Node):
         """
         self.current_orientation = msg.orientation
 
+    def ctrl_relinq_callback(self, relinq_msg: Bool) -> None:
+        """
+        Callback function for handling control relinquishment messages.
+        Updates the control status based on received messages.
+        """
+
+        # Update the has_control flag based on the received message
+        self.has_control = relinq_msg.data
+
+        # Log a message indicating whether control has been gained or lost
+        if self.has_control:
+            # Log a message indicating that control has been taken
+            self.get_logger().info("line_follower has taken the control")
+        else:
+            # Log a message indicating that control has been lost
+            self.get_logger().info("line_follwer has lost the control")
+
     def follow_line(self, center_line: Marker) -> None:
         """
         Callback function for the center line marker.
         Computes the robot's alignment with the line and adjusts its movement to follow it.
         """
+
+        if not self.has_control:
+            return
+
         if self.current_orientation is None:
             return  # Wait until we have IMU data
 
@@ -86,10 +114,10 @@ class LineFollower(Node):
         end_point = center_line.points[-1]
 
         # TODO: Compute the slope of the line and its angle relative to the x-axis.
-          # The angle of the line relative to the x-axis is the arctangent of the slope.
+        # The angle of the line relative to the x-axis is the arctangent of the slope.
         line_dx = 0  # Update this line to compute the change in x (x2 - x1)
         line_dy = 0  # Update this line to compute the change in y (y2 - y1)
-        line_angle = 0  # Update this line to compute the angle of the line 
+        line_angle = 0  # Update this line to compute the angle of the line
         m = 0  # Update this line to compute the slope (m)
         k = 0  # Update this line to compute the y-intercept (k)
 
@@ -124,7 +152,9 @@ class LineFollower(Node):
 
         # To see this message in real-time, run the node with the `--log-level DEBUG` argument:
         # ros2 run lab8_lidar wall_detector --log-level DEBUG
-        self.get_logger().debug(f'distance error: {distance_error}, angle error: {angle_error}, gamma={gamma}')
+        self.get_logger().debug(
+            f"distance error: {distance_error}, angle error: {angle_error}, gamma={gamma}"
+        )
 
         # TODO: Publish the velocity command
         # The forward speed should be constant.
@@ -141,52 +171,5 @@ def main(args=None):
     rclpy.shutdown()  # Shutdown ROS2
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
