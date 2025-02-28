@@ -223,6 +223,7 @@ Follow the steps below to set up your ROS 2 package, implement the required scri
    ```bash
    ros2 run lab8_lidar line_follower
    ```
+   Ensure you also launch `gamepad.launch.py` to relinquish control. 
 
 8. **Tune the Controller Gains**  
    Adjust the `kh` (heading gain) and `kd` (distance gain) values in the `line_follower.py` script to optimize the robot's line-following performance.
