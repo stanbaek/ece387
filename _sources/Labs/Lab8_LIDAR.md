@@ -1,137 +1,103 @@
-# 🔬 Lab8: LIDAR
-
-**Not ready yet**
-
+# 🔬 Lab 8: LiDAR-Based Wall Detection
 
 ## 📌 Objectives
-- Students should be able to implement a ROS2 node for detecting walls using LiDAR data, visualize the detected walls in RViz, and test the implementation using Gazebo.
-
+- Students should be able to implement a ROS2 node to detect walls using LiDAR data.
+- Students should be able to visualize detected walls in RViz.
+- Students should be able to test their implementation using Gazebo.
+- Students should be able to use ROS2 launch files to manage multiple nodes efficiently.
 
 ## 📜 Overview
 
-In this lab we will enable the robot to follow the walls. Many sensors provide object detection capabilities: camera, sonar, infrared, LiDAR, etc. All of these will work to enable the robot to detect objects, but we will use LiDAR as it is an affordable, but very capable solution.
+In this lab, we’ll enable our robot to detect and follow walls using LiDAR. While various sensors like cameras, sonar, and infrared can detect objects, we’ll focus on LiDAR due to its affordability and effectiveness.
 
-The [Robotis's LiDARs](https://www.robotis.us/360-laser-distance-sensor-lds-01-lidar/) are 360-deg Laser Distance Sensors (LDS). It is based on laser triangulation ranging principles and uses high-speed vision acquisition and processing hardware. It measures distance data in more than 1800 times per second. It has a detection range between 0.12 m and 3.5 m and an angular resolution of 1 degree. The distance accuracy is .015 m between .12 m and .499 m then +/- 5% up to 3.5 m.
+The [Robotis LDS-01 LiDAR](https://www.robotis.us/360-laser-distance-sensor-lds-01-lidar/) is a 360-degree Laser Distance Sensor (LDS) that measures distances over 1,800 times per second. It has a range of 0.12m to 3.5m with an angular resolution of 1 degree and an accuracy of $\pm$0.015m for close distances, increasing to $\pm$5% beyond 0.5m.
 
 ```{image} ./figures/rplidar.png
-:width: 200  
+:width: 300  
 :align: center  
-```  
-
-<center>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/EYbhNSUnIdU?si=idFVZOttywfaJ_Ys" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-<br>
-How Does LiDAR Remote Sensing Work
-</center>
-</center>
-<br>
-
-<center>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/9oic8aT3wIc?si=nedLzJ4oj7beh2Xk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-<br>
-TurtleBot3 26 Laser Distance Sensor (LDS) Example
-</center>
-</center>
-
-
-## 🌱 Pre-Lab: Testing the IMU  
-
-### Launch File
-
-Large applications in robotics typically involve several interconnected ROS nodes, each of which have many parameters. Your current setup is a good example: as you experienced in the IMU lab, you had to open 4 different terminals to run all of the nodes necessary for our system to that point:
-
-This problem is only going to get more complex as we add additional functionality to our robot. As it stands right now, every node requires a separate terminal window and the associated command to run it. Using the *launch* tool, we can eliminate that administrivia of running each node separately. We will create/edit two launch files to bring up the nodes on the master and robot. The *launch* tool is used to launch multiple ROS nodes. We can run nodes that we have created, nodes from pre-built packages, and other launch files. We will then use a tool embedded within ROS called `ros2 launch` to easily launch multiple nodes or even other launch files.
-By convention, we will give our launch files the *.launch.py* extension and store them in a *launch* folder within our package. 
-
-
-In this lab, we will create a launch file that starts both the `lab4_gamepad` gamepad node and the `joy` package's `joy_node`.
-
-1. **Navigate to Your Package**: Open a terminal and navigate to the `lab4_gamepad` package.
-
-1. **Create a Launch Directory**: Create a `launch` directory:
-    ```bash
-    mkdir -p launch
-    ```
-
-1. **Create the Launch File**: Inside the `launch` directory, create a new Python launch file named `gamepad.launch.py`:
-```bash
-touch launch/gamepad.launch.py
 ```
 
-1. Now open this file with VS Code:
+### 📹 How LiDAR Works
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/EYbhNSUnIdU?si=idFVZOttywfaJ_Ys" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+</center>
 
-1. **Write the Launch File**: Copy and paste the following ROS2 launch file code:
+### 📹 TurtleBot3 LiDAR Example
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/9oic8aT3wIc?si=nedLzJ4oj7beh2Xk" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+</center>
 
-    ```python
-    import launch
-    import launch_ros.actions
+## 🌱 Pre-Lab: Setting Up and Testing LiDAR
 
-    def generate_launch_description():
-        """
-        Generate the launch description to run the gamepad node from lab4_gamepad
-        and the joy_node from the joy package.
-        """
-        return launch.LaunchDescription([
-            # Start the joy_node from the joy package
-            launch_ros.actions.Node(
-                package='joy',
-                executable='joy_node',
-                name='joy_node',
-                output='screen'
-            ),
-            
-            # Start the gamepad node from lab4_gamepad
-            launch_ros.actions.Node(
-                package='lab4_gamepad',  # Change this if your package name is different
-                executable='gamepad',  # Change this if your node executable has a different name
-                name='gamepad_node',
-                output='screen'
-            ),
-        ])
-    ```
+Before we dive into wall detection, we need to ensure that our setup is working correctly.
 
-1. Now we need to modify the `setup.py` file. First, import the necessary packages:
-    ```python
-    import os
-    from glob import glob
-    from setuptools import setup
-    ```
-    Then add the launch directory to the `data_files` parameter in the setup() function. It should read as follows:
-    ```python    
-    data_files=[
-        ('share/ament_index/resource_index/packages',
-            ['resource/' + package_name]),
-        ('share/' + package_name, ['package.xml']),
-        # Include the launch directory
-        (os.path.join('share', package_name, 'launch'), glob('launch/*.launch.py')),
-    ],
-    ```
+### Using ROS2 Launch Files
 
+Managing multiple ROS nodes can become overwhelming, especially as our system grows. Instead of running each node in separate terminals, we’ll use ROS2 launch files to simplify the process.
 
-1. **Modify package.xml**: Ensure your `package.xml` includes a dependency for `launch` and `launch_ros`. 
-    ```xml
-    <depend>launch</depend>
-    <depend>launch_ros</depend>
-    ```
+1. **Navigate to Your Package**: Open a terminal and move to the `lab4_gamepad` package.
+   ```bash
+   cd ~/ros2_ws/src/ece387_ws/lab4_gamepad
+   ```
 
-1. **Build the Package**: Go back to the root of your workspace and build your package:
-    ```bash
-    ccbuild --packages-select lab4_gamepad
-    ```
-1. **Run the Launch File**: Now, you can run your new launch file:
-    ```bash
-    ros2 launch lab4_gamepad gamepad_launch.py
-    ```
-    This should start both:
-    - The `joy_node` from the `joy` package (which reads gamepad inputs)
-    - The `gamepad` node from `lab4_gamepad`
+2. **Create a Launch Directory**: Create a `launch` directory:
 
+3. **Create a Launch File**: Inside the `launch` directory, create a new file named `gamepad.launch.py`:
 
-1. **Verify with `ros2 topic list`** Run:
+4. **Open the File in VS Code**: Open the newly created file in your code editor.
+
+5. **Copy and Paste the Following Code**:
+   ```python
+   import launch
+   import launch_ros.actions
+
+   def generate_launch_description():
+       """
+       Launches the gamepad node from lab4_gamepad
+       and the joy_node from the joy package.
+       """
+       return launch.LaunchDescription([
+           launch_ros.actions.Node(
+               package='joy',
+               executable='joy_node',
+               name='joy_node',
+               output='screen'
+           ),
+           launch_ros.actions.Node(
+               package='lab4_gamepad',
+               executable='gamepad',
+               name='gamepad_node',
+               output='screen'
+           ),
+       ])
+   ```
+6. **Modify `setup.py` to Include the Launch File**: Open `setup.py` and add:
+   ```python
+   import os
+   from glob import glob
+   ```
+   Then, add this line inside `data_files`:
+   ```python
+   (os.path.join('share', package_name, 'launch'), glob('launch/*.launch.py')),
+   ```
+7. **Update `package.xml`**: Ensure the dependencies include:
+   ```xml
+   <depend>launch</depend>
+   <depend>launch_ros</depend>
+   ```
+8. **Build the Package**:
+   ```bash
+   ccbuild --packages-select lab4_gamepad
+   ```
+9. **Run the Launch File**:
+   ```bash
+   ros2 launch lab4_gamepad gamepad.1aunch.py
+   ```
+10. **Verify Nodes Are Running**:
     ```bash
     ros2 node list
     ```
-    You should see both `gamepad` and `joy_node` nodes.
+    You should see `gamepad_node` and `joy_node` listed.
 
 ### Install Packages
 
@@ -140,11 +106,11 @@ touch launch/gamepad.launch.py
     pip install scikit-learn
     ```
 
-1. Download the [`square path Gazebo files`](../files/squarepath_gazebo.tar.xz). Extract the file and move the files inside the directory to the `~/master_ws/src/turtlebot3_simulations/turtlebot3_gazebo` directory. Ensure the each new directory is moved to the existing directory with the same name.  For example, the files in the `lauch` directory inside the uncompressed directory should be moved to the same `launch` direcotry inside the target directory.
+1. Download the [`square path Gazebo files`](../files/squarepath_gazebo.tar.xz). Extract the files and move them inside the appropriate directories in `~/master_ws/src/turtlebot3_simulations/turtlebot3_gazebo`. Ensure each new directory is moved to the existing directory with the same name.
 
 1. Return to the ROS2 workspace root and build the package or simply run `ccbuild`.
 
-1. Open the Gazebo simulation using:
+1. Open the Gazebo simulation:
     ```bash
     ros2 launch turtlebot3_gazebo square_path.launch.py
     ```
@@ -154,27 +120,43 @@ touch launch/gamepad.launch.py
     :align: center  
     ```  
 
-1. Open the RViz visualization tool using:
+1. Type the following and observe the command output:
+    ```bash
+    ros2 topic list
+    ros2 topic info /scan
+    ros2 topic echo /scan
+    ```  
+
+1. Find the message type of the `/scan` topic:
+    ```bash
+    ros2 topic type /scan
+    ```
+    Then, examine the details of the message type.
+
+1. Open the RViz visualization tool:
     ```bash
     ros2 launch turtlebot3_bringup rviz.launch.py
     ```
-    It will open the Turtlebot3 RViz as shown in the figure below. 
+    This should open an RViz window where we can visualize ROS components of our system. In the `Displays` menu on the left, you should see two submenus of interest: `LaserScan` and `RobotModel`. These allow us to depict the TurtleBot3 and LiDAR data. You should see red dots fill the **rviz** map where obstacles exist, as shown below.
     ```{image} ./figures/Lab8_SquarePathRViz.png
     :width: 500  
     :align: center  
     ```  
 
-## 💻 Lab Procedure
 
-### **LiDAR-Based Wall Detection**
 
-1. **Navigate to Your Workspace:** Open a terminal and move into the `ece387_ws` directory within your ROS2 workspace:
+## 💻 Lab Procedure: LiDAR-Based Wall Detection
+
+Follow the steps below to set up your ROS 2 package, implement the required scripts, and run the simulation or real robot.
+
+### Setting Up Your ROS2 Package
+
+1. **Navigate to Your Workspace:** Open a terminal and move into your ROS 2 workspace directory:
    ```bash
    cd ~/master_ws/src/ece387_ws
    ```
-1. **Create a New ROS2 Package:** Create a new package named `lab8lidar` with the BSD-3 license:
 
-1. Download the [`wall_detector.py`](../files/wall_detector.py) and [`line_follower.py`](../files/line_follower.py) files and save them in the `lab8_lidar` Python script directory:
+1. **Create a New ROS2 Package:** Create a new package named `lab8_lidar` with the BSD-3 license:
 
 1. **Add Dependencies:** Edit `package.xml` to include the following dependencies:
     ```xml
@@ -188,194 +170,106 @@ touch launch/gamepad.launch.py
     <depend>scikit-learn</depend>
     ```
 
-1. **Modify `setup.py`**: Open the `setup.py` script and update the `entry_points` section to include the wall_detector and line_follower nodes.
+3. **Download Required Scripts**: Download the following scripts and save them in the `lab8_lidar/lab8_lidar` directory:
 
-1. Open the `wall_detector.py` script and complete it as instructed in the comments.
+   - [`wall_detector.py`](../files/wall_detector.py)
+   - [`line_follower.py`](../files/line_follower.py)
 
-1. **Build the Package**: Return to the ROS2 workspace root and build the package or simply run `ccbuild`
+1. **Modify `setup.py`**: Add your scripts under `entry_points`.
 
-1. **Launch Gazebo with TurtleBot3 and LiDAR**: Start the TurtleBot3 simulation:
-    ```bash
-    ros2 launch turtlebot3_gazebo square_path.launch.py
-    ```
+### Implementing the Python Scripts
 
-1. **Run RViz for Visualization**: In a new terminal, launch RViz:
-    ```bash
-    ros2 launch turtlebot3_bringup rviz.launch.py
-    ```
+1. **Complete `wall_detector.py`**  
+   Open the `wall_detector.py` script and implement the missing functionality as described in the comments. This script will process LiDAR data to detect walls and publish visualization markers.
 
-1. Unselect `tf` and 
+2. **Complete `line_follower.py`**  
+   Open the `line_follower.py` script and implement the missing functionality as described in the comments. This script will enable the robot to follow the detected center line between walls.
 
-1. Click the `Add` button at the bottom left of the RViz window, click the `By Topics` tab, and select both
-
-1. **Run the Wall Detection Node**: Run the node to process LiDAR data:
-    ```bash
-    ros2 run lab8_lidar wall_detector
-    ```
-
-1. **Observe wall detection in RViz**: 
-
-1. Debug using:
+3. **Build the Package**  
+   After completing the scripts, build the package:
    ```bash
-   ros2 run lab8_lidar wall_detector --ros-args --log-level debug
+   ccbuild --packages-select lab8_lidar
    ```
 
+### **Running the Simulation**
+
+1. **Launch Gazebo with TurtleBot3** Start the Gazebo simulation with the TurtleBot3 robot:
+   ```bash
+   ros2 launch turtlebot3_gazebo square_path.launch.py
+   ```
+
+2. **Open RViz for Visualization** Launch RViz to visualize the detected walls and determine the center line:
+   ```bash
+   ros2 launch turtlebot3_bringup rviz.launch.py
+   ```
+
+3. **Run the Wall Detector Node**  Start the wall detection node:
+   ```bash
+   ros2 run lab8_lidar wall_detector
+   ```
+
+4. **Observe the Detected Walls in RViz**  
+   - Unselect `TF` and `Odometry` in RViz.  
+   - Click the `Add` button in the bottom left of the RViz window, select the `By topic` tab, and add the `Marker` messages under the `/center_line` and `/wall_markers` topics.
+
+5. **Debug If Needed** If you encounter issues, run the wall detector node in debug mode:
+   ```bash
+   ros2 run lab8lidar wall_detector --ros-args --log-level debug
+   ```
+
+6. **Update Parameters** Adjust the parameters for the `DBSCAN` clustering function and the `RANSACRegressor` function to improve wall detection.
+
+7. **Run the Line Follower Node** Once the center line is detected, start the line follower node:
+   ```bash
+   ros2 run lab8_lidar line_follower
+   ```
+
+8. **Tune the Controller Gains**  
+   Adjust the `kh` (heading gain) and `kd` (distance gain) values in the `line_follower.py` script to optimize the robot's line-following performance.
+
+### Running the Real Robot
+
+1. **Close the Gazebo Simulation** Ensure the Gazebo simulation is closed before running the real robot. Never run the simulation and the real robot simultaneously.
+
+2. **Reopen RViz** Launch RViz to visualize the wall detection on the real robot:
+   ```bash
+   ros2 launch turtlebot3_bringup rviz.launch.py
+   ```
+
+3. **Run the Wall Detector Node** Start the wall detection node:
+   ```bash
+   ros2 run lab8lidar wall_detector
+   ```
+
+4. **Fix QoS Warning** If you see the following warning:
+   ```bash
+   [WARN] [wall_detector]: New publisher discovered on topic '/scan', offering incompatible QoS. No messages will be received from it. Last incompatible policy: RELIABILITY
+   ```
+   Investigate the warning and fix it using the `qos_profile` provided in the `wall_detector.py` script. You can use Google or ChatGPT to learn more about ROS 2 QoS (Quality of Service).
+
+5. **Run the Line Follower Node** Start the line follower node:
+   ```bash
+   ros2 run lab8_lidar line_follower
+   ```
+
+6. **Demo the Robot** Demonstrate the robot following the walls in a straight path. **Ensure the robot starts 10 cm from the center line as shown below.**
+
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/bXpObdI8I-I?si=2L-dptYn9npyBbLc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</center>
 
 
+## 🚚 Deliverables
 
+1. **[20 Points] Complete the `wall_detector.py` Script**
+    - Ensure the script is fully functional and implements all required features.
+    - Push your code to GitHub and confirm that it has been successfully uploaded.
+    **NOTE:** _If the instructor can't find your code in your repository, you will receive a grade of 0 for the coding part._
 
+2. **[15 Points] Complete the `line_follower.py` Script**
+    - Ensure the script is fully functional and implements all required features.
+    - Push your code to GitHub and confirm that it has been successfully uploaded.
+    **NOTE:** _If the instructor can't find your code in your repository, you will receive a grade of 0 for the coding part._
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Select the terminal with the secure shell connection to your **Robot** and open the `turtlebot3_lidar.launch` file:
-
-```
-rosed turtlebot3_bringup turtlebot3_lidar.launch
-```
-
-We can see that this launch file is pretty simple and only launches the **hls_laser_publisher** node.
-
-Run the launch file on the **Robot**:
-
-```bash
-roslaunch turtlebot3_bringup turtlebot3_lidar.launch
-```
-
-In a new terminal on the **Master**, we can visualize the Turtlebot3 and LIDAR data using another launch file from the Turtlebot3:
-
-```bash
-roslaunch turtlebot3_bringup turtlebot3_model.launch
-```
-
-This should open an RVIZ window where we can visualize ROS components of our system. In the "Displays" menu on the left you should see two submenus of interest: "LaserScan" and "RobotModel". These allow us to depict the Turtlebot3 and LIDAR data.
-
-You should see red dots fill the **rviz** map where obstacles exist as shown below.
-
-![logo](figures/lidarscan_example.png)
-
-
-Investigate what data the **hls_laser_publisher** is sending. Type the following and observe the command output:
-
-```bash
-rostopic list
-rostopic info /scan
-rostopic type /scan
-rostopic type /scan | rosmsg show
-rostopic echo /scan
-```
-
-At this point you can kill all nodes on the master, but keep the **turtlebot3_lidar** launch file running on the **Robot**.
-
-## LIDAR Subscriber
-In this section we will build a subscriber that will print the range data from the Turtlebot3 LIDAR.
-
-1. Browse to a terminal on the **Master** and create an `ice8` package:
-    ```bash
-    cd ~/master_ws/src/ece387_master_sp2X-USERNAME/master
-    catkin_create_pkg ice8 rospy sensor_msgs geometry_msgs turtlebot3_bringup
-    cd ~/master_ws
-    catkin_make
-    source ~/.bashrc
-    ```
-
-1. Create an lidar node:
-
-    ```bash
-    roscd ice8/src
-    touch lidar_sub.py
-    ```
-    
-1. Copy and complete the below code using the GUI editor tool, **Atom**. Browse to the subscriber you just created and double-click. This will open the file in **Atom** (if it is open in any other editor, stop, raise your hand, and get help from an instructor)
-> 💡️ **Tip:** Look for the **"TODO"** tag which indicates where you should insert your own code.
-
-The code should obtain the list of range data from the LIDAR launch file running on the robot, convert the angles from 0 to 180 degrees and 0 to -180 degrees to 0 to 360 degrees. Lastly, the subscriber will print the average distance of obstacles 30 degrees off the nose of the robot.
-
-```python
-#!/usr/bin/env python3
-import rospy, math
-# TODO: import correct message
-
-
-# lambda function to convert rad to deg
-RAD2DEG = lambda x: ((x)*180./math.pi)
-# convert LaserScan degree from -180 - 180 degs to 0 - 360 degs
-DEG_CONV = lambda deg: deg + 360 if deg < 0 else deg
-
-class LIDAR:    
-    """Class to read lidar data from the Turtlebot3 LIDAR"""
-    def __init__(self):
-        # TODO: create a subscriber to the scan topic published by the lidar launch file
-
-        
-        self.ctrl_c = False
-        rospy.on_shutdown(self.shutdownhook)
-        
-    def callback_lidar(self, scan):
-    	if not self.ctrl_c:
-	    	degrees = []
-	    	ranges = []
-	    	
-	    	# determine how many scans were taken during rotation
-	        count = len(scan.ranges)
-
-	        for i in range(count):
-	            # using min angle and incr data determine curr angle, 
-	            # convert to degrees, convert to 360 scale
-	            degrees.append(int(DEG_CONV(RAD2DEG(scan.angle_min + scan.angle_increment*i))))
-	            rng = scan.ranges[i]
-	            
-	            # ensure range values are valid; set to 0 if not
-	            if rng < scan.range_min or rng > scan.range_max:
-	                ranges.append(0.0)
-	            else:
-	            	ranges.append(rng)
-	        
-	        # python way to iterate two lists at once!
-	        for deg, rng in zip(degrees, ranges):
-	        	# TODO: sum and count the ranges 30 degrees off the nose of the robot
-                
-                
-            # TODO: ensure you don't divide by 0 and print average off the nose
-	        	
-            
-	def shutdownhook(self):
-		print("Shutting down lidar subscriber")
-		self.ctrl_c = True
-        
-if __name__ == '__main__':
-    rospy.init_node('lidar_sub')
-    LIDAR()
-    rospy.spin()
-```
-
-4. Save, exit, and make the node executable.
-
-4. Open a new terminal on the **Master** and run the **lidar_sub.py** node.
-
-4. Rotate the **Robot** and observe the distance off the nose.
-
-## Checkpoint
-Once complete, get checked off by an instructor showing the output of your **lidar_sub** and **rqt_graph** node.
-
-## Summary
-In this lesson you learned how to integrate the LIDAR and get the distance of objects off the nose of the robot using the pre-built LIDAR package. In the lab that corresponds to this lesson you will apply this knowledge to stop the robot a specified distance from an obstacle and turn.
-
-## Cleanup
-In each terminal window, close the node by typing `ctrl+c`. Exit any SSH connections. Shutdown the notebook server by typing `ctrl+c` within the terminal you ran `jupyter-notebook` in. Select 'y'.
-
-**Ensure roscore is terminated before moving on to the lab.**
+3. **[15 Points] Demonstration**
+    - Show the robot successfully move between two walls.
