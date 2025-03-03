@@ -26,7 +26,7 @@ $${}^{A}R_B = \begin{bmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\thet
 
 Using this transformation, a position $\mathbf{p}$ in the figure above can be represented in both Frame {A} (the global frame) and Frame {B} (the local frame). The coordinate transformation equation is:
 
-$$\begin{bmatrix} {}^{A}x \\ {}^{A}y \end{bmatrix} = {}^{A}R_B  \begin{bmatrix} {}^{B}x \\ {}^{B}y \end{bmatrix} - \begin{bmatrix} x \\ y \end{bmatrix} $$
+$$\begin{bmatrix} {}^{A}x \\ {}^{A}y \end{bmatrix} = {}^{A}R_B  \begin{bmatrix} {}^{B}x \\ {}^{B}y \end{bmatrix} + \begin{bmatrix} x \\ y \end{bmatrix} $$
 
 where:
 - $[{}^{A}x \quad {}^{A}y]^\top$ represents the position in the global frame, measured by the TurtleBot's IMU and odometry sensors.
@@ -36,7 +36,7 @@ where:
 
 To find the local coordinates $[{}^{B}x \quad {}^{B}y]^\top$, we rearrange the equation:
 
-$$\begin{bmatrix} {}^{B}x \\ {}^{B}y \end{bmatrix} = R^{-1} \left(\begin{bmatrix} x \\ y \end{bmatrix} - \begin{bmatrix} {}^{A}x \\ {}^{A}y \end{bmatrix}\right)$$
+$$\begin{bmatrix} {}^{B}x \\ {}^{B}y \end{bmatrix} = {}^{A}R_B^{-1} \left(\begin{bmatrix} {}^{A}x \\ {}^{A}y \end{bmatrix} - \begin{bmatrix} x \\ y \end{bmatrix}\right)$$
 
 The orientation with respect to Frame {B}, ${}^{B}\theta$, can be obtained by ${}^{B}\theta = {}^{A}\theta - \theta$ as illustrated in the figure below
 
