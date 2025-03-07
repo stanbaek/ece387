@@ -1,16 +1,15 @@
-# 🔬 Lab 8: LiDAR
+# 🚀 Proj 1: SLAM
 
+(not ready yet)
 ## 📌 Objectives
 - Students should be able to implement a ROS2 node to detect walls using LiDAR data.
-- Students should be able to visualize detected walls in RViz.
-- Students should be able to test their implementation using Gazebo.
-- Students should be able to use ROS2 launch files to manage multiple nodes efficiently.
 
 ## 📜 Overview
 
-In this lab, we’ll enable our robot to detect and follow walls using LiDAR. While various sensors like cameras, sonar, and infrared can detect objects, we’ll focus on LiDAR due to its affordability and effectiveness.
+In this project, we’ll enable our robot to autonomously navigate unknown maze and build a map of the maze. As we did in the previous lab, we will be using the LiDAR to detect the walls of the maze (or obstacles) surrounding the robot. We will be utilizeing the simultaneous localization and mapping library provided by ROS2 and Turtleb3. Although SLAM is one of the fundamental algorithms used for mobile robots, a solid understading of the algorithms requires a deep understanding of statististics and optimazation, which are mostly graduate level studies.   
 
-The [Robotis LDS-01 LiDAR](https://www.robotis.us/360-laser-distance-sensor-lds-01-lidar/) is a 360-degree Laser Distance Sensor (LDS) that measures distances over 1,800 times per second. It has a range of 0.12m to 3.5m with an angular resolution of 1 degree and an accuracy of $\pm$0.015m for close distances, increasing to $\pm$5% beyond 0.5m.
+
+
 
 ```{image} ./figures/rplidar.png
 :width: 300  

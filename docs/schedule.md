@@ -29,10 +29,10 @@ This schedule is subject to change as appropriate.
 | 19   |GR 1                                      |       |         |
 | 20   |[Lab 8: LIDAR](Labs/Lab8_LIDAR.md)        |       |         |
 | 21   |[Lab 8: LIDAR](Labs/Lab8_LIDAR.md)        |       |         |
-| 22   |Lec 9: SLAM                               |       |Lab 8    |
-| 23   |Proj 1: SLAM                              |       |         |
-| 24   |Proj 1: SLAM                              |       |         |
-| 25   |Proj 1: SLAM                              |       |P1 Demo  |
+| 22   |[Proj 1: SLAM](Labs/Proj1_SLAM.md)        |       |Lab 8    |
+| 23   |[Proj 1: SLAM](Labs/Proj1_SLAM.md)        |       |         |
+| 24   |[Proj 1: SLAM](Labs/Proj1_SLAM.md)        |       |         |
+| 25   |[Proj 1: SLAM](Labs/Proj1_SLAM.md)        |       |P1 Demo  |
 | 26   |Lec 9: Computer Vision                    |       |P1 Report|
 | 27   |Lab 9: Computer Vision                    |       |         |
 | 28   |Lab 9: Computer Vision                    |       |         |
@@ -40,7 +40,7 @@ This schedule is subject to change as appropriate.
 | 30   |Lab 10: AprilTags                         |       |         |
 | 31   |Lab 10: AprilTags                         |       |         | 
 | 32   |Final Project - Requirements              |       |Lab 10   |
-| 33   |GR 1                                      |       |         |
+| 33   |GR 2                                      |       |         |
 | 34   |Final Project - Design                    |       |         |
 | 35   |Final Project - Design Briefs             |       |Briefings|
 | 36   |Final Project                             |       |         |
