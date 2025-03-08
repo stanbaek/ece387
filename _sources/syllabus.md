@@ -24,8 +24,8 @@ The overall **weighting** of the graded items is:
 
 |     Prog               |             | Final              |             |
 |------------------------|-------------|--------------------|-------------|
-|     GRs                |     30%     | GRs                |     20%     |
-|     Labs               |     60%     | Labs               |     40%     |
+|     GRs                |     40%     | GRs                |     20%     |
+|     Labs               |     50%     | Labs               |     40%     |
 |     Quizzes            |     10%     | Quizzes            |      5%     |
 |                        |             | Projects           |     35%     |
 |                        |             |                    |             |

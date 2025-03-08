@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>🔬 Lab 8: LiDAR &#8212; Introduction to Robotic Systems</title>
+    <title>🚀 Proj 1: SLAM &#8212; Introduction to Robotic Systems</title>
   
   
   
@@ -59,14 +59,10 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'Labs/Lab8_LIDAR';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Labs/Proj1_SLAM';</script>
     <link rel="icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="🔧 Robot Setup" href="../Appendix/RobotSetup.html" />
-    <link rel="prev" title="🔬 Lab7: Transformation" href="Lab7_TF.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -128,6 +124,8 @@
     <div class="bd-container__inner bd-page-width">
       
       
+      
+        
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -195,7 +193,7 @@
 <li class="toctree-l1"><a class="reference external" href="https://stanbaek.github.io/NoPointer.html">No Pointers in Python?</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Labs</span></p>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="Lab1_Linux.html">🔬 Lab1: Linux</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Lab2_ROS.html">🔬 Lab2: ROS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Lab3_Python.html">🔬 Lab3: Python</a></li>
@@ -203,7 +201,7 @@
 <li class="toctree-l1"><a class="reference internal" href="Lab5_TurtleBot.html">🔬 Lab5: Driving the Robot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Lab6_IMU.html">🔬 Lab6: IMU-Based Navigation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Lab7_TF.html">🔬 Lab7: Transformation</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">🔬 Lab 8: LiDAR</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lab8_LIDAR.html">🔬 Lab 8: LiDAR</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendix</span></p>
 <ul class="nav bd-sidenav">
@@ -282,7 +280,7 @@
       
       
       
-      <li><a href="https://github.com/stanbaek/ece387/issues/new?title=Issue%20on%20page%20%2FLabs/Lab8_LIDAR.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/stanbaek/ece387/issues/new?title=Issue%20on%20page%20%2FLabs/Proj1_SLAM.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -312,7 +310,7 @@
       
       
       
-      <li><a href="../_sources/Labs/Lab8_LIDAR.md" target="_blank"
+      <li><a href="../_sources/Labs/Proj1_SLAM.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -396,7 +394,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>🔬 Lab 8: LiDAR</h1>
+    <h1>🚀 Proj 1: SLAM</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -436,21 +434,18 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="lab-8-lidar">
-<h1>🔬 Lab 8: LiDAR<a class="headerlink" href="#lab-8-lidar" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="proj-1-slam">
+<h1>🚀 Proj 1: SLAM<a class="headerlink" href="#proj-1-slam" title="Link to this heading">#</a></h1>
+<p>(not ready yet)</p>
 <section id="objectives">
 <h2>📌 Objectives<a class="headerlink" href="#objectives" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Students should be able to implement a ROS2 node to detect walls using LiDAR data.</p></li>
-<li><p>Students should be able to visualize detected walls in RViz.</p></li>
-<li><p>Students should be able to test their implementation using Gazebo.</p></li>
-<li><p>Students should be able to use ROS2 launch files to manage multiple nodes efficiently.</p></li>
 </ul>
 </section>
 <section id="overview">
 <h2>📜 Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
-<p>In this lab, we’ll enable our robot to detect and follow walls using LiDAR. While various sensors like cameras, sonar, and infrared can detect objects, we’ll focus on LiDAR due to its affordability and effectiveness.</p>
-<p>The <a class="reference external" href="https://www.robotis.us/360-laser-distance-sensor-lds-01-lidar/">Robotis LDS-01 LiDAR</a> is a 360-degree Laser Distance Sensor (LDS) that measures distances over 1,800 times per second. It has a range of 0.12m to 3.5m with an angular resolution of 1 degree and an accuracy of <span class="math notranslate nohighlight">\(\pm\)</span>0.015m for close distances, increasing to <span class="math notranslate nohighlight">\(\pm\)</span>5% beyond 0.5m.</p>
+<p>In this project, we’ll enable our robot to autonomously navigate unknown maze and build a map of the maze. As we did in the previous lab, we will be using the LiDAR to detect the walls of the maze (or obstacles) surrounding the robot. We will be utilizeing the simultaneous localization and mapping library provided by ROS2 and Turtleb3. Although SLAM is one of the fundamental algorithms used for mobile robots, a solid understading of the algorithms requires a deep understanding of statististics and optimazation, which are mostly graduate level studies.</p>
 <a class="reference internal image-reference" href="../_images/rplidar.png"><img alt="../_images/rplidar.png" class="align-center" src="../_images/rplidar.png" style="width: 300px;" />
 </a>
 <section id="how-lidar-works">
@@ -759,24 +754,6 @@ Adjust the <code class="docutils literal notranslate"><span class="pre">kh</span
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
-    <a class="left-prev"
-       href="Lab7_TF.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">🔬 Lab7: Transformation</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="../Appendix/RobotSetup.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">🔧 Robot Setup</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
 </div>
                 </footer>
               
