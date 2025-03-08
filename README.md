@@ -5,6 +5,7 @@ ECE387 Course Web
 
 I recommned [vscode](https://code.visualstudio.com/) to edit and publish it.
 
+- Python 3.12.9
 
 ### How to install required Python packages? 
 - Open a terminal.
