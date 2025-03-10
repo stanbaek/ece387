@@ -1,12 +1,13 @@
 
+
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="../" >
+<html lang="en" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>🔬 Lab2: ROS &#8212; Introduction to Robotic Systems</title>
   
@@ -14,53 +15,56 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=4c969af8" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
-    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="../_static/copybutton.js?v=f281be69"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
-    <script src="../_static/tabs.js?v=3ee01567"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/tabs.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js?v=f930bc37"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'Labs/Lab2_ROS';</script>
-    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="🔬 Lab3: Python" href="Lab3_Python.html" />
@@ -74,23 +78,19 @@
 
   
   
-  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
-  
-  <div id="pst-scroll-pixel-helper"></div>
-  
-  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
-
+  <a class="skip-link" href="#main-content">Skip to main content</a>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -112,20 +112,12 @@
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
-
-  <div class="pst-async-banner-revealer d-none">
-  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
-</div>
-
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
-    </header>
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
   
-
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
-      
-      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -140,13 +132,9 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
-
-  
-    
   
 
 <a class="navbar-brand logo" href="../intro.html">
-  
   
   
   
@@ -156,23 +144,12 @@
       
     
     
-    <img src="../_static/ece387.png" class="logo__image only-light" alt="Introduction to Robotic Systems - Home"/>
-    <script>document.write(`<img src="../_static/ece387.png" class="logo__image only-dark" alt="Introduction to Robotic Systems - Home"/>`);</script>
+    <img src="../_static/ece387.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/ece387.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
   
   
 </a></div>
-        <div class="sidebar-primary-item">
-
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
-        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -202,6 +179,7 @@
 <li class="toctree-l1"><a class="reference internal" href="Lab6_IMU.html">🔬 Lab6: IMU-Based Navigation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Lab7_TF.html">🔬 Lab7: Transformation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Lab8_LIDAR.html">🔬 Lab 8: LiDAR</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Proj1_SLAM.html">🚀 Proj 1: SLAM</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendix</span></p>
 <ul class="nav bd-sidenav">
@@ -224,7 +202,7 @@
 
       </div>
       
-      <main id="main-content" class="bd-main" role="main">
+      <main id="main-content" class="bd-main">
         
         
 
@@ -233,14 +211,14 @@
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article d-print-none">
+              <div class="bd-header-article">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</button></div>
+</label></div>
       
     </div>
   
@@ -362,28 +340,26 @@
 </button>
 
 
-
 <script>
 document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
   </button>
 `);
 </script>
 
-
 <script>
 document.write(`
-  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</button>
+</label>
 </div></div>
       
     </div>
@@ -429,30 +405,29 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article">
+                <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="lab2-ros">
-<h1>🔬 Lab2: ROS<a class="headerlink" href="#lab2-ros" title="Link to this heading">#</a></h1>
+<h1>🔬 Lab2: ROS<a class="headerlink" href="#lab2-ros" title="Permalink to this heading">#</a></h1>
 <section id="purpose">
-<h2>📌 Purpose<a class="headerlink" href="#purpose" title="Link to this heading">#</a></h2>
+<h2>📌 Purpose<a class="headerlink" href="#purpose" title="Permalink to this heading">#</a></h2>
 <p>This lecture accompanies the introduction to ROS used in class. We will apply the knowledge you learned by interacting with a simulated TurlteBot3 Burger.</p>
 </section>
 <section id="ros-introduction">
-<h2>📜 ROS Introduction.<a class="headerlink" href="#ros-introduction" title="Link to this heading">#</a></h2>
+<h2>📜 ROS Introduction.<a class="headerlink" href="#ros-introduction" title="Permalink to this heading">#</a></h2>
 <p>The Robot Operating System (ROS) is a flexible framework for writing robot software. It is a collection of tools, libraries, and conventions that aim to simplify the task of creating complex and robust robot behavior across a wide variety of robotic platforms. ROS is sometimes called a meta operating system because it performs many functions of an operating system, but it requires a computer’s operating system such as Linux.</p>
 <p>Why? Because creating truly robust, general-purpose robot software is hard. From the robot’s perspective, problems that seem trivial to humans often vary wildly between instances of tasks and environments. Dealing with these variations is so hard that no single individual, laboratory, or institution can hope to do it on their own.</p>
 <p>As a result, ROS was built from the ground up to encourage collaborative robotics software development. For example, one laboratory might have experts in mapping indoor environments, and could contribute a world-class system for producing maps. Another group might have experts at using maps to navigate, and yet another group might have discovered a computer vision approach that works well for recognizing small objects in clutter. ROS was designed specifically for groups like these to collaborate and build upon each other’s work, as is described throughout this site.</p>
 <p>ROS2 Humble Hawksbill: <a class="reference external" href="https://docs.ros.org/en/humble/">https://docs.ros.org/en/humble/</a></p>
 </section>
 <section id="ros-command-line-tools">
-<h2>💻 ROS Command-line tools<a class="headerlink" href="#ros-command-line-tools" title="Link to this heading">#</a></h2>
+<h2>💻 ROS Command-line tools<a class="headerlink" href="#ros-command-line-tools" title="Permalink to this heading">#</a></h2>
 <p>The tutorials at <a class="reference external" href="https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools.html">Beginner: CLI Tools</a> provide an excellent starting point for learning ROS (Robot Operating System) command-line tools. These tutorials are designed to help beginners get familiar with ROS and use its command-line tools effectively.</p>
 <p>Follow the lab instructions provided below as you work through all 10 tutorials. The entire set should take about 2-3 hours to finish.</p>
-<a class="reference internal image-reference" href="../_images/Lab2_ROS_Tutorials.png"><img alt="../_images/Lab2_ROS_Tutorials.png" class="align-center" src="../_images/Lab2_ROS_Tutorials.png" style="width: 800px;" />
-</a>
+<a class="reference internal image-reference" href="../_images/Lab2_ROS_Tutorials.png"><img alt="../_images/Lab2_ROS_Tutorials.png" class="align-center" src="../_images/Lab2_ROS_Tutorials.png" style="width: 800px;" /></a>
 <br>
 <section id="configuring-environment">
-<h3>1. Configuring environment<a class="headerlink" href="#configuring-environment" title="Link to this heading">#</a></h3>
+<h3>1. Configuring environment<a class="headerlink" href="#configuring-environment" title="Permalink to this heading">#</a></h3>
 <ul>
 <li><p>For this firt tutorial, <a class="reference external" href="https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Configuring-ROS2-Environment.html">Configuring Environment</a>, your environment has already been configured. Simply read through the page, but do not run any commands. Instead, open the <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> file by running the following commands:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span>
@@ -477,23 +452,22 @@ gedit<span class="w"> </span>.bashrc
 </ul>
 </section>
 <section id="using-turtlesim-ros2-and-rqt">
-<h3>2. Using turtlesim, ros2, and rqt<a class="headerlink" href="#using-turtlesim-ros2-and-rqt" title="Link to this heading">#</a></h3>
+<h3>2. Using turtlesim, ros2, and rqt<a class="headerlink" href="#using-turtlesim-ros2-and-rqt" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Do <strong>not</strong> install <code class="docutils literal notranslate"><span class="pre">rqt</span></code> and its plugins, as they are already installed.</p></li>
 </ul>
 </section>
 <section id="understanding-nodes">
-<h3>3. Understanding nodes<a class="headerlink" href="#understanding-nodes" title="Link to this heading">#</a></h3>
+<h3>3. Understanding nodes<a class="headerlink" href="#understanding-nodes" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Complete this tutorial.</p></li>
 </ul>
 </section>
 <section id="understanding-topics">
-<h3>4. Understanding topics<a class="headerlink" href="#understanding-topics" title="Link to this heading">#</a></h3>
+<h3>4. Understanding topics<a class="headerlink" href="#understanding-topics" title="Permalink to this heading">#</a></h3>
 <ul>
 <li><p>Try all the options for the checkboxes in <code class="docutils literal notranslate"><span class="pre">rqt_graph</span></code>.</p>
-<a class="reference internal image-reference" href="../_images/Lab2_rqt_graph.png"><img alt="../_images/Lab2_rqt_graph.png" class="align-center" src="../_images/Lab2_rqt_graph.png" style="width: 720px;" />
-</a>
+<a class="reference internal image-reference" href="../_images/Lab2_rqt_graph.png"><img alt="../_images/Lab2_rqt_graph.png" class="align-center" src="../_images/Lab2_rqt_graph.png" style="width: 720px;" /></a>
   <br>
 </li>
 <li><p>Recreate the graph shown above and save it as a .png file. While the block locations might differ from the example, ensure your graph structure matches. Save the graph by clicking the <code class="docutils literal notranslate"><span class="pre">Save</span> <span class="pre">as</span> <span class="pre">image</span></code> button in the top-right corner and submit it on Gradescope.</p>
@@ -505,11 +479,10 @@ gedit<span class="w"> </span>.bashrc
 </ul>
 </section>
 <section id="understanding-services">
-<h3>5. Understanding services<a class="headerlink" href="#understanding-services" title="Link to this heading">#</a></h3>
+<h3>5. Understanding services<a class="headerlink" href="#understanding-services" title="Permalink to this heading">#</a></h3>
 <ul>
 <li><p>Follow the instruction in this turtorial. At the end, spawn an additional turtle (so there are 3 turtles in total) near the center of the window. Right click on the title bar and select <code class="docutils literal notranslate"><span class="pre">Take</span> <span class="pre">Screenshot</span></code>.  You can also take a screenshot using the <code class="docutils literal notranslate"><span class="pre">Print</span> <span class="pre">Screen</span></code> key on your keyboard. Then, submit the screenshot on Gradescope.</p>
-<a class="reference internal image-reference" href="../_images/Lab2_Spawn3Turtles.png"><img alt="../_images/Lab2_Spawn3Turtles.png" class="align-center" src="../_images/Lab2_Spawn3Turtles.png" style="width: 320px;" />
-</a>
+<a class="reference internal image-reference" href="../_images/Lab2_Spawn3Turtles.png"><img alt="../_images/Lab2_Spawn3Turtles.png" class="align-center" src="../_images/Lab2_Spawn3Turtles.png" style="width: 320px;" /></a>
   <br>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -519,38 +492,38 @@ gedit<span class="w"> </span>.bashrc
 </ul>
 </section>
 <section id="understanding-parameters">
-<h3>6. Understanding parameters<a class="headerlink" href="#understanding-parameters" title="Link to this heading">#</a></h3>
+<h3>6. Understanding parameters<a class="headerlink" href="#understanding-parameters" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Complete this tutorial.</p></li>
 </ul>
 </section>
 <section id="understanding-actions">
-<h3>7. Understanding actions<a class="headerlink" href="#understanding-actions" title="Link to this heading">#</a></h3>
+<h3>7. Understanding actions<a class="headerlink" href="#understanding-actions" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Complete this tutorial.</p></li>
 </ul>
 </section>
 <section id="using-rqt-console-to-view-logs">
-<h3>8. Using rqt_console to view logs<a class="headerlink" href="#using-rqt-console-to-view-logs" title="Link to this heading">#</a></h3>
+<h3>8. Using rqt_console to view logs<a class="headerlink" href="#using-rqt-console-to-view-logs" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Complete this tutorial.</p></li>
 </ul>
 </section>
 <section id="launching-nodes">
-<h3>9. Launching nodes<a class="headerlink" href="#launching-nodes" title="Link to this heading">#</a></h3>
+<h3>9. Launching nodes<a class="headerlink" href="#launching-nodes" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Complete this tutorial.</p></li>
 </ul>
 </section>
 <section id="recording-and-playing-back-data">
-<h3>10. Recording and playing back data<a class="headerlink" href="#recording-and-playing-back-data" title="Link to this heading">#</a></h3>
+<h3>10. Recording and playing back data<a class="headerlink" href="#recording-and-playing-back-data" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Create a directory called <code class="docutils literal notranslate"><span class="pre">lab2</span></code> within your local repository.  Then, create the <code class="docutils literal notranslate"><span class="pre">bag_files</span></code> directory inside the <code class="docutils literal notranslate"><span class="pre">lab2</span></code> directory.  As you follow the instruction in this tutorial, save the <code class="docutils literal notranslate"><span class="pre">subset</span></code> bag file in the <code class="docutils literal notranslate"><span class="pre">bag_files</span></code> directory.  Ensure the recording time is approimately 10 seconds. Push your code to your GitHub repository.</p></li>
 </ul>
 </section>
 </section>
 <section id="deliverables">
-<h2>🚚 Deliverables<a class="headerlink" href="#deliverables" title="Link to this heading">#</a></h2>
+<h2>🚚 Deliverables<a class="headerlink" href="#deliverables" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Go to Gradescope and submit the <code class="docutils literal notranslate"><span class="pre">Lab2</span></code> assignment.</p></li>
 </ul>
@@ -582,10 +555,11 @@ gedit<span class="w"> </span>.bashrc
 
               
               
-              
-              
-                <footer class="prev-next-footer d-print-none">
+                <footer class="bd-footer-article">
                   
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="Lab1_Linux.html"
@@ -605,7 +579,10 @@ gedit<span class="w"> </span>.bashrc
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
+</div></div>
+  
 </div>
+
                 </footer>
               
             </div>
@@ -613,7 +590,6 @@ gedit<span class="w"> </span>.bashrc
             
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -658,7 +634,6 @@ By Stan Baek
   
   <div class="footer-item">
     
-
   <p class="copyright">
     
       © Copyright 2023.
@@ -685,8 +660,8 @@ By Stan Baek
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
   <footer class="bd-footer">
   </footer>

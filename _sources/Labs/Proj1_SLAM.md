@@ -6,7 +6,92 @@
 
 ## 📜 Overview
 
-In this project, we’ll enable our robot to autonomously navigate unknown maze and build a map of the maze. As we did in the previous lab, we will be using the LiDAR to detect the walls of the maze (or obstacles) surrounding the robot. We will be utilizeing the simultaneous localization and mapping library provided by ROS2 and Turtleb3. Although SLAM is one of the fundamental algorithms used for mobile robots, a solid understading of the algorithms requires a deep understanding of statististics and optimazation, which are mostly graduate level studies.   
+In this project, we will enable our robot to autonomously navigate an unknown maze and build a map of the environment. As in the previous lab, we will use LiDAR to detect the walls of the maze (or obstacles) surrounding the robot. We will be utilizing the Simultaneous Localization and Mapping (SLAM) library provided by ROS2 and TurtleBot3.
+
+SLAM, or Simultaneous Localization and Mapping, is a process used in robotics to enable a robot to build a map of an unknown environment while simultaneously determining its location within that map. It involves combining sensor data, algorithms, and probabilistic methods to perform real-time mapping and localization. SLAM is crucial for autonomous robots to operate effectively in environments where pre-existing maps are not available.
+
+SLAM is one of the fundamental algorithms in robotics and is widely used in applications such as autonomous vehicles, drone navigation, and robotic vacuum cleaners. It enables robots to navigate dynamic and unfamiliar environments without relying on GPS or pre-defined maps, which is essential for many real-world scenarios.
+
+SLAM integrates data from sensors like LiDAR and odometry to construct and update a map while estimating the robot's position. Through statistical methods like Kalman Filters or Particle Filters, SLAM corrects errors in localization and mapping to achieve accurate results. While the underlying mathematics involves advanced topics in statistics and optimization, libraries provided in ROS2 simplify SLAM's implementation, making it accessible for practical applications.
+
+
+## 🛠️ Lab Procedures
+
+### 1. **Setting Up TurtleBot3 with SLAM in Gazebo**
+Follow these steps to simulate SLAM with TurtleBot3 in the Gazebo environment.
+
+1. Launch the Gazebo world:
+   ```bash
+   ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py
+   ```
+
+1. Open another terminal, source the ROS 2 environment, and run the SLAM node:
+   ```bash
+   ros2 launch turtlebot3_cartographer cartographer.launch.py use_sim_time:=true
+   ```
+
+1. View the map being generated in real-time using RViz:
+   ```bash
+   ros2 launch turtlebot3_cartographer cartographer_rviz.launch.py
+   ```
+
+1. Use `gamepad` to manually navigate the robot in Gazebo and build the map:
+   ```bash
+   ros2 launch lab4_gamepad gamepad.launch.py
+   ```
+
+1. Once the mapping process is complete, save the generated map:
+   ```bash
+   ros2 run nav2_map_server map_saver_cli -f ~/map
+   ```
+
+
+
+### 2. **Autonomous Navigation with TurtleBot3**
+After building and saving the map, use it for autonomous navigation.
+
+1. Launch the navigation stack:
+    ```bash
+    ros2 launch turtlebot3_navigation2 navigation2.launch.py use_sim_time:=true map:=/path/to/your/saved/map.yaml
+    ```
+
+1. Use RViz to set an initial pose for the robot and specify the goal location. Follow these steps:
+   - Open RViz with the navigation configuration:
+     ```bash
+     ros2 launch turtlebot3_navigation2 navigation2_rviz.launch.py
+     ```
+   - Use the "2D Pose Estimate" tool in RViz to set the robot's initial position.
+   - Use the "2D Nav Goal" tool to set the robot's navigation target.
+
+2. The robot will autonomously navigate to the goal using the SLAM-generated map.
+
+
+
+### ✍️ Important Notes:
+- **SLAM Basics**: Remember, this lab is designed to expose you to SLAM concepts practically. While understanding the underlying mathematical models is ideal, focus on grasping how SLAM operates and its real-world applications.
+- **Journal Requirements**: As part of this lab, you are required to document the following:
+  - Steps followed during SLAM and navigation.
+  - Screenshots of the map generated in RViz.
+  - Issues encountered and how you resolved them.
+  - Reflections on the challenges and learning outcomes.
+- **Support**: If you encounter any issues, use the official TurtleBot3 e-Manual or consult with your peers.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
