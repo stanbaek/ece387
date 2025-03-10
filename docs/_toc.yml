@@ -25,6 +25,7 @@ parts:
     - file: Labs/Lab6_IMU.md
     - file: Labs/Lab7_TF.md
     - file: Labs/Lab8_LIDAR.md
+    - file: Labs/Proj1_SLAM.md
 
   - caption: Appendix
     chapters:
