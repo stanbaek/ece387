@@ -30,11 +30,6 @@ Follow these steps to simulate SLAM with TurtleBot3 in the Gazebo environment.
    ros2 launch turtlebot3_cartographer cartographer.launch.py use_sim_time:=true
    ```
 
-1. View the map being generated in real-time using RViz:
-   ```bash
-   ros2 launch turtlebot3_cartographer cartographer_rviz.launch.py
-   ```
-
 1. Use `gamepad` to manually navigate the robot in Gazebo and build the map:
    ```bash
    ros2 launch lab4_gamepad gamepad.launch.py
