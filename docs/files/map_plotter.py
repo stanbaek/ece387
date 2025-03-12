@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt  # For plotting the map
 from PIL import Image  # For loading the PGM image file
 
 # Step 1: Load the map metadata from the YAML file
-yaml_file = "map_twice.yaml"
+yaml_file = "map.yaml"
 with open(yaml_file, 'r') as file:
     map_metadata = yaml.safe_load(file)  # Parse YAML content into a dictionary
 
