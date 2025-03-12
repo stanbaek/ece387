@@ -91,6 +91,269 @@ After building and saving the map, use it for autonomous navigation.
 
 
 
+
+
+
+
+
+
+To run **autonomous SLAM** using **Cartographer** with TurtleBot3 in ROS2, you’ll need to:
+
+1. **Set up Cartographer** to build the map.  
+2. **Use Navigation2** to autonomously explore the environment and update the map in real-time.  
+
+### ✅ **Full Step-by-Step Instructions:**
+
+---
+
+### **1. Start Gazebo with TurtleBot3**
+Launch the TurtleBot3 in the Gazebo simulation:
+
+```bash
+ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py
+```
+
+---
+
+### **2. Start SLAM with Cartographer**
+Start Cartographer to perform SLAM:
+
+```bash
+ros2 launch turtlebot3_cartographer cartographer.launch.py use_sim_time:=true
+```
+
+- This will start the SLAM process, and Cartographer will begin building the map as you move the robot.
+
+---
+
+### **3. Start Navigation2**
+You can now run Navigation2 alongside Cartographer to allow the robot to navigate autonomously using the evolving map:
+
+```bash
+ros2 launch turtlebot3_navigation2 navigation2.launch.py use_sim_time:=true
+```
+
+- Cartographer will continue updating the map dynamically as the robot navigates.
+
+---
+
+### **4. Start RViz**
+Open RViz to visualize the map and set navigation goals:
+
+```bash
+ros2 launch turtlebot3_bringup rviz2.launch.py
+```
+
+- In RViz:
+   - Use **2D Pose Estimate** to set the robot's initial position (if available).
+   - Use **2D Nav Goal** to set a navigation target — the robot will explore and update the map.
+
+---
+
+### **5. Save the Map**  
+Once you’re satisfied with the map, save it using:
+
+```bash
+ros2 run nav2_map_server map_saver_cli -f ~/map
+```
+
+This creates `map.yaml` and `map.pgm` files in your home directory.
+
+---
+
+### **6. Optional: Run Navigation2 with the Saved Map**  
+If you want to use the saved map for localization and navigation later (without running Cartographer), you can launch it like this:
+
+```bash
+ros2 launch turtlebot3_navigation2 navigation2.launch.py use_sim_time:=true map:=/path/to/your/saved/map.yaml
+```
+
+---
+
+### 🚀 **Summary:**  
+✅ Start **Cartographer** → ✅ Start **Navigation2** → ✅ Set Goals in **RViz** → ✅ Save the Map  
+
+---
+
+This setup will let TurtleBot3 explore and map autonomously while using Cartographer for SLAM. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+If you want TurtleBot3 to follow **multiple goals** autonomously using **Nav2**, you can achieve it in a few different ways:
+
+---
+
+## ✅ **Option 1: Use a Python Script with an Action Client**
+You can create a Python script to send a sequence of goals to Nav2 using the **`FollowWaypoints`** action.
+
+### **Example Script to Send Multiple Goals:**
+
+1. Create a new Python script:
+```bash
+mkdir -p ~/master_ws/src/multi_goal_nav
+cd ~/master_ws/src/multi_goal_nav
+touch multi_goal_nav.py
+chmod +x multi_goal_nav.py
+```
+
+2. Add the following code to `multi_goal_nav.py`:
+
+```python
+#!/usr/bin/env python3
+
+import rclpy
+from rclpy.node import Node
+from geometry_msgs.msg import PoseStamped
+from nav2_msgs.action import FollowWaypoints
+from rclpy.action import ActionClient
+import time
+
+class MultiGoalNav(Node):
+    def __init__(self):
+        super().__init__('multi_goal_nav')
+        self.client = ActionClient(self, FollowWaypoints, 'follow_waypoints')
+        self.client.wait_for_server()
+
+    def send_goals(self):
+        # Define multiple goals as PoseStamped messages
+        goals = []
+
+        goal_1 = PoseStamped()
+        goal_1.header.frame_id = 'map'
+        goal_1.header.stamp = self.get_clock().now().to_msg()
+        goal_1.pose.position.x = 1.0
+        goal_1.pose.position.y = 0.5
+        goal_1.pose.orientation.w = 1.0
+        goals.append(goal_1)
+
+        goal_2 = PoseStamped()
+        goal_2.header.frame_id = 'map'
+        goal_2.header.stamp = self.get_clock().now().to_msg()
+        goal_2.pose.position.x = -0.5
+        goal_2.pose.position.y = 1.0
+        goal_2.pose.orientation.w = 1.0
+        goals.append(goal_2)
+
+        goal_3 = PoseStamped()
+        goal_3.header.frame_id = 'map'
+        goal_3.header.stamp = self.get_clock().now().to_msg()
+        goal_3.pose.position.x = 0.0
+        goal_3.pose.position.y = -1.0
+        goal_3.pose.orientation.w = 1.0
+        goals.append(goal_3)
+
+        self.get_logger().info(f"Sending {len(goals)} goals...")
+        
+        goal_msg = FollowWaypoints.Goal()
+        goal_msg.poses = goals
+
+        self.send_goal_future = self.client.send_goal_async(goal_msg)
+        self.send_goal_future.add_done_callback(self.goal_response_callback)
+
+    def goal_response_callback(self, future):
+        goal_handle = future.result()
+        if not goal_handle.accepted:
+            self.get_logger().info('Goal rejected :(')
+            return
+        self.get_logger().info('Goal accepted :)')
+        self.result_future = goal_handle.get_result_async()
+        self.result_future.add_done_callback(self.result_callback)
+
+    def result_callback(self, future):
+        result = future.result().result
+        self.get_logger().info(f'Navigation complete with {result.missed_waypoints} missed waypoints.')
+
+def main(args=None):
+    rclpy.init(args=args)
+    node = MultiGoalNav()
+    time.sleep(2)  # Ensure connection to server
+    node.send_goals()
+    rclpy.spin(node)
+    node.destroy_node()
+    rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()
+```
+
+3. **Build and Run:**
+
+```bash
+colcon build --packages-select multi_goal_nav
+source install/setup.bash
+ros2 run multi_goal_nav multi_goal_nav.py
+```
+
+---
+
+## ✅ **Option 2: Use RViz Waypoints Plugin**  
+You can also use a plugin in RViz to set multiple waypoints:
+
+1. In **RViz**, add the **"Waypoint Follower"** plugin:
+   - Open RViz.
+   - Click **"Add"** → **"By Topic"** → Select `/goal_pose`.
+
+2. In the RViz toolbar:
+   - After adding the plugin, you should see a **"Set Waypoints"** button.
+   - Click **"Set Waypoints"** to define multiple goal points on the map.
+   - Once all waypoints are set, click **"Follow Waypoints"** to start autonomous navigation.
+
+---
+
+## ✅ **Option 3: Use a YAML File for Goals**  
+You can create a list of goals in a YAML file and load it at runtime:
+
+1. Create a YAML file (`multi_goals.yaml`) like this:
+
+```yaml
+goals:
+  - pose:
+      position:
+        x: 1.0
+        y: 0.5
+      orientation:
+        w: 1.0
+  - pose:
+      position:
+        x: -0.5
+        y: 1.0
+      orientation:
+        w: 1.0
+  - pose:
+      position:
+        x: 0.0
+        y: -1.0
+      orientation:
+        w: 1.0
+```
+
+2. Create a launch file to read the goals and send them to Nav2 using `FollowWaypoints` action.
+
+---
+
+## 🚀 **Recommended Approach:**  
+- For flexible automation → Use **Option 1** (Python script).  
+- For interactive use → Use **Option 2** (RViz Waypoints Plugin).  
+- For repeated runs → Use **Option 3** (YAML file).  
+
+
+
+
+
+
+
 ```{image} ./figures/rplidar.png
 :width: 300  
 :align: center  
