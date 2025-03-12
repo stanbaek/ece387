@@ -14,6 +14,7 @@ SLAM is one of the fundamental algorithms in robotics and is widely used in appl
 
 SLAM integrates data from sensors like LiDAR and odometry to construct and update a map while estimating the robot's position. Through statistical methods like Kalman Filters or Particle Filters, SLAM corrects errors in localization and mapping to achieve accurate results. While the underlying mathematics involves advanced topics in statistics and optimization, libraries provided in ROS2 simplify SLAM's implementation, making it accessible for practical applications.
 
+We will use Cartographer in this lab because it provides an efficient and accurate SLAM solution for 2D environments like the maze we’ll be mapping. Its ability to handle LiDAR data and update maps in real time makes it ideal for this project. Furthermore, its compatibility with TurtleBot3 and ROS2 simplifies the setup, allowing us to focus on understanding the SLAM process and its applications.
 
 ## 🛠️ Lab Procedures
 
@@ -22,23 +23,35 @@ Follow these steps to simulate SLAM with TurtleBot3 in the Gazebo environment.
 
 1. Launch the Gazebo world:
    ```bash
-   ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py
+   $ ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py
    ```
 
-1. Open another terminal, source the ROS 2 environment, and run the SLAM node:
+1. Open another terminal and run the SLAM node:
    ```bash
-   ros2 launch turtlebot3_cartographer cartographer.launch.py use_sim_time:=true
+   $ ros2 launch turtlebot3_cartographer cartographer.launch.py use_sim_time:=true
    ```
 
 1. Use `gamepad` to manually navigate the robot in Gazebo and build the map:
    ```bash
-   ros2 launch lab4_gamepad gamepad.launch.py
+   $ ros2 launch lab4_gamepad gamepad.launch.py
    ```
 
 1. Once the mapping process is complete, save the generated map:
    ```bash
-   ros2 run nav2_map_server map_saver_cli -f ~/map
+   $ ros2 run nav2_map_server map_saver_cli -f ~/map
    ```
+
+1. Download [`map_plotter.py`](../files/map_plotter.py) to your `home` directory and make it executable.
+   ```bash
+   $ chmod +x map_plotter.py
+   ```
+   Then, verify if the file is now executable using `ls -l`
+
+   ```{important}
+   If you are asked to write the command that makes a file executable only for the file owner, you should be able to answer in your GR. 😉
+   ```
+
+
 
 
 
