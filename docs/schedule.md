@@ -25,21 +25,21 @@ This schedule is subject to change as appropriate.
 | 15   |[Lab 6: IMU](Labs/Lab6_IMU.md)            |       |Quiz 3   |
 | 16   |Lec 7: Transformation                     |       |Lab 6    |
 | 17   |[Lab 7: Transformation](Labs/Lab7_TF.md)  |       |         |
-| 18   |Lec 8: LIDAR                              |       |Lab 7    |
+| 18   |Lec 8: LiDAR                              |       |Lab 7    |
 | 19   |GR 1                                      |       |         |
-| 20   |[Lab 8: LIDAR](Labs/Lab8_LIDAR.md)        |       |         |
-| 21   |[Lab 8: LIDAR](Labs/Lab8_LIDAR.md)        |       |         |
-| 22   |[Proj 1: SLAM](Labs/Proj1_SLAM.md)        |       |Lab 8    |
-| 23   |[Proj 1: SLAM](Labs/Proj1_SLAM.md)        |       |         |
-| 24   |[Proj 1: SLAM](Labs/Proj1_SLAM.md)        |       |         |
-| 25   |[Proj 1: SLAM](Labs/Proj1_SLAM.md)        |       |P1 Demo  |
-| 26   |Lec 9: Computer Vision                    |       |P1 Report|
-| 27   |Lab 9: Computer Vision                    |       |         |
-| 28   |Lab 9: Computer Vision                    |       |         |
-| 29   |Lec 10: AprilTags                         |       |Lab 9    |
-| 30   |Lab 10: AprilTags                         |       |         |
-| 31   |Lab 10: AprilTags                         |       |         | 
-| 32   |Final Project - Requirements              |       |Lab 10   |
+| 20   |[Lab 8: LiDAR](Labs/Lab8_LIDAR.md)        |       |         |
+| 21   |[Lab 8: LiDAR](Labs/Lab8_LIDAR.md)        |       |         |
+| 22   |[Lab 8: LiDAR](Labs/Lab8_LIDAR.md)        |       |         |
+| 23   |Lec 9: SLAM                               |       |Lab 8    |
+| 24   |[Lab 9: SLAM](Labs/Lab9_SLAM.md)          |       |         |
+| 25   |[Lab 9: SLAM](Labs/Lab9_SLAM.md)          |       |         |
+| 26   |Lec 10: Computer Vision                   |       |Lab 9    |
+| 27   |[Lab 10: CV](Labs/Lab10_CV.md)            |       |         |
+| 28   |[Lab 10: CV](Labs/Lab10_CV.md)            |       |         |
+| 29   |Lec 11: AprilTags                         |       |Lab 10   |
+| 30   |Lab 11: AprilTags                         |       |         |
+| 31   |Lab 11: AprilTags                         |       |         | 
+| 32   |Final Project - Requirements              |       |Lab 11   |
 | 33   |GR 2                                      |       |         |
 | 34   |Final Project - Design                    |       |         |
 | 35   |Final Project - Design Briefs             |       |Briefings|
