@@ -1,4 +1,4 @@
-# 🚀 Proj 1: SLAM
+# 🔬 Lab9: SLAM
 
 (not ready yet)
 
