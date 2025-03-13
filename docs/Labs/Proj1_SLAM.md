@@ -1,7 +1,9 @@
 # 🚀 Proj 1: SLAM
 
 (not ready yet)
+
 ## 📌 Objectives
+
 - Students should be able to implement a ROS2 node to detect walls using LiDAR data.
 
 ## 📜 Overview
@@ -19,144 +21,144 @@ We will use Cartographer in this lab because it provides an efficient and accura
 ## 🛠️ Lab Procedures
 
 ### **Setting Up TurtleBot3 with SLAM in Gazebo**
+
 Follow these steps to simulate SLAM with TurtleBot3 in the Gazebo environment.
 
-1. Launch the Gazebo world:
-   ```bash
-   $ ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py
-   ```
+1. Download the [`maze Gazebo files`](../files/maze.tar.xz). Extract the files and move them inside the appropriate directories in `~/master_ws/src/turtlebot3_simulations/turtlebot3_gazebo`. Ensure each new directory is moved to the existing directory with the same name.
 
-1. Open another terminal and run the SLAM node:
-   ```bash
-   ros2 launch turtlebot3_cartographer cartographer.launch.py use_sim_time:=true
-   ```
-    This will start the SLAM process, and Cartographer will begin building the map as you move the robot.
+1. Launch the Gazebo world:
+
+    ```bash
+    ros2 launch turtlebot3_gazebo maze.launch.py
+    ```
+
+    It will launch the Gazebo simulation for the maze as shown in the figure below
+
+    ```{image} ./figures/Proj1_GazeboInit.png
+    :width: 400  
+    :align: center  
+    ```  
+
+1. Open another terminal and run the Cartography SLAM:
+
+    ```bash
+    ros2 launch turtlebot3_cartographer cartographer.launch.py use_sim_time:=true
+    ```
+
+    This will start the SLAM process, and Cartographer will begin building the map shown below as you move the robot.
+
+    ```{image} ./figures/Proj1_CartographerInit.png
+    :width: 400  
+    :align: center  
+    ```  
 
 1. Use `gamepad` to manually navigate the robot in Gazebo and build the map:
-   ```bash
-   $ ros2 launch lab4_gamepad gamepad.launch.py
-   ```
+
+    ```bash
+    ros2 launch lab4_gamepad gamepad.launch.py
+    ```
+
+    Ensure you navigate the entire maze. The obstacles (walls) are represnted in black. As the gray pixels represent noise, solid black color means low uncertainty of the obstacles. If you complete multiple laps, the uncertainty of the obstacles will be lower - light gray pixels will become dark gray pixels.  
+
+    ```{image} ./figures/Proj1_CartographerDone.png
+    :width: 400  
+    :align: center  
+    ```  
 
 1. Once the mapping process is complete, save the generated map:
-   ```bash
-   $ ros2 run nav2_map_server map_saver_cli -f ~/map
-   ```
+
+    ```bash
+    ros2 run nav2_map_server map_saver_cli -f ~/map
+    ```
 
 1. Download [`map_plotter.py`](../files/map_plotter.py) to your `home` directory and make it executable.
-   ```bash
-   $ chmod +x map_plotter.py
-   ```
+
+    ```bash
+    chmod +x map_plotter.py
+    ```
+
    Then, verify if the file is now executable using `ls -l`
 
-   ```{important}
-   If you are asked to write the command that makes a file executable only for the file owner, you should be able to answer in your GR. 😉
-   ```
+    ```{important}
+    If you are asked to write the command that makes a file executable only for the file owner, you should be able to answer in your GR. 😉
+    ```
 
 1. Run the python script to plot the map
-   ```bash
-   $ ./map_plotter.py
-   ```
+
+    ```bash
+    ./map_plotter.py
+    ```
+
+1. Verify that the dimensions of the map in the plot correpsond to the actual maze. The length of the wall pieces is 0.18 meters.  
 
 ### **Autonomous Navigation with SLAM**
 
-To run **autonomous SLAM** using **Cartographer**, we need to set up `Cartographer` to build the map and use `Navigation2` to autonomously explore the environment and update the map in real-time. 
+To run **autonomous SLAM** using **Cartographer**, we need to set up `Cartographer` to build the map and use `Navigation2` to autonomously explore the environment and update the map in real-time.
 
 1. Launch the TurtleBot3 in the Gazebo simulation:
-   ```bash
-   ros2 launch turtlebot3_gazebo square_path.launch.py
-   ```
 
-1. Start Cartographer to perform SLAM:
-   ```bash
-   ros2 launch turtlebot3_cartographer cartographer.launch.py use_sim_time:=true
-   ```
-
-1. You can now run Navigation2 alongside Cartographer to allow the robot to navigate autonomously using the evolving map:
-   ```bash
-   ros2 launch turtlebot3_navigation2 navigation2.launch.py use_sim_time:=true
-   ```
-   Cartographer will continue updating the map dynamically as the robot navigates.
-   - Use **2D Pose Estimate** to set the robot's initial position.
-   - Use **2D Nav Goal** to set a navigation target — the robot will explore and update the map.
-
-1. (Optional) Open RViz to visualize the map and set navigation goals:
-   ```bash
-   ros2 launch turtlebot3_bringup rviz2.launch.py
-   ```
-
-### **5. Save the Map**  
-Once you’re satisfied with the map, save it using:
-
-```bash
-ros2 run nav2_map_server map_saver_cli -f ~/map
-```
-
-This creates `map.yaml` and `map.pgm` files in your home directory.
-
----
-
-
-
-
-
-
-
-
-
-1. Launch the navigation stack:
     ```bash
-    ros2 launch turtlebot3_navigation2 navigation2.launch.py use_sim_time:=true map:=/path/to/your/saved/map.yaml
+    ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py
     ```
 
-1. Use RViz to set an initial pose for the robot and specify the goal location. Follow these steps:
-   - Open RViz with the navigation configuration:
-     ```bash
-     ros2 launch turtlebot3_navigation2 navigation2_rviz.launch.py
-     ```
-   - Use the "2D Pose Estimate" tool in RViz to set the robot's initial position.
-   - Use the "2D Nav Goal" tool to set the robot's navigation target.
+    ```{image} ./figures/Lab9_GazeboWorld.png
+    :width: 400  
+    :align: center  
+    ```  
 
-2. The robot will autonomously navigate to the goal using the SLAM-generated map.
+1. Start Cartographer to perform SLAM:
 
+    ```bash
+    ros2 launch turtlebot3_cartographer cartographer.launch.py use_sim_time:=true
+    ```
 
+    ```{image} ./figures/Lab9_CartographerInit.png
+    :width: 400  
+    :align: center  
+    ```  
 
+1. You can now run Navigation2 alongside Cartographer to allow the robot to navigate autonomously using the evolving map:
 
+    ```bash
+    ros2 launch turtlebot3_navigation2 navigation2.launch.py use_sim_time:=true
+    ```
 
+    ```{image} ./figures/Lab9_Nav2WorldInit.png
+    :width: 400  
+    :align: center  
+    ```  
 
+    Cartographer will continue updating the map dynamically as the robot navigates.
 
+    - Click the `2D Pose Estimate` button in the RViz2 menu. Then
+    - Click on the map where the actual robot is located and drag the large green arrow toward the direction where the robot is facing.
+    - Use `2D Nav Goal` to set a navigation target
+    - As you set waypoints to navigate multiple target points, the robot will explore the maze as shown below.
 
-### ✍️ Important Notes:
-- **SLAM Basics**: Remember, this lab is designed to expose you to SLAM concepts practically. While understanding the underlying mathematical models is ideal, focus on grasping how SLAM operates and its real-world applications.
-- **Journal Requirements**: As part of this lab, you are required to document the following:
-  - Steps followed during SLAM and navigation.
-  - Screenshots of the map generated in RViz.
-  - Issues encountered and how you resolved them.
-  - Reflections on the challenges and learning outcomes.
-- **Support**: If you encounter any issues, use the official TurtleBot3 e-Manual or consult with your peers.
+    ```{image} ./figures/Lab9_Nav2WorldInProgress.png
+    :width: 400  
+    :align: center  
+    ```  
 
+    - Accordingly, the map will be updated as shown below
 
+    ```{image} ./figures/Lab9_GazeboWorldInProgress.png
+    :width: 400  
+    :align: center  
+    ```  
 
+1. Explore the entire world and create a map. Ensure you have dark gray obstacles.
 
-
-
-
-
-
-
-
-
-
-
-If you want TurtleBot3 to follow **multiple goals** autonomously using **Nav2**, you can achieve it in a few different ways:
-
----
+1. Take a screenshot of the cartographer window by right clicking the tileboar.  Submit the screenshot on Gradescope.
 
 ## ✅ **Option 1: Use a Python Script with an Action Client**
+
 You can create a Python script to send a sequence of goals to Nav2 using the **`FollowWaypoints`** action.
 
 ### **Example Script to Send Multiple Goals:**
 
 1. Create a new Python script:
+
 ```bash
 mkdir -p ~/master_ws/src/multi_goal_nav
 cd ~/master_ws/src/multi_goal_nav
@@ -211,7 +213,7 @@ class MultiGoalNav(Node):
         goals.append(goal_3)
 
         self.get_logger().info(f"Sending {len(goals)} goals...")
-        
+
         goal_msg = FollowWaypoints.Goal()
         goal_msg.poses = goals
 
@@ -254,7 +256,8 @@ ros2 run multi_goal_nav multi_goal_nav.py
 
 ---
 
-## ✅ **Option 2: Use RViz Waypoints Plugin**  
+## ✅ **Option 2: Use RViz Waypoints Plugin**
+
 You can also use a plugin in RViz to set multiple waypoints:
 
 1. In **RViz**, add the **"Waypoint Follower"** plugin:
@@ -268,7 +271,8 @@ You can also use a plugin in RViz to set multiple waypoints:
 
 ---
 
-## ✅ **Option 3: Use a YAML File for Goals**  
+## ✅ **Option 3: Use a YAML File for Goals**
+
 You can create a list of goals in a YAML file and load it at runtime:
 
 1. Create a YAML file (`multi_goals.yaml`) like this:
@@ -299,20 +303,15 @@ goals:
 
 ---
 
-## 🚀 **Recommended Approach:**  
-- For flexible automation → Use **Option 1** (Python script).  
-- For interactive use → Use **Option 2** (RViz Waypoints Plugin).  
-- For repeated runs → Use **Option 3** (YAML file).  
+## 🚀 **Recommended Approach:**
 
-
-
-
-
+- For flexible automation → Use **Option 1** (Python script).
+- For interactive use → Use **Option 2** (RViz Waypoints Plugin).
+- For repeated runs → Use **Option 3** (YAML file).
 
 <center>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/yf1iLbKwU3E?si=f9wdUHjrpu-KqkSU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </center>
-
 
 ## 🚚 Deliverables
 
