@@ -383,25 +383,17 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">📌 Objectives</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">📜 Overview</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-procedures">🛠️ Lab Procedures</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-turtlebot3-with-slam-in-gazebo">1. <strong>Setting Up TurtleBot3 with SLAM in Gazebo</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#autonomous-navigation-with-turtlebot3">2. <strong>Autonomous Navigation with TurtleBot3</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#important-notes">✍️ Important Notes:</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-lidar-works">📹 How LiDAR Works</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#turtlebot3-lidar-example">📹 TurtleBot3 LiDAR Example</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-turtlebot3-with-slam-in-gazebo"><strong>Setting Up TurtleBot3 with SLAM in Gazebo</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#autonomous-navigation-with-slam"><strong>Autonomous Navigation with SLAM</strong></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-lab-setting-up-and-testing-lidar">🌱 Pre-Lab: Setting Up and Testing LiDAR</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-ros2-launch-files">Using ROS2 Launch Files</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-packages">Install Packages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#option-1-use-a-python-script-with-an-action-client">✅ <strong>Option 1: Use a Python Script with an Action Client</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-script-to-send-multiple-goals"><strong>Example Script to Send Multiple Goals:</strong></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-procedure-lidar-based-wall-detection">💻 Lab Procedure: LiDAR-Based Wall Detection</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-your-ros2-package">Setting Up Your ROS2 Package</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementing-the-python-scripts">Implementing the Python Scripts</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#running-the-simulation"><strong>Running the Simulation</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#running-the-real-robot">Running the Real Robot</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#option-2-use-rviz-waypoints-plugin">✅ <strong>Option 2: Use RViz Waypoints Plugin</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#option-3-use-a-yaml-file-for-goals">✅ <strong>Option 3: Use a YAML File for Goals</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recommended-approach">🚀 <strong>Recommended Approach:</strong></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">🚚 Deliverables</a></li>
 </ul>
             </nav>
@@ -429,326 +421,265 @@ document.write(`
 <p>SLAM, or Simultaneous Localization and Mapping, is a process used in robotics to enable a robot to build a map of an unknown environment while simultaneously determining its location within that map. It involves combining sensor data, algorithms, and probabilistic methods to perform real-time mapping and localization. SLAM is crucial for autonomous robots to operate effectively in environments where pre-existing maps are not available.</p>
 <p>SLAM is one of the fundamental algorithms in robotics and is widely used in applications such as autonomous vehicles, drone navigation, and robotic vacuum cleaners. It enables robots to navigate dynamic and unfamiliar environments without relying on GPS or pre-defined maps, which is essential for many real-world scenarios.</p>
 <p>SLAM integrates data from sensors like LiDAR and odometry to construct and update a map while estimating the robot’s position. Through statistical methods like Kalman Filters or Particle Filters, SLAM corrects errors in localization and mapping to achieve accurate results. While the underlying mathematics involves advanced topics in statistics and optimization, libraries provided in ROS2 simplify SLAM’s implementation, making it accessible for practical applications.</p>
+<p>We will use Cartographer in this lab because it provides an efficient and accurate SLAM solution for 2D environments like the maze we’ll be mapping. Its ability to handle LiDAR data and update maps in real time makes it ideal for this project. Furthermore, its compatibility with TurtleBot3 and ROS2 simplifies the setup, allowing us to focus on understanding the SLAM process and its applications.</p>
 </section>
 <section id="lab-procedures">
 <h2>🛠️ Lab Procedures<a class="headerlink" href="#lab-procedures" title="Permalink to this heading">#</a></h2>
 <section id="setting-up-turtlebot3-with-slam-in-gazebo">
-<h3>1. <strong>Setting Up TurtleBot3 with SLAM in Gazebo</strong><a class="headerlink" href="#setting-up-turtlebot3-with-slam-in-gazebo" title="Permalink to this heading">#</a></h3>
+<h3><strong>Setting Up TurtleBot3 with SLAM in Gazebo</strong><a class="headerlink" href="#setting-up-turtlebot3-with-slam-in-gazebo" title="Permalink to this heading">#</a></h3>
 <p>Follow these steps to simulate SLAM with TurtleBot3 in the Gazebo environment.</p>
 <ol class="arabic">
+<li><p>Download the <a class="reference download internal" download="" href="../_downloads/2f4f245279e8412cccea4a01cc4d1d76/maze.tar.xz"><span class="xref download myst"><code class="docutils literal notranslate"><span class="pre">maze</span> <span class="pre">Gazebo</span> <span class="pre">files</span></code></span></a>. Extract the files and move them inside the appropriate directories in <code class="docutils literal notranslate"><span class="pre">~/master_ws/src/turtlebot3_simulations/turtlebot3_gazebo</span></code>. Ensure each new directory is moved to the existing directory with the same name.</p></li>
 <li><p>Launch the Gazebo world:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_gazebo<span class="w"> </span>turtlebot3_world.launch.py
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_gazebo<span class="w"> </span>maze.launch.py
 </pre></div>
 </div>
+<p>It will launch the Gazebo simulation for the maze as shown in the figure below</p>
+<a class="reference internal image-reference" href="../_images/Proj1_GazeboInit.png"><img alt="../_images/Proj1_GazeboInit.png" class="align-center" src="../_images/Proj1_GazeboInit.png" style="width: 400px;" /></a>
 </li>
-<li><p>Open another terminal, source the ROS 2 environment, and run the SLAM node:</p>
+<li><p>Open another terminal and run the Cartography SLAM:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_cartographer<span class="w"> </span>cartographer.launch.py<span class="w"> </span>use_sim_time:<span class="o">=</span><span class="nb">true</span>
 </pre></div>
 </div>
-</li>
-<li><p>View the map being generated in real-time using RViz:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_cartographer<span class="w"> </span>cartographer_rviz.launch.py
-</pre></div>
-</div>
+<p>This will start the SLAM process, and Cartographer will begin building the map shown below as you move the robot.</p>
+<a class="reference internal image-reference" href="../_images/Proj1_CartographerInit.png"><img alt="../_images/Proj1_CartographerInit.png" class="align-center" src="../_images/Proj1_CartographerInit.png" style="width: 400px;" /></a>
 </li>
 <li><p>Use <code class="docutils literal notranslate"><span class="pre">gamepad</span></code> to manually navigate the robot in Gazebo and build the map:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>lab4_gamepad<span class="w"> </span>gamepad.launch.py
 </pre></div>
 </div>
+<p>Ensure you navigate the entire maze. The obstacles (walls) are represnted in black. As the gray pixels represent noise, solid black color means low uncertainty of the obstacles. If you complete multiple laps, the uncertainty of the obstacles will be lower - light gray pixels will become dark gray pixels.</p>
+<a class="reference internal image-reference" href="../_images/Proj1_CartographerDone.png"><img alt="../_images/Proj1_CartographerDone.png" class="align-center" src="../_images/Proj1_CartographerDone.png" style="width: 400px;" /></a>
 </li>
 <li><p>Once the mapping process is complete, save the generated map:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>nav2_map_server<span class="w"> </span>map_saver_cli<span class="w"> </span>-f<span class="w"> </span>~/map
 </pre></div>
 </div>
 </li>
+<li><p>Download <a class="reference download internal" download="" href="../_downloads/a32d27a1097ea56816ba5a546338e9d9/map_plotter.py"><span class="xref download myst"><code class="docutils literal notranslate"><span class="pre">map_plotter.py</span></code></span></a> to your <code class="docutils literal notranslate"><span class="pre">home</span></code> directory and make it executable.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chmod<span class="w"> </span>+x<span class="w"> </span>map_plotter.py
+</pre></div>
+</div>
+<p>Then, verify if the file is now executable using <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-l</span></code></p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>If you are asked to write the command that makes a file executable only for the file owner, you should be able to answer in your GR. 😉</p>
+</div>
+</li>
+<li><p>Run the python script to plot the map</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./map_plotter.py
+</pre></div>
+</div>
+</li>
+<li><p>Verify that the dimensions of the map in the plot correpsond to the actual maze. The length of the wall pieces is 0.18 meters.</p></li>
 </ol>
 </section>
-<section id="autonomous-navigation-with-turtlebot3">
-<h3>2. <strong>Autonomous Navigation with TurtleBot3</strong><a class="headerlink" href="#autonomous-navigation-with-turtlebot3" title="Permalink to this heading">#</a></h3>
-<p>After building and saving the map, use it for autonomous navigation.</p>
+<section id="autonomous-navigation-with-slam">
+<h3><strong>Autonomous Navigation with SLAM</strong><a class="headerlink" href="#autonomous-navigation-with-slam" title="Permalink to this heading">#</a></h3>
+<p>To run <strong>autonomous SLAM</strong> using <strong>Cartographer</strong>, we need to set up <code class="docutils literal notranslate"><span class="pre">Cartographer</span></code> to build the map and use <code class="docutils literal notranslate"><span class="pre">Navigation2</span></code> to autonomously explore the environment and update the map in real-time.</p>
 <ol class="arabic">
-<li><p>Launch the navigation stack:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_navigation2<span class="w"> </span>navigation2.launch.py<span class="w"> </span>use_sim_time:<span class="o">=</span><span class="nb">true</span><span class="w"> </span>map:<span class="o">=</span>/path/to/your/saved/map.yaml
+<li><p>Launch the TurtleBot3 in the Gazebo simulation:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_gazebo<span class="w"> </span>turtlebot3_world.launch.py
 </pre></div>
 </div>
+<a class="reference internal image-reference" href="../_images/Lab9_GazeboWorld.png"><img alt="../_images/Lab9_GazeboWorld.png" class="align-center" src="../_images/Lab9_GazeboWorld.png" style="width: 400px;" /></a>
 </li>
-<li><p>Use RViz to set an initial pose for the robot and specify the goal location. Follow these steps:</p>
-<ul>
-<li><p>Open RViz with the navigation configuration:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_navigation2<span class="w"> </span>navigation2_rviz.launch.py
+<li><p>Start Cartographer to perform SLAM:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_cartographer<span class="w"> </span>cartographer.launch.py<span class="w"> </span>use_sim_time:<span class="o">=</span><span class="nb">true</span>
 </pre></div>
 </div>
+<a class="reference internal image-reference" href="../_images/Lab9_CartographerInit.png"><img alt="../_images/Lab9_CartographerInit.png" class="align-center" src="../_images/Lab9_CartographerInit.png" style="width: 400px;" /></a>
 </li>
-<li><p>Use the “2D Pose Estimate” tool in RViz to set the robot’s initial position.</p></li>
-<li><p>Use the “2D Nav Goal” tool to set the robot’s navigation target.</p></li>
-</ul>
-</li>
-<li><p>The robot will autonomously navigate to the goal using the SLAM-generated map.</p></li>
-</ol>
-</section>
-<section id="important-notes">
-<h3>✍️ Important Notes:<a class="headerlink" href="#important-notes" title="Permalink to this heading">#</a></h3>
+<li><p>You can now run Navigation2 alongside Cartographer to allow the robot to navigate autonomously using the evolving map:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_navigation2<span class="w"> </span>navigation2.launch.py<span class="w"> </span>use_sim_time:<span class="o">=</span><span class="nb">true</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../_images/Lab9_Nav2WorldInit.png"><img alt="../_images/Lab9_Nav2WorldInit.png" class="align-center" src="../_images/Lab9_Nav2WorldInit.png" style="width: 400px;" /></a>
+<p>Cartographer will continue updating the map dynamically as the robot navigates.</p>
 <ul class="simple">
-<li><p><strong>SLAM Basics</strong>: Remember, this lab is designed to expose you to SLAM concepts practically. While understanding the underlying mathematical models is ideal, focus on grasping how SLAM operates and its real-world applications.</p></li>
-<li><p><strong>Journal Requirements</strong>: As part of this lab, you are required to document the following:</p>
-<ul>
-<li><p>Steps followed during SLAM and navigation.</p></li>
-<li><p>Screenshots of the map generated in RViz.</p></li>
-<li><p>Issues encountered and how you resolved them.</p></li>
-<li><p>Reflections on the challenges and learning outcomes.</p></li>
+<li><p>Click the <code class="docutils literal notranslate"><span class="pre">2D</span> <span class="pre">Pose</span> <span class="pre">Estimate</span></code> button in the RViz2 menu. Then</p></li>
+<li><p>Click on the map where the actual robot is located and drag the large green arrow toward the direction where the robot is facing.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">2D</span> <span class="pre">Nav</span> <span class="pre">Goal</span></code> to set a navigation target</p></li>
+<li><p>As you set waypoints to navigate multiple target points, the robot will explore the maze as shown below.</p></li>
 </ul>
+<a class="reference internal image-reference" href="../_images/Lab9_Nav2WorldInProgress.png"><img alt="../_images/Lab9_Nav2WorldInProgress.png" class="align-center" src="../_images/Lab9_Nav2WorldInProgress.png" style="width: 400px;" /></a>
+<ul class="simple">
+<li><p>Accordingly, the map will be updated as shown below</p></li>
+</ul>
+<a class="reference internal image-reference" href="../_images/Lab9_GazeboWorldInProgress.png"><img alt="../_images/Lab9_GazeboWorldInProgress.png" class="align-center" src="../_images/Lab9_GazeboWorldInProgress.png" style="width: 400px;" /></a>
 </li>
-<li><p><strong>Support</strong>: If you encounter any issues, use the official TurtleBot3 e-Manual or consult with your peers.</p></li>
-</ul>
-<a class="reference internal image-reference" href="../_images/rplidar.png"><img alt="../_images/rplidar.png" class="align-center" src="../_images/rplidar.png" style="width: 300px;" /></a>
-</section>
-<section id="how-lidar-works">
-<h3>📹 How LiDAR Works<a class="headerlink" href="#how-lidar-works" title="Permalink to this heading">#</a></h3>
-<center>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/EYbhNSUnIdU?si=idFVZOttywfaJ_Ys" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
-</center>
-</section>
-<section id="turtlebot3-lidar-example">
-<h3>📹 TurtleBot3 LiDAR Example<a class="headerlink" href="#turtlebot3-lidar-example" title="Permalink to this heading">#</a></h3>
-<center>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/9oic8aT3wIc?si=nedLzJ4oj7beh2Xk" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
-</center>
+<li><p>Explore the entire world and create a map. Ensure you have dark gray obstacles.</p></li>
+<li><p>Take a screenshot of the cartographer window by right clicking the tileboar.  Submit the screenshot on Gradescope.</p></li>
+</ol>
 </section>
 </section>
-<section id="pre-lab-setting-up-and-testing-lidar">
-<h2>🌱 Pre-Lab: Setting Up and Testing LiDAR<a class="headerlink" href="#pre-lab-setting-up-and-testing-lidar" title="Permalink to this heading">#</a></h2>
-<p>Before we dive into wall detection, we need to ensure that our setup is working correctly.</p>
-<section id="using-ros2-launch-files">
-<h3>Using ROS2 Launch Files<a class="headerlink" href="#using-ros2-launch-files" title="Permalink to this heading">#</a></h3>
-<p>Managing multiple ROS nodes can become overwhelming, especially as our system grows. Instead of running each node in separate terminals, we’ll use ROS2 launch files to simplify the process.</p>
-<ol class="arabic">
-<li><p><strong>Navigate to Your Package</strong>: Open a terminal and move to the <code class="docutils literal notranslate"><span class="pre">lab4_gamepad</span></code> package.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/master_ws/src/ece387_ws/lab4_gamepad
+<section id="option-1-use-a-python-script-with-an-action-client">
+<h2>✅ <strong>Option 1: Use a Python Script with an Action Client</strong><a class="headerlink" href="#option-1-use-a-python-script-with-an-action-client" title="Permalink to this heading">#</a></h2>
+<p>You can create a Python script to send a sequence of goals to Nav2 using the <strong><code class="docutils literal notranslate"><span class="pre">FollowWaypoints</span></code></strong> action.</p>
+<section id="example-script-to-send-multiple-goals">
+<h3><strong>Example Script to Send Multiple Goals:</strong><a class="headerlink" href="#example-script-to-send-multiple-goals" title="Permalink to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Create a new Python script:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span>~/master_ws/src/multi_goal_nav
+<span class="nb">cd</span><span class="w"> </span>~/master_ws/src/multi_goal_nav
+touch<span class="w"> </span>multi_goal_nav.py
+chmod<span class="w"> </span>+x<span class="w"> </span>multi_goal_nav.py
 </pre></div>
 </div>
-</li>
-<li><p><strong>Create a Launch Directory</strong>: Create a <code class="docutils literal notranslate"><span class="pre">launch</span></code> directory:</p></li>
-<li><p><strong>Create a Launch File</strong>: Inside the <code class="docutils literal notranslate"><span class="pre">launch</span></code> directory, create a new file named <code class="docutils literal notranslate"><span class="pre">gamepad.launch.py</span></code>:</p></li>
-<li><p><strong>Open the File in VS Code</strong>: Open the newly created file in your code editor.</p></li>
-<li><p><strong>Copy and Paste the Following Code</strong>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">launch</span>
-<span class="kn">import</span> <span class="nn">launch_ros.actions</span>
+<ol class="arabic simple" start="2">
+<li><p>Add the following code to <code class="docutils literal notranslate"><span class="pre">multi_goal_nav.py</span></code>:</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
 
-<span class="k">def</span> <span class="nf">generate_launch_description</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Launches the gamepad node from lab4_gamepad</span>
-<span class="sd">    and the joy_node from the joy package.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">launch</span><span class="o">.</span><span class="n">LaunchDescription</span><span class="p">([</span>
-        <span class="n">launch_ros</span><span class="o">.</span><span class="n">actions</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span>
-            <span class="n">package</span><span class="o">=</span><span class="s1">&#39;joy&#39;</span><span class="p">,</span>
-            <span class="n">executable</span><span class="o">=</span><span class="s1">&#39;joy_node&#39;</span><span class="p">,</span>
-            <span class="n">name</span><span class="o">=</span><span class="s1">&#39;joy_node&#39;</span><span class="p">,</span>
-            <span class="n">output</span><span class="o">=</span><span class="s1">&#39;screen&#39;</span>
-        <span class="p">),</span>
-        <span class="n">launch_ros</span><span class="o">.</span><span class="n">actions</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span>
-            <span class="n">package</span><span class="o">=</span><span class="s1">&#39;lab4_gamepad&#39;</span><span class="p">,</span>
-            <span class="n">executable</span><span class="o">=</span><span class="s1">&#39;gamepad&#39;</span><span class="p">,</span>
-            <span class="n">name</span><span class="o">=</span><span class="s1">&#39;gamepad_node&#39;</span><span class="p">,</span>
-            <span class="n">output</span><span class="o">=</span><span class="s1">&#39;screen&#39;</span>
-        <span class="p">),</span>
-    <span class="p">])</span>
+<span class="kn">import</span> <span class="nn">rclpy</span>
+<span class="kn">from</span> <span class="nn">rclpy.node</span> <span class="kn">import</span> <span class="n">Node</span>
+<span class="kn">from</span> <span class="nn">geometry_msgs.msg</span> <span class="kn">import</span> <span class="n">PoseStamped</span>
+<span class="kn">from</span> <span class="nn">nav2_msgs.action</span> <span class="kn">import</span> <span class="n">FollowWaypoints</span>
+<span class="kn">from</span> <span class="nn">rclpy.action</span> <span class="kn">import</span> <span class="n">ActionClient</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="k">class</span> <span class="nc">MultiGoalNav</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">&#39;multi_goal_nav&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">ActionClient</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">FollowWaypoints</span><span class="p">,</span> <span class="s1">&#39;follow_waypoints&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">wait_for_server</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">send_goals</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Define multiple goals as PoseStamped messages</span>
+        <span class="n">goals</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">goal_1</span> <span class="o">=</span> <span class="n">PoseStamped</span><span class="p">()</span>
+        <span class="n">goal_1</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">frame_id</span> <span class="o">=</span> <span class="s1">&#39;map&#39;</span>
+        <span class="n">goal_1</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">stamp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_clock</span><span class="p">()</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">to_msg</span><span class="p">()</span>
+        <span class="n">goal_1</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="n">goal_1</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mf">0.5</span>
+        <span class="n">goal_1</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">orientation</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="n">goals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">goal_1</span><span class="p">)</span>
+
+        <span class="n">goal_2</span> <span class="o">=</span> <span class="n">PoseStamped</span><span class="p">()</span>
+        <span class="n">goal_2</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">frame_id</span> <span class="o">=</span> <span class="s1">&#39;map&#39;</span>
+        <span class="n">goal_2</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">stamp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_clock</span><span class="p">()</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">to_msg</span><span class="p">()</span>
+        <span class="n">goal_2</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.5</span>
+        <span class="n">goal_2</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="n">goal_2</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">orientation</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="n">goals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">goal_2</span><span class="p">)</span>
+
+        <span class="n">goal_3</span> <span class="o">=</span> <span class="n">PoseStamped</span><span class="p">()</span>
+        <span class="n">goal_3</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">frame_id</span> <span class="o">=</span> <span class="s1">&#39;map&#39;</span>
+        <span class="n">goal_3</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">stamp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_clock</span><span class="p">()</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">to_msg</span><span class="p">()</span>
+        <span class="n">goal_3</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">goal_3</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span>
+        <span class="n">goal_3</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">orientation</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="n">goals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">goal_3</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sending </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">goals</span><span class="p">)</span><span class="si">}</span><span class="s2"> goals...&quot;</span><span class="p">)</span>
+
+        <span class="n">goal_msg</span> <span class="o">=</span> <span class="n">FollowWaypoints</span><span class="o">.</span><span class="n">Goal</span><span class="p">()</span>
+        <span class="n">goal_msg</span><span class="o">.</span><span class="n">poses</span> <span class="o">=</span> <span class="n">goals</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">send_goal_future</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">send_goal_async</span><span class="p">(</span><span class="n">goal_msg</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">send_goal_future</span><span class="o">.</span><span class="n">add_done_callback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">goal_response_callback</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">goal_response_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">future</span><span class="p">):</span>
+        <span class="n">goal_handle</span> <span class="o">=</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">goal_handle</span><span class="o">.</span><span class="n">accepted</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Goal rejected :(&#39;</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Goal accepted :)&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">result_future</span> <span class="o">=</span> <span class="n">goal_handle</span><span class="o">.</span><span class="n">get_result_async</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">result_future</span><span class="o">.</span><span class="n">add_done_callback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">result_callback</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">result_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">future</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">result</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Navigation complete with </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">missed_waypoints</span><span class="si">}</span><span class="s1"> missed waypoints.&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">)</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="n">MultiGoalNav</span><span class="p">()</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># Ensure connection to server</span>
+    <span class="n">node</span><span class="o">.</span><span class="n">send_goals</span><span class="p">()</span>
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">spin</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+    <span class="n">node</span><span class="o">.</span><span class="n">destroy_node</span><span class="p">()</span>
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
 </pre></div>
 </div>
-</li>
-<li><p><strong>Modify <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> to Include the Launch File</strong>: Open <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> and add:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
-</pre></div>
-</div>
-<p>Then, add this line inside <code class="docutils literal notranslate"><span class="pre">data_files</span></code>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;share&#39;</span><span class="p">,</span> <span class="n">package_name</span><span class="p">,</span> <span class="s1">&#39;launch&#39;</span><span class="p">),</span> <span class="n">glob</span><span class="p">(</span><span class="s1">&#39;launch/*.launch.py&#39;</span><span class="p">)),</span>
-</pre></div>
-</div>
-</li>
-<li><p><strong>Update <code class="docutils literal notranslate"><span class="pre">package.xml</span></code></strong>: Ensure the dependencies include:</p>
-<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;depend&gt;</span>launch<span class="nt">&lt;/depend&gt;</span>
-<span class="nt">&lt;depend&gt;</span>launch_ros<span class="nt">&lt;/depend&gt;</span>
-</pre></div>
-</div>
-</li>
-<li><p><strong>Build the Package</strong>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ccbuild<span class="w"> </span>--packages-select<span class="w"> </span>lab4_gamepad
-</pre></div>
-</div>
-</li>
-<li><p><strong>Run the Launch File</strong>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>lab4_gamepad<span class="w"> </span>gamepad.1aunch.py
-</pre></div>
-</div>
-</li>
-<li><p><strong>Verify Nodes Are Running</strong>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>node<span class="w"> </span>list
-</pre></div>
-</div>
-<p>You should see <code class="docutils literal notranslate"><span class="pre">gamepad_node</span></code> and <code class="docutils literal notranslate"><span class="pre">joy_node</span></code> listed.</p>
-</li>
+<ol class="arabic simple" start="3">
+<li><p><strong>Build and Run:</strong></p></li>
 </ol>
-</section>
-<section id="install-packages">
-<h3>Install Packages<a class="headerlink" href="#install-packages" title="Permalink to this heading">#</a></h3>
-<ol class="arabic">
-<li><p>Use the following command to install the <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> machine learning package for Python:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>scikit-learn
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>colcon<span class="w"> </span>build<span class="w"> </span>--packages-select<span class="w"> </span>multi_goal_nav
+<span class="nb">source</span><span class="w"> </span>install/setup.bash
+ros2<span class="w"> </span>run<span class="w"> </span>multi_goal_nav<span class="w"> </span>multi_goal_nav.py
 </pre></div>
 </div>
-</li>
-<li><p>Download the <a class="reference download internal" download="" href="../_downloads/2844754c6fc74165cb2a5da1b8af483b/squarepath_gazebo.tar.xz"><span class="xref download myst"><code class="docutils literal notranslate"><span class="pre">square</span> <span class="pre">path</span> <span class="pre">Gazebo</span> <span class="pre">files</span></code></span></a>. Extract the files and move them inside the appropriate directories in <code class="docutils literal notranslate"><span class="pre">~/master_ws/src/turtlebot3_simulations/turtlebot3_gazebo</span></code>. Ensure each new directory is moved to the existing directory with the same name.</p></li>
-<li><p>Return to the ROS2 workspace root and build the package or simply run <code class="docutils literal notranslate"><span class="pre">ccbuild</span></code>.</p></li>
-<li><p>Open the Gazebo simulation:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_gazebo<span class="w"> </span>square_path.launch.py
-</pre></div>
-</div>
-<p>It will open the Gazebo simulation as shown in the figure below.</p>
-<a class="reference internal image-reference" href="../_images/Lab8_SquarePathGazebo.png"><img alt="../_images/Lab8_SquarePathGazebo.png" class="align-center" src="../_images/Lab8_SquarePathGazebo.png" style="width: 500px;" /></a>
-</li>
-<li><p>Type the following and observe the command output:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>topic<span class="w"> </span>list
-ros2<span class="w"> </span>topic<span class="w"> </span>info<span class="w"> </span>/scan
-ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/scan
-</pre></div>
-</div>
-</li>
-<li><p>Find the message type of the <code class="docutils literal notranslate"><span class="pre">/scan</span></code> topic:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">type</span><span class="w"> </span>/scan
-</pre></div>
-</div>
-<p>Then, examine the details of the message type.</p>
-</li>
-<li><p>Open the RViz visualization tool:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_bringup<span class="w"> </span>rviz.launch.py
-</pre></div>
-</div>
-<p>This should open an RViz window where we can visualize ROS components of our system. In the <code class="docutils literal notranslate"><span class="pre">Displays</span></code> menu on the left, you should see two submenus of interest: <code class="docutils literal notranslate"><span class="pre">LaserScan</span></code> and <code class="docutils literal notranslate"><span class="pre">RobotModel</span></code>. These allow us to depict the TurtleBot3 and LiDAR data. You should see red dots fill the <strong>rviz</strong> map where obstacles exist, as shown below.</p>
-<a class="reference internal image-reference" href="../_images/Lab8_SquarePathRViz.png"><img alt="../_images/Lab8_SquarePathRViz.png" class="align-center" src="../_images/Lab8_SquarePathRViz.png" style="width: 500px;" /></a>
-</li>
-</ol>
 </section>
 </section>
-<section id="lab-procedure-lidar-based-wall-detection">
-<h2>💻 Lab Procedure: LiDAR-Based Wall Detection<a class="headerlink" href="#lab-procedure-lidar-based-wall-detection" title="Permalink to this heading">#</a></h2>
-<p>Follow the steps below to set up your ROS 2 package, implement the required scripts, and run the simulation or real robot.</p>
-<section id="setting-up-your-ros2-package">
-<h3>Setting Up Your ROS2 Package<a class="headerlink" href="#setting-up-your-ros2-package" title="Permalink to this heading">#</a></h3>
-<ol class="arabic">
-<li><p><strong>Navigate to Your Workspace:</strong> Open a terminal and move into your ROS 2 workspace directory:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/master_ws/src/ece387_ws
-</pre></div>
-</div>
-</li>
-<li><p><strong>Create a New ROS2 Package:</strong> Create a new package named <code class="docutils literal notranslate"><span class="pre">lab8_lidar</span></code> with the BSD-3 license:</p></li>
-<li><p><strong>Add Dependencies:</strong> Edit <code class="docutils literal notranslate"><span class="pre">package.xml</span></code> to include the following dependencies:</p>
-<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;depend&gt;</span>rclpy<span class="nt">&lt;/depend&gt;</span>
-<span class="nt">&lt;depend&gt;</span>sensor_msgs<span class="nt">&lt;/depend&gt;</span>
-<span class="nt">&lt;depend&gt;</span>geometry_msgs<span class="nt">&lt;/depend&gt;</span>
-<span class="nt">&lt;depend&gt;</span>nav2_msgs<span class="nt">&lt;/depend&gt;</span>
-<span class="nt">&lt;depend&gt;</span>tf2_ros<span class="nt">&lt;/depend&gt;</span>
-<span class="nt">&lt;depend&gt;</span>visualization_msgs<span class="nt">&lt;/depend&gt;</span>
-<span class="nt">&lt;depend&gt;</span>numpy<span class="nt">&lt;/depend&gt;</span>
-<span class="nt">&lt;depend&gt;</span>scikit-learn<span class="nt">&lt;/depend&gt;</span>
-</pre></div>
-</div>
-</li>
-<li><p><strong>Download Required Scripts</strong>: Download the following scripts and save them in the <code class="docutils literal notranslate"><span class="pre">lab8_lidar/lab8_lidar</span></code> directory:</p>
+<hr class="docutils" />
+<section id="option-2-use-rviz-waypoints-plugin">
+<h2>✅ <strong>Option 2: Use RViz Waypoints Plugin</strong><a class="headerlink" href="#option-2-use-rviz-waypoints-plugin" title="Permalink to this heading">#</a></h2>
+<p>You can also use a plugin in RViz to set multiple waypoints:</p>
+<ol class="arabic simple">
+<li><p>In <strong>RViz</strong>, add the <strong>“Waypoint Follower”</strong> plugin:</p>
 <ul class="simple">
-<li><p><a class="reference download internal" download="" href="../_downloads/2150b18d25e96d634619e033fe30e3d3/wall_detector.py"><span class="xref download myst"><code class="docutils literal notranslate"><span class="pre">wall_detector.py</span></code></span></a></p></li>
-<li><p><a class="reference download internal" download="" href="../_downloads/2bf3abb8e545a250ac7044c57c002cea/line_follower.py"><span class="xref download myst"><code class="docutils literal notranslate"><span class="pre">line_follower.py</span></code></span></a></p></li>
+<li><p>Open RViz.</p></li>
+<li><p>Click <strong>“Add”</strong> → <strong>“By Topic”</strong> → Select <code class="docutils literal notranslate"><span class="pre">/goal_pose</span></code>.</p></li>
 </ul>
 </li>
-<li><p><strong>Modify <code class="docutils literal notranslate"><span class="pre">setup.py</span></code></strong>: Add your scripts under <code class="docutils literal notranslate"><span class="pre">entry_points</span></code>.</p></li>
-</ol>
-</section>
-<section id="implementing-the-python-scripts">
-<h3>Implementing the Python Scripts<a class="headerlink" href="#implementing-the-python-scripts" title="Permalink to this heading">#</a></h3>
-<ol class="arabic">
-<li><p><strong>Complete <code class="docutils literal notranslate"><span class="pre">wall_detector.py</span></code></strong><br />
-Open the <code class="docutils literal notranslate"><span class="pre">wall_detector.py</span></code> script and implement the missing functionality as described in the comments. This script will process LiDAR data to detect walls and publish visualization markers.</p></li>
-<li><p><strong>Complete <code class="docutils literal notranslate"><span class="pre">line_follower.py</span></code></strong><br />
-Open the <code class="docutils literal notranslate"><span class="pre">line_follower.py</span></code> script and implement the missing functionality as described in the comments. This script will enable the robot to follow the detected center line between walls.</p></li>
-<li><p><strong>Build the Package</strong><br />
-After completing the scripts, build the package:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ccbuild<span class="w"> </span>--packages-select<span class="w"> </span>lab8_lidar
-</pre></div>
-</div>
-</li>
-</ol>
-</section>
-<section id="running-the-simulation">
-<h3><strong>Running the Simulation</strong><a class="headerlink" href="#running-the-simulation" title="Permalink to this heading">#</a></h3>
-<ol class="arabic">
-<li><p><strong>Launch Gazebo with TurtleBot3</strong> Start the Gazebo simulation with the TurtleBot3 robot:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_gazebo<span class="w"> </span>square_path.launch.py
-</pre></div>
-</div>
-</li>
-<li><p><strong>Open RViz for Visualization</strong> Launch RViz to visualize the detected walls and determine the center line:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_bringup<span class="w"> </span>rviz.launch.py
-</pre></div>
-</div>
-</li>
-<li><p><strong>Run the Wall Detector Node</strong>  Start the wall detection node:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>lab8_lidar<span class="w"> </span>wall_detector
-</pre></div>
-</div>
-</li>
-<li><p><strong>Observe the Detected Walls in RViz</strong></p>
+<li><p>In the RViz toolbar:</p>
 <ul class="simple">
-<li><p>Unselect <code class="docutils literal notranslate"><span class="pre">TF</span></code> and <code class="docutils literal notranslate"><span class="pre">Odometry</span></code> in RViz.</p></li>
-<li><p>Click the <code class="docutils literal notranslate"><span class="pre">Add</span></code> button in the bottom left of the RViz window, select the <code class="docutils literal notranslate"><span class="pre">By</span> <span class="pre">topic</span></code> tab, and add the <code class="docutils literal notranslate"><span class="pre">Marker</span></code> messages under the <code class="docutils literal notranslate"><span class="pre">/center_line</span></code> and <code class="docutils literal notranslate"><span class="pre">/wall_markers</span></code> topics.</p></li>
+<li><p>After adding the plugin, you should see a <strong>“Set Waypoints”</strong> button.</p></li>
+<li><p>Click <strong>“Set Waypoints”</strong> to define multiple goal points on the map.</p></li>
+<li><p>Once all waypoints are set, click <strong>“Follow Waypoints”</strong> to start autonomous navigation.</p></li>
 </ul>
 </li>
-<li><p><strong>Debug If Needed</strong> If you encounter issues, run the wall detector node in debug mode:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>lab8lidar<span class="w"> </span>wall_detector<span class="w"> </span>--ros-args<span class="w"> </span>--log-level<span class="w"> </span>debug
-</pre></div>
-</div>
-</li>
-<li><p><strong>Update Parameters</strong> Adjust the parameters for the <code class="docutils literal notranslate"><span class="pre">DBSCAN</span></code> clustering function and the <code class="docutils literal notranslate"><span class="pre">RANSACRegressor</span></code> function to improve wall detection.</p></li>
-<li><p><strong>Run the Line Follower Node</strong> Once the center line is detected, start the line follower node:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>lab8_lidar<span class="w"> </span>line_follower
-</pre></div>
-</div>
-<p>Ensure you also launch <code class="docutils literal notranslate"><span class="pre">gamepad.launch.py</span></code> to relinquish control.</p>
-</li>
-<li><p><strong>Tune the Controller Gains</strong><br />
-Adjust the <code class="docutils literal notranslate"><span class="pre">kh</span></code> (heading gain) and <code class="docutils literal notranslate"><span class="pre">kd</span></code> (distance gain) values in the <code class="docutils literal notranslate"><span class="pre">line_follower.py</span></code> script to optimize the robot’s line-following performance.</p></li>
 </ol>
 </section>
-<section id="running-the-real-robot">
-<h3>Running the Real Robot<a class="headerlink" href="#running-the-real-robot" title="Permalink to this heading">#</a></h3>
-<ol class="arabic">
-<li><p><strong>Close the Gazebo Simulation</strong> Ensure the Gazebo simulation is closed before running the real robot. Never run the simulation and the real robot simultaneously.</p></li>
-<li><p><strong>Reopen RViz</strong> Launch RViz to visualize the wall detection on the real robot:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_bringup<span class="w"> </span>rviz.launch.py
-</pre></div>
-</div>
-</li>
-<li><p><strong>Run the Wall Detector Node</strong> Start the wall detection node:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>lab8lidar<span class="w"> </span>wall_detector
-</pre></div>
-</div>
-</li>
-<li><p><strong>Fix QoS Warning</strong> If you see the following warning:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>WARN<span class="o">]</span><span class="w"> </span><span class="o">[</span>wall_detector<span class="o">]</span>:<span class="w"> </span>New<span class="w"> </span>publisher<span class="w"> </span>discovered<span class="w"> </span>on<span class="w"> </span>topic<span class="w"> </span><span class="s1">&#39;/scan&#39;</span>,<span class="w"> </span>offering<span class="w"> </span>incompatible<span class="w"> </span>QoS.<span class="w"> </span>No<span class="w"> </span>messages<span class="w"> </span>will<span class="w"> </span>be<span class="w"> </span>received<span class="w"> </span>from<span class="w"> </span>it.<span class="w"> </span>Last<span class="w"> </span>incompatible<span class="w"> </span>policy:<span class="w"> </span>RELIABILITY
-</pre></div>
-</div>
-<p>Investigate the warning and fix it using the <code class="docutils literal notranslate"><span class="pre">qos_profile</span></code> provided in the <code class="docutils literal notranslate"><span class="pre">wall_detector.py</span></code> script. You can use Google or ChatGPT to learn more about ROS 2 QoS (Quality of Service).</p>
-</li>
-<li><p><strong>Run the Line Follower Node</strong> Start the line follower node:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>lab8_lidar<span class="w"> </span>line_follower
-</pre></div>
-</div>
-</li>
-<li><p><strong>Demo the Robot</strong> Demonstrate the robot following the walls in a straight path. <strong>Ensure the robot starts 10 cm from the center line as shown below.</strong></p></li>
+<hr class="docutils" />
+<section id="option-3-use-a-yaml-file-for-goals">
+<h2>✅ <strong>Option 3: Use a YAML File for Goals</strong><a class="headerlink" href="#option-3-use-a-yaml-file-for-goals" title="Permalink to this heading">#</a></h2>
+<p>You can create a list of goals in a YAML file and load it at runtime:</p>
+<ol class="arabic simple">
+<li><p>Create a YAML file (<code class="docutils literal notranslate"><span class="pre">multi_goals.yaml</span></code>) like this:</p></li>
 </ol>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">goals</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">pose</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">position</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">x</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="w">        </span><span class="nt">y</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span>
+<span class="w">      </span><span class="nt">orientation</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">w</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">pose</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">position</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">x</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-0.5</span>
+<span class="w">        </span><span class="nt">y</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="w">      </span><span class="nt">orientation</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">w</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">pose</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">position</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">x</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span>
+<span class="w">        </span><span class="nt">y</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-1.0</span>
+<span class="w">      </span><span class="nt">orientation</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">w</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Create a launch file to read the goals and send them to Nav2 using <code class="docutils literal notranslate"><span class="pre">FollowWaypoints</span></code> action.</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="recommended-approach">
+<h2>🚀 <strong>Recommended Approach:</strong><a class="headerlink" href="#recommended-approach" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>For flexible automation → Use <strong>Option 1</strong> (Python script).</p></li>
+<li><p>For interactive use → Use <strong>Option 2</strong> (RViz Waypoints Plugin).</p></li>
+<li><p>For repeated runs → Use <strong>Option 3</strong> (YAML file).</p></li>
+</ul>
 <center>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/yf1iLbKwU3E?si=f9wdUHjrpu-KqkSU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </center>
-</section>
 </section>
 <section id="deliverables">
 <h2>🚚 Deliverables<a class="headerlink" href="#deliverables" title="Permalink to this heading">#</a></h2>
@@ -846,25 +777,17 @@ Adjust the <code class="docutils literal notranslate"><span class="pre">kh</span
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">📌 Objectives</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">📜 Overview</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-procedures">🛠️ Lab Procedures</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-turtlebot3-with-slam-in-gazebo">1. <strong>Setting Up TurtleBot3 with SLAM in Gazebo</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#autonomous-navigation-with-turtlebot3">2. <strong>Autonomous Navigation with TurtleBot3</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#important-notes">✍️ Important Notes:</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-lidar-works">📹 How LiDAR Works</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#turtlebot3-lidar-example">📹 TurtleBot3 LiDAR Example</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-turtlebot3-with-slam-in-gazebo"><strong>Setting Up TurtleBot3 with SLAM in Gazebo</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#autonomous-navigation-with-slam"><strong>Autonomous Navigation with SLAM</strong></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-lab-setting-up-and-testing-lidar">🌱 Pre-Lab: Setting Up and Testing LiDAR</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-ros2-launch-files">Using ROS2 Launch Files</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-packages">Install Packages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#option-1-use-a-python-script-with-an-action-client">✅ <strong>Option 1: Use a Python Script with an Action Client</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-script-to-send-multiple-goals"><strong>Example Script to Send Multiple Goals:</strong></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-procedure-lidar-based-wall-detection">💻 Lab Procedure: LiDAR-Based Wall Detection</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-your-ros2-package">Setting Up Your ROS2 Package</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementing-the-python-scripts">Implementing the Python Scripts</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#running-the-simulation"><strong>Running the Simulation</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#running-the-real-robot">Running the Real Robot</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#option-2-use-rviz-waypoints-plugin">✅ <strong>Option 2: Use RViz Waypoints Plugin</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#option-3-use-a-yaml-file-for-goals">✅ <strong>Option 3: Use a YAML File for Goals</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recommended-approach">🚀 <strong>Recommended Approach:</strong></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">🚚 Deliverables</a></li>
 </ul>
   </nav></div>
