@@ -27,20 +27,18 @@ map_data = np.array(image)  # Convert the image to a NumPy array (2D array of pi
 # - 205 (gray): Unknown space
 occupancy_grid = np.zeros(map_data.shape)  # Initialize an empty grid of the same size as the image
 
-for i in range(map_data.shape[0]):  # Loop through rows (height)
-    for j in range(map_data.shape[1]):  # Loop through columns (width)
-        pixel_value = map_data[i, j]  # Get the grayscale pixel value
+# TODO: Map occupancy values to the occupancy_grid matrix.
+# occupancy_grid is an np array with a shape attribute.
+# Loop through rows (height) and columns (width).
+# Retrieve the grayscale pixel value:
+# - Black (0): Fully occupied (walls); ROS OccupancyGrid uses 100 for obstacles.
+# - White (255): Free space; ROS OccupancyGrid uses 0 for free space.
+# - Gray (205): Unknown; ROS OccupancyGrid uses -1 for unknown areas.
 
-        if pixel_value == 0:  # Black pixels → Fully occupied (walls)
-            occupancy_grid[i, j] = 100  # ROS OccupancyGrid uses 100 for obstacles
-        elif pixel_value == 255:  # White pixels → Free space
-            occupancy_grid[i, j] = 0  # Free space in ROS OccupancyGrid is 0
-        else:  # Gray pixels (205) → Unknown space
-            occupancy_grid[i, j] = -1  # Unknown space in ROS is -1
 
-# Step 4: Compute real-world map size in meters
-height_m = occupancy_grid.shape[0] * resolution  # Total map height in meters
-width_m = occupancy_grid.shape[1] * resolution  # Total map width in meters
+# TODO: Step 4: Compute real-world map size in meters
+height_m = 0 # Total map height in meters
+width_m = 0  # Total map width in meters
 
 # Step 5: Generate axis values in meters
 # The extent defines the real-world coordinate range for the map
