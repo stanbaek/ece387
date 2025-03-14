@@ -1,6 +1,5 @@
 # 🔬 Lab9: SLAM
 
-(not ready yet)
 
 ## 📌 Objectives
 
@@ -17,6 +16,28 @@ SLAM is one of the fundamental algorithms in robotics and is widely used in appl
 SLAM integrates data from sensors like LiDAR and odometry to construct and update a map while estimating the robot's position. Through statistical methods like Kalman Filters or Particle Filters, SLAM corrects errors in localization and mapping to achieve accurate results. While the underlying mathematics involves advanced topics in statistics and optimization, libraries provided in ROS2 simplify SLAM's implementation, making it accessible for practical applications.
 
 We will use Cartographer in this lab because it provides an efficient and accurate SLAM solution for 2D environments like the maze we’ll be mapping. Its ability to handle LiDAR data and update maps in real time makes it ideal for this project. Furthermore, its compatibility with TurtleBot3 and ROS2 simplifies the setup, allowing us to focus on understanding the SLAM process and its applications.
+
+## 🌱 Pre-Lab: ROS2 Client Libraries  
+
+The [ROS2 Intermediate Tutorials](https://docs.ros.org/en/humble/Tutorials/Intermediate.html) on `actions`  are a great starting point for learning about ROS2 action servers and clients.  
+
+```{image} ./figures/Lab9_ROS2_ActionTutorials.png  
+:width: 800  
+:align: center  
+```  
+<br>  
+
+Complete the following three tutorials. **Important:** Skip **C++** tutorials and focus only on the **Python** tutorials.  
+
+1. **Managing Dependencies with rosdep**  
+   - No need to install anything - your computer already has all the required packages set up.
+
+1. **Creating an action**  
+   - Make sure you’re working in the `ros2_ws` workspace. Avoid using the `master_ws` workspace for this one. 
+
+1. **Writing an action server and client (Python)**  
+   - As instructed at the end of this tutorial, run the action client.  When the feedback appears on the screen, capture a screenshot and upload it to Gradescope.
+
 
 ## 🛠️ Lab Procedures
 
@@ -151,6 +172,9 @@ To run **autonomous SLAM** using **Cartographer**, we need to set up `Cartograph
 
 1. Take a screenshot of the cartographer window by right clicking the tileboar.  Submit the screenshot on Gradescope.
 
+## More to come soon
+
+<!--
 ## ✅ **Option 1: Use a Python Script with an Action Client**
 
 You can create a Python script to send a sequence of goals to Nav2 using the **`FollowWaypoints`** action.
@@ -327,3 +351,5 @@ goals:
 
 3. **[15 Points] Demonstration**
     - Show the robot successfully move between two walls.
+
+-->
