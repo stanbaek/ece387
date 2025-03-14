@@ -104,7 +104,7 @@ Follow these steps to simulate SLAM with TurtleBot3 in the Gazebo environment.
     If you are asked to write the command that makes a file executable only for the file owner, you should be able to answer in your GR. 😉
     ```
 
-1. Run the python script to plot the map
+1. Complete the `TODO` section in `map_plotter.py`, and then run the script to generate the map.
 
     ```bash
     ./map_plotter.py
