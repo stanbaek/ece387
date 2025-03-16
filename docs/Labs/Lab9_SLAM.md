@@ -1,6 +1,5 @@
 # 🔬 Lab9: SLAM
 
-(not ready yet)
 
 ## 📌 Objectives
 
@@ -18,40 +17,33 @@ SLAM integrates data from sensors like LiDAR and odometry to construct and updat
 
 We will use Cartographer in this lab because it provides an efficient and accurate SLAM solution for 2D environments like the maze we’ll be mapping. Its ability to handle LiDAR data and update maps in real time makes it ideal for this project. Furthermore, its compatibility with TurtleBot3 and ROS2 simplifies the setup, allowing us to focus on understanding the SLAM process and its applications.
 
-## 🛠️ Lab Procedures
+## 🌱 Pre-Lab: ROS2 Client Libraries  
 
-### **Setting Up TurtleBot3 with SLAM in Gazebo**
+The [ROS2 Intermediate Tutorials](https://docs.ros.org/en/humble/Tutorials/Intermediate.html) on `actions`  are a great starting point for learning about ROS2 action servers and clients.  
 
-    Cartographer will continue updating the map dynamically as the robot navigates.
+```{image} ./figures/Lab9_ROS2_ActionTutorials.png  
+:width: 800  
+:align: center  
+```  
+<br>  
 
-    - Click the `2D Pose Estimate` button in the RViz2 menu. Then
-    - Click on the map where the actual robot is located and drag the large green arrow toward the direction where the robot is facing.
-    - Use `2D Nav Goal` to set a navigation target
-    - As you set waypoints to navigate multiple target points, the robot will explore the maze as shown below.
+Complete the following three tutorials. **Important:** Skip **C++** tutorials and focus only on the **Python** tutorials.  
 
-    ```{image} ./figures/Lab9_Nav2WorldInProgress.png
-    :width: 400  
-    :align: center  
-    ```  
+1. **Managing Dependencies with rosdep**  
+   - No need to install anything - your computer already has all the required packages set up.
 
-    - Accordingly, the map will be updated as shown below
+1. **Creating an action**  
+   - Make sure you’re working in the `ros2_ws` workspace. Avoid using the `master_ws` workspace for this one. 
 
-    ```{image} ./figures/Lab9_GazeboWorldInProgress.png
-    :width: 400  
-    :align: center  
-    ```  
+1. **Writing an action server and client (Python)**  
+   - As instructed at the end of this tutorial, run the action client.  When the feedback appears on the screen, capture a screenshot and upload it to Gradescope.
 
-1. Explore the entire world and create a map. Ensure you have dark gray obstacles.
-
-1. Take a screenshot of the cartographer window by right clicking the tileboar.  Submit the screenshot on Gradescope.
-
----
 
 ## 🛠️ Lab Procedures
 
 ### **Setting Up TurtleBot3 with SLAM in Gazebo**
 
-In this section, you’ll simulate Simultaneous Localization and Mapping (SLAM) using TurtleBot3 in the Gazebo environment. Follow these steps to get started:
+Follow these steps to simulate SLAM with TurtleBot3 in the Gazebo environment.
 
 1. Download the [`maze Gazebo files`](../files/maze.tar.xz). Extract the files and place them in the appropriate directories within `~/master_ws/src/turtlebot3_simulations/turtlebot3_gazebo`. Make sure to merge the new directories with the existing ones.
 
@@ -115,6 +107,7 @@ In this section, you’ll simulate Simultaneous Localization and Mapping (SLAM) 
    If asked about the command to make a file executable only for the owner, you should know the answer for your GR. 😉
    ```
 
+1. Complete the `TODO` section in `map_plotter.py`, and then run the script to generate the map.
 1. Run the script to plot the map:
 
    ```bash
@@ -186,10 +179,13 @@ Now, let’s set up **autonomous SLAM** using **Cartographer** and **Navigation2
     :align: center  
     ```  
 
-1. Explore the entire world until the map is fully built. Ensure the obstacles are represented by dark gray pixels, indicating low uncertainty.
+1. Explore the entire world and create a map. Ensure you have dark gray obstacles.
 
-1. Take a screenshot of the Cartographer window by right-clicking the title bar. Submit the screenshot on Gradescope.
+1. Take a screenshot of the cartographer window by right clicking the tileboar.  Submit the screenshot on Gradescope.
 
+## More to come soon
+
+<!--
 ## ✅ **Option 1: Use a Python Script with an Action Client**
 
 You can create a Python script to send a sequence of goals to Nav2 using the **`FollowWaypoints`** action.
@@ -366,3 +362,5 @@ goals:
 
 3. **[15 Points] Demonstration**
     - Show the robot successfully move between two walls.
+
+-->
