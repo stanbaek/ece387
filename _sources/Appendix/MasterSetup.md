@@ -143,3 +143,7 @@ $ sudo pip install dlib
 ```{note}
 The `dlib` package will take quite a while to install.
 ```
+
+```bash
+$ sudo apt install tree
+```
