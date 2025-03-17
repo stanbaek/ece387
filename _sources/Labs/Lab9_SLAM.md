@@ -43,7 +43,7 @@ Complete the following three tutorials. **Important:** Skip **C++** tutorials an
 
 ## 🛠️ Lab Procedures
 
-### **Setting Up TurtleBot3 with SLAM in Gazebo**
+### **1. Setting Up TurtleBot3 with SLAM in Gazebo**
 
 Follow these steps to simulate SLAM with TurtleBot3 in the Gazebo environment.
 
@@ -138,7 +138,7 @@ Follow these steps to simulate SLAM with TurtleBot3 in the Gazebo environment.
 
 1. Verify that the map dimensions match the actual maze. Each wall piece is **0.18 meters** long.
 
-### **Navigation with SLAM**
+### **2. Navigation with SLAM**
 
 Now, let’s set up **autonomous SLAM** using **Cartographer** and **Navigation2** to explore the environment dynamically.
 
@@ -206,7 +206,7 @@ Now, let’s set up **autonomous SLAM** using **Cartographer** and **Navigation2
 1. Take a screenshot of the cartographer window by right clicking the title bar.  Submit the screenshot on Gradescope.
 
 
-### **Autonomous Exploration with SLAM in Gazebo**
+### **3. Autonomous Exploration with SLAM in Gazebo**
 
 1. Create a package named `lab9_slam` with the `BSD-3-Clause` license and dependencies:
     - `rclpy`
@@ -248,7 +248,7 @@ Now, let’s set up **autonomous SLAM** using **Cartographer** and **Navigation2
    ros2 run lab9_slam explore
    ```
 
-### **Autonomous Navigation with Prebuilt Map in Gazebo**
+### **4. Autonomous Navigation with Prebuilt Map in Gazebo**
 
 Follow these steps to simulate autonomous navigation with **prebuilt map** in the Gazebo environment.
 
@@ -272,11 +272,10 @@ Follow these steps to simulate autonomous navigation with **prebuilt map** in th
     
 1. Start the Navigation2 stack with the prebuilt map (`map.yaml`). Confirm that the robot can load and utilize the map effectively.
 
-1. **Run the SLAM Node**
-   - Execute the SLAM exploration node. Observe how the robot navigates using the prebuilt map.
     ```bash
     ros2 launch turtlebot3_navigation2 navigation2.launch.py use_sim_time:=true map:=$HOME/map.yaml 
     ```
+    You should be able to find the prebuilt map. 
 
 1. Run the SLAM exploration node:
     ```bash
@@ -286,214 +285,58 @@ Follow these steps to simulate autonomous navigation with **prebuilt map** in th
 1. **Reflect on Differences**: Compare the robot's performance with a prebuilt map to its performance when generating a map in real-time. Note any improvements or challenges.
 
 
+### **5. Autonomous Exploration with Cartographer (TurtleBot3, Real Environment)**
 
+1. Start the `bringup` process to initialize the robot in a real environment.
 
+2. Launch Cartographer to perform SLAM in real time and create a map.
+    ```bash
+    ros2 launch turtlebot3_cartographer cartographer.launch.py
+    ```
 
+3. Start the Navigation2 stack to enable autonomous exploration and navigation.
+    ```bash
+    ros2 launch turtlebot3_navigation2 navigation2.launch.py
+    ```
 
-<!--
----
+4. Execute the SLAM exploration node and observe the robot autonomously explore its surroundings while dynamically updating its map.
+    ```bash
+    ros2 run lab9_slam explore
+    ```
 
-### **Part 3: Autonomous Exploration with Cartographer (TurtleBot3, Real Environment)**
+### **6. Autonomous Navigation with Prebuilt Map (TurtleBot3, Real Environment)**
 
-1. **Set Up the TurtleBot3**
-   - Start the `bringup` process to initialize the robot in a real environment.
+1. Start the `bringup` process for the real TurtleBot3 environment.
 
-2. **Run SLAM**
-   - Launch Cartographer to perform SLAM in real time and create a map.
+2. Use AMCL and the prebuilt map for localization. Ensure you set a static transform between `map` and `odom`.
 
-3. **Launch Navigation2**
-   - Start the Navigation2 stack to enable autonomous exploration and navigation.
+3. Start the Navigation2 stack with the prebuilt map, ensuring the robot can locate itself within the map.
 
-4. **Run the SLAM Node**
-   - Execute the SLAM exploration node and observe the robot autonomously explore its surroundings while dynamically updating its map.
-
----
-
-### **Part 4: Autonomous Navigation with Prebuilt Map (TurtleBot3, Real Environment)**
-
-1. **Set Up the TurtleBot3**
-   - Start the `bringup` process for the real TurtleBot3 environment.
-
-2. **Set Up Localization**
-   - Use AMCL and the prebuilt map from Part 3 for localization.
-   - Set a static transform between `map` and `odom`.
-
-3. **Launch Navigation2**
-   - Start the Navigation2 stack with the prebuilt map, ensuring the robot can locate itself within the map.
-
-4. **Run the SLAM Node**
-   - Execute the SLAM exploration node. Observe and evaluate how the robot navigates with a prebuilt map.
+4. Execute the SLAM exploration node. Observe and evaluate how the robot navigates with a prebuilt map.
 
 5. **Analyze Performance**
    - Discuss and note differences in navigation performance between using a real-time generated map and a prebuilt map.
 
----
-
-### **Deliverables**
-1. **Wall Detector Script (20 Points):**
-   - Complete the `wall_detector.py` script.
-   - Push it to GitHub. _Code not found in your repository will receive a score of 0._
-
-2. **Line Follower Script (15 Points):**
-   - Complete the `line_follower.py` script.
-   - Push it to GitHub. _Code not found in your repository will receive a score of 0._
-
-3. **Demonstration (15 Points):**
-   - Show a working demonstration of the robot successfully navigating between walls.
-
----
-
-Does this version make it easier for your students to follow? Let me know if you’d like further refinements!
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   
-
-### **Autonomous Navigation with Prebuilt Map in Gazebo**
-
-
-
-1. Start the TurtleBot3 simulation in the Gazebo world:
-   ```bash
-   ros2 launch turtlebot3_gazebo maze.launch.py
-   ```
-
-1. Do not run Cartographer. Instead we want to run Navigation2 with the map we already built earlier in this lab. Before starting Navigation2, we need to run the following nodes:
-
-    ```bash
-
-    It starts the AMCL (Adaptive Monte Carlo Localization) node, which is responsible for localizing a robot within a known map using laser scan data and particle filters.
-
-    ```bash
-    $ ros2 run tf2_ros static_transform_publisher 0 0 0 0 0 0 map odom
-    ```
-    This command establishes a static relationship between the `map` and `odom` frames, assuming they are aligned without any offset. It's a prerequisite for linking the global (map) frame to the local (odom) frame in a robot's TF (Transform) tree.
-
-1. Now start Navigation2:
-    ```bash
-    ros2 launch turtlebot3_navigation2 navigation2.launch.py use_sim_time:=true map:=$HOME/map.yaml 
-    ```
-    You should be able to find the prebuilt map. 
-    
-1. Run the SLAM exploration node:
-    ```bash
-    ros2 run lab9_slam explore
-    ```
-
-1. Can you find any differences in performance when you use a prebuilt map compared to using a map generated in real-time by Cartographer? 
-
-
-### **Autonomous Exploration with Cartographer with Turtlebot3**
-
-Follow these steps to run autonomous navigation with **Turtlebot3** in real-time *without* the Gazebo environment.
-
-1. Start `bringup`
-
-1. Start Cartographer:
-   ```bash
-   ros2 launch turtlebot3_cartographer cartographer.launch.py
-   ```
-
-1. Start Navigation2:
-   ```bash
-   ros2 launch turtlebot3_navigation2 navigation2.launch.py
-   ```
-1. Run the SLAM exploration node:
-   ```bash
-   ros2 run lab9_slam explore
-   ```
-
-### **Autonomous Exploration with Prebuilt Map with Turtlebot3**
-
-Follow these steps to run autonomous navigation with **Turtlebot3** in real-time *without* the Gazebo environment.
-
-1. Start `bringup`
-
-1. Do not run Cartographer. Instead we want to run Navigation2 with the map we already built earlier in this lab. Before starting Navigation2, we need to run the following nodes
-
-    ```bash
-    ros2 run nav2_amcl amcl --ros-args -p yaml_filename:=$HOME/map.yaml
-    ```
-    and
-    ```bash
-    $ ros2 run tf2_ros static_transform_publisher 0 0 0 0 0 0 map odom
-    ```
-
-1. Now start Navigation2:
-    ```bash
-    ros2 launch turtlebot3_navigation2 navigation2.launch.py map:=$HOME/map.yaml 
-    ```
-    You should be able to find the prebuilt map. 
-    
-1. Run the SLAM exploration node:
-    ```bash
-    ros2 run lab9_slam explore
-    ```
-
-1. Can you find any differences in performance when you use a prebuilt map compared to using a map generated in real-time by Cartographer? 
-
-
-1. Start Navigation2:
-   ```bash
-   ros2 launch turtlebot3_navigation2 navigation2.launch.py
-   ```
-1. Run the SLAM exploration node:
-   ```bash
-   ros2 run lab9_slam explore
-   ```
-
 ## 🚚 Deliverables
 
-1. **[20 Points] Complete the `wall_detector.py` Script**
+1. **[10 Points] Complete the `map_plotter.py` Script**
     - Ensure the script is fully functional and implements all required features.
     - Push your code to GitHub and confirm that it has been successfully uploaded.
     **NOTE:** _If the instructor can't find your code in your repository, you will receive a grade of 0 for the coding part._
 
-2. **[15 Points] Complete the `line_follower.py` Script**
+1. **[10 Points] Complete the `explore_maze.py` Script**
     - Ensure the script is fully functional and implements all required features.
     - Push your code to GitHub and confirm that it has been successfully uploaded.
     **NOTE:** _If the instructor can't find your code in your repository, you will receive a grade of 0 for the coding part._
 
-3. **[15 Points] Demonstration**
+1. **[5 Points] Submit Screenshots**
+    - Submit two screenshot on Gradescope
+
+1. **[10 Points] Demonstration**
     - Show the robot successfully move between two walls.
 
+1. **[10 Points] Reflection and Analysis**
+    - Provide your reflection and analysis on Gradescope
 
 <!--
 To determine the origins of the `map` and `odom` frames with respect to the world frame, you'll need to analyze the relationships in your robot's **TF (Transform) tree**. Here’s how you can do it:
