@@ -95,6 +95,27 @@ Follow these steps to simulate SLAM with TurtleBot3 in the Gazebo environment.
     ros2 run nav2_map_server map_saver_cli -f ~/map
     ```
 
+1. Confirm that two files, `map.yaml` and `map.pgm`, have been created in your home directory. Then view the contents of `map.yaml` using the `cat` command:
+
+    ```bash
+    cat map.yaml
+    ```
+    Example output:
+    ```bash
+    image: map.pgm
+    mode: trinary
+    resolution: 0.05
+    origin: [-0.5, -0.7, 0]
+    negate: 0
+    occupied_thresh: 0.65
+    free_thresh: 0.25
+    ```
+    - resolution: Each pixel represents 0.05 m x 0.05 m in the real world.
+    - origin:  [-0.5, -0.7, 0] means the map starts at (-0.5 m, -0.7 m, 0 m) in the world frame
+    - occupied_thresh: The occupancy grid values greater than 65 are considered "occupied"
+    - free_thresh: The occupancy grid values less than 25 are considered "free space"
+    
+
 1. Download [`map_plotter.py`](../files/map_plotter.py) to your home directory. Then, make the script executable:
 
    ```bash

@@ -34,18 +34,14 @@ occupancy_grid = np.zeros(
     map_data.shape
 )  # Initialize an empty grid of the same size as the image
 
-for i in range(map_data.shape[0]):  # Loop through rows (height)
-    for j in range(map_data.shape[1]):  # Loop through columns (width)
-        pixel_value = map_data[i, j]  # Get the grayscale pixel value
 
-        # Vectorized processing for performance
-        occupancy_grid[map_data == 0] = 100  # Fully occupied (walls)
-        occupancy_grid[map_data == 255] = 0  # Free space
-        occupancy_grid[map_data == 205] = 50  # Unknown space
+# Step4: Vectorized processing for performance
+occupancy_grid[map_data == 0] = 100  # Fully occupied (walls)
+# TODO: assign 0 to free space and 50 to unknown space
 
-# Step 5: Compute real-world map size in meters
-height_m = occupancy_grid.shape[0] * resolution  # Total map height in meters
-width_m = occupancy_grid.shape[1] * resolution  # Total map width in meters
+# TODO: Step 5: Compute real-world map size in meters
+height_m = 0  # Total map height in meters
+width_m = 0  # Total map width in meters
 
 # Step 6: Generate axis values in meters
 # The extent defines the real-world coordinate range for the map
