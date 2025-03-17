@@ -104,7 +104,8 @@ Sometimes, we need to execute commands remotely without logging into the remote 
         source ~/robot_ws/install/setup.bash
         export TURTLEBOT3_MODEL=burger
         export ROS_DOMAIN_ID=98     # TURTLEBOT3
-        export LDS_MODEL=LDS-02
+        export LDS_MODEL=LDS-02     # Replace with LDS-01 if using old LIDAR
+
         return
     fi
     ```
