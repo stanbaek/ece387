@@ -185,6 +185,21 @@ Now, let’s set up **autonomous SLAM** using **Cartographer** and **Navigation2
 
 ## More to come soon
 
+
+```bash
+$ ros2 launch turtlebot3_navigation2 navigation2.launch.py use_sim_time:=true map:=$HOME/map.yaml 
+
+$ ros2 run nav2_amcl amcl --ros-args -p use_sim_time:=true -p yaml_filename:=$HOME/map.yaml
+```
+
+```bash
+$ ros2 run tf2_ros static_transform_publisher 0 0 0 0 0 0 map odom
+```
+
+
+
+
+
 <!--
 ## ✅ **Option 1: Use a Python Script with an Action Client**
 
