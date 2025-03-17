@@ -4,6 +4,8 @@
 ## 📌 Objectives
 
 - Students should be able to implement a ROS2 node to detect walls using LiDAR data.
+- This lab focuses on simulating autonomous exploration and navigation using SLAM in both Gazebo and real-world TurtleBot3 environments. You'll work with a prebuilt map and create new maps using Cartographer.
+
 
 ## 📜 Overview
 
@@ -41,7 +43,7 @@ Complete the following three tutorials. **Important:** Skip **C++** tutorials an
 
 ## 🛠️ Lab Procedures
 
-### **Setting Up TurtleBot3 with SLAM in Gazebo**
+### **1. Setting Up TurtleBot3 with SLAM in Gazebo**
 
 Follow these steps to simulate SLAM with TurtleBot3 in the Gazebo environment.
 
@@ -65,8 +67,7 @@ Follow these steps to simulate SLAM with TurtleBot3 in the Gazebo environment.
     ```bash
     ros2 launch turtlebot3_cartographer cartographer.launch.py use_sim_time:=true
     ```
-
-    Cartographer will begin building a map as you move the robot. The initial map will look like this:
+    The use_sim_time:=true parameter ensures proper synchronization with the simulation clock.  Cartographer will begin building a map as you move the robot. The initial map will look like this:
 
     ```{image} ./figures/Proj1_CartographerInit.png
     :width: 400  
@@ -95,6 +96,27 @@ Follow these steps to simulate SLAM with TurtleBot3 in the Gazebo environment.
     ros2 run nav2_map_server map_saver_cli -f ~/map
     ```
 
+1. Confirm that two files, `map.yaml` and `map.pgm`, have been created in your home directory. Then view the contents of `map.yaml` using the `cat` command:
+
+    ```bash
+    cat map.yaml
+    ```
+    Example output:
+    ```bash
+    image: map.pgm
+    mode: trinary
+    resolution: 0.05
+    origin: [-0.5, -0.7, 0]
+    negate: 0
+    occupied_thresh: 0.65
+    free_thresh: 0.25
+    ```
+    - resolution: Each pixel represents 0.05 m x 0.05 m in the real world.
+    - origin:  [-0.5, -0.7, 0] means the map starts at (-0.5 m, -0.7 m, 0 m) in the world frame
+    - occupied_thresh: The occupancy grid values greater than 65 are considered "occupied"
+    - free_thresh: The occupancy grid values less than 25 are considered "free space"
+    
+
 1. Download [`map_plotter.py`](../files/map_plotter.py) to your home directory. Then, make the script executable:
 
    ```bash
@@ -116,7 +138,7 @@ Follow these steps to simulate SLAM with TurtleBot3 in the Gazebo environment.
 
 1. Verify that the map dimensions match the actual maze. Each wall piece is **0.18 meters** long.
 
-### **Autonomous Navigation with SLAM**
+### **2. Navigation with SLAM**
 
 Now, let’s set up **autonomous SLAM** using **Cartographer** and **Navigation2** to explore the environment dynamically.
 
@@ -181,201 +203,180 @@ Now, let’s set up **autonomous SLAM** using **Cartographer** and **Navigation2
 
 1. Explore the entire world and create a map. Ensure you have dark gray obstacles.
 
-1. Take a screenshot of the cartographer window by right clicking the tileboar.  Submit the screenshot on Gradescope.
-
-## More to come soon
+1. Take a screenshot of the cartographer window by right clicking the title bar.  Submit the screenshot on Gradescope.
 
 
-```bash
-$ ros2 launch turtlebot3_navigation2 navigation2.launch.py use_sim_time:=true map:=$HOME/map.yaml 
+### **3. Autonomous Exploration with SLAM in Gazebo**
 
-$ ros2 run nav2_amcl amcl --ros-args -p use_sim_time:=true -p yaml_filename:=$HOME/map.yaml
-```
+1. Create a package named `lab9_slam` with the `BSD-3-Clause` license and dependencies:
+    - `rclpy`
+    - `geometry_msgs`
+    - `nav2_msgs`
+    - `action_msgs`
+    - `numpy`
 
-```bash
-$ ros2 run tf2_ros static_transform_publisher 0 0 0 0 0 0 map odom
-```
+    _Hint: There’s a way to include all dependencies at the time of package creation._
+
+1. Download the [`explore_maze.py`](../files/explore_maze.py) script and save it in the appropriate folder within your package (You should know where this file should go by now).
+
+1. Update the `setup.py` file by correctly adding the entry point for `explore_maze.py`. This is necessary to ensure that the script runs as a node.
+
+1. Open the `explore_maze.py` script and fill in the `TODO` sections. Pay attention to:
+    - Setting the target pose for the robot.
+    - Utilizing the Nav2 action server/client.
+
+1. Ensure you build the package correctly to make the script executable.
+
+1. Start the TurtleBot3 simulation in Gazebo.
+   ```bash
+   ros2 launch turtlebot3_gazebo maze.launch.py
+   ```
+
+1. Launch Cartographer to enable SLAM
+   ```bash
+   ros2 launch turtlebot3_cartographer cartographer.launch.py use_sim_time:=true
+   ```
+
+1. Start Navigation2 for path planning and exploration.
+   ```bash
+   ros2 launch turtlebot3_navigation2 navigation2.launch.py use_sim_time:=true
+   ```
+
+1. Finally, run the `explore_maze.py` script to let the robot autonomously explore the maze, building and updating a dynamic map.
+
+   ```bash
+   ros2 run lab9_slam explore
+   ```
+
+### **4. Autonomous Navigation with Prebuilt Map in Gazebo**
+
+Follow these steps to simulate autonomous navigation with **prebuilt map** in the Gazebo environment.
+
+1. Launch the TurtleBot3 simulation in Gazebo.
+   ```bash
+   ros2 launch turtlebot3_gazebo maze.launch.py
+   ```
+
+1. For this part of the lab, we are working with a prebuilt map. Cartographer, which is used for real-time map creation, is not required here.
+
+1. Start the AMCL (Adaptive Monte Carlo Localization) node to localize the robot within the prebuilt map (map.yaml).
+    ```bash
+    ros2 run nav2_amcl amcl --ros-args -p use_sim_time:=true -p yaml_filename:=$HOME/map.yaml
+    ```
+
+1. Publish a Static Transform Between Frames:
+    ```bash
+    $ ros2 run tf2_ros static_transform_publisher 0 0 0 0 0 0 map odom
+    ```
+    This command establishes a static relationship between the `map` and `odom` frames, assuming they are aligned without any offset. It's a prerequisite for linking the global (map) frame to the local (odom) frame in a robot's TF (Transform) tree.
+    
+1. Start the Navigation2 stack with the prebuilt map (`map.yaml`). Confirm that the robot can load and utilize the map effectively.
+
+    ```bash
+    ros2 launch turtlebot3_navigation2 navigation2.launch.py use_sim_time:=true map:=$HOME/map.yaml 
+    ```
+    You should be able to find the prebuilt map. 
+
+1. Run the SLAM exploration node:
+    ```bash
+    ros2 run lab9_slam explore
+    ```
+
+1. **Reflect on Differences**: Compare the robot's performance with a prebuilt map to its performance when generating a map in real-time. Note any improvements or challenges.
 
 
+### **5. Autonomous Exploration with Cartographer (TurtleBot3, Real Environment)**
 
+1. Start the `bringup` process to initialize the robot in a real environment.
 
+2. Launch Cartographer to perform SLAM in real time and create a map.
+    ```bash
+    ros2 launch turtlebot3_cartographer cartographer.launch.py
+    ```
 
-<!--
-## ✅ **Option 1: Use a Python Script with an Action Client**
+3. Start the Navigation2 stack to enable autonomous exploration and navigation.
+    ```bash
+    ros2 launch turtlebot3_navigation2 navigation2.launch.py
+    ```
 
-You can create a Python script to send a sequence of goals to Nav2 using the **`FollowWaypoints`** action.
+4. Execute the SLAM exploration node and observe the robot autonomously explore its surroundings while dynamically updating its map.
+    ```bash
+    ros2 run lab9_slam explore
+    ```
 
-### **Example Script to Send Multiple Goals:**
+### **6. Autonomous Navigation with Prebuilt Map (TurtleBot3, Real Environment)**
 
-1. Create a new Python script:
+1. Start the `bringup` process for the real TurtleBot3 environment.
 
-```bash
-mkdir -p ~/master_ws/src/multi_goal_nav
-cd ~/master_ws/src/multi_goal_nav
-touch multi_goal_nav.py
-chmod +x multi_goal_nav.py
-```
+2. Use AMCL and the prebuilt map for localization. Ensure you set a static transform between `map` and `odom`.
 
-2. Add the following code to `multi_goal_nav.py`:
+3. Start the Navigation2 stack with the prebuilt map, ensuring the robot can locate itself within the map.
 
-```python
-#!/usr/bin/env python3
+4. Execute the SLAM exploration node. Observe and evaluate how the robot navigates with a prebuilt map.
 
-import rclpy
-from rclpy.node import Node
-from geometry_msgs.msg import PoseStamped
-from nav2_msgs.action import FollowWaypoints
-from rclpy.action import ActionClient
-import time
-
-class MultiGoalNav(Node):
-    def __init__(self):
-        super().__init__('multi_goal_nav')
-        self.client = ActionClient(self, FollowWaypoints, 'follow_waypoints')
-        self.client.wait_for_server()
-
-    def send_goals(self):
-        # Define multiple goals as PoseStamped messages
-        goals = []
-
-        goal_1 = PoseStamped()
-        goal_1.header.frame_id = 'map'
-        goal_1.header.stamp = self.get_clock().now().to_msg()
-        goal_1.pose.position.x = 1.0
-        goal_1.pose.position.y = 0.5
-        goal_1.pose.orientation.w = 1.0
-        goals.append(goal_1)
-
-        goal_2 = PoseStamped()
-        goal_2.header.frame_id = 'map'
-        goal_2.header.stamp = self.get_clock().now().to_msg()
-        goal_2.pose.position.x = -0.5
-        goal_2.pose.position.y = 1.0
-        goal_2.pose.orientation.w = 1.0
-        goals.append(goal_2)
-
-        goal_3 = PoseStamped()
-        goal_3.header.frame_id = 'map'
-        goal_3.header.stamp = self.get_clock().now().to_msg()
-        goal_3.pose.position.x = 0.0
-        goal_3.pose.position.y = -1.0
-        goal_3.pose.orientation.w = 1.0
-        goals.append(goal_3)
-
-        self.get_logger().info(f"Sending {len(goals)} goals...")
-
-        goal_msg = FollowWaypoints.Goal()
-        goal_msg.poses = goals
-
-        self.send_goal_future = self.client.send_goal_async(goal_msg)
-        self.send_goal_future.add_done_callback(self.goal_response_callback)
-
-    def goal_response_callback(self, future):
-        goal_handle = future.result()
-        if not goal_handle.accepted:
-            self.get_logger().info('Goal rejected :(')
-            return
-        self.get_logger().info('Goal accepted :)')
-        self.result_future = goal_handle.get_result_async()
-        self.result_future.add_done_callback(self.result_callback)
-
-    def result_callback(self, future):
-        result = future.result().result
-        self.get_logger().info(f'Navigation complete with {result.missed_waypoints} missed waypoints.')
-
-def main(args=None):
-    rclpy.init(args=args)
-    node = MultiGoalNav()
-    time.sleep(2)  # Ensure connection to server
-    node.send_goals()
-    rclpy.spin(node)
-    node.destroy_node()
-    rclpy.shutdown()
-
-if __name__ == '__main__':
-    main()
-```
-
-3. **Build and Run:**
-
-```bash
-colcon build --packages-select multi_goal_nav
-source install/setup.bash
-ros2 run multi_goal_nav multi_goal_nav.py
-```
-
----
-
-## ✅ **Option 2: Use RViz Waypoints Plugin**
-
-You can also use a plugin in RViz to set multiple waypoints:
-
-1. In **RViz**, add the **"Waypoint Follower"** plugin:
-   - Open RViz.
-   - Click **"Add"** → **"By Topic"** → Select `/goal_pose`.
-
-2. In the RViz toolbar:
-   - After adding the plugin, you should see a **"Set Waypoints"** button.
-   - Click **"Set Waypoints"** to define multiple goal points on the map.
-   - Once all waypoints are set, click **"Follow Waypoints"** to start autonomous navigation.
-
----
-
-## ✅ **Option 3: Use a YAML File for Goals**
-
-You can create a list of goals in a YAML file and load it at runtime:
-
-1. Create a YAML file (`multi_goals.yaml`) like this:
-
-```yaml
-goals:
-  - pose:
-      position:
-        x: 1.0
-        y: 0.5
-      orientation:
-        w: 1.0
-  - pose:
-      position:
-        x: -0.5
-        y: 1.0
-      orientation:
-        w: 1.0
-  - pose:
-      position:
-        x: 0.0
-        y: -1.0
-      orientation:
-        w: 1.0
-```
-
-2. Create a launch file to read the goals and send them to Nav2 using `FollowWaypoints` action.
-
----
-
-## 🚀 **Recommended Approach:**
-
-- For flexible automation → Use **Option 1** (Python script).
-- For interactive use → Use **Option 2** (RViz Waypoints Plugin).
-- For repeated runs → Use **Option 3** (YAML file).
-
-<center>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/yf1iLbKwU3E?si=f9wdUHjrpu-KqkSU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-</center>
+5. **Analyze Performance**
+   - Discuss and note differences in navigation performance between using a real-time generated map and a prebuilt map.
 
 ## 🚚 Deliverables
 
-1. **[20 Points] Complete the `wall_detector.py` Script**
+1. **[10 Points] Complete the `map_plotter.py` Script**
     - Ensure the script is fully functional and implements all required features.
     - Push your code to GitHub and confirm that it has been successfully uploaded.
     **NOTE:** _If the instructor can't find your code in your repository, you will receive a grade of 0 for the coding part._
 
-2. **[15 Points] Complete the `line_follower.py` Script**
+1. **[10 Points] Complete the `explore_maze.py` Script**
     - Ensure the script is fully functional and implements all required features.
     - Push your code to GitHub and confirm that it has been successfully uploaded.
     **NOTE:** _If the instructor can't find your code in your repository, you will receive a grade of 0 for the coding part._
 
-3. **[15 Points] Demonstration**
+1. **[5 Points] Submit Screenshots**
+    - Submit two screenshot on Gradescope
+
+1. **[10 Points] Demonstration**
     - Show the robot successfully move between two walls.
 
+1. **[10 Points] Reflection and Analysis**
+    - Provide your reflection and analysis on Gradescope
+
+<!--
+To determine the origins of the `map` and `odom` frames with respect to the world frame, you'll need to analyze the relationships in your robot's **TF (Transform) tree**. Here’s how you can do it:
+
+---
+
+### 1. **Visualize the TF Tree**
+Use the TF visualization tools to observe the transform hierarchy:
+   - Run the following in a terminal to visualize the TF tree:
+     ```bash
+     ros2 run tf2_tools view_frames
+     ```
+     This will generate a PDF (`frames.pdf`) showing the entire TF tree, including the origins of frames like `map` and `odom`.
+
+   - Alternatively, in RViz2, add the **TF display** plugin to view the transform frames in real time and see how `map` and `odom` are positioned relative to each other and other frames.
+
+---
+
+### 2. **Query Specific Transforms**
+To find the exact transform between `map` and `odom` (or any other frames), use the `tf2_echo` command:
+   ```bash
+   ros2 run tf2_ros tf2_echo map odom
+   ```
+   This will display the translation (x, y, z) and rotation (quaternion) values of the `odom` frame relative to the `map` frame. If you're looking for the relationship with a world frame, replace `map` or `odom` with the name of your world frame.
+
+   - **Translation:** Gives you the position of the origin (in meters).
+   - **Rotation:** Indicates orientation as a quaternion, which you can convert to roll, pitch, and yaw if needed.
+
+---
+
+### 3. **Check Static Transforms**
+If static transforms are being used (like in your earlier command), the transformation values might already be predefined. You can inspect the parameters or commands to see the exact translation and rotation settings used when broadcasting those frames.
+
+---
+
+### 4. **Understand Frame Association**
+- In most robot setups, the `map` frame is typically aligned with the global reference frame, representing a fixed coordinate system for localization.
+- The `odom` frame, on the other hand, is aligned with the odometry system, which can drift over time. The transform between `map` and `odom` is often determined by the robot's localization system (e.g., AMCL, SLAM).
+
+---
+
+Let me know if you'd like guidance on any of these steps! I can also assist with debugging transforms or interpreting the output from `tf2_echo`.
 -->
