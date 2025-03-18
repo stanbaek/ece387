@@ -180,6 +180,12 @@ Now, let’s set up **autonomous SLAM** using **Cartographer** and **Navigation2
     :width: 400  
     :align: center  
     ```  
+1. 
+
+    ```{image} ./figures/Lab9_Nav2Display.png
+    :width: 400  
+    :align: center  
+    ```  
 
 1. Use the **2D Pose Estimate** tool in RViz2 to set the robot’s initial position:
    - Click on the map where the robot is located.
@@ -241,6 +247,9 @@ Now, let’s set up **autonomous SLAM** using **Cartographer** and **Navigation2
    ```bash
    ros2 launch turtlebot3_navigation2 navigation2.launch.py use_sim_time:=true
    ```
+
+1. 
+
 
 1. Finally, run the `navigate_maze.py` script to let the robot autonomously explore the maze, building and updating a dynamic map.
 
