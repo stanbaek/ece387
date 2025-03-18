@@ -7,7 +7,7 @@ from matplotlib.colors import ListedColormap
 from PIL import Image  # For loading the PGM image file
 
 # Step 1: Load the map metadata from the YAML file
-yaml_file = "./map_twice.yaml"
+yaml_file = "./map.yaml"
 with open(yaml_file, "r") as file:
     map_metadata = yaml.safe_load(file)  # Parse YAML content into a dictionary
 
@@ -27,9 +27,9 @@ map_data = np.array(
 
 # Step 3: Convert pixel values into an occupancy grid
 # ROS maps use the following conventions:
-# - 0 (black)   → Occupied space (walls, obstacles)
-# - 255 (white) → Free space
-# - 205 (gray)  → Unknown space
+# - 0 (black)   Occupied space (walls, obstacles)
+# - 255 (white) Free space
+# - 205 (gray)  Unknown space
 occupancy_grid = np.zeros(
     map_data.shape
 )  # Initialize an empty grid of the same size as the image

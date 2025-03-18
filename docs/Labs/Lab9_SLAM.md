@@ -301,6 +301,27 @@ Follow these steps to simulate autonomous navigation with **prebuilt map** in th
     ros2 run nav2_amcl amcl --ros-args -p use_sim_time:=true -p yaml_filename:=$HOME/map.yaml
     ```
 
+1. 
+what does ros2 run tf2_ros tf2_echo map odom do?
+
+This command listens for the transform between the map frame and the odom frame and continuously prints the transformation (translation and rotation). It helps verify if the transform exists and provides real-time values.
+
+
+At time 132.100000000
+- Translation: [-0.227, -0.274, -0.088]
+- Rotation: in Quaternion [-0.000, -0.003, 0.001, 1.000]
+- Rotation: in RPY (radian) [-0.000, -0.006, 0.002]
+- Rotation: in RPY (degree) [-0.006, -0.328, 0.131]
+
+
+The map → odom transform was eventually found.
+The robot’s odometry (odom) is offset from map by:
+Position: (-0.227, -0.274, -0.088)
+Orientation (rotation as quaternion & RPY)
+This means map and odom are not identical and need a static transformation to be set correctly.
+
+
+
 1. Publish a Static Transform Between Frames:
     ```bash
     $ ros2 run tf2_ros static_transform_publisher 0 0 0 0 0 0 map odom
