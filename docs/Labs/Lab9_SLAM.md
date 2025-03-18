@@ -223,7 +223,7 @@ Now, let’s set up **autonomous SLAM** using **Cartographer** and **Navigation2
 
     _Hint: There’s a way to include all dependencies at the time of package creation._
 
-1. Download the [`explore_maze.py`](../files/explore_maze.py) script and save it in the appropriate folder within your package (You should know where this file should go by now).
+1. Download the [`navigate_maze.py`](../files/navigate_maze.py) script and save it in the appropriate folder within your package (You should know where this file should go by now).
 
 1. Update the `setup.py` file by correctly adding the entry point for `explore_maze.py`. This is necessary to ensure that the script runs as a node.
 
@@ -247,9 +247,6 @@ Now, let’s set up **autonomous SLAM** using **Cartographer** and **Navigation2
    ```bash
    ros2 launch turtlebot3_navigation2 navigation2.launch.py use_sim_time:=true
    ```
-
-1. 
-
 
 1. Finally, run the `navigate_maze.py` script to let the robot autonomously explore the maze, building and updating a dynamic map.
 
