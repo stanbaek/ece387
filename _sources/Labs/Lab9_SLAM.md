@@ -180,6 +180,12 @@ Now, let’s set up **autonomous SLAM** using **Cartographer** and **Navigation2
     :width: 400  
     :align: center  
     ```  
+1. 
+
+    ```{image} ./figures/Lab9_Nav2Display.png
+    :width: 400  
+    :align: center  
+    ```  
 
 1. Use the **2D Pose Estimate** tool in RViz2 to set the robot’s initial position:
    - Click on the map where the robot is located.
@@ -206,7 +212,7 @@ Now, let’s set up **autonomous SLAM** using **Cartographer** and **Navigation2
 1. Take a screenshot of the cartographer window by right clicking the title bar.  Submit the screenshot on Gradescope.
 
 
-### **3. Autonomous Exploration with SLAM in Gazebo**
+### **3. Autonomous Navigation with SLAM in Gazebo**
 
 1. Create a package named `lab9_slam` with the `BSD-3-Clause` license and dependencies:
     - `rclpy`
@@ -217,7 +223,7 @@ Now, let’s set up **autonomous SLAM** using **Cartographer** and **Navigation2
 
     _Hint: There’s a way to include all dependencies at the time of package creation._
 
-1. Download the [`explore_maze.py`](../files/explore_maze.py) script and save it in the appropriate folder within your package (You should know where this file should go by now).
+1. Download the [`navigate_maze.py`](../files/navigate_maze.py) script and save it in the appropriate folder within your package (You should know where this file should go by now).
 
 1. Update the `setup.py` file by correctly adding the entry point for `explore_maze.py`. This is necessary to ensure that the script runs as a node.
 
@@ -242,11 +248,42 @@ Now, let’s set up **autonomous SLAM** using **Cartographer** and **Navigation2
    ros2 launch turtlebot3_navigation2 navigation2.launch.py use_sim_time:=true
    ```
 
-1. Finally, run the `explore_maze.py` script to let the robot autonomously explore the maze, building and updating a dynamic map.
+1. Finally, run the `navigate_maze.py` script to let the robot autonomously explore the maze, building and updating a dynamic map.
 
-   ```bash
-   ros2 run lab9_slam explore
-   ```
+    ```bash
+    ros2 run lab9_slam navigate
+    ```
+    
+    You may observe it take some time for the robot to get the correct orientation at a corner.  
+
+    The output should be something similar to
+    ```bash
+    [INFO] [1742273732.645040148] [maze_navigator]: Initial pose published
+    [INFO] [1742273733.398096942] [maze_navigator]: Nav2 server available, starting navigation...
+    [INFO] [1742273733.399054077] [maze_navigator]: Sending goal 1: (0.5, 0.0)
+    [INFO] [1742273733.401044101] [maze_navigator]: Goal accepted, waiting for result...
+    [INFO] [1742273737.764679146] [maze_navigator]: Goal 1 reached!
+    [INFO] [1742273738.766196490] [maze_navigator]: Sending goal 2: (2.34, 0.0)
+    [INFO] [1742273738.767399121] [maze_navigator]: Goal accepted, waiting for result...
+    [INFO] [1742273760.849179777] [maze_navigator]: Goal 2 reached!
+    [INFO] [1742273761.851515638] [maze_navigator]: Sending goal 3: (2.34, 1.26)
+    [INFO] [1742273761.853327625] [maze_navigator]: Goal accepted, waiting for result...
+    [INFO] [1742273771.914192259] [maze_navigator]: Goal 3 reached!
+    [INFO] [1742273772.916137851] [maze_navigator]: Sending goal 4: (1.8, 1.26)
+    [INFO] [1742273772.918236311] [maze_navigator]: Goal accepted, waiting for result...
+    [INFO] [1742273775.779635353] [maze_navigator]: Goal 4 reached!
+    [INFO] [1742273776.780995770] [maze_navigator]: Sending goal 5: (1.8, 0.54)
+    [INFO] [1742273776.783869671] [maze_navigator]: Goal accepted, waiting for result...
+    [INFO] [1742273796.064376706] [maze_navigator]: Goal 5 reached!
+    [INFO] [1742273797.066189894] [maze_navigator]: Sending goal 6: (0.0, 0.54)
+    [INFO] [1742273797.068158332] [maze_navigator]: Goal accepted, waiting for result...
+    [INFO] [1742273807.929930815] [maze_navigator]: Goal 6 reached!
+    [INFO] [1742273808.931021374] [maze_navigator]: Sending goal 7: (0.0, 0.0)
+    [INFO] [1742273808.933491318] [maze_navigator]: Goal accepted, waiting for result...
+    [INFO] [1742273816.294277081] [maze_navigator]: Goal 7 reached!
+    [INFO] [1742273817.295986020] [maze_navigator]: Completed navigating the maze!
+    ```
+
 
 ### **4. Autonomous Navigation with Prebuilt Map in Gazebo**
 
@@ -267,6 +304,8 @@ Follow these steps to simulate autonomous navigation with **prebuilt map** in th
 1. Publish a Static Transform Between Frames:
     ```bash
     $ ros2 run tf2_ros static_transform_publisher 0 0 0 0 0 0 map odom
+    ros2 run tf2_ros static_transform_publisher -0.227 -0.274 -0.088 0.0 0.0 0.0 map odom
+
     ```
     This command establishes a static relationship between the `map` and `odom` frames, assuming they are aligned without any offset. It's a prerequisite for linking the global (map) frame to the local (odom) frame in a robot's TF (Transform) tree.
     
@@ -285,7 +324,7 @@ Follow these steps to simulate autonomous navigation with **prebuilt map** in th
 1. **Reflect on Differences**: Compare the robot's performance with a prebuilt map to its performance when generating a map in real-time. Note any improvements or challenges.
 
 
-### **5. Autonomous Exploration with Cartographer (TurtleBot3, Real Environment)**
+### **5. Autonomous Navigation with Cartographer (TurtleBot3, Real Environment)**
 
 1. Start the `bringup` process to initialize the robot in a real environment.
 

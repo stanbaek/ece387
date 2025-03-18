@@ -398,9 +398,9 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-procedures">🛠️ Lab Procedures</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-turtlebot3-with-slam-in-gazebo"><strong>1. Setting Up TurtleBot3 with SLAM in Gazebo</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#navigation-with-slam"><strong>2. Navigation with SLAM</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#autonomous-exploration-with-slam-in-gazebo"><strong>3. Autonomous Exploration with SLAM in Gazebo</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#autonomous-navigation-with-slam-in-gazebo"><strong>3. Autonomous Navigation with SLAM in Gazebo</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#autonomous-navigation-with-prebuilt-map-in-gazebo"><strong>4. Autonomous Navigation with Prebuilt Map in Gazebo</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#autonomous-exploration-with-cartographer-turtlebot3-real-environment"><strong>5. Autonomous Exploration with Cartographer (TurtleBot3, Real Environment)</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#autonomous-navigation-with-cartographer-turtlebot3-real-environment"><strong>5. Autonomous Navigation with Cartographer (TurtleBot3, Real Environment)</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#autonomous-navigation-with-prebuilt-map-turtlebot3-real-environment"><strong>6. Autonomous Navigation with Prebuilt Map (TurtleBot3, Real Environment)</strong></a></li>
 </ul>
 </li>
@@ -560,6 +560,15 @@ free_thresh:<span class="w"> </span><span class="m">0</span>.25
 <p>The RViz2 interface will look like this:</p>
 <a class="reference internal image-reference" href="../_images/Lab9_Nav2WorldInit.png"><img alt="../_images/Lab9_Nav2WorldInit.png" class="align-center" src="../_images/Lab9_Nav2WorldInit.png" style="width: 400px;" /></a>
 </li>
+<li></li>
+</ol>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>```{image} ./figures/Lab9_Nav2Display.png
+:width: 400  
+:align: center  
+```  
+</pre></div>
+</div>
+<ol class="arabic">
 <li><p>Use the <strong>2D Pose Estimate</strong> tool in RViz2 to set the robot’s initial position:</p>
 <ul class="simple">
 <li><p>Click on the map where the robot is located.</p></li>
@@ -576,8 +585,8 @@ free_thresh:<span class="w"> </span><span class="m">0</span>.25
 <li><p>Take a screenshot of the cartographer window by right clicking the title bar.  Submit the screenshot on Gradescope.</p></li>
 </ol>
 </section>
-<section id="autonomous-exploration-with-slam-in-gazebo">
-<h3><strong>3. Autonomous Exploration with SLAM in Gazebo</strong><a class="headerlink" href="#autonomous-exploration-with-slam-in-gazebo" title="Link to this heading">#</a></h3>
+<section id="autonomous-navigation-with-slam-in-gazebo">
+<h3><strong>3. Autonomous Navigation with SLAM in Gazebo</strong><a class="headerlink" href="#autonomous-navigation-with-slam-in-gazebo" title="Link to this heading">#</a></h3>
 <ol class="arabic">
 <li><p>Create a package named <code class="docutils literal notranslate"><span class="pre">lab9_slam</span></code> with the <code class="docutils literal notranslate"><span class="pre">BSD-3-Clause</span></code> license and dependencies:</p>
 <ul class="simple">
@@ -589,7 +598,7 @@ free_thresh:<span class="w"> </span><span class="m">0</span>.25
 </ul>
 <p><em>Hint: There’s a way to include all dependencies at the time of package creation.</em></p>
 </li>
-<li><p>Download the <a class="reference internal" href="#../files/explore_maze.py"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">explore_maze.py</span></code></span></a> script and save it in the appropriate folder within your package (You should know where this file should go by now).</p></li>
+<li><p>Download the <a class="reference download internal" download="" href="../_downloads/2b090c38a95ca90d5d5de845f41f783d/navigate_maze.py"><span class="xref download myst"><code class="docutils literal notranslate"><span class="pre">navigate_maze.py</span></code></span></a> script and save it in the appropriate folder within your package (You should know where this file should go by now).</p></li>
 <li><p>Update the <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> file by correctly adding the entry point for <code class="docutils literal notranslate"><span class="pre">explore_maze.py</span></code>. This is necessary to ensure that the script runs as a node.</p></li>
 <li><p>Open the <code class="docutils literal notranslate"><span class="pre">explore_maze.py</span></code> script and fill in the <code class="docutils literal notranslate"><span class="pre">TODO</span></code> sections. Pay attention to:</p>
 <ul class="simple">
@@ -613,8 +622,36 @@ free_thresh:<span class="w"> </span><span class="m">0</span>.25
 </pre></div>
 </div>
 </li>
-<li><p>Finally, run the <code class="docutils literal notranslate"><span class="pre">explore_maze.py</span></code> script to let the robot autonomously explore the maze, building and updating a dynamic map.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>lab9_slam<span class="w"> </span>explore
+<li><p>Finally, run the <code class="docutils literal notranslate"><span class="pre">navigate_maze.py</span></code> script to let the robot autonomously explore the maze, building and updating a dynamic map.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>lab9_slam<span class="w"> </span>navigate
+</pre></div>
+</div>
+<p>You may observe it take some time for the robot to get the correct orientation at a corner.</p>
+<p>The output should be something similar to</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1742273732</span>.645040148<span class="o">]</span><span class="w"> </span><span class="o">[</span>maze_navigator<span class="o">]</span>:<span class="w"> </span>Initial<span class="w"> </span>pose<span class="w"> </span>published
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1742273733</span>.398096942<span class="o">]</span><span class="w"> </span><span class="o">[</span>maze_navigator<span class="o">]</span>:<span class="w"> </span>Nav2<span class="w"> </span>server<span class="w"> </span>available,<span class="w"> </span>starting<span class="w"> </span>navigation...
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1742273733</span>.399054077<span class="o">]</span><span class="w"> </span><span class="o">[</span>maze_navigator<span class="o">]</span>:<span class="w"> </span>Sending<span class="w"> </span>goal<span class="w"> </span><span class="m">1</span>:<span class="w"> </span><span class="o">(</span><span class="m">0</span>.5,<span class="w"> </span><span class="m">0</span>.0<span class="o">)</span>
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1742273733</span>.401044101<span class="o">]</span><span class="w"> </span><span class="o">[</span>maze_navigator<span class="o">]</span>:<span class="w"> </span>Goal<span class="w"> </span>accepted,<span class="w"> </span>waiting<span class="w"> </span><span class="k">for</span><span class="w"> </span>result...
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1742273737</span>.764679146<span class="o">]</span><span class="w"> </span><span class="o">[</span>maze_navigator<span class="o">]</span>:<span class="w"> </span>Goal<span class="w"> </span><span class="m">1</span><span class="w"> </span>reached!
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1742273738</span>.766196490<span class="o">]</span><span class="w"> </span><span class="o">[</span>maze_navigator<span class="o">]</span>:<span class="w"> </span>Sending<span class="w"> </span>goal<span class="w"> </span><span class="m">2</span>:<span class="w"> </span><span class="o">(</span><span class="m">2</span>.34,<span class="w"> </span><span class="m">0</span>.0<span class="o">)</span>
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1742273738</span>.767399121<span class="o">]</span><span class="w"> </span><span class="o">[</span>maze_navigator<span class="o">]</span>:<span class="w"> </span>Goal<span class="w"> </span>accepted,<span class="w"> </span>waiting<span class="w"> </span><span class="k">for</span><span class="w"> </span>result...
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1742273760</span>.849179777<span class="o">]</span><span class="w"> </span><span class="o">[</span>maze_navigator<span class="o">]</span>:<span class="w"> </span>Goal<span class="w"> </span><span class="m">2</span><span class="w"> </span>reached!
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1742273761</span>.851515638<span class="o">]</span><span class="w"> </span><span class="o">[</span>maze_navigator<span class="o">]</span>:<span class="w"> </span>Sending<span class="w"> </span>goal<span class="w"> </span><span class="m">3</span>:<span class="w"> </span><span class="o">(</span><span class="m">2</span>.34,<span class="w"> </span><span class="m">1</span>.26<span class="o">)</span>
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1742273761</span>.853327625<span class="o">]</span><span class="w"> </span><span class="o">[</span>maze_navigator<span class="o">]</span>:<span class="w"> </span>Goal<span class="w"> </span>accepted,<span class="w"> </span>waiting<span class="w"> </span><span class="k">for</span><span class="w"> </span>result...
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1742273771</span>.914192259<span class="o">]</span><span class="w"> </span><span class="o">[</span>maze_navigator<span class="o">]</span>:<span class="w"> </span>Goal<span class="w"> </span><span class="m">3</span><span class="w"> </span>reached!
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1742273772</span>.916137851<span class="o">]</span><span class="w"> </span><span class="o">[</span>maze_navigator<span class="o">]</span>:<span class="w"> </span>Sending<span class="w"> </span>goal<span class="w"> </span><span class="m">4</span>:<span class="w"> </span><span class="o">(</span><span class="m">1</span>.8,<span class="w"> </span><span class="m">1</span>.26<span class="o">)</span>
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1742273772</span>.918236311<span class="o">]</span><span class="w"> </span><span class="o">[</span>maze_navigator<span class="o">]</span>:<span class="w"> </span>Goal<span class="w"> </span>accepted,<span class="w"> </span>waiting<span class="w"> </span><span class="k">for</span><span class="w"> </span>result...
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1742273775</span>.779635353<span class="o">]</span><span class="w"> </span><span class="o">[</span>maze_navigator<span class="o">]</span>:<span class="w"> </span>Goal<span class="w"> </span><span class="m">4</span><span class="w"> </span>reached!
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1742273776</span>.780995770<span class="o">]</span><span class="w"> </span><span class="o">[</span>maze_navigator<span class="o">]</span>:<span class="w"> </span>Sending<span class="w"> </span>goal<span class="w"> </span><span class="m">5</span>:<span class="w"> </span><span class="o">(</span><span class="m">1</span>.8,<span class="w"> </span><span class="m">0</span>.54<span class="o">)</span>
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1742273776</span>.783869671<span class="o">]</span><span class="w"> </span><span class="o">[</span>maze_navigator<span class="o">]</span>:<span class="w"> </span>Goal<span class="w"> </span>accepted,<span class="w"> </span>waiting<span class="w"> </span><span class="k">for</span><span class="w"> </span>result...
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1742273796</span>.064376706<span class="o">]</span><span class="w"> </span><span class="o">[</span>maze_navigator<span class="o">]</span>:<span class="w"> </span>Goal<span class="w"> </span><span class="m">5</span><span class="w"> </span>reached!
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1742273797</span>.066189894<span class="o">]</span><span class="w"> </span><span class="o">[</span>maze_navigator<span class="o">]</span>:<span class="w"> </span>Sending<span class="w"> </span>goal<span class="w"> </span><span class="m">6</span>:<span class="w"> </span><span class="o">(</span><span class="m">0</span>.0,<span class="w"> </span><span class="m">0</span>.54<span class="o">)</span>
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1742273797</span>.068158332<span class="o">]</span><span class="w"> </span><span class="o">[</span>maze_navigator<span class="o">]</span>:<span class="w"> </span>Goal<span class="w"> </span>accepted,<span class="w"> </span>waiting<span class="w"> </span><span class="k">for</span><span class="w"> </span>result...
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1742273807</span>.929930815<span class="o">]</span><span class="w"> </span><span class="o">[</span>maze_navigator<span class="o">]</span>:<span class="w"> </span>Goal<span class="w"> </span><span class="m">6</span><span class="w"> </span>reached!
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1742273808</span>.931021374<span class="o">]</span><span class="w"> </span><span class="o">[</span>maze_navigator<span class="o">]</span>:<span class="w"> </span>Sending<span class="w"> </span>goal<span class="w"> </span><span class="m">7</span>:<span class="w"> </span><span class="o">(</span><span class="m">0</span>.0,<span class="w"> </span><span class="m">0</span>.0<span class="o">)</span>
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1742273808</span>.933491318<span class="o">]</span><span class="w"> </span><span class="o">[</span>maze_navigator<span class="o">]</span>:<span class="w"> </span>Goal<span class="w"> </span>accepted,<span class="w"> </span>waiting<span class="w"> </span><span class="k">for</span><span class="w"> </span>result...
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1742273816</span>.294277081<span class="o">]</span><span class="w"> </span><span class="o">[</span>maze_navigator<span class="o">]</span>:<span class="w"> </span>Goal<span class="w"> </span><span class="m">7</span><span class="w"> </span>reached!
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="m">1742273817</span>.295986020<span class="o">]</span><span class="w"> </span><span class="o">[</span>maze_navigator<span class="o">]</span>:<span class="w"> </span>Completed<span class="w"> </span>navigating<span class="w"> </span>the<span class="w"> </span>maze!
 </pre></div>
 </div>
 </li>
@@ -637,6 +674,7 @@ free_thresh:<span class="w"> </span><span class="m">0</span>.25
 </li>
 <li><p>Publish a Static Transform Between Frames:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ros2<span class="w"> </span>run<span class="w"> </span>tf2_ros<span class="w"> </span>static_transform_publisher<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span>map<span class="w"> </span>odom
+ros2<span class="w"> </span>run<span class="w"> </span>tf2_ros<span class="w"> </span>static_transform_publisher<span class="w"> </span>-0.227<span class="w"> </span>-0.274<span class="w"> </span>-0.088<span class="w"> </span><span class="m">0</span>.0<span class="w"> </span><span class="m">0</span>.0<span class="w"> </span><span class="m">0</span>.0<span class="w"> </span>map<span class="w"> </span>odom
 </pre></div>
 </div>
 <p>This command establishes a static relationship between the <code class="docutils literal notranslate"><span class="pre">map</span></code> and <code class="docutils literal notranslate"><span class="pre">odom</span></code> frames, assuming they are aligned without any offset. It’s a prerequisite for linking the global (map) frame to the local (odom) frame in a robot’s TF (Transform) tree.</p>
@@ -655,8 +693,8 @@ free_thresh:<span class="w"> </span><span class="m">0</span>.25
 <li><p><strong>Reflect on Differences</strong>: Compare the robot’s performance with a prebuilt map to its performance when generating a map in real-time. Note any improvements or challenges.</p></li>
 </ol>
 </section>
-<section id="autonomous-exploration-with-cartographer-turtlebot3-real-environment">
-<h3><strong>5. Autonomous Exploration with Cartographer (TurtleBot3, Real Environment)</strong><a class="headerlink" href="#autonomous-exploration-with-cartographer-turtlebot3-real-environment" title="Link to this heading">#</a></h3>
+<section id="autonomous-navigation-with-cartographer-turtlebot3-real-environment">
+<h3><strong>5. Autonomous Navigation with Cartographer (TurtleBot3, Real Environment)</strong><a class="headerlink" href="#autonomous-navigation-with-cartographer-turtlebot3-real-environment" title="Link to this heading">#</a></h3>
 <ol class="arabic">
 <li><p>Start the <code class="docutils literal notranslate"><span class="pre">bringup</span></code> process to initialize the robot in a real environment.</p></li>
 <li><p>Launch Cartographer to perform SLAM in real time and create a map.</p>
@@ -840,9 +878,9 @@ Let me know if you'd like guidance on any of these steps! I can also assist with
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-procedures">🛠️ Lab Procedures</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-turtlebot3-with-slam-in-gazebo"><strong>1. Setting Up TurtleBot3 with SLAM in Gazebo</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#navigation-with-slam"><strong>2. Navigation with SLAM</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#autonomous-exploration-with-slam-in-gazebo"><strong>3. Autonomous Exploration with SLAM in Gazebo</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#autonomous-navigation-with-slam-in-gazebo"><strong>3. Autonomous Navigation with SLAM in Gazebo</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#autonomous-navigation-with-prebuilt-map-in-gazebo"><strong>4. Autonomous Navigation with Prebuilt Map in Gazebo</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#autonomous-exploration-with-cartographer-turtlebot3-real-environment"><strong>5. Autonomous Exploration with Cartographer (TurtleBot3, Real Environment)</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#autonomous-navigation-with-cartographer-turtlebot3-real-environment"><strong>5. Autonomous Navigation with Cartographer (TurtleBot3, Real Environment)</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#autonomous-navigation-with-prebuilt-map-turtlebot3-real-environment"><strong>6. Autonomous Navigation with Prebuilt Map (TurtleBot3, Real Environment)</strong></a></li>
 </ul>
 </li>
