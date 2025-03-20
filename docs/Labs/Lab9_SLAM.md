@@ -74,7 +74,7 @@ Follow these steps to simulate SLAM with TurtleBot3 in the Gazebo environment.
     :align: center  
     ```  
 
-1. Use a gamepad to manually control the robot and explore the maze. Run the following command to start the gamepad controller:
+1. Use a gamepad to manually control the robot and navigate the maze. Run the following command to start the gamepad controller:
 
     ```bash
     ros2 launch lab4_gamepad gamepad.launch.py
@@ -140,7 +140,7 @@ Follow these steps to simulate SLAM with TurtleBot3 in the Gazebo environment.
 
 ### **2. Navigation with SLAM**
 
-Now, let’s set up **autonomous SLAM** using **Cartographer** and **Navigation2** to explore the environment dynamically.
+Now, let’s set up **autonomous SLAM** using **Cartographer** and **Navigation2** to navigate the environment dynamically.
 
 1. Start the TurtleBot3 simulation in the Gazebo world:
 
@@ -180,9 +180,10 @@ Now, let’s set up **autonomous SLAM** using **Cartographer** and **Navigation2
     :width: 400  
     :align: center  
     ```  
-1. 
 
-    ```{image} ./figures/Lab9_Nav2Display.png
+1. You can show or hide the `Global Costmap` and `Local Costmap` on RViz2 using the checkboxes on the  the `Display` sidebar:  
+
+    ```{image} ./figures/Lab9_Nav2CostMap.png
     :width: 400  
     :align: center  
     ```  
@@ -248,7 +249,7 @@ Now, let’s set up **autonomous SLAM** using **Cartographer** and **Navigation2
    ros2 launch turtlebot3_navigation2 navigation2.launch.py use_sim_time:=true
    ```
 
-1. Finally, run the `navigate_maze.py` script to let the robot autonomously explore the maze, building and updating a dynamic map.
+1. Finally, run the `navigate_maze.py` script to let the robot autonomously navigate the maze, building and updating a dynamic map.
 
     ```bash
     ros2 run lab9_slam navigate
@@ -296,39 +297,37 @@ Follow these steps to simulate autonomous navigation with **prebuilt map** in th
 
 1. For this part of the lab, we are working with a prebuilt map. Cartographer, which is used for real-time map creation, is not required here.
 
+
+1. Run
+    ```bash
+    ros2 run tf2_ros tf2_echo1 map odom
+    ```
+    This command listens for the transform between the map frame and the odom frame and continuously prints the transformation (translation and rotation). It helps verify if the transform exists and provides real-time values. It will print something similar to
+    ```bash
+    At time 132.100000000
+    - Translation: [-0.227, -0.274, -0.088]
+    - Rotation: in Quaternion [-0.000, -0.003, 0.001, 1.000]
+    - Rotation: in RPY (radian) [-0.000, -0.006, 0.002]
+    - Rotation: in RPY (degree) [-0.006, -0.328, 0.131]
+    ```
+    It means
+    - The map to odom transform was eventually found.
+    - The robot’s odometry (odom) is offset from map by:
+        - Position: (-0.227, -0.274, -0.088)
+        - Orientation (rotation as quaternion & RPY)
+    So, the map and odom frames are not identical and need a static transformation to be set correctly.
+
+1. Publish a Static Transform Between Frames:
+    ```bash
+    $ ros2 run tf2_ros static_transform_publisher -0.227 -0.274 -0.088 0.0 0.0 0.0 map odom
+    ```
+    This command establishes a static relationship between the `map` and `odom` frames, assuming they are aligned without any offset. It's a prerequisite for linking the global (map) frame to the local (odom) frame in a robot's TF (Transform) tree. We set the orientation offset to zeros because they are techinicall all zeros.
+
 1. Start the AMCL (Adaptive Monte Carlo Localization) node to localize the robot within the prebuilt map (map.yaml).
     ```bash
     ros2 run nav2_amcl amcl --ros-args -p use_sim_time:=true -p yaml_filename:=$HOME/map.yaml
     ```
 
-<!--
-what does ros2 run tf2_ros tf2_echo map odom do?
-
-This command listens for the transform between the map frame and the odom frame and continuously prints the transformation (translation and rotation). It helps verify if the transform exists and provides real-time values.
-
-
-At time 132.100000000
-- Translation: [-0.227, -0.274, -0.088]
-- Rotation: in Quaternion [-0.000, -0.003, 0.001, 1.000]
-- Rotation: in RPY (radian) [-0.000, -0.006, 0.002]
-- Rotation: in RPY (degree) [-0.006, -0.328, 0.131]
-
-
-The map → odom transform was eventually found.
-The robot’s odometry (odom) is offset from map by:
-Position: (-0.227, -0.274, -0.088)
-Orientation (rotation as quaternion & RPY)
-This means map and odom are not identical and need a static transformation to be set correctly.
--->
-
-1. Publish a Static Transform Between Frames:
-    ```bash
-    $ ros2 run tf2_ros static_transform_publisher 0 0 0 0 0 0 map odom
-    ros2 run tf2_ros static_transform_publisher -0.227 -0.274 -0.088 0.0 0.0 0.0 map odom
-
-    ```
-    This command establishes a static relationship between the `map` and `odom` frames, assuming they are aligned without any offset. It's a prerequisite for linking the global (map) frame to the local (odom) frame in a robot's TF (Transform) tree.
-    
 1. Start the Navigation2 stack with the prebuilt map (`map.yaml`). Confirm that the robot can load and utilize the map effectively.
 
     ```bash
@@ -338,7 +337,7 @@ This means map and odom are not identical and need a static transformation to be
 
 1. Run the SLAM exploration node:
     ```bash
-    ros2 run lab9_slam explore
+    ros2 run lab9_slam navigate
     ```
 
 1. **Reflect on Differences**: Compare the robot's performance with a prebuilt map to its performance when generating a map in real-time. Note any improvements or challenges.
@@ -346,21 +345,52 @@ This means map and odom are not identical and need a static transformation to be
 
 ### **5. Autonomous Navigation with Cartographer (TurtleBot3, Real Environment)**
 
+1. First, you need to ensure that the data and time on the robot match those on the master computer. 
+
+    - Log on to the raspberry pi using SSH, and run
+        ```bash
+        date    
+        ```
+        Run the same command on the master. If they do not match, run the following command on the master:
+        ```bash
+        echo 'your_password' | ssh pi@192.168.4.1 "echo 'your_password' | sudo -S date -s \"$(date '+%Y-%m-%d %H:%M:%S')\""
+        ```
+        Ensure that 'your_password' should be replaced with your actual password. 
+    - In case you have an error similar to
+        ```bash
+        sudo: unable to resolve host robot99: Temporary failure in name resolution
+        ```
+        Log on to the robot, and run
+        ```bash
+        sudo nano /etc/hosts
+        ```
+        Then, add the following line
+        ```bash
+        127.0.0.1   robotX        
+        ```
+        where `X` is your robot number.
+
+    - Run the `date` command on the robot to verify that they match. Make sure the time zone also matches. If the robot's time zone is not MDT, change it by using
+        ```bash
+        sudo timedatectl set-timezone America/Denver
+        ```
+
 1. Start the `bringup` process to initialize the robot in a real environment.
 
-2. Launch Cartographer to perform SLAM in real time and create a map.
+1. Launch Cartographer to perform SLAM in real time and create a map.
     ```bash
     ros2 launch turtlebot3_cartographer cartographer.launch.py
     ```
+    Ensure that `base-link`, `odom`, and `map` frames are displayed on the map. You also need to check there is no error or warnong on `TF` on the `Display` sidebar.
 
-3. Start the Navigation2 stack to enable autonomous exploration and navigation.
+1. Start the Navigation2 stack to enable autonomous exploration and navigation.
     ```bash
     ros2 launch turtlebot3_navigation2 navigation2.launch.py
     ```
 
-4. Execute the SLAM exploration node and observe the robot autonomously explore its surroundings while dynamically updating its map.
+1. Execute the SLAM exploration node and observe the robot autonomously navigate its surroundings while dynamically updating its map.
     ```bash
-    ros2 run lab9_slam explore
+    ros2 run lab9_slam navigate
     ```
 
 ### **6. Autonomous Navigation with Prebuilt Map (TurtleBot3, Real Environment)**
@@ -383,7 +413,7 @@ This means map and odom are not identical and need a static transformation to be
     - Push your code to GitHub and confirm that it has been successfully uploaded.
     **NOTE:** _If the instructor can't find your code in your repository, you will receive a grade of 0 for the coding part._
 
-1. **[10 Points] Complete the `explore_maze.py` Script**
+1. **[10 Points] Complete the `navigate_maze.py` Script**
     - Ensure the script is fully functional and implements all required features.
     - Push your code to GitHub and confirm that it has been successfully uploaded.
     **NOTE:** _If the instructor can't find your code in your repository, you will receive a grade of 0 for the coding part._
