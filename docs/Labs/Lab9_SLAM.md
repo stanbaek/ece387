@@ -225,9 +225,9 @@ Now, let’s set up **autonomous SLAM** using **Cartographer** and **Navigation2
 
 1. Download the [`navigate_maze.py`](../files/navigate_maze.py) script and save it in the appropriate folder within your package (You should know where this file should go by now).
 
-1. Update the `setup.py` file by correctly adding the entry point for `explore_maze.py`. This is necessary to ensure that the script runs as a node.
+1. Update the `setup.py` file by correctly adding the entry point for `navigate_maze.py`. This is necessary to ensure that the script runs as a node.
 
-1. Open the `explore_maze.py` script and fill in the `TODO` sections. Pay attention to:
+1. Open the `navigate_maze.py` script and fill in the `TODO` sections. Pay attention to:
     - Setting the target pose for the robot.
     - Utilizing the Nav2 action server/client.
 
