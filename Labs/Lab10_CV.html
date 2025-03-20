@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>🔬 Lab10: CV &#8212; Introduction to Robotic Systems</title>
   
@@ -15,64 +14,65 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=4c969af8" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
-
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
-  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
-    <script src="../_static/tabs.js"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/tabs.js?v=3ee01567"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'Labs/Lab10_CV';</script>
-    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="🔧 Robot Setup" href="../Appendix/RobotSetup.html" />
     <link rel="prev" title="🔬 Lab9: SLAM" href="Lab9_SLAM.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -80,23 +80,16 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+  <div id="pst-scroll-pixel-helper"></div>
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
   
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../search.html"
       method="get">
@@ -104,7 +97,6 @@ const thebe_selector_output = ".output, .cell_output"
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -112,16 +104,25 @@ const thebe_selector_output = ".output, .cell_output"
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -134,9 +135,13 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
+  
+    
   
 
 <a class="navbar-brand logo" href="../intro.html">
+  
   
   
   
@@ -146,12 +151,19 @@ const thebe_selector_output = ".output, .cell_output"
       
     
     
-    <img src="../_static/ece387.png" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="../_static/ece387.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+    <img src="../_static/ece387.png" class="logo__image only-light" alt="Introduction to Robotic Systems - Home"/>
+    <img src="../_static/ece387.png" class="logo__image only-dark pst-js-only" alt="Introduction to Robotic Systems - Home"/>
   
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -198,14 +210,19 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -214,14 +231,14 @@ const thebe_selector_output = ".output, .cell_output"
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -343,26 +360,20 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
-<script>
-document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
-  </button>
-`);
-</script>
 
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-  </button>
-`);
-</script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -383,41 +394,36 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-image-basics">Part 1: Image Basics</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-coding-with-opencv-python">Part 2: Coding with OpenCV-Python</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">📌 Objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">📜 Overview</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#coding-with-opencv-python"><strong>Coding with OpenCV-Python</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#assignment">Assignment</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cleanup">Cleanup</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-gradients">Part 3: Gradients</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Summary</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Assignment</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Cleanup</a></li>
-</ul>
-</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-4-histogram-of-oriented-gradients-hog-features">Part 4: Histogram of Oriented Gradients (HOG) Features</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-a-detector-using-hog-features">Building a detector using HOG features</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-a-detector">Testing a detector</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Summary</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Assignment</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Cleanup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Summary</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Assignment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Cleanup</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-5-ros-and-image-capture">Part 5: ROS and Image Capture</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#launch-file-usb-cam">Launch File - USB Cam</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calibrate-usb-camera">Calibrate USB Camera</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint">Checkpoint</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Summary</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Cleanup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Summary</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Cleanup</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-6-fiducial-markers">Part 6: Fiducial Markers</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#apriltag-ros">AprilTag ROS</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#launch-file-apriltag-ros">Launch File - Apriltag_Ros</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Checkpoint</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Summary</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Cleanup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Checkpoint</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Summary</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Cleanup</a></li>
 </ul>
 </li>
 </ul>
@@ -429,50 +435,23 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="lab10-cv">
-<h1>🔬 Lab10: CV<a class="headerlink" href="#lab10-cv" title="Permalink to this heading">#</a></h1>
-<section id="part-1-image-basics">
-<h2>Part 1: Image Basics<a class="headerlink" href="#part-1-image-basics" title="Permalink to this heading">#</a></h2>
-<p>When we talk about the sizes of images, we generally talk about them in terms of the number of pixels the image possesses in the x(horizontal) or y(vertical) direction.  If the image is a color image, we also need to concern ourselves with the depth of the image as well.  Normally, each individual pixel is represented by the “color” or the “intensity” of light that appears in a given place in our image.</p>
-<p>If we think of an image as a grid, each square in the grid contains a single pixel.</p>
-<p>Most pixels are represented in two ways: grayscale and color. In a grayscale image, each pixel has a value between 0 and 255, where zero is corresponds to “black” and 255 being “white”. The values in between 0 and 255 are varying shades of gray, where values closer to 0 are darker and values closer 255 are lighter:</p>
-<p><img alt="logo" src="Labs/Figures/Grayscale.JPG" /></p>
-<p>The grayscale gradient image in the figure above demonstrates darker pixels on the left-hand side and progressively lighter pixels on the right-hand side.</p>
-<p>Color pixels, however, are normally represented in the RGB color space (this is where the term color-depth comes from)— one value for the Red component, one for Green, and one for Blue, leading to a total of 3 values per pixel:</p>
-<p><img alt="logo" src="Labs/Figures/RGB.JPG" /></p>
-<p>Other color spaces exist, and ordering of the colors may differ as well, but let’s start with the common RGB system.  If we say the image is a 24-bit image, each of the three Red, Green, and Blue colors are represented by an integer in the range 0 to 255 (8-bits), which indicates how “much” of the color there is. Given that the pixel value only needs to be in the range [0, 255] we normally use an 8-bit unsigned integer to represent each color intensity.  We then combine these values into a RGB tuple in the form (red, green, blue) . This tuple represents our color.  For example:</p>
+<h1>🔬 Lab10: CV<a class="headerlink" href="#lab10-cv" title="Link to this heading">#</a></h1>
+<section id="objectives">
+<h2>📌 Objectives<a class="headerlink" href="#objectives" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>To construct a white color, we would fill each of the red, green, and blue buckets completely up, like this: (255, 255, 255) — since white is the presence of all color.</p></li>
-<li><p>Then, to create a black color, we would empty each of the buckets out: (0, 0, 0) — since black is the absence of color.</p></li>
-<li><p>To create a pure red color, we would fill up the red bucket (and only the red bucket) up completely: (255, 0, 0) .</p></li>
-<li><p>etc</p></li>
-</ul>
-<p>Take a look at the following image to make this concept more clear:</p>
-<p><img alt="logo" src="Labs/Figures/RGB_Tuple.JPG" /></p>
-<p>For your reference, here are some common colors represented as RGB tuples:</p>
-<ul class="simple">
-<li><p>Black:  (0, 0, 0)</p></li>
-<li><p>White:  (255, 255, 255)</p></li>
-<li><p>Red:  (255, 0, 0)</p></li>
-<li><p>Green:  (0, 255, 0)</p></li>
-<li><p>Blue:  (0, 0, 255)</p></li>
-<li><p>Aqua:  (0, 255, 255)</p></li>
-<li><p>Fuchsia:  (255, 0, 255)</p></li>
-<li><p>Maroon:  (128, 0, 0)</p></li>
-<li><p>Navy:  (0, 0, 128)</p></li>
-<li><p>Olive:  (128, 128, 0)</p></li>
-<li><p>Purple:  (128, 0, 128)</p></li>
-<li><p>Teal:  (0, 128, 128)</p></li>
-<li><p>Yellow:  (255, 255, 0)</p></li>
+<li><p>Students should be able</p></li>
 </ul>
 </section>
-<section id="part-2-coding-with-opencv-python">
-<h2>Part 2: Coding with OpenCV-Python<a class="headerlink" href="#part-2-coding-with-opencv-python" title="Permalink to this heading">#</a></h2>
+<section id="overview">
+<h2>📜 Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
+<section id="coding-with-opencv-python">
+<h3><strong>Coding with OpenCV-Python</strong><a class="headerlink" href="#coding-with-opencv-python" title="Link to this heading">#</a></h3>
 <p>It is time to build our first bit of code working with OpenCV.  Just like ROS, OpenCV is well supported by both Python and C++.  For simplicity, we will use Python throughout this course.  However, continue to recognize that if speed and efficiency become important, switching to a more robust language like C++ may become necessary.  To make use of OpenCV with Python, we need to import cv2.  The code below will simply load in the RGB figure above and print out the pixel values in each of the 4-quadrants.</p>
 <p>First we need to import the OpenCV Python library, <code class="docutils literal notranslate"><span class="pre">cv2</span></code>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cv2</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
 </pre></div>
 </div>
 <p>Then we can load the image:</p>
@@ -548,138 +527,190 @@ document.write(`
 
 </pre></div>
 </div>
+</section>
 <section id="summary">
-<h3>Summary<a class="headerlink" href="#summary" title="Permalink to this heading">#</a></h3>
+<h3>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h3>
 <p>These examples barely scratch the surface of what is possible with OpenCV. In the upcoming lessons we will learn a few more ways to manipulate images, but if you want to learn more you can either explore the <a class="reference external" href="https://docs.opencv.org/3.4/index.html">OpenCV-Python Source Documentation</a> or the <a class="reference external" href="https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html">OpenCV-Python Tutorial</a>.</p>
 </section>
 <section id="assignment">
-<h3>Assignment<a class="headerlink" href="#assignment" title="Permalink to this heading">#</a></h3>
+<h3>Assignment<a class="headerlink" href="#assignment" title="Link to this heading">#</a></h3>
 <p>Scan the article on the <a class="reference external" href="https://arxiv.org/pdf/1406.2419.pdf">Histogram of Oriented Gradients (HOG)</a> feature descriptor and be prepared to discuss.  I don’t need you to understand the math, but you should be able to understand the advantages of the technique.</p>
 </section>
 <section id="cleanup">
-<h3>Cleanup<a class="headerlink" href="#cleanup" title="Permalink to this heading">#</a></h3>
+<h3>Cleanup<a class="headerlink" href="#cleanup" title="Link to this heading">#</a></h3>
 <p>In the Jupyter Notebook at the top menu bar select “Kernel” and “Restart &amp; Clear Output”. Shutdown the notebook server by typing <code class="docutils literal notranslate"><span class="pre">ctrl+c</span></code> within the terminal you ran <code class="docutils literal notranslate"><span class="pre">jupyter-notebook</span></code> in. Select ‘y’.</p>
-</section>
-</section>
-<section id="part-3-gradients">
-<h2>Part 3: Gradients<a class="headerlink" href="#part-3-gradients" title="Permalink to this heading">#</a></h2>
-<p>The objective of this portion of the lesson is for you to start the process of learning how to create custom object detectors in an image.  There are many techniques, but the one technique I am interested in applying first is what is known as Histogram of Oriented Gradients.  Before we can dig into the technique, we should first understand a bit about image gradients and contours.</p>
-<p>By the end of today’s lesson you will be able to:</p>
-<ul class="simple">
-<li><p>Define what an image gradient is</p></li>
-<li><p>Compute changes in direction of an input image</p></li>
-<li><p>Define both gradient magnitude and gradient orientation</p></li>
-<li><p>Use OpenCV to approximate image gradients</p></li>
-</ul>
-<p>The image gradient is one of the fundamental building blocks in computer vision image processing.</p>
-<p>We use gradients for detecting edges in images, which allows us to find contours and outlines of objects in images.  We use them as inputs for quantifying images through feature extraction — in fact, highly successful and well-known image descriptors such as Histogram of Oriented Gradients and SIFT are built upon image gradient representations. Gradient images are even used to construct saliency maps, which highlight the subjects of an image.  We use gradients all the time in computer vision and image processing.  I would go as far as to say they are one of the most important building blocks you will learn about in this module.  While they are not often discussed in detail since other more powerful and interesting methods build on top of them, we are going to take the time and discuss them in detail.</p>
-<p>As I mentioned in the introduction, image gradients are used as the basic building blocks in many computer vision and image processing applications.  However, the main application of image gradients lies within edge detection.  As the name suggests, edge detection is the process of finding edges in an image, which reveals structural information regarding the objects in an image.  Edges could therefore correspond to:</p>
-<ul class="simple">
-<li><p>Boundaries of an object in an image.</p></li>
-<li><p>Boundaries of shadowing or lighting conditions in an image.</p></li>
-<li><p>Boundaries of “parts” within an object.</p></li>
-</ul>
-<p>As we mentioned in the previous portion of the lab, we will often work with grayscale images, because of the massive reduction in images.  OpenCV will convert to grayscale using the following conversion formula:</p>
-<p><span class="math notranslate nohighlight">\(Y = 0.299 R + 0.587 G + 0.114 B\)</span></p>
-<p>Let’s see if that matches our expectations in the figure below:</p>
-<p><img alt="logo" src="Labs/Figures/RGB_Gray.png" /></p>
-<p>The below figure is an image of edges being detected simply by looking for the contours in an image:</p>
-<p><img alt="logo" src="Labs/Figures/EdgeDet.png" /></p>
-<p>As you can see, all of the edges (or changes in contrast are clearly identified), but how did we do it?  Lets look at the math below, and then we will look at how simple the code is by taking advantage of OpenCV.</p>
-<p>Formally, an image gradient is defined as a directional change in image intensity.  Or put more simply, at each pixel of the input (grayscale) image, a gradient measures the change in pixel intensity in a given direction. By estimating the direction or orientation along with the magnitude (i.e. how strong the change in direction is), we are able to detect regions of an image that look like edges.</p>
-<p>Lets look at a blown up version of a basic pixel map.  Our goal here is to establish the basic framework for how we will eventually compute the gradient:</p>
-<p><img alt="logo" src="Labs/Figures/PixelCont.png" /></p>
-<p>In the image above we essentially wish to examine the (3 \times 3) neighborhood surrounding the central pixel. Our x values run from left to right, and our y values from top to bottom. In order to compute any changes in direction we will need the north, south, east, and west pixels, which are marked on the above figure.</p>
-<p>If we denote our input image as <em>I</em>, then we define the north, south, east, and west pixels using the following notation:</p>
-<ul class="simple">
-<li><p>North: <span class="math notranslate nohighlight">\(I(x, y - 1)\)</span></p></li>
-<li><p>South: <span class="math notranslate nohighlight">\(I(x, y + 1)\)</span></p></li>
-<li><p>East: <span class="math notranslate nohighlight">\(I(x + 1, y)\)</span></p></li>
-<li><p>West: <span class="math notranslate nohighlight">\(I(x - 1, y)\)</span></p></li>
-</ul>
-<p>Again, these four values are critical in computing the changes in image intensity in both the x and y direction.</p>
-<p>To demonstrate this, let us compute the vertical change or the y-change by taking the difference between the south and north pixels:</p>
-<p><span class="math notranslate nohighlight">\(G_{y} = I(x, y + 1) - I(x, y - 1)\)</span></p>
-<p>Similarly, we can compute the horizontal change or the x-change by taking the difference between the east and west pixels:</p>
-<p><span class="math notranslate nohighlight">\(G_{x} = I(x + 1, y) - I(x - 1, y)\)</span></p>
-<p>Awesome — so now we have <span class="math notranslate nohighlight">\(G_{x}\)</span> and <span class="math notranslate nohighlight">\(G_{y}\)</span>, which represent the change in image intensity for the central pixel in both the x and y direction.  Lets look at a relatively intuitive example at first without all the math.</p>
-<p><img alt="logo" src="Labs/Figures/GradientEx.png" /></p>
-<p>On the left we have a <span class="math notranslate nohighlight">\(3 \times 3\)</span> region of an image where the top half of the image is white and the bottom half of the image is black. The gradient orientation is thus equal to <span class="math notranslate nohighlight">\(\theta=-90^{\circ}\)</span></p>
-<p>And on the right we have another <span class="math notranslate nohighlight">\(3 \times 3\)</span> neighborhood of an image, where the upper triangular region is white and the lower triangular region is black. Here we can see the change in direction is equal to <span class="math notranslate nohighlight">\(\theta=-45^{\circ}\)</span>.  While these two examples are both relatively easy to understand, lets use our knowledge of the Pythagorean theorem to actually compute the magnitude and orientation of the gradient with actual values now.</p>
-<p><img alt="logo" src="Labs/Figures/GradTrig.png" /></p>
-<p>Inspecting the triangle in the above figure you can see that the gradient magnitude G is the hypotenuse of the triangle. Therefore, all we need to do is apply the Pythagorean theorem and we will end up with the gradient magnitude:</p>
-<p><span class="math notranslate nohighlight">\(G = \sqrt{G_{x}^{2} + G_{y}^{2}}\)</span></p>
-<p>The gradient orientation can then be given as the ratio of <span class="math notranslate nohighlight">\(G_{y}\)</span> to <span class="math notranslate nohighlight">\(G_{x}\)</span>. We can use the <span class="math notranslate nohighlight">\(tan^{-1}\)</span> to compute the gradient orientation,</p>
-<p><span class="math notranslate nohighlight">\(\theta = tan^{-1}(\frac{G_{y}}{G_{x}}) \times (\frac{180}{\pi})\)</span></p>
-<p>We converted to degrees by multiplying by the ratio of <span class="math notranslate nohighlight">\(180/\pi\)</span>.  Lets now add pixel intensity values and put this to the test.</p>
-<p><img alt="logo" src="Labs/Figures/GradEx2.png" /></p>
-<p>In the above image we have an image where the upper-third is white and the bottom two-thirds is black. Using the equations for <span class="math notranslate nohighlight">\(G_{x}\)</span> and <span class="math notranslate nohighlight">\(G_{y}\)</span>, we arrive at:</p>
-<p><span class="math notranslate nohighlight">\(G_{x} = \)</span></p>
-<p>and</p>
-<p><span class="math notranslate nohighlight">\(G_{y} = \)</span></p>
-<p>Plugging these values into our gradient magnitude equation we get:</p>
-<p><span class="math notranslate nohighlight">\(G = \)</span></p>
-<p>As for our gradient orientation:</p>
-<p><span class="math notranslate nohighlight">\(\theta = \)</span></p>
-<p>Now you try with the following example:</p>
-<p><img alt="logo" src="Labs/Figures/GradEx3.png" /></p>
-<p><span class="math notranslate nohighlight">\(G_{x} = \)</span></p>
-<p>and</p>
-<p><span class="math notranslate nohighlight">\(G_{y} = \)</span></p>
-<p>Plugging these values into our gradient magnitude equation we get:</p>
-<p><span class="math notranslate nohighlight">\(G = \)</span></p>
-<p>As for our gradient orientation:</p>
-<p><span class="math notranslate nohighlight">\(\theta = \)</span></p>
-<p>Now that you know how to compute both the orientation and the magnitude of the gradients, you essentially have the most basic building block established for computing the necessary information for HOG w/ SVM.  Additionally, you can use the following code to compute very effective contours in images.</p>
-<p>Fortunately, in practice we don’t need to do any of the math above.  Instead we can use what is known as the Sobel Kernel to compute the values for <span class="math notranslate nohighlight">\(G_{x}\)</span> and <span class="math notranslate nohighlight">\(G_{y}\)</span>.  OpenCV and numpy have functionality built in that allow us to do all of this very quickly.</p>
-<blockquote>
-<div><p>To exit the image just press any key. <strong>DO NOT</strong> press the ‘X’ in the corner. If you do press the ‘X’ (smh) you will have to Restart &amp; Clear the Kernel: in the Jupyter Notebook at the top menu bar select “Kernel” and “Restart &amp; Clear Output”.</p>
-</div></blockquote>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cv2</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-</pre></div>
-</div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#load the image</span>
-<span class="n">image</span><span class="o">=</span><span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s2">&quot;RGB_Tuple.JPG&quot;</span><span class="p">)</span>
-<span class="n">gray</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#Show the original image along with the grayscale image</span>
-<span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s2">&quot;Original image&quot;</span><span class="p">,</span> <span class="n">image</span><span class="p">)</span>
-<span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s2">&quot;Grayscale Image&quot;</span><span class="p">,</span> <span class="n">gray</span><span class="p">)</span>
+<!--
+## Part 3: Gradients
 
-<span class="c1"># Lets now compute the gradients along the X and Y axis, respectively</span>
-<span class="n">gX</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">Sobel</span><span class="p">(</span><span class="n">gray</span><span class="p">,</span><span class="n">cv2</span><span class="o">.</span><span class="n">CV_64F</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">gY</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">Sobel</span><span class="p">(</span><span class="n">gray</span><span class="p">,</span><span class="n">cv2</span><span class="o">.</span><span class="n">CV_64F</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+The objective of this portion of the lesson is for you to start the process of learning how to create custom object detectors in an image.  There are many techniques, but the one technique I am interested in applying first is what is known as Histogram of Oriented Gradients.  Before we can dig into the technique, we should first understand a bit about image gradients and contours.
 
-<span class="c1"># the `gX` and `gY` images are now of the floating point data type,</span>
-<span class="c1"># so we need to take care to convert them back to an unsigned 8-bit</span>
-<span class="c1"># integer representation so other OpenCV functions can utilize them</span>
-<span class="n">gX</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">convertScaleAbs</span><span class="p">(</span><span class="n">gX</span><span class="p">)</span>
-<span class="n">gY</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">convertScaleAbs</span><span class="p">(</span><span class="n">gY</span><span class="p">)</span>
+By the end of today's lesson you will be able to: 
+- Define what an image gradient is 
+- Compute changes in direction of an input image 
+- Define both gradient magnitude and gradient orientation 
+- Use OpenCV to approximate image gradients 
 
-<span class="c1"># combine the sobel X and Y representations into a single image</span>
-<span class="n">sobelCombined</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">addWeighted</span><span class="p">(</span><span class="n">gX</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">gY</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-<span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s2">&quot;Gradient Image&quot;</span><span class="p">,</span> <span class="n">sobelCombined</span><span class="p">)</span>
-<span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span> <span class="c1"># close the image window</span>
-</pre></div>
-</div>
-<section id="id1">
-<h3>Summary<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
-<p>Gradients are one important tool used in object detection. Next lesson we will learn how to apply gradients using the Histogram of Oriented Gradients to train an object detector.</p>
-</section>
-<section id="id2">
-<h3>Assignment<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
-<p>Watch the following video on <a class="reference external" href="https://youtube.com/watch?v=4ESLTAd3IOM">Histogram of Oriented Gradients</a>.</p>
-</section>
-<section id="id3">
-<h3>Cleanup<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
-<p>In the Jupyter Notebook at the top menu bar select “Kernel” and “Restart &amp; Clear Output”. Shutdown the notebook server by typing <code class="docutils literal notranslate"><span class="pre">ctrl+c</span></code> within the terminal you ran <code class="docutils literal notranslate"><span class="pre">jupyter-notebook</span></code> in. Select ‘y’.</p>
+The image gradient is one of the fundamental building blocks in computer vision image processing.   
+
+We use gradients for detecting edges in images, which allows us to find contours and outlines of objects in images.  We use them as inputs for quantifying images through feature extraction — in fact, highly successful and well-known image descriptors such as Histogram of Oriented Gradients and SIFT are built upon image gradient representations. Gradient images are even used to construct saliency maps, which highlight the subjects of an image.  We use gradients all the time in computer vision and image processing.  I would go as far as to say they are one of the most important building blocks you will learn about in this module.  While they are not often discussed in detail since other more powerful and interesting methods build on top of them, we are going to take the time and discuss them in detail. 
+
+As I mentioned in the introduction, image gradients are used as the basic building blocks in many computer vision and image processing applications.  However, the main application of image gradients lies within edge detection.  As the name suggests, edge detection is the process of finding edges in an image, which reveals structural information regarding the objects in an image.  Edges could therefore correspond to: 
+
+- Boundaries of an object in an image. 
+- Boundaries of shadowing or lighting conditions in an image. 
+- Boundaries of “parts” within an object. 
+
+As we mentioned in the previous portion of the lab, we will often work with grayscale images, because of the massive reduction in images.  OpenCV will convert to grayscale using the following conversion formula:
+
+$Y = 0.299 R + 0.587 G + 0.114 B$
+
+Let's see if that matches our expectations in the figure below:
+
+![logo](Figures/RGB_Gray.png)
+
+The below figure is an image of edges being detected simply by looking for the contours in an image:
+
+![logo](Figures/EdgeDet.png)
+
+As you can see, all of the edges (or changes in contrast are clearly identified), but how did we do it?  Lets look at the math below, and then we will look at how simple the code is by taking advantage of OpenCV.
+
+Formally, an image gradient is defined as a directional change in image intensity.  Or put more simply, at each pixel of the input (grayscale) image, a gradient measures the change in pixel intensity in a given direction. By estimating the direction or orientation along with the magnitude (i.e. how strong the change in direction is), we are able to detect regions of an image that look like edges.
+
+Lets look at a blown up version of a basic pixel map.  Our goal here is to establish the basic framework for how we will eventually compute the gradient:
+
+![logo](Figures/PixelCont.png)
+
+In the image above we essentially wish to examine the \(3 \times 3\) neighborhood surrounding the central pixel. Our x values run from left to right, and our y values from top to bottom. In order to compute any changes in direction we will need the north, south, east, and west pixels, which are marked on the above figure.
+
+If we denote our input image as *I*, then we define the north, south, east, and west pixels using the following notation:
+
+- North: $I(x, y - 1)$
+- South: $I(x, y + 1)$
+- East: $I(x + 1, y)$
+- West: $I(x - 1, y)$
+
+Again, these four values are critical in computing the changes in image intensity in both the x and y direction.
+
+To demonstrate this, let us compute the vertical change or the y-change by taking the difference between the south and north pixels:
+
+$G_{y} = I(x, y + 1) - I(x, y - 1)$
+
+Similarly, we can compute the horizontal change or the x-change by taking the difference between the east and west pixels:
+
+$G_{x} = I(x + 1, y) - I(x - 1, y)$
+
+Awesome — so now we have $G_{x}$ and $G_{y}$, which represent the change in image intensity for the central pixel in both the x and y direction.  Lets look at a relatively intuitive example at first without all the math.
+
+![logo](Figures/GradientEx.png)
+
+On the left we have a $3 \times 3$ region of an image where the top half of the image is white and the bottom half of the image is black. The gradient orientation is thus equal to $\theta=-90^{\circ}$
+
+And on the right we have another $3 \times 3$ neighborhood of an image, where the upper triangular region is white and the lower triangular region is black. Here we can see the change in direction is equal to $\theta=-45^{\circ}$.  While these two examples are both relatively easy to understand, lets use our knowledge of the Pythagorean theorem to actually compute the magnitude and orientation of the gradient with actual values now.
+
+![logo](Figures/GradTrig.png)
+
+Inspecting the triangle in the above figure you can see that the gradient magnitude G is the hypotenuse of the triangle. Therefore, all we need to do is apply the Pythagorean theorem and we will end up with the gradient magnitude:
+
+$G = \sqrt{G_{x}^{2} + G_{y}^{2}}$
+
+The gradient orientation can then be given as the ratio of $G_{y}$ to $G_{x}$. We can use the $tan^{-1}$ to compute the gradient orientation,
+
+$\theta = tan^{-1}(\frac{G_{y}}{G_{x}}) \times (\frac{180}{\pi})$
+
+We converted to degrees by multiplying by the ratio of $180/\pi$.  Lets now add pixel intensity values and put this to the test.
+
+![logo](Figures/GradEx2.png)
+
+In the above image we have an image where the upper-third is white and the bottom two-thirds is black. Using the equations for $G_{x}$ and $G_{y}$, we arrive at:
+
+$G_{x} = $
+
+and
+
+$G_{y} = $
+
+Plugging these values into our gradient magnitude equation we get:
+
+$G = $
+
+As for our gradient orientation:
+
+$\theta = $
+
+Now you try with the following example:
+
+![logo](Figures/GradEx3.png)
+
+$G_{x} = $
+
+and
+
+$G_{y} = $
+
+Plugging these values into our gradient magnitude equation we get:
+
+$G = $
+
+As for our gradient orientation:
+
+$\theta = $
+
+Now that you know how to compute both the orientation and the magnitude of the gradients, you essentially have the most basic building block established for computing the necessary information for HOG w/ SVM.  Additionally, you can use the following code to compute very effective contours in images. 
+
+Fortunately, in practice we don't need to do any of the math above.  Instead we can use what is known as the Sobel Kernel to compute the values for $G_{x}$ and $G_{y}$.  OpenCV and numpy have functionality built in that allow us to do all of this very quickly.  
+
+>  To exit the image just press any key. **DO NOT** press the 'X' in the corner. If you do press the 'X' (smh) you will have to Restart & Clear the Kernel: in the Jupyter Notebook at the top menu bar select "Kernel" and "Restart & Clear Output".
+
+
+```python
+import cv2
+import numpy as np
+```
+
+
+```python
+#load the image
+image=cv2.imread("RGB_Tuple.JPG")
+gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+```
+
+
+```python
+#Show the original image along with the grayscale image
+cv2.imshow("Original image", image)
+cv2.imshow("Grayscale Image", gray)
+
+# Lets now compute the gradients along the X and Y axis, respectively
+gX = cv2.Sobel(gray,cv2.CV_64F,1,0)
+gY = cv2.Sobel(gray,cv2.CV_64F,0,1)
+
+# the `gX` and `gY` images are now of the floating point data type,
+# so we need to take care to convert them back to an unsigned 8-bit
+# integer representation so other OpenCV functions can utilize them
+gX = cv2.convertScaleAbs(gX)
+gY = cv2.convertScaleAbs(gY)
+
+# combine the sobel X and Y representations into a single image
+sobelCombined = cv2.addWeighted(gX, 0.5, gY, 0.5, 0)
+cv2.imshow("Gradient Image", sobelCombined)
+cv2.waitKey(0)
+cv2.destroyAllWindows() # close the image window
+```
+
+### Summary
+Gradients are one important tool used in object detection. Next lesson we will learn how to apply gradients using the Histogram of Oriented Gradients to train an object detector.
+
+### Assignment
+Watch the following video on [Histogram of Oriented Gradients](https://youtube.com/watch?v=4ESLTAd3IOM).
+
+### Cleanup
+In the Jupyter Notebook at the top menu bar select "Kernel" and "Restart & Clear Output". Shutdown the notebook server by typing `ctrl+c` within the terminal you ran `jupyter-notebook` in. Select 'y'.
+
+-->
 </section>
 </section>
 <section id="part-4-histogram-of-oriented-gradients-hog-features">
-<h2>Part 4: Histogram of Oriented Gradients (HOG) Features<a class="headerlink" href="#part-4-histogram-of-oriented-gradients-hog-features" title="Permalink to this heading">#</a></h2>
+<h2>Part 4: Histogram of Oriented Gradients (HOG) Features<a class="headerlink" href="#part-4-histogram-of-oriented-gradients-hog-features" title="Link to this heading">#</a></h2>
 <p>The objective of this portion of the lesson is to demonstrate the functionality of the HOG with SVM (Support Vector Machine) algorithm for object detection.  By this point, we should all be well aware of what a histogram is.  The application of the histogram for the HOG feature extraction is to further simplify the tested image to enable our computer to rapidly and accurately identify the presence of an object within the image.<br />
 Instead of using each individual gradient direction of each individual pixel of an image, we group the pixels into small cells. For each cell, we compute all the gradient directions and group them into a number of orientation bins. We sum up the gradient magnitude in each sample. So stronger gradients contribute more weight to their bins, and effects of small random orientations due to noise is reduced. Doing this for all cells gives us a representation of the structure of the image. The HOG features keep the representation of an object distinct but also allow for some variations in shape.  For example, lets consider an object detector for a car, see the below figure.</p>
 <p><img alt="logo" src="Labs/Figures/HOG_Features.JPG" /></p>
@@ -687,7 +718,7 @@ Instead of using each individual gradient direction of each individual pixel of 
 <p><img alt="logo" src="Labs/Figures/HOG_Histogram.JPG" /></p>
 <p>Now that we have an understanding of the HOG features, lets use tools embedded within OpenCV and Dlib to build our first detector for a stop sign.  But first we need to download a pre-created repository of test and training data.  Remember, we won’t use our training data to test the effectiveness of the algorithm.  Of course the algorithm will work effectively on the training data.  Our hope is that we can create a large enough sampling of test data that we can have a highly effective detector that is robust against new images.</p>
 <section id="building-a-detector-using-hog-features">
-<span id="cv-hog"></span><h3>Building a detector using HOG features<a class="headerlink" href="#building-a-detector-using-hog-features" title="Permalink to this heading">#</a></h3>
+<span id="cv-hog"></span><h3>Building a detector using HOG features<a class="headerlink" href="#building-a-detector-using-hog-features" title="Link to this heading">#</a></h3>
 <p>Download the example demo into the <code class="docutils literal notranslate"><span class="pre">my_scripts</span></code> folder.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/master_ws/src
 mkdir<span class="w"> </span>my_scripts
@@ -717,9 +748,9 @@ touch<span class="w"> </span>trainDetector.py
 </div>
 <p>Now open this in your favorite editor to add the following code.  I have built into the code the ability to provide command line arguments.  This will make the code a bit more flexible such that you don’t need to recreate it in the future if you want to reuse if for another project.  You will provide two arguments at runtime.  First you need to tell the program where the .xml file is.  Second, you will state where you want to put the detector that you create… the detector should have a .svm extension.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># import the necessary packages</span>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
-<span class="kn">import</span> <span class="nn">argparse</span>
-<span class="kn">import</span> <span class="nn">dlib</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">print_function</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">dlib</span>
 
 <span class="c1"># construct the argument parser and parse the arguments</span>
 <span class="n">ap</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
@@ -756,7 +787,7 @@ python3<span class="w"> </span>trainDetector.py<span class="w"> </span>--xml<spa
 <p>You may get a few errors pop up during execution based on your choice for bounding boxes.  Make sure you address those errors before continuing.  If everything executed correctly, you should ultimately see a picture of the HOG feature you designed.</p>
 </section>
 <section id="testing-a-detector">
-<h3>Testing a detector<a class="headerlink" href="#testing-a-detector" title="Permalink to this heading">#</a></h3>
+<h3>Testing a detector<a class="headerlink" href="#testing-a-detector" title="Link to this heading">#</a></h3>
 <p>Now it is time to build our code to test the detector.  The following code will make use of the imutils library as well.</p>
 <p>You may get a few errors pop up during execution based on your choice for bounding boxes.  Make sure you address those errors before continuing.  If everything executed correctly, you should ultimately see a picture of the HOG feature you designed.</p>
 <p>Now it is time to build our code to test the detector.</p>
@@ -766,10 +797,10 @@ touch<span class="w"> </span>testDetector.py
 </div>
 <p>Again, use your preferred editor to enter the code below:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># import the necessary packages</span>
-<span class="kn">from</span> <span class="nn">imutils</span> <span class="kn">import</span> <span class="n">paths</span>
-<span class="kn">import</span> <span class="nn">argparse</span>
-<span class="kn">import</span> <span class="nn">dlib</span>
-<span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">imutils</span><span class="w"> </span><span class="kn">import</span> <span class="n">paths</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">dlib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
 
 <span class="c1"># construct the argument parser and parse the arguments</span>
 <span class="n">ap</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
@@ -803,21 +834,21 @@ python3<span class="w"> </span>testDetector.py<span class="w"> </span>--detector
 </div>
 <p>OK, so how did you do? What surprises did you have? What might you consider to improve the detector?</p>
 </section>
-<section id="id4">
-<h3>Summary<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<section id="id1">
+<h3>Summary<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
 <p>You have now trained and tested your first detector! In the future you will train a new detector using the camera on your robot and a real stop sign. This will be used in your final project to detect and react to stop signs in the wild!</p>
 </section>
-<section id="id5">
-<h3>Assignment<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
+<section id="id2">
+<h3>Assignment<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
 <p>Research Dlib’s simple object detector, and see how you might want to tune the options to improve the performance.</p>
 </section>
-<section id="id6">
-<h3>Cleanup<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
+<section id="id3">
+<h3>Cleanup<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
 <p>In the Jupyter Notebook at the top menu bar select “Kernel” and “Restart &amp; Clear Output”. Shutdown the notebook server by typing <code class="docutils literal notranslate"><span class="pre">ctrl+c</span></code> within the terminal you ran <code class="docutils literal notranslate"><span class="pre">jupyter-notebook</span></code> in. Select ‘y’.</p>
 </section>
 </section>
 <section id="part-5-ros-and-image-capture">
-<h2>Part 5: ROS and Image Capture<a class="headerlink" href="#part-5-ros-and-image-capture" title="Permalink to this heading">#</a></h2>
+<h2>Part 5: ROS and Image Capture<a class="headerlink" href="#part-5-ros-and-image-capture" title="Link to this heading">#</a></h2>
 <p>ROS provides a number of tools to interact with a commercial-off-the-shelf camera such as the USB camera connected to your robot. The primary tool we will use is the <a class="reference external" href="http://wiki.ros.org/usb_cam">usb_cam</a> package which is already installed on your robot.</p>
 <p>Let’s create a <strong>lab4</strong> package on the <strong>Master</strong> we can use to start developing a launch file to run our computer vision tools.</p>
 <p>In a terminal create a <strong>lab4</strong> package, <code class="docutils literal notranslate"><span class="pre">launch</span></code> folder, and <code class="docutils literal notranslate"><span class="pre">lab4.launch</span></code> file:</p>
@@ -831,7 +862,7 @@ touch<span class="w"> </span>lab4.launch
 </div>
 <p>Make and source your workspace.</p>
 <section id="launch-file-usb-cam">
-<h3>Launch File - USB Cam<a class="headerlink" href="#launch-file-usb-cam" title="Permalink to this heading">#</a></h3>
+<h3>Launch File - USB Cam<a class="headerlink" href="#launch-file-usb-cam" title="Link to this heading">#</a></h3>
 <p>Edit the <code class="docutils literal notranslate"><span class="pre">lab4.launch</span></code> file to call the <strong>usb_cam_node</strong> on the robot which will automatically connect to the camera and publish the video over a topic.</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
 <span class="w">    </span>
@@ -869,7 +900,7 @@ rosrun<span class="w"> </span>rqt_image_view<span class="w"> </span>rqt_image_vi
 <p>Ensure the <code class="docutils literal notranslate"><span class="pre">/usb_cam/image_raw</span></code> topic is selected.</p>
 </section>
 <section id="calibrate-usb-camera">
-<h3>Calibrate USB Camera<a class="headerlink" href="#calibrate-usb-camera" title="Permalink to this heading">#</a></h3>
+<h3>Calibrate USB Camera<a class="headerlink" href="#calibrate-usb-camera" title="Link to this heading">#</a></h3>
 <p>A camera must first be calibrated to utilize computer vision based tasks. Otherwise, there is no reference for how large objects are in regards to the camera frame. The <a class="reference external" href="http://wiki.ros.org/camera_calibration">ROS Calibration Tool</a> creates a calibration file that is then used by other ROS packages to enable size and distance calculations. The <strong>camera_calibration</strong> package utilizes OpenCV camera calibration to allow easy calibration of monocular or stereo cameras using a checkerboard calibration target. The complete guide can be found on the <a class="reference external" href="http://wiki.ros.org/camera_calibration/Tutorials/MonocularCalibration">Camera Calibration Tutorial</a>.</p>
 <p>Connect to the camera using the <strong>usb_cam</strong> node:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>roslaunch<span class="w"> </span>lab4<span class="w"> </span>lab4.launch
@@ -913,24 +944,24 @@ nano<span class="w"> </span>/home/pi/.ros/camera_info/head_camera.yaml
 <p>Rerun the <code class="docutils literal notranslate"><span class="pre">lab4.launch</span></code> file on the robot. You should see the camera feed reopen and see no errors in the command line (you may need to unplug and plug your camera back in).</p>
 </section>
 <section id="checkpoint">
-<h3>Checkpoint<a class="headerlink" href="#checkpoint" title="Permalink to this heading">#</a></h3>
+<h3>Checkpoint<a class="headerlink" href="#checkpoint" title="Link to this heading">#</a></h3>
 <p>Show an instructor the working camera feed and that the <strong>usb_cam</strong> node was able to open the camera calibration file.</p>
 </section>
-<section id="id7">
-<h3>Summary<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
+<section id="id4">
+<h3>Summary<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
 <p>You now are able to connect to a USB camera using ROS, display the image provided by the node, and have a calibration file that ROS can use to identify the size of objects in the frame.</p>
 </section>
-<section id="id8">
-<h3>Cleanup<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
+<section id="id5">
+<h3>Cleanup<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
 <p>Kill all rosnodes and roscore!</p>
 </section>
 </section>
 <section id="part-6-fiducial-markers">
-<h2>Part 6: Fiducial Markers<a class="headerlink" href="#part-6-fiducial-markers" title="Permalink to this heading">#</a></h2>
+<h2>Part 6: Fiducial Markers<a class="headerlink" href="#part-6-fiducial-markers" title="Link to this heading">#</a></h2>
 <p>In this lesson we will learn how fiducial markers are used in image processing. Specifically, we will utilize ROS tools to identify different <a class="reference external" href="https://april.eecs.umich.edu/papers/details.php?name=olson2011tags">April Tags</a> and use the 3D position and orientation to determine the robot’s distance from an object.</p>
 <p>A fiducial marker is an artificial feature used in creating controllable experiments, ground truthing, and in simplifying the development of systems where perception is not the central objective. A few examples of fiducial markers include ArUco Markers, AprilTags, and QR codes. Each of these different tags hold information such as an ID or, in the case of QR codes, websites, messages, and etc. We will primarily be focusing on AprilTags as there is a very robust ROS package already built. This library identifies AprilTags and will provide information about the tags size, distance, and orientation.</p>
 <section id="apriltag-ros">
-<h3>AprilTag ROS<a class="headerlink" href="#apriltag-ros" title="Permalink to this heading">#</a></h3>
+<h3>AprilTag ROS<a class="headerlink" href="#apriltag-ros" title="Link to this heading">#</a></h3>
 <p>Browse to the AprilTag_ROS package on the <strong>Master</strong> and edit the config file:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>roscd<span class="w"> </span>apriltag_ros/config
 sudo<span class="w"> </span>nano<span class="w"> </span>tags.yaml
@@ -948,7 +979,7 @@ sudo<span class="w"> </span>nano<span class="w"> </span>tags.yaml
 <p>Repeat these steps on the <strong>Robot</strong>.</p>
 </section>
 <section id="launch-file-apriltag-ros">
-<h3>Launch File - Apriltag_Ros<a class="headerlink" href="#launch-file-apriltag-ros" title="Permalink to this heading">#</a></h3>
+<h3>Launch File - Apriltag_Ros<a class="headerlink" href="#launch-file-apriltag-ros" title="Link to this heading">#</a></h3>
 <p>Edit the <code class="docutils literal notranslate"><span class="pre">lab4.launch</span></code> file on the <strong>Master</strong>, calling the <code class="docutils literal notranslate"><span class="pre">continuous_detection</span></code> node provided by the <strong>apriltag_ros</strong> package. We need to set the arguments to the values provided by the <code class="docutils literal notranslate"><span class="pre">usb_cam</span></code> node:</p>
 <p>Add the following arguments and parameters to the top of the launch file:</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;arg</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;launch_prefix&quot;</span><span class="w"> </span><span class="na">default=</span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
@@ -977,16 +1008,16 @@ sudo<span class="w"> </span>nano<span class="w"> </span>tags.yaml
 <p>In a terminal on the master open the <strong>rqt_image_view</strong> node (<code class="docutils literal notranslate"><span class="pre">rosrun</span> <span class="pre">rqt_image_view</span> <span class="pre">rqt_image_view</span></code>) and select the <em>tag_detections_image</em> topic. If you hold up each tag, you should see a yellow box highlight the tag with an id in the middle of the tag.</p>
 <p>In another terminal on the master echo the topic <code class="docutils literal notranslate"><span class="pre">tag_detections</span></code>. What information do you see? Will the apriltag_ros node identify only one tag at a time? Which value do you think we would use to determine distance from the tag? What kind of message is this? What package does this message come from?</p>
 </section>
-<section id="id9">
-<h3>Checkpoint<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
+<section id="id6">
+<h3>Checkpoint<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
 <p>Show an instructor that the <strong>apriltag_ros</strong> can identify tags and provides position data.</p>
 </section>
-<section id="id10">
-<h3>Summary<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h3>
+<section id="id7">
+<h3>Summary<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
 <p>You now have the ability to identify AprilTags and because you have a calibrated camera, you can detect the size, orientation, and distance of a tag.</p>
 </section>
-<section id="id11">
-<h3>Cleanup<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h3>
+<section id="id8">
+<h3>Cleanup<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
 <p>Kill all rosnodes and roscore!</p>
 </section>
 </section>
@@ -1017,11 +1048,10 @@ sudo<span class="w"> </span>nano<span class="w"> </span>tags.yaml
 
               
               
-                <footer class="bd-footer-article">
+              
+              
+                <footer class="prev-next-footer d-print-none">
                   
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="Lab9_SLAM.html"
@@ -1041,17 +1071,16 @@ sudo<span class="w"> </span>nano<span class="w"> </span>tags.yaml
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -1059,41 +1088,36 @@ sudo<span class="w"> </span>nano<span class="w"> </span>tags.yaml
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-image-basics">Part 1: Image Basics</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-coding-with-opencv-python">Part 2: Coding with OpenCV-Python</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">📌 Objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">📜 Overview</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#coding-with-opencv-python"><strong>Coding with OpenCV-Python</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#assignment">Assignment</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cleanup">Cleanup</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-gradients">Part 3: Gradients</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Summary</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Assignment</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Cleanup</a></li>
-</ul>
-</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-4-histogram-of-oriented-gradients-hog-features">Part 4: Histogram of Oriented Gradients (HOG) Features</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-a-detector-using-hog-features">Building a detector using HOG features</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-a-detector">Testing a detector</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Summary</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Assignment</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Cleanup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Summary</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Assignment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Cleanup</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-5-ros-and-image-capture">Part 5: ROS and Image Capture</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#launch-file-usb-cam">Launch File - USB Cam</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calibrate-usb-camera">Calibrate USB Camera</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint">Checkpoint</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Summary</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Cleanup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Summary</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Cleanup</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-6-fiducial-markers">Part 6: Fiducial Markers</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#apriltag-ros">AprilTag ROS</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#launch-file-apriltag-ros">Launch File - Apriltag_Ros</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Checkpoint</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Summary</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Cleanup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Checkpoint</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Summary</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Cleanup</a></li>
 </ul>
 </li>
 </ul>
@@ -1117,6 +1141,7 @@ By Stan Baek
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2023.
@@ -1143,8 +1168,8 @@ By Stan Baek
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
   </footer>
