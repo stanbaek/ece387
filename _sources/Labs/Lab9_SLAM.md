@@ -180,9 +180,10 @@ Now, let’s set up **autonomous SLAM** using **Cartographer** and **Navigation2
     :width: 400  
     :align: center  
     ```  
-1. 
 
-    ```{image} ./figures/Lab9_Nav2Display.png
+1. You can show or hide the `Global Costmap` and `Local Costmap` on RViz2 using the checkboxes on the  the `Display` sidebar:  
+
+    ```{image} ./figures/Lab9_Nav2CostMap.png
     :width: 400  
     :align: center  
     ```  
