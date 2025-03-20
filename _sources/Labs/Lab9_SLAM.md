@@ -225,9 +225,9 @@ Now, let’s set up **autonomous SLAM** using **Cartographer** and **Navigation2
 
 1. Download the [`navigate_maze.py`](../files/navigate_maze.py) script and save it in the appropriate folder within your package (You should know where this file should go by now).
 
-1. Update the `setup.py` file by correctly adding the entry point for `navigate_maze.py`. This is necessary to ensure that the script runs as a node.
+1. Update the `setup.py` file by correctly adding the entry point for `explore_maze.py`. This is necessary to ensure that the script runs as a node.
 
-1. Open the `navigate_maze.py` script and fill in the `TODO` sections. Pay attention to:
+1. Open the `explore_maze.py` script and fill in the `TODO` sections. Pay attention to:
     - Setting the target pose for the robot.
     - Utilizing the Nav2 action server/client.
 
@@ -296,39 +296,37 @@ Follow these steps to simulate autonomous navigation with **prebuilt map** in th
 
 1. For this part of the lab, we are working with a prebuilt map. Cartographer, which is used for real-time map creation, is not required here.
 
+
+1. Run
+    ```bash
+    ros2 run tf2_ros tf2_echo1 map odom
+    ```
+    This command listens for the transform between the map frame and the odom frame and continuously prints the transformation (translation and rotation). It helps verify if the transform exists and provides real-time values. It will print something similar to
+    ```bash
+    At time 132.100000000
+    - Translation: [-0.227, -0.274, -0.088]
+    - Rotation: in Quaternion [-0.000, -0.003, 0.001, 1.000]
+    - Rotation: in RPY (radian) [-0.000, -0.006, 0.002]
+    - Rotation: in RPY (degree) [-0.006, -0.328, 0.131]
+    ```
+    It means
+    - The map to odom transform was eventually found.
+    - The robot’s odometry (odom) is offset from map by:
+        - Position: (-0.227, -0.274, -0.088)
+        - Orientation (rotation as quaternion & RPY)
+    So, the map and odom frames are not identical and need a static transformation to be set correctly.
+
+1. Publish a Static Transform Between Frames:
+    ```bash
+    $ ros2 run tf2_ros static_transform_publisher -0.227 -0.274 -0.088 0.0 0.0 0.0 map odom
+    ```
+    This command establishes a static relationship between the `map` and `odom` frames, assuming they are aligned without any offset. It's a prerequisite for linking the global (map) frame to the local (odom) frame in a robot's TF (Transform) tree. We set the orientation offset to zeros because they are techinicall all zeros.
+
 1. Start the AMCL (Adaptive Monte Carlo Localization) node to localize the robot within the prebuilt map (map.yaml).
     ```bash
     ros2 run nav2_amcl amcl --ros-args -p use_sim_time:=true -p yaml_filename:=$HOME/map.yaml
     ```
 
-<!--
-what does ros2 run tf2_ros tf2_echo map odom do?
-
-This command listens for the transform between the map frame and the odom frame and continuously prints the transformation (translation and rotation). It helps verify if the transform exists and provides real-time values.
-
-
-At time 132.100000000
-- Translation: [-0.227, -0.274, -0.088]
-- Rotation: in Quaternion [-0.000, -0.003, 0.001, 1.000]
-- Rotation: in RPY (radian) [-0.000, -0.006, 0.002]
-- Rotation: in RPY (degree) [-0.006, -0.328, 0.131]
-
-
-The map → odom transform was eventually found.
-The robot’s odometry (odom) is offset from map by:
-Position: (-0.227, -0.274, -0.088)
-Orientation (rotation as quaternion & RPY)
-This means map and odom are not identical and need a static transformation to be set correctly.
--->
-
-1. Publish a Static Transform Between Frames:
-    ```bash
-    $ ros2 run tf2_ros static_transform_publisher 0 0 0 0 0 0 map odom
-    ros2 run tf2_ros static_transform_publisher -0.227 -0.274 -0.088 0.0 0.0 0.0 map odom
-
-    ```
-    This command establishes a static relationship between the `map` and `odom` frames, assuming they are aligned without any offset. It's a prerequisite for linking the global (map) frame to the local (odom) frame in a robot's TF (Transform) tree.
-    
 1. Start the Navigation2 stack with the prebuilt map (`map.yaml`). Confirm that the robot can load and utilize the map effectively.
 
     ```bash
@@ -338,7 +336,7 @@ This means map and odom are not identical and need a static transformation to be
 
 1. Run the SLAM exploration node:
     ```bash
-    ros2 run lab9_slam explore
+    ros2 run lab9_slam navigate
     ```
 
 1. **Reflect on Differences**: Compare the robot's performance with a prebuilt map to its performance when generating a map in real-time. Note any improvements or challenges.
