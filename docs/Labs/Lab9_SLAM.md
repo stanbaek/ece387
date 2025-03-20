@@ -74,7 +74,7 @@ Follow these steps to simulate SLAM with TurtleBot3 in the Gazebo environment.
     :align: center  
     ```  
 
-1. Use a gamepad to manually control the robot and explore the maze. Run the following command to start the gamepad controller:
+1. Use a gamepad to manually control the robot and navigate the maze. Run the following command to start the gamepad controller:
 
     ```bash
     ros2 launch lab4_gamepad gamepad.launch.py
@@ -140,7 +140,7 @@ Follow these steps to simulate SLAM with TurtleBot3 in the Gazebo environment.
 
 ### **2. Navigation with SLAM**
 
-Now, let’s set up **autonomous SLAM** using **Cartographer** and **Navigation2** to explore the environment dynamically.
+Now, let’s set up **autonomous SLAM** using **Cartographer** and **Navigation2** to navigate the environment dynamically.
 
 1. Start the TurtleBot3 simulation in the Gazebo world:
 
@@ -226,9 +226,9 @@ Now, let’s set up **autonomous SLAM** using **Cartographer** and **Navigation2
 
 1. Download the [`navigate_maze.py`](../files/navigate_maze.py) script and save it in the appropriate folder within your package (You should know where this file should go by now).
 
-1. Update the `setup.py` file by correctly adding the entry point for `explore_maze.py`. This is necessary to ensure that the script runs as a node.
+1. Update the `setup.py` file by correctly adding the entry point for `navigate_maze.py`. This is necessary to ensure that the script runs as a node.
 
-1. Open the `explore_maze.py` script and fill in the `TODO` sections. Pay attention to:
+1. Open the `navigate_maze.py` script and fill in the `TODO` sections. Pay attention to:
     - Setting the target pose for the robot.
     - Utilizing the Nav2 action server/client.
 
@@ -249,7 +249,7 @@ Now, let’s set up **autonomous SLAM** using **Cartographer** and **Navigation2
    ros2 launch turtlebot3_navigation2 navigation2.launch.py use_sim_time:=true
    ```
 
-1. Finally, run the `navigate_maze.py` script to let the robot autonomously explore the maze, building and updating a dynamic map.
+1. Finally, run the `navigate_maze.py` script to let the robot autonomously navigate the maze, building and updating a dynamic map.
 
     ```bash
     ros2 run lab9_slam navigate
@@ -345,21 +345,52 @@ Follow these steps to simulate autonomous navigation with **prebuilt map** in th
 
 ### **5. Autonomous Navigation with Cartographer (TurtleBot3, Real Environment)**
 
+1. First, you need to ensure that the data and time on the robot match those on the master computer. 
+
+    - Log on to the raspberry pi using SSH, and run
+        ```bash
+        date    
+        ```
+        Run the same command on the master. If they do not match, run the following command on the master:
+        ```bash
+        echo 'your_password' | ssh pi@192.168.4.1 "echo 'your_password' | sudo -S date -s \"$(date '+%Y-%m-%d %H:%M:%S')\""
+        ```
+        Ensure that 'your_password' should be replaced with your actual password. 
+    - In case you have an error similar to
+        ```bash
+        sudo: unable to resolve host robot99: Temporary failure in name resolution
+        ```
+        Log on to the robot, and run
+        ```bash
+        sudo nano /etc/hosts
+        ```
+        Then, add the following line
+        ```bash
+        127.0.0.1   robotX        
+        ```
+        where `X` is your robot number.
+
+    - Run the `date` command on the robot to verify that they match. Make sure the time zone also matches. If the robot's time zone is not MDT, change it by using
+        ```bash
+        sudo timedatectl set-timezone America/Denver
+        ```
+
 1. Start the `bringup` process to initialize the robot in a real environment.
 
-2. Launch Cartographer to perform SLAM in real time and create a map.
+1. Launch Cartographer to perform SLAM in real time and create a map.
     ```bash
     ros2 launch turtlebot3_cartographer cartographer.launch.py
     ```
+    Ensure that `base-link`, `odom`, and `map` frames are displayed on the map. You also need to check there is no error or warnong on `TF` on the `Display` sidebar.
 
-3. Start the Navigation2 stack to enable autonomous exploration and navigation.
+1. Start the Navigation2 stack to enable autonomous exploration and navigation.
     ```bash
     ros2 launch turtlebot3_navigation2 navigation2.launch.py
     ```
 
-4. Execute the SLAM exploration node and observe the robot autonomously explore its surroundings while dynamically updating its map.
+1. Execute the SLAM exploration node and observe the robot autonomously navigate its surroundings while dynamically updating its map.
     ```bash
-    ros2 run lab9_slam explore
+    ros2 run lab9_slam navigate
     ```
 
 ### **6. Autonomous Navigation with Prebuilt Map (TurtleBot3, Real Environment)**
@@ -382,7 +413,7 @@ Follow these steps to simulate autonomous navigation with **prebuilt map** in th
     - Push your code to GitHub and confirm that it has been successfully uploaded.
     **NOTE:** _If the instructor can't find your code in your repository, you will receive a grade of 0 for the coding part._
 
-1. **[10 Points] Complete the `explore_maze.py` Script**
+1. **[10 Points] Complete the `navigate_maze.py` Script**
     - Ensure the script is fully functional and implements all required features.
     - Push your code to GitHub and confirm that it has been successfully uploaded.
     **NOTE:** _If the instructor can't find your code in your repository, you will receive a grade of 0 for the coding part._
