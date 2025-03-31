@@ -1,11 +1,20 @@
 # 🔬 Lab10: CV
 
+
+## Not Ready Yet
+
 ## 📌 Objectives
 
 - Students should be able
 
 
 ## 📜 Overview
+
+
+
+ros2 pkg create --build-type ament_python my_opencv_pkg --dependencies rclpy cv_bridge sensor_msgs std_msgs opencv2
+
+
 
 <!--
 ### **Coding with OpenCV-Python**
