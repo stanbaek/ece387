@@ -467,7 +467,7 @@ document.write(`
 <p>The use_sim_time:=true parameter ensures proper synchronization with the simulation clock.  Cartographer will begin building a map as you move the robot. The initial map will look like this:</p>
 <a class="reference internal image-reference" href="../_images/Proj1_CartographerInit.png"><img alt="../_images/Proj1_CartographerInit.png" class="align-center" src="../_images/Proj1_CartographerInit.png" style="width: 400px;" /></a>
 </li>
-<li><p>Use a gamepad to manually control the robot and explore the maze. Run the following command to start the gamepad controller:</p>
+<li><p>Use a gamepad to manually control the robot and navigate the maze. Run the following command to start the gamepad controller:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>lab4_gamepad<span class="w"> </span>gamepad.launch.py
 </pre></div>
 </div>
@@ -526,7 +526,7 @@ free_thresh:<span class="w"> </span><span class="m">0</span>.25
 </section>
 <section id="navigation-with-slam">
 <h3><strong>2. Navigation with SLAM</strong><a class="headerlink" href="#navigation-with-slam" title="Permalink to this heading">#</a></h3>
-<p>Now, let’s set up <strong>autonomous SLAM</strong> using <strong>Cartographer</strong> and <strong>Navigation2</strong> to explore the environment dynamically.</p>
+<p>Now, let’s set up <strong>autonomous SLAM</strong> using <strong>Cartographer</strong> and <strong>Navigation2</strong> to navigate the environment dynamically.</p>
 <ol class="arabic">
 <li><p>Start the TurtleBot3 simulation in the Gazebo world:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_gazebo<span class="w"> </span>turtlebot3_world.launch.py
@@ -582,8 +582,8 @@ free_thresh:<span class="w"> </span><span class="m">0</span>.25
 <p><em>Hint: There’s a way to include all dependencies at the time of package creation.</em></p>
 </li>
 <li><p>Download the <a class="reference download internal" download="" href="../_downloads/2b090c38a95ca90d5d5de845f41f783d/navigate_maze.py"><span class="xref download myst"><code class="docutils literal notranslate"><span class="pre">navigate_maze.py</span></code></span></a> script and save it in the appropriate folder within your package (You should know where this file should go by now).</p></li>
-<li><p>Update the <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> file by correctly adding the entry point for <code class="docutils literal notranslate"><span class="pre">explore_maze.py</span></code>. This is necessary to ensure that the script runs as a node.</p></li>
-<li><p>Open the <code class="docutils literal notranslate"><span class="pre">explore_maze.py</span></code> script and fill in the <code class="docutils literal notranslate"><span class="pre">TODO</span></code> sections. Pay attention to:</p>
+<li><p>Update the <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> file by correctly adding the entry point for <code class="docutils literal notranslate"><span class="pre">navigate_maze.py</span></code>. This is necessary to ensure that the script runs as a node.</p></li>
+<li><p>Open the <code class="docutils literal notranslate"><span class="pre">navigate_maze.py</span></code> script and fill in the <code class="docutils literal notranslate"><span class="pre">TODO</span></code> sections. Pay attention to:</p>
 <ul class="simple">
 <li><p>Setting the target pose for the robot.</p></li>
 <li><p>Utilizing the Nav2 action server/client.</p></li>
@@ -605,7 +605,7 @@ free_thresh:<span class="w"> </span><span class="m">0</span>.25
 </pre></div>
 </div>
 </li>
-<li><p>Finally, run the <code class="docutils literal notranslate"><span class="pre">navigate_maze.py</span></code> script to let the robot autonomously explore the maze, building and updating a dynamic map.</p>
+<li><p>Finally, run the <code class="docutils literal notranslate"><span class="pre">navigate_maze.py</span></code> script to let the robot autonomously navigate the maze, building and updating a dynamic map.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>lab9_slam<span class="w"> </span>navigate
 </pre></div>
 </div>
@@ -702,19 +702,53 @@ So, the map and odom frames are not identical and need a static transformation t
 <section id="autonomous-navigation-with-cartographer-turtlebot3-real-environment">
 <h3><strong>5. Autonomous Navigation with Cartographer (TurtleBot3, Real Environment)</strong><a class="headerlink" href="#autonomous-navigation-with-cartographer-turtlebot3-real-environment" title="Permalink to this heading">#</a></h3>
 <ol class="arabic">
+<li><p>First, you need to ensure that the data and time on the robot match those on the master computer.</p>
+<ul>
+<li><p>Log on to the raspberry pi using SSH, and run</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>date<span class="w">    </span>
+</pre></div>
+</div>
+<p>Run the same command on the master. If they do not match, run the following command on the master:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;your_password&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>ssh<span class="w"> </span>pi@192.168.4.1<span class="w"> </span><span class="s2">&quot;echo &#39;your_password&#39; | sudo -S date -s \&quot;</span><span class="k">$(</span>date<span class="w"> </span><span class="s1">&#39;+%Y-%m-%d %H:%M:%S&#39;</span><span class="k">)</span><span class="s2">\&quot;&quot;</span>
+</pre></div>
+</div>
+<p>Ensure that ‘your_password’ should be replaced with your actual password.</p>
+</li>
+<li><p>In case you have an error similar to</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo:<span class="w"> </span>unable<span class="w"> </span>to<span class="w"> </span>resolve<span class="w"> </span>host<span class="w"> </span>robot99:<span class="w"> </span>Temporary<span class="w"> </span>failure<span class="w"> </span><span class="k">in</span><span class="w"> </span>name<span class="w"> </span>resolution
+</pre></div>
+</div>
+<p>Log on to the robot, and run</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/hosts
+</pre></div>
+</div>
+<p>Then, add the following line</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">127</span>.0.0.1<span class="w">   </span>robotX<span class="w">        </span>
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">X</span></code> is your robot number.</p>
+</li>
+<li><p>Run the <code class="docutils literal notranslate"><span class="pre">date</span></code> command on the robot to verify that they match. Make sure the time zone also matches. If the robot’s time zone is not MDT, change it by using</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>timedatectl<span class="w"> </span>set-timezone<span class="w"> </span>America/Denver
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
 <li><p>Start the <code class="docutils literal notranslate"><span class="pre">bringup</span></code> process to initialize the robot in a real environment.</p></li>
 <li><p>Launch Cartographer to perform SLAM in real time and create a map.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_cartographer<span class="w"> </span>cartographer.launch.py
 </pre></div>
 </div>
+<p>Ensure that <code class="docutils literal notranslate"><span class="pre">base-link</span></code>, <code class="docutils literal notranslate"><span class="pre">odom</span></code>, and <code class="docutils literal notranslate"><span class="pre">map</span></code> frames are displayed on the map. You also need to check there is no error or warnong on <code class="docutils literal notranslate"><span class="pre">TF</span></code> on the <code class="docutils literal notranslate"><span class="pre">Display</span></code> sidebar.</p>
 </li>
 <li><p>Start the Navigation2 stack to enable autonomous exploration and navigation.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_navigation2<span class="w"> </span>navigation2.launch.py
 </pre></div>
 </div>
 </li>
-<li><p>Execute the SLAM exploration node and observe the robot autonomously explore its surroundings while dynamically updating its map.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>lab9_slam<span class="w"> </span>explore
+<li><p>Execute the SLAM exploration node and observe the robot autonomously navigate its surroundings while dynamically updating its map.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>lab9_slam<span class="w"> </span>navigate
 </pre></div>
 </div>
 </li>
@@ -745,7 +779,7 @@ So, the map and odom frames are not identical and need a static transformation t
 <strong>NOTE:</strong> <em>If the instructor can’t find your code in your repository, you will receive a grade of 0 for the coding part.</em></p></li>
 </ul>
 </li>
-<li><p><strong>[10 Points] Complete the <code class="docutils literal notranslate"><span class="pre">explore_maze.py</span></code> Script</strong></p>
+<li><p><strong>[10 Points] Complete the <code class="docutils literal notranslate"><span class="pre">navigate_maze.py</span></code> Script</strong></p>
 <ul class="simple">
 <li><p>Ensure the script is fully functional and implements all required features.</p></li>
 <li><p>Push your code to GitHub and confirm that it has been successfully uploaded.

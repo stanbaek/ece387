@@ -1,5 +1,8 @@
 # 🔬 Lab10: CV
 
+
+## Not Ready Yet
+
 ## 📌 Objectives
 
 - Students should be able
@@ -8,6 +11,12 @@
 ## 📜 Overview
 
 
+
+ros2 pkg create --build-type ament_python my_opencv_pkg --dependencies rclpy cv_bridge sensor_msgs std_msgs opencv2
+
+
+
+<!--
 ### **Coding with OpenCV-Python**
 
 It is time to build our first bit of code working with OpenCV.  Just like ROS, OpenCV is well supported by both Python and C++.  For simplicity, we will use Python throughout this course.  However, continue to recognize that if speed and efficiency become important, switching to a more robust language like C++ may become necessary.  To make use of OpenCV with Python, we need to import cv2.  The code below will simply load in the RGB figure above and print out the pixel values in each of the 4-quadrants.
@@ -120,7 +129,7 @@ Scan the article on the [Histogram of Oriented Gradients (HOG)](https://arxiv.or
 
 ### Cleanup
 In the Jupyter Notebook at the top menu bar select "Kernel" and "Restart & Clear Output". Shutdown the notebook server by typing `ctrl+c` within the terminal you ran `jupyter-notebook` in. Select 'y'.
-
+-->
 
 <!--
 ## Part 3: Gradients
@@ -291,9 +300,11 @@ In the Jupyter Notebook at the top menu bar select "Kernel" and "Restart & Clear
 
 -->
 
-## Part 4: Histogram of Oriented Gradients (HOG) Features
+## 🛠️ Lab Procedures
 
-The objective of this portion of the lesson is to demonstrate the functionality of the HOG with SVM (Support Vector Machine) algorithm for object detection.  By this point, we should all be well aware of what a histogram is.  The application of the histogram for the HOG feature extraction is to further simplify the tested image to enable our computer to rapidly and accurately identify the presence of an object within the image.  
+### **4. Histogram of Oriented Gradients (HOG) Features**
+
+The objective of this part is to demonstrate the functionality of the Histogram of Orientated Gradients (HOG) features with Support Vector Machine (SVM) algorithm for object detection.  By this point, we should all be well aware of what a histogram is.  The application of the histogram for the HOG feature extraction is to further simplify the tested image to enable our computer to rapidly and accurately identify the presence of an object within the image.  
 Instead of using each individual gradient direction of each individual pixel of an image, we group the pixels into small cells. For each cell, we compute all the gradient directions and group them into a number of orientation bins. We sum up the gradient magnitude in each sample. So stronger gradients contribute more weight to their bins, and effects of small random orientations due to noise is reduced. Doing this for all cells gives us a representation of the structure of the image. The HOG features keep the representation of an object distinct but also allow for some variations in shape.  For example, lets consider an object detector for a car, see the below figure.
 
 ![logo](Figures/HOG_Features.JPG)

@@ -383,36 +383,32 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#not-ready-yet">Not Ready Yet</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">📌 Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">📜 Overview</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#coding-with-opencv-python"><strong>Coding with OpenCV-Python</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">📜 Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-procedures">🛠️ Lab Procedures</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#histogram-of-oriented-gradients-hog-features"><strong>4. Histogram of Oriented Gradients (HOG) Features</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-a-detector-using-hog-features">Building a detector using HOG features</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-a-detector">Testing a detector</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#assignment">Assignment</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cleanup">Cleanup</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-4-histogram-of-oriented-gradients-hog-features">Part 4: Histogram of Oriented Gradients (HOG) Features</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-a-detector-using-hog-features">Building a detector using HOG features</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-a-detector">Testing a detector</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Summary</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Assignment</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Cleanup</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-5-ros-and-image-capture">Part 5: ROS and Image Capture</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#launch-file-usb-cam">Launch File - USB Cam</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calibrate-usb-camera">Calibrate USB Camera</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint">Checkpoint</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Summary</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Cleanup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Summary</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Cleanup</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-6-fiducial-markers">Part 6: Fiducial Markers</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#apriltag-ros">AprilTag ROS</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#launch-file-apriltag-ros">Launch File - Apriltag_Ros</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Checkpoint</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Summary</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Cleanup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Checkpoint</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Summary</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Cleanup</a></li>
 </ul>
 </li>
 </ul>
@@ -428,6 +424,9 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="lab10-cv">
 <h1>🔬 Lab10: CV<a class="headerlink" href="#lab10-cv" title="Permalink to this heading">#</a></h1>
+<section id="not-ready-yet">
+<h2>Not Ready Yet<a class="headerlink" href="#not-ready-yet" title="Permalink to this heading">#</a></h2>
+</section>
 <section id="objectives">
 <h2>📌 Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
@@ -436,98 +435,121 @@ document.write(`
 </section>
 <section id="overview">
 <h2>📜 Overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h2>
-<section id="coding-with-opencv-python">
-<h3><strong>Coding with OpenCV-Python</strong><a class="headerlink" href="#coding-with-opencv-python" title="Permalink to this heading">#</a></h3>
-<p>It is time to build our first bit of code working with OpenCV.  Just like ROS, OpenCV is well supported by both Python and C++.  For simplicity, we will use Python throughout this course.  However, continue to recognize that if speed and efficiency become important, switching to a more robust language like C++ may become necessary.  To make use of OpenCV with Python, we need to import cv2.  The code below will simply load in the RGB figure above and print out the pixel values in each of the 4-quadrants.</p>
-<p>First we need to import the OpenCV Python library, <code class="docutils literal notranslate"><span class="pre">cv2</span></code>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cv2</span>
-</pre></div>
-</div>
-<p>Then we can load the image:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s2">&quot;RGB_Tuple.JPG&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>The <code class="docutils literal notranslate"><span class="pre">shape</span></code> characteristic of the image returns a tuple of the number of rows, columns, and channels (if the image is color):</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;width: </span><span class="si">%d</span><span class="s2"> pixels&quot;</span> <span class="o">%</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;height: </span><span class="si">%d</span><span class="s2"> pixels&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;color channels: </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
-</pre></div>
-</div>
-<p>You an also access specific pixels within the image (the <code class="docutils literal notranslate"><span class="pre">image</span></code> variable is really just an array of pixel values) by the row and column coordinates. Each pixel values is an array of Blue, Green, and Red values.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># print the BGR values of a pixel in the upper left of the image</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">image</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="p">:])</span>
+<p>ros2 pkg create –build-type ament_python my_opencv_pkg –dependencies rclpy cv_bridge sensor_msgs std_msgs opencv2</p>
+<!--
+### **Coding with OpenCV-Python**
 
-<span class="c1"># print the red value of a pixel in the bottom left of the image</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">image</span><span class="p">[</span><span class="mi">700</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
-</pre></div>
-</div>
-<p>Fill in the code to do the following:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: print BGR values of a pixel in the upper right of the image</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">image</span><span class="p">[</span> <span class="p">,</span> <span class="p">,</span> <span class="p">:])</span>
+It is time to build our first bit of code working with OpenCV.  Just like ROS, OpenCV is well supported by both Python and C++.  For simplicity, we will use Python throughout this course.  However, continue to recognize that if speed and efficiency become important, switching to a more robust language like C++ may become necessary.  To make use of OpenCV with Python, we need to import cv2.  The code below will simply load in the RGB figure above and print out the pixel values in each of the 4-quadrants.
 
-<span class="c1"># TODO: print BGR values of a pixel in the lower left of the image</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">image</span><span class="p">[</span> <span class="p">,</span> <span class="p">,</span> <span class="p">:])</span>
-
-<span class="c1"># TODO: print blue value of a pixel in the lower right of the image</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">image</span><span class="p">[</span> <span class="p">,</span> <span class="p">,</span> <span class="p">])</span>
-</pre></div>
-</div>
-<p>We can display the image as well.</p>
-<blockquote>
-<div><p>⚠️ <strong>WARNING:</strong> To exit the image just press any key. <strong>DO NOT</strong> press the ‘X’ in the corner. If you do press the ‘X’ (smh) you will have to Restart &amp; Clear the Kernel: in the Jupyter Notebook at the top menu bar select “Kernel” and “Restart &amp; Clear Output”.</p>
-</div></blockquote>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s2">&quot;Loaded image&quot;</span><span class="p">,</span> <span class="n">image</span><span class="p">)</span>
-<span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span> <span class="c1"># close the image window</span>
-</pre></div>
-</div>
-<p>When executing the code above, there were two minor surprises. What do you think they were? Now lets take a look at additional functionality embedded within OpenCV.</p>
-<p>Convert image to RGB and print the same pixel values. Remember that the image is already loaded within the <code class="docutils literal notranslate"><span class="pre">image</span></code> variable.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Convert image to RGB</span>
+First we need to import the OpenCV Python library, `cv2`:
 
 
-<span class="c1"># TODO: print the RGB values of a pixel in the upper left of the image</span>
+```python
+import cv2
+```
+
+Then we can load the image:
 
 
-<span class="c1"># TODO: print the red value of a pixel in the bottom left of the image</span>
+```python
+image = cv2.imread("RGB_Tuple.JPG")
+```
+
+The `shape` characteristic of the image returns a tuple of the number of rows, columns, and channels (if the image is color):
 
 
-<span class="c1"># TODO: print RGB values of a pixel in the upper right of the image</span>
+```python
+print("width: %d pixels" %(image.shape[1]))
+print("height: %d pixels" % (image.shape[0]))
+print("color channels: %d" % (image.shape[2]))
+```
+
+You an also access specific pixels within the image (the `image` variable is really just an array of pixel values) by the row and column coordinates. Each pixel values is an array of Blue, Green, and Red values.
 
 
-<span class="c1"># TODO: print RGB values of a pixel in the lower left of the image</span>
+```python
+# print the BGR values of a pixel in the upper left of the image
+print(image[10, 10, :])
+
+# print the red value of a pixel in the bottom left of the image
+print(image[700, 100, 2])
+```
+
+Fill in the code to do the following:
 
 
-<span class="c1"># TODO: print blue value of a pixel in the lower right of the image</span>
+```python
+# TODO: print BGR values of a pixel in the upper right of the image
+print(image[ , , :])
 
-</pre></div>
-</div>
-<p>Modify the code to convert to grayscale and print the same pixel values.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: Convert image to Grayscale</span>
+# TODO: print BGR values of a pixel in the lower left of the image
+print(image[ , , :])
+
+# TODO: print blue value of a pixel in the lower right of the image
+print(image[ , , ])
+```
+
+We can display the image as well.
+> ⚠️ **WARNING:** To exit the image just press any key. **DO NOT** press the 'X' in the corner. If you do press the 'X' (smh) you will have to Restart & Clear the Kernel: in the Jupyter Notebook at the top menu bar select "Kernel" and "Restart & Clear Output".
 
 
-<span class="c1"># TODO: print the Grayscale values of a pixel in the upper left of the image</span>
+```python
+cv2.imshow("Loaded image", image)
+cv2.waitKey(0)
+cv2.destroyAllWindows() # close the image window
+```
+
+When executing the code above, there were two minor surprises. What do you think they were? Now lets take a look at additional functionality embedded within OpenCV.
+
+Convert image to RGB and print the same pixel values. Remember that the image is already loaded within the `image` variable.
 
 
-<span class="c1"># TODO: print Grayscale values of a pixel in the upper right of the image</span>
+```python
+# TODO: Convert image to RGB
 
 
-<span class="c1"># TODO: print Grayscale values of a pixel in the lower left of the image</span>
+# TODO: print the RGB values of a pixel in the upper left of the image
 
-</pre></div>
-</div>
-</section>
-<section id="summary">
-<h3>Summary<a class="headerlink" href="#summary" title="Permalink to this heading">#</a></h3>
-<p>These examples barely scratch the surface of what is possible with OpenCV. In the upcoming lessons we will learn a few more ways to manipulate images, but if you want to learn more you can either explore the <a class="reference external" href="https://docs.opencv.org/3.4/index.html">OpenCV-Python Source Documentation</a> or the <a class="reference external" href="https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html">OpenCV-Python Tutorial</a>.</p>
-</section>
-<section id="assignment">
-<h3>Assignment<a class="headerlink" href="#assignment" title="Permalink to this heading">#</a></h3>
-<p>Scan the article on the <a class="reference external" href="https://arxiv.org/pdf/1406.2419.pdf">Histogram of Oriented Gradients (HOG)</a> feature descriptor and be prepared to discuss.  I don’t need you to understand the math, but you should be able to understand the advantages of the technique.</p>
-</section>
-<section id="cleanup">
-<h3>Cleanup<a class="headerlink" href="#cleanup" title="Permalink to this heading">#</a></h3>
-<p>In the Jupyter Notebook at the top menu bar select “Kernel” and “Restart &amp; Clear Output”. Shutdown the notebook server by typing <code class="docutils literal notranslate"><span class="pre">ctrl+c</span></code> within the terminal you ran <code class="docutils literal notranslate"><span class="pre">jupyter-notebook</span></code> in. Select ‘y’.</p>
+
+# TODO: print the red value of a pixel in the bottom left of the image
+
+
+# TODO: print RGB values of a pixel in the upper right of the image
+
+
+# TODO: print RGB values of a pixel in the lower left of the image
+
+
+# TODO: print blue value of a pixel in the lower right of the image
+
+```
+
+Modify the code to convert to grayscale and print the same pixel values.
+
+
+```python
+# TODO: Convert image to Grayscale
+
+
+# TODO: print the Grayscale values of a pixel in the upper left of the image
+
+
+# TODO: print Grayscale values of a pixel in the upper right of the image
+
+
+# TODO: print Grayscale values of a pixel in the lower left of the image
+
+```
+
+### Summary
+These examples barely scratch the surface of what is possible with OpenCV. In the upcoming lessons we will learn a few more ways to manipulate images, but if you want to learn more you can either explore the [OpenCV-Python Source Documentation](https://docs.opencv.org/3.4/index.html) or the [OpenCV-Python Tutorial](https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html).
+
+### Assignment
+Scan the article on the [Histogram of Oriented Gradients (HOG)](https://arxiv.org/pdf/1406.2419.pdf) feature descriptor and be prepared to discuss.  I don't need you to understand the math, but you should be able to understand the advantages of the technique.
+
+### Cleanup
+In the Jupyter Notebook at the top menu bar select "Kernel" and "Restart & Clear Output". Shutdown the notebook server by typing `ctrl+c` within the terminal you ran `jupyter-notebook` in. Select 'y'.
+-->
 <!--
 ## Part 3: Gradients
 
@@ -697,15 +719,17 @@ In the Jupyter Notebook at the top menu bar select "Kernel" and "Restart & Clear
 
 -->
 </section>
-</section>
-<section id="part-4-histogram-of-oriented-gradients-hog-features">
-<h2>Part 4: Histogram of Oriented Gradients (HOG) Features<a class="headerlink" href="#part-4-histogram-of-oriented-gradients-hog-features" title="Permalink to this heading">#</a></h2>
-<p>The objective of this portion of the lesson is to demonstrate the functionality of the HOG with SVM (Support Vector Machine) algorithm for object detection.  By this point, we should all be well aware of what a histogram is.  The application of the histogram for the HOG feature extraction is to further simplify the tested image to enable our computer to rapidly and accurately identify the presence of an object within the image.<br />
+<section id="lab-procedures">
+<h2>🛠️ Lab Procedures<a class="headerlink" href="#lab-procedures" title="Permalink to this heading">#</a></h2>
+<section id="histogram-of-oriented-gradients-hog-features">
+<h3><strong>4. Histogram of Oriented Gradients (HOG) Features</strong><a class="headerlink" href="#histogram-of-oriented-gradients-hog-features" title="Permalink to this heading">#</a></h3>
+<p>The objective of this part is to demonstrate the functionality of the Histogram of Orientated Gradients (HOG) features with Support Vector Machine (SVM) algorithm for object detection.  By this point, we should all be well aware of what a histogram is.  The application of the histogram for the HOG feature extraction is to further simplify the tested image to enable our computer to rapidly and accurately identify the presence of an object within the image.<br />
 Instead of using each individual gradient direction of each individual pixel of an image, we group the pixels into small cells. For each cell, we compute all the gradient directions and group them into a number of orientation bins. We sum up the gradient magnitude in each sample. So stronger gradients contribute more weight to their bins, and effects of small random orientations due to noise is reduced. Doing this for all cells gives us a representation of the structure of the image. The HOG features keep the representation of an object distinct but also allow for some variations in shape.  For example, lets consider an object detector for a car, see the below figure.</p>
 <p><img alt="logo" src="Labs/Figures/HOG_Features.JPG" /></p>
 <p>Comparing each individual pixel of this training image with another test image would not only be time consuming, but it would also be highly subject to noise.  As previously mentioned, the HOG feature will consider a block of pixels.  The size of this block is variable and will naturally impact both accuracy and speed of execution for the algorithm.  Once the block size is determined, the gradient for each pixel within the block is computed.  Once the gradients are computed for a block, the entire cell can then be represented by this histogram.  Not only does this reduce the amount of data to compare with a test image, but it also reduces the impacts of noise in the image and measurements.</p>
 <p><img alt="logo" src="Labs/Figures/HOG_Histogram.JPG" /></p>
 <p>Now that we have an understanding of the HOG features, lets use tools embedded within OpenCV and Dlib to build our first detector for a stop sign.  But first we need to download a pre-created repository of test and training data.  Remember, we won’t use our training data to test the effectiveness of the algorithm.  Of course the algorithm will work effectively on the training data.  Our hope is that we can create a large enough sampling of test data that we can have a highly effective detector that is robust against new images.</p>
+</section>
 <section id="building-a-detector-using-hog-features">
 <span id="cv-hog"></span><h3>Building a detector using HOG features<a class="headerlink" href="#building-a-detector-using-hog-features" title="Permalink to this heading">#</a></h3>
 <p>Download the example demo into the <code class="docutils literal notranslate"><span class="pre">my_scripts</span></code> folder.</p>
@@ -823,16 +847,16 @@ python3<span class="w"> </span>testDetector.py<span class="w"> </span>--detector
 </div>
 <p>OK, so how did you do? What surprises did you have? What might you consider to improve the detector?</p>
 </section>
-<section id="id1">
-<h3>Summary<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<section id="summary">
+<h3>Summary<a class="headerlink" href="#summary" title="Permalink to this heading">#</a></h3>
 <p>You have now trained and tested your first detector! In the future you will train a new detector using the camera on your robot and a real stop sign. This will be used in your final project to detect and react to stop signs in the wild!</p>
 </section>
-<section id="id2">
-<h3>Assignment<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
+<section id="assignment">
+<h3>Assignment<a class="headerlink" href="#assignment" title="Permalink to this heading">#</a></h3>
 <p>Research Dlib’s simple object detector, and see how you might want to tune the options to improve the performance.</p>
 </section>
-<section id="id3">
-<h3>Cleanup<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<section id="cleanup">
+<h3>Cleanup<a class="headerlink" href="#cleanup" title="Permalink to this heading">#</a></h3>
 <p>In the Jupyter Notebook at the top menu bar select “Kernel” and “Restart &amp; Clear Output”. Shutdown the notebook server by typing <code class="docutils literal notranslate"><span class="pre">ctrl+c</span></code> within the terminal you ran <code class="docutils literal notranslate"><span class="pre">jupyter-notebook</span></code> in. Select ‘y’.</p>
 </section>
 </section>
@@ -936,12 +960,12 @@ nano<span class="w"> </span>/home/pi/.ros/camera_info/head_camera.yaml
 <h3>Checkpoint<a class="headerlink" href="#checkpoint" title="Permalink to this heading">#</a></h3>
 <p>Show an instructor the working camera feed and that the <strong>usb_cam</strong> node was able to open the camera calibration file.</p>
 </section>
-<section id="id4">
-<h3>Summary<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<section id="id1">
+<h3>Summary<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
 <p>You now are able to connect to a USB camera using ROS, display the image provided by the node, and have a calibration file that ROS can use to identify the size of objects in the frame.</p>
 </section>
-<section id="id5">
-<h3>Cleanup<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
+<section id="id2">
+<h3>Cleanup<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
 <p>Kill all rosnodes and roscore!</p>
 </section>
 </section>
@@ -997,16 +1021,16 @@ sudo<span class="w"> </span>nano<span class="w"> </span>tags.yaml
 <p>In a terminal on the master open the <strong>rqt_image_view</strong> node (<code class="docutils literal notranslate"><span class="pre">rosrun</span> <span class="pre">rqt_image_view</span> <span class="pre">rqt_image_view</span></code>) and select the <em>tag_detections_image</em> topic. If you hold up each tag, you should see a yellow box highlight the tag with an id in the middle of the tag.</p>
 <p>In another terminal on the master echo the topic <code class="docutils literal notranslate"><span class="pre">tag_detections</span></code>. What information do you see? Will the apriltag_ros node identify only one tag at a time? Which value do you think we would use to determine distance from the tag? What kind of message is this? What package does this message come from?</p>
 </section>
-<section id="id6">
-<h3>Checkpoint<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
+<section id="id3">
+<h3>Checkpoint<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
 <p>Show an instructor that the <strong>apriltag_ros</strong> can identify tags and provides position data.</p>
 </section>
-<section id="id7">
-<h3>Summary<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
+<section id="id4">
+<h3>Summary<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
 <p>You now have the ability to identify AprilTags and because you have a calibrated camera, you can detect the size, orientation, and distance of a tag.</p>
 </section>
-<section id="id8">
-<h3>Cleanup<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
+<section id="id5">
+<h3>Cleanup<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
 <p>Kill all rosnodes and roscore!</p>
 </section>
 </section>
@@ -1079,36 +1103,32 @@ sudo<span class="w"> </span>nano<span class="w"> </span>tags.yaml
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#not-ready-yet">Not Ready Yet</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">📌 Objectives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">📜 Overview</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#coding-with-opencv-python"><strong>Coding with OpenCV-Python</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">📜 Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-procedures">🛠️ Lab Procedures</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#histogram-of-oriented-gradients-hog-features"><strong>4. Histogram of Oriented Gradients (HOG) Features</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-a-detector-using-hog-features">Building a detector using HOG features</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-a-detector">Testing a detector</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#assignment">Assignment</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cleanup">Cleanup</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-4-histogram-of-oriented-gradients-hog-features">Part 4: Histogram of Oriented Gradients (HOG) Features</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-a-detector-using-hog-features">Building a detector using HOG features</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-a-detector">Testing a detector</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Summary</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Assignment</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Cleanup</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-5-ros-and-image-capture">Part 5: ROS and Image Capture</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#launch-file-usb-cam">Launch File - USB Cam</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calibrate-usb-camera">Calibrate USB Camera</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint">Checkpoint</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Summary</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Cleanup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Summary</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Cleanup</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-6-fiducial-markers">Part 6: Fiducial Markers</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#apriltag-ros">AprilTag ROS</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#launch-file-apriltag-ros">Launch File - Apriltag_Ros</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Checkpoint</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Summary</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Cleanup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Checkpoint</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Summary</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Cleanup</a></li>
 </ul>
 </li>
 </ul>
