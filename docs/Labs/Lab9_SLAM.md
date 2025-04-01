@@ -343,7 +343,7 @@ Follow these steps to simulate autonomous navigation with **prebuilt map** in th
 1. **Reflect on Differences**: Compare the robot's performance with a prebuilt map to its performance when generating a map in real-time. Note any improvements or challenges.
 
 
-### **5. Autonomous Navigation with Cartographer (TurtleBot3, Real Environment)**
+### **5. (Optional) Autonomous Navigation with Cartographer (TurtleBot3, Real Environment)**
 
 1. First, you need to ensure that the data and time on the robot match those on the master computer. 
 
@@ -393,7 +393,7 @@ Follow these steps to simulate autonomous navigation with **prebuilt map** in th
     ros2 run lab9_slam navigate
     ```
 
-### **6. Autonomous Navigation with Prebuilt Map (TurtleBot3, Real Environment)**
+### **6. (Optional) Autonomous Navigation with Prebuilt Map (TurtleBot3, Real Environment)**
 
 1. Start the `bringup` process for the real TurtleBot3 environment.
 
@@ -418,11 +418,11 @@ Follow these steps to simulate autonomous navigation with **prebuilt map** in th
     - Push your code to GitHub and confirm that it has been successfully uploaded.
     **NOTE:** _If the instructor can't find your code in your repository, you will receive a grade of 0 for the coding part._
 
-1. **[5 Points] Submit Screenshots**
-    - Submit two screenshot on Gradescope
+1. **[10 Points] Submit Screenshots**
+    - Submit the two screenshots on Gradescope
 
 1. **[10 Points] Demonstration**
-    - Show the robot successfully move between two walls.
+    - Show the robot successfully move between two walls in the simulation environment.
 
 1. **[10 Points] Reflection and Analysis**
     - Provide your reflection and analysis on Gradescope
