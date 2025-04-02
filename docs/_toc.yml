@@ -27,6 +27,7 @@ parts:
     - file: Labs/Lab8_LIDAR.md
     - file: Labs/Lab9_SLAM.md
     - file: Labs/Lab10_CV.md
+    - file: Labs/Lab11_AprilTags.md
 
   - caption: Appendix
     chapters:

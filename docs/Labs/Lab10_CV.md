@@ -1,11 +1,12 @@
 # 🔬 Lab10: CV
 
 
-## Not Ready Yet
-
 ## 📌 Objectives
 
-- Students should be able
+- Students should be able to explain the concept of Histogram of Oriented Gradients (HOG) and its role in object detection.
+- Students should be able to train a custom object detector using Dlib and analyze its performance.
+- Students should be able to implement and test a trained object detector on new images.
+- Students should be able to create a ROS 2 package for computer vision tasks and integrate OpenCV for image processing.
 
 
 ## 📜 Overview
@@ -211,6 +212,10 @@ Now that we understand HOG features, let’s leverage OpenCV and Dlib to build a
 
 1. OK, so how did you do? What surprises did you have? What might you consider to improve the detector?
 
+
+## Not Ready Yet
+
+<!--
 ### **3. ROS and Image Capture**
 ROS provides a number of tools to interact with a commercial-off-the-shelf camera such as the USB camera connected to your robot. The primary tool we will use is the [usb_cam](http://wiki.ros.org/usb_cam) package which is already installed on your robot.
 
@@ -326,46 +331,18 @@ Now you can launch the file using:
 ros2 launch usb_cam_launch usb_cam_launch.py
 ```
 
-By structuring it as a package, you ensure proper integration into your ROS 2 workspace and make deployment easier. Let me know if you need further refinements!
+-->
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<!--
 
 Edit the `lab4.launch` file to call the **usb_cam_node** on the robot which will automatically connect to the camera and publish the video over a topic.
 
 ```xml
 <launch>
-    
-    <machine
-      name="robot0"
-      address="robot0"
-      env-loader="/home/pi/robot_ws/devel/remote_env_loader.sh"
-      default="true"
-      user="pi"
-    />
 
-    <!-- usb camera -->
     <node machine="robot0" name="usb_cam" pkg="usb_cam" type="usb_cam_node" output="screen" >
         <param name="video_device" value="/dev/video0" />
         <param name="image_width" value="640" />
@@ -396,6 +373,8 @@ rosrun rqt_image_view rqt_image_view
 ```
 Ensure the `/usb_cam/image_raw` topic is selected.
 
+
+<!--
 # Lab 4: Computer Vision
 
 
@@ -641,3 +620,5 @@ Complete a short 2-3 page report that utilizes the format and answers the questi
 **[50 points]** Report via Gradescope.
 
 **[25 points]** Code: push your code to your repository. Also, include a screen shot of the **apriltag_dist.py** and **stop_detector.py** files at the end of your report.
+
+-->
