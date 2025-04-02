@@ -394,6 +394,11 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-a-detector"><strong>2. Testing a detector</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ros-and-image-capture"><strong>3. ROS and Image Capture</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#launch-file-usb-cam">Launch File - USB Cam</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-new-ros-2-package"><strong>1. Create a New ROS 2 Package</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#move-the-launch-file-into-the-package"><strong>2. Move the Launch File into the Package</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modify-package-xml-and-setup-py"><strong>3. Modify <code class="docutils literal notranslate"><span class="pre">package.xml</span></code> and <code class="docutils literal notranslate"><span class="pre">setup.py</span></code></strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-and-source-the-package"><strong>4. Build and Source the Package</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-the-launch-file"><strong>5. Run the Launch File</strong></a></li>
 </ul>
 </li>
 </ul>
@@ -629,6 +634,68 @@ touch<span class="w"> </span>lab4.launch
 </section>
 <section id="launch-file-usb-cam">
 <h3>Launch File - USB Cam<a class="headerlink" href="#launch-file-usb-cam" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="create-a-new-ros-2-package">
+<h3><strong>1. Create a New ROS 2 Package</strong><a class="headerlink" href="#create-a-new-ros-2-package" title="Permalink to this heading">#</a></h3>
+<p>Navigate to your ROS 2 workspace and create a package for the launch file:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/ros2_ws/src
+ros2<span class="w"> </span>pkg<span class="w"> </span>create<span class="w"> </span>usb_cam_launch<span class="w"> </span>--build-type<span class="w"> </span>ament_python
+</pre></div>
+</div>
+</section>
+<section id="move-the-launch-file-into-the-package">
+<h3><strong>2. Move the Launch File into the Package</strong><a class="headerlink" href="#move-the-launch-file-into-the-package" title="Permalink to this heading">#</a></h3>
+<p>Place your <code class="docutils literal notranslate"><span class="pre">usb_cam_launch.py</span></code> inside the <code class="docutils literal notranslate"><span class="pre">launch</span></code> directory of the package:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span>~/ros2_ws/src/usb_cam_launch/launch
+mv<span class="w"> </span>usb_cam_launch.py<span class="w"> </span>~/ros2_ws/src/usb_cam_launch/launch/
+</pre></div>
+</div>
+</section>
+<section id="modify-package-xml-and-setup-py">
+<h3><strong>3. Modify <code class="docutils literal notranslate"><span class="pre">package.xml</span></code> and <code class="docutils literal notranslate"><span class="pre">setup.py</span></code></strong><a class="headerlink" href="#modify-package-xml-and-setup-py" title="Permalink to this heading">#</a></h3>
+<p>Ensure <code class="docutils literal notranslate"><span class="pre">package.xml</span></code> includes dependencies for <code class="docutils literal notranslate"><span class="pre">launch_ros</span></code>. Also, update <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> to register the launch file:</p>
+<p>Modify <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
+<span class="kn">from</span> <span class="nn">setuptools</span> <span class="kn">import</span> <span class="n">setup</span>
+
+<span class="n">package_name</span> <span class="o">=</span> <span class="s1">&#39;usb_cam_launch&#39;</span>
+
+<span class="n">setup</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="n">package_name</span><span class="p">,</span>
+    <span class="n">version</span><span class="o">=</span><span class="s1">&#39;0.0.1&#39;</span><span class="p">,</span>
+    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="n">package_name</span><span class="p">],</span>
+    <span class="n">install_requires</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;setuptools&#39;</span><span class="p">],</span>
+    <span class="n">zip_safe</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">maintainer</span><span class="o">=</span><span class="s1">&#39;your_name&#39;</span><span class="p">,</span>
+    <span class="n">maintainer_email</span><span class="o">=</span><span class="s1">&#39;your_email&#39;</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Launch file for USB camera in ROS 2&#39;</span><span class="p">,</span>
+    <span class="n">license</span><span class="o">=</span><span class="s1">&#39;Apache License 2.0&#39;</span><span class="p">,</span>
+    <span class="n">entry_points</span><span class="o">=</span><span class="p">{</span>
+        <span class="s1">&#39;console_scripts&#39;</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="p">},</span>
+    <span class="n">data_files</span><span class="o">=</span><span class="p">[</span>
+        <span class="p">(</span><span class="s1">&#39;share/&#39;</span> <span class="o">+</span> <span class="n">package_name</span> <span class="o">+</span> <span class="s1">&#39;/launch&#39;</span><span class="p">,</span> <span class="n">glob</span><span class="p">(</span><span class="s1">&#39;launch/*.py&#39;</span><span class="p">)),</span>
+    <span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="build-and-source-the-package">
+<h3><strong>4. Build and Source the Package</strong><a class="headerlink" href="#build-and-source-the-package" title="Permalink to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/ros2_ws
+colcon<span class="w"> </span>build
+<span class="nb">source</span><span class="w"> </span>install/setup.bash
+</pre></div>
+</div>
+</section>
+<section id="run-the-launch-file">
+<h3><strong>5. Run the Launch File</strong><a class="headerlink" href="#run-the-launch-file" title="Permalink to this heading">#</a></h3>
+<p>Now you can launch the file using:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>usb_cam_launch<span class="w"> </span>usb_cam_launch.py
+</pre></div>
+</div>
+<p>By structuring it as a package, you ensure proper integration into your ROS 2 workspace and make deployment easier. Let me know if you need further refinements!</p>
 <p>Edit the <code class="docutils literal notranslate"><span class="pre">lab4.launch</span></code> file to call the <strong>usb_cam_node</strong> on the robot which will automatically connect to the camera and publish the video over a topic.</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
 <span class="w">    </span>
@@ -977,6 +1044,11 @@ scp<span class="w"> </span>stop_detector.py<span class="w"> </span>pi@robotX:/ho
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-a-detector"><strong>2. Testing a detector</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ros-and-image-capture"><strong>3. ROS and Image Capture</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#launch-file-usb-cam">Launch File - USB Cam</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-new-ros-2-package"><strong>1. Create a New ROS 2 Package</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#move-the-launch-file-into-the-package"><strong>2. Move the Launch File into the Package</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modify-package-xml-and-setup-py"><strong>3. Modify <code class="docutils literal notranslate"><span class="pre">package.xml</span></code> and <code class="docutils literal notranslate"><span class="pre">setup.py</span></code></strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-and-source-the-package"><strong>4. Build and Source the Package</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-the-launch-file"><strong>5. Run the Launch File</strong></a></li>
 </ul>
 </li>
 </ul>

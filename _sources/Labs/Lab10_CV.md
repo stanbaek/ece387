@@ -231,6 +231,93 @@ Make and source your workspace.
 
 ### Launch File - USB Cam
 
+
+### **1. Create a New ROS 2 Package**
+Navigate to your ROS 2 workspace and create a package for the launch file:
+
+```bash
+cd ~/ros2_ws/src
+ros2 pkg create usb_cam_launch --build-type ament_python
+```
+
+### **2. Move the Launch File into the Package**
+Place your `usb_cam_launch.py` inside the `launch` directory of the package:
+
+```bash
+mkdir -p ~/ros2_ws/src/usb_cam_launch/launch
+mv usb_cam_launch.py ~/ros2_ws/src/usb_cam_launch/launch/
+```
+
+### **3. Modify `package.xml` and `setup.py`**
+Ensure `package.xml` includes dependencies for `launch_ros`. Also, update `setup.py` to register the launch file:
+
+Modify `setup.py`:
+```python
+import os
+from glob import glob
+from setuptools import setup
+
+package_name = 'usb_cam_launch'
+
+setup(
+    name=package_name,
+    version='0.0.1',
+    packages=[package_name],
+    install_requires=['setuptools'],
+    zip_safe=True,
+    maintainer='your_name',
+    maintainer_email='your_email',
+    description='Launch file for USB camera in ROS 2',
+    license='Apache License 2.0',
+    entry_points={
+        'console_scripts': [],
+    },
+    data_files=[
+        ('share/' + package_name + '/launch', glob('launch/*.py')),
+    ],
+)
+```
+
+### **4. Build and Source the Package**
+```bash
+cd ~/ros2_ws
+colcon build
+source install/setup.bash
+```
+
+### **5. Run the Launch File**
+Now you can launch the file using:
+
+```bash
+ros2 launch usb_cam_launch usb_cam_launch.py
+```
+
+By structuring it as a package, you ensure proper integration into your ROS 2 workspace and make deployment easier. Let me know if you need further refinements!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Edit the `lab4.launch` file to call the **usb_cam_node** on the robot which will automatically connect to the camera and publish the video over a topic.
 
 ```xml
