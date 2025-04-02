@@ -231,6 +231,28 @@ Make and source your workspace.
 
 ### Launch File - USB Cam
 
+```python
+from launch import LaunchDescription
+from launch_ros.actions import Node
+
+def generate_launch_description():
+    return LaunchDescription([
+        Node(
+            package='usb_cam',
+            executable='usb_cam_node',
+            name='usb_cam',
+            output='screen',
+            parameters=[{
+                'video_device': '/dev/video0',
+                'image_width': 640,
+                'image_height': 480,
+                'pixel_format': 'yuyv',
+                'camera_frame_id': 'usb_cam',
+                'io_method': 'mmap'
+            }]
+        )
+    ])
+```
 
 ### **1. Create a New ROS 2 Package**
 Navigate to your ROS 2 workspace and create a package for the launch file:
