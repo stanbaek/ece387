@@ -396,12 +396,15 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">📌 Objectives</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">📜 Overview</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-lab-ros2-client-libraries">🌱 Pre-Lab: ROS2 Client Libraries</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-procedures">🛠️ Lab Procedures</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-a-detector-using-hog-features"><strong>1. Building a detector using HOG features</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-a-detector"><strong>2. Testing a detector</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-instructions-object-detection-using-hog-and-ros">🧪 Lab Instructions: Object Detection Using HOG and ROS</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-a-detector-using-hog-features"><strong>1. Build a Detector Using HOG Features</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#test-the-detector"><strong>2. Test the Detector</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ros-live-camera-streaming"><strong>3. ROS: Live Camera Streaming</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#capture-training-images-with-ros"><strong>4. Capture Training Images with ROS</strong></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#not-ready-yet">Not Ready Yet</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-your-detector-in-a-ros-node">5. Use Your Detector in a ROS Node</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-lab-exercises-will-be-introduced-later">Additional lab exercises will be introduced later.</a></li>
 </ul>
             </nav>
         </div>
@@ -459,162 +462,482 @@
 <li><p>Take a screenshot of the gradient image and submit it on Gradescope.</p></li>
 </ol>
 </section>
-<section id="lab-procedures">
-<h2>🛠️ Lab Procedures<a class="headerlink" href="#lab-procedures" title="Link to this heading">#</a></h2>
-<section id="building-a-detector-using-hog-features">
-<h3><strong>1. Building a detector using HOG features</strong><a class="headerlink" href="#building-a-detector-using-hog-features" title="Link to this heading">#</a></h3>
+<hr class="docutils" />
+<section id="lab-instructions-object-detection-using-hog-and-ros">
+<h2>🧪 Lab Instructions: Object Detection Using HOG and ROS<a class="headerlink" href="#lab-instructions-object-detection-using-hog-and-ros" title="Link to this heading">#</a></h2>
+<p>In this lab, you’ll build a stop sign detector using HOG (Histogram of Oriented Gradients) features, test it, and integrate it with a ROS-based camera system.</p>
+<section id="build-a-detector-using-hog-features">
+<span id="cv-hog"></span><h3><strong>1. Build a Detector Using HOG Features</strong><a class="headerlink" href="#build-a-detector-using-hog-features" title="Link to this heading">#</a></h3>
 <ol class="arabic">
-<li><p>Download the example demo.</p>
+<li><p>Open a terminal and download the demo repository:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/master_ws/src
 git<span class="w"> </span>clone<span class="w"> </span>git@github.com:ECE495/HOG_Demo.git
 <span class="nb">cd</span><span class="w"> </span>HOG_Demo
 </pre></div>
 </div>
 </li>
-<li><p>Take a look at what is contained within the repo.  Essentially you have both a training data folder and a test folder.  We will now use a tool called <strong>imglab</strong> to annotate the images for building our detector.</p></li>
-<li><p>Browse to the <a class="reference external" href="https://solothought.com/imglab/#">imglab tool</a> and select <strong>“UMM, MAYBE NEXT TIME!”</strong>.</p></li>
-<li><p>In the bottom left of the site, click on the <code class="docutils literal notranslate"><span class="pre">load</span></code> button, select the <code class="docutils literal notranslate"><span class="pre">training</span></code> folder, and click the <code class="docutils literal notranslate"><span class="pre">upload</span></code> button. It will upload 19 files.</p></li>
-</ol>
+<li><p>Inside the repo, you’ll find folders for training and test images. We’ll use a tool called <code class="docutils literal notranslate"><span class="pre">imglab</span></code> to annotate the training images.</p></li>
+<li><p>Go to <a class="reference external" href="https://solothought.com/imglab/#">imglab</a> in your browser.</p></li>
+<li><p>When prompted, click <strong>“UMM, MAYBE NEXT TIME!”</strong> to skip the sign-in.</p></li>
+<li><p>In the bottom left corner, click <code class="docutils literal notranslate"><span class="pre">load</span></code>, select the <code class="docutils literal notranslate"><span class="pre">training</span></code> folder from your local files, and then click <code class="docutils literal notranslate"><span class="pre">upload</span></code>. This should load 19 images.</p>
 <a class="reference internal image-reference" href="../_images/Lab10_Load.png"><img alt="../_images/Lab10_Load.png" class="align-center" src="../_images/Lab10_Load.png" style="width: 150px;" /></a>
-<br>
-<ol class="arabic">
-<li><p>Select the first stop sign and the <strong>“Rectangle”</strong> tool.</p>
+</li>
+<li><p>Select the <strong>Rectangle</strong> tool and begin labeling stop signs:</p>
 <a class="reference internal image-reference" href="../_images/Lab10_Rectangle.png"><img alt="../_images/Lab10_Rectangle.png" class="align-center" src="../_images/Lab10_Rectangle.png" style="width: 50px;" /></a>
  <br>
+<ul class="simple">
+<li><p>Click and drag to draw a bounding box <strong>only around each stop sign</strong>.</p></li>
+<li><p>If an image contains multiple stop signs, draw a box around each.</p></li>
+<li><p>If you make a mistake, select the box and press <code class="docutils literal notranslate"><span class="pre">delete</span></code>.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is important to label all examples of objects in an image; otherwise, Dlib will implicitly assume that regions not labeled are regions that should not be detected (i.e., hard-negative mining applied during extraction time).</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">Alt</span> <span class="pre">+</span> <span class="pre">←/→</span></code> to switch between images.</p>
+</div>
 </li>
-<li><p>Highlight the border of the stop sign: drag-and-draw a bounding rectangle, ensuring to <strong>only</strong> select the stop sign and to select all examples of the object in the image.</p>
-<blockquote>
-<div><p>📝️ <strong>NOTE:</strong> It is important to label all examples of objects in an image; otherwise, Dlib will implicitly assume that regions not labeled are regions that should not be detected (i.e., hard-negative mining applied during extraction time).</p>
-</div></blockquote>
-</li>
-<li><p>You can select a bounding box and hit the delete key to remove it.</p></li>
-<li><p>If you press <code class="docutils literal notranslate"><span class="pre">alt+left/right</span> <span class="pre">arrow</span></code> you can navigate through images in the slider and repeat highlighting the objects.</p></li>
-<li><p>Once all stop signs are complete hit <code class="docutils literal notranslate"><span class="pre">ctrl+e</span></code> to save the annotations (bounding box information) as a <strong>“Dlib XML”</strong> file within the <code class="docutils literal notranslate"><span class="pre">training</span></code> folder using a descriptive name such as <code class="docutils literal notranslate"><span class="pre">stop_annotations.xml</span></code>.</p>
+<li><p>Once you’ve labeled all images, press <code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">e</span></code> to export your annotations.</p>
+<ul class="simple">
+<li><p>Save the file as <code class="docutils literal notranslate"><span class="pre">stop_annotations.xml</span></code> in the <code class="docutils literal notranslate"><span class="pre">training</span></code> folder.</p></li>
+</ul>
 <a class="reference internal image-reference" href="../_images/Lab10_Dlib.png"><img alt="../_images/Lab10_Dlib.png" class="align-center" src="../_images/Lab10_Dlib.png" style="width: 200px;" /></a>
 </li>
-<li><p>We now need to create the code to build the detector based on our annotated training data.</p>
+<li><p>Create a Python script:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/master_ws/src/HOG_Demo
 touch<span class="w"> </span>trainDetector.py
 </pre></div>
 </div>
 </li>
-<li><p>Now open this in your favorite editor to add the following code.  I have built into the code the ability to provide command line arguments.  This will make the code a bit more flexible such that you don’t need to recreate it in the future if you want to reuse if for another project.  You will provide two arguments at runtime.  First you need to tell the program where the .xml file is.  Second, you will state where you want to put the detector that you create… the detector should have a .svm extension.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># import the necessary packages</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">print_function</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">dlib</span>
+<li><p>Open it in your preferred code editor and paste in the following code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import required libraries</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>  <span class="c1"># For parsing command-line arguments</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">dlib</span>      <span class="c1"># For training and testing the object detector</span>
 
-<span class="c1"># construct the argument parser and parse the arguments</span>
+<span class="c1"># Set up command-line arguments</span>
 <span class="n">ap</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
-<span class="n">ap</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;-x&quot;</span><span class="p">,</span> <span class="s2">&quot;--xml&quot;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;path to input XML file&quot;</span><span class="p">)</span>
-<span class="n">ap</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;-d&quot;</span><span class="p">,</span> <span class="s2">&quot;--detector&quot;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;path to output detector&quot;</span><span class="p">)</span>
-<span class="n">args</span> <span class="o">=</span> <span class="nb">vars</span><span class="p">(</span><span class="n">ap</span><span class="o">.</span><span class="n">parse_args</span><span class="p">())</span>
+<span class="n">ap</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;-x&quot;</span><span class="p">,</span> <span class="s2">&quot;--xml&quot;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Path to input XML file&quot;</span><span class="p">)</span>          <span class="c1"># Path to the labeled training dataset in XML format</span>
+<span class="n">ap</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;-d&quot;</span><span class="p">,</span> <span class="s2">&quot;--detector&quot;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Path to output detector (.svm)&quot;</span><span class="p">)</span>  <span class="c1"># Path where the trained .svm model will be saved</span>
+<span class="n">args</span> <span class="o">=</span> <span class="nb">vars</span><span class="p">(</span><span class="n">ap</span><span class="o">.</span><span class="n">parse_args</span><span class="p">())</span>  <span class="c1"># Parse the arguments into a dictionary</span>
 
-<span class="c1"># grab the default training options for the HOG + Linear SVM detector, then</span>
-<span class="c1"># train the detector -- in practice, the `C` parameter can be adjusted...</span>
-<span class="c1"># feel free to research and see if you can improve</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[INFO] training detector...&quot;</span><span class="p">)</span>
+<span class="c1"># Inform the user that training is starting</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[INFO] Training detector...&quot;</span><span class="p">)</span>
+
+<span class="c1"># Set training options for the object detector</span>
 <span class="n">options</span> <span class="o">=</span> <span class="n">dlib</span><span class="o">.</span><span class="n">simple_object_detector_training_options</span><span class="p">()</span>
-<span class="n">options</span><span class="o">.</span><span class="n">C</span> <span class="o">=</span> <span class="mf">1.0</span>
-<span class="n">options</span><span class="o">.</span><span class="n">num_threads</span> <span class="o">=</span> <span class="mi">4</span>
-<span class="n">options</span><span class="o">.</span><span class="n">be_verbose</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">options</span><span class="o">.</span><span class="n">C</span> <span class="o">=</span> <span class="mf">1.0</span>               <span class="c1"># Regularization parameter; higher values = lower bias, higher variance</span>
+<span class="n">options</span><span class="o">.</span><span class="n">num_threads</span> <span class="o">=</span> <span class="mi">4</span>      <span class="c1"># Number of CPU threads to use for training</span>
+<span class="n">options</span><span class="o">.</span><span class="n">be_verbose</span> <span class="o">=</span> <span class="kc">True</span>    <span class="c1"># Print progress and training status to the console</span>
+
+<span class="c1"># Train the detector using the specified XML file and save the model</span>
 <span class="n">dlib</span><span class="o">.</span><span class="n">train_simple_object_detector</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="s2">&quot;xml&quot;</span><span class="p">],</span> <span class="n">args</span><span class="p">[</span><span class="s2">&quot;detector&quot;</span><span class="p">],</span> <span class="n">options</span><span class="p">)</span>
 
-<span class="c1"># show the training accuracy</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[INFO] training accuracy: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+<span class="c1"># After training, test the detector on the training dataset to evaluate performance</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[INFO] Training accuracy: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
     <span class="n">dlib</span><span class="o">.</span><span class="n">test_simple_object_detector</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="s2">&quot;xml&quot;</span><span class="p">],</span> <span class="n">args</span><span class="p">[</span><span class="s2">&quot;detector&quot;</span><span class="p">])))</span>
-    
-<span class="c1"># load the detector and visualize the HOG filter</span>
+
+<span class="c1"># Load the trained detector from disk</span>
 <span class="n">detector</span> <span class="o">=</span> <span class="n">dlib</span><span class="o">.</span><span class="n">simple_object_detector</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="s2">&quot;detector&quot;</span><span class="p">])</span>
+
+<span class="c1"># Create a window to visualize the learned detector&#39;s HOG features</span>
 <span class="n">win</span> <span class="o">=</span> <span class="n">dlib</span><span class="o">.</span><span class="n">image_window</span><span class="p">()</span>
-<span class="n">win</span><span class="o">.</span><span class="n">set_image</span><span class="p">(</span><span class="n">detector</span><span class="p">)</span>
+<span class="n">win</span><span class="o">.</span><span class="n">set_image</span><span class="p">(</span><span class="n">detector</span><span class="p">)</span>  <span class="c1"># Show the detector as a HOG filter visualization</span>
+
+<span class="c1"># Wait for the user to hit Enter before closing</span>
 <span class="n">dlib</span><span class="o">.</span><span class="n">hit_enter_to_continue</span><span class="p">()</span>
+
 </pre></div>
 </div>
 </li>
-<li><p>Once you have the code entered, you can run it with the following command.  Remember, you need to provide two command line arguments:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/master_ws/src/HOG_Demo
-python3<span class="w"> </span>trainDetector.py<span class="w"> </span>--xml<span class="w"> </span>training/stop_annotations.xml<span class="w"> </span>--detector<span class="w"> </span>training/stop_detector.svm
+<li><p>Run the script to train your detector:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>trainDetector.py<span class="w"> </span>--xml<span class="w"> </span>training/stop_annotations.xml<span class="w"> </span>--detector<span class="w"> </span>training/stop_detector.svm
 </pre></div>
 </div>
+<p>You may get a few errors pop up during execution based on your choice for bounding boxes.  Make sure you address those errors before continuing. If everything runs correctly, you’ll see a visualization of the trained HOG filter. If you get an error, double-check your annotations and fix any issues.</p>
 </li>
-<li><p>You may get a few errors pop up during execution based on your choice for bounding boxes.  Make sure you address those errors before continuing.  If everything executed correctly, you should ultimately see a picture of the HOG feature you designed.</p></li>
 </ol>
 </section>
-<section id="testing-a-detector">
-<h3><strong>2. Testing a detector</strong><a class="headerlink" href="#testing-a-detector" title="Link to this heading">#</a></h3>
+<hr class="docutils" />
+<section id="test-the-detector">
+<h3><strong>2. Test the Detector</strong><a class="headerlink" href="#test-the-detector" title="Link to this heading">#</a></h3>
+<p>Now it is time to build our code to test the detector.</p>
 <ol class="arabic">
-<li><p>Now it is time to build our code to test the detector.  The following code will make use of the imutils library as well.</p></li>
-<li><p>You may get a few errors pop up during execution based on your choice for bounding boxes.  Make sure you address those errors before continuing.  If everything executed correctly, you should ultimately see a picture of the HOG feature you designed.</p></li>
-<li><p>Now it is time to build our code to test the detector.</p>
+<li><p>Create a new Python script:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/master_ws/src/HOG_Demo
 touch<span class="w"> </span>testDetector.py
 </pre></div>
 </div>
 </li>
-<li><p>Enter the code below:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># import the necessary packages</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">imutils</span><span class="w"> </span><span class="kn">import</span> <span class="n">paths</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">dlib</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+<li><p>Add the following code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import the necessary packages</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">imutils</span><span class="w"> </span><span class="kn">import</span> <span class="n">paths</span>   <span class="c1"># Utility to easily grab file paths from a directory</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>             <span class="c1"># Used to handle command-line arguments</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">dlib</span>                 <span class="c1"># Library for machine learning tools including object detection</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>                  <span class="c1"># OpenCV for image processing</span>
 
-<span class="c1"># construct the argument parser and parse the arguments</span>
+<span class="c1"># Set up command-line arguments</span>
 <span class="n">ap</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
-<span class="n">ap</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;-d&quot;</span><span class="p">,</span> <span class="s2">&quot;--detector&quot;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Path to trained object detector&quot;</span><span class="p">)</span>
-<span class="n">ap</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;-t&quot;</span><span class="p">,</span> <span class="s2">&quot;--testing&quot;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Path to directory of testing images&quot;</span><span class="p">)</span>
-<span class="n">args</span> <span class="o">=</span> <span class="nb">vars</span><span class="p">(</span><span class="n">ap</span><span class="o">.</span><span class="n">parse_args</span><span class="p">())</span>
+<span class="n">ap</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;-d&quot;</span><span class="p">,</span> <span class="s2">&quot;--detector&quot;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Path to trained detector (.svm)&quot;</span><span class="p">)</span>
+<span class="n">ap</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;-t&quot;</span><span class="p">,</span> <span class="s2">&quot;--testing&quot;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Path to testing images folder&quot;</span><span class="p">)</span>
+<span class="n">args</span> <span class="o">=</span> <span class="nb">vars</span><span class="p">(</span><span class="n">ap</span><span class="o">.</span><span class="n">parse_args</span><span class="p">())</span>  <span class="c1"># Parse the arguments into a dictionary</span>
 
-<span class="c1"># load the detector</span>
+<span class="c1"># Load the trained detector using the path provided</span>
+<span class="c1"># The .svm file contains the learned HOG + SVM model</span>
 <span class="n">detector</span> <span class="o">=</span> <span class="n">dlib</span><span class="o">.</span><span class="n">simple_object_detector</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="s2">&quot;detector&quot;</span><span class="p">])</span>
 
-<span class="c1"># loop over the testing images</span>
-<span class="k">for</span> <span class="n">testingPath</span> <span class="ow">in</span> <span class="n">paths</span><span class="o">.</span><span class="n">list_images</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="s2">&quot;testing&quot;</span><span class="p">]):</span>
-    <span class="c1"># load the image and make predictions</span>
-    <span class="n">image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">testingPath</span><span class="p">)</span>
+<span class="c1"># Loop through each image file in the testing directory</span>
+<span class="k">for</span> <span class="n">imagePath</span> <span class="ow">in</span> <span class="n">paths</span><span class="o">.</span><span class="n">list_images</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="s2">&quot;testing&quot;</span><span class="p">]):</span>
+
+    <span class="c1"># Read the image from disk using OpenCV</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">imagePath</span><span class="p">)</span>
+
+    <span class="c1"># Convert the image from BGR (OpenCV default) to RGB (required by dlib)</span>
+    <span class="c1"># Then, pass it to the detector which returns a list of bounding boxes</span>
     <span class="n">boxes</span> <span class="o">=</span> <span class="n">detector</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">))</span>
-    
-    <span class="c1"># loop over the bounding boxes and draw them</span>
+
+    <span class="c1"># Loop through each bounding box returned by the detector</span>
     <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">boxes</span><span class="p">:</span>
+        <span class="c1"># Get the coordinates of the bounding box</span>
         <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">left</span><span class="p">(),</span> <span class="n">b</span><span class="o">.</span><span class="n">top</span><span class="p">(),</span> <span class="n">b</span><span class="o">.</span><span class="n">right</span><span class="p">(),</span> <span class="n">b</span><span class="o">.</span><span class="n">bottom</span><span class="p">())</span>
+
+        <span class="c1"># Draw the bounding box on the image using a green rectangle</span>
+        <span class="c1"># (x, y) is the top-left, (w, h) is the bottom-right corner</span>
         <span class="n">cv2</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
-        
-    <span class="c1"># show the image</span>
-    <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s2">&quot;Image&quot;</span><span class="p">,</span> <span class="n">image</span><span class="p">)</span>
+
+    <span class="c1"># Display the image with the detections in a pop-up window</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s2">&quot;Detection&quot;</span><span class="p">,</span> <span class="n">image</span><span class="p">)</span>
+
+    <span class="c1"># Wait for a key press before moving to the next image</span>
+    <span class="c1"># (0 means wait indefinitely until a key is pressed)</span>
     <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
 </li>
-<li><p>Run the test detector:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/master_ws/src/HOG_Demo
-python3<span class="w"> </span>testDetector.py<span class="w"> </span>--detector<span class="w"> </span>training/stop_detector.svm<span class="w"> </span>--testing<span class="w"> </span><span class="nb">test</span>
+<li><p>Run your test:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>testDetector.py<span class="w"> </span>--detector<span class="w"> </span>training/stop_detector.svm<span class="w"> </span>--testing<span class="w"> </span><span class="nb">test</span>
 </pre></div>
 </div>
 </li>
-<li><p>OK, so how did you do? What surprises did you have? What might you consider to improve the detector?</p></li>
+</ol>
+<p>Look at your results. Did the detector work well? Were there any false positives or missed signs?</p>
+</section>
+<hr class="docutils" />
+<section id="ros-live-camera-streaming">
+<h3><strong>3. ROS: Live Camera Streaming</strong><a class="headerlink" href="#ros-live-camera-streaming" title="Link to this heading">#</a></h3>
+<p>ROS includes several tools for working with commercial off-the-shelf cameras, like the USB camera on your robot. The main one we’ll use is the <a class="reference external" href="https://docs.ros.org/en/humble/p/usb_cam/">usb_cam</a> package, which is already installed. We’ll now use ROS 2 and <code class="docutils literal notranslate"><span class="pre">usb_cam</span></code> to stream live video from the camera.</p>
+<ol class="arabic">
+<li><p>SSH into your robot and run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>usb_cam<span class="w"> </span>usb_cam_node_exe<span class="w"> </span>--ros-args<span class="w"> </span>-p<span class="w"> </span>video_device:<span class="o">=</span>/dev/video0
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Ignore any calibration error messages — we’ll handle that later.</p>
+<ol class="arabic">
+<li><p>On your Master PC, Run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>topic<span class="w"> </span>list
+</pre></div>
+</div>
+<p>You should see topics like <code class="docutils literal notranslate"><span class="pre">/image_raw</span></code>, <code class="docutils literal notranslate"><span class="pre">/camera_info</span></code>, etc.</p>
+</li>
+<li><p>Check topic bandwidth:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>topic<span class="w"> </span>bw<span class="w"> </span>/image_raw
+ros2<span class="w"> </span>topic<span class="w"> </span>bw<span class="w"> </span>/image_raw/compressed
+</pre></div>
+</div>
+</li>
+<li><p>Check image publishing rate:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>topic<span class="w"> </span>hz<span class="w"> </span>/image_raw
+ros2<span class="w"> </span>topic<span class="w"> </span>bw<span class="w"> </span>/image_raw/compressed
+</pre></div>
+</div>
+</li>
+<li><p>View the camera feed:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>rqt_image_view<span class="w"> </span>rqt_image_view
+</pre></div>
+</div>
+<p>Select <code class="docutils literal notranslate"><span class="pre">/image_raw</span></code> to see the feed. Try waving your hand in front of the camera to check latency.</p>
+</li>
+<li><p>You may have noticed that streaming images over WiFi is quite slow. While using compressed images can help, it also increases the processing load on both the Raspberry Pi and the master computer. To avoid this during development, we’ll run camera-related code directly on the master computer. Once everything is working, we can move the code back to the robot.</p></li>
+<li><p>Disconnect the camera from the robot and plug it into the master computer. You can also unplug the gamepad—it’s not needed for now.</p></li>
+<li><p>On the master computer, run the following command to start the camera node:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>usb_cam<span class="w"> </span>usb_cam_node_exe<span class="w"> </span>--ros-args<span class="w"> </span>-p<span class="w"> </span>video_device:<span class="o">=</span>/dev/video0
+</pre></div>
+</div>
+</li>
+<li><p>Check topic bandwidth and image publishing rate:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>topic<span class="w"> </span>bw<span class="w"> </span>/image_raw
+ros2<span class="w"> </span>topic<span class="w"> </span>hz<span class="w"> </span>/image_raw
+</pre></div>
+</div>
+</li>
+<li><p>To verify the image stream, launch the image viewer:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>rqt_image_view<span class="w"> </span>rqt_image_view
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="capture-training-images-with-ros">
+<h3><strong>4. Capture Training Images with ROS</strong><a class="headerlink" href="#capture-training-images-with-ros" title="Link to this heading">#</a></h3>
+<p>You’ll now use a script to save training images of stop signs from your live feed.</p>
+<ol class="arabic">
+<li><p>Download the <a class="reference download internal" download="" href="../_downloads/2a6b0742e5e4a2f607ed3ac0bfd5cf97/image_capture.py"><span class="xref download myst"><code class="docutils literal notranslate"><span class="pre">image_capture.py</span></code></span></a> script and place it in your package’s script folder.</p></li>
+<li><p>Update your <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> to include the script as an entry point. This is necessary to ensure that the script runs as a node.</p></li>
+<li><p>Open the <code class="docutils literal notranslate"><span class="pre">image_capture.py</span></code> script and read through the code carefully. It may be unfamiliar, but take your time to understand what each part is doing.</p></li>
+<li><p>Rebuild your package:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ccbuild<span class="w"> </span>--packages-selelct<span class="w"> </span>labl0-cv
+</pre></div>
+</div>
+</li>
+<li><p>Run the USB camera node on Master:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>usb_cam<span class="w"> </span>usb_cam_node_exe<span class="w"> </span>--ros-args<span class="w"> </span>-p<span class="w"> </span>video_device:<span class="o">=</span>/dev/video0
+</pre></div>
+</div>
+</li>
+<li><p>Open a new terminal, navigate to the <code class="docutils literal notranslate"><span class="pre">Documents</span></code> directory, and run</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>lab10_cv<span class="w"> </span>image_capture<span class="w"> </span>-o<span class="w"> </span>./training_images/
+</pre></div>
+</div>
+<p>Press <code class="docutils literal notranslate"><span class="pre">s</span></code> and <code class="docutils literal notranslate"><span class="pre">Enter</span></code> to save an image. Take multiple images from different angles and distances. Press <code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">C</span></code> when done.</p>
+</li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">imglab</span></code> again to annotate your new images and save the XML file as before. Then re-train your detector using the updated dataset.</p></li>
 </ol>
 </section>
 </section>
-<section id="not-ready-yet">
-<h2>Not Ready Yet<a class="headerlink" href="#not-ready-yet" title="Link to this heading">#</a></h2>
+<hr class="docutils" />
+<section id="use-your-detector-in-a-ros-node">
+<h2>5. Use Your Detector in a ROS Node<a class="headerlink" href="#use-your-detector-in-a-ros-node" title="Link to this heading">#</a></h2>
+<p>Create a ROS node to run your detector in real-time.</p>
+<ol class="arabic">
+<li><p>Inside the <code class="docutils literal notranslate"><span class="pre">lab4</span></code> package, create a new script:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>touch<span class="w"> </span>stop_detector.py
+</pre></div>
+</div>
+</li>
+<li><p>Use this starter code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">rospy</span><span class="o">,</span><span class="w"> </span><span class="nn">cv2</span><span class="o">,</span><span class="w"> </span><span class="nn">dlib</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cv_bridge</span><span class="w"> </span><span class="kn">import</span> <span class="n">CvBridge</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sensor_msgs.msg</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">StopDetector</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">detector_path</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bridge</span> <span class="o">=</span> <span class="n">CvBridge</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">detector</span> <span class="o">=</span> <span class="n">dlib</span><span class="o">.</span><span class="n">simple_object_detector</span><span class="p">(</span><span class="n">detector_path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image_sub</span> <span class="o">=</span> <span class="n">rospy</span><span class="o">.</span><span class="n">Subscriber</span><span class="p">(</span><span class="s2">&quot;/image_raw&quot;</span><span class="p">,</span> <span class="n">Image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera_callback</span><span class="p">)</span>
+        <span class="n">rospy</span><span class="o">.</span><span class="n">on_shutdown</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shutdownhook</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_c</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">camera_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_c</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">cv_image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bridge</span><span class="o">.</span><span class="n">imgmsg_to_cv2</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot;bgr8&quot;</span><span class="p">)</span>
+            <span class="n">boxes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">detector</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">cv_image</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">boxes</span><span class="p">:</span>
+                <span class="n">cv2</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="n">cv_image</span><span class="p">,</span> <span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">left</span><span class="p">(),</span> <span class="n">b</span><span class="o">.</span><span class="n">top</span><span class="p">()),</span> <span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">right</span><span class="p">(),</span> <span class="n">b</span><span class="o">.</span><span class="n">bottom</span><span class="p">()),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s2">&quot;Stop Detector&quot;</span><span class="p">,</span> <span class="n">cv_image</span><span class="p">)</span>
+            <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">rospy</span><span class="o">.</span><span class="n">logerr</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error processing image: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">shutdownhook</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_c</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">rospy</span><span class="o">.</span><span class="n">init_node</span><span class="p">(</span><span class="s1">&#39;stop_detector&#39;</span><span class="p">)</span>
+    <span class="n">detector_path</span> <span class="o">=</span> <span class="n">rospy</span><span class="o">.</span><span class="n">get_param</span><span class="p">(</span><span class="s2">&quot;/stop_detector/detector&quot;</span><span class="p">)</span>
+    <span class="n">StopDetector</span><span class="p">(</span><span class="n">detector_path</span><span class="p">)</span>
+    <span class="n">rospy</span><span class="o">.</span><span class="n">spin</span><span class="p">()</span>
+</pre></div>
+</div>
+</li>
+<li><p>Update <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> again and rebuild your package.</p></li>
+</ol>
+<p>Now, your detector is running live on video, using ROS and your trained HOG model.</p>
+</section>
+<section id="additional-lab-exercises-will-be-introduced-later">
+<h2>Additional lab exercises will be introduced later.<a class="headerlink" href="#additional-lab-exercises-will-be-introduced-later" title="Link to this heading">#</a></h2>
 <!--
-### **3. ROS and Image Capture**
-ROS provides a number of tools to interact with a commercial-off-the-shelf camera such as the USB camera connected to your robot. The primary tool we will use is the [usb_cam](http://wiki.ros.org/usb_cam) package which is already installed on your robot.
+## **5.Test your stop detector**
 
-Let's create a **lab4** package on the **Master** we can use to start developing a launch file to run our computer vision tools.
+Create a node in the **lab4** package on the **Master** called `stop_detector.py` and copy the below into it:
 
-In a terminal create a **lab4** package, `launch` folder, and `lab4.launch` file:
+```python
+#!/usr/bin/env python3
+import rospy, cv2, dlib
+from cv_bridge import CvBridge, CvBridgeError
 
-```bash
-cd ~/master_ws/src/ece387_ws/lab10_cv/
-catkin_create_pkg lab4 rospy sensor_msgs std_msgs cv_bridge apriltag_ros
-cd lab4
-mkdir launch
-cd launch
-touch lab4.launch
+# TODO: import usb_cam message type
+
+
+class StopDetector(object):
+
+    def __init__(self, detectorLoc):
+        self.ctrl_c = False
+        
+        #TODO: create subscriber to usb_cam image topic
+
+        
+        self.bridge_object = CvBridge()
+        self.detector = dlib.simple_object_detector(detectorLoc)
+        
+        rospy.on_shutdown(self.shutdownhook)
+        
+    def camera_callback(self,data):
+        if not self.ctrl_c:
+            #TODO: write code to get ROS image, convert to OpenCV image,
+            # apply detector, add boxes to image, and display image
+            
+
+    def shutdownhook(self):
+        print("Shutting down")
+        self.ctrl_c = True
+        cv2.destroyAllWindows()
+        
+if __name__ == '__main__':
+    rospy.init_node('stop_detector')
+    detector = rospy.get_param("/stop_detector/detector")
+    stop_detector = StopDetector(detector)
+    try:
+        rospy.spin()
+    except KeyboardInterrupt:
+        pass
 ```
 
+Edit the `stop_detector.py` node so it utilizes the `camera_callback()` function we used above to get images from the camera.
+
+After getting the `cv_image` within the `camera_callback()`, apply the detector in a similar method as Module 9: [Testing a detector](CV:HOG) creating boxes around all detected stop signs. Using a `waitKey(1)` will allow for the image to refresh automatically without user input and display the video.
+
+
+
+
+You will then use the detector and known size of the stop sign to estimate how far the stop sign is from the camera. Lastly, you will create a node to identify and determine how far an April Tag is from the robot.
+
+-->
+<!--
+## Checkpoint 1
+Demonstrate the stop detector on the **Master** detecting a stop sign from the **Robot's** camera.
+
+```bash
+rosrun lab4 stop_detector.py _detector:=/home/dfec/master_ws/src/ece387_master_spring202X-NAME/lab4/training_images/stop_detector.svm
+```
+
+```{note}
+You must have the `lab4.launch` file running.
+```
+
+## Move detector to robot
+Copy the detector and node to the robot:
+
+```bash
+roscd lab4/training_images
+scp stop_detector.svm pi@robotX:/home/pi/robot_ws/src/ece387_robot_spring202X-NAME/lab4/training_images/stop_detector.svm
+roscd lab4/src
+scp stop_detector.py pi@robotX:/home/pi/robot_ws/src/ece387_robot_spring202X-NAME/lab4/src/stop_detector.py
+```
+
+Remove the lines that display the video and instead print "Stop detected" if `boxes` is not empty.
+
+Do you note a difference in processing speed?
+
+## Launch file
+Edit the `lab4.launch` file so it will run the stop detector node with the `detector` param set to the location of the detector. For example:
+
+```xml
+<node machine="robotX" name="stop_detector" pkg="lab4" type="stop_detector.py" output="screen">
+    <param name="detector" value="/home/pi/robot_ws/src/ece387_robot_spring202X-Name/robot/lab4/training_images/stop_detector.svm"/>
+</node>
+```
+
+## Checkpoint 2
+Demonstrate the stop detector on the **Robot** detecting a stop sign.
+
+## Determine distance from stop sign
+
+### Edit `stop_detector.py`
+
+You will edit your stop sign detector on the **Robot** to calculate an estimated distance between the camera and the stop sign using triangle similarity. 
+
+Given a stop sign with a known width, $W$, we can place the stop sign at a known distance, $D$, from our camera. The detector will then detect the stop sign and provide a perceived width in pixels, $P$. Using these values we can calculate the focal length, $F$ of our camera:
+
+$F = \frac{(P\times D)}{W}$
+
+We can then use the calculated focal length, $F$, known width, $W$, and perceived width in pixels, $P$ to calculate the distance from the camera:
+
+$D' = \frac{(W\times F)}{P}$
+
+Use the above information and create two class variables, `FOCAL` and `STOP_WIDTH`, and a class function to calculate distance given a known `FOCAL` length and a known width of the stop sign, `STOP_WIDTH`. You will need to print the perceived width of the stop sign to determine the $P$ value used in the calculation to find the focal length.
+
+> 💡️ **Tip:** Pay attention to what the `x` and `w` variables of the `box` actually represent!
+
+Create a new publisher that will publish the distance using **Float32** *std_msgs* messages over the */stop_dist* topic.
+
+Publish the distance of each object seen in the image. 
+
+Remove any print statements after troubleshooting!
+
+## Checkpoint 3
+Demonstrate the **stop_detector** node publishing distance from the stop sign.
+
+## Printing April Tag information
+
+Create a node on the master in lab4 called `apriltag_dist.py`. Import the appropriate AprilTag message. Subscribe to the `tag_detections` topic. Print the identified AprilTag ID and distance. If the camera sees multiple tags, it should print the information for each tag.
+
+In your callback function you will want to create a for loop such as:
+
+```python
+for tag in data.detections:
+```
+
+Use print statements to determine the characteristics of the message (you can also google the message).
+
+Add the `apriltag_dist` node to the **lab4** launch file.
+
+## Checkpoint 4
+
+Demonstrate the `apriltag_dist` node printing the ID and distance of each April Tag.
+
+## Report
+Complete a short 2-3 page report that utilizes the format and answers the questions within the report template. The report template and an example report can be found within the Team under `Resources/Lab Template`.
+
+> 📝️ **Note:** We will be primarily grading sections 3.1, 3.2, and 3.3 for this lab, but do include the entire lab as you will need other components for the final project report.
+
+## Turn-in Requirements
+**[25 points]** All checkpoints marked off.
+
+**[50 points]** Report via Gradescope.
+
+**[25 points]** Code: push your code to your repository. Also, include a screen shot of the **apriltag_dist.py** and **stop_detector.py** files at the end of your report.
+
+
+
+<!--
 Make and source your workspace.
+
+
+
+
+
+
+
+
+
+
+1. Now, On the drop down menu, select `image_raw/compressed`.  Nothing will be displayed. Instead, you will be able to find error messages on the terminal.
+
+1. Open another teminal and log in to the robot using SSH. Then run the following command
+
+ros2 run image_transport republish raw compressed   --ros-args   -r in:=/camera1/image_raw   -r out:=/camera1/image_compressed   -p jpeg_quality:=70  # Adjust for quality/bandwidth tradeoff
+
+
+    ros2 run image_transport republish raw compressed --ros-args --remap in:=/image_raw --remap out/compressed:=/image_raw/compressed -p compressed.format:=jpeg -p compressed.jpeg_quality:=50  # Lower = less CPU, worse quality
+
+
+
 
 ### Launch File - USB Cam
 
@@ -750,255 +1073,6 @@ rostopic list
 rosrun rqt_image_view rqt_image_view
 ```
 Ensure the `/usb_cam/image_raw` topic is selected.
-
-
-<!--
-# Lab 4: Computer Vision
-
-
-## Purpose
-This lab will integrate a USB Camera with the Robot. You will use a Python script to take pictures of the stop sign and build a stop sign detector then test it using a live video feed. You will then use the detector and known size of the stop sign to estimate how far the stop sign is from the camera. Lastly, you will create a node to identify and determine how far an April Tag is from the robot.
-
-## Setup packages
-Open a terminal on the **Robot** and create a lab4 package:
-
-```bash
-cd ~/master_ws/src/ece387_robot_spring202X-USERNAME/
-catkin_create_pkg lab4 rospy sensor_msgs std_msgs cv_bridge apriltag_ros
-```
-
-Make and source your workspace.
-
-
-## Create a ROS node to save images
-Browse to your lab4 source folder on the **Master** and create a node called **image_capture.py**.
-
-```python
-#!/usr/bin/env python3
-import rospy, cv2, argparse
-from sensor_msgs.msg import Image
-from cv_bridge import CvBridge, CvBridgeError
-
-
-class SavingImage(object):
-    def __init__(self, img_dest):
-        self.img_dest = img_dest
-        self.ctrl_c = False
-        self.count = 0
-        
-        # subscribe to the topic created by the usb_cam node
-        self.image_sub = rospy.Subscriber("/usb_cam/image_raw", Image, self.camera_callback)
-        
-        # CV bridge converts between ROS Image messages and OpenCV images
-        self.bridge_object = CvBridge()
-        
-        # callback to save images when user presses button
-        rospy.Timer(rospy.Duration(.1), self.callback_save)
-        
-        rospy.on_shutdown(self.shutdownhook)
-
-    def camera_callback(self, img):
-        if not self.ctrl_c:
-            try:
-                # convert ROS image to OpenCV image
-                self.cv_image = self.bridge_object.imgmsg_to_cv2(img, desired_encoding="bgr8")
-            except CvBridgeError as e:
-                print(e)
-            
-            # show the image (waitKey(1) allows for automatic refressh creating video)
-            cv2.imshow('image', self.cv_image)
-            cv2.waitKey(1)
-        
-    def callback_save(self, event):
-        # when user is ready to take picture press button
-        _ = input("Press enter to save the image.")
-        dest = self.img_dest + "img" + str(self.count) + ".jpg"
-        self.count += 1
-        print(dest)
-        try:
-            # write to file
-            cv2.imwrite(dest, self.cv_image)
-        except:
-            print("Not valid image name. Try restarting with valid path.")
-            
-    def shutdownhook(self):
-        print("Shutting down")
-        cv2.destroyAllWindows()
-
-if __name__ == '__main__':
-    rospy.init_node('image_saver', anonymous=True)
-    ap = argparse.ArgumentParser()
-    ap.add_argument("-o", "--output", required=True, help="path to output img")
-    args = vars(ap.parse_args())
-    saving_image_object = SavingImage(args["output"])
-    try:
-        rospy.spin()
-    except KeyboardInterrupt:
-        pass
-```
-
-Save, exit, and make executable.
-
-## Train your stop detector
-
-- Create a new folder in your **lab4** package called **training_images**.
-- Run the `image_capture.py` node on the **Master** using the following command:
-
-```{note}
-You must have the `lab4.launch` file running.
-```
-
-```bash
-rosrun lab4 image_capture.py -o /home/dfec/master_ws/src/ece387_master_spring202X-NAME/lab4/training_images/
-```
-
-Store images of the stop sign by pressing `enter` when prompted. You decide how many and at what orientations to properly train your detector. When complete, hit `ctrl+c` to exit.
-
-Utilize the steps from Module 9: [Building a detector using HOG features](CV:HOG) to label your images and train your object detector using the new images, saving the `stop_detector.svm` file within the **training_images** folder.
-
-## Test your stop detector
-Create a node in the **lab4** package on the **Master** called `stop_detector.py` and copy the below into it:
-
-```python
-#!/usr/bin/env python3
-import rospy, cv2, dlib
-from cv_bridge import CvBridge, CvBridgeError
-
-# TODO: import usb_cam message type
-
-
-class StopDetector(object):
-
-    def __init__(self, detectorLoc):
-        self.ctrl_c = False
-        
-        #TODO: create subscriber to usb_cam image topic
-
-        
-        self.bridge_object = CvBridge()
-        self.detector = dlib.simple_object_detector(detectorLoc)
-        
-        rospy.on_shutdown(self.shutdownhook)
-        
-    def camera_callback(self,data):
-        if not self.ctrl_c:
-            #TODO: write code to get ROS image, convert to OpenCV image,
-            # apply detector, add boxes to image, and display image
-            
-
-    def shutdownhook(self):
-        print("Shutting down")
-        self.ctrl_c = True
-        cv2.destroyAllWindows()
-        
-if __name__ == '__main__':
-    rospy.init_node('stop_detector')
-    detector = rospy.get_param("/stop_detector/detector")
-    stop_detector = StopDetector(detector)
-    try:
-        rospy.spin()
-    except KeyboardInterrupt:
-        pass
-```
-
-Edit the `stop_detector.py` node so it utilizes the `camera_callback()` function we used above to get images from the camera.
-
-After getting the `cv_image` within the `camera_callback()`, apply the detector in a similar method as Module 9: [Testing a detector](CV:HOG) creating boxes around all detected stop signs. Using a `waitKey(1)` will allow for the image to refresh automatically without user input and display the video.
-
-## Checkpoint 1
-Demonstrate the stop detector on the **Master** detecting a stop sign from the **Robot's** camera.
-
-```bash
-rosrun lab4 stop_detector.py _detector:=/home/dfec/master_ws/src/ece387_master_spring202X-NAME/lab4/training_images/stop_detector.svm
-```
-
-```{note}
-You must have the `lab4.launch` file running.
-```
-
-## Move detector to robot
-Copy the detector and node to the robot:
-
-```bash
-roscd lab4/training_images
-scp stop_detector.svm pi@robotX:/home/pi/robot_ws/src/ece387_robot_spring202X-NAME/lab4/training_images/stop_detector.svm
-roscd lab4/src
-scp stop_detector.py pi@robotX:/home/pi/robot_ws/src/ece387_robot_spring202X-NAME/lab4/src/stop_detector.py
-```
-
-Remove the lines that display the video and instead print "Stop detected" if `boxes` is not empty.
-
-Do you note a difference in processing speed?
-
-## Launch file
-Edit the `lab4.launch` file so it will run the stop detector node with the `detector` param set to the location of the detector. For example:
-
-```xml
-<node machine="robotX" name="stop_detector" pkg="lab4" type="stop_detector.py" output="screen">
-    <param name="detector" value="/home/pi/robot_ws/src/ece387_robot_spring202X-Name/robot/lab4/training_images/stop_detector.svm"/>
-</node>
-```
-
-## Checkpoint 2
-Demonstrate the stop detector on the **Robot** detecting a stop sign.
-
-## Determine distance from stop sign
-
-### Edit `stop_detector.py`
-
-You will edit your stop sign detector on the **Robot** to calculate an estimated distance between the camera and the stop sign using triangle similarity. 
-
-Given a stop sign with a known width, $W$, we can place the stop sign at a known distance, $D$, from our camera. The detector will then detect the stop sign and provide a perceived width in pixels, $P$. Using these values we can calculate the focal length, $F$ of our camera:
-
-$F = \frac{(P\times D)}{W}$
-
-We can then use the calculated focal length, $F$, known width, $W$, and perceived width in pixels, $P$ to calculate the distance from the camera:
-
-$D' = \frac{(W\times F)}{P}$
-
-Use the above information and create two class variables, `FOCAL` and `STOP_WIDTH`, and a class function to calculate distance given a known `FOCAL` length and a known width of the stop sign, `STOP_WIDTH`. You will need to print the perceived width of the stop sign to determine the $P$ value used in the calculation to find the focal length.
-
-> 💡️ **Tip:** Pay attention to what the `x` and `w` variables of the `box` actually represent!
-
-Create a new publisher that will publish the distance using **Float32** *std_msgs* messages over the */stop_dist* topic.
-
-Publish the distance of each object seen in the image. 
-
-Remove any print statements after troubleshooting!
-
-## Checkpoint 3
-Demonstrate the **stop_detector** node publishing distance from the stop sign.
-
-## Printing April Tag information
-
-Create a node on the master in lab4 called `apriltag_dist.py`. Import the appropriate AprilTag message. Subscribe to the `tag_detections` topic. Print the identified AprilTag ID and distance. If the camera sees multiple tags, it should print the information for each tag.
-
-In your callback function you will want to create a for loop such as:
-
-```python
-for tag in data.detections:
-```
-
-Use print statements to determine the characteristics of the message (you can also google the message).
-
-Add the `apriltag_dist` node to the **lab4** launch file.
-
-## Checkpoint 4
-
-Demonstrate the `apriltag_dist` node printing the ID and distance of each April Tag.
-
-## Report
-Complete a short 2-3 page report that utilizes the format and answers the questions within the report template. The report template and an example report can be found within the Team under `Resources/Lab Template`.
-
-> 📝️ **Note:** We will be primarily grading sections 3.1, 3.2, and 3.3 for this lab, but do include the entire lab as you will need other components for the final project report.
-
-## Turn-in Requirements
-**[25 points]** All checkpoints marked off.
-
-**[50 points]** Report via Gradescope.
-
-**[25 points]** Code: push your code to your repository. Also, include a screen shot of the **apriltag_dist.py** and **stop_detector.py** files at the end of your report.
-
 -->
 </section>
 </section>
@@ -1071,12 +1145,15 @@ Complete a short 2-3 page report that utilizes the format and answers the questi
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">📌 Objectives</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">📜 Overview</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-lab-ros2-client-libraries">🌱 Pre-Lab: ROS2 Client Libraries</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-procedures">🛠️ Lab Procedures</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-a-detector-using-hog-features"><strong>1. Building a detector using HOG features</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-a-detector"><strong>2. Testing a detector</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-instructions-object-detection-using-hog-and-ros">🧪 Lab Instructions: Object Detection Using HOG and ROS</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-a-detector-using-hog-features"><strong>1. Build a Detector Using HOG Features</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#test-the-detector"><strong>2. Test the Detector</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ros-live-camera-streaming"><strong>3. ROS: Live Camera Streaming</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#capture-training-images-with-ros"><strong>4. Capture Training Images with ROS</strong></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#not-ready-yet">Not Ready Yet</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-your-detector-in-a-ros-node">5. Use Your Detector in a ROS Node</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-lab-exercises-will-be-introduced-later">Additional lab exercises will be introduced later.</a></li>
 </ul>
   </nav></div>
 

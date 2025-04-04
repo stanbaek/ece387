@@ -133,6 +133,14 @@ source ~/.bashrc
 
 ```bash
 $ sudo apt install python3-pip
+$ sudo apt install python3-pip
+$ sudo apt install ros-humble-usb-cam
+$ pip3 install "pydantic<2"   # pip3 install pydantic 
+$ sudo apt install ros-humble-apriltag
+$ sudo apt install libapriltag-dev
+
+```
+
 ```
 
 

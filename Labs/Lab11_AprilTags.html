@@ -427,6 +427,14 @@
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>roslaunch<span class="w"> </span>lab4<span class="w"> </span>lab4.launch
 </pre></div>
 </div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/master_ws/src/ece387_ws/lab10_cv/
+catkin_create_pkg<span class="w"> </span>lab4<span class="w"> </span>rospy<span class="w"> </span>sensor_msgs<span class="w"> </span>std_msgs<span class="w"> </span>cv_bridge<span class="w"> </span>apriltag_ros
+<span class="nb">cd</span><span class="w"> </span>lab4
+mkdir<span class="w"> </span>launch
+<span class="nb">cd</span><span class="w"> </span>launch
+touch<span class="w"> </span>lab4.launch
+</pre></div>
+</div>
 <p>Run the camera calibrate package with the correct parameters (even though the checkerboard says it is a 9x6 board with 3.0 cm squares it is actually a 8x5 board with 2.7 cm squares - the size the calibration tool uses is actually the interior vertex points, not the squares).</p>
 <p>Open a new terminal on the <strong>Master</strong> and run the folowing:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rosrun<span class="w"> </span>camera_calibration<span class="w"> </span>cameracalibrator.py<span class="w"> </span>--size<span class="w"> </span>8x5<span class="w"> </span>--square<span class="w"> </span><span class="m">0</span>.027<span class="w"> </span>image:<span class="o">=</span>/usb_cam/image_raw<span class="w"> </span>camera:<span class="o">=</span>/usb_cam
