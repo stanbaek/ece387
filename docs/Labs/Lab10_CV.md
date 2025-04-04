@@ -213,9 +213,101 @@ Now that we understand HOG features, let’s leverage OpenCV and Dlib to build a
 1. OK, so how did you do? What surprises did you have? What might you consider to improve the detector?
 
 
-## Not Ready Yet
+### **3. ROS and Image Capture**
+
+ROS provides a number of tools to interact with a commercial-off-the-shelf camera such as the USB camera connected to your robot. The primary tool we will use is the [usb_cam](https://docs.ros.org/en/humble/p/usb_cam/) package which is already installed on your robot.
+
+1. Use SSH to log in to the robot and run to start the usb_cam node:
+
+    ```bash
+    ros2 run usb_cam usb_cam_node_exe --ros-args -p video_device:=/dev/video0 -p image_width:=640 -p image_height:=480
+    ```
+    It will return something similar to the following.
+
+    ```bash
+    [INFO] [1743639677.389401239] [usb_cam]: camera_name value: default_cam
+    [WARN] [1743639677.389716721] [usb_cam]: framerate: 30.000000
+    [INFO] [1743639677.395954091] [usb_cam]: using default calibration URL
+    [INFO] [1743639677.396083869] [usb_cam]: camera calibration URL: file:///home/ubuntu/.ros/camera_info/default_cam.yaml
+    [ERROR] [1743639677.396284795] [camera_calibration_parsers]: Unable to open camera calibration file [/home/ubuntu/.ros/camera_info/default_cam.yaml]
+    [WARN] [1743639677.396333091] [usb_cam]: Camera calibration file /home/ubuntu/.ros/camera_info/default_cam.yaml not found
+    [INFO] [1743639677.478409424] [usb_cam]: Starting 'default_cam' (/dev/video0) at 640x480 via mmap (yuyv) at 30 FPS
+    [swscaler @ 0xaaaad71710b0] No accelerated colorspace conversion found from yuv422p to rgb24.
+    This device supports the following formats:
+    Motion-JPEG 1280 x 720 (30 Hz)
+    Motion-JPEG 1280 x 720 (20 Hz)
+    Motion-JPEG 1280 x 720 (15 Hz)
+    Motion-JPEG 1280 x 720 (10 Hz)
+        :       
+    [INFO] [1743639677.585692424] [usb_cam]: Setting 'brightness' to 50
+    unknown control 'white_balance_temperature_auto'
+
+    [INFO] [1743639677.660384646] [usb_cam]: Setting 'white_balance_temperature_auto' to 1
+    [INFO] [1743639677.660552146] [usb_cam]: Setting 'exposure_auto' to 3
+    unknown control 'exposure_auto'
+
+    [INFO] [1743639677.672507961] [usb_cam]: Setting 'focus_auto' to 0
+    unknown control 'focus_auto'
+
+    [INFO] [1743639677.896303739] [usb_cam]: Timer triggering every 33 ms
+    ```
+
+    Do not worry about the calibration error message. We will calibrate the camera later.
 
 
+2. On Master, run `ros2 topic list` to verify if the usb_cam node publishes images. You should be able to see the following topics:
+
+    ```bash
+    /camera_info
+    /image_raw
+    /image_raw/compressed
+    /image_raw/compressedDepth
+    /image_raw/theor
+    ```
+
+3. Examine the bandwidth of the `/image_raw` and `/image_raw/compressed` topics using the `ros2 topic bw` command:
+
+    ```bash
+    ros2 topic bw /image_raw
+    ros2 topic bw /image_raw/compressed
+    ```
+
+4. Examine how many images can be subscribed on the Master machine:
+
+    ```bash
+    ros2 topic hz /image_raw
+    ros2 topic hz /image_raw/compressed
+    ```
+
+5. Now, open `rqt_image_view`:
+
+    ```bash
+    ros2 run rqt_image_view rqt_image_view
+    ```
+
+1. On the drop down menu, select `image_raw`.  Then, slowly wave your hand in front of the camera to observe the speed.
+
+1. Now, On the drop down menu, select `image_raw/compressed`.  Nothing will be displayed. Instead, you will be able to find error messages on the terminal.
+
+1. Open another teminal and log in to the robot using SSH. Then run the following command
+
+ros2 run image_transport republish raw compressed   --ros-args   -r in:=/camera1/image_raw   -r out:=/camera1/image_compressed   -p jpeg_quality:=70  # Adjust for quality/bandwidth tradeoff
+
+
+    ros2 run image_transport republish raw compressed --ros-args --remap in:=/image_raw --remap out/compressed:=/image_raw/compressed -p compressed.format:=jpeg -p compressed.jpeg_quality:=50  # Lower = less CPU, worse quality
+
+
+
+In a terminal create a **lab4** package, `launch` folder, and `lab4.launch` file:
+
+```bash
+cd ~/master_ws/src/ece387_ws/lab10_cv/
+catkin_create_pkg lab4 rospy sensor_msgs std_msgs cv_bridge apriltag_ros
+cd lab4
+mkdir launch
+cd launch
+touch lab4.launch
+```
 
 
 ubuntu@robot99:~
@@ -320,104 +412,6 @@ unknown control 'focus_auto'
 
 
 
-
-
-### **3. ROS and Image Capture**
-ROS provides a number of tools to interact with a commercial-off-the-shelf camera such as the USB camera connected to your robot. The primary tool we will use is the [usb_cam](https://docs.ros.org/en/humble/p/usb_cam/) package which is already installed on your robot.
-
-1. Use SSH to log in to the robot and run to start the usb_cam node:
-
-    ```bash
-    ros2 run usb_cam usb_cam_node_exe --ros-args -p video_device:=/dev/video0 -p image_width:=640 -p image_height:=480
-    ```
-
-    ros2 run image_transport republish raw compressed --ros-args --remap in:=/image_raw --remap out/compressed:=/image_raw/compressed -p compressed.format:=jpeg -p compressed.jpeg_quality:=50  # Lower = less CPU, worse quality
-
-
-
-    It will return something similar to the following.
-
-    ```bash
-    [INFO] [1743639677.389401239] [usb_cam]: camera_name value: default_cam
-    [WARN] [1743639677.389716721] [usb_cam]: framerate: 30.000000
-    [INFO] [1743639677.395954091] [usb_cam]: using default calibration URL
-    [INFO] [1743639677.396083869] [usb_cam]: camera calibration URL: file:///home/ubuntu/.ros/camera_info/default_cam.yaml
-    [ERROR] [1743639677.396284795] [camera_calibration_parsers]: Unable to open camera calibration file [/home/ubuntu/.ros/camera_info/default_cam.yaml]
-    [WARN] [1743639677.396333091] [usb_cam]: Camera calibration file /home/ubuntu/.ros/camera_info/default_cam.yaml not found
-    [INFO] [1743639677.478409424] [usb_cam]: Starting 'default_cam' (/dev/video0) at 640x480 via mmap (yuyv) at 30 FPS
-    [swscaler @ 0xaaaad71710b0] No accelerated colorspace conversion found from yuv422p to rgb24.
-    This device supports the following formats:
-    Motion-JPEG 1280 x 720 (30 Hz)
-    Motion-JPEG 1280 x 720 (20 Hz)
-    Motion-JPEG 1280 x 720 (15 Hz)
-    Motion-JPEG 1280 x 720 (10 Hz)
-        :       
-    [INFO] [1743639677.585692424] [usb_cam]: Setting 'brightness' to 50
-    unknown control 'white_balance_temperature_auto'
-
-    [INFO] [1743639677.660384646] [usb_cam]: Setting 'white_balance_temperature_auto' to 1
-    [INFO] [1743639677.660552146] [usb_cam]: Setting 'exposure_auto' to 3
-    unknown control 'exposure_auto'
-
-    [INFO] [1743639677.672507961] [usb_cam]: Setting 'focus_auto' to 0
-    unknown control 'focus_auto'
-
-    [INFO] [1743639677.896303739] [usb_cam]: Timer triggering every 33 ms
-    ```
-
-    Do not worry about the calibration error message. We will calibrate the camera later.
-
-
-2. On Master, run `ros2 topic list` to verify if the usb_cam node publishes images. You should be able to see the following topics:
-
-    ```bash
-    /camera_info
-    /image_raw
-    /image_raw/compressed
-    /image_raw/compressedDepth
-    /image_raw/theor
-    ```
-
-3. Examine the bandwidth of the `/image_raw` and `/image_raw/compressed` topics using the `ros2 topic bw` command:
-
-    ```bash
-    ros2 topic bw /image_raw
-    ros2 topic bw /image_raw/compressed
-    ```
-
-4. Examine how many images can be subscribed on the Master machine:
-
-    ```bash
-    ros2 topic hz /image_raw
-    ros2 topic hz /image_raw/compressed
-    ```
-
-5. Now, open `rqt_image_view`:
-
-    ```bash
-    ros2 run rqt_image_view rqt_image_view
-    ```
-
-1. On the drop down menu, select `image_raw`.  Then, slowly wave your hand in front of the camera to observe the speed.
-
-1. Now, On the drop down menu, select `image_raw/compressed`.  Nothing will be displayed. Instead, you will be able to find error messages on the terminal.
-
-1. Open another teminal and log in to the robot using SSH. Then run the following command
-
-ros2 run image_transport republish raw compressed   --ros-args   -r in:=/camera1/image_raw   -r out:=/camera1/image_compressed   -p jpeg_quality:=70  # Adjust for quality/bandwidth tradeoff
-
-
-
-In a terminal create a **lab4** package, `launch` folder, and `lab4.launch` file:
-
-```bash
-cd ~/master_ws/src/ece387_ws/lab10_cv/
-catkin_create_pkg lab4 rospy sensor_msgs std_msgs cv_bridge apriltag_ros
-cd lab4
-mkdir launch
-cd launch
-touch lab4.launch
-```
 
 Make and source your workspace.
 
