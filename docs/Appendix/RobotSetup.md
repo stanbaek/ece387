@@ -601,7 +601,7 @@ echo "export ROS_DOMAIN_ID=<your_domain_id>" >> ~/.bashrc
 
 ### Install and Build ROS2 Packages
 
-```
+```bash
 sudo apt install python3-argcomplete python3-colcon-common-extensions libboost-system-dev build-essential
 sudo apt install ros-humble-hls-lfcd-lds-driver
 sudo apt install ros-humble-turtlebot3-msgs
@@ -618,9 +618,19 @@ source ~/turtlebot3_ws/install/setup.bash
 source ~/.bashrc
 ```
 
+ROS2 USB-CAM Package
+```bash
+sudo apt install -y python3-pip
+sudo apt install -y ros-humble-usb-cam
+pip3 install "pydantic<2"   # pip3 install pydantic 
+sudo apt install -y ros-humble-apriltag
+sudo apt install -y libapriltag-dev
+sudo apt install ros-humble-compressed-image-transport
+sudo apt install -y ros-humble-image-proc
+```
 
 USB Port Setting for OpenCR
-```
+```bash
 sudo cp `ros2 pkg prefix turtlebot3_bringup`/share/turtlebot3_bringup/script/99-turtlebot3-cdc.rules /etc/udev/rules.d/
 sudo udevadm control --reload-rules
 sudo udevadm trigger
