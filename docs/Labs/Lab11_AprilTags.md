@@ -11,6 +11,25 @@ Connect to the camera using the **usb_cam** node:
 roslaunch lab4 lab4.launch
 ```
 
+
+
+
+
+
+```bash
+cd ~/master_ws/src/ece387_ws/lab10_cv/
+catkin_create_pkg lab4 rospy sensor_msgs std_msgs cv_bridge apriltag_ros
+cd lab4
+mkdir launch
+cd launch
+touch lab4.launch
+```
+
+
+
+
+
+
 Run the camera calibrate package with the correct parameters (even though the checkerboard says it is a 9x6 board with 3.0 cm squares it is actually a 8x5 board with 2.7 cm squares - the size the calibration tool uses is actually the interior vertex points, not the squares).
 
 Open a new terminal on the **Master** and run the folowing:

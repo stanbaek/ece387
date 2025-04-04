@@ -61,6 +61,7 @@ Now that we understand HOG features, let’s leverage OpenCV and Dlib to build a
 
 ## 🛠️ Lab Procedures
 
+(CV:HOG)=
 ### **1. Building a detector using HOG features**
 
 1. Download the example demo.
@@ -287,6 +288,213 @@ ROS provides a number of tools to interact with a commercial-off-the-shelf camer
 
 1. On the drop down menu, select `image_raw`.  Then, slowly wave your hand in front of the camera to observe the speed.
 
+1. As you notices, the transmitting images over the WiFi network is very slow. Although we can tranmit compressed image to improve the speed, there is also computation burdon on both the Raspberry Pi on the robot and the Master computer.  For this reason, we would like to use the master computer while developing camera packages. Once it is ready to use, we can port the code to the robot.
+
+1. Now disconnect the camera from the robot and connect to Master. You can disconect the gamepad.
+
+1. Run the following command on Master
+
+    ```bash
+    ros2 run usb_cam usb_cam_node_exe --ros-args -p video_device:=/dev/video0 -p image_width:=640 -p image_height:=480
+    ```
+
+1. Now, open `rqt_image_view` to verify the images are properly displayed
+
+    ```bash
+    ros2 run rqt_image_view rqt_image_view
+    ```
+
+
+### **4. Create a ROS node to save images**
+
+In this part of the lab, you will use a Python script to take pictures of the stop sign and build a stop sign detector then test it using a live video feed. 
+
+1. Download the [`image_capture.py`](../files/image_capture.py) script and save it in the appropriate folder within your package (You should know where this file should go by now).
+
+1. Update the `setup.py` file by correctly adding the entry point for `image_capture.py`. This is necessary to ensure that the script runs as a node.
+
+1. Open the `image_capture.py` script and carefully read through the code. This code would be pretty new to you, but I hope you try to understand what it does. 
+
+1. Ensure you build the package correctly to make the script executable.
+
+1. Start the `usb_cam` node
+    ```bash
+    ros2 run usb_cam usb_cam_node_exe --ros-args -p video_device:=/dev/video0 -p image_width:=640 -p image_height:=480
+    ```
+    Open another terminal and go to the `Documents` directory. Then, run
+    ```bash
+    ros2 run lab10_cv image_capture -o ./training_images/
+    ```
+
+1. Store images of the stop sign by pressing `s` followed by `enter` when prompted. You decide how many and at what orientations to properly train your detector. When complete, hit `ctrl+c` to exit.
+
+Utilize the steps from Section 1: [Building a detector using HOG features](CV:HOG) to label your images and train your object detector using the new images, saving the `stop_detector.svm` file within the **training_images** folder.
+
+### **5.Test your stop detector**
+
+Create a node in the **lab4** package on the **Master** called `stop_detector.py` and copy the below into it:
+
+```python
+#!/usr/bin/env python3
+import rospy, cv2, dlib
+from cv_bridge import CvBridge, CvBridgeError
+
+# TODO: import usb_cam message type
+
+
+class StopDetector(object):
+
+    def __init__(self, detectorLoc):
+        self.ctrl_c = False
+        
+        #TODO: create subscriber to usb_cam image topic
+
+        
+        self.bridge_object = CvBridge()
+        self.detector = dlib.simple_object_detector(detectorLoc)
+        
+        rospy.on_shutdown(self.shutdownhook)
+        
+    def camera_callback(self,data):
+        if not self.ctrl_c:
+            #TODO: write code to get ROS image, convert to OpenCV image,
+            # apply detector, add boxes to image, and display image
+            
+
+    def shutdownhook(self):
+        print("Shutting down")
+        self.ctrl_c = True
+        cv2.destroyAllWindows()
+        
+if __name__ == '__main__':
+    rospy.init_node('stop_detector')
+    detector = rospy.get_param("/stop_detector/detector")
+    stop_detector = StopDetector(detector)
+    try:
+        rospy.spin()
+    except KeyboardInterrupt:
+        pass
+```
+
+Edit the `stop_detector.py` node so it utilizes the `camera_callback()` function we used above to get images from the camera.
+
+After getting the `cv_image` within the `camera_callback()`, apply the detector in a similar method as Module 9: [Testing a detector](CV:HOG) creating boxes around all detected stop signs. Using a `waitKey(1)` will allow for the image to refresh automatically without user input and display the video.
+
+
+
+
+You will then use the detector and known size of the stop sign to estimate how far the stop sign is from the camera. Lastly, you will create a node to identify and determine how far an April Tag is from the robot.
+
+
+<!--
+## Checkpoint 1
+Demonstrate the stop detector on the **Master** detecting a stop sign from the **Robot's** camera.
+
+```bash
+rosrun lab4 stop_detector.py _detector:=/home/dfec/master_ws/src/ece387_master_spring202X-NAME/lab4/training_images/stop_detector.svm
+```
+
+```{note}
+You must have the `lab4.launch` file running.
+```
+
+## Move detector to robot
+Copy the detector and node to the robot:
+
+```bash
+roscd lab4/training_images
+scp stop_detector.svm pi@robotX:/home/pi/robot_ws/src/ece387_robot_spring202X-NAME/lab4/training_images/stop_detector.svm
+roscd lab4/src
+scp stop_detector.py pi@robotX:/home/pi/robot_ws/src/ece387_robot_spring202X-NAME/lab4/src/stop_detector.py
+```
+
+Remove the lines that display the video and instead print "Stop detected" if `boxes` is not empty.
+
+Do you note a difference in processing speed?
+
+## Launch file
+Edit the `lab4.launch` file so it will run the stop detector node with the `detector` param set to the location of the detector. For example:
+
+```xml
+<node machine="robotX" name="stop_detector" pkg="lab4" type="stop_detector.py" output="screen">
+    <param name="detector" value="/home/pi/robot_ws/src/ece387_robot_spring202X-Name/robot/lab4/training_images/stop_detector.svm"/>
+</node>
+```
+
+## Checkpoint 2
+Demonstrate the stop detector on the **Robot** detecting a stop sign.
+
+## Determine distance from stop sign
+
+### Edit `stop_detector.py`
+
+You will edit your stop sign detector on the **Robot** to calculate an estimated distance between the camera and the stop sign using triangle similarity. 
+
+Given a stop sign with a known width, $W$, we can place the stop sign at a known distance, $D$, from our camera. The detector will then detect the stop sign and provide a perceived width in pixels, $P$. Using these values we can calculate the focal length, $F$ of our camera:
+
+$F = \frac{(P\times D)}{W}$
+
+We can then use the calculated focal length, $F$, known width, $W$, and perceived width in pixels, $P$ to calculate the distance from the camera:
+
+$D' = \frac{(W\times F)}{P}$
+
+Use the above information and create two class variables, `FOCAL` and `STOP_WIDTH`, and a class function to calculate distance given a known `FOCAL` length and a known width of the stop sign, `STOP_WIDTH`. You will need to print the perceived width of the stop sign to determine the $P$ value used in the calculation to find the focal length.
+
+> 💡️ **Tip:** Pay attention to what the `x` and `w` variables of the `box` actually represent!
+
+Create a new publisher that will publish the distance using **Float32** *std_msgs* messages over the */stop_dist* topic.
+
+Publish the distance of each object seen in the image. 
+
+Remove any print statements after troubleshooting!
+
+## Checkpoint 3
+Demonstrate the **stop_detector** node publishing distance from the stop sign.
+
+## Printing April Tag information
+
+Create a node on the master in lab4 called `apriltag_dist.py`. Import the appropriate AprilTag message. Subscribe to the `tag_detections` topic. Print the identified AprilTag ID and distance. If the camera sees multiple tags, it should print the information for each tag.
+
+In your callback function you will want to create a for loop such as:
+
+```python
+for tag in data.detections:
+```
+
+Use print statements to determine the characteristics of the message (you can also google the message).
+
+Add the `apriltag_dist` node to the **lab4** launch file.
+
+## Checkpoint 4
+
+Demonstrate the `apriltag_dist` node printing the ID and distance of each April Tag.
+
+## Report
+Complete a short 2-3 page report that utilizes the format and answers the questions within the report template. The report template and an example report can be found within the Team under `Resources/Lab Template`.
+
+> 📝️ **Note:** We will be primarily grading sections 3.1, 3.2, and 3.3 for this lab, but do include the entire lab as you will need other components for the final project report.
+
+## Turn-in Requirements
+**[25 points]** All checkpoints marked off.
+
+**[50 points]** Report via Gradescope.
+
+**[25 points]** Code: push your code to your repository. Also, include a screen shot of the **apriltag_dist.py** and **stop_detector.py** files at the end of your report.
+
+
+
+<!--
+Make and source your workspace.
+
+
+
+
+
+
+
+
+
+
 1. Now, On the drop down menu, select `image_raw/compressed`.  Nothing will be displayed. Instead, you will be able to find error messages on the terminal.
 
 1. Open another teminal and log in to the robot using SSH. Then run the following command
@@ -298,122 +506,6 @@ ros2 run image_transport republish raw compressed   --ros-args   -r in:=/camera1
 
 
 
-In a terminal create a **lab4** package, `launch` folder, and `lab4.launch` file:
-
-```bash
-cd ~/master_ws/src/ece387_ws/lab10_cv/
-catkin_create_pkg lab4 rospy sensor_msgs std_msgs cv_bridge apriltag_ros
-cd lab4
-mkdir launch
-cd launch
-touch lab4.launch
-```
-
-
-ubuntu@robot99:~
-$ ros2 run usb_cam usb_cam_node_exe --ros-args -p video_device:=/dev/video0 -p image_width:=640 -p image_height:=480
-[INFO] [1743632090.756654622] [usb_cam]: camera_name value: default_cam
-[WARN] [1743632090.756920715] [usb_cam]: framerate: 30.000000
-[INFO] [1743632090.763897770] [usb_cam]: using default calibration URL
-[INFO] [1743632090.764034159] [usb_cam]: camera calibration URL: file:///home/ubuntu/.ros/camera_info/default_cam.yaml
-[ERROR] [1743632090.764264585] [camera_calibration_parsers]: Unable to open camera calibration file [/home/ubuntu/.ros/camera_info/default_cam.yaml]
-[WARN] [1743632090.764336696] [usb_cam]: Camera calibration file /home/ubuntu/.ros/camera_info/default_cam.yaml not found
-[INFO] [1743632137.936049538] [usb_cam]: Starting 'default_cam' (/dev/video0) at 640x480 via mmap (yuyv) at 30 FPS
-[swscaler @ 0xaaaaf2569080] No accelerated colorspace conversion found from yuv422p to rgb24.
-This device supports the following formats:
-	Motion-JPEG 1280 x 720 (30 Hz)
-	Motion-JPEG 1280 x 720 (20 Hz)
-	Motion-JPEG 1280 x 720 (15 Hz)
-	Motion-JPEG 1280 x 720 (10 Hz)
-	Motion-JPEG 1280 x 720 (5 Hz)
-	Motion-JPEG 1280 x 720 (30 Hz)
-	Motion-JPEG 1280 x 720 (20 Hz)
-	Motion-JPEG 1280 x 720 (15 Hz)
-	Motion-JPEG 1280 x 720 (10 Hz)
-	Motion-JPEG 1280 x 720 (5 Hz)
-	Motion-JPEG 1920 x 1080 (30 Hz)
-	Motion-JPEG 1920 x 1080 (20 Hz)
-	Motion-JPEG 1920 x 1080 (15 Hz)
-	Motion-JPEG 1920 x 1080 (10 Hz)
-	Motion-JPEG 1920 x 1080 (5 Hz)
-	Motion-JPEG 960 x 540 (30 Hz)
-	Motion-JPEG 960 x 540 (20 Hz)
-	Motion-JPEG 960 x 540 (15 Hz)
-	Motion-JPEG 960 x 540 (10 Hz)
-	Motion-JPEG 960 x 540 (5 Hz)
-	Motion-JPEG 800 x 600 (30 Hz)
-	Motion-JPEG 800 x 600 (20 Hz)
-	Motion-JPEG 800 x 600 (15 Hz)
-	Motion-JPEG 800 x 600 (10 Hz)
-	Motion-JPEG 800 x 600 (5 Hz)
-	Motion-JPEG 640 x 480 (30 Hz)
-	Motion-JPEG 640 x 480 (20 Hz)
-	Motion-JPEG 640 x 480 (15 Hz)
-	Motion-JPEG 640 x 480 (10 Hz)
-	Motion-JPEG 640 x 480 (5 Hz)
-	Motion-JPEG 320 x 240 (30 Hz)
-	Motion-JPEG 320 x 240 (20 Hz)
-	Motion-JPEG 320 x 240 (15 Hz)
-	Motion-JPEG 320 x 240 (10 Hz)
-	Motion-JPEG 320 x 240 (5 Hz)
-	Motion-JPEG 320 x 180 (30 Hz)
-	Motion-JPEG 320 x 180 (20 Hz)
-	Motion-JPEG 320 x 180 (15 Hz)
-	Motion-JPEG 320 x 180 (10 Hz)
-	Motion-JPEG 320 x 180 (5 Hz)
-	Motion-JPEG 176 x 144 (30 Hz)
-	Motion-JPEG 176 x 144 (20 Hz)
-	Motion-JPEG 176 x 144 (15 Hz)
-	Motion-JPEG 176 x 144 (10 Hz)
-	Motion-JPEG 176 x 144 (5 Hz)
-	Motion-JPEG 160 x 120 (30 Hz)
-	Motion-JPEG 160 x 120 (20 Hz)
-	Motion-JPEG 160 x 120 (15 Hz)
-	Motion-JPEG 160 x 120 (10 Hz)
-	Motion-JPEG 160 x 120 (5 Hz)
-	Motion-JPEG 1280 x 720 (30 Hz)
-	Motion-JPEG 1280 x 720 (20 Hz)
-	Motion-JPEG 1280 x 720 (15 Hz)
-	Motion-JPEG 1280 x 720 (10 Hz)
-	Motion-JPEG 1280 x 720 (5 Hz)
-	Motion-JPEG 1280 x 720 (30 Hz)
-	Motion-JPEG 1280 x 720 (20 Hz)
-	Motion-JPEG 1280 x 720 (15 Hz)
-	Motion-JPEG 1280 x 720 (10 Hz)
-	Motion-JPEG 1280 x 720 (5 Hz)
-	YUYV 4:2:2 1920 x 1080 (5 Hz)
-	YUYV 4:2:2 1920 x 1080 (5 Hz)
-	YUYV 4:2:2 1280 x 720 (5 Hz)
-	YUYV 4:2:2 640 x 480 (30 Hz)
-	YUYV 4:2:2 640 x 480 (20 Hz)
-	YUYV 4:2:2 640 x 480 (15 Hz)
-	YUYV 4:2:2 640 x 480 (10 Hz)
-	YUYV 4:2:2 640 x 480 (5 Hz)
-	YUYV 4:2:2 320 x 240 (30 Hz)
-	YUYV 4:2:2 320 x 240 (20 Hz)
-	YUYV 4:2:2 320 x 240 (15 Hz)
-	YUYV 4:2:2 320 x 240 (10 Hz)
-	YUYV 4:2:2 320 x 240 (5 Hz)
-	YUYV 4:2:2 1920 x 1080 (5 Hz)
-	YUYV 4:2:2 1920 x 1080 (5 Hz)
-[INFO] [1743632137.963216446] [usb_cam]: Setting 'brightness' to 50
-unknown control 'white_balance_temperature_auto'
-
-[INFO] [1743632137.996255020] [usb_cam]: Setting 'white_balance_temperature_auto' to 1
-[INFO] [1743632137.996413390] [usb_cam]: Setting 'exposure_auto' to 3
-unknown control 'exposure_auto'
-
-[INFO] [1743632138.010602075] [usb_cam]: Setting 'focus_auto' to 0
-unknown control 'focus_auto'
-
-[INFO] [1743632138.234247168] [usb_cam]: Timer triggering every 33 ms
-
-
-
-
-
-
-Make and source your workspace.
 
 ### Launch File - USB Cam
 
@@ -553,253 +645,6 @@ rostopic list
 rosrun rqt_image_view rqt_image_view
 ```
 Ensure the `/usb_cam/image_raw` topic is selected.
-
-
-<!--
-# Lab 4: Computer Vision
-
-
-## Purpose
-This lab will integrate a USB Camera with the Robot. You will use a Python script to take pictures of the stop sign and build a stop sign detector then test it using a live video feed. You will then use the detector and known size of the stop sign to estimate how far the stop sign is from the camera. Lastly, you will create a node to identify and determine how far an April Tag is from the robot.
-
-## Setup packages
-Open a terminal on the **Robot** and create a lab4 package:
-
-```bash
-cd ~/master_ws/src/ece387_robot_spring202X-USERNAME/
-catkin_create_pkg lab4 rospy sensor_msgs std_msgs cv_bridge apriltag_ros
-```
-
-Make and source your workspace.
-
-
-## Create a ROS node to save images
-Browse to your lab4 source folder on the **Master** and create a node called **image_capture.py**.
-
-```python
-#!/usr/bin/env python3
-import rospy, cv2, argparse
-from sensor_msgs.msg import Image
-from cv_bridge import CvBridge, CvBridgeError
-
-
-class SavingImage(object):
-    def __init__(self, img_dest):
-        self.img_dest = img_dest
-        self.ctrl_c = False
-        self.count = 0
-        
-        # subscribe to the topic created by the usb_cam node
-        self.image_sub = rospy.Subscriber("/usb_cam/image_raw", Image, self.camera_callback)
-        
-        # CV bridge converts between ROS Image messages and OpenCV images
-        self.bridge_object = CvBridge()
-        
-        # callback to save images when user presses button
-        rospy.Timer(rospy.Duration(.1), self.callback_save)
-        
-        rospy.on_shutdown(self.shutdownhook)
-
-    def camera_callback(self, img):
-        if not self.ctrl_c:
-            try:
-                # convert ROS image to OpenCV image
-                self.cv_image = self.bridge_object.imgmsg_to_cv2(img, desired_encoding="bgr8")
-            except CvBridgeError as e:
-                print(e)
-            
-            # show the image (waitKey(1) allows for automatic refressh creating video)
-            cv2.imshow('image', self.cv_image)
-            cv2.waitKey(1)
-        
-    def callback_save(self, event):
-        # when user is ready to take picture press button
-        _ = input("Press enter to save the image.")
-        dest = self.img_dest + "img" + str(self.count) + ".jpg"
-        self.count += 1
-        print(dest)
-        try:
-            # write to file
-            cv2.imwrite(dest, self.cv_image)
-        except:
-            print("Not valid image name. Try restarting with valid path.")
-            
-    def shutdownhook(self):
-        print("Shutting down")
-        cv2.destroyAllWindows()
-
-if __name__ == '__main__':
-    rospy.init_node('image_saver', anonymous=True)
-    ap = argparse.ArgumentParser()
-    ap.add_argument("-o", "--output", required=True, help="path to output img")
-    args = vars(ap.parse_args())
-    saving_image_object = SavingImage(args["output"])
-    try:
-        rospy.spin()
-    except KeyboardInterrupt:
-        pass
-```
-
-Save, exit, and make executable.
-
-## Train your stop detector
-
-- Create a new folder in your **lab4** package called **training_images**.
-- Run the `image_capture.py` node on the **Master** using the following command:
-
-```{note}
-You must have the `lab4.launch` file running.
-```
-
-```bash
-rosrun lab4 image_capture.py -o /home/dfec/master_ws/src/ece387_master_spring202X-NAME/lab4/training_images/
-```
-
-Store images of the stop sign by pressing `enter` when prompted. You decide how many and at what orientations to properly train your detector. When complete, hit `ctrl+c` to exit.
-
-Utilize the steps from Module 9: [Building a detector using HOG features](CV:HOG) to label your images and train your object detector using the new images, saving the `stop_detector.svm` file within the **training_images** folder.
-
-## Test your stop detector
-Create a node in the **lab4** package on the **Master** called `stop_detector.py` and copy the below into it:
-
-```python
-#!/usr/bin/env python3
-import rospy, cv2, dlib
-from cv_bridge import CvBridge, CvBridgeError
-
-# TODO: import usb_cam message type
-
-
-class StopDetector(object):
-
-    def __init__(self, detectorLoc):
-        self.ctrl_c = False
-        
-        #TODO: create subscriber to usb_cam image topic
-
-        
-        self.bridge_object = CvBridge()
-        self.detector = dlib.simple_object_detector(detectorLoc)
-        
-        rospy.on_shutdown(self.shutdownhook)
-        
-    def camera_callback(self,data):
-        if not self.ctrl_c:
-            #TODO: write code to get ROS image, convert to OpenCV image,
-            # apply detector, add boxes to image, and display image
-            
-
-    def shutdownhook(self):
-        print("Shutting down")
-        self.ctrl_c = True
-        cv2.destroyAllWindows()
-        
-if __name__ == '__main__':
-    rospy.init_node('stop_detector')
-    detector = rospy.get_param("/stop_detector/detector")
-    stop_detector = StopDetector(detector)
-    try:
-        rospy.spin()
-    except KeyboardInterrupt:
-        pass
-```
-
-Edit the `stop_detector.py` node so it utilizes the `camera_callback()` function we used above to get images from the camera.
-
-After getting the `cv_image` within the `camera_callback()`, apply the detector in a similar method as Module 9: [Testing a detector](CV:HOG) creating boxes around all detected stop signs. Using a `waitKey(1)` will allow for the image to refresh automatically without user input and display the video.
-
-## Checkpoint 1
-Demonstrate the stop detector on the **Master** detecting a stop sign from the **Robot's** camera.
-
-```bash
-rosrun lab4 stop_detector.py _detector:=/home/dfec/master_ws/src/ece387_master_spring202X-NAME/lab4/training_images/stop_detector.svm
-```
-
-```{note}
-You must have the `lab4.launch` file running.
-```
-
-## Move detector to robot
-Copy the detector and node to the robot:
-
-```bash
-roscd lab4/training_images
-scp stop_detector.svm pi@robotX:/home/pi/robot_ws/src/ece387_robot_spring202X-NAME/lab4/training_images/stop_detector.svm
-roscd lab4/src
-scp stop_detector.py pi@robotX:/home/pi/robot_ws/src/ece387_robot_spring202X-NAME/lab4/src/stop_detector.py
-```
-
-Remove the lines that display the video and instead print "Stop detected" if `boxes` is not empty.
-
-Do you note a difference in processing speed?
-
-## Launch file
-Edit the `lab4.launch` file so it will run the stop detector node with the `detector` param set to the location of the detector. For example:
-
-```xml
-<node machine="robotX" name="stop_detector" pkg="lab4" type="stop_detector.py" output="screen">
-    <param name="detector" value="/home/pi/robot_ws/src/ece387_robot_spring202X-Name/robot/lab4/training_images/stop_detector.svm"/>
-</node>
-```
-
-## Checkpoint 2
-Demonstrate the stop detector on the **Robot** detecting a stop sign.
-
-## Determine distance from stop sign
-
-### Edit `stop_detector.py`
-
-You will edit your stop sign detector on the **Robot** to calculate an estimated distance between the camera and the stop sign using triangle similarity. 
-
-Given a stop sign with a known width, $W$, we can place the stop sign at a known distance, $D$, from our camera. The detector will then detect the stop sign and provide a perceived width in pixels, $P$. Using these values we can calculate the focal length, $F$ of our camera:
-
-$F = \frac{(P\times D)}{W}$
-
-We can then use the calculated focal length, $F$, known width, $W$, and perceived width in pixels, $P$ to calculate the distance from the camera:
-
-$D' = \frac{(W\times F)}{P}$
-
-Use the above information and create two class variables, `FOCAL` and `STOP_WIDTH`, and a class function to calculate distance given a known `FOCAL` length and a known width of the stop sign, `STOP_WIDTH`. You will need to print the perceived width of the stop sign to determine the $P$ value used in the calculation to find the focal length.
-
-> 💡️ **Tip:** Pay attention to what the `x` and `w` variables of the `box` actually represent!
-
-Create a new publisher that will publish the distance using **Float32** *std_msgs* messages over the */stop_dist* topic.
-
-Publish the distance of each object seen in the image. 
-
-Remove any print statements after troubleshooting!
-
-## Checkpoint 3
-Demonstrate the **stop_detector** node publishing distance from the stop sign.
-
-## Printing April Tag information
-
-Create a node on the master in lab4 called `apriltag_dist.py`. Import the appropriate AprilTag message. Subscribe to the `tag_detections` topic. Print the identified AprilTag ID and distance. If the camera sees multiple tags, it should print the information for each tag.
-
-In your callback function you will want to create a for loop such as:
-
-```python
-for tag in data.detections:
-```
-
-Use print statements to determine the characteristics of the message (you can also google the message).
-
-Add the `apriltag_dist` node to the **lab4** launch file.
-
-## Checkpoint 4
-
-Demonstrate the `apriltag_dist` node printing the ID and distance of each April Tag.
-
-## Report
-Complete a short 2-3 page report that utilizes the format and answers the questions within the report template. The report template and an example report can be found within the Team under `Resources/Lab Template`.
-
-> 📝️ **Note:** We will be primarily grading sections 3.1, 3.2, and 3.3 for this lab, but do include the entire lab as you will need other components for the final project report.
-
-## Turn-in Requirements
-**[25 points]** All checkpoints marked off.
-
-**[50 points]** Report via Gradescope.
-
-**[25 points]** Code: push your code to your repository. Also, include a screen shot of the **apriltag_dist.py** and **stop_detector.py** files at the end of your report.
-
 -->
+
+
