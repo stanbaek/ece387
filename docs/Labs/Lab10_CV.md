@@ -59,12 +59,16 @@ Now that we understand HOG features, let’s leverage OpenCV and Dlib to build a
     <br>
 1. Take a screenshot of the gradient image and submit it on Gradescope.
 
-## 🛠️ Lab Procedures
+---
+
+## 🧪 Lab Instructions: Object Detection Using HOG and ROS
+
+In this lab, you’ll build a stop sign detector using HOG (Histogram of Oriented Gradients) features, test it, and integrate it with a ROS-based camera system.
 
 (CV:HOG)=
-### **1. Building a detector using HOG features**
+### **1. Build a Detector Using HOG Features**
 
-1. Download the example demo.
+1. Open a terminal and download the demo repository:
 
     ```bash
     cd ~/master_ws/src
@@ -72,19 +76,20 @@ Now that we understand HOG features, let’s leverage OpenCV and Dlib to build a
     cd HOG_Demo
     ```
 
-1. Take a look at what is contained within the repo.  Essentially you have both a training data folder and a test folder.  We will now use a tool called **imglab** to annotate the images for building our detector.
+1. Inside the repo, you'll find folders for training and test images. We'll use a tool called `imglab` to annotate the training images.
 
-1. Browse to the [imglab tool](https://solothought.com/imglab/#) and select **"UMM, MAYBE NEXT TIME!"**.
+1. Go to [imglab](https://solothought.com/imglab/#) in your browser.
 
-1. In the bottom left of the site, click on the `load` button, select the `training` folder, and click the `upload` button. It will upload 19 files.
+1. When prompted, click **"UMM, MAYBE NEXT TIME!"** to skip the sign-in.
 
-```{image} ./figures/Lab10_Load.png
-:width: 150  
-:align: center  
-```  
-<br>
+1. In the bottom left corner, click `load`, select the `training` folder from your local files, and then click `upload`. This should load 19 images.
 
-1. Select the first stop sign and the **"Rectangle"** tool. 
+    ```{image} ./figures/Lab10_Load.png
+    :width: 150  
+    :align: center  
+    ```  
+
+1. Select the **Rectangle** tool and begin labeling stop signs:
 
     ```{image} ./figures/Lab10_Rectangle.png
     :width: 50  
@@ -92,245 +97,309 @@ Now that we understand HOG features, let’s leverage OpenCV and Dlib to build a
     ```  
     <br>
 
-1. Highlight the border of the stop sign: drag-and-draw a bounding rectangle, ensuring to **only** select the stop sign and to select all examples of the object in the image.
+   - Click and drag to draw a bounding box **only around each stop sign**.
+   - If an image contains multiple stop signs, draw a box around each.
+   - If you make a mistake, select the box and press `delete`.
 
-    > 📝️ **NOTE:** It is important to label all examples of objects in an image; otherwise, Dlib will implicitly assume that regions not labeled are regions that should not be detected (i.e., hard-negative mining applied during extraction time).
+    ```{note} 
+    It is important to label all examples of objects in an image; otherwise, Dlib will implicitly assume that regions not labeled are regions that should not be detected (i.e., hard-negative mining applied during extraction time).
+    ```
 
-1. You can select a bounding box and hit the delete key to remove it.
+    ```{tip}
+    Use `Alt + ←/→` to switch between images.
+    ```
 
-1. If you press `alt+left/right arrow` you can navigate through images in the slider and repeat highlighting the objects.
-
-1. Once all stop signs are complete hit `ctrl+e` to save the annotations (bounding box information) as a **"Dlib XML"** file within the `training` folder using a descriptive name such as `stop_annotations.xml`.
+1. Once you've labeled all images, press `Ctrl + e` to export your annotations.
+   - Save the file as `stop_annotations.xml` in the `training` folder.
 
     ```{image} ./figures/Lab10_Dlib.png
     :width: 200  
     :align: center  
     ```  
-
-1. We now need to create the code to build the detector based on our annotated training data.
+1. Create a Python script:
 
     ```bash
     cd ~/master_ws/src/HOG_Demo
     touch trainDetector.py
     ```
 
-1. Now open this in your favorite editor to add the following code.  I have built into the code the ability to provide command line arguments.  This will make the code a bit more flexible such that you don't need to recreate it in the future if you want to reuse if for another project.  You will provide two arguments at runtime.  First you need to tell the program where the .xml file is.  Second, you will state where you want to put the detector that you create... the detector should have a .svm extension.
+1. Open it in your preferred code editor and paste in the following code:
 
     ```python
-    # import the necessary packages
-    from __future__ import print_function
-    import argparse
-    import dlib
+    # Import required libraries
+    import argparse  # For parsing command-line arguments
+    import dlib      # For training and testing the object detector
 
-    # construct the argument parser and parse the arguments
+    # Set up command-line arguments
     ap = argparse.ArgumentParser()
-    ap.add_argument("-x", "--xml", required=True, help="path to input XML file")
-    ap.add_argument("-d", "--detector", required=True, help="path to output detector")
-    args = vars(ap.parse_args())
+    ap.add_argument("-x", "--xml", required=True, help="Path to input XML file")          # Path to the labeled training dataset in XML format
+    ap.add_argument("-d", "--detector", required=True, help="Path to output detector (.svm)")  # Path where the trained .svm model will be saved
+    args = vars(ap.parse_args())  # Parse the arguments into a dictionary
 
-    # grab the default training options for the HOG + Linear SVM detector, then
-    # train the detector -- in practice, the `C` parameter can be adjusted...
-    # feel free to research and see if you can improve
-    print("[INFO] training detector...")
+    # Inform the user that training is starting
+    print("[INFO] Training detector...")
+
+    # Set training options for the object detector
     options = dlib.simple_object_detector_training_options()
-    options.C = 1.0
-    options.num_threads = 4
-    options.be_verbose = True
+    options.C = 1.0               # Regularization parameter; higher values = lower bias, higher variance
+    options.num_threads = 4      # Number of CPU threads to use for training
+    options.be_verbose = True    # Print progress and training status to the console
+
+    # Train the detector using the specified XML file and save the model
     dlib.train_simple_object_detector(args["xml"], args["detector"], options)
 
-    # show the training accuracy
-    print("[INFO] training accuracy: {}".format(
+    # After training, test the detector on the training dataset to evaluate performance
+    print("[INFO] Training accuracy: {}".format(
         dlib.test_simple_object_detector(args["xml"], args["detector"])))
-        
-    # load the detector and visualize the HOG filter
+
+    # Load the trained detector from disk
     detector = dlib.simple_object_detector(args["detector"])
+
+    # Create a window to visualize the learned detector's HOG features
     win = dlib.image_window()
-    win.set_image(detector)
+    win.set_image(detector)  # Show the detector as a HOG filter visualization
+
+    # Wait for the user to hit Enter before closing
     dlib.hit_enter_to_continue()
+
     ```
 
-1. Once you have the code entered, you can run it with the following command.  Remember, you need to provide two command line arguments:
+1. Run the script to train your detector:
 
     ```bash
-    cd ~/master_ws/src/HOG_Demo
     python3 trainDetector.py --xml training/stop_annotations.xml --detector training/stop_detector.svm
     ```
 
-1. You may get a few errors pop up during execution based on your choice for bounding boxes.  Make sure you address those errors before continuing.  If everything executed correctly, you should ultimately see a picture of the HOG feature you designed.  
+    You may get a few errors pop up during execution based on your choice for bounding boxes.  Make sure you address those errors before continuing. If everything runs correctly, you’ll see a visualization of the trained HOG filter. If you get an error, double-check your annotations and fix any issues.
 
-### **2. Testing a detector**
-1. Now it is time to build our code to test the detector.  The following code will make use of the imutils library as well.
+---
 
-1. You may get a few errors pop up during execution based on your choice for bounding boxes.  Make sure you address those errors before continuing.  If everything executed correctly, you should ultimately see a picture of the HOG feature you designed.  
+### **2. Test the Detector**
 
-1. Now it is time to build our code to test the detector.
+Now it is time to build our code to test the detector.  
+
+1. Create a new Python script:
 
     ```bash
     cd ~/master_ws/src/HOG_Demo
     touch testDetector.py
     ```
 
-1. Enter the code below: 
+1. Add the following code:
 
     ```python
-    # import the necessary packages
-    from imutils import paths
-    import argparse
-    import dlib
-    import cv2
+    # Import the necessary packages
+    from imutils import paths   # Utility to easily grab file paths from a directory
+    import argparse             # Used to handle command-line arguments
+    import dlib                 # Library for machine learning tools including object detection
+    import cv2                  # OpenCV for image processing
 
-    # construct the argument parser and parse the arguments
+    # Set up command-line arguments
     ap = argparse.ArgumentParser()
-    ap.add_argument("-d", "--detector", required=True, help="Path to trained object detector")
-    ap.add_argument("-t", "--testing", required=True, help="Path to directory of testing images")
-    args = vars(ap.parse_args())
+    ap.add_argument("-d", "--detector", required=True, help="Path to trained detector (.svm)")
+    ap.add_argument("-t", "--testing", required=True, help="Path to testing images folder")
+    args = vars(ap.parse_args())  # Parse the arguments into a dictionary
 
-    # load the detector
+    # Load the trained detector using the path provided
+    # The .svm file contains the learned HOG + SVM model
     detector = dlib.simple_object_detector(args["detector"])
 
-    # loop over the testing images
-    for testingPath in paths.list_images(args["testing"]):
-        # load the image and make predictions
-        image = cv2.imread(testingPath)
+    # Loop through each image file in the testing directory
+    for imagePath in paths.list_images(args["testing"]):
+
+        # Read the image from disk using OpenCV
+        image = cv2.imread(imagePath)
+
+        # Convert the image from BGR (OpenCV default) to RGB (required by dlib)
+        # Then, pass it to the detector which returns a list of bounding boxes
         boxes = detector(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
-        
-        # loop over the bounding boxes and draw them
+
+        # Loop through each bounding box returned by the detector
         for b in boxes:
+            # Get the coordinates of the bounding box
             (x, y, w, h) = (b.left(), b.top(), b.right(), b.bottom())
+
+            # Draw the bounding box on the image using a green rectangle
+            # (x, y) is the top-left, (w, h) is the bottom-right corner
             cv2.rectangle(image, (x, y), (w, h), (0, 255, 0), 2)
-            
-        # show the image
-        cv2.imshow("Image", image)
+
+        # Display the image with the detections in a pop-up window
+        cv2.imshow("Detection", image)
+
+        # Wait for a key press before moving to the next image
+        # (0 means wait indefinitely until a key is pressed)
         cv2.waitKey(0)
     ```
 
-1. Run the test detector:
+3. Run your test:
 
     ```bash
-    cd ~/master_ws/src/HOG_Demo
     python3 testDetector.py --detector training/stop_detector.svm --testing test
     ```
 
-1. OK, so how did you do? What surprises did you have? What might you consider to improve the detector?
+Look at your results. Did the detector work well? Were there any false positives or missed signs?
 
+---
 
-### **3. ROS and Image Capture**
+### **3. ROS: Live Camera Streaming**
 
-ROS provides a number of tools to interact with a commercial-off-the-shelf camera such as the USB camera connected to your robot. The primary tool we will use is the [usb_cam](https://docs.ros.org/en/humble/p/usb_cam/) package which is already installed on your robot.
+ROS includes several tools for working with commercial off-the-shelf cameras, like the USB camera on your robot. The main one we'll use is the [usb_cam](https://docs.ros.org/en/humble/p/usb_cam/) package, which is already installed. We'll now use ROS 2 and `usb_cam` to stream live video from the camera.
 
-1. Use SSH to log in to the robot and run to start the usb_cam node:
-
-    ```bash
-    ros2 run usb_cam usb_cam_node_exe --ros-args -p video_device:=/dev/video0 -p image_width:=640 -p image_height:=480
-    ```
-    It will return something similar to the following.
+1. SSH into your robot and run:
 
     ```bash
-    [INFO] [1743639677.389401239] [usb_cam]: camera_name value: default_cam
-    [WARN] [1743639677.389716721] [usb_cam]: framerate: 30.000000
-    [INFO] [1743639677.395954091] [usb_cam]: using default calibration URL
-    [INFO] [1743639677.396083869] [usb_cam]: camera calibration URL: file:///home/ubuntu/.ros/camera_info/default_cam.yaml
-    [ERROR] [1743639677.396284795] [camera_calibration_parsers]: Unable to open camera calibration file [/home/ubuntu/.ros/camera_info/default_cam.yaml]
-    [WARN] [1743639677.396333091] [usb_cam]: Camera calibration file /home/ubuntu/.ros/camera_info/default_cam.yaml not found
-    [INFO] [1743639677.478409424] [usb_cam]: Starting 'default_cam' (/dev/video0) at 640x480 via mmap (yuyv) at 30 FPS
-    [swscaler @ 0xaaaad71710b0] No accelerated colorspace conversion found from yuv422p to rgb24.
-    This device supports the following formats:
-    Motion-JPEG 1280 x 720 (30 Hz)
-    Motion-JPEG 1280 x 720 (20 Hz)
-    Motion-JPEG 1280 x 720 (15 Hz)
-    Motion-JPEG 1280 x 720 (10 Hz)
-        :       
-    [INFO] [1743639677.585692424] [usb_cam]: Setting 'brightness' to 50
-    unknown control 'white_balance_temperature_auto'
-
-    [INFO] [1743639677.660384646] [usb_cam]: Setting 'white_balance_temperature_auto' to 1
-    [INFO] [1743639677.660552146] [usb_cam]: Setting 'exposure_auto' to 3
-    unknown control 'exposure_auto'
-
-    [INFO] [1743639677.672507961] [usb_cam]: Setting 'focus_auto' to 0
-    unknown control 'focus_auto'
-
-    [INFO] [1743639677.896303739] [usb_cam]: Timer triggering every 33 ms
+    ros2 run usb_cam usb_cam_node_exe --ros-args -p video_device:=/dev/video0
     ```
 
-    Do not worry about the calibration error message. We will calibrate the camera later.
+Ignore any calibration error messages — we’ll handle that later.
 
-
-2. On Master, run `ros2 topic list` to verify if the usb_cam node publishes images. You should be able to see the following topics:
+1. On your Master PC, Run:
 
     ```bash
-    /camera_info
-    /image_raw
-    /image_raw/compressed
-    /image_raw/compressedDepth
-    /image_raw/theor
+    ros2 topic list
     ```
 
-3. Examine the bandwidth of the `/image_raw` and `/image_raw/compressed` topics using the `ros2 topic bw` command:
+    You should see topics like `/image_raw`, `/camera_info`, etc.
+
+1. Check topic bandwidth:
 
     ```bash
     ros2 topic bw /image_raw
     ros2 topic bw /image_raw/compressed
     ```
 
-4. Examine how many images can be subscribed on the Master machine:
+1. Check image publishing rate:
 
     ```bash
     ros2 topic hz /image_raw
-    ros2 topic hz /image_raw/compressed
+    ros2 topic bw /image_raw/compressed
     ```
 
-5. Now, open `rqt_image_view`:
+1. View the camera feed:
 
     ```bash
     ros2 run rqt_image_view rqt_image_view
     ```
 
-1. On the drop down menu, select `image_raw`.  Then, slowly wave your hand in front of the camera to observe the speed.
+    Select `/image_raw` to see the feed. Try waving your hand in front of the camera to check latency.
 
-1. As you notices, the transmitting images over the WiFi network is very slow. Although we can tranmit compressed image to improve the speed, there is also computation burdon on both the Raspberry Pi on the robot and the Master computer.  For this reason, we would like to use the master computer while developing camera packages. Once it is ready to use, we can port the code to the robot.
+1. You may have noticed that streaming images over WiFi is quite slow. While using compressed images can help, it also increases the processing load on both the Raspberry Pi and the master computer. To avoid this during development, we'll run camera-related code directly on the master computer. Once everything is working, we can move the code back to the robot.
 
-1. Now disconnect the camera from the robot and connect to Master. You can disconect the gamepad.
+1. Disconnect the camera from the robot and plug it into the master computer. You can also unplug the gamepad—it's not needed for now.
 
-1. Run the following command on Master
+1. On the master computer, run the following command to start the camera node:
 
     ```bash
-    ros2 run usb_cam usb_cam_node_exe --ros-args -p video_device:=/dev/video0 -p image_width:=640 -p image_height:=480
+    ros2 run usb_cam usb_cam_node_exe --ros-args -p video_device:=/dev/video0
+    ```
+1. Check topic bandwidth and image publishing rate:
+
+    ```bash
+    ros2 topic bw /image_raw
+    ros2 topic hz /image_raw
     ```
 
-1. Now, open `rqt_image_view` to verify the images are properly displayed
+1. To verify the image stream, launch the image viewer:
 
     ```bash
     ros2 run rqt_image_view rqt_image_view
     ```
 
+### **4. Capture Training Images with ROS**
 
-### **4. Create a ROS node to save images**
+You’ll now use a script to save training images of stop signs from your live feed.
 
-In this part of the lab, you will use a Python script to take pictures of the stop sign and build a stop sign detector then test it using a live video feed. 
+1. Download the [`image_capture.py`](../files/image_capture.py) script and place it in your package’s script folder.
 
-1. Download the [`image_capture.py`](../files/image_capture.py) script and save it in the appropriate folder within your package (You should know where this file should go by now).
+1. Update your `setup.py` to include the script as an entry point. This is necessary to ensure that the script runs as a node.
 
-1. Update the `setup.py` file by correctly adding the entry point for `image_capture.py`. This is necessary to ensure that the script runs as a node.
+1. Open the `image_capture.py` script and read through the code carefully. It may be unfamiliar, but take your time to understand what each part is doing.
 
-1. Open the `image_capture.py` script and carefully read through the code. This code would be pretty new to you, but I hope you try to understand what it does. 
+1. Rebuild your package:
 
-1. Ensure you build the package correctly to make the script executable.
-
-1. Start the `usb_cam` node
     ```bash
-    ros2 run usb_cam usb_cam_node_exe --ros-args -p video_device:=/dev/video0 -p image_width:=640 -p image_height:=480
+    ccbuild --packages-selelct labl0-cv
     ```
-    Open another terminal and go to the `Documents` directory. Then, run
+
+4. Run the USB camera node on Master:
+
+    ```bash
+    ros2 run usb_cam usb_cam_node_exe --ros-args -p video_device:=/dev/video0
+    ```
+
+5. Open a new terminal, navigate to the `Documents` directory, and run
+
     ```bash
     ros2 run lab10_cv image_capture -o ./training_images/
     ```
 
-1. Store images of the stop sign by pressing `s` followed by `enter` when prompted. You decide how many and at what orientations to properly train your detector. When complete, hit `ctrl+c` to exit.
+    Press `s` and `Enter` to save an image. Take multiple images from different angles and distances. Press `Ctrl + C` when done.
 
-Utilize the steps from Section 1: [Building a detector using HOG features](CV:HOG) to label your images and train your object detector using the new images, saving the `stop_detector.svm` file within the **training_images** folder.
+6. Use `imglab` again to annotate your new images and save the XML file as before. Then re-train your detector using the updated dataset.
 
-### **5.Test your stop detector**
+---
+
+## Additional lab exercises will be introduced later.
+
+<!--
+
+## 5. Use Your Detector in a ROS Node
+
+Create a ROS node to run your detector in real-time.
+
+1. Inside the `lab4` package, create a new script:
+
+    ```bash
+    touch stop_detector.py
+    ```
+
+2. Use this starter code:
+
+    ```python
+    import rospy, cv2, dlib
+    from cv_bridge import CvBridge
+    from sensor_msgs.msg import Image
+
+    class StopDetector:
+        def __init__(self, detector_path):
+            self.bridge = CvBridge()
+            self.detector = dlib.simple_object_detector(detector_path)
+            self.image_sub = rospy.Subscriber("/image_raw", Image, self.camera_callback)
+            rospy.on_shutdown(self.shutdownhook)
+            self.ctrl_c = False
+
+        def camera_callback(self, data):
+            if self.ctrl_c:
+                return
+            try:
+                cv_image = self.bridge.imgmsg_to_cv2(data, "bgr8")
+                boxes = self.detector(cv2.cvtColor(cv_image, cv2.COLOR_BGR2RGB))
+                for b in boxes:
+                    cv2.rectangle(cv_image, (b.left(), b.top()), (b.right(), b.bottom()), (0, 255, 0), 2)
+                cv2.imshow("Stop Detector", cv_image)
+                cv2.waitKey(1)
+            except Exception as e:
+                rospy.logerr(f"Error processing image: {e}")
+
+        def shutdownhook(self):
+            self.ctrl_c = True
+            cv2.destroyAllWindows()
+
+    if __name__ == "__main__":
+        rospy.init_node('stop_detector')
+        detector_path = rospy.get_param("/stop_detector/detector")
+        StopDetector(detector_path)
+        rospy.spin()
+    ```
+
+3. Update `setup.py` again and rebuild your package.
+
+Now, your detector is running live on video, using ROS and your trained HOG model.
+
+
+
+
+## **5.Test your stop detector**
 
 Create a node in the **lab4** package on the **Master** called `stop_detector.py` and copy the below into it:
 
@@ -385,7 +454,7 @@ After getting the `cv_image` within the `camera_callback()`, apply the detector 
 
 You will then use the detector and known size of the stop sign to estimate how far the stop sign is from the camera. Lastly, you will create a node to identify and determine how far an April Tag is from the robot.
 
-
+-->
 <!--
 ## Checkpoint 1
 Demonstrate the stop detector on the **Master** detecting a stop sign from the **Robot's** camera.
