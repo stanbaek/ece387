@@ -339,6 +339,10 @@ You’ll now use a script to save training images of stop signs from your live f
 
 ---
 
+## Additional lab exercises will be introduced later.
+
+<!--
+
 ## 5. Use Your Detector in a ROS Node
 
 Create a ROS node to run your detector in real-time.
@@ -394,9 +398,7 @@ Now, your detector is running live on video, using ROS and your trained HOG mode
 
 
 
-## Additional lab exercises will be introduced later.
 
-<!--
 ## **5.Test your stop detector**
 
 Create a node in the **lab4** package on the **Master** called `stop_detector.py` and copy the below into it:

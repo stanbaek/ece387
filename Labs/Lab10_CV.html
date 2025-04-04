@@ -403,7 +403,6 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#capture-training-images-with-ros"><strong>4. Capture Training Images with ROS</strong></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-your-detector-in-a-ros-node">5. Use Your Detector in a ROS Node</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-lab-exercises-will-be-introduced-later">Additional lab exercises will be introduced later.</a></li>
 </ul>
             </nav>
@@ -708,60 +707,66 @@ ros2<span class="w"> </span>topic<span class="w"> </span>hz<span class="w"> </sp
 </section>
 </section>
 <hr class="docutils" />
-<section id="use-your-detector-in-a-ros-node">
-<h2>5. Use Your Detector in a ROS Node<a class="headerlink" href="#use-your-detector-in-a-ros-node" title="Link to this heading">#</a></h2>
-<p>Create a ROS node to run your detector in real-time.</p>
-<ol class="arabic">
-<li><p>Inside the <code class="docutils literal notranslate"><span class="pre">lab4</span></code> package, create a new script:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>touch<span class="w"> </span>stop_detector.py
-</pre></div>
-</div>
-</li>
-<li><p>Use this starter code:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">rospy</span><span class="o">,</span><span class="w"> </span><span class="nn">cv2</span><span class="o">,</span><span class="w"> </span><span class="nn">dlib</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">cv_bridge</span><span class="w"> </span><span class="kn">import</span> <span class="n">CvBridge</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sensor_msgs.msg</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
-
-<span class="k">class</span><span class="w"> </span><span class="nc">StopDetector</span><span class="p">:</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">detector_path</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">bridge</span> <span class="o">=</span> <span class="n">CvBridge</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">detector</span> <span class="o">=</span> <span class="n">dlib</span><span class="o">.</span><span class="n">simple_object_detector</span><span class="p">(</span><span class="n">detector_path</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">image_sub</span> <span class="o">=</span> <span class="n">rospy</span><span class="o">.</span><span class="n">Subscriber</span><span class="p">(</span><span class="s2">&quot;/image_raw&quot;</span><span class="p">,</span> <span class="n">Image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera_callback</span><span class="p">)</span>
-        <span class="n">rospy</span><span class="o">.</span><span class="n">on_shutdown</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shutdownhook</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_c</span> <span class="o">=</span> <span class="kc">False</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">camera_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_c</span><span class="p">:</span>
-            <span class="k">return</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">cv_image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bridge</span><span class="o">.</span><span class="n">imgmsg_to_cv2</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot;bgr8&quot;</span><span class="p">)</span>
-            <span class="n">boxes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">detector</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">cv_image</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">))</span>
-            <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">boxes</span><span class="p">:</span>
-                <span class="n">cv2</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="n">cv_image</span><span class="p">,</span> <span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">left</span><span class="p">(),</span> <span class="n">b</span><span class="o">.</span><span class="n">top</span><span class="p">()),</span> <span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">right</span><span class="p">(),</span> <span class="n">b</span><span class="o">.</span><span class="n">bottom</span><span class="p">()),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
-            <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s2">&quot;Stop Detector&quot;</span><span class="p">,</span> <span class="n">cv_image</span><span class="p">)</span>
-            <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="n">rospy</span><span class="o">.</span><span class="n">logerr</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error processing image: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">shutdownhook</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_c</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-    <span class="n">rospy</span><span class="o">.</span><span class="n">init_node</span><span class="p">(</span><span class="s1">&#39;stop_detector&#39;</span><span class="p">)</span>
-    <span class="n">detector_path</span> <span class="o">=</span> <span class="n">rospy</span><span class="o">.</span><span class="n">get_param</span><span class="p">(</span><span class="s2">&quot;/stop_detector/detector&quot;</span><span class="p">)</span>
-    <span class="n">StopDetector</span><span class="p">(</span><span class="n">detector_path</span><span class="p">)</span>
-    <span class="n">rospy</span><span class="o">.</span><span class="n">spin</span><span class="p">()</span>
-</pre></div>
-</div>
-</li>
-<li><p>Update <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> again and rebuild your package.</p></li>
-</ol>
-<p>Now, your detector is running live on video, using ROS and your trained HOG model.</p>
-</section>
 <section id="additional-lab-exercises-will-be-introduced-later">
 <h2>Additional lab exercises will be introduced later.<a class="headerlink" href="#additional-lab-exercises-will-be-introduced-later" title="Link to this heading">#</a></h2>
 <!--
+
+## 5. Use Your Detector in a ROS Node
+
+Create a ROS node to run your detector in real-time.
+
+1. Inside the `lab4` package, create a new script:
+
+    ```bash
+    touch stop_detector.py
+    ```
+
+2. Use this starter code:
+
+    ```python
+    import rospy, cv2, dlib
+    from cv_bridge import CvBridge
+    from sensor_msgs.msg import Image
+
+    class StopDetector:
+        def __init__(self, detector_path):
+            self.bridge = CvBridge()
+            self.detector = dlib.simple_object_detector(detector_path)
+            self.image_sub = rospy.Subscriber("/image_raw", Image, self.camera_callback)
+            rospy.on_shutdown(self.shutdownhook)
+            self.ctrl_c = False
+
+        def camera_callback(self, data):
+            if self.ctrl_c:
+                return
+            try:
+                cv_image = self.bridge.imgmsg_to_cv2(data, "bgr8")
+                boxes = self.detector(cv2.cvtColor(cv_image, cv2.COLOR_BGR2RGB))
+                for b in boxes:
+                    cv2.rectangle(cv_image, (b.left(), b.top()), (b.right(), b.bottom()), (0, 255, 0), 2)
+                cv2.imshow("Stop Detector", cv_image)
+                cv2.waitKey(1)
+            except Exception as e:
+                rospy.logerr(f"Error processing image: {e}")
+
+        def shutdownhook(self):
+            self.ctrl_c = True
+            cv2.destroyAllWindows()
+
+    if __name__ == "__main__":
+        rospy.init_node('stop_detector')
+        detector_path = rospy.get_param("/stop_detector/detector")
+        StopDetector(detector_path)
+        rospy.spin()
+    ```
+
+3. Update `setup.py` again and rebuild your package.
+
+Now, your detector is running live on video, using ROS and your trained HOG model.
+
+
+
+
 ## **5.Test your stop detector**
 
 Create a node in the **lab4** package on the **Master** called `stop_detector.py` and copy the below into it:
@@ -1152,7 +1157,6 @@ Ensure the `/usb_cam/image_raw` topic is selected.
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#capture-training-images-with-ros"><strong>4. Capture Training Images with ROS</strong></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-your-detector-in-a-ros-node">5. Use Your Detector in a ROS Node</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-lab-exercises-will-be-introduced-later">Additional lab exercises will be introduced later.</a></li>
 </ul>
   </nav></div>
