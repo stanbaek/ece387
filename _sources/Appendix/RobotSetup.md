@@ -622,12 +622,30 @@ ROS2 USB-CAM Package
 ```bash
 sudo apt install -y python3-pip
 sudo apt install -y ros-humble-usb-cam
-pip3 install "pydantic<2"   # pip3 install pydantic 
 sudo apt install -y ros-humble-apriltag
 sudo apt install -y libapriltag-dev
-sudo apt install ros-humble-compressed-image-transport
 sudo apt install -y ros-humble-image-proc
+sudo apt install -y tree
 ```
+
+For all users:
+```bash
+sudo pip install "pydantic<2"   # pip3 install pydantic 
+sudo pip install dlib
+sudo pip install imutil
+```
+
+For each user:
+```bash
+sudo adduser $USER video
+```
+will return
+```
+Adding user `stanbaek' to group `video' ...
+Adding user stanbaek to group video
+Done.
+```
+Then, reboot the system.
 
 USB Port Setting for OpenCR
 ```bash

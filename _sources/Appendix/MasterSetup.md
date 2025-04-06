@@ -131,27 +131,31 @@ source ~/.bashrc
 
 ### PIP
 
+ROS2 USB-CAM Package
 ```bash
-$ sudo apt install python3-pip
-$ sudo apt install python3-pip
-$ sudo apt install ros-humble-usb-cam
-$ pip3 install "pydantic<2"   # pip3 install pydantic 
-$ sudo apt install ros-humble-apriltag
-$ sudo apt install libapriltag-dev
-
+sudo apt install -y python3-pip
+sudo apt install -y ros-humble-usb-cam
+sudo apt install -y ros-humble-apriltag
+sudo apt install -y libapriltag-dev
+sudo apt install -y ros-humble-image-proc
+sudo apt install -y tree
 ```
 
+
+For all users:
+```bash
+sudo pip install "pydantic<2"   # pip3 install pydantic 
+sudo pip install dlib
+sudo pip install imutil
 ```
 
-
+For each user:
 ```bash
-$ sudo pip install dlib
+sudo adduser $USER video
+```
+Then, reboot the system.
 ```
 
 ```{note}
 The `dlib` package will take quite a while to install.
-```
-
-```bash
-$ sudo apt install tree
 ```
