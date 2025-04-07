@@ -621,12 +621,14 @@ source ~/.bashrc
 ROS2 USB-CAM Package
 ```bash
 sudo apt install -y python3-pip
-sudo apt install -y ros-humble-usb-cam
-sudo apt install -y ros-humble-apriltag
-sudo apt install -y libapriltag-dev
-sudo apt install -y ros-humble-image-proc
+sudo apt install -y ros-humble-usb-cam ros-humble-image-proc ros-humble-camera-calibration
+sudo apt install -y ros-humble-apriltag ros-humble-apriltag-ros libapriltag-dev
 sudo apt install -y tree
 ```
+
+
+
+
 
 For all users:
 ```bash
