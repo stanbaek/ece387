@@ -1,100 +1,60 @@
-# 🔬 Lab11: AprilTags
+# 🔬 Lab11: AprilTag
+
+## 📌 Objectives
 
 
+## 📜 Overview
+
+In this lab we will learn how fiducial markers are used in robotics. Specifically, we will utilize ROS tools to identify different [April Tags](https://april.eecs.umich.edu/papers/details.php?name=olson2011tags) and use the 3D position and orientation to determine the robot's distance from an object.
+
+A fiducial marker is an artificial feature used in creating controllable experiments, ground truthing, and in simplifying the development of systems where perception is not the central objective. A few examples of fiducial markers include ArUco Markers, AprilTags, and QR codes. Each of these different tags hold information such as an ID or, in the case of QR codes, websites, messages, and etc. We will primarily be focusing on AprilTags as there is a very robust ROS package already built. This library identifies AprilTags and will provide information about the tags size, distance, and orientation.
 
 
-
-
-## Printing April Tag information
-
-Create a node on the master in lab4 called `apriltag_dist.py`. Import the appropriate AprilTag message. Subscribe to the `tag_detections` topic. Print the identified AprilTag ID and distance. If the camera sees multiple tags, it should print the information for each tag.
-
-In your callback function you will want to create a for loop such as:
-
-```python
-for tag in data.detections:
-```
-
-Use print statements to determine the characteristics of the message (you can also google the message).
-
-Add the `apriltag_dist` node to the **lab4** launch file.
-
-## Checkpoint 4
-
-Demonstrate the `apriltag_dist` node printing the ID and distance of each April Tag.
-
-## Report
-Complete a short 2-3 page report that utilizes the format and answers the questions within the report template. The report template and an example report can be found within the Team under `Resources/Lab Template`.
-
-> 📝️ **Note:** We will be primarily grading sections 3.1, 3.2, and 3.3 for this lab, but do include the entire lab as you will need other components for the final project report.
-
-## Turn-in Requirements
-**[25 points]** All checkpoints marked off.
-
-**[50 points]** Report via Gradescope.
-
-**[25 points]** Code: push your code to your repository. Also, include a screen shot of the **apriltag_dist.py** and **stop_detector.py** files at the end of your report.
-
-
-
+## 🛠️ Lab Procedures
 
 ### Calibrate USB Camera
 
 A camera must first be calibrated to utilize computer vision based tasks. Otherwise, there is no reference for how large objects are in regards to the camera frame. The [ROS Calibration Tool](http://wiki.ros.org/camera_calibration) creates a calibration file that is then used by other ROS packages to enable size and distance calculations. The **camera_calibration** package utilizes OpenCV camera calibration to allow easy calibration of monocular or stereo cameras using a checkerboard calibration target. The complete guide can be found on the [Camera Calibration Tutorial](http://wiki.ros.org/camera_calibration/Tutorials/MonocularCalibration).
 
-Connect to the camera using the **usb_cam** node:
+1. Disconnect the camera from the robot and plug it into the master computer. Then, run the following command to start the camera node:
 
-```bash
-roslaunch lab4 lab4.launch
-```
+    ```bash
+    ros2 run usb_cam usb_cam_node_exe --ros-args -p video_device:=/dev/video0
+    ```
 
+1. Run the camera calibrate package with the correct parameters (even though the checkerboard says it is a 10x7 board with 2.5 cm squares - the size the calibration tool uses is actually the interior vertex points which is 9x6).  Open a new terminal on the **Master** and run the folowing:
 
+    ```bash
+    ros2 run camera_calibration cameracalibrator --size 9x6 --square 0.025 --camera_name default_cam --no-service-check --ros-args -r image:=/image_raw
+    ```
 
+1. You should see a window open that looks like this:
 
+    ```{image} ./figures/Lab11_Calibration.png
+    :width: 500  
+    :align: center  
+    ```  
 
+1. In order to get a good calibration you will need to move the checkerboard around in the camera frame such that:
 
-```bash
-cd ~/master_ws/src/ece387_ws/lab10_cv/
-catkin_create_pkg lab4 rospy sensor_msgs std_msgs cv_bridge apriltag_ros
-cd lab4
-mkdir launch
-cd launch
-touch lab4.launch
-```
-
-
-
-
-
-
-Run the camera calibrate package with the correct parameters (even though the checkerboard says it is a 9x6 board with 3.0 cm squares it is actually a 8x5 board with 2.7 cm squares - the size the calibration tool uses is actually the interior vertex points, not the squares).
-
-Open a new terminal on the **Master** and run the folowing:
-
-```bash
-rosrun camera_calibration cameracalibrator.py --size 8x5 --square 0.027 image:=/usb_cam/image_raw camera:=/usb_cam
-```
-You should see a window open that looks like this:
-![logo](Figures/callibration.png)
-
-In order to get a good calibration you will need to move the checkerboard around in the camera frame such that:
-
-- checkerboard on the camera's left, right, top and bottom of field of view
+    - checkerboard on the camera's left, right, top and bottom of field of view
     - X bar - left/right in field of view
     - Y bar - top/bottom in field of view
     - Size bar - toward/away and tilt from the 
+    - checkerboard filling the whole field of view
+    - checkerboard tilted to the left, right, top and bottom (Skew)
 
-- checkerboard filling the whole field of view
-- checkerboard tilted to the left, right, top and bottom (Skew)
 
+    As you move the checkerboard around you will see four bars on the calibration sidebar increase in length. 
 
-As you move the checkerboard around you will see four bars on the calibration sidebar increase in length. 
+1. When the CALIBRATE button lights, you have enough data for calibration and can click CALIBRATE to see the results. Calibration can take up to a couple minutes. The windows might be greyed out but just wait, it is working.
 
-When the CALIBRATE button lights, you have enough data for calibration and can click CALIBRATE to see the results. Calibration can take a couple minutes. The windows might be greyed out but just wait, it is working.
+    ```{image} ./figures/Lab11_Calibrate.png
+    :width: 500  
+    :align: center  
+    ```  
 
-![logo](Figures/callibrate.png)
-
-When complete, select the save button and then commit.
+1. When complete, select the save button and then commit.
 
 Browse to the location of the calibration data, extract, and move to the appropriate ROS folder on the robot:
 
@@ -121,14 +81,6 @@ Show an instructor the working camera feed and that the **usb_cam** node was abl
 ### Summary
 You now are able to connect to a USB camera using ROS, display the image provided by the node, and have a calibration file that ROS can use to identify the size of objects in the frame.
 
-### Cleanup
-Kill all rosnodes and roscore!
-
-## Part 6: Fiducial Markers
-
-In this lesson we will learn how fiducial markers are used in image processing. Specifically, we will utilize ROS tools to identify different [April Tags](https://april.eecs.umich.edu/papers/details.php?name=olson2011tags) and use the 3D position and orientation to determine the robot's distance from an object.
-
-A fiducial marker is an artificial feature used in creating controllable experiments, ground truthing, and in simplifying the development of systems where perception is not the central objective. A few examples of fiducial markers include ArUco Markers, AprilTags, and QR codes. Each of these different tags hold information such as an ID or, in the case of QR codes, websites, messages, and etc. We will primarily be focusing on AprilTags as there is a very robust ROS package already built. This library identifies AprilTags and will provide information about the tags size, distance, and orientation.
 
 ### AprilTag ROS
 Browse to the AprilTag_ROS package on the **Master** and edit the config file:
@@ -245,6 +197,37 @@ Remove the lines that display the video and instead print "Stop detected" if `bo
 
 Do you note a difference in processing speed?
 
+
+
+## Printing April Tag information
+
+Create a node on the master in lab4 called `apriltag_dist.py`. Import the appropriate AprilTag message. Subscribe to the `tag_detections` topic. Print the identified AprilTag ID and distance. If the camera sees multiple tags, it should print the information for each tag.
+
+In your callback function you will want to create a for loop such as:
+
+```python
+for tag in data.detections:
+```
+
+Use print statements to determine the characteristics of the message (you can also google the message).
+
+Add the `apriltag_dist` node to the **lab4** launch file.
+
+## Checkpoint 4
+
+Demonstrate the `apriltag_dist` node printing the ID and distance of each April Tag.
+
+## Report
+Complete a short 2-3 page report that utilizes the format and answers the questions within the report template. The report template and an example report can be found within the Team under `Resources/Lab Template`.
+
+> 📝️ **Note:** We will be primarily grading sections 3.1, 3.2, and 3.3 for this lab, but do include the entire lab as you will need other components for the final project report.
+
+## Turn-in Requirements
+**[25 points]** All checkpoints marked off.
+
+**[50 points]** Report via Gradescope.
+
+**[25 points]** Code: push your code to your repository. Also, include a screen shot of the **apriltag_dist.py** and **stop_detector.py** files at the end of your report.
 
 
 

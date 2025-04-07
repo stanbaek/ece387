@@ -36,14 +36,14 @@ This schedule is subject to change as appropriate.
 | 26   |Lec 10: Computer Vision                   |       |Lab 9    |
 | 27   |[Lab 10: CV](Labs/Lab10_CV.md)            |       |         |
 | 28   |[Lab 10: CV](Labs/Lab10_CV.md)            |       |         |
-| 29   |Lec 11: AprilTags                         |       |Lab 10   |
-| 30   |Lab 11: AprilTags                         |       |         |
-| 31   |Lab 11: AprilTags                         |       |         | 
-| 32   |Final Project - Requirements              |       |Lab 11   |
-| 33   |GR 2                                      |       |         |
-| 34   |Final Project - Design                    |       |         |
-| 35   |Final Project - Design Briefs             |       |Briefings|
-| 36   |Final Project                             |       |         |
+| 29   |[Lab 10: CV](Labs/Lab10_CV.md)            |       |         |
+| 30   |Lec 11: AprilTags                         |       |Lab 10   |
+| 31   |[Lab 11: AprilTag](Labs/Lab11_AprilTag.md)|       |         |
+| 32   |[Lab 11: AprilTag](Labs/Lab11_AprilTag.md)|       |         | 
+| 33   |Final Project - Requirements              |       |Lab 11   |
+| 34   |GR 2                                      |       |         |
+| 35   |Final Project - Design                    |       |         |
+| 36   |Final Project - Design Briefs             |       |Briefings|
 | 37   |Final Project                             |       |         |
 | 38   |Final Project                             |       |         |
 | 39   |Final Project                             |       |Demo     |
