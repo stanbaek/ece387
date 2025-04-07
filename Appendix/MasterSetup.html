@@ -181,7 +181,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="../Labs/Lab8_LIDAR.html">🔬 Lab 8: LiDAR</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Labs/Lab9_SLAM.html">🔬 Lab9: SLAM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Labs/Lab10_CV.html">🔬 Lab10: CV</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Labs/Lab11_AprilTags.html">🔬 Lab11: AprilTags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Labs/Lab11_AprilTag.html">🔬 Lab11: AprilTag</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendix</span></p>
 <ul class="current nav bd-sidenav">
@@ -447,10 +447,15 @@ document.write(`
 </pre></div>
 </div>
 <p>Install ROS dependencies for building packages:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ros-humble-gazebo-*
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ros-humble-cartographer
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ros-humble-cartographer-ros
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ros-humble-tf-transformations
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>ros-humble-gazebo-*
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>ros-humble-cartographer<span class="w"> </span>ros-humble-cartographer-ros
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>ros-humble-tf-transformations
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>ros-humble-usb-cam<span class="w"> </span>ros-humble-image-proc<span class="w"> </span>
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>ros-humble-camera-calibration
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>ros-humble-apriltag<span class="w"> </span>ros-humble-apriltag-ros<span class="w"> </span>libapriltag-dev
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>python3-pip
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>obs-studio<span class="w"> </span>qtwayland5
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>tree
 </pre></div>
 </div>
 <p>Install TurtleBot3 packages</p>
@@ -521,12 +526,7 @@ $<span class="w"> </span>sudo<span class="w"> </span>make<span class="w"> </span
 <section id="pip">
 <h3>PIP<a class="headerlink" href="#pip" title="Permalink to this heading">#</a></h3>
 <p>ROS2 USB-CAM Package</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>python3-pip
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>ros-humble-usb-cam
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>ros-humble-apriltag
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>libapriltag-dev
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>ros-humble-image-proc
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>tree
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
 <p>For all users:</p>
