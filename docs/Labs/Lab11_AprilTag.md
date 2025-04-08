@@ -54,17 +54,70 @@ A camera must first be calibrated to utilize computer vision based tasks. Otherw
     :align: center  
     ```  
 
-1. When complete, select the save button and then commit.
+1. When complete, it will display something similar to the following output:
 
-Browse to the location of the calibration data, extract, and move to the appropriate ROS folder on the robot:
+    ```bash
+    **** Calibrating ****
+    mono pinhole calibration...
+    D = [-0.027598200869062808, -0.0273210932029884, 0.002259050714452529, 0.004238057516107571, 0.0]
+    K = [517.6781776101559, 0.0, 330.5433124974498, 0.0, 522.269778659698, 247.60730067305022, 0.0, 0.0, 1.0]
+    R = [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0]
+    P = [508.604248046875, 0.0, 333.1752989083179, 0.0, 0.0, 517.5308227539062, 248.01611962861898, 0.0, 0.0, 0.0, 1.0, 0.0]
+    None
+    # oST version 5.0 parameters
 
-```bash
-cd /tmp
-tar xf calibrationdata.tar.gz
-scp ost.yaml pi@robotX:/home/pi/.ros/camera_info/head_camera.yaml
-```
 
-Kill the `lab4.launch`. 
+    [image]
+
+    width
+    640
+
+    height
+    480
+
+    [default_cam]
+
+    camera matrix
+    517.678178 0.000000 330.543312
+    0.000000 522.269779 247.607301
+    0.000000 0.000000 1.000000
+
+    distortion
+    -0.027598 -0.027321 0.002259 0.004238 0.000000
+
+    rectification
+    1.000000 0.000000 0.000000
+    0.000000 1.000000 0.000000
+    0.000000 0.000000 1.000000
+
+    projection
+    508.604248 0.000000 333.175299 0.000000
+    0.000000 517.530823 248.016120 0.000000
+    0.000000 0.000000 1.000000 0.000000
+    ```
+
+1. Select the save button and then commit. Browse to the location of the calibration data and extract
+
+    ```bash
+    cd /tmp
+    tar xf calibrationdata.tar.gz
+    ```
+
+1. The `ost.yaml` file will be extracted from the compressed file. Move it to the appropriate ROS folder on the robot:
+
+    ```bash
+    cd ~/.ros
+    mkdir camera_info
+    mv /tmp/ost.yaml ./camera_info/default_cam.yaml
+    ```
+
+1. Stop the `usb_cam` node and reopen it to verify that the `usb_cam` node is able to open the camera calibration file.
+
+1. You now are able to connect to a USB camera using ROS, display the image provided by the node, and have a calibration file that ROS can use to identify the size of objects in the frame.
+
+
+
+
 
 Create a secure shell to the robot and edit the calibration data and replace "narrow\_stero" with "head\_camera":
 
@@ -75,11 +128,6 @@ nano /home/pi/.ros/camera_info/head_camera.yaml
 
 Rerun the `lab4.launch` file on the robot. You should see the camera feed reopen and see no errors in the command line (you may need to unplug and plug your camera back in).
 
-### Checkpoint
-Show an instructor the working camera feed and that the **usb_cam** node was able to open the camera calibration file.
-
-### Summary
-You now are able to connect to a USB camera using ROS, display the image provided by the node, and have a calibration file that ROS can use to identify the size of objects in the frame.
 
 
 ### AprilTag ROS
@@ -229,6 +277,7 @@ Complete a short 2-3 page report that utilizes the format and answers the questi
 
 **[25 points]** Code: push your code to your repository. Also, include a screen shot of the **apriltag_dist.py** and **stop_detector.py** files at the end of your report.
 
+    scp ost.yaml pi@robotX:/home/pi/.ros/camera_info/head_camera.yaml
 
 
 

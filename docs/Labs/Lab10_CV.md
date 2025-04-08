@@ -387,6 +387,67 @@ In this step, you’ll create a ROS 2 node that runs your stop sign detector in 
 </center>
 
 
+### **6. Estimating Distance**
+
+In this section, you’ll estimate how far the stop sign is from the camera using its known size and a detector.
+
+1. **Calculate the Camera's Focal Length**: Start with a stop sign that has a known width, $Y$, placed at a known distance, $Z$, from the camera. The detector will identify the stop sign and provide its perceived width in pixels, $y$. Use these values to calculate the camera’s focal length, $f$, with the formula:  
+
+   $$f = Z \times \frac{y}{Y}$$  
+
+   To determine the focal length, print the perceived width of the stop sign, $y$.  
+
+    ```{image} ./figures/Lab10_CameraModel.png
+    :width: 300  
+    :align: center  
+    ```  
+    <br>
+2. **Estimate the Distance to the Stop Sign**: Once you’ve calculated the focal length, $f$, use it along with the known width of the stop sign, $Y$, and its perceived width in pixels, $y$, to calculate the distance from the camera using this formula:  
+
+   $$Z = f \times \frac{Y}{y}$$  
+
+3. **Implement a Class for Distance Calculation**: 
+    - Define two class variables: `FOCAL` (the focal length) and `STOP_WIDTH` (the known width of the stop sign).  
+    - Create a class function named `get_distance` that calculates the distance using the `FOCAL` length and the `STOP_WIDTH`.  
+
+    ```{tip}
+    Make sure you understand what the `x` and `w` variables in the `box` represent!  
+    ```
+
+4. **Publish the Distance**  
+   - Set up a new publisher to publish the calculated distance using **Float32** messages from the *std_msgs* package on the */stop_dist* topic.  
+   - Ensure the published distance reflects every object detected in the image.
+
+
+You will then use the detector and known size of the stop sign to estimate how far the stop sign is from the camera. 
+
+1. Given a stop sign with a known width, $Y$, we can place the stop sign at a known distance, $Z$, from our camera. The detector will then detect the stop sign and provide a perceived width in pixels, $y$. Using these values we can calculate the focal length, $f$ of our camera:
+
+    $$f = Z \times \frac{y}{Y}$$
+
+    You will need to print the perceived width of the stop sign, $y$, to determine the focal length $f$.  
+
+
+    <br>
+
+
+1. Then, we can use the calculated focal length, $f$, known width of the stop sign, $Y$, and perceived width in pixels, $y$ to calculate the distance from the camera: 
+
+$$Z = f \times \frac{Y}{y}$$
+
+1. Use the above information and create two class variables, `FOCAL` and `STOP_WIDTH`, and a class function, `get_distance` to calculate the distance given the known `FOCAL` length and the known width of the stop sign, `STOP_WIDTH`. 
+
+    ```{tip}
+    Pay attention to what the `x` and `w` variables of the `box` actually represent!
+    ```
+
+1. Create a new publisher that will publish the distance using **Float32** *std_msgs* messages over the */stop_dist* topic.
+
+1. Publish the distance of each object seen in the image. 
+
+
+
+
 ## 🚚 Deliverables
 
 1. **[20 Points] Complete the `stop_detector.py` Script**
