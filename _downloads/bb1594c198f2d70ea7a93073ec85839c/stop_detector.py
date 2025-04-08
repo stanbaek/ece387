@@ -35,15 +35,15 @@
 
 # This script implements a ROS2 node for detecting stop signs in images using dlib's object detector.
 
+import rclpy  # ROS2 Python client library
+from rclpy.node import Node  # Base class for ROS2 nodes
 import argparse  # Library for parsing command-line arguments
 from pathlib import Path  # Helps manage file paths
-
 import cv2  # OpenCV library for image processing
 import dlib  # dlib for object detection
-import rclpy  # ROS2 Python client library
 from cv_bridge import CvBridge  # Converts ROS image messages to OpenCV format
-from rclpy.node import Node  # Base class for ROS2 nodes
 from sensor_msgs.msg import Image  # ROS message type for images
+from std_msgs.msg import Float32
 
 
 class StopDetector(Node):
@@ -51,26 +51,27 @@ class StopDetector(Node):
     ROS2 Node for detecting stop signs in real-time images using a trained detector.
     """
 
+    FOCAL = 1
+    STOP_WIDTH = 1
+
     def __init__(self, detector_loc):
-        super().__init__(
-            "stop_detector"
-        )  # Initializes the ROS2 node with the name "stop_detector"
+        super().__init__("stop_detector")  # Initializes the ROS2 node with the name "stop_detector"
 
         self.ctrl_c = False  # Flag to track shutdown state
-        self.bridge = (
-            CvBridge()
-        )  # Handles conversion between ROS Image messages and OpenCV format
-
+        self.bridge = CvBridge()  # Handles conversion between ROS Image messages and OpenCV format
+        self.stop_dist = Float32()
+        
         # Load the stop sign detector model from the given file path
         self.detector = dlib.simple_object_detector(detector_loc)
         self.get_logger().info(f"Loaded detector from: {detector_loc}")
 
         # TODO: Subscribe to the image topic where the camera publishes frames
 
-        self.declare_parameter(
-            "detector", ""
-        )  # Declares a ROS2 parameter (can be used for detector config)
+
+
+        self.declare_parameter("detector", "")  # Declares a ROS2 parameter (can be used for detector config)
         self.get_logger().info("Stop detector node ready")
+                
 
     def camera_callback(self, msg):
         """
@@ -89,23 +90,20 @@ class StopDetector(Node):
 
             # TODO: Loop through each detection and draw bounding boxes
             for detection in detections:
-                l, t, r, b = (
-                    detection.left(),  # Left coordinate of bounding box
-                    detection.top(),  # Top coordinate
-                    detection.right(),  # Right coordinate
-                    detection.bottom(),  # Bottom coordinate
-                )
-
+                l, t, r, b = detection.left(), detection.top(), detection.right(), detection.bottom()
+                
                 # TODO: Draw a red rectangle around the detected stop sign
-
+                
+                
                 # TODO: Label the detection with "STOP"
 
+                
             # TODO: Display the processed image in a window
 
+
+            
         except Exception as e:
-            self.get_logger().error(
-                f"Error processing image: {str(e)}"
-            )  # Log errors if image processing fails
+            self.get_logger().error(f"Error processing image: {str(e)}")  # Log errors if image processing fails
 
     def shutdownhook(self):
         """
@@ -124,14 +122,10 @@ def main(args=None):
 
     # Set up argument parsing to allow specifying a detector model via command line
     parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "-d", "--detector", required=True, help="Path to the trained HOG detector file"
-    )
+    parser.add_argument("-d", "--detector", required=True, help="Path to the trained HOG detector file")
     args, _ = parser.parse_known_args()  # Parse command-line arguments
 
-    stop_detector = StopDetector(
-        args.detector
-    )  # Create an instance of the StopDetector node
+    stop_detector = StopDetector(args.detector)  # Create an instance of the StopDetector node
 
     try:
         rclpy.spin(stop_detector)  # Keep the node running until manually stopped

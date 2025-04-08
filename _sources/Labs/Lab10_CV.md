@@ -3,10 +3,10 @@
 
 ## 📌 Objectives
 
-- Students should be able to explain the concept of Histogram of Oriented Gradients (HOG) and its role in object detection.
-- Students should be able to train a custom object detector using Dlib and analyze its performance.
-- Students should be able to implement and test a trained object detector on new images.
-- Students should be able to create a ROS 2 package for computer vision tasks and integrate OpenCV for image processing.
+- Students should be able to explain how Histogram of Oriented Gradients (HOG) features enable object detection.
+- Students should be able to train and test a custom stop sign detector using Dlib and evaluate its accuracy.
+- Students should be able to stream and process live camera images in ROS 2 using usb_cam and OpenCV.
+- Students should be able to implement a ROS node to detect stop signs in real time and estimate their distance.
 
 
 ## 📜 Overview
@@ -170,7 +170,12 @@ In this lab, you’ll build a stop sign detector using HOG (Histogram of Oriente
     python3 trainDetector.py --xml training/stop_annotations.xml --detector training/stop_detector.svm
     ```
 
-    You may get a few errors pop up during execution based on your choice for bounding boxes.  Make sure you address those errors before continuing. If everything runs correctly, you’ll see a visualization of the trained HOG filter. If you get an error, double-check your annotations and fix any issues.
+    You may get a few errors pop up during execution based on your choice for bounding boxes.  Make sure you address those errors before continuing. If everything runs correctly, you’ll see a visualization of the trained HOG filter as shown below. If you get an error, double-check your annotations and fix any issues.
+
+    ```{image} ./figures/Lab10_HOG_Visualization.png
+    :width: 250  
+    :align: center  
+    ```  
 
 ---
 (CV:Detector)=
@@ -249,6 +254,17 @@ ROS includes several tools for working with commercial off-the-shelf cameras, li
 
     ```bash
     ros2 run usb_cam usb_cam_node_exe --ros-args -p video_device:=/dev/video0
+    ```
+
+    If you have an error that can't find the `usb_cam` package, install the package using
+    ```bash
+    sudo apt install ros-humble-usb-cam
+    ```
+
+    If you have a permission error, you need to run
+    ```bash
+    sudo usermod -aG video $USER
+    sudo reboot now
     ```
 
 Ignore any calibration error messages — we’ll handle that later.
@@ -387,19 +403,56 @@ In this step, you’ll create a ROS 2 node that runs your stop sign detector in 
 </center>
 
 
+### **6. Estimating Distance to a Stop Sign**
+
+In this section, you’ll determine the distance between the stop sign and the camera using its known size and a detector.
+
+1. **Calculate the Camera's Focal Length**: Start with a stop sign that has a known width, $Y$, positioned at a known distance, $Z$, from the camera. The detector identifies the stop sign and provides its perceived width in pixels, $y$. Using these values, calculate the camera’s focal length, $f$, with the following formula:  
+
+    $$f = Z \times \frac{y}{Y}$$  
+
+    To determine the focal length, print the perceived width of the stop sign, $y$.  
+
+    ```{image} ./figures/Lab10_CameraModel.png
+    :width: 300  
+    :align: center  
+    ```  
+    <br>
+1. **Estimate the Distance to the Stop Sign**: Once you have the calculated focal length, $f$, use it along with the known width of the stop sign, $Y$, and its perceived width in pixels, $y$, to compute the distance from the camera using this formula:  
+
+    $$Z = f \times \frac{Y}{y}$$  
+
+1. **Implement a Class for Distance Calculation**  
+    - Define two class variables:  
+        - `FOCAL`: The calculated focal length.  
+        - `STOP_WIDTH`: The known width of the stop sign.  
+    - Create a class function named `get_distance`, which calculates the distance using the `FOCAL` length and `STOP_WIDTH`.  
+
+    ```{tip}
+    Pay attention to the `x` and `w` variables in the `box`—understanding their role is crucial!  
+    ```
+
+1. **Publish the Distance**  
+    - Set up a publisher to send the calculated distance using **Float32** messages from the *std_msgs* package on the */stop_dist* topic.  
+    - Ensure the published distance reflects every detected object in the image.
+
+
 ## 🚚 Deliverables
 
-1. **[20 Points] Complete the `stop_detector.py` Script**
+1. **[15 Points] Complete the `stop_detector.py` Script**
     - Ensure the script is fully functional and implements all required features.
     - Push your code to GitHub and confirm that it has been successfully uploaded.
     **NOTE:** _If the instructor can't find your code in your repository, you will receive a grade of 0 for the coding part._
 
 1. **[10 Points] Submit Screenshots**
-    - Submit the screenshot of the gradient image.
+    - Submit the screenshot of the gradient image from the pre-lab Jupyter notebook.
 
-1. **[20 Points] Demonstration**
+1. **[15 Points] Demonstration**
     - Show the `stop_detector` node successfully detect the stop sign.
+    - OBS recording showing real-time stop sign detection (upload to Teams).
+    - Must include varied angles/distances and display bounding boxes.
+    - Published distances on /stop_dist (verified via ros2 topic echo).
 
-
-
+1. **[10 points] Summary** 
+    - Brief summary of HOG principles, challenges faced, and detection accuracy.
 

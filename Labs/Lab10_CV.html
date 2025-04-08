@@ -63,6 +63,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'Labs/Lab10_CV';</script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -391,6 +393,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ros-live-camera-streaming"><strong>3. ROS: Live Camera Streaming</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#capture-training-images-with-ros"><strong>4. Capture Training Images with ROS</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#use-the-detector-in-a-ros-node"><strong>5. Use the Detector in a ROS Node</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-distance-to-a-stop-sign"><strong>6. Estimating Distance to a Stop Sign</strong></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">🚚 Deliverables</a></li>
@@ -410,10 +413,10 @@ document.write(`
 <section id="objectives">
 <h2>📌 Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Students should be able to explain the concept of Histogram of Oriented Gradients (HOG) and its role in object detection.</p></li>
-<li><p>Students should be able to train a custom object detector using Dlib and analyze its performance.</p></li>
-<li><p>Students should be able to implement and test a trained object detector on new images.</p></li>
-<li><p>Students should be able to create a ROS 2 package for computer vision tasks and integrate OpenCV for image processing.</p></li>
+<li><p>Students should be able to explain how Histogram of Oriented Gradients (HOG) features enable object detection.</p></li>
+<li><p>Students should be able to train and test a custom stop sign detector using Dlib and evaluate its accuracy.</p></li>
+<li><p>Students should be able to stream and process live camera images in ROS 2 using usb_cam and OpenCV.</p></li>
+<li><p>Students should be able to implement a ROS node to detect stop signs in real time and estimate their distance.</p></li>
 </ul>
 </section>
 <section id="overview">
@@ -544,7 +547,8 @@ touch<span class="w"> </span>trainDetector.py
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>trainDetector.py<span class="w"> </span>--xml<span class="w"> </span>training/stop_annotations.xml<span class="w"> </span>--detector<span class="w"> </span>training/stop_detector.svm
 </pre></div>
 </div>
-<p>You may get a few errors pop up during execution based on your choice for bounding boxes.  Make sure you address those errors before continuing. If everything runs correctly, you’ll see a visualization of the trained HOG filter. If you get an error, double-check your annotations and fix any issues.</p>
+<p>You may get a few errors pop up during execution based on your choice for bounding boxes.  Make sure you address those errors before continuing. If everything runs correctly, you’ll see a visualization of the trained HOG filter as shown below. If you get an error, double-check your annotations and fix any issues.</p>
+<a class="reference internal image-reference" href="../_images/Lab10_HOG_Visualization.png"><img alt="../_images/Lab10_HOG_Visualization.png" class="align-center" src="../_images/Lab10_HOG_Visualization.png" style="width: 250px;" /></a>
 </li>
 </ol>
 <hr class="docutils" />
@@ -619,6 +623,15 @@ touch<span class="w"> </span>testDetector.py
 <ol class="arabic">
 <li><p>SSH into your robot and run:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>usb_cam<span class="w"> </span>usb_cam_node_exe<span class="w"> </span>--ros-args<span class="w"> </span>-p<span class="w"> </span>video_device:<span class="o">=</span>/dev/video0
+</pre></div>
+</div>
+<p>If you have an error that can’t find the <code class="docutils literal notranslate"><span class="pre">usb_cam</span></code> package, install the package using</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ros-humble-usb-cam
+</pre></div>
+</div>
+<p>If you have a permission error, you need to run</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>usermod<span class="w"> </span>-aG<span class="w"> </span>video<span class="w"> </span><span class="nv">$USER</span>
+sudo<span class="w"> </span>reboot<span class="w"> </span>now
 </pre></div>
 </div>
 </li>
@@ -739,11 +752,49 @@ sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> <
 <iframe width="560" height="315" src="https://www.youtube.com/embed/9eR6FfNGUfo?si=rEm6W9HU0e8J9pK6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </center>
 </section>
+<section id="estimating-distance-to-a-stop-sign">
+<h3><strong>6. Estimating Distance to a Stop Sign</strong><a class="headerlink" href="#estimating-distance-to-a-stop-sign" title="Permalink to this heading">#</a></h3>
+<p>In this section, you’ll determine the distance between the stop sign and the camera using its known size and a detector.</p>
+<ol class="arabic">
+<li><p><strong>Calculate the Camera’s Focal Length</strong>: Start with a stop sign that has a known width, <span class="math notranslate nohighlight">\(Y\)</span>, positioned at a known distance, <span class="math notranslate nohighlight">\(Z\)</span>, from the camera. The detector identifies the stop sign and provides its perceived width in pixels, <span class="math notranslate nohighlight">\(y\)</span>. Using these values, calculate the camera’s focal length, <span class="math notranslate nohighlight">\(f\)</span>, with the following formula:</p>
+<div class="math notranslate nohighlight">
+\[f = Z \times \frac{y}{Y}\]</div>
+<p>To determine the focal length, print the perceived width of the stop sign, <span class="math notranslate nohighlight">\(y\)</span>.</p>
+<a class="reference internal image-reference" href="../_images/Lab10_CameraModel.png"><img alt="../_images/Lab10_CameraModel.png" class="align-center" src="../_images/Lab10_CameraModel.png" style="width: 300px;" /></a>
+ <br>
+</li>
+<li><p><strong>Estimate the Distance to the Stop Sign</strong>: Once you have the calculated focal length, <span class="math notranslate nohighlight">\(f\)</span>, use it along with the known width of the stop sign, <span class="math notranslate nohighlight">\(Y\)</span>, and its perceived width in pixels, <span class="math notranslate nohighlight">\(y\)</span>, to compute the distance from the camera using this formula:</p>
+<div class="math notranslate nohighlight">
+\[Z = f \times \frac{Y}{y}\]</div>
+</li>
+<li><p><strong>Implement a Class for Distance Calculation</strong></p>
+<ul class="simple">
+<li><p>Define two class variables:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">FOCAL</span></code>: The calculated focal length.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">STOP_WIDTH</span></code>: The known width of the stop sign.</p></li>
+</ul>
+</li>
+<li><p>Create a class function named <code class="docutils literal notranslate"><span class="pre">get_distance</span></code>, which calculates the distance using the <code class="docutils literal notranslate"><span class="pre">FOCAL</span></code> length and <code class="docutils literal notranslate"><span class="pre">STOP_WIDTH</span></code>.</p></li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Pay attention to the <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">w</span></code> variables in the <code class="docutils literal notranslate"><span class="pre">box</span></code>—understanding their role is crucial!</p>
+</div>
+</li>
+<li><p><strong>Publish the Distance</strong></p>
+<ul class="simple">
+<li><p>Set up a publisher to send the calculated distance using <strong>Float32</strong> messages from the <em>std_msgs</em> package on the <em>/stop_dist</em> topic.</p></li>
+<li><p>Ensure the published distance reflects every detected object in the image.</p></li>
+</ul>
+</li>
+</ol>
+</section>
 </section>
 <section id="deliverables">
 <h2>🚚 Deliverables<a class="headerlink" href="#deliverables" title="Permalink to this heading">#</a></h2>
 <ol class="arabic simple">
-<li><p><strong>[20 Points] Complete the <code class="docutils literal notranslate"><span class="pre">stop_detector.py</span></code> Script</strong></p>
+<li><p><strong>[15 Points] Complete the <code class="docutils literal notranslate"><span class="pre">stop_detector.py</span></code> Script</strong></p>
 <ul class="simple">
 <li><p>Ensure the script is fully functional and implements all required features.</p></li>
 <li><p>Push your code to GitHub and confirm that it has been successfully uploaded.
@@ -752,12 +803,20 @@ sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> <
 </li>
 <li><p><strong>[10 Points] Submit Screenshots</strong></p>
 <ul class="simple">
-<li><p>Submit the screenshot of the gradient image.</p></li>
+<li><p>Submit the screenshot of the gradient image from the pre-lab Jupyter notebook.</p></li>
 </ul>
 </li>
-<li><p><strong>[20 Points] Demonstration</strong></p>
+<li><p><strong>[15 Points] Demonstration</strong></p>
 <ul class="simple">
 <li><p>Show the <code class="docutils literal notranslate"><span class="pre">stop_detector</span></code> node successfully detect the stop sign.</p></li>
+<li><p>OBS recording showing real-time stop sign detection (upload to Teams).</p></li>
+<li><p>Must include varied angles/distances and display bounding boxes.</p></li>
+<li><p>Published distances on /stop_dist (verified via ros2 topic echo).</p></li>
+</ul>
+</li>
+<li><p><strong>[10 points] Summary</strong></p>
+<ul class="simple">
+<li><p>Brief summary of HOG principles, challenges faced, and detection accuracy.</p></li>
 </ul>
 </li>
 </ol>
@@ -840,6 +899,7 @@ sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> <
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ros-live-camera-streaming"><strong>3. ROS: Live Camera Streaming</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#capture-training-images-with-ros"><strong>4. Capture Training Images with ROS</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#use-the-detector-in-a-ros-node"><strong>5. Use the Detector in a ROS Node</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-distance-to-a-stop-sign"><strong>6. Estimating Distance to a Stop Sign</strong></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">🚚 Deliverables</a></li>
