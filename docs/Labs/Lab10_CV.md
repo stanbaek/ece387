@@ -251,6 +251,17 @@ ROS includes several tools for working with commercial off-the-shelf cameras, li
     ros2 run usb_cam usb_cam_node_exe --ros-args -p video_device:=/dev/video0
     ```
 
+    If you have an error that can't find the `usb_cam` package, install the package using
+    ```bash
+    sudo apt install ros-humble-usb-cam
+    ```
+
+    If you have a permission error, you need to run
+    ```bash
+    sudo usermod -aG video $USER
+    sudo reboot now
+    ```
+
 Ignore any calibration error messages — we’ll handle that later.
 
 1. On your Master PC, Run:
@@ -436,10 +447,6 @@ You will then use the detector and known size of the stop sign to estimate how f
 $$Z = f \times \frac{Y}{y}$$
 
 1. Use the above information and create two class variables, `FOCAL` and `STOP_WIDTH`, and a class function, `get_distance` to calculate the distance given the known `FOCAL` length and the known width of the stop sign, `STOP_WIDTH`. 
-
-    ```{tip}
-    Pay attention to what the `x` and `w` variables of the `box` actually represent!
-    ```
 
 1. Create a new publisher that will publish the distance using **Float32** *std_msgs* messages over the */stop_dist* topic.
 
