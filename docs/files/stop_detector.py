@@ -78,26 +78,15 @@ class StopDetector(Node):
         Callback function triggered whenever a new image message is received from the topic.
         It detects stop signs and visually marks them.
         """
-        """
-        Callback function triggered whenever a new image message is received from the topic.
-        It detects stop signs and visually marks them.
-        """
         if self.ctrl_c:
-            return  # If the node is shutting down, stop further processing
-
             return  # If the node is shutting down, stop further processing
 
         try:
             # Convert the incoming ROS2 Image message to an OpenCV format (BGR color space)
-            # Convert the incoming ROS2 Image message to an OpenCV format (BGR color space)
             cv_image = self.bridge.imgmsg_to_cv2(msg, desired_encoding="bgr8")
 
             # Run the stop sign detector on the image
-
-            # Run the stop sign detector on the image
             detections = self.detector(cv_image)
-
-            # TODO: Loop through each detection and draw bounding boxes
 
             # TODO: Loop through each detection and draw bounding boxes
             for detection in detections:
@@ -120,24 +109,12 @@ class StopDetector(Node):
         """
         Gracefully handles shutdown by closing OpenCV windows.
         """
-        """
-        Gracefully handles shutdown by closing OpenCV windows.
-        """
         self.get_logger().info("Shutting down")
-        self.ctrl_c = True  # Sets shutdown flag to True
-        cv2.destroyAllWindows()  # Closes all OpenCV windows
-
         self.ctrl_c = True  # Sets shutdown flag to True
         cv2.destroyAllWindows()  # Closes all OpenCV windows
 
 
 def main(args=None):
-    """
-    Main function to initialize and run the StopDetector node.
-    """
-    rclpy.init(args=args)  # Initialize ROS2 Python interface
-
-    # Set up argument parsing to allow specifying a detector model via command line
     """
     Main function to initialize and run the StopDetector node.
     """
@@ -152,15 +129,9 @@ def main(args=None):
 
     try:
         rclpy.spin(stop_detector)  # Keep the node running until manually stopped
-        rclpy.spin(stop_detector)  # Keep the node running until manually stopped
     except KeyboardInterrupt:
         pass  # Allow graceful shutdown on Ctrl+C
-        pass  # Allow graceful shutdown on Ctrl+C
     finally:
-        stop_detector.shutdownhook()  # Call shutdown cleanup function
-        stop_detector.destroy_node()  # Cleanup ROS2 node resources
-        rclpy.shutdown()  # Shutdown ROS2 system
-
         stop_detector.shutdownhook()  # Call shutdown cleanup function
         stop_detector.destroy_node()  # Cleanup ROS2 node resources
         rclpy.shutdown()  # Shutdown ROS2 system
