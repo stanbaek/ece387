@@ -126,13 +126,54 @@ In this section, you'll learn how to detect AprilTags in ROS 2 using the aprilta
 1. This time, we use the `v4l2_camera` package instead of `usb_cam`. 
 
     ```bash
-    ros2 run v4l2_camera v4l2_camera_node --ros-args -p camera_info_path:=~/.ros/camera_info/default_cam.yaml
+    ros2 run v4l2_camera v4l2_camera_node
     ```
 
     The Video4Linux (V4L) framework is a collection of device drivers and an API for video capture on Linux systems. V4L supports various types of cameras, including USB webcams, TV tuners, and CSI cameras, and standardizes their output to make it easier for developers to integrate video functionality into applications. V4L2, the second version of the framework, introduced improvements like better design and compatibility with modern applications. The `v4l2_camera` package is a lightweight, native ROS2 drive whereas the `usb_cam` package is for more detailed config or features, and also mainly used in ROS1. 
 
+1. Verify if the `/image_raw` and `/camera_info` topics are published. By now, you should now what command you need to run. 
 
+1. Examine the message carried by `/camera_info` by running `ros2 topic type /camera_info`.  Then run the `ros2 inferface show <message>` to display the description of the message. 
 
+1. Carefully observe the `CameraInfo` message by running
+    ```bash
+    ros2 topic echo /camera_info
+    ```
+    
+    ```{attention}
+    By now, you are expected to be familiar with these ros2 commands as they are frequently used for troubleshooting. Therefore, you should be able to answer if such questions are asked in GRs.  
+    ```
+
+1. Quit the `v4l2_camera` node and rerun it with the calibration data we created in the priviouse section.  
+    ```bash
+    ros2 run v4l2_camera v4l2_camera_node --ros-args -p camera_info_path:=~/.ros/camera_info/default_cam.yaml
+    ```
+
+1. Observe the `CameraInfo` message again. Can you find any differences from the message published by the `v4l2_camera` node without the calibration data? This message can now be used to generate a rectified image from the raw image (`\image_raw`) using the `image_proc` package.
+    ```bash
+    ros2 run image_proc image_proc --ros-args -r image_raw:=/image_raw -r camera_info:=/camera_info -r image_rect:=/image_rect
+    ```
+    
+    The `image_proc` node uses the `/camera_info` topic to generate the rectified image as illusted in the following diagram.
+
+    ```
+           [ default_cam.yaml ]
+                     ↓
+         v4l2_camera_node (reads YAML)
+                     ↓
+            publishes /camera_info
+                     ↓
+           image_proc (uses camera_info)
+                     ↓
+            publishes /image_rect
+                     ↓
+     apriltag_ros (uses image_rect + camera_info)
+    ```
+
+1. Run the `apriltag_ros` package to detect apriltags:
+    ```bash
+    ros2 launch apriltag_ros apriltag.launch.py camera_name:=camera image_topic:=/image_rect camera_info_topic:=/camera_info
+    ```
 
 
 
