@@ -22,6 +22,9 @@ A camera must first be calibrated to utilize computer vision based tasks. Otherw
     ros2 run usb_cam usb_cam_node_exe --ros-args -p video_device:=/dev/video0
     ```
 
+1. Make sure if the `/camera_info` topic is published by running `ros2 topic list`.  If it is being published, examine what data i Disconnect the camera from the robot and plug it into the master computer. Then, run the following command to start the camera node:
+
+
 1. Run the camera calibrate package with the correct parameters (even though the checkerboard says it is a 10x7 board with 2.5 cm squares - the size the calibration tool uses is actually the interior vertex points which is 9x6).  Open a new terminal on the **Master** and run the folowing:
 
     ```bash
@@ -116,21 +119,68 @@ A camera must first be calibrated to utilize computer vision based tasks. Otherw
 1. You now are able to connect to a USB camera using ROS, display the image provided by the node, and have a calibration file that ROS can use to identify the size of objects in the frame.
 
 
+### AprilTags Detection with ROS2
+
+In this section, you'll learn how to detect AprilTags in ROS 2 using the apriltag_ros package. 
+
+1. This time, we use the `v4l2_camera` package instead of `usb_cam`. 
+
+    ```bash
+    ros2 run v4l2_camera v4l2_camera_node
+    ```
+
+    The Video4Linux (V4L) framework is a collection of device drivers and an API for video capture on Linux systems. V4L supports various types of cameras, including USB webcams, TV tuners, and CSI cameras, and standardizes their output to make it easier for developers to integrate video functionality into applications. V4L2, the second version of the framework, introduced improvements like better design and compatibility with modern applications. The `v4l2_camera` package is a lightweight, native ROS2 drive whereas the `usb_cam` package is for more detailed config or features, and also mainly used in ROS1. 
+
+1. Verify if the `/image_raw` and `/camera_info` topics are published. By now, you should now what command you need to run. 
+
+1. Examine the message carried by `/camera_info` by running `ros2 topic type /camera_info`.  Then run the `ros2 inferface show <message>` to display the description of the message. 
+
+1. Carefully observe the `CameraInfo` message by running
+    ```bash
+    ros2 topic echo /camera_info
+    ```
+    
+    ```{attention}
+    By now, you are expected to be familiar with these ros2 commands as they are frequently used for troubleshooting. Therefore, you should be able to answer if such questions are asked in GRs.  
+    ```
+
+1. Quit the `v4l2_camera` node and rerun it with the calibration data we created in the priviouse section.  
+    ```bash
+    ros2 run v4l2_camera v4l2_camera_node --ros-args -p camera_info_path:=~/.ros/camera_info/default_cam.yaml
+    ```
+
+1. Observe the `CameraInfo` message again. Can you find any differences from the message published by the `v4l2_camera` node without the calibration data? This message can now be used to generate a rectified image from the raw image (`\image_raw`) using the `image_proc` package.
+    ```bash
+    ros2 run image_proc image_proc --ros-args -r image_raw:=/image_raw -r camera_info:=/camera_info -r image_rect:=/image_rect
+    ```
+    
+    The `image_proc` node uses the `/camera_info` topic to generate the rectified image as illusted in the following diagram.
+
+    ```
+           [ default_cam.yaml ]
+                     ↓
+         v4l2_camera_node (reads YAML)
+                     ↓
+            publishes /camera_info
+                     ↓
+           image_proc (uses camera_info)
+                     ↓
+            publishes /image_rect
+                     ↓
+     apriltag_ros (uses image_rect + camera_info)
+    ```
+
+1. Run the `apriltag_ros` package to detect apriltags:
+    ```bash
+    ros2 launch apriltag_ros apriltag.launch.py camera_name:=camera image_topic:=/image_rect camera_info_topic:=/camera_info
+    ```
 
 
 
-Create a secure shell to the robot and edit the calibration data and replace "narrow\_stero" with "head\_camera":
 
-```bash
-ssh pi@robotX
-nano /home/pi/.ros/camera_info/head_camera.yaml
-```
-
-Rerun the `lab4.launch` file on the robot. You should see the camera feed reopen and see no errors in the command line (you may need to unplug and plug your camera back in).
+You'll also write your own ROS 2 Python node that reads tag detection messages and reports each tag’s ID and distance from the camera.
 
 
-
-### AprilTag ROS
 Browse to the AprilTag_ROS package on the **Master** and edit the config file:
 
 ```bash
@@ -248,6 +298,13 @@ Do you note a difference in processing speed?
 
 
 ## Printing April Tag information
+
+
+
+Rerun the `lab4.launch` file on the robot. You should see the camera feed reopen and see no errors in the command line (you may need to unplug and plug your camera back in).
+
+
+
 
 Create a node on the master in lab4 called `apriltag_dist.py`. Import the appropriate AprilTag message. Subscribe to the `tag_detections` topic. Print the identified AprilTag ID and distance. If the camera sees multiple tags, it should print the information for each tag.
 

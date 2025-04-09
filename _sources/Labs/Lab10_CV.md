@@ -366,7 +366,7 @@ In this step, you’ll create a ROS 2 node that runs your stop sign detector in 
 1. Edit `stop_detector.py`.
     - Inside the `camera_callback()` function, use the same image processing approach used in the `image_capture.py` script to convert ROS image messages into OpenCV format (`cv_image`).
     - Apply your HOG-based detector to the `cv_image`, just like you did in [Test the Detector](CV:Detector).
-    - Draw bounding boxes around any detected stop signs.
+    - Draw bounding boxes around any detected stop signs. Use the `cv2.rectangle` function to draw the boxes.
     - Use `cv2.imshow()` to display the video, and make sure to call `cv2.waitKey(1)` to allow the video to refresh in real-time.
 
 1. Use the following command, replacing `<path/to/detector>` with the path to your trained `.svm` detector file:

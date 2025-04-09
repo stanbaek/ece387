@@ -719,7 +719,7 @@ ros2<span class="w"> </span>topic<span class="w"> </span>hz<span class="w"> </sp
 <ul class="simple">
 <li><p>Inside the <code class="docutils literal notranslate"><span class="pre">camera_callback()</span></code> function, use the same image processing approach used in the <code class="docutils literal notranslate"><span class="pre">image_capture.py</span></code> script to convert ROS image messages into OpenCV format (<code class="docutils literal notranslate"><span class="pre">cv_image</span></code>).</p></li>
 <li><p>Apply your HOG-based detector to the <code class="docutils literal notranslate"><span class="pre">cv_image</span></code>, just like you did in <a class="reference internal" href="#cv-detector"><span class="std std-ref">Test the Detector</span></a>.</p></li>
-<li><p>Draw bounding boxes around any detected stop signs.</p></li>
+<li><p>Draw bounding boxes around any detected stop signs. Use the <code class="docutils literal notranslate"><span class="pre">cv2.rectangle</span></code> function to draw the boxes.</p></li>
 <li><p>Use <code class="docutils literal notranslate"><span class="pre">cv2.imshow()</span></code> to display the video, and make sure to call <code class="docutils literal notranslate"><span class="pre">cv2.waitKey(1)</span></code> to allow the video to refresh in real-time.</p></li>
 </ul>
 </li>

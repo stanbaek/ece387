@@ -388,7 +388,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">📜 Overview</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-procedures">🛠️ Lab Procedures</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calibrate-usb-camera">Calibrate USB Camera</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#apriltag-ros">AprilTag ROS</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#apriltags-detection-with-ros2">AprilTags Detection with ROS2</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#launch-file-apriltag-ros">Launch File - Apriltag_Ros</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint">Checkpoint</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
@@ -432,6 +432,7 @@ document.write(`
 </pre></div>
 </div>
 </li>
+<li><p>Make sure if the <code class="docutils literal notranslate"><span class="pre">/camera_info</span></code> topic is published by running <code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">topic</span> <span class="pre">list</span></code>.  If it is being published, examine what data i Disconnect the camera from the robot and plug it into the master computer. Then, run the following command to start the camera node:</p></li>
 <li><p>Run the camera calibrate package with the correct parameters (even though the checkerboard says it is a 10x7 board with 2.5 cm squares - the size the calibration tool uses is actually the interior vertex points which is 9x6).  Open a new terminal on the <strong>Master</strong> and run the folowing:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>camera_calibration<span class="w"> </span>cameracalibrator<span class="w"> </span>--size<span class="w"> </span>9x6<span class="w"> </span>--square<span class="w"> </span><span class="m">0</span>.025<span class="w"> </span>--camera_name<span class="w"> </span>default_cam<span class="w"> </span>--no-service-check<span class="w"> </span>--ros-args<span class="w"> </span>-r<span class="w"> </span>image:<span class="o">=</span>/image_raw
 </pre></div>
@@ -511,15 +512,59 @@ mv<span class="w"> </span>/tmp/ost.yaml<span class="w"> </span>./camera_info/def
 <li><p>Stop the <code class="docutils literal notranslate"><span class="pre">usb_cam</span></code> node and reopen it to verify that the <code class="docutils literal notranslate"><span class="pre">usb_cam</span></code> node is able to open the camera calibration file.</p></li>
 <li><p>You now are able to connect to a USB camera using ROS, display the image provided by the node, and have a calibration file that ROS can use to identify the size of objects in the frame.</p></li>
 </ol>
-<p>Create a secure shell to the robot and edit the calibration data and replace “narrow_stero” with “head_camera”:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>pi@robotX
-nano<span class="w"> </span>/home/pi/.ros/camera_info/head_camera.yaml
+</section>
+<section id="apriltags-detection-with-ros2">
+<h3>AprilTags Detection with ROS2<a class="headerlink" href="#apriltags-detection-with-ros2" title="Permalink to this heading">#</a></h3>
+<p>In this section, you’ll learn how to detect AprilTags in ROS 2 using the apriltag_ros package.</p>
+<ol class="arabic">
+<li><p>This time, we use the <code class="docutils literal notranslate"><span class="pre">v4l2_camera</span></code> package instead of <code class="docutils literal notranslate"><span class="pre">usb_cam</span></code>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>v4l2_camera<span class="w"> </span>v4l2_camera_node
 </pre></div>
 </div>
-<p>Rerun the <code class="docutils literal notranslate"><span class="pre">lab4.launch</span></code> file on the robot. You should see the camera feed reopen and see no errors in the command line (you may need to unplug and plug your camera back in).</p>
-</section>
-<section id="apriltag-ros">
-<h3>AprilTag ROS<a class="headerlink" href="#apriltag-ros" title="Permalink to this heading">#</a></h3>
+<p>The Video4Linux (V4L) framework is a collection of device drivers and an API for video capture on Linux systems. V4L supports various types of cameras, including USB webcams, TV tuners, and CSI cameras, and standardizes their output to make it easier for developers to integrate video functionality into applications. V4L2, the second version of the framework, introduced improvements like better design and compatibility with modern applications. The <code class="docutils literal notranslate"><span class="pre">v4l2_camera</span></code> package is a lightweight, native ROS2 drive whereas the <code class="docutils literal notranslate"><span class="pre">usb_cam</span></code> package is for more detailed config or features, and also mainly used in ROS1.</p>
+</li>
+<li><p>Verify if the <code class="docutils literal notranslate"><span class="pre">/image_raw</span></code> and <code class="docutils literal notranslate"><span class="pre">/camera_info</span></code> topics are published. By now, you should now what command you need to run.</p></li>
+<li><p>Examine the message carried by <code class="docutils literal notranslate"><span class="pre">/camera_info</span></code> by running <code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">topic</span> <span class="pre">type</span> <span class="pre">/camera_info</span></code>.  Then run the <code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">inferface</span> <span class="pre">show</span> <span class="pre">&lt;message&gt;</span></code> to display the description of the message.</p></li>
+<li><p>Carefully observe the <code class="docutils literal notranslate"><span class="pre">CameraInfo</span></code> message by running</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/camera_info
+</pre></div>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>By now, you are expected to be familiar with these ros2 commands as they are frequently used for troubleshooting. Therefore, you should be able to answer if such questions are asked in GRs.</p>
+</div>
+</li>
+<li><p>Quit the <code class="docutils literal notranslate"><span class="pre">v4l2_camera</span></code> node and rerun it with the calibration data we created in the priviouse section.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>v4l2_camera<span class="w"> </span>v4l2_camera_node<span class="w"> </span>--ros-args<span class="w"> </span>-p<span class="w"> </span>camera_info_path:<span class="o">=</span>~/.ros/camera_info/default_cam.yaml
+</pre></div>
+</div>
+</li>
+<li><p>Observe the <code class="docutils literal notranslate"><span class="pre">CameraInfo</span></code> message again. Can you find any differences from the message published by the <code class="docutils literal notranslate"><span class="pre">v4l2_camera</span></code> node without the calibration data? This message can now be used to generate a rectified image from the raw image (<code class="docutils literal notranslate"><span class="pre">\image_raw</span></code>) using the <code class="docutils literal notranslate"><span class="pre">image_proc</span></code> package.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>image_proc<span class="w"> </span>image_proc<span class="w"> </span>--ros-args<span class="w"> </span>-r<span class="w"> </span>image_raw:<span class="o">=</span>/image_raw<span class="w"> </span>-r<span class="w"> </span>camera_info:<span class="o">=</span>/camera_info<span class="w"> </span>-r<span class="w"> </span>image_rect:<span class="o">=</span>/image_rect
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">image_proc</span></code> node uses the <code class="docutils literal notranslate"><span class="pre">/camera_info</span></code> topic to generate the rectified image as illusted in the following diagram.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>       [ default_cam.yaml ]
+                 ↓
+     v4l2_camera_node (reads YAML)
+                 ↓
+        publishes /camera_info
+                 ↓
+       image_proc (uses camera_info)
+                 ↓
+        publishes /image_rect
+                 ↓
+ apriltag_ros (uses image_rect + camera_info)
+</pre></div>
+</div>
+</li>
+<li><p>Run the <code class="docutils literal notranslate"><span class="pre">apriltag_ros</span></code> package to detect apriltags:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>apriltag_ros<span class="w"> </span>apriltag.launch.py<span class="w"> </span>camera_name:<span class="o">=</span>camera<span class="w"> </span>image_topic:<span class="o">=</span>/image_rect<span class="w"> </span>camera_info_topic:<span class="o">=</span>/camera_info
+</pre></div>
+</div>
+</li>
+</ol>
+<p>You’ll also write your own ROS 2 Python node that reads tag detection messages and reports each tag’s ID and distance from the camera.</p>
 <p>Browse to the AprilTag_ROS package on the <strong>Master</strong> and edit the config file:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>roscd<span class="w"> </span>apriltag_ros/config
 sudo<span class="w"> </span>nano<span class="w"> </span>tags.yaml
@@ -609,6 +654,7 @@ scp<span class="w"> </span>stop_detector.py<span class="w"> </span>pi@robotX:/ho
 </section>
 <section id="printing-april-tag-information">
 <h2>Printing April Tag information<a class="headerlink" href="#printing-april-tag-information" title="Permalink to this heading">#</a></h2>
+<p>Rerun the <code class="docutils literal notranslate"><span class="pre">lab4.launch</span></code> file on the robot. You should see the camera feed reopen and see no errors in the command line (you may need to unplug and plug your camera back in).</p>
 <p>Create a node on the master in lab4 called <code class="docutils literal notranslate"><span class="pre">apriltag_dist.py</span></code>. Import the appropriate AprilTag message. Subscribe to the <code class="docutils literal notranslate"><span class="pre">tag_detections</span></code> topic. Print the identified AprilTag ID and distance. If the camera sees multiple tags, it should print the information for each tag.</p>
 <p>In your callback function you will want to create a for loop such as:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">detections</span><span class="p">:</span>
@@ -823,7 +869,7 @@ ros2 launch usb_cam_launch usb_cam_launch.py
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">📜 Overview</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-procedures">🛠️ Lab Procedures</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calibrate-usb-camera">Calibrate USB Camera</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#apriltag-ros">AprilTag ROS</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#apriltags-detection-with-ros2">AprilTags Detection with ROS2</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#launch-file-apriltag-ros">Launch File - Apriltag_Ros</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint">Checkpoint</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>

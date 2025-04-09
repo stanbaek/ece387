@@ -54,6 +54,7 @@ sudo apt install -y ros-humble-gazebo-*
 sudo apt install -y ros-humble-cartographer ros-humble-cartographer-ros
 sudo apt install -y ros-humble-tf-transformations
 sudo apt install -y ros-humble-usb-cam ros-humble-image-proc 
+sudo apt install -y ros-humble-v4l2-camera 
 sudo apt install -y ros-humble-camera-calibration
 sudo apt install -y ros-humble-apriltag ros-humble-apriltag-ros libapriltag-dev
 sudo apt install -y python3-pip
