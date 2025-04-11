@@ -1,63 +1,91 @@
 # 🔬 Lab11: AprilTag
 
-## 📌 Objectives
+---
 
+## 📌 Objectives  
+
+- Students should be able to explain the purpose of fiducial markers in robotics.  
+- Students should be able to calibrate a USB camera using ROS2 tools and a checkerboard pattern.  
+- Students should be able to explain and interpret ROS2 camera calibration messages.  
+- Students should be able to set up and run a ROS2 node for AprilTag detection.  
+- Students should be able to interpret position and orientation data from detected AprilTags.  
+- Students should be able to demonstrate the ability to use AprilTag data for estimating distance to objects.
+
+---
 
 ## 📜 Overview
 
-In this lab we will learn how fiducial markers are used in robotics. Specifically, we will utilize ROS tools to identify different [April Tags](https://april.eecs.umich.edu/papers/details.php?name=olson2011tags) and use the 3D position and orientation to determine the robot's distance from an object.
+This lab introduces the use of **fiducial markers**—specifically **AprilTags**—for robot perception and navigation. These markers are used in robotics for tasks like localization, mapping, and interaction with known objects. AprilTags are square, black-and-white markers that encode an ID in a unique pattern, allowing them to be recognized by a vision system.
 
-A fiducial marker is an artificial feature used in creating controllable experiments, ground truthing, and in simplifying the development of systems where perception is not the central objective. A few examples of fiducial markers include ArUco Markers, AprilTags, and QR codes. Each of these different tags hold information such as an ID or, in the case of QR codes, websites, messages, and etc. We will primarily be focusing on AprilTags as there is a very robust ROS package already built. This library identifies AprilTags and will provide information about the tags size, distance, and orientation.
+We'll use **ROS2** tools and a camera to detect AprilTags in the environment. The camera will provide images to a detection node, which will process these images and estimate the 3D pose (position and orientation) of each tag relative to the camera. With this information, we can calculate the robot's distance from the tag and understand its spatial relationship to the object.
 
+Before detecting tags, we must first calibrate the USB camera to correct for lens distortion and establish a reliable relationship between image pixels and real-world measurements. Calibration ensures accurate position and distance calculations.
+
+This lab will also help solidify your understanding of ROS2 topics, nodes, and message types—all critical for real-world robotic applications.
+
+---
 
 ## 🛠️ Lab Procedures
 
-### Calibrate USB Camera
+### ✅ Part 1: Calibrate the USB Camera
 
-A camera must first be calibrated to utilize computer vision based tasks. Otherwise, there is no reference for how large objects are in regards to the camera frame. The [ROS Calibration Tool](http://wiki.ros.org/camera_calibration) creates a calibration file that is then used by other ROS packages to enable size and distance calculations. The **camera_calibration** package utilizes OpenCV camera calibration to allow easy calibration of monocular or stereo cameras using a checkerboard calibration target. The complete guide can be found on the [Camera Calibration Tutorial](http://wiki.ros.org/camera_calibration/Tutorials/MonocularCalibration).
+For a camera to effectively perform computer vision tasks, it must first be calibrated. Without calibration, there's no reliable reference for determining the size of objects within the camera's frame. The [ROS Calibration Tool](http://wiki.ros.org/camera_calibration) generates a calibration file that other ROS packages can use to calculate object size and distance. The **camera_calibration** package leverages OpenCV's calibration techniques to simplify the process of calibrating monocular or stereo cameras, typically using a checkerboard pattern as the target. For detailed instructions, refer to the [Camera Calibration Tutorial](http://wiki.ros.org/camera_calibration/Tutorials/MonocularCalibration).
 
-1. Disconnect the camera from the robot and plug it into the master computer. Then, run the following command to start the camera node:
+1. Disconnect the camera from the robot and plug it into the **Master computer**. Then run:
 
     ```bash
     ros2 run usb_cam usb_cam_node_exe --ros-args -p video_device:=/dev/video0
     ```
 
-1. Make sure if the `/camera_info` topic is published by running `ros2 topic list`.  If it is being published, examine what data i Disconnect the camera from the robot and plug it into the master computer. Then, run the following command to start the camera node:
+1. Check if topics are being published:
+    ```bash
+    ros2 topic list
+    ```
 
+    Make sure you see `/image_raw` and `/camera_info`. Then check the message type:
 
-1. Run the camera calibrate package with the correct parameters (even though the checkerboard says it is a 10x7 board with 2.5 cm squares - the size the calibration tool uses is actually the interior vertex points which is 9x6).  Open a new terminal on the **Master** and run the folowing:
+    ```bash
+    ros2 topic type /camera_info
+    ros2 interface show <message>
+    ```
 
+1. Echo the camera info:
+
+    ```bash
+    ros2 topic echo /camera_info
+    ```
+
+    Look for values under `K`, `R`, and `P`. Initially, they’ll be all zeros—this means the camera is not yet calibrated.
+
+    > 💡 You should be comfortable using these ROS2 commands. Expect to answer related questions during graded reviews (GRs).
+
+1. Run the calibration tool. Use the checkerboard (9x6 internal corners, 2.5 cm spacing). Run:
     ```bash
     ros2 run camera_calibration cameracalibrator --size 9x6 --square 0.025 --camera_name default_cam --no-service-check --ros-args -r image:=/image_raw
     ```
-
-1. You should see a window open that looks like this:
+    This launches a calibration window.
 
     ```{image} ./figures/Lab11_Calibration.png
     :width: 500  
     :align: center  
     ```  
 
-1. In order to get a good calibration you will need to move the checkerboard around in the camera frame such that:
+1. To collect calibration data, move the checkerboard in the camera view in various ways:
+    - Left/right/top/bottom
+    - Closer/farther
+    - Tilted at angles
+    - Fill the entire frame
 
-    - checkerboard on the camera's left, right, top and bottom of field of view
-    - X bar - left/right in field of view
-    - Y bar - top/bottom in field of view
-    - Size bar - toward/away and tilt from the 
-    - checkerboard filling the whole field of view
-    - checkerboard tilted to the left, right, top and bottom (Skew)
-
-
-    As you move the checkerboard around you will see four bars on the calibration sidebar increase in length. 
-
-1. When the CALIBRATE button lights, you have enough data for calibration and can click CALIBRATE to see the results. Calibration can take up to a couple minutes. The windows might be greyed out but just wait, it is working.
+    Four progress bars will fill up. When the "CALIBRATE" button activates, click it.
 
     ```{image} ./figures/Lab11_Calibrate.png
     :width: 500  
     :align: center  
     ```  
 
-1. When complete, it will display something similar to the following output:
+    > 🕓 Calibration may take a few minutes. The windows might be greyed out but just wait, it is working.
+
+    When complete, it will display something similar to the following output:
 
     ```bash
     **** Calibrating ****
@@ -99,14 +127,14 @@ A camera must first be calibrated to utilize computer vision based tasks. Otherw
     0.000000 0.000000 1.000000 0.000000
     ```
 
-1. Select the save button and then commit. Browse to the location of the calibration data and extract
 
+1. Save and extract calibration data. Click **Save**, then **Commit**. Browse to the location of the calibration data and extract
     ```bash
     cd /tmp
     tar xf calibrationdata.tar.gz
     ```
 
-1. The `ost.yaml` file will be extracted from the compressed file. Move it to the appropriate ROS folder on the robot:
+    Move the `ost.yaml` file to the correct ROS folder:
 
     ```bash
     cd ~/.ros
@@ -114,345 +142,84 @@ A camera must first be calibrated to utilize computer vision based tasks. Otherw
     mv /tmp/ost.yaml ./camera_info/default_cam.yaml
     ```
 
-1. Stop the `usb_cam` node and reopen it to verify that the `usb_cam` node is able to open the camera calibration file.
-
-1. You now are able to connect to a USB camera using ROS, display the image provided by the node, and have a calibration file that ROS can use to identify the size of objects in the frame.
-
-
-### AprilTags Detection with ROS2
-
-In this section, you'll learn how to detect AprilTags in ROS 2 using the apriltag_ros package. 
-
-1. . 
+1. Relaunch the camera node:
 
     ```bash
-    ros2 run usb_cam usb_cam_node_exe --ros-args -p video_device:=/dev/video0 -p framerate:=15.0
+    ros2 run usb_cam usb_cam_node_exe --ros-args -p video_device:=/dev/video0
     ```
 
-1. Verify if the `/image_raw` and `/camera_info` topics are published. By now, you should now what command you need to run. 
+1. Take another look at the `camera_info` topic. Do you notice any differences compared to the message published by the `usb_cam` node when calibration data is not included? Keep in mind that the `usb_cam` node does not use the `CameraInfo` message to produce rectified images from the raw data (`\image_raw`). Instead, it publishes the `CameraInfo` message so that you can use it to create rectified images if needed.
 
-1. Examine the message carried by `/camera_info` by running `ros2 topic type /camera_info`.  Then run the `ros2 inferface show <message>` to display the description of the message. 
+1. Take a screenshot of the calibrated `camera_info` output. This is one of your deliverables.
 
-1. Carefully observe the `CameraInfo` message by running
+---
+
+### ✅ Part 2: AprilTag Detection with ROS2
+
+In this section, you will explore how to detect AprilTags in ROS 2. There are several methods to achieve this, one of which involves using multiple existing ROS nodes and connecting them via ROS topics. While this approach may seem straightforward, managing the interactions between different nodes can become complex and inefficient. To simplify this process, we will develop our own custom node to handle all the required functionality.
+
+1. Create a package named `lab11_apriltag` with the dependencies:
+- `rclpy`
+- `cv_bridge`
+- `sensor_msgs`
+- `std_msgs`
+- `opencv2`
+
+1. Download the provided [`apriltag.py`](../files/apriltag_node.py) and place it in your package’s scripts directory.
+
+1. Update your `setup.py` to include the script as an entry point. This is necessary to ensure that the script runs as a node.
+
+1. Inside your package (not the scripts folder), create a new directory called `config`. Next, copy the `default_cam.yaml` file into this directory. The code in `apriltag.py` is already set up to load this default calibration file if no calibration file path is provided by the user when the node is executed. Your directory structure should look like this:
+
     ```bash
-    ros2 topic echo /camera_info
-    ```
-    
-    ```{attention}
-    By now, you are expected to be familiar with these ros2 commands as they are frequently used for troubleshooting. Therefore, you should be able to answer if such questions are asked in GRs.  
-    ```
-
-1. Quit the `v4l2_camera` node and rerun it with the calibration data we created in the priviouse section.  
-    ```bash
-
+    lab11_apriltag/
+    ├── config/
+    │   └── default_camera_info.yaml
+    ├── lab11_apriltag/
+    ├── resources/
+    └── ...
     ```
 
-ros2 run lab11_apriltag apriltag_node --ros-args -p camera_info_file:=~/.ros/camera_info/default_cam.yaml
+1. Add this path to your `setup.py` under `data_files`:
 
-
-
-1. Observe the `CameraInfo` message again. Can you find any differences from the message published by the `v4l2_camera` node without the calibration data? This message can now be used to generate a rectified image from the raw image (`\image_raw`) using the `image_proc` package.
-
-    ```
-    
-    The `image_proc` node uses the `/camera_info` topic to generate the rectified image as illusted in the following diagram.
-
-    ```
-           [ default_cam.yaml ]
-                     ↓
-         v4l2_camera_node (reads YAML)
-                     ↓
-            publishes /camera_info
-                     ↓
-           image_proc (uses camera_info)
-                     ↓
-            publishes /image_rect
-                     ↓
-     apriltag_ros (uses image_rect + camera_info)
-    ```
-
-1. Run the `apriltag_ros` package to detect apriltags:
-    ```bash
-    ros2 launch apriltag_ros apriltag.launch.py camera_name:=camera image_topic:=/image_rect camera_info_topic:=/camera_info
-    ```
-
-
-
-
-You'll also write your own ROS 2 Python node that reads tag detection messages and reports each tag’s ID and distance from the camera.
-
-
-Browse to the AprilTag_ROS package on the **Master** and edit the config file:
-
-```bash
-roscd apriltag_ros/config
-sudo nano tags.yaml
-```
-
-This is where you provide the package with information about the tags it should identify. You should have gotten tags 0-3. Each of these tags is $.165 m$ wide and should have a corresponding name: "tag_0" (in the final project, you might want to change these names as we will be providing you commands that correspond to each tag). In the `tags.yaml` file, add a line for each tag under "standalone tags" (replace ... with last two tags):
-
-```python
-standalone_tags:
-  [
-  	{id: 0, size: .165, name: tag_0},
-  	{id: 1, size: .165, name: tag_1},
-  	...
-  ]
-```
-
-Repeat these steps on the **Robot**.
-
-### Launch File - Apriltag_Ros
-
-Edit the `lab4.launch` file on the **Master**, calling the `continuous_detection` node provided by the **apriltag_ros** package. We need to set the arguments to the values provided by the `usb_cam` node:
-
-Add the following arguments and parameters to the top of the launch file:
-
-```xml
-<arg name="launch_prefix" default="" />
-<arg name="node_namespace" default="apriltag_ros_continuous_node" />
-<arg name="camera_name" default="/usb_cam" />
-<arg name="image_topic" default="image_raw" />
-
-<!-- Set parameters -->
-<rosparam command="load" file="$(find apriltag_ros)/config/settings.yaml" ns="$(arg node_namespace)" />
-<rosparam command="load" file="$(find apriltag_ros)/config/tags.yaml" ns="$(arg node_namespace)" />
-```
-
-Add the apriltag node in the remote section:
-
-
-```xml
-<!-- apriltag_ros -->
-<node machine="robot0" pkg="apriltag_ros" type="apriltag_ros_continuous_node" name="$(arg node_namespace)" clear_params="true" output="screen" launch-prefix="$(arg launch_prefix)" >
-<!-- Remap topics from those used in code to those on the ROS network -->
-<remap from="image_rect" to="$(arg camera_name)/$(arg image_topic)" />
-<remap from="camera_info" to="$(arg camera_name)/camera_info" />
-
-<param name="publish_tag_detections_image" type="bool" value="true" />      <!-- default: false -->
-</node>
-
-```
-
-Save and exit.
-
-Launch the `lab4.launch` file. 
-
-In a terminal on the master open the **rqt_image_view** node (`rosrun rqt_image_view rqt_image_view`) and select the *tag_detections_image* topic. If you hold up each tag, you should see a yellow box highlight the tag with an id in the middle of the tag.
-
-In another terminal on the master echo the topic `tag_detections`. What information do you see? Will the apriltag_ros node identify only one tag at a time? Which value do you think we would use to determine distance from the tag? What kind of message is this? What package does this message come from?
-
-### Checkpoint
-Show an instructor that the **apriltag_ros** can identify tags and provides position data.
-
-### Summary
-You now have the ability to identify AprilTags and because you have a calibrated camera, you can detect the size, orientation, and distance of a tag.
-
-### Cleanup
-Kill all rosnodes and roscore!
-
-
-
-
-
-
-1. You will then use the detector and known size of the stop sign to estimate how far the stop sign is from the camera. Lastly, you will create a node to identify and determine how far an April Tag is from the robot.
-
-Given a stop sign with a known width, $W$, we can place the stop sign at a known distance, $D$, from our camera. The detector will then detect the stop sign and provide a perceived width in pixels, $P$. Using these values we can calculate the focal length, $F$ of our camera:
-
-$F = \frac{(P\times D)}{W}$
-
-We can then use the calculated focal length, $F$, known width, $W$, and perceived width in pixels, $P$ to calculate the distance from the camera:
-
-$D' = \frac{(W\times F)}{P}$
-
-Use the above information and create two class variables, `FOCAL` and `STOP_WIDTH`, and a class function to calculate distance given a known `FOCAL` length and a known width of the stop sign, `STOP_WIDTH`. You will need to print the perceived width of the stop sign to determine the $P$ value used in the calculation to find the focal length.
-
-> 💡️ **Tip:** Pay attention to what the `x` and `w` variables of the `box` actually represent!
-
-Create a new publisher that will publish the distance using **Float32** *std_msgs* messages over the */stop_dist* topic.
-
-Publish the distance of each object seen in the image. 
-
-Remove any print statements after troubleshooting!
-
-
-You will edit your stop sign detector on the **Robot** to calculate an estimated distance between the camera and the stop sign using triangle similarity. 
-
-Demonstrate the stop detector on the **Master** detecting a stop sign from the **Robot's** camera.
-
-
-## Move detector to robot
-Copy the detector and node to the robot:
-
-```bash
-roscd lab4/training_images
-scp stop_detector.svm pi@robotX:/home/pi/robot_ws/src/ece387_robot_spring202X-NAME/lab4/training_images/stop_detector.svm
-roscd lab4/src
-scp stop_detector.py pi@robotX:/home/pi/robot_ws/src/ece387_robot_spring202X-NAME/lab4/src/stop_detector.py
-```
-
-Remove the lines that display the video and instead print "Stop detected" if `boxes` is not empty.
-
-Do you note a difference in processing speed?
-
-
-
-## Printing April Tag information
-
-
-
-Rerun the `lab4.launch` file on the robot. You should see the camera feed reopen and see no errors in the command line (you may need to unplug and plug your camera back in).
-
-
-
-
-Create a node on the master in lab4 called `apriltag_dist.py`. Import the appropriate AprilTag message. Subscribe to the `tag_detections` topic. Print the identified AprilTag ID and distance. If the camera sees multiple tags, it should print the information for each tag.
-
-In your callback function you will want to create a for loop such as:
-
-```python
-for tag in data.detections:
-```
-
-Use print statements to determine the characteristics of the message (you can also google the message).
-
-Add the `apriltag_dist` node to the **lab4** launch file.
-
-## Checkpoint 4
-
-Demonstrate the `apriltag_dist` node printing the ID and distance of each April Tag.
-
-## Report
-Complete a short 2-3 page report that utilizes the format and answers the questions within the report template. The report template and an example report can be found within the Team under `Resources/Lab Template`.
-
-> 📝️ **Note:** We will be primarily grading sections 3.1, 3.2, and 3.3 for this lab, but do include the entire lab as you will need other components for the final project report.
-
-## Turn-in Requirements
-**[25 points]** All checkpoints marked off.
-
-**[50 points]** Report via Gradescope.
-
-**[25 points]** Code: push your code to your repository. Also, include a screen shot of the **apriltag_dist.py** and **stop_detector.py** files at the end of your report.
-
-    scp ost.yaml pi@robotX:/home/pi/.ros/camera_info/head_camera.yaml
-
-
-
-<!--
-Make and source your workspace.
-
-1. Now, On the drop down menu, select `image_raw/compressed`.  Nothing will be displayed. Instead, you will be able to find error messages on the terminal.
-
-1. Open another teminal and log in to the robot using SSH. Then run the following command
-
-ros2 run image_transport republish raw compressed   --ros-args   -r in:=/camera1/image_raw   -r out:=/camera1/image_compressed   -p jpeg_quality:=70  # Adjust for quality/bandwidth tradeoff
-
-
-    ros2 run image_transport republish raw compressed --ros-args --remap in:=/image_raw --remap out/compressed:=/image_raw/compressed -p compressed.format:=jpeg -p compressed.jpeg_quality:=50  # Lower = less CPU, worse quality
-
-
-
-
-### Launch File - USB Cam
-
-```python
-from launch import LaunchDescription
-from launch_ros.actions import Node
-
-def generate_launch_description():
-    return LaunchDescription([
-        Node(
-            package='usb_cam',
-            executable='usb_cam_node',
-            name='usb_cam',
-            output='screen',
-            parameters=[{
-                'video_device': '/dev/video0',
-                'image_width': 640,
-                'image_height': 480,
-                'pixel_format': 'yuyv',
-                'camera_frame_id': 'usb_cam',
-                'io_method': 'mmap'
-            }]
-        )
-    ])
-```
-
-### **1. Create a New ROS 2 Package**
-Navigate to your ROS 2 workspace and create a package for the launch file:
-
-```bash
-cd ~/ros2_ws/src
-ros2 pkg create usb_cam_launch --build-type ament_python
-```
-
-### **2. Move the Launch File into the Package**
-Place your `usb_cam_launch.py` inside the `launch` directory of the package:
-
-```bash
-mkdir -p ~/ros2_ws/src/usb_cam_launch/launch
-mv usb_cam_launch.py ~/ros2_ws/src/usb_cam_launch/launch/
-```
-
-### **3. Modify `package.xml` and `setup.py`**
-Ensure `package.xml` includes dependencies for `launch_ros`. Also, update `setup.py` to register the launch file:
-
-Modify `setup.py`:
-```python
-import os
-from glob import glob
-from setuptools import setup
-
-package_name = 'usb_cam_launch'
-
-setup(
-    name=package_name,
-    version='0.0.1',
-    packages=[package_name],
-    install_requires=['setuptools'],
-    zip_safe=True,
-    maintainer='your_name',
-    maintainer_email='your_email',
-    description='Launch file for USB camera in ROS 2',
-    license='Apache License 2.0',
-    entry_points={
-        'console_scripts': [],
-    },
+    ```python
     data_files=[
-        ('share/' + package_name + '/launch', glob('launch/*.py')),
-    ],
-)
-```
+        ('share/' + package_name + '/config', ['config/default_camera_info.yaml']),
+        ...
+    ]
+    ```
+    And in `package.xml`, include:
+    ```xml
+    <buildtool_depend>ament_cmake</buildtool_depend>
+    <exec_depend>ament_index_python</exec_depend>
+    ```
+
+1. Open the `apriltag.py` script and examine the constructor to understand how it handles loading files via command line arguments. If no argument is provided, it defaults to a pre-configured file. Pay close attention to the `load_camera_info` method—it demonstrates how to extract data from a `yaml` file effectively. While the same functionality could be achieved by subscribing to the `camera_info` topic published by the `usb_cam` node, using a calibration file is more efficient since the `camera_info` topic repeatedly publishes identical data over time.
+
+2. Launch the `usb_cam` node with a frame rate set to **15 Hz**:
+   ```bash
+   ros2 run usb_cam usb_cam_node_exe --ros-args -p video_device:=/dev/video0 -p framerate:=15.0
+   ```
+
+3. Start the `apriltag_ros` node to detect AprilTags.
+
+4. Open another terminal and echo the topic `/apriltag_pose` on the master. Observe the output. Does the `apriltag_ros` node detect more than one tag simultaneously? Consider which value might be used to calculate the distance to a tag, and note the type of message being published. Identify the package this message originates from.
+
+5. Demonstrate to the instructor that the **apriltag_ros** node is successfully detecting tags and publishing their position data.
+
+With a properly calibrated camera, you are now equipped to identify AprilTags along with their size, orientation, and distance.
 
 
-```python
-    data_files=[
-        ('share/ament_index/resource_index/packages',
-            ['resource/' + package_name]),
-        ('share/' + package_name, ['package.xml']),
-        # Include the launch directory
-        (os.path.join('share', package_name, 'launch'), glob('launch/*.launch.py')),
-    ],
-```
+## 🚚 Deliverables
 
+1. **[20 Points] Complete the `apriltag.py` Script**
+    - Ensure the script is fully functional and implements all required features.
+    - Push your code to GitHub and confirm that it has been successfully uploaded.
+    **NOTE:** _If the instructor can't find your code in your repository, you will receive a grade of 0 for the coding part._
 
-### **4. Build and Source the Package**
-```bash
-cd ~/ros2_ws
-colcon build
-source install/setup.bash
-```
+1. **[10 Points] Submit Screenshots**
+    - Submit a screenshot of the `camera_info` topic.
 
-### **5. Run the Launch File**
-Now you can launch the file using:
-
-```bash
-ros2 launch usb_cam_launch usb_cam_launch.py
-```
-
--->
-
-
-
-
+1. **[20 Points] Demonstration**
+    - Demonstrate the `apriltag_ros` node printing the ID and distance of each April Tag.
+    - Demonstrate the `apriltag_ros` node publishes the `apriltag_pose` topic.
