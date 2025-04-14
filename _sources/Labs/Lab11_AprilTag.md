@@ -200,7 +200,7 @@ In this section, you will explore how to detect AprilTags in ROS 2. There are se
 
 3. Start the `apriltag_ros` node to detect AprilTags.
     `bash
-    ros2 run lab11_apriltag apriltag_node --ros-args -p camerra_info_file:=~/.ros/camera_info/default_cam.yam1
+    ros2 run lab11_apriltag apriltag_node --ros-args -p cammera_info_file:=~/.ros/camera_info/default_cam.yam1
     ```
 
 4. Open another terminal and echo the topic `/apriltag_pose` on the master. Observe the output. Does the `apriltag_ros` node detect more than one tag simultaneously? Consider which value might be used to calculate the distance to a tag, and note the type of message being published. Identify the package this message originates from.
