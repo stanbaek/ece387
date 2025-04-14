@@ -206,6 +206,13 @@ In this section, you will explore how to detect AprilTags in ROS 2. There are se
 
 With a properly calibrated camera, you are now equipped to identify AprilTags along with their size, orientation, and distance.
 
+### ✅ Part 3: Launch 
+
+### NOT READY YET
+
+[Using ROS2 Launch Files](Lidar:Launch)
+
+### Using ROS2 Launch Files
 
 ## 🚚 Deliverables
 

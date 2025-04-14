@@ -31,6 +31,7 @@ The [Robotis LDS-01 LiDAR](https://www.robotis.us/360-laser-distance-sensor-lds-
 
 Before we dive into wall detection, we need to ensure that our setup is working correctly.
 
+(Lidar:Launch)=
 ### Using ROS2 Launch Files
 
 Managing multiple ROS nodes can become overwhelming, especially as our system grows. Instead of running each node in separate terminals, we’ll use ROS2 launch files to simplify the process.
