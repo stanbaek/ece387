@@ -171,7 +171,7 @@ In this section, you will explore how to detect AprilTags in ROS 2. There are se
     ```bash
     lab11_apriltag/
     ├── config/
-    │   └── default_camera_info.yaml
+    │   └── default_cam.yaml
     ├── lab11_apriltag/
     ├── resources/
     └── ...
@@ -181,7 +181,7 @@ In this section, you will explore how to detect AprilTags in ROS 2. There are se
 
     ```python
     data_files=[
-        ('share/' + package_name + '/config', ['config/default_camera_info.yaml']),
+        ('share/' + package_name + '/config', ['config/default_cam.yaml']),
         ...
     ]
     ```
@@ -206,24 +206,78 @@ In this section, you will explore how to detect AprilTags in ROS 2. There are se
 
 With a properly calibrated camera, you are now equipped to identify AprilTags along with their size, orientation, and distance.
 
-### ✅ Part 3: Launch 
 
-### NOT READY YET
 
-[Using ROS2 Launch Files](Lidar:Launch)
+### ✅ Part 3: Launch
 
-### Using ROS2 Launch Files
+This section guides you through creating a launch file to run three key nodes: `usb_cam`, `stop_detector`, and `apriltag_node`, with the required parameters.
+
+1. Revisit the `gamepad.launch.py` file from Lab 8 ([Using ROS2 Launch Files](Lidar:Launch)). This section provides only an overview, so ensure you thoroughly refresh your understanding of the launch file creation process before proceeding.
+
+2. Locate the `stop_detector.svm` file from Lab 10 and move it to the `config` directory within the `lab11_apriltag` package. Then, update the `setup.py` script by adding `stop_detector.svm` to the `data_files` section. This step ensures the file is appropriately packaged and accessible.
+
+3. Create a new launch file named `vision.launch.py` within the launch directory of the `lab11_apriltag` package.  
+   - Edit this file as you did in Lab 8, ensuring you include all three nodes: `usb_cam`, `stop_detector`, and `apriltag_node`.
+    - Add the necessary import statements and configuration setup: 
+        ```python
+        from launch import LaunchDescription
+        from launch_ros.actions import Node
+        from ament_index_python.packages import get_package_share_directory
+        import os
+        ```
+   - Define paths to important configuration files, including `default_camera_info.yaml` and `stop_detector.svm` inside the `generate_launch_description` method.
+
+        ```python
+        pkg_lab11_apriltag = get_package_share_directory('lab11_apriltag')
+        config_dir = os.path.join(pkg_lab11_apriltag, 'config')
+        
+        camera_info_path = os.path.join(config_dir, 'default_camera_info.yaml')
+        detector_model_path = os.path.join(config_dir, 'stop_detector.svm')
+        ```
+    - Ensure the `usb_cam` and `stop_detector` nodes are properly configured with the required parameters. Use placeholders like `{video_device}`, `{framerate}`, and paths to the configuration files to make your launch file robust and dynamic.  
+        ```python
+        parameters=[
+            {'detector_path': detector_model_path},
+            camera_info_path  # YAML file also applied here if needed
+        ]
+        ```
+        and 
+        ```python
+        parameters=[
+                {'video_device': '/dev/video0'},
+                {'framerate': 15.0},
+                camera_info_path
+            ]
+        ```
+
+    ```{important}
+    **Do not copy code snippets verbatim without understanding their functionality.** You will be required to answer related questions during GRs or assessments, so ensure your comprehension of each step and its purpose.
+    ```
+
+1. Add the launch file (`vision.launch.py`) to the `data_files` section in the `setup.py` script. This inclusion ensures the launch file is packaged correctly.
+
+1. Build and Test  
+   - Build your package to compile any changes made.  
+   - Execute the `vision.launch.py` file. Verify that the nodes (`usb_cam`, `stop_detector`, and `apriltag_node`) launch successfully.  
+   - Confirm detection functionality by observing the published topics and verifying that both stop signs and AprilTags are detected accurately.
+
 
 ## 🚚 Deliverables
 
-1. **[20 Points] Complete the `apriltag.py` Script**
-    - Ensure the script is fully functional and implements all required features.
+1. **[15 Points] Complete the `apriltag.py` Script**
+    - Implement all required features to ensure the script is fully functional.
     - Push your code to GitHub and confirm that it has been successfully uploaded.
     **NOTE:** _If the instructor can't find your code in your repository, you will receive a grade of 0 for the coding part._
 
 1. **[10 Points] Submit Screenshots**
     - Submit a screenshot of the `camera_info` topic.
 
-1. **[20 Points] Demonstration**
-    - Demonstrate the `apriltag_ros` node printing the ID and distance of each April Tag.
-    - Demonstrate the `apriltag_ros` node publishes the `apriltag_pose` topic.
+1. **[25 Points] Demonstration**
+    - Domonstrate the `apriltag_ros` and `stop_dector` are running simultaneously and detecting AptilTags and stop signs.
+    - Demonstrate the `apriltag_ros` node printing the ID and distance of each AprilTag. You should demo two AptilTags are detected simultaneously.
+    - Demonstrate the `apriltag_ros` and `stop_detector` nodes publish the `apriltag_pose` topic and `stop_dist` topic, respectively.
+    - Show that the `apriltag_ros` and `stop_detector` nodes are running simultaneously and successfully detecting both AprilTags and stop signs.
+    - Demonstrate the `apriltag_ros` node printing the ID and distance of each detected AprilTag. Ensure your demonstration includes the detection of two AprilTags at the same time.
+    - Verify and demonstrate that:
+        - The `apriltag_ros` node publishes the `apriltag_pose` topic.
+        - The `stop_detector` node publishes the `stop_dist` topic.

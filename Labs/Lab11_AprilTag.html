@@ -400,8 +400,6 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-calibrate-the-usb-camera">✅ Part 1: Calibrate the USB Camera</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-apriltag-detection-with-ros2">✅ Part 2: AprilTag Detection with ROS2</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-launch">✅ Part 3: Launch</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#not-ready-yet">NOT READY YET</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-ros2-launch-files">Using ROS2 Launch Files</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">🚚 Deliverables</a></li>
@@ -568,7 +566,7 @@ mv<span class="w"> </span>/tmp/ost.yaml<span class="w"> </span>./camera_info/def
 <li><p>Inside your package (not the scripts folder), create a new directory called <code class="docutils literal notranslate"><span class="pre">config</span></code>. Next, copy the <code class="docutils literal notranslate"><span class="pre">default_cam.yaml</span></code> file into this directory. The code in <code class="docutils literal notranslate"><span class="pre">apriltag.py</span></code> is already set up to load this default calibration file if no calibration file path is provided by the user when the node is executed. Your directory structure should look like this:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>lab11_apriltag/
 ├──<span class="w"> </span>config/
-│<span class="w">   </span>└──<span class="w"> </span>default_camera_info.yaml
+│<span class="w">   </span>└──<span class="w"> </span>default_cam.yaml
 ├──<span class="w"> </span>lab11_apriltag/
 ├──<span class="w"> </span>resources/
 └──<span class="w"> </span>...
@@ -577,7 +575,7 @@ mv<span class="w"> </span>/tmp/ost.yaml<span class="w"> </span>./camera_info/def
 </li>
 <li><p>Add this path to your <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> under <code class="docutils literal notranslate"><span class="pre">data_files</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data_files</span><span class="o">=</span><span class="p">[</span>
-    <span class="p">(</span><span class="s1">&#39;share/&#39;</span> <span class="o">+</span> <span class="n">package_name</span> <span class="o">+</span> <span class="s1">&#39;/config&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;config/default_camera_info.yaml&#39;</span><span class="p">]),</span>
+    <span class="p">(</span><span class="s1">&#39;share/&#39;</span> <span class="o">+</span> <span class="n">package_name</span> <span class="o">+</span> <span class="s1">&#39;/config&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;config/default_cam.yaml&#39;</span><span class="p">]),</span>
     <span class="o">...</span>
 <span class="p">]</span>
 </pre></div>
@@ -602,21 +600,69 @@ mv<span class="w"> </span>/tmp/ost.yaml<span class="w"> </span>./camera_info/def
 </section>
 <section id="part-3-launch">
 <h3>✅ Part 3: Launch<a class="headerlink" href="#part-3-launch" title="Link to this heading">#</a></h3>
-</section>
-<section id="not-ready-yet">
-<h3>NOT READY YET<a class="headerlink" href="#not-ready-yet" title="Link to this heading">#</a></h3>
-<p><a class="reference internal" href="Lab8_LIDAR.html#lidar-launch"><span class="std std-ref">Using ROS2 Launch Files</span></a></p>
-</section>
-<section id="using-ros2-launch-files">
-<h3>Using ROS2 Launch Files<a class="headerlink" href="#using-ros2-launch-files" title="Link to this heading">#</a></h3>
+<p>This section guides you through creating a launch file to run three key nodes: <code class="docutils literal notranslate"><span class="pre">usb_cam</span></code>, <code class="docutils literal notranslate"><span class="pre">stop_detector</span></code>, and <code class="docutils literal notranslate"><span class="pre">apriltag_node</span></code>, with the required parameters.</p>
+<ol class="arabic">
+<li><p>Revisit the <code class="docutils literal notranslate"><span class="pre">gamepad.launch.py</span></code> file from Lab 8 (<a class="reference internal" href="Lab8_LIDAR.html#lidar-launch"><span class="std std-ref">Using ROS2 Launch Files</span></a>). This section provides only an overview, so ensure you thoroughly refresh your understanding of the launch file creation process before proceeding.</p></li>
+<li><p>Locate the <code class="docutils literal notranslate"><span class="pre">stop_detector.svm</span></code> file from Lab 10 and move it to the <code class="docutils literal notranslate"><span class="pre">config</span></code> directory within the <code class="docutils literal notranslate"><span class="pre">lab11_apriltag</span></code> package. Then, update the <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> script by adding <code class="docutils literal notranslate"><span class="pre">stop_detector.svm</span></code> to the <code class="docutils literal notranslate"><span class="pre">data_files</span></code> section. This step ensures the file is appropriately packaged and accessible.</p></li>
+<li><p>Create a new launch file named <code class="docutils literal notranslate"><span class="pre">vision.launch.py</span></code> within the launch directory of the <code class="docutils literal notranslate"><span class="pre">lab11_apriltag</span></code> package.</p>
+<ul>
+<li><p>Edit this file as you did in Lab 8, ensuring you include all three nodes: <code class="docutils literal notranslate"><span class="pre">usb_cam</span></code>, <code class="docutils literal notranslate"><span class="pre">stop_detector</span></code>, and <code class="docutils literal notranslate"><span class="pre">apriltag_node</span></code>.</p></li>
+<li><p>Add the necessary import statements and configuration setup:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">launch</span><span class="w"> </span><span class="kn">import</span> <span class="n">LaunchDescription</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">launch_ros.actions</span><span class="w"> </span><span class="kn">import</span> <span class="n">Node</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ament_index_python.packages</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_package_share_directory</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+</pre></div>
+</div>
+</li>
+<li><p>Define paths to important configuration files, including <code class="docutils literal notranslate"><span class="pre">default_camera_info.yaml</span></code> and <code class="docutils literal notranslate"><span class="pre">stop_detector.svm</span></code> inside the <code class="docutils literal notranslate"><span class="pre">generate_launch_description</span></code> method.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pkg_lab11_apriltag</span> <span class="o">=</span> <span class="n">get_package_share_directory</span><span class="p">(</span><span class="s1">&#39;lab11_apriltag&#39;</span><span class="p">)</span>
+<span class="n">config_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pkg_lab11_apriltag</span><span class="p">,</span> <span class="s1">&#39;config&#39;</span><span class="p">)</span>
+
+<span class="n">camera_info_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">config_dir</span><span class="p">,</span> <span class="s1">&#39;default_camera_info.yaml&#39;</span><span class="p">)</span>
+<span class="n">detector_model_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">config_dir</span><span class="p">,</span> <span class="s1">&#39;stop_detector.svm&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Ensure the <code class="docutils literal notranslate"><span class="pre">usb_cam</span></code> and <code class="docutils literal notranslate"><span class="pre">stop_detector</span></code> nodes are properly configured with the required parameters. Use placeholders like <code class="docutils literal notranslate"><span class="pre">{video_device}</span></code>, <code class="docutils literal notranslate"><span class="pre">{framerate}</span></code>, and paths to the configuration files to make your launch file robust and dynamic.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">parameters</span><span class="o">=</span><span class="p">[</span>
+    <span class="p">{</span><span class="s1">&#39;detector_path&#39;</span><span class="p">:</span> <span class="n">detector_model_path</span><span class="p">},</span>
+    <span class="n">camera_info_path</span>  <span class="c1"># YAML file also applied here if needed</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>and</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">parameters</span><span class="o">=</span><span class="p">[</span>
+        <span class="p">{</span><span class="s1">&#39;video_device&#39;</span><span class="p">:</span> <span class="s1">&#39;/dev/video0&#39;</span><span class="p">},</span>
+        <span class="p">{</span><span class="s1">&#39;framerate&#39;</span><span class="p">:</span> <span class="mf">15.0</span><span class="p">},</span>
+        <span class="n">camera_info_path</span>
+    <span class="p">]</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p><strong>Do not copy code snippets verbatim without understanding their functionality.</strong> You will be required to answer related questions during GRs or assessments, so ensure your comprehension of each step and its purpose.</p>
+</div>
+</li>
+<li><p>Add the launch file (<code class="docutils literal notranslate"><span class="pre">vision.launch.py</span></code>) to the <code class="docutils literal notranslate"><span class="pre">data_files</span></code> section in the <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> script. This inclusion ensures the launch file is packaged correctly.</p></li>
+<li><p>Build and Test</p>
+<ul class="simple">
+<li><p>Build your package to compile any changes made.</p></li>
+<li><p>Execute the <code class="docutils literal notranslate"><span class="pre">vision.launch.py</span></code> file. Verify that the nodes (<code class="docutils literal notranslate"><span class="pre">usb_cam</span></code>, <code class="docutils literal notranslate"><span class="pre">stop_detector</span></code>, and <code class="docutils literal notranslate"><span class="pre">apriltag_node</span></code>) launch successfully.</p></li>
+<li><p>Confirm detection functionality by observing the published topics and verifying that both stop signs and AprilTags are detected accurately.</p></li>
+</ul>
+</li>
+</ol>
 </section>
 </section>
 <section id="deliverables">
 <h2>🚚 Deliverables<a class="headerlink" href="#deliverables" title="Link to this heading">#</a></h2>
 <ol class="arabic simple">
-<li><p><strong>[20 Points] Complete the <code class="docutils literal notranslate"><span class="pre">apriltag.py</span></code> Script</strong></p>
+<li><p><strong>[15 Points] Complete the <code class="docutils literal notranslate"><span class="pre">apriltag.py</span></code> Script</strong></p>
 <ul class="simple">
-<li><p>Ensure the script is fully functional and implements all required features.</p></li>
+<li><p>Implement all required features to ensure the script is fully functional.</p></li>
 <li><p>Push your code to GitHub and confirm that it has been successfully uploaded.
 <strong>NOTE:</strong> <em>If the instructor can’t find your code in your repository, you will receive a grade of 0 for the coding part.</em></p></li>
 </ul>
@@ -626,10 +672,19 @@ mv<span class="w"> </span>/tmp/ost.yaml<span class="w"> </span>./camera_info/def
 <li><p>Submit a screenshot of the <code class="docutils literal notranslate"><span class="pre">camera_info</span></code> topic.</p></li>
 </ul>
 </li>
-<li><p><strong>[20 Points] Demonstration</strong></p>
+<li><p><strong>[25 Points] Demonstration</strong></p>
 <ul class="simple">
-<li><p>Demonstrate the <code class="docutils literal notranslate"><span class="pre">apriltag_ros</span></code> node printing the ID and distance of each April Tag.</p></li>
-<li><p>Demonstrate the <code class="docutils literal notranslate"><span class="pre">apriltag_ros</span></code> node publishes the <code class="docutils literal notranslate"><span class="pre">apriltag_pose</span></code> topic.</p></li>
+<li><p>Domonstrate the <code class="docutils literal notranslate"><span class="pre">apriltag_ros</span></code> and <code class="docutils literal notranslate"><span class="pre">stop_dector</span></code> are running simultaneously and detecting AptilTags and stop signs.</p></li>
+<li><p>Demonstrate the <code class="docutils literal notranslate"><span class="pre">apriltag_ros</span></code> node printing the ID and distance of each AprilTag. You should demo two AptilTags are detected simultaneously.</p></li>
+<li><p>Demonstrate the <code class="docutils literal notranslate"><span class="pre">apriltag_ros</span></code> and <code class="docutils literal notranslate"><span class="pre">stop_detector</span></code> nodes publish the <code class="docutils literal notranslate"><span class="pre">apriltag_pose</span></code> topic and <code class="docutils literal notranslate"><span class="pre">stop_dist</span></code> topic, respectively.</p></li>
+<li><p>Show that the <code class="docutils literal notranslate"><span class="pre">apriltag_ros</span></code> and <code class="docutils literal notranslate"><span class="pre">stop_detector</span></code> nodes are running simultaneously and successfully detecting both AprilTags and stop signs.</p></li>
+<li><p>Demonstrate the <code class="docutils literal notranslate"><span class="pre">apriltag_ros</span></code> node printing the ID and distance of each detected AprilTag. Ensure your demonstration includes the detection of two AprilTags at the same time.</p></li>
+<li><p>Verify and demonstrate that:</p>
+<ul>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">apriltag_ros</span></code> node publishes the <code class="docutils literal notranslate"><span class="pre">apriltag_pose</span></code> topic.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">stop_detector</span></code> node publishes the <code class="docutils literal notranslate"><span class="pre">stop_dist</span></code> topic.</p></li>
+</ul>
+</li>
 </ul>
 </li>
 </ol>
@@ -707,8 +762,6 @@ mv<span class="w"> </span>/tmp/ost.yaml<span class="w"> </span>./camera_info/def
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-calibrate-the-usb-camera">✅ Part 1: Calibrate the USB Camera</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-apriltag-detection-with-ros2">✅ Part 2: AprilTag Detection with ROS2</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-launch">✅ Part 3: Launch</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#not-ready-yet">NOT READY YET</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-ros2-launch-files">Using ROS2 Launch Files</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">🚚 Deliverables</a></li>
