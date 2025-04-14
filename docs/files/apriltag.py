@@ -86,7 +86,7 @@ class AprilTagNode(Node):
         else:
             # Fallback to default calibration file within the package
             pkg_share = get_package_share_directory('lab11_apriltag')
-            camera_info_path = os.path.join(pkg_share, 'config', 'default_camera_info.yaml')
+            camera_info_path = os.path.join(pkg_share, 'config', 'default_cam.yaml')
             if not os.path.isfile(camera_info_path):  # If the default file is missing, raise an error
                 self.get_logger().error(f"Default calibration file not found: {camera_info_path}")
                 raise FileNotFoundError(camera_info_path)

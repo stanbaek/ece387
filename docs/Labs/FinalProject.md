@@ -160,7 +160,7 @@ In this section, you will explore how to detect AprilTags in ROS 2. There are se
 - `std_msgs`
 - `opencv2`
 
-1. Download the provided [`apriltag.py`](../files/apriltag_node.py) and place it in your package’s scripts directory.
+1. Download the provided [`apriltag.py`](../files/apriltag.py) and place it in your package’s scripts directory.
 
 1. Update your `setup.py` to include the script as an entry point. This is necessary to ensure that the script runs as a node.
 
