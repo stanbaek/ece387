@@ -1,7 +1,7 @@
 # Module 10: Final Project
 
 ## Purpose
-Students will utilize all previous modules to drive their robot in the DFEC halls. The LIDAR will be used to drive the robot centered between two walls, the IMU will be used to make 90/180/360 deg turns, OpenCV will be used to identify randomly placed stopped signs and act accordingly, and apriltag_ros will be used to navigate the robot throughout the halls (when the robot is a certain distance from the apriltag then turn left, right, around, or the robot has reached the goal depending on the tag ID).
+
 
 ## Design
 The first step to a complex task such as this is to plan. You will not be successful if you just start trying to code a solution. Therefore, **you should not write ANY code until you have completed the design phase of the project**. There are a number of tools to help with design, but we will focus on two: graphs and finite state machines.

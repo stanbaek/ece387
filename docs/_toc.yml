@@ -28,6 +28,7 @@ parts:
     - file: Labs/Lab9_SLAM.md
     - file: Labs/Lab10_CV.md
     - file: Labs/Lab11_AprilTag.md
+    - file: Labs/FinalProject.md
 
   - caption: Appendix
     chapters:
