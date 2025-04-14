@@ -1,7 +1,5 @@
 # 🔬 Lab11: AprilTag
 
----
-
 ## 📌 Objectives  
 
 - Students should be able to explain the purpose of fiducial markers in robotics.  
@@ -11,7 +9,6 @@
 - Students should be able to interpret position and orientation data from detected AprilTags.  
 - Students should be able to demonstrate the ability to use AprilTag data for estimating distance to objects.
 
----
 
 ## 📜 Overview
 
@@ -165,7 +162,7 @@ In this section, you will explore how to detect AprilTags in ROS 2. There are se
 - `std_msgs`
 - `opencv2`
 
-1. Download the provided [`apriltag.py`](../files/apriltag_node.py) and place it in your package’s scripts directory.
+1. Download the provided [`apriltag.py`](../files/apriltag.py) and place it in your package’s scripts directory.
 
 1. Update your `setup.py` to include the script as an entry point. This is necessary to ensure that the script runs as a node.
 
@@ -209,6 +206,13 @@ In this section, you will explore how to detect AprilTags in ROS 2. There are se
 
 With a properly calibrated camera, you are now equipped to identify AprilTags along with their size, orientation, and distance.
 
+### ✅ Part 3: Launch 
+
+### NOT READY YET
+
+[Using ROS2 Launch Files](Lidar:Launch)
+
+### Using ROS2 Launch Files
 
 ## 🚚 Deliverables
 

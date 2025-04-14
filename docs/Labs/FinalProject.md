@@ -1,6 +1,5 @@
 # 🔬 Final Project
 
----
 
 ## NOT READY YET
 
