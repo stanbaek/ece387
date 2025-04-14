@@ -39,6 +39,7 @@ from rclpy.node import Node  # Base class for all ROS2 nodes
 from sensor_msgs.msg import Image  # ROS2 message type for camera images
 from geometry_msgs.msg import PoseStamped  # ROS2 message type for 3D poses
 from cv_bridge import CvBridge  # Converts ROS2 Image messages to OpenCV images
+import os
 import cv2
 import numpy as np
 from pupil_apriltags import Detector  # AprilTag detector library
@@ -63,7 +64,7 @@ class AprilTagNode(Node):
     def __init__(self):
         """Initialize the AprilTag detection node."""
         super().__init__('apriltag_node')  # Name the node "apriltag_node"
-        
+
         # Initialize CvBridge to convert ROS Image messages to OpenCV format
         self.bridge = CvBridge()
 
@@ -100,7 +101,7 @@ class AprilTagNode(Node):
         self.detector = Detector(families='tag36h11')
 
         # TODO: Create a publisher to publish AprilTag pose data (PoseStamped) using a topic named "/apriltag_pose".
-                
+
 
     def load_camera_info(self, filepath) -> None:
         """
@@ -149,14 +150,14 @@ class AprilTagNode(Node):
         camera_params = [self.fx, self.fy, self.cx, self.cy]
 
         # Detect AprilTags in the rectified image
-        tags = self.detector.detect(rectified_gray, estimate_tag_pose=True, 
+        tags = self.detector.detect(rectified_gray, estimate_tag_pose=True,
                                     camera_params=camera_params, tag_size=self.tag_size)
 
         for tag in tags:
             # Extract position (translation vector) and orientation (rotation matrix) of the detected tag
             t = tag.pose_t.flatten()  # (x, y, z) position
             R = tag.pose_R  # Rotation matrix
-            
+
             # Convert rotation matrix to quaternion for ROS Pose messages
             rot = Rotation.from_matrix(tag.pose_R)
             quat = rot.as_quat()  # Returns [x, y, z, w]
@@ -174,7 +175,7 @@ class AprilTagNode(Node):
             corners = np.int32(tag.corners)
             cv2.polylines(rectified_gray, [corners], isClosed=True, color=(0, 255, 0), thickness=2)
             center = tuple(np.int32(tag.center))
-            
+
              # TODO: Label the tag ID at the center of the tag.
 
 
