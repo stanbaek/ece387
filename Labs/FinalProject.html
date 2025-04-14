@@ -562,7 +562,7 @@ mv<span class="w"> </span>/tmp/ost.yaml<span class="w"> </span>./camera_info/def
 <li><p><code class="docutils literal notranslate"><span class="pre">opencv2</span></code></p></li>
 </ul>
 <ol class="arabic">
-<li><p>Download the provided <a class="reference internal" href="#../files/apriltag_node.py"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">apriltag.py</span></code></span></a> and place it in your package’s scripts directory.</p></li>
+<li><p>Download the provided <a class="reference download internal" download="" href="../_downloads/8f80d7f13c4a3d59f0288737b0c97faf/apriltag.py"><span class="xref download myst"><code class="docutils literal notranslate"><span class="pre">apriltag.py</span></code></span></a> and place it in your package’s scripts directory.</p></li>
 <li><p>Update your <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> to include the script as an entry point. This is necessary to ensure that the script runs as a node.</p></li>
 <li><p>Inside your package (not the scripts folder), create a new directory called <code class="docutils literal notranslate"><span class="pre">config</span></code>. Next, copy the <code class="docutils literal notranslate"><span class="pre">default_cam.yaml</span></code> file into this directory. The code in <code class="docutils literal notranslate"><span class="pre">apriltag.py</span></code> is already set up to load this default calibration file if no calibration file path is provided by the user when the node is executed. Your directory structure should look like this:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>lab11_apriltag/

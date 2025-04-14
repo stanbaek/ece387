@@ -195,10 +195,13 @@ In this section, you will explore how to detect AprilTags in ROS 2. There are se
 
 2. Launch the `usb_cam` node with a frame rate set to **15 Hz**:
    ```bash
-   ros2 run usb_cam usb_cam_node_exe --ros-args -p video_device:=/dev/video0 -p framerate:=15.0
+   ros2 run usb_cam usb_cam_node_exe --ros-args -p vidoe_device:=/dev/video0 -p framerate:=15.0
    ```
 
 3. Start the `apriltag_ros` node to detect AprilTags.
+    `bash
+    ros2 run lab11_apriltag apriltag_node --ros-args -p camerra_info_file:=~/.ros/camera_info/default_cam.yam1
+    ```
 
 4. Open another terminal and echo the topic `/apriltag_pose` on the master. Observe the output. Does the `apriltag_ros` node detect more than one tag simultaneously? Consider which value might be used to calculate the distance to a tag, and note the type of message being published. Identify the package this message originates from.
 
@@ -207,48 +210,34 @@ In this section, you will explore how to detect AprilTags in ROS 2. There are se
 With a properly calibrated camera, you are now equipped to identify AprilTags along with their size, orientation, and distance.
 
 
-
 ### ✅ Part 3: Launch
 
 This section guides you through creating a launch file to run three key nodes: `usb_cam`, `stop_detector`, and `apriltag_node`, with the required parameters.
 
 1. Revisit the `gamepad.launch.py` file from Lab 8 ([Using ROS2 Launch Files](Lidar:Launch)). This section provides only an overview, so ensure you thoroughly refresh your understanding of the launch file creation process before proceeding.
 
-2. Locate the `stop_detector.svm` file from Lab 10 and move it to the `config` directory within the `lab11_apriltag` package. Then, update the `setup.py` script by adding `stop_detector.svm` to the `data_files` section. This step ensures the file is appropriately packaged and accessible.
+2. Locate the `stop_detector.svm` file from Lab 10 and copy it to the `config` directory within the `lab11_apriltag` package. Then, update the `setup.py` script by adding `stop_detector.svm` to the `data_files` section. This step ensures the file is appropriately packaged and accessible.
 
-3. Create a new launch file named `vision.launch.py` within the launch directory of the `lab11_apriltag` package.  
+3. Download the provided [`vision.launch.py`](../files/vision.launch.py) and place it in the launch directory of the `lab11_apriltag` package.  
    - Edit this file as you did in Lab 8, ensuring you include all three nodes: `usb_cam`, `stop_detector`, and `apriltag_node`.
-    - Add the necessary import statements and configuration setup: 
+    - Ensure the necessary import statements and configuration setup: 
         ```python
         from launch import LaunchDescription
         from launch_ros.actions import Node
         from ament_index_python.packages import get_package_share_directory
         import os
         ```
-   - Define paths to important configuration files, including `default_camera_info.yaml` and `stop_detector.svm` inside the `generate_launch_description` method.
+   - Make sure the paths to important configuration files are correctly configured.
+        ```python
+        pkg_share = get_package_share_directory('lab11_apriltag')
+        config_dir = os.path.join(pkg_share, 'config')
 
-        ```python
-        pkg_lab11_apriltag = get_package_share_directory('lab11_apriltag')
-        config_dir = os.path.join(pkg_lab11_apriltag, 'config')
-        
-        camera_info_path = os.path.join(config_dir, 'default_camera_info.yaml')
-        detector_model_path = os.path.join(config_dir, 'stop_detector.svm')
+        stop_detector_model = os.path.join(config_dir, 'stop_detector.svm')
+        camera_info_path = os.path.join(config_dir, 'default_cam.yaml')
+        camera_info_url = 'file://' + camera_info_path
         ```
-    - Ensure the `usb_cam` and `stop_detector` nodes are properly configured with the required parameters. Use placeholders like `{video_device}`, `{framerate}`, and paths to the configuration files to make your launch file robust and dynamic.  
-        ```python
-        parameters=[
-            {'detector_path': detector_model_path},
-            camera_info_path  # YAML file also applied here if needed
-        ]
-        ```
-        and 
-        ```python
-        parameters=[
-                {'video_device': '/dev/video0'},
-                {'framerate': 15.0},
-                camera_info_path
-            ]
-        ```
+
+    - Ensure the nodes are properly configured with the required parameters. Use paths to the configuration files to make your launch file robust and dynamic.  
 
     ```{important}
     **Do not copy code snippets verbatim without understanding their functionality.** You will be required to answer related questions during GRs or assessments, so ensure your comprehension of each step and its purpose.
