@@ -1,4 +1,8 @@
-# 🔬 Lab11: AprilTag
+# 🔬 Final Project
+
+---
+
+## NOT READY YET
 
 ## 📌 Objectives  
 
@@ -9,20 +13,15 @@
 - Students should be able to interpret position and orientation data from detected AprilTags.  
 - Students should be able to demonstrate the ability to use AprilTag data for estimating distance to objects.
 
+---
 
 ## 📜 Overview
 
-This lab introduces the use of **fiducial markers**—specifically **AprilTags**—for robot perception and navigation. These markers are used in robotics for tasks like localization, mapping, and interaction with known objects. AprilTags are square, black-and-white markers that encode an ID in a unique pattern, allowing them to be recognized by a vision system.
-
-We'll use **ROS2** tools and a camera to detect AprilTags in the environment. The camera will provide images to a detection node, which will process these images and estimate the 3D pose (position and orientation) of each tag relative to the camera. With this information, we can calculate the robot's distance from the tag and understand its spatial relationship to the object.
-
-Before detecting tags, we must first calibrate the USB camera to correct for lens distortion and establish a reliable relationship between image pixels and real-world measurements. Calibration ensures accurate position and distance calculations.
-
-This lab will also help solidify your understanding of ROS2 topics, nodes, and message types—all critical for real-world robotic applications.
+Students will utilize all previous modules to drive their robot in the DFEC halls. The LIDAR will be used to drive the robot centered between two walls, the IMU will be used to make 90/180/360 deg turns, OpenCV will be used to identify randomly placed stopped signs and act accordingly, and apriltag_ros will be used to navigate the robot throughout the halls (when the robot is a certain distance from the apriltag then turn left, right, around, or the robot has reached the goal depending on the tag ID).
 
 ---
 
-## 🛠️ Lab Procedures
+## 🛠️ Procedures
 
 ### ✅ Part 1: Calibrate the USB Camera
 
@@ -162,7 +161,7 @@ In this section, you will explore how to detect AprilTags in ROS 2. There are se
 - `std_msgs`
 - `opencv2`
 
-1. Download the provided [`apriltag.py`](../files/apriltag.py) and place it in your package’s scripts directory.
+1. Download the provided [`apriltag.py`](../files/apriltag_node.py) and place it in your package’s scripts directory.
 
 1. Update your `setup.py` to include the script as an entry point. This is necessary to ensure that the script runs as a node.
 
