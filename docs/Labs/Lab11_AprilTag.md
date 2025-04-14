@@ -171,7 +171,7 @@ In this section, you will explore how to detect AprilTags in ROS 2. There are se
     ```bash
     lab11_apriltag/
     ├── config/
-    │   └── default_camera_info.yaml
+    │   └── default_cam.yaml
     ├── lab11_apriltag/
     ├── resources/
     └── ...
@@ -181,7 +181,7 @@ In this section, you will explore how to detect AprilTags in ROS 2. There are se
 
     ```python
     data_files=[
-        ('share/' + package_name + '/config', ['config/default_camera_info.yaml']),
+        ('share/' + package_name + '/config', ['config/default_cam.yaml']),
         ...
     ]
     ```
@@ -208,11 +208,69 @@ With a properly calibrated camera, you are now equipped to identify AprilTags al
 
 ### ✅ Part 3: Launch 
 
+
 ### NOT READY YET
 
-[Using ROS2 Launch Files](Lidar:Launch)
+In this section, we will create a launch file that runs `usb_cam`, `stop_detector`, and `apriltag_node` with desired parameters. 
+
+1. We have created a launch file `gamepad.launch.py` in
+[Using ROS2 Launch Files](Lidar:Launch) in Lab 8. Thoroughly review this section to refresh your memory as abbreivated instruction will be provided here.
+
+1. Move your `stop_detector.svm` from Lab 10 to the `config` direcotry inside `lab11_apriltag`. Then, add `stop_detector.svm` to the `data_files` section in the `setup.py` script.
+
+
+1. Create a launch file, `vision.launch.py` inside the launch directory edit the file as we did in [Using ROS2 Launch Files](Lidar:Launch). Ensure you add three nodes in the file.
+
+from launch import LaunchDescription
+from launch_ros.actions import Node
+from ament_index_python.packages import get_package_share_directory
+import os
+
+def generate_launch_description():
+    pkg_lab11_apriltag = get_package_share_directory('lab11_apriltag')
+    config_dir = os.path.join(pkg_lab11_apriltag, 'config')
+
+    camera_info_path = os.path.join(config_dir, 'default_camera_info.yaml')
+    detector_model_path = os.path.join(config_dir, 'stop_detector.svm')
+
+    return LaunchDescription([
+        Node(
+            package='lab10_cv',
+            executable='stop_detector',
+            name='stop_detector',
+            output='screen',
+            parameters=[
+                {'detector_path': detector_model_path},
+                camera_info_path  # YAML file also applied here if needed
+            ]
+        ),
+        Node(
+            package='usb_cam',
+            executable='usb_cam_node_exe',
+            name='usb_cam',
+            output='screen',
+            parameters=[
+                {'video_device': '/dev/video0'},
+                {'framerate': 15.0},
+                camera_info_path
+            ]
+        ),
+        Node(
+            package='lab11_apriltag',
+            executable='apriltag_node',
+            name='apriltag_node',
+            output='screen'
+        ),
+    ])
+
+
+
+
 
 ### Using ROS2 Launch Files
+
+
+
 
 ## 🚚 Deliverables
 
