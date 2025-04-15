@@ -628,14 +628,12 @@ sudo apt install -y tree
 ```
 
 
-
-
-
 For all users:
 ```bash
 sudo pip install "pydantic<2"   # pip3 install pydantic 
 sudo pip install dlib
-sudo pip install imutil
+sudo pip install imutils
+sudo pip install pupil-apriltag
 ```
 
 For each user:

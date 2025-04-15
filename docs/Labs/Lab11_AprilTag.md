@@ -131,7 +131,7 @@ For a camera to effectively perform computer vision tasks, it must first be cali
     tar xf calibrationdata.tar.gz
     ```
 
-    Move the `ost.yaml` file to the correct ROS folder:
+    Move the `ost.yaml` file to the correct ROS folder with a new name, `default_cam.yaml`:
 
     ```bash
     cd ~/.ros
