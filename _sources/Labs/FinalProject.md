@@ -1,24 +1,83 @@
-# 🔬 Final Project
+# 🚀 Final Project
 
 
 ## NOT READY YET
 
+
+
+```{attention}
+Read this page thoroughly before you start working on this final project.   
+```
+
+
 ## 📌 Objectives  
 
-- Students should be able to explain the purpose of fiducial markers in robotics.  
-- Students should be able to calibrate a USB camera using ROS2 tools and a checkerboard pattern.  
-- Students should be able to explain and interpret ROS2 camera calibration messages.  
-- Students should be able to set up and run a ROS2 node for AprilTag detection.  
-- Students should be able to interpret position and orientation data from detected AprilTags.  
-- Students should be able to demonstrate the ability to use AprilTag data for estimating distance to objects.
+- Students will integrate concepts from earlier modules to design and implement a complete robotic system capable of handling complex tasks using ROS2.  
+- Students will demonstrate proficiency in robotic systems by building task-specific machines with onboard computing.  
+- Students will apply knowledge from across the course to develop, test, and deliver a functional final project.
 
----
 
 ## 📜 Overview
 
-Students will utilize all previous modules to drive their robot in the DFEC halls. The LIDAR will be used to drive the robot centered between two walls, the IMU will be used to make 90/180/360 deg turns, OpenCV will be used to identify randomly placed stopped signs and act accordingly, and apriltag_ros will be used to navigate the robot throughout the halls (when the robot is a certain distance from the apriltag then turn left, right, around, or the robot has reached the goal depending on the tag ID).
+The final project brings together everything you've learned throughout the course. It challenges you to design and build a complete robotic system using ROS2 that can solve a real-world task with multiple components working together. This project emphasizes embedded, task-specific robotics and is where you apply your accumulated knowledge in a hands-on, functional way.
 
----
+Your robot will operate in the maze in the lab, using a combination of technologies from previous modules. LIDAR will help it stay centered between walls, the IMU will handle precise turns (90°, 180°, 360°), and OpenCV will detect and respond to randomly placed stop signs. Additionally, you'll use AprilTags to guide the robot through the maze —navigating based on tag ID and distance to determine whether it should turn left, right, around, or stop at its goal.
+
+```{important}
+If you notice any discrepancies in the project description or grading criteria, the correct information will follow this order of priority: (1) Instructor messages via Teams, (2) this Course Web, (3) Gradescope, and (4) the project overview slides. The Course Web will always be updated immediately to reflect any changes, and outdated instructions will be clearly crossed out.
+```
+
+## 🎮 Final Project Gamesmanship
+
+1. Demo and coding
+    - Read the presentation and final report requirements before you start coding.
+    - Start early to earn early-bird bonus points; delay may jeopardize timely completion.
+    - Use the code from Labs 10 and 11 as foundations, but avoid implementing your final project in these lab files. Instructors will review the code inside the `final_project` folder. 
+    - Employ `rqt`, `ros2 topic`, and `rviz` extensively for debugging high-level behaviors. 
+    - **Cease work for the final report**
+        - Your analysis in the report is much more important than completing the maze. 
+        - Balance time spent on coding and demo; don't sacrifice report quality for demos. Don't lose 30 points on the report to earn 15 demo points.
+        - If your robot reaches only halfway to the Level 1 goal point, the deduction will be approximately 5-10 points.
+
+1. Presentation
+    - Utilize visual aids a lot! Figures, tables, and graphs are more helpful than words.
+    - Ensure you **discuss everything** in the presentation section.
+    - Adhere to the 6-minute time limit; practice for effective delivery. Your talk will be stopped at the 7-minute mark, and credit will not be given for parts not discussed. Adhering to the time limit for presentations is a basic etiquette. Even at professional conferences, talks can be cut short if they exceed the allotted time.
+    - You are strongly recommended to practice your talk. Students who gave very short presentations to avoid exceeding the time limit often did not discuss enough details and lost even more points. So, practice! Even experienced engineers practice for their conference presentations.
+
+1. Report
+    - Thoroughly Read the template and **do not miss anything in the template**.
+    - Use figures and tables to support your analysis and results.
+    - While in-person demos are accepted, ensure submission of video demos aligned with the plots in your report.
+
+## 🛠️ Requirements
+
+### Timeline
+
+1. L36 0700: Design Presentation slides (Gradescope and Instructors)
+    - Submit your `MS PowerPoint pptx` file to your instructor NLT L36 0700. Your slides will be played on your instructor's PC for smooth transitions between speakers. Make sure to send a pptx file and not a Keynote file or Google Slides unless your instructor has approved it.
+    - Additionally, submit the PDF version of your presentation file on Gradescope no later than L36 0700. 
+    - **_No grace days_** can be used for the PowerPoint slides.
+1. L36: Design Presentations
+1. L39 0700: Live demo Due   
+    - Late Demos: You can use grace days, but all products must be submitted NLT T40 2359 (by the Dean's policy). 
+1. T40 2359: Final report & Code
+    - No grace days can be used. All products must be submitted by midnight on T40. 
+
+
+### 🎬 Demonstrations 
+
+Demonstrations will be accomplished on lesson 39 in the maze. Points will be deducted for failed checkpoints (e.g., does not stop and turn within approximately 2 meters of AprilTag 0). The final rubric is below and each item is worth **6 points** for a total of **40 points** assigned to the demonstration:
+
+- Wall following
+- Ignore windows
+- Stop sign: Stop within 0.3 meters from a stop sign, wait until the stop sign is removed.
+- AprilTag ID 0: Stop within 0.27 meters from the AprilTag and then turn left. 
+- AprilTag ID 1: Stop within 0.27 meters from the AprilTag and then turn right. 
+- AprilTag ID 2: Stop within 0.27 meters from the AprilTag, and then make a 270$^\circ$ left turn.. 
+
+
+
 
 ## 🛠️ Procedures
 

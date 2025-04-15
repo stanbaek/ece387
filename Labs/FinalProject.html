@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>🔬 Final Project &#8212; Introduction to Robotic Systems</title>
+    <title>🚀 Final Project &#8212; Introduction to Robotic Systems</title>
   
   
   
@@ -62,6 +62,8 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'Labs/FinalProject';</script>
     <link rel="icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -194,7 +196,7 @@
 <li class="toctree-l1"><a class="reference internal" href="Lab9_SLAM.html">🔬 Lab9: SLAM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Lab10_CV.html">🔬 Lab10: CV</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Lab11_AprilTag.html">🔬 Lab11: AprilTag</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">🔬 Final Project</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">🚀 Final Project</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendix</span></p>
 <ul class="nav bd-sidenav">
@@ -384,7 +386,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>🔬 Final Project</h1>
+    <h1>🚀 Final Project</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -397,6 +399,12 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#not-ready-yet">NOT READY YET</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">📌 Objectives</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">📜 Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#final-project-gamesmanship">🎮 Final Project Gamesmanship</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#requirements">🛠️ Requirements</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#timeline">Timeline</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#demonstrations">🎬 Demonstrations</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#procedures">🛠️ Procedures</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-calibrate-the-usb-camera">✅ Part 1: Calibrate the USB Camera</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-apriltag-detection-with-ros2">✅ Part 2: AprilTag Detection with ROS2</a></li>
@@ -415,27 +423,104 @@
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="final-project">
-<h1>🔬 Final Project<a class="headerlink" href="#final-project" title="Link to this heading">#</a></h1>
+<h1>🚀 Final Project<a class="headerlink" href="#final-project" title="Link to this heading">#</a></h1>
 <section id="not-ready-yet">
 <h2>NOT READY YET<a class="headerlink" href="#not-ready-yet" title="Link to this heading">#</a></h2>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Read this page thoroughly before you start working on this final project.</p>
+</div>
 </section>
 <section id="objectives">
 <h2>📌 Objectives<a class="headerlink" href="#objectives" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Students should be able to explain the purpose of fiducial markers in robotics.</p></li>
-<li><p>Students should be able to calibrate a USB camera using ROS2 tools and a checkerboard pattern.</p></li>
-<li><p>Students should be able to explain and interpret ROS2 camera calibration messages.</p></li>
-<li><p>Students should be able to set up and run a ROS2 node for AprilTag detection.</p></li>
-<li><p>Students should be able to interpret position and orientation data from detected AprilTags.</p></li>
-<li><p>Students should be able to demonstrate the ability to use AprilTag data for estimating distance to objects.</p></li>
+<li><p>Students will integrate concepts from earlier modules to design and implement a complete robotic system capable of handling complex tasks using ROS2.</p></li>
+<li><p>Students will demonstrate proficiency in robotic systems by building task-specific machines with onboard computing.</p></li>
+<li><p>Students will apply knowledge from across the course to develop, test, and deliver a functional final project.</p></li>
 </ul>
 </section>
-<hr class="docutils" />
 <section id="overview">
 <h2>📜 Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
-<p>Students will utilize all previous modules to drive their robot in the DFEC halls. The LIDAR will be used to drive the robot centered between two walls, the IMU will be used to make 90/180/360 deg turns, OpenCV will be used to identify randomly placed stopped signs and act accordingly, and apriltag_ros will be used to navigate the robot throughout the halls (when the robot is a certain distance from the apriltag then turn left, right, around, or the robot has reached the goal depending on the tag ID).</p>
+<p>The final project brings together everything you’ve learned throughout the course. It challenges you to design and build a complete robotic system using ROS2 that can solve a real-world task with multiple components working together. This project emphasizes embedded, task-specific robotics and is where you apply your accumulated knowledge in a hands-on, functional way.</p>
+<p>Your robot will operate in the maze in the lab, using a combination of technologies from previous modules. LIDAR will help it stay centered between walls, the IMU will handle precise turns (90°, 180°, 360°), and OpenCV will detect and respond to randomly placed stop signs. Additionally, you’ll use AprilTags to guide the robot through the maze —navigating based on tag ID and distance to determine whether it should turn left, right, around, or stop at its goal.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>If you notice any discrepancies in the project description or grading criteria, the correct information will follow this order of priority: (1) Instructor messages via Teams, (2) this Course Web, (3) Gradescope, and (4) the project overview slides. The Course Web will always be updated immediately to reflect any changes, and outdated instructions will be clearly crossed out.</p>
+</div>
 </section>
-<hr class="docutils" />
+<section id="final-project-gamesmanship">
+<h2>🎮 Final Project Gamesmanship<a class="headerlink" href="#final-project-gamesmanship" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Demo and coding</p>
+<ul class="simple">
+<li><p>Read the presentation and final report requirements before you start coding.</p></li>
+<li><p>Start early to earn early-bird bonus points; delay may jeopardize timely completion.</p></li>
+<li><p>Use the code from Labs 10 and 11 as foundations, but avoid implementing your final project in these lab files. Instructors will review the code inside the <code class="docutils literal notranslate"><span class="pre">final_project</span></code> folder.</p></li>
+<li><p>Employ <code class="docutils literal notranslate"><span class="pre">rqt</span></code>, <code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">topic</span></code>, and <code class="docutils literal notranslate"><span class="pre">rviz</span></code> extensively for debugging high-level behaviors.</p></li>
+<li><p><strong>Cease work for the final report</strong></p>
+<ul>
+<li><p>Your analysis in the report is much more important than completing the maze.</p></li>
+<li><p>Balance time spent on coding and demo; don’t sacrifice report quality for demos. Don’t lose 30 points on the report to earn 15 demo points.</p></li>
+<li><p>If your robot reaches only halfway to the Level 1 goal point, the deduction will be approximately 5-10 points.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Presentation</p>
+<ul class="simple">
+<li><p>Utilize visual aids a lot! Figures, tables, and graphs are more helpful than words.</p></li>
+<li><p>Ensure you <strong>discuss everything</strong> in the presentation section.</p></li>
+<li><p>Adhere to the 6-minute time limit; practice for effective delivery. Your talk will be stopped at the 7-minute mark, and credit will not be given for parts not discussed. Adhering to the time limit for presentations is a basic etiquette. Even at professional conferences, talks can be cut short if they exceed the allotted time.</p></li>
+<li><p>You are strongly recommended to practice your talk. Students who gave very short presentations to avoid exceeding the time limit often did not discuss enough details and lost even more points. So, practice! Even experienced engineers practice for their conference presentations.</p></li>
+</ul>
+</li>
+<li><p>Report</p>
+<ul class="simple">
+<li><p>Thoroughly Read the template and <strong>do not miss anything in the template</strong>.</p></li>
+<li><p>Use figures and tables to support your analysis and results.</p></li>
+<li><p>While in-person demos are accepted, ensure submission of video demos aligned with the plots in your report.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="requirements">
+<h2>🛠️ Requirements<a class="headerlink" href="#requirements" title="Link to this heading">#</a></h2>
+<section id="timeline">
+<h3>Timeline<a class="headerlink" href="#timeline" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>L36 0700: Design Presentation slides (Gradescope and Instructors)</p>
+<ul class="simple">
+<li><p>Submit your <code class="docutils literal notranslate"><span class="pre">MS</span> <span class="pre">PowerPoint</span> <span class="pre">pptx</span></code> file to your instructor NLT L36 0700. Your slides will be played on your instructor’s PC for smooth transitions between speakers. Make sure to send a pptx file and not a Keynote file or Google Slides unless your instructor has approved it.</p></li>
+<li><p>Additionally, submit the PDF version of your presentation file on Gradescope no later than L36 0700.</p></li>
+<li><p><strong><em>No grace days</em></strong> can be used for the PowerPoint slides.</p></li>
+</ul>
+</li>
+<li><p>L36: Design Presentations</p></li>
+<li><p>L39 0700: Live demo Due</p>
+<ul class="simple">
+<li><p>Late Demos: You can use grace days, but all products must be submitted NLT T40 2359 (by the Dean’s policy).</p></li>
+</ul>
+</li>
+<li><p>T40 2359: Final report &amp; Code</p>
+<ul class="simple">
+<li><p>No grace days can be used. All products must be submitted by midnight on T40.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="demonstrations">
+<h3>🎬 Demonstrations<a class="headerlink" href="#demonstrations" title="Link to this heading">#</a></h3>
+<p>Demonstrations will be accomplished on lesson 39 in the maze. Points will be deducted for failed checkpoints (e.g., does not stop and turn within approximately 2 meters of AprilTag 0). The final rubric is below and each item is worth <strong>6 points</strong> for a total of <strong>40 points</strong> assigned to the demonstration:</p>
+<ul class="simple">
+<li><p>Wall following</p></li>
+<li><p>Ignore windows</p></li>
+<li><p>Stop sign: Stop within 0.3 meters from a stop sign, wait until the stop sign is removed.</p></li>
+<li><p>AprilTag ID 0: Stop within 0.27 meters from the AprilTag and then turn left.</p></li>
+<li><p>AprilTag ID 1: Stop within 0.27 meters from the AprilTag and then turn right.</p></li>
+<li><p>AprilTag ID 2: Stop within 0.27 meters from the AprilTag, and then make a 270<span class="math notranslate nohighlight">\(^\circ\)</span> left turn..</p></li>
+</ul>
+</section>
+</section>
 <section id="procedures">
 <h2>🛠️ Procedures<a class="headerlink" href="#procedures" title="Link to this heading">#</a></h2>
 <section id="part-1-calibrate-the-usb-camera">
@@ -693,6 +778,12 @@ mv<span class="w"> </span>/tmp/ost.yaml<span class="w"> </span>./camera_info/def
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#not-ready-yet">NOT READY YET</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">📌 Objectives</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">📜 Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#final-project-gamesmanship">🎮 Final Project Gamesmanship</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#requirements">🛠️ Requirements</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#timeline">Timeline</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#demonstrations">🎬 Demonstrations</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#procedures">🛠️ Procedures</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-calibrate-the-usb-camera">✅ Part 1: Calibrate the USB Camera</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-apriltag-detection-with-ros2">✅ Part 2: AprilTag Detection with ROS2</a></li>
