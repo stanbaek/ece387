@@ -607,25 +607,30 @@ sudo apt install ros-humble-hls-lfcd-lds-driver
 sudo apt install ros-humble-turtlebot3-msgs
 sudo apt install ros-humble-dynamixel-sdk
 sudo apt install libudev-dev
-mkdir -p ~/turtlebot3_ws/src && cd ~/turtlebot3_ws/src
+mkdir -p ~/robot_ws/src && cd ~/robot_ws/src
 git clone -b humble-devel https://github.com/ROBOTIS-GIT/turtlebot3.git
 git clone -b ros2-devel https://github.com/ROBOTIS-GIT/ld08_driver.git
-cd ~/turtlebot3_ws/src/turtlebot3
+cd ~/robot_ws/src/turtlebot3
 rm -r turtlebot3_cartographer turtlebot3_navigation2
-cd ~/turtlebot3_ws/
+cd ~/robot_ws/
 colcon build --symlink-install --parallel-workers 1
-source ~/turtlebot3_ws/install/setup.bash
+source ~/robot_ws/install/setup.bash
 source ~/.bashrc
 ```
 
 ROS2 USB-CAM Package
 ```bash
 sudo apt install -y python3-pip
-sudo apt install -y ros-humble-usb-cam ros-humble-image-proc ros-humble-camera-calibration
+sudo apt install -y ros-humble-usb-cam ros-humble-image-proc
 sudo apt install -y ros-humble-v4l2-camera 
-sudo apt install -y ros-humble-apriltag ros-humble-apriltag-ros libapriltag-dev
+# sudo apt install -y ros-humble-apriltag ros-humble-apriltag-ros libapriltag-dev
 sudo apt install -y tree
+sudo apt install python3-opencv
+sudo apt install ros-humble-cv-bridge
 ```
+
+
+
 
 
 
@@ -636,7 +641,17 @@ For all users:
 sudo pip install "pydantic<2"   # pip3 install pydantic 
 sudo pip install dlib
 sudo pip install imutils
-sudo pip install pupil-apriltag
+sudo pip install scipy
+```
+
+
+Apriltags
+```bash
+# pip install --upgrade setuptools
+pip install --user scikit-build cmake
+sudo apt install libapriltag-dev python3-dev
+sudo apt install python3-dev cmake libatlas-base-dev
+sudo pip install pupil-apriltags
 ```
 
 For each user:
