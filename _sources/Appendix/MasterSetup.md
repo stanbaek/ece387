@@ -56,11 +56,15 @@ sudo apt install -y ros-humble-tf-transformations
 sudo apt install -y ros-humble-usb-cam ros-humble-image-proc 
 sudo apt install -y ros-humble-v4l2-camera 
 sudo apt install -y ros-humble-camera-calibration
-sudo apt install -y ros-humble-apriltag ros-humble-apriltag-ros libapriltag-dev
+    sudo apt install -y ros-humble-apriltag ros-humble-apriltag-ros libapriltag-dev
 sudo apt install -y python3-pip
 sudo apt install -y obs-studio qtwayland5
 sudo apt install -y tree
 ```
+
+sudo apt install ros-humble-cv-bridge
+
+
 
 Install TurtleBot3 packages
 
@@ -148,7 +152,7 @@ For all users:
 sudo pip install "pydantic<2"   # pip3 install pydantic 
 sudo pip install dlib
 sudo pip install imutils
-sudo pip install pupil-apriltag
+sudo pip install pupil-apriltags
 ```
 
 For each user:

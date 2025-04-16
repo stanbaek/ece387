@@ -904,30 +904,40 @@ sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> <
 sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ros-humble-turtlebot3-msgs
 sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ros-humble-dynamixel-sdk
 sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>libudev-dev
-mkdir<span class="w"> </span>-p<span class="w"> </span>~/turtlebot3_ws/src<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/turtlebot3_ws/src
+mkdir<span class="w"> </span>-p<span class="w"> </span>~/robot_ws/src<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/robot_ws/src
 git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>humble-devel<span class="w"> </span>https://github.com/ROBOTIS-GIT/turtlebot3.git
 git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>ros2-devel<span class="w"> </span>https://github.com/ROBOTIS-GIT/ld08_driver.git
-<span class="nb">cd</span><span class="w"> </span>~/turtlebot3_ws/src/turtlebot3
+<span class="nb">cd</span><span class="w"> </span>~/robot_ws/src/turtlebot3
 rm<span class="w"> </span>-r<span class="w"> </span>turtlebot3_cartographer<span class="w"> </span>turtlebot3_navigation2
-<span class="nb">cd</span><span class="w"> </span>~/turtlebot3_ws/
+<span class="nb">cd</span><span class="w"> </span>~/robot_ws/
 colcon<span class="w"> </span>build<span class="w"> </span>--symlink-install<span class="w"> </span>--parallel-workers<span class="w"> </span><span class="m">1</span>
-<span class="nb">source</span><span class="w"> </span>~/turtlebot3_ws/install/setup.bash
+<span class="nb">source</span><span class="w"> </span>~/robot_ws/install/setup.bash
 <span class="nb">source</span><span class="w"> </span>~/.bashrc
 </pre></div>
 </div>
 <p>ROS2 USB-CAM Package</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>python3-pip
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>ros-humble-usb-cam<span class="w"> </span>ros-humble-image-proc<span class="w"> </span>ros-humble-camera-calibration
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>ros-humble-usb-cam<span class="w"> </span>ros-humble-image-proc
 sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>ros-humble-v4l2-camera<span class="w"> </span>
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>ros-humble-apriltag<span class="w"> </span>ros-humble-apriltag-ros<span class="w"> </span>libapriltag-dev
+<span class="c1"># sudo apt install -y ros-humble-apriltag ros-humble-apriltag-ros libapriltag-dev</span>
 sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>tree
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>python3-opencv
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ros-humble-cv-bridge
 </pre></div>
 </div>
 <p>For all users:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;pydantic&lt;2&quot;</span><span class="w">   </span><span class="c1"># pip3 install pydantic </span>
 sudo<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>dlib
 sudo<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>imutils
-sudo<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>pupil-apriltag
+sudo<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>scipy
+</pre></div>
+</div>
+<p>Apriltags</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># pip install --upgrade setuptools</span>
+pip<span class="w"> </span>install<span class="w"> </span>--user<span class="w"> </span>scikit-build<span class="w"> </span>cmake
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>libapriltag-dev<span class="w"> </span>python3-dev
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>python3-dev<span class="w"> </span>cmake<span class="w"> </span>libatlas-base-dev
+sudo<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>pupil-apriltags
 </pre></div>
 </div>
 <p>For each user:</p>
