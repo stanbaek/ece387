@@ -199,7 +199,7 @@ In this section, you will explore how to detect AprilTags in ROS 2. There are se
    ```
 
 3. Start the `apriltag_ros` node to detect AprilTags.
-    `bash
+    ```bash
     ros2 run lab11_apriltag apriltag_node --ros-args -p cammera_info_file:=~/.ros/camera_info/default_cam.yam1
     ```
 
