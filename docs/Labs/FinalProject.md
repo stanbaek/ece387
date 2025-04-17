@@ -17,7 +17,7 @@ Read this page thoroughly before you start working on this final project.
 - Students will apply knowledge from across the course to develop, test, and deliver a functional final project.
 
 
-## 📜 Overview
+## 📜 Agenda
 
 The final project brings together everything you've learned throughout the course. It challenges you to design and build a complete robotic system using ROS2 that can solve a real-world task with multiple components working together. This project emphasizes embedded, task-specific robotics and is where you apply your accumulated knowledge in a hands-on, functional way.
 
@@ -26,6 +26,24 @@ Your robot will operate in the maze in the lab, using a combination of technolog
 ```{important}
 If you notice any discrepancies in the project description or grading criteria, the correct information will follow this order of priority: (1) Instructor messages via Teams, (2) this Course Web, (3) Gradescope, and (4) the project overview slides. The Course Web will always be updated immediately to reflect any changes, and outdated instructions will be clearly crossed out.
 ```
+
+##  Synopsis
+
+🏴‍☠️ Ahoy, crew! The infamous pirate captain, Dr. Baek, has discovered an ancient scroll that reveals the location of a hidden treasure island. But there’s a catch—the treasure is locked deep inside a deadly maze! 
+
+According to the scroll, the maze is filled with mysterious symbols called AprilTags. These symbols are the only clues that lead to the treasure. Miss one, or read it wrong, and... well, let’s just say you won’t be making it back.
+
+But instead of risking life and limb, Captain Baek wants to use some good ol' 21st-century tech. That’s where you come in. Your mission: build a robotic system that can explore the maze on its own, follow the AprilTags, and find the treasure.
+
+Here is what the scroll says
+    - You must follow the walls in the maze. 
+    - Do not stop at windows or look out of the windows as they are so deadly.
+    - At AprilTag ID 0, you must turn left. Make sure you make a 270$^\circ$ clockwise turn. 
+    - At AprilTag ID 1, you must stop and pause for 5 seconds then make a 90$^\circ$ left turn.
+    - At AprilTag ID 2, you must turn right. Make sure you make a 90$^\circ$ clockwise turn. 
+    - At AprilTag ID 3, you must turn left. Make sure you make a 90$^\circ$ counterclockwise turn. 
+    - At a stop sign, you must stop from 0.3 meters from the stop sign, then make a left turn. The treasure chest is located around there.  Now you should look around to find the exact location of it. The treasure chest is buried right under AprilTag ID 4.
+    
 
 ## 🎮 Final Project Gamesmanship
 
