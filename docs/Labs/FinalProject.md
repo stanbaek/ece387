@@ -47,7 +47,7 @@ Here is what the scroll says
 
 ## 🎮 Final Project Gamesmanship
 
-1. Demo and coding
+1. Demo and coding (40 points)
     - Read the presentation and final report requirements before you start coding.
     - Start early to earn early-bird bonus points; delay may jeopardize timely completion.
     - Use the code from Labs 10 and 11 as foundations, but avoid implementing your final project in these lab files. Instructors will review the code inside the `final_project` folder. 
@@ -57,13 +57,13 @@ Here is what the scroll says
         - Balance time spent on coding and demo; don't sacrifice report quality for demos. Don't lose 30 points on the report to earn 15 demo points.
         - If your robot reaches only halfway to the Level 1 goal point, the deduction will be approximately 5-10 points.
 
-1. Presentation
+1. Presentation (20 points)
     - Utilize visual aids a lot! Figures, tables, and graphs are more helpful than words.
     - Ensure you **discuss everything** in the presentation section.
     - Adhere to the 6-minute time limit; practice for effective delivery. Your talk will be stopped at the 7-minute mark, and credit will not be given for parts not discussed. Adhering to the time limit for presentations is a basic etiquette. Even at professional conferences, talks can be cut short if they exceed the allotted time.
     - You are strongly recommended to practice your talk. Students who gave very short presentations to avoid exceeding the time limit often did not discuss enough details and lost even more points. So, practice! Even experienced engineers practice for their conference presentations.
 
-1. Report
+1. Report (40 points)
     - Thoroughly Read the template and **do not miss anything in the template**.
     - Use figures and tables to support your analysis and results.
     - While in-person demos are accepted, ensure submission of video demos aligned with the plots in your report.
@@ -85,14 +85,24 @@ Here is what the scroll says
 
 ### 🎬 Demonstrations 
 
-Demonstrations will be accomplished on lesson 39 in the maze. Points will be deducted for failed checkpoints (e.g., does not stop and turn within approximately 2 meters of AprilTag 0). The final rubric is below and each item is worth **6 points** for a total of **40 points** assigned to the demonstration:
+Demonstrations will be accomplished on lesson 39 in the maze. Points will be deducted for failed checkpoints (e.g., does not stop and turn within approximately 2 meters of AprilTag 0). The final rubric is below and a total of **40 points** assigned to the demonstration:
 
-- Wall following
-- Ignore windows
-- Stop sign: Stop within 0.3 meters from a stop sign, wait until the stop sign is removed.
+- Wall following [10 points]: The robot should follow the walls without hitting them. A deduction of 1 point for each wall collision will be applied. No more than 3 points will be deducted if the robot reaches the end goal ($\pm$30 cm from the yellow line).  
+- Stop sign [10 points]: The robot should stop at the yellow line - Any part of the the bottom plate of the robot should . Stop within 0.3 meters from a stop sign, wait until the stop sign is removed.
 - AprilTag ID 0: Stop within 0.27 meters from the AprilTag and then turn left. 
 - AprilTag ID 1: Stop within 0.27 meters from the AprilTag and then turn right. 
 - AprilTag ID 2: Stop within 0.27 meters from the AprilTag, and then make a 270$^\circ$ left turn.. 
+
+
+
+    - You must follow the walls in the maze. 
+    - Do not stop at windows or look out of the windows as they are so deadly.
+    - At AprilTag ID 0, you must turn left. Make sure you make a 270$^\circ$ clockwise turn. 
+    - At AprilTag ID 1, you must stop and pause for 5 seconds then make a 90$^\circ$ left turn.
+    - At AprilTag ID 2, you must turn right. Make sure you make a 90$^\circ$ clockwise turn. 
+    - At AprilTag ID 3, you must turn left. Make sure you make a 90$^\circ$ counterclockwise turn. 
+    - At a stop sign, you must stop from 0.3 meters from the stop sign, then make a left turn. The treasure chest is located around there.  Now you should look around to find the exact location of it. The treasure chest is buried right under AprilTag ID 4.
+    
 
 
 
