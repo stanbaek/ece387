@@ -41,9 +41,9 @@ This schedule is subject to change as appropriate.
 | 31   |[Lab 11: AprilTag](Labs/Lab11_AprilTag.md)|       |         |
 | 32   |[Lab 11: AprilTag](Labs/Lab11_AprilTag.md)|       |         | 
 | 33   |Final Project - Requirements              |       |Lab 11   |
-| 34   |GR 2                                      |       |         |
-| 35   |Final Project - Design                    |       |         |
-| 36   |Final Project - Design Briefs             |       |Briefings|
+| 34   |Final Project - Design                    |       |         |
+| 35   |Final Project - Design Briefs             |       |Briefings|
+| 36   |Final Project                             |       |         |
 | 37   |Final Project                             |       |         |
 | 38   |Final Project                             |       |         |
 | 39   |Final Project                             |       |Demo     |
