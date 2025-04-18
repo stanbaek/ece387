@@ -1,14 +1,8 @@
 # 🚀 Final Project
 
-
-## NOT READY YET
-
-
-
 ```{attention}
 Read this page thoroughly before you start working on this final project.   
 ```
-
 
 ## 📌 Objectives  
 
@@ -16,231 +10,232 @@ Read this page thoroughly before you start working on this final project.
 - Students will demonstrate proficiency in robotic systems by building task-specific machines with onboard computing.  
 - Students will apply knowledge from across the course to develop, test, and deliver a functional final project.
 
+---
 
-## 📜 Agenda
+## 📜 Overview  
 
-The final project brings together everything you've learned throughout the course. It challenges you to design and build a complete robotic system using ROS2 that can solve a real-world task with multiple components working together. This project emphasizes embedded, task-specific robotics and is where you apply your accumulated knowledge in a hands-on, functional way.
+In this final project, you’ll combine everything you’ve learned throughout the course to design and implement a complete robotic system using ROS2. The project challenges you to create a robot that solves real-world tasks, requiring multiple components to work together seamlessly.  
 
-Your robot will operate in the maze in the lab, using a combination of technologies from previous modules. LIDAR will help it stay centered between walls, the IMU will handle precise turns (90°, 180°, 360°), and OpenCV will detect and respond to randomly placed stop signs. Additionally, you'll use AprilTags to guide the robot through the maze —navigating based on tag ID and distance to determine whether it should turn left, right, around, or stop at its goal.
+Your robot will navigate a maze in the lab, employing technologies from previous modules:  
+- **LIDAR:** Keeps the robot centered between walls.  
+- **IMU:** Handles precise turns (90°, -90°, 270°).  
+- **OpenCV:** Detects and reacts to randomly placed stop signs.  
+- **AprilTags:** Guides the robot through the maze using tag IDs and distances to decide actions like turning or stopping at specific locations.  
 
 ```{important}
 If you notice any discrepancies in the project description or grading criteria, the correct information will follow this order of priority: (1) Instructor messages via Teams, (2) this Course Web, (3) Gradescope, and (4) the project overview slides. The Course Web will always be updated immediately to reflect any changes, and outdated instructions will be clearly crossed out.
 ```
 
-##  Synopsis
+## Story  
 
-🏴‍☠️ Ahoy, crew! The infamous pirate captain, Dr. Baek, has discovered an ancient scroll that reveals the location of a hidden treasure island. But there’s a catch—the treasure is locked deep inside a deadly maze! 
+Ahoy, crew! 🏴‍☠️ The infamous pirate captain, Dr. Baek, has uncovered an ancient scroll that reveals the location of a hidden treasure island. But there’s a catch—the treasure is locked deep inside a deadly maze! 
 
-According to the scroll, the maze is filled with mysterious symbols called AprilTags. These symbols are the only clues that lead to the treasure. Miss one, or read it wrong, and... well, let’s just say you won’t be making it back.
+According to the scroll, the maze is marked with enigmatic symbols known as AprilTags. These cryptic signs hold the key to locating the treasure. Miss one, or read it wrong, and... well, let’s just say you won’t be making it back.
 
-But instead of risking life and limb, Captain Baek wants to use some good ol' 21st-century tech. That’s where you come in. Your mission: build a robotic system that can explore the maze on its own, follow the AprilTags, and find the treasure.
+Rather than risking life and limb in the perilous maze, the legendary pirate captain, Dr. Baek, is turning to cutting-edge technology to solve the mystery. Your task is to design and build a robotic system capable of navigating the maze independently, decoding the AprilTags, and uncovering the treasure's hidden location.
 
-Here is what the scroll says
-    - You must follow the walls in the maze. 
-    - Do not stop at windows or look out of the windows as they are so deadly.
-    - At AprilTag ID 0, you must turn left. Make sure you make a 270$^\circ$ clockwise turn. 
-    - At AprilTag ID 1, you must stop and pause for 5 seconds then make a 90$^\circ$ left turn.
-    - At AprilTag ID 2, you must turn right. Make sure you make a 90$^\circ$ clockwise turn. 
-    - At AprilTag ID 3, you must turn left. Make sure you make a 90$^\circ$ counterclockwise turn. 
-    - At a stop sign, you must stop from 0.3 meters from the stop sign, then make a left turn. The treasure chest is located around there.  Now you should look around to find the exact location of it. The treasure chest is buried right under AprilTag ID 4.
-    
+Here’s what the scroll reveals about navigating the maze:  
+1. **Follow the walls in the maze at all times.**  
+2. **Avoid stopping at or looking out windows—those are deadly!**  
+3. **React to AprilTags:**  
+   - **Tag ID 0:** Turn left (make a 270° clockwise turn).  
+   - **Tag ID 1:** Stop for 5 seconds, then make a 90° left turn.  
+   - **Tag ID 2:** Turn right (make a 90° clockwise turn).  
+   - **Tag ID 3:** Turn left (make a 90° counterclockwise turn).  
+   - **Stop Signs:** Stop 0.3 meters before the sign, then turn left. Look around to locate the treasure chest, which is buried under **AprilTag ID 4**.  
+
+Once you locate the treasure chest, send Captain Baek the maze map so he can claim the loot!
+
+---
 
 ## 🎮 Final Project Gamesmanship
 
-1. Demo and coding (40 points)
-    - Read the presentation and final report requirements before you start coding.
-    - Start early to earn early-bird bonus points; delay may jeopardize timely completion.
-    - Use the code from Labs 10 and 11 as foundations, but avoid implementing your final project in these lab files. Instructors will review the code inside the `final_project` folder. 
-    - Employ `rqt`, `ros2 topic`, and `rviz` extensively for debugging high-level behaviors. 
-    - **Cease work for the final report**
-        - Your analysis in the report is much more important than completing the maze. 
-        - Balance time spent on coding and demo; don't sacrifice report quality for demos. Don't lose 30 points on the report to earn 15 demo points.
-        - If your robot reaches only halfway to the Level 1 goal point, the deduction will be approximately 5-10 points.
+### 1. Demo & Coding (40 points)  
+- Review the presentation and final report requirements **before** you begin coding.  
+- **Start early**—delays can put your completion at risk.  
+- Use the code from Labs 10 and 11 as a reference, but **do not** implement your project within those lab files. Instructors will evaluate the code inside your `final_project` folder.  
+- Take advantage of debugging tools like `rqt`, `ros2 topic`, and `rviz` to fine-tune high-level behaviors.  
+- **Prioritize your final report:**  
+  - Your analysis in the report is more important than completing the maze.  
+  - Manage your time carefully—don’t sacrifice report quality for extra demo points. Losing 10 points on the report to earn 5 points in the demo isn’t worth it!  
 
-1. Presentation (20 points)
-    - Utilize visual aids a lot! Figures, tables, and graphs are more helpful than words.
-    - Ensure you **discuss everything** in the presentation section.
-    - Adhere to the 5-minute time limit; practice for effective delivery. Your talk will be stopped at the 6-minute mark, and credit will not be given for parts not discussed. Adhering to the time limit for presentations is a basic etiquette. Even at professional conferences, talks can be cut short if they exceed the allotted time.
-    - You are strongly recommended to practice your talk. Students who gave very short presentations to avoid exceeding the time limit often did not discuss enough details and lost even more points. So, practice! Even experienced engineers practice for their conference presentations.
+### 2. Presentation (20 points)  
+- **Make visuals a priority!** Figures, tables, and graphs often communicate concepts better than lengthy explanations.  
+- **Cover all required details** in your presentation.  
+- Stick to the **5-minute limit**—practice to refine your delivery. At the 6-minute mark, your talk will be stopped, and any content beyond that **won’t** be graded. Time management is key, just as it is in professional conferences.  
+- **Practice, practice, practice.** Short presentations that lack detail often result in lost points. Even experienced engineers practice for their conference presentations.
 
-1. Report (40 points)
-    - Thoroughly Read the template and **do not miss anything in the template**.
-    - Use figures and tables to support your analysis and results.
-    - While in-person demos are accepted, ensure submission of video demos aligned with the plots in your report.
+### 3. Final Report (40 points)  
+- Carefully **follow the template** and ensure all required sections are included.  
+- Strengthen your analysis with figures and tables to clearly present your findings.  
+- If you opt for an in-person demo, **also** submit a video demo that aligns with your report’s plots to support your documentation.  
+
+---
 
 ## 🛠️ Requirements
 
-### Timeline
+### Timeline  
 
-1. L36 0700: Design Presentation slides (Gradescope and Instructors)
-    - Submit your `MS PowerPoint pptx` file to your instructor NLT L36 0700. Your slides will be played on your instructor's PC for smooth transitions between speakers. Make sure to send a pptx file and not a Keynote file or Google Slides unless your instructor has approved it.
-    - Additionally, submit the PDF version of your presentation file on Gradescope no later than L36 0700. 
-    - **_No grace days_** can be used for the PowerPoint slides.
-1. L36: Design Presentations
-1. L39 0700: Live demo Due   
-    - Late Demos: You can use grace days, but all products must be submitted NLT T40 2359 (by the Dean's policy). 
-1. T40 2359: Final report & Code
-    - No grace days can be used. All products must be submitted by midnight on T40. 
+1. **L36 0700: Design Presentation Slides (Gradescope & Instructors)**  
+    - Submit your **PowerPoint (.pptx)** file to your instructor by **L36 0700**.  
+    - Your slides will be displayed on your instructor’s PC for seamless transitions between speakers.  
+    - Make sure to submit a **pptx file**, not Keynote or Google Slides, unless your instructor has specifically approved it.  
+    - Additionally, upload a **PDF version** of your slides on Gradescope by the same deadline.  
+    - **No grace days** are available for presentation slides—late submissions won’t be accepted.  
 
-### Requirements
+1. **L36: Design Presentations**: Prepare to present your project design during **L36**.  
 
-1. Add comprehensive comments throughout your code. Emphasize the importance of thorough commenting.
-1. Avoid delays, loops, waits, or sleeps in code.  Since you need to use a timer, adding delays, loops, or waits will interfere with the timer. The timer it self is actually a loop running forever.
+1. **L39 0700: Live Demo Due**  
+    - You may use **grace days**, but all submissions must be completed by **T40 2359**, as per the Dean’s policy.  
 
+1. **T40 2359: Final Report & Code**  
+    - **No grace days** are available—everything must be submitted by **midnight (T40 2359)**.
 
-### Deductions
-- Deductions of up to 5 points will apply if delays or loops exist within the controller. 
-- A penalty of up to 5 points will be incurred for poor coding practices, such as inadequate comments or the excessive use of hard-coded numbers instead of variables or enumerated types.
+### Coding Requirements  
+1. Add detailed comments to your code for clarity.  
+1. Avoid delays, loops, waits, or sleeps, as they interfere with the timer functionality.  
 
+### Penalties  
+- Up to 5 points will be deducted for delays or loops in the controller code.  
+- Poor coding practices, such as inadequate comments or hard-coded values, may result in up to 5 points being deducted.  
 
-## 🎬 Demonstrations 
+---
+## 🎬 Demonstrations  
 
-Demonstrations will be accomplished on lesson 39 in the maze. Points will be deducted for failed checkpoints (e.g., does not stop and turn within approximately 2 meters of AprilTag 0). The final rubric is below and a total of **40 points** assigned to the demonstration:
+Below is the final grading rubric, with a total of **40 points** assigned to the demonstration:  
 
-- Wall following [10 points]: The robot should follow the walls without hitting them. A deduction of 1 point for each wall collision will be applied. No more than 5 points will be deducted if the robot reaches the end goal ($\pm$30 cm from the yellow line).  
-- Stop sign [10 points]: The robot should stop at the yellow line. The bottom plate of the robot should cover any part of the yellow line. Once the treasure chest is located, print out the current location of the robot and stay there forever. 
-- AprilTags [20 points]: The robot should stop at the orange line before making any turns. The bottom plate of the robot should cover any part of the orange line. Then, the robot should make a turn. Although the exact angle of the turns will not be accessed, you might want to get precise turns as it affect the overall performance of the robot.
+1. **Wall Following (10 points):**  
+  - The robot must follow the maze walls without colliding.  
+  - Each wall collision results in a **1-point deduction**.  
+  - However, if the robot successfully reaches the final goal (yellow line), no more than **3 points** will be deducted.  
 
+1. **Stop Sign (8 points):**  
+  - The robot must stop at the **yellow line**, with its bottom plate covering any part of it.  
+  - Once the treasure chest is found, the robot should **print its current location** and remain there indefinitely.  
 
+1. **AprilTags (15 points):**  
+  - The robot must stop at the **orange line** before turning.  
+  - Its bottom plate must cover at least part of the orange line before executing a turn.  
+  - Precise turns aren't directly graded, but improving turn accuracy will **boost overall performance**.  
 
-## 👩‍🏫 Design Presentation (20 Points)
+1. **Map Generation (5 points):**  
+  - As the robot explores the maze, it must generate a **map**.  
+  - This map should be included in your final report.  
 
-Provide a **5-minute** presentation followed by approximately 2 minutes for Q&A, covering the following topics:
+1. **Gamepad Control (2 points):**  
+  - You must be able to **relinquish control** to the robot when needed.  
 
-```{note}
-Make extensive use of visual aids, such as a maze picture, flowcharts, and diagrams. Avoid filling slides with excessive text; instead, keep your audience engaged and focused on listening to you.
-```
+## 👩‍🏫 Design Presentation (20 Points)  
 
-1. **[3 Points]** Purpose: 
-    - Briefly describe the problem.
-    - Discuss the project requirements.
-1. **[10 Points]** Design:
-    - This section accounts for 50% of the presentation grade.
-    - Discuss the details of your design. For example,
-        - How to make turn decisions at intersections.
-        - How to keep track of the robot's coordinates.
-        - How to handle misclassifications.
-        - Specify the timers you plan to use, their intended purposes, and operating frequencies.
-        - Include a clearly legible finite state machine.
-    - Outline the data you intend to collect for experimental analysis and explain your data collection method.
-1. **[4 Points]** Debugging and testing:
-    - Provide detailed information on debugging and testing methods. Explain how your methods enhance debugging and testing efficiency.
-    - Describe high-level debugging strategies for unexpected robot behavior in the maze, including identification and resolution of issues like misclassification or getting trapped at a corner.
-    - Exclude discussions related to compile-time debugging, such as syntax errors and register configurations.
-1. **[3 Points]** Questions: 
-    - Prepare to answer questions about your design choices.
-    - Be ready to address inquiries regarding implementation of additional functionality in your project.
-    - Note that the question component extends beyond the 6-minute presentation by an additional 2 minutes.
-1. **Timing**:
-    - Points will be deducted for exceeding the 6-minute limit.
-    - **The presentation will be halted at the 7-minute mark, and credit will not be given for parts not discussed.**  Therefore, **practice!**
-    - Emphasize the importance of professional timing in a presentation, considering its impact on the audience and subsequent speakers.
-1. **Submission**:
-    - Submit your `MS PowerPoint pptx` file to your instructor **NLT L34 0700**. Your slides will be played on your instructor's PC for smooth transitions between speakers. Make sure to send a pptx file and not a Keynote file unless your instructor has approved it.
-    - Additionally, export your PowerPoint file to a **pdf** file and submit it on Gradescope by L34 0700. **Be sure to select questions and pages to indicate where your responses are located. Failure to do so will result in point deductions.** Refer to the instruction gif inside the Final Report section for guidance. 
-    - **_No grace days_** can be used for the PowerPoint slides.
+Your presentation will last **5 minutes**, followed by a **2-minute Q&A** session. Be sure to cover the following topics:  
 
+```{note}  
+Use **visual aids** like diagrams, flowcharts, and maze images to enhance clarity.  Avoid filling slides with excessive text; instead, keep your audience engaged and focused on listening to you.
+```  
 
-    ```{attention}
-    Submit your MS PowerPoint pptx file to your instructor. Additionally, export your PowerPoint file to a pdf file and submit it on Gradescope. Select questions and pages to indicate the locations of your response. 
-    ```
+1. **Purpose [3 Points]**  
+    - Briefly explain the **problem** your robot is solving.  
+    - Discuss the **project requirements**.  
 
-## 📈 Final Report (40 Points)
+2. **Design [10 Points]**  
+    - **This is the most heavily weighted section (50% of the presentation grade).**  
+    - Detail your design approach, including:  
+        - **Using timers** to avoid loops and delays.  
+        - **Tracking turning angles** for accurate maneuvering.  
+        - **Determining the robot’s coordinates** at the treasure chest.  
+        - Including a **clearly legible finite state machine diagram**.  
 
-Refer to the example report, `ECE387_Project Report Template.docx`, available in Teams under Files > Class Materials, for detailed guidance on report content. 
+1. **Debugging & Testing [4 Points]**  
+    - Explain how your testing methods improve **debugging efficiency**.  
+    - Describe **strategies for handling unexpected robot behavior**, such as:  
+        - Misreading **AprilTags** or the **stop sign**.  
+        - Identifying and resolving navigation errors.  
+    - **Do not** include basic syntax or build error discussions—focus on **high-level troubleshooting techniques**.  
 
-```{note}
-Even if your demos are not successful, whether you use grace days or not, ensure you discuss everything based on the progress you have made.
-```
+4. **Questions [3 Points]**  
+    - Prepare to **defend your design choices**.  
+    - Be ready to discuss **possible enhancements** to your project.  
+    - **Q&A extends beyond the 5-minute presentation**, adding another **2 minutes** for discussion.  
 
-- **[5 Points]** Introduction/Purpose:
-    - Describe the problem.
-    - Discuss the requirements.
-    - Outline any assumptions made at the project's outset.
-- **[10 Points]** Design: 
-    - Discuss design choices for each level, including values for PWM_AVERAGE, $k_p$, and $k_i$.
-    - Specify the timers used, their purposes, and the operating frequencies.
-    - Explain the data collected for experiment analysis and detail your data collection method.
-- **[5 Points]** Debugging and testing:
-    - Provide comprehensive details on debugging and testing methods.
-    - Explain how your methods enhance debugging and testing efficiency.
-    - Describe how you identified and resolved unexpected robot behaviors.
-    - Exclude discussions related to compile-time debugging, such as syntax errors.
-- **[15 Points]** Analysis and Results:
-    - _**This is the most essential part of the final project. You are expected to provide high-quality engineering analysis.**_
-    - Your analysis should be based on collected data, utilizing figures and tables. For example, evaluate the robot's performance in Level 2 by employing step responses. Base your analysis on data and avoid relying on visual observations.
-    - Discuss results for each level, including measurements and plots.
-    - Evaluate the time taken for your robot to complete tasks.
-    - If unresolved issues exist, discuss potential solutions with more time.
-    - Highlight any unique features that make your robot stand out.
-    - Which tasks were you unable to complete, and what were the reasons for the inability?
-    - Discuss ongoing issues and problems and how you addressed them.
-    - Did you do anything unique to make your robot better than others?
-- **[5 Points]** Conclusion
-    - Conclude your work
-    - Concisely summarize the results. 
-    - Emphasize the overall result of the project.
+5. **Timing & Practice**  
+    - **Points will be deducted** for exceeding the **5-minute limit**.  
+    - **Presentations will be stopped at the 6-minute mark**—content beyond that won’t be graded.  
+    - **Practice your delivery** to balance detail and conciseness—timing matters!  
 
-```{attention}
-Submit your report on Gradescope. Be sure to select questions and pages to indicate where your responses are located. Failure to do so will result in point deductions.
-```
+6. **Submission**  
+    - **By L36 0700**, submit your **PowerPoint (.pptx) file** to your instructor.  
+    - **Additionally**, export your slides as a **PDF** and submit them on Gradescope.  
+    - **No grace days** are allowed for presentation slides. **Late submissions incur a 3-point penalty.**  
 
-```{image} ./figures/Proj_GradescopeSubmission.gif
-:width: 740
-:align: center
-```
-<br>
+```{attention}  
+On Gradescope, select questions/pages to indicate where your responses are located—failure to do so will result in point deductions.  
+```  
 
-## 🚚 Deliverables
+## 📈 Final Report (40 Points)  
 
-```{note}
-Unlike other assignments, any points earned above the total project points (250) can be applied to your final course grade.
-```
+Refer to **`ECE387_Project Report Template.docx`** (available on Teams under **Files > Class Materials**) for detailed guidelines.  
 
-### Deliverable 1: [50 Points] Design Presentation
-- **[5 Points]** Purpose
-- **[25 Points]** Design
-- **[15 Points]** Debugging and testing
-- **[5 Points]** Questions
+```{note}  
+Even if your demo is not successful, whether you use grace days or not, ensure you discuss everything based on the progress you have made.
+```  
 
-### Deliverable 2: [100 points + $\alpha$] Demo and Code
-- **[15 Bonus Points]**: 
-    - **[5 Points]** Early turkey
-    - **[10 Points]** 5 points for each level
-    - **[5-15 points]** Final Race
-    
-- **Deductions:**
-    - **[-10 Points]:** 5 points per level deducted for delays or loops in ISR.
-    - **[-10 Points]:** 5 points per level deducted for controller code in main instead of ISR.
-    - **[-10 Points]:** Up to 5 points per level deducted for bad coding practices (e.g., poor comments, hard-coded numbers).
-    - Uncompilable code results in a grade of 0 for the level. 
-- 🏇 **Final Race**
-    - L39 during your section. We will measure completion time for the Level 2 demo.  
-    - Same requirements as Level 2 apply: reach the goal and stop before hitting the wall.
-    - You will have two rounds: 2 minutes for the first round and 1 minute for the second round.
-    - A run is considered valid as long as it starts within the given timeframe.
-    - Code changes are allowed within the 3-minute timeframe. While you can reflash your program multiple times within the 3 minutes, it is highly recommended to use LCD and switches for adjustments.
-    - If you are next in line, you need to stand by on the deck. There won't be any wait time once the previous turn is complete.
-    - Prizes:
-        - 1st place: 15 bonus points and name on the lab plaque.
-        - 2nd place: 12 bonus points
-        - 3rd and 4th places: 10 bonus points
-        - 1st place in each section if not in the 1st - 4th places in class: 5 bonus points
+1. **Introduction/Purpose [5 Points]**
+    - Clearly define the **problem** and project **requirements**.  
 
-### Deliverable 3: [100 Points + $\alpha$] Report 
-- **[10 Points]** Introduction
-- **[20 Points]** Design 
-- **[20 Points]** Debugging and testing
-- **[40 Points]** Analysis and Results
-- **[10 Points]** Conclusion
-- **[IP Points]** Extra points for the best paper in class!
+2. **Design [10 Points]**: Discuss key design elements, including:  
+  - Image resolution, frame rate, and sensor choices.  
+  - **Controller design**, including finite state machine details.  
+  - Include an **RQT graph** with **legible plots**.  
 
-### Deliverable 4: [0 Points] Return your robot
-- Return your robot in person to the instructors or Mr. Hall by <span style="color:blue"> Wed 11 Dec 1500.</span>
-- Ensure there are no loose parts, and tighten all screws before returning your robot.
-- **[-20 Points]** Up to 20 points may be deducted for loose parts or not returning the robot in person on time. 
+3. **Analysis & Results [20 Points]**  
+    - **This is the most crucial section—your engineering analysis matters!**  
+    - Base findings on collected **data** rather than visual observations.  
+    - Evaluate performance of **vision sensors, LiDAR, and IMU**.  
+    - Provide **measurements, plots, and time-based evaluations** for each task.  
+    - Discuss **any unresolved challenges** and propose solutions.  
+    - Highlight **unique features** that set your robot apart.  
+    - Clearly explain **incomplete tasks** and **why they weren’t achieved**.  
 
-<br>
-<br>
+4. **Conclusion [5 Points]**  
+    - Summarize your findings and project outcomes concisely.  
 
+```{attention}  
+On Gradescope, select questions/pages to indicate where responses are located—failure to do so **will result in deductions**.  
+```  
+
+```{image} ./figures/Proj_GradescopeSubmission.gif  
+:width: 740  
+:align: center  
+```  
+---
+
+## 🚚 Deliverables  
+
+### **Deliverable 1: [20 Points] Design Presentation**  
+- **[3 Points]** Purpose  
+- **[10 Points]** Design  
+- **[4 Points]** Debugging & Testing  
+- **[3 Points]** Questions  
+
+### **Deliverable 2: [40 points] Demo & Code**  
+#### **Demo Breakdown**
+- **[10 Points]** Wall following  
+- **[8 Points]** Stop sign behavior  
+- **[15 Points]** AprilTags navigation  
+- **[5 Points]** Map generation  
+- **[2 Points]** Gamepad control  
+#### **Code Submission:**
+- Push the code from the master computer to GitHub.
+- If there is additional code on the robot, compress it using tar and gzip (`.tar.gz` format) and send it to your instructor. Make sure to research how to properly create the compressed archive.
+
+#### **Deductions**  
+- **[-5 Points]:** Delays or loops in ISR.  
+- **[-5 Points]:** Poor coding practices (e.g., lack of comments, excessive hard-coded values).  
+
+### **Deliverable 3: [40 Points + Bonus] Final Report**  
+- **[5 Points]** Introduction  
+- **[10 Points]** Design  
+- **[20 Points]** Analysis & Results  
+- **[5 Points]** Conclusion  
+- **[Bonus Points]** Extra credit for the **best report in class**!  
 
