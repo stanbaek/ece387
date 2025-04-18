@@ -26,13 +26,13 @@ Your robot will navigate a maze in the lab, employing technologies from previous
 If you notice any discrepancies in the project description or grading criteria, the correct information will follow this order of priority: (1) Instructor messages via Teams, (2) this Course Web, (3) Gradescope, and (4) the project overview slides. The Course Web will always be updated immediately to reflect any changes, and outdated instructions will be clearly crossed out.
 ```
 
-## Story  
+## 🏴‍☠️ Story  
 
-Ahoy, crew! 🏴‍☠️ The infamous pirate captain, Dr. Baek, has uncovered an ancient scroll that reveals the location of a hidden treasure island. But there’s a catch—the treasure is locked deep inside a deadly maze! 
+Ahoy, crew!  The legendary 💀 pirate captain, Dr. Baek, has uncovered an ancient scroll that reveals the location of a hidden treasure island. But there’s a catch—the treasure is locked deep inside a deadly maze! 
 
 According to the scroll, the maze is marked with enigmatic symbols known as AprilTags. These cryptic signs hold the key to locating the treasure. Miss one, or read it wrong, and... well, let’s just say you won’t be making it back.
 
-Rather than risking life and limb in the perilous maze, the legendary pirate captain, Dr. Baek, is turning to cutting-edge technology to solve the mystery. Your task is to design and build a robotic system capable of navigating the maze independently, decoding the AprilTags, and uncovering the treasure's hidden location.
+Rather than braving the perilous maze, the infamous pirate captain, Dr. Baek, is relying on you to develop cutting-edge technology to solve the mystery. Your task is to design and build a robotic system that can navigate the maze independently, decode the AprilTags, and uncover the treasure's hidden location.
 
 Here’s what the scroll reveals about navigating the maze:  
 1. **Follow the walls in the maze at all times.**  
