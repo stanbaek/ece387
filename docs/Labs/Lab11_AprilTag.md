@@ -131,7 +131,7 @@ For a camera to effectively perform computer vision tasks, it must first be cali
     tar xf calibrationdata.tar.gz
     ```
 
-    Move the `ost.yaml` file to the correct ROS folder:
+    Move the `ost.yaml` file to the correct ROS folder with a new name, `default_cam.yaml`:
 
     ```bash
     cd ~/.ros
@@ -266,11 +266,4 @@ This section guides you through creating a launch file to run three key nodes: `
     - Submit a screenshot of the `camera_info` topic.
 
 1. **[25 Points] Demonstration**
-    - Domonstrate the `apriltag_ros` and `stop_dector` are running simultaneously and detecting AptilTags and stop signs.
-    - Demonstrate the `apriltag_ros` node printing the ID and distance of each AprilTag. You should demo two AptilTags are detected simultaneously.
-    - Demonstrate the `apriltag_ros` and `stop_detector` nodes publish the `apriltag_pose` topic and `stop_dist` topic, respectively.
-    - Show that the `apriltag_ros` and `stop_detector` nodes are running simultaneously and successfully detecting both AprilTags and stop signs.
-    - Demonstrate the `apriltag_ros` node printing the ID and distance of each detected AprilTag. Ensure your demonstration includes the detection of two AprilTags at the same time.
-    - Verify and demonstrate that:
-        - The `apriltag_ros` node publishes the `apriltag_pose` topic.
-        - The `stop_detector` node publishes the `stop_dist` topic.
+    - Demonstrate simultaneous detection of multiple AprilTags (minimum of 2) and stop signs by running both `apriltag_ros` and `stop_detector` nodes. Verify proper operation by showing that both nodes are publishing valid messages to their respective topics (`/apriltag_pose` and `/stop_dist`).
