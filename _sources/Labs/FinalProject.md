@@ -1,14 +1,8 @@
 # 🚀 Final Project
 
-
-## NOT READY YET
-
-
-
 ```{attention}
 Read this page thoroughly before you start working on this final project.   
 ```
-
 
 ## 📌 Objectives  
 
@@ -16,264 +10,232 @@ Read this page thoroughly before you start working on this final project.
 - Students will demonstrate proficiency in robotic systems by building task-specific machines with onboard computing.  
 - Students will apply knowledge from across the course to develop, test, and deliver a functional final project.
 
+---
 
-## 📜 Overview
+## 📜 Overview  
 
-The final project brings together everything you've learned throughout the course. It challenges you to design and build a complete robotic system using ROS2 that can solve a real-world task with multiple components working together. This project emphasizes embedded, task-specific robotics and is where you apply your accumulated knowledge in a hands-on, functional way.
+In this final project, you’ll combine everything you’ve learned throughout the course to design and implement a complete robotic system using ROS2. The project challenges you to create a robot that solves real-world tasks, requiring multiple components to work together seamlessly.  
 
-Your robot will operate in the maze in the lab, using a combination of technologies from previous modules. LIDAR will help it stay centered between walls, the IMU will handle precise turns (90°, 180°, 360°), and OpenCV will detect and respond to randomly placed stop signs. Additionally, you'll use AprilTags to guide the robot through the maze —navigating based on tag ID and distance to determine whether it should turn left, right, around, or stop at its goal.
+Your robot will navigate a maze in the lab, employing technologies from previous modules:  
+- **LIDAR:** Keeps the robot centered between walls.  
+- **IMU:** Handles precise turns (90°, -90°, 270°).  
+- **OpenCV:** Detects and reacts to randomly placed stop signs.  
+- **AprilTags:** Guides the robot through the maze using tag IDs and distances to decide actions like turning or stopping at specific locations.  
 
 ```{important}
 If you notice any discrepancies in the project description or grading criteria, the correct information will follow this order of priority: (1) Instructor messages via Teams, (2) this Course Web, (3) Gradescope, and (4) the project overview slides. The Course Web will always be updated immediately to reflect any changes, and outdated instructions will be clearly crossed out.
 ```
 
-## 🎮 Final Project Gamesmanship
+## Story  
 
-1. Demo and coding
-    - Read the presentation and final report requirements before you start coding.
-    - Start early to earn early-bird bonus points; delay may jeopardize timely completion.
-    - Use the code from Labs 10 and 11 as foundations, but avoid implementing your final project in these lab files. Instructors will review the code inside the `final_project` folder. 
-    - Employ `rqt`, `ros2 topic`, and `rviz` extensively for debugging high-level behaviors. 
-    - **Cease work for the final report**
-        - Your analysis in the report is much more important than completing the maze. 
-        - Balance time spent on coding and demo; don't sacrifice report quality for demos. Don't lose 30 points on the report to earn 15 demo points.
-        - If your robot reaches only halfway to the Level 1 goal point, the deduction will be approximately 5-10 points.
+Ahoy, crew! 🏴‍☠️ The infamous pirate captain, Dr. Baek, has uncovered an ancient scroll that reveals the location of a hidden treasure island. But there’s a catch—the treasure is locked deep inside a deadly maze! 
 
-1. Presentation
-    - Utilize visual aids a lot! Figures, tables, and graphs are more helpful than words.
-    - Ensure you **discuss everything** in the presentation section.
-    - Adhere to the 6-minute time limit; practice for effective delivery. Your talk will be stopped at the 7-minute mark, and credit will not be given for parts not discussed. Adhering to the time limit for presentations is a basic etiquette. Even at professional conferences, talks can be cut short if they exceed the allotted time.
-    - You are strongly recommended to practice your talk. Students who gave very short presentations to avoid exceeding the time limit often did not discuss enough details and lost even more points. So, practice! Even experienced engineers practice for their conference presentations.
+According to the scroll, the maze is marked with enigmatic symbols known as AprilTags. These cryptic signs hold the key to locating the treasure. Miss one, or read it wrong, and... well, let’s just say you won’t be making it back.
 
-1. Report
-    - Thoroughly Read the template and **do not miss anything in the template**.
-    - Use figures and tables to support your analysis and results.
-    - While in-person demos are accepted, ensure submission of video demos aligned with the plots in your report.
+Rather than risking life and limb in the perilous maze, the legendary pirate captain, Dr. Baek, is turning to cutting-edge technology to solve the mystery. Your task is to design and build a robotic system capable of navigating the maze independently, decoding the AprilTags, and uncovering the treasure's hidden location.
 
-## 🛠️ Requirements
+Here’s what the scroll reveals about navigating the maze:  
+1. **Follow the walls in the maze at all times.**  
+2. **Avoid stopping at or looking out windows—those are deadly!**  
+3. **React to AprilTags:**  
+   - **Tag ID 0:** Turn left (make a 270° clockwise turn).  
+   - **Tag ID 1:** Stop for 5 seconds, then make a 90° left turn.  
+   - **Tag ID 2:** Turn right (make a 90° clockwise turn).  
+   - **Tag ID 3:** Turn left (make a 90° counterclockwise turn).  
+   - **Stop Signs:** Stop 0.3 meters before the sign, then turn left. Look around to locate the treasure chest, which is buried under **AprilTag ID 4**.  
 
-### Timeline
-
-1. L36 0700: Design Presentation slides (Gradescope and Instructors)
-    - Submit your `MS PowerPoint pptx` file to your instructor NLT L36 0700. Your slides will be played on your instructor's PC for smooth transitions between speakers. Make sure to send a pptx file and not a Keynote file or Google Slides unless your instructor has approved it.
-    - Additionally, submit the PDF version of your presentation file on Gradescope no later than L36 0700. 
-    - **_No grace days_** can be used for the PowerPoint slides.
-1. L36: Design Presentations
-1. L39 0700: Live demo Due   
-    - Late Demos: You can use grace days, but all products must be submitted NLT T40 2359 (by the Dean's policy). 
-1. T40 2359: Final report & Code
-    - No grace days can be used. All products must be submitted by midnight on T40. 
-
-
-### 🎬 Demonstrations 
-
-Demonstrations will be accomplished on lesson 39 in the maze. Points will be deducted for failed checkpoints (e.g., does not stop and turn within approximately 2 meters of AprilTag 0). The final rubric is below and each item is worth **6 points** for a total of **40 points** assigned to the demonstration:
-
-- Wall following
-- Ignore windows
-- Stop sign: Stop within 0.3 meters from a stop sign, wait until the stop sign is removed.
-- AprilTag ID 0: Stop within 0.27 meters from the AprilTag and then turn left. 
-- AprilTag ID 1: Stop within 0.27 meters from the AprilTag and then turn right. 
-- AprilTag ID 2: Stop within 0.27 meters from the AprilTag, and then make a 270$^\circ$ left turn.. 
-
-
-
-
-## 🛠️ Procedures
-
-### ✅ Part 1: Calibrate the USB Camera
-
-For a camera to effectively perform computer vision tasks, it must first be calibrated. Without calibration, there's no reliable reference for determining the size of objects within the camera's frame. The [ROS Calibration Tool](http://wiki.ros.org/camera_calibration) generates a calibration file that other ROS packages can use to calculate object size and distance. The **camera_calibration** package leverages OpenCV's calibration techniques to simplify the process of calibrating monocular or stereo cameras, typically using a checkerboard pattern as the target. For detailed instructions, refer to the [Camera Calibration Tutorial](http://wiki.ros.org/camera_calibration/Tutorials/MonocularCalibration).
-
-1. Disconnect the camera from the robot and plug it into the **Master computer**. Then run:
-
-    ```bash
-    ros2 run usb_cam usb_cam_node_exe --ros-args -p video_device:=/dev/video0
-    ```
-
-1. Check if topics are being published:
-    ```bash
-    ros2 topic list
-    ```
-
-    Make sure you see `/image_raw` and `/camera_info`. Then check the message type:
-
-    ```bash
-    ros2 topic type /camera_info
-    ros2 interface show <message>
-    ```
-
-1. Echo the camera info:
-
-    ```bash
-    ros2 topic echo /camera_info
-    ```
-
-    Look for values under `K`, `R`, and `P`. Initially, they’ll be all zeros—this means the camera is not yet calibrated.
-
-    > 💡 You should be comfortable using these ROS2 commands. Expect to answer related questions during graded reviews (GRs).
-
-1. Run the calibration tool. Use the checkerboard (9x6 internal corners, 2.5 cm spacing). Run:
-    ```bash
-    ros2 run camera_calibration cameracalibrator --size 9x6 --square 0.025 --camera_name default_cam --no-service-check --ros-args -r image:=/image_raw
-    ```
-    This launches a calibration window.
-
-    ```{image} ./figures/Lab11_Calibration.png
-    :width: 500  
-    :align: center  
-    ```  
-
-1. To collect calibration data, move the checkerboard in the camera view in various ways:
-    - Left/right/top/bottom
-    - Closer/farther
-    - Tilted at angles
-    - Fill the entire frame
-
-    Four progress bars will fill up. When the "CALIBRATE" button activates, click it.
-
-    ```{image} ./figures/Lab11_Calibrate.png
-    :width: 500  
-    :align: center  
-    ```  
-
-    > 🕓 Calibration may take a few minutes. The windows might be greyed out but just wait, it is working.
-
-    When complete, it will display something similar to the following output:
-
-    ```bash
-    **** Calibrating ****
-    mono pinhole calibration...
-    D = [-0.027598200869062808, -0.0273210932029884, 0.002259050714452529, 0.004238057516107571, 0.0]
-    K = [517.6781776101559, 0.0, 330.5433124974498, 0.0, 522.269778659698, 247.60730067305022, 0.0, 0.0, 1.0]
-    R = [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0]
-    P = [508.604248046875, 0.0, 333.1752989083179, 0.0, 0.0, 517.5308227539062, 248.01611962861898, 0.0, 0.0, 0.0, 1.0, 0.0]
-    None
-    # oST version 5.0 parameters
-
-
-    [image]
-
-    width
-    640
-
-    height
-    480
-
-    [default_cam]
-
-    camera matrix
-    517.678178 0.000000 330.543312
-    0.000000 522.269779 247.607301
-    0.000000 0.000000 1.000000
-
-    distortion
-    -0.027598 -0.027321 0.002259 0.004238 0.000000
-
-    rectification
-    1.000000 0.000000 0.000000
-    0.000000 1.000000 0.000000
-    0.000000 0.000000 1.000000
-
-    projection
-    508.604248 0.000000 333.175299 0.000000
-    0.000000 517.530823 248.016120 0.000000
-    0.000000 0.000000 1.000000 0.000000
-    ```
-
-
-1. Save and extract calibration data. Click **Save**, then **Commit**. Browse to the location of the calibration data and extract
-    ```bash
-    cd /tmp
-    tar xf calibrationdata.tar.gz
-    ```
-
-    Move the `ost.yaml` file to the correct ROS folder:
-
-    ```bash
-    cd ~/.ros
-    mkdir camera_info
-    mv /tmp/ost.yaml ./camera_info/default_cam.yaml
-    ```
-
-1. Relaunch the camera node:
-
-    ```bash
-    ros2 run usb_cam usb_cam_node_exe --ros-args -p video_device:=/dev/video0
-    ```
-
-1. Take another look at the `camera_info` topic. Do you notice any differences compared to the message published by the `usb_cam` node when calibration data is not included? Keep in mind that the `usb_cam` node does not use the `CameraInfo` message to produce rectified images from the raw data (`\image_raw`). Instead, it publishes the `CameraInfo` message so that you can use it to create rectified images if needed.
-
-1. Take a screenshot of the calibrated `camera_info` output. This is one of your deliverables.
+Once you locate the treasure chest, send Captain Baek the maze map so he can claim the loot!
 
 ---
 
-### ✅ Part 2: AprilTag Detection with ROS2
+## 🎮 Final Project Gamesmanship
 
-In this section, you will explore how to detect AprilTags in ROS 2. There are several methods to achieve this, one of which involves using multiple existing ROS nodes and connecting them via ROS topics. While this approach may seem straightforward, managing the interactions between different nodes can become complex and inefficient. To simplify this process, we will develop our own custom node to handle all the required functionality.
+### 1. Demo & Coding (40 points)  
+- Review the presentation and final report requirements **before** you begin coding.  
+- **Start early**—delays can put your completion at risk.  
+- Use the code from Labs 10 and 11 as a reference, but **do not** implement your project within those lab files. Instructors will evaluate the code inside your `final_project` folder.  
+- Take advantage of debugging tools like `rqt`, `ros2 topic`, and `rviz` to fine-tune high-level behaviors.  
+- **Prioritize your final report:**  
+  - Your analysis in the report is more important than completing the maze.  
+  - Manage your time carefully—don’t sacrifice report quality for extra demo points. Losing 10 points on the report to earn 5 points in the demo isn’t worth it!  
 
-1. Create a package named `lab11_apriltag` with the dependencies:
-- `rclpy`
-- `cv_bridge`
-- `sensor_msgs`
-- `std_msgs`
-- `opencv2`
+### 2. Presentation (20 points)  
+- **Make visuals a priority!** Figures, tables, and graphs often communicate concepts better than lengthy explanations.  
+- **Cover all required details** in your presentation.  
+- Stick to the **5-minute limit**—practice to refine your delivery. At the 6-minute mark, your talk will be stopped, and any content beyond that **won’t** be graded. Time management is key, just as it is in professional conferences.  
+- **Practice, practice, practice.** Short presentations that lack detail often result in lost points. Even experienced engineers practice for their conference presentations.
 
-1. Download the provided [`apriltag.py`](../files/apriltag.py) and place it in your package’s scripts directory.
+### 3. Final Report (40 points)  
+- Carefully **follow the template** and ensure all required sections are included.  
+- Strengthen your analysis with figures and tables to clearly present your findings.  
+- If you opt for an in-person demo, **also** submit a video demo that aligns with your report’s plots to support your documentation.  
 
-1. Update your `setup.py` to include the script as an entry point. This is necessary to ensure that the script runs as a node.
+---
 
-1. Inside your package (not the scripts folder), create a new directory called `config`. Next, copy the `default_cam.yaml` file into this directory. The code in `apriltag.py` is already set up to load this default calibration file if no calibration file path is provided by the user when the node is executed. Your directory structure should look like this:
+## 🛠️ Requirements
 
-    ```bash
-    lab11_apriltag/
-    ├── config/
-    │   └── default_camera_info.yaml
-    ├── lab11_apriltag/
-    ├── resources/
-    └── ...
-    ```
+### Timeline  
 
-1. Add this path to your `setup.py` under `data_files`:
+1. **L36 0700: Design Presentation Slides (Gradescope & Instructors)**  
+    - Submit your **PowerPoint (.pptx)** file to your instructor by **L36 0700**.  
+    - Your slides will be displayed on your instructor’s PC for seamless transitions between speakers.  
+    - Make sure to submit a **pptx file**, not Keynote or Google Slides, unless your instructor has specifically approved it.  
+    - Additionally, upload a **PDF version** of your slides on Gradescope by the same deadline.  
+    - **No grace days** are available for presentation slides—late submissions won’t be accepted.  
 
-    ```python
-    data_files=[
-        ('share/' + package_name + '/config', ['config/default_camera_info.yaml']),
-        ...
-    ]
-    ```
-    And in `package.xml`, include:
-    ```xml
-    <buildtool_depend>ament_cmake</buildtool_depend>
-    <exec_depend>ament_index_python</exec_depend>
-    ```
+1. **L36: Design Presentations**: Prepare to present your project design during **L36**.  
 
-1. Open the `apriltag.py` script and examine the constructor to understand how it handles loading files via command line arguments. If no argument is provided, it defaults to a pre-configured file. Pay close attention to the `load_camera_info` method—it demonstrates how to extract data from a `yaml` file effectively. While the same functionality could be achieved by subscribing to the `camera_info` topic published by the `usb_cam` node, using a calibration file is more efficient since the `camera_info` topic repeatedly publishes identical data over time.
+1. **L39 0700: Live Demo Due**  
+    - You may use **grace days**, but all submissions must be completed by **T40 2359**, as per the Dean’s policy.  
 
-2. Launch the `usb_cam` node with a frame rate set to **15 Hz**:
-   ```bash
-   ros2 run usb_cam usb_cam_node_exe --ros-args -p video_device:=/dev/video0 -p framerate:=15.0
-   ```
+1. **T40 2359: Final Report & Code**  
+    - **No grace days** are available—everything must be submitted by **midnight (T40 2359)**.
 
-3. Start the `apriltag_ros` node to detect AprilTags.
+### Coding Requirements  
+1. Add detailed comments to your code for clarity.  
+1. Avoid delays, loops, waits, or sleeps, as they interfere with the timer functionality.  
 
-4. Open another terminal and echo the topic `/apriltag_pose` on the master. Observe the output. Does the `apriltag_ros` node detect more than one tag simultaneously? Consider which value might be used to calculate the distance to a tag, and note the type of message being published. Identify the package this message originates from.
+### Penalties  
+- Up to 5 points will be deducted for delays or loops in the controller code.  
+- Poor coding practices, such as inadequate comments or hard-coded values, may result in up to 5 points being deducted.  
 
-5. Demonstrate to the instructor that the **apriltag_ros** node is successfully detecting tags and publishing their position data.
+---
+## 🎬 Demonstrations  
 
-With a properly calibrated camera, you are now equipped to identify AprilTags along with their size, orientation, and distance.
+Below is the final grading rubric, with a total of **40 points** assigned to the demonstration:  
 
+1. **Wall Following (10 points):**  
+  - The robot must follow the maze walls without colliding.  
+  - Each wall collision results in a **1-point deduction**.  
+  - However, if the robot successfully reaches the final goal (yellow line), no more than **3 points** will be deducted.  
 
-## 🚚 Deliverables
+1. **Stop Sign (8 points):**  
+  - The robot must stop at the **yellow line**, with its bottom plate covering any part of it.  
+  - Once the treasure chest is found, the robot should **print its current location** and remain there indefinitely.  
 
-1. **[20 Points] Complete the `apriltag.py` Script**
-    - Ensure the script is fully functional and implements all required features.
-    - Push your code to GitHub and confirm that it has been successfully uploaded.
-    **NOTE:** _If the instructor can't find your code in your repository, you will receive a grade of 0 for the coding part._
+1. **AprilTags (15 points):**  
+  - The robot must stop at the **orange line** before turning.  
+  - Its bottom plate must cover at least part of the orange line before executing a turn.  
+  - Precise turns aren't directly graded, but improving turn accuracy will **boost overall performance**.  
 
-1. **[10 Points] Submit Screenshots**
-    - Submit a screenshot of the `camera_info` topic.
+1. **Map Generation (5 points):**  
+  - As the robot explores the maze, it must generate a **map**.  
+  - This map should be included in your final report.  
 
-1. **[20 Points] Demonstration**
-    - Demonstrate the `apriltag_ros` node printing the ID and distance of each April Tag.
-    - Demonstrate the `apriltag_ros` node publishes the `apriltag_pose` topic.
+1. **Gamepad Control (2 points):**  
+  - You must be able to **relinquish control** to the robot when needed.  
+
+## 👩‍🏫 Design Presentation (20 Points)  
+
+Your presentation will last **5 minutes**, followed by a **2-minute Q&A** session. Be sure to cover the following topics:  
+
+```{note}  
+Use **visual aids** like diagrams, flowcharts, and maze images to enhance clarity.  Avoid filling slides with excessive text; instead, keep your audience engaged and focused on listening to you.
+```  
+
+1. **Purpose [3 Points]**  
+    - Briefly explain the **problem** your robot is solving.  
+    - Discuss the **project requirements**.  
+
+2. **Design [10 Points]**  
+    - **This is the most heavily weighted section (50% of the presentation grade).**  
+    - Detail your design approach, including:  
+        - **Using timers** to avoid loops and delays.  
+        - **Tracking turning angles** for accurate maneuvering.  
+        - **Determining the robot’s coordinates** at the treasure chest.  
+        - Including a **clearly legible finite state machine diagram**.  
+
+1. **Debugging & Testing [4 Points]**  
+    - Explain how your testing methods improve **debugging efficiency**.  
+    - Describe **strategies for handling unexpected robot behavior**, such as:  
+        - Misreading **AprilTags** or the **stop sign**.  
+        - Identifying and resolving navigation errors.  
+    - **Do not** include basic syntax or build error discussions—focus on **high-level troubleshooting techniques**.  
+
+4. **Questions [3 Points]**  
+    - Prepare to **defend your design choices**.  
+    - Be ready to discuss **possible enhancements** to your project.  
+    - **Q&A extends beyond the 5-minute presentation**, adding another **2 minutes** for discussion.  
+
+5. **Timing & Practice**  
+    - **Points will be deducted** for exceeding the **5-minute limit**.  
+    - **Presentations will be stopped at the 6-minute mark**—content beyond that won’t be graded.  
+    - **Practice your delivery** to balance detail and conciseness—timing matters!  
+
+6. **Submission**  
+    - **By L36 0700**, submit your **PowerPoint (.pptx) file** to your instructor.  
+    - **Additionally**, export your slides as a **PDF** and submit them on Gradescope.  
+    - **No grace days** are allowed for presentation slides. **Late submissions incur a 3-point penalty.**  
+
+```{attention}  
+On Gradescope, select questions/pages to indicate where your responses are located—failure to do so will result in point deductions.  
+```  
+
+## 📈 Final Report (40 Points)  
+
+Refer to **`ECE387_Project Report Template.docx`** (available on Teams under **Files > Class Materials**) for detailed guidelines.  
+
+```{note}  
+Even if your demo is not successful, whether you use grace days or not, ensure you discuss everything based on the progress you have made.
+```  
+
+1. **Introduction/Purpose [5 Points]**
+    - Clearly define the **problem** and project **requirements**.  
+
+2. **Design [10 Points]**: Discuss key design elements, including:  
+  - Image resolution, frame rate, and sensor choices.  
+  - **Controller design**, including finite state machine details.  
+  - Include an **RQT graph** with **legible plots**.  
+
+3. **Analysis & Results [20 Points]**  
+    - **This is the most crucial section—your engineering analysis matters!**  
+    - Base findings on collected **data** rather than visual observations.  
+    - Evaluate performance of **vision sensors, LiDAR, and IMU**.  
+    - Provide **measurements, plots, and time-based evaluations** for each task.  
+    - Discuss **any unresolved challenges** and propose solutions.  
+    - Highlight **unique features** that set your robot apart.  
+    - Clearly explain **incomplete tasks** and **why they weren’t achieved**.  
+
+4. **Conclusion [5 Points]**  
+    - Summarize your findings and project outcomes concisely.  
+
+```{attention}  
+On Gradescope, select questions/pages to indicate where responses are located—failure to do so **will result in deductions**.  
+```  
+
+```{image} ./figures/Proj_GradescopeSubmission.gif  
+:width: 740  
+:align: center  
+```  
+---
+
+## 🚚 Deliverables  
+
+### **Deliverable 1: [20 Points] Design Presentation**  
+- **[3 Points]** Purpose  
+- **[10 Points]** Design  
+- **[4 Points]** Debugging & Testing  
+- **[3 Points]** Questions  
+
+### **Deliverable 2: [40 points] Demo & Code**  
+#### **Demo Breakdown**
+- **[10 Points]** Wall following  
+- **[8 Points]** Stop sign behavior  
+- **[15 Points]** AprilTags navigation  
+- **[5 Points]** Map generation  
+- **[2 Points]** Gamepad control  
+#### **Code Submission:**
+- Push the code from the master computer to GitHub.
+- If there is additional code on the robot, compress it using tar and gzip (`.tar.gz` format) and send it to your instructor. Make sure to research how to properly create the compressed archive.
+
+#### **Deductions**  
+- **[-5 Points]:** Delays or loops in ISR.  
+- **[-5 Points]:** Poor coding practices (e.g., lack of comments, excessive hard-coded values).  
+
+### **Deliverable 3: [40 Points + Bonus] Final Report**  
+- **[5 Points]** Introduction  
+- **[10 Points]** Design  
+- **[20 Points]** Analysis & Results  
+- **[5 Points]** Conclusion  
+- **[Bonus Points]** Extra credit for the **best report in class**!  
+

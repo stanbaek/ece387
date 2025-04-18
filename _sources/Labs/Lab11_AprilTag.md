@@ -203,6 +203,10 @@ In this section, you will explore how to detect AprilTags in ROS 2. There are se
     ros2 run lab11_apriltag apriltag_node --ros-args -p cammera_info_file:=~/.ros/camera_info/default_cam.yam1
     ```
 
+    ```{important}
+    Carefully compare the way we pass the ROS2 arguments here with the way we did for `stop_detector` in Lab 10. If you read both scripts, `apriltag.py` uses the ROS2 arguments and `stop_detector.py` uses the Python arguments. 
+    ```
+
 4. Open another terminal and echo the topic `/apriltag_pose` on the master. Observe the output. Does the `apriltag_ros` node detect more than one tag simultaneously? Consider which value might be used to calculate the distance to a tag, and note the type of message being published. Identify the package this message originates from.
 
 5. Demonstrate to the instructor that the **apriltag_ros** node is successfully detecting tags and publishing their position data.
