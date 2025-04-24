@@ -76,14 +76,14 @@ Once you locate the treasure chest, send Captain Baek the maze map so he can cla
 
 ### Timeline  
 
-1. **L36 0700: Design Presentation Slides (Gradescope & Instructors)**  
-    - Submit your **PowerPoint (.pptx)** file to your instructor by **L36 0700**.  
+1. **L35 0700: Design Presentation Slides (Gradescope & Instructors)**  
+    - Submit your **PowerPoint (.pptx)** file to your instructor by **L35 0700**.  
     - Your slides will be displayed on your instructor’s PC for seamless transitions between speakers.  
     - Make sure to submit a **pptx file**, not Keynote or Google Slides, unless your instructor has specifically approved it.  
     - Additionally, upload a **PDF version** of your slides on Gradescope by the same deadline.  
     - **No grace days** are available for presentation slides—late submissions won’t be accepted.  
 
-1. **L36: Design Presentations**: Prepare to present your project design during **L36**.  
+1. **L35: Design Presentations**: Prepare to present your project design during **L35**.  
 
 1. **L39 0700: Live Demo Due**  
     - You may use **grace days**, but all submissions must be completed by **T40 2359**, as per the Dean’s policy.  
@@ -163,7 +163,7 @@ Use **visual aids** like diagrams, flowcharts, and maze images to enhance clarit
     - **Practice your delivery** to balance detail and conciseness—timing matters!  
 
 6. **Submission**  
-    - **By L36 0700**, submit your **PowerPoint (.pptx) file** to your instructor.  
+    - **By L35 0700**, submit your **PowerPoint (.pptx) file** to your instructor.  
     - **Additionally**, export your slides as a **PDF** and submit them on Gradescope.  
     - **No grace days** are allowed for presentation slides. **Late submissions incur a 3-point penalty.**  
 
