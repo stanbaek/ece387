@@ -5,7 +5,7 @@ ECE387 Course Web
 
 I recommned [vscode](https://code.visualstudio.com/) to edit and publish it.
 
-- Python 3.12.9
+- Python 3.10.11
 
 ### How to install required Python packages? 
 - Open a terminal.
@@ -23,6 +23,9 @@ I recommned [vscode](https://code.visualstudio.com/) to edit and publish it.
 - Python, Python Extension Pack
 - Jupyter, MyST-Markdown
 
+### Convert Jupyter notebooks to markdown files
+- jupytext notebook.ipynb --to md
+
 ### Convert jupyter notebook to markdown
 - jupytext https://jupytext.readthedocs.io/en/latest/using-cli.html
 - install: pip install jupytext
@@ -35,4 +38,12 @@ I recommned [vscode](https://code.visualstudio.com/) to edit and publish it.
     "python.envFile": "${workspaceFolder}/.venv",
     "python.terminal.activateEnvInCurrentTerminal": true,
 }
+```
+
+
+### To remove version constraints
+
+To remove version constraints from a requirements.txt file (e.g., turning numpy==1.23.4 into numpy), you can use a simple shell command or Python script.
+```bash
+sed -E 's/[<=>~!]=?.*//' requirements.txt > requirements_no_versions.txt
 ```
