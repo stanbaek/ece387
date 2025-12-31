@@ -8,12 +8,8 @@ parts:
     chapters:
     - file: syllabus.md
     - file: schedule.md
-    - file: PythonBasic.md
-    - file: PythonIntermediate.md
-    - file: NumPy.md
+    - file: AI_policy.md
     - file: faq.md
-    - url: https://stanbaek.github.io/NoPointer.html
-      title: No Pointers in Python?
 
   - caption: Labs
     chapters:
@@ -29,6 +25,17 @@ parts:
     - file: Labs/Lab10_CV.md
     - file: Labs/Lab11_AprilTag.md
     - file: Labs/FinalProject.md
+
+  - caption: Supplementary
+    chapters:
+    - url: https://stanbaek.github.io/workshops/PythonBasic.html
+      title: Python PythonBasic
+    - url: https://stanbaek.github.io/workshops/PythonIntermediate.html
+      title: Python Containers
+    - url: https://stanbaek.github.io/workshops/NumPy.html
+      title: NumPy
+    - url: https://stanbaek.github.io/NoPointer.html
+      title: No Pointers in Python?
 
   - caption: Appendix
     chapters:
