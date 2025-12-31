@@ -1,4 +1,4 @@
-# 📌 Syllabus
+# 📌 ECE387 Syllabus
 
 ## 🏀 Course Goals
 Cadets shall design, implement, test, and debug robotics-based systems by developing Python programs incorporating built-in Robotics Operating System (ROS) functions and successfully interfacing the microcomputer with the external world. 
@@ -59,11 +59,16 @@ Unless specifically directed otherwise, the collaboration policy for this course
 
 ## 📄 Documentation Requirements
 
-You must document all help received from any sources other than your instructor or instructor-provided course materials (including your textbook). 
+**Documentation Requirements**: You must document all help received from any sources other than your instructor or instructor-provided course materials (including your textbook). 
 - Each documentation statement must be specific enough to explicitly describe what assistance was provided, how it was used to complete the assignment, and who provided the assistance.
-- If no help was received on this assignment, the documentation statement must state “None.”
+- If no help was received on this assignment, the documentation statement must state "None."
 - If you checked answers with anyone, you must document with whom on which problems. You must document whether you made any changes or not.  If you did make changes, you must document the problems you changed and the reasons why.
 - Vague documentation statements will result in a 5% deduction on the assignment.
+
+## AI Usage Policy
+
+You are encouraged to use AI tools (such as ChatGPT, Gemini, Copilot, etc.) to **support your understanding** of course concepts—such as reviewing terminology, clarifying ideas, or generating practice problems. However, using AI to **generate answers, code, or reports** for assignments, projects, or exams is strictly prohibited and will be treated as a violation of academic integrity. All submitted work must reflect your own effort and understanding. For the full policy and examples of acceptable vs. unacceptable use, visit: [AI Usage Policy](AI_policy) 
+
 
 ## 🙋 Extra Instruction (EI)
 

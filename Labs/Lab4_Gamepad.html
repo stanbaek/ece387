@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>🔬 Lab4: Gamepad &#8212; Introduction to Robotic Systems</title>
   
@@ -15,56 +14,53 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=4c969af8" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
-    <script src="../_static/tabs.js"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/tabs.js?v=3ee01567"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'Labs/Lab4_Gamepad';</script>
-    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="🔬 Lab5: Driving the Robot" href="Lab5_TurtleBot.html" />
@@ -78,19 +74,23 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -112,12 +112,20 @@ const thebe_selector_output = ".output, .cell_output"
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -132,9 +140,13 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
+  
+    
   
 
 <a class="navbar-brand logo" href="../intro.html">
+  
   
   
   
@@ -144,12 +156,23 @@ const thebe_selector_output = ".output, .cell_output"
       
     
     
-    <img src="../_static/ece387.png" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="../_static/ece387.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+    <img src="../_static/ece387.png" class="logo__image only-light" alt="Introduction to Robotic Systems - Home"/>
+    <script>document.write(`<img src="../_static/ece387.png" class="logo__image only-dark" alt="Introduction to Robotic Systems - Home"/>`);</script>
   
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -161,13 +184,10 @@ const thebe_selector_output = ".output, .cell_output"
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Course Info</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../syllabus.html">📌 Syllabus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../syllabus.html">📌 ECE387 Syllabus</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../schedule.html">📆 Course Schedule</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../PythonBasic.html">🐍 Python Basic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../PythonIntermediate.html">🐍 Python Intermediate</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../NumPy.html">➕ NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AI_policy.html">🤖 AI Usage Policy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../faq.html">🙋 FAQ</a></li>
-<li class="toctree-l1"><a class="reference external" href="https://stanbaek.github.io/NoPointer.html">No Pointers in Python?</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Labs</span></p>
 <ul class="current nav bd-sidenav">
@@ -183,6 +203,13 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="Lab10_CV.html">🔬 Lab10: CV</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Lab11_AprilTag.html">🔬 Lab11: AprilTag</a></li>
 <li class="toctree-l1"><a class="reference internal" href="FinalProject.html">🚀 Final Project</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Supplementary</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://stanbaek.github.io/workshops/PythonBasic.html">Python PythonBasic</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://stanbaek.github.io/workshops/PythonIntermediate.html">Python Containers</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://stanbaek.github.io/workshops/NumPy.html">NumPy</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://stanbaek.github.io/NoPointer.html">No Pointers in Python?</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendix</span></p>
 <ul class="nav bd-sidenav">
@@ -205,7 +232,7 @@ const thebe_selector_output = ".output, .cell_output"
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -214,14 +241,14 @@ const thebe_selector_output = ".output, .cell_output"
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -343,26 +370,28 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
+
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
 `);
 </script>
 
+
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -409,12 +438,12 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="lab4-gamepad">
-<h1>🔬 Lab4: Gamepad<a class="headerlink" href="#lab4-gamepad" title="Permalink to this heading">#</a></h1>
+<h1>🔬 Lab4: Gamepad<a class="headerlink" href="#lab4-gamepad" title="Link to this heading">#</a></h1>
 <section id="objectives">
-<h2>📌 Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
+<h2>📌 Objectives<a class="headerlink" href="#objectives" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Students should be able to use ROS topics and messages in Python nodes to facilitate communication between publishers and subscribers.</p></li>
 <li><p>Students should be able to develop a ROS2 node that subscribes to joystick input and publishes commands to control a robot.</p></li>
@@ -422,15 +451,16 @@ document.write(`
 </ul>
 </section>
 <section id="overview">
-<h2>📜 Overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h2>
+<h2>📜 Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
 <p>This lab introduces ROS topics and messages, focusing on how nodes communicate by exchanging information. In ROS, a node can <strong>publish</strong> messages to a topic, while other nodes can <strong>subscribe</strong> to that topic to receive data. Each message follows a predefined format that all participating nodes must understand.</p>
 <p>The best way to learn ROS is through hands-on experience, so let’s start by experimenting with a virtual <strong>TurtleBot3</strong>! Throughout this course, TurtleBot3 will serve as a key tool for applying and integrating robotics concepts. By the end of the course, you’ll be developing complex embedded robotic systems to complete dedicated tasks, such as autonomously navigating the halls of DFEC. But for now, let’s begin with something simpler—getting the robot to drive around.</p>
 <p>In this lab, you will develop a ROS2 node that listens for joystick input (<code class="docutils literal notranslate"><span class="pre">/joy</span></code> topic) and publishes velocity commands (<code class="docutils literal notranslate"><span class="pre">/cmd_vel</span></code> topic) to control the movement of the robot. 🚀</p>
 </section>
 <section id="pre-lab-ros2-client-libraries">
-<h2>🌱 Pre-Lab: ROS2 Client Libraries<a class="headerlink" href="#pre-lab-ros2-client-libraries" title="Permalink to this heading">#</a></h2>
+<h2>🌱 Pre-Lab: ROS2 Client Libraries<a class="headerlink" href="#pre-lab-ros2-client-libraries" title="Link to this heading">#</a></h2>
 <p>The tutorials at <a class="reference external" href="https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries.html">Beginner: Client Libraries</a> are a great introduction to ROS2 client libraries.</p>
-<a class="reference internal image-reference" href="../_images/Lab2_ROS_Tutorials2.png"><img alt="../_images/Lab2_ROS_Tutorials2.png" class="align-center" src="../_images/Lab2_ROS_Tutorials2.png" style="width: 800px;" /></a>
+<a class="reference internal image-reference" href="../_images/Lab2_ROS_Tutorials2.png"><img alt="../_images/Lab2_ROS_Tutorials2.png" class="align-center" src="../_images/Lab2_ROS_Tutorials2.png" style="width: 800px;" />
+</a>
 <br>  
 <p>Complete the following four tutorials. <strong>Important:</strong> Skip <strong>C++</strong> tutorials and complete only the <strong>Python</strong> ones.</p>
 <ol class="arabic">
@@ -478,11 +508,11 @@ document.write(`
 </ol>
 </section>
 <section id="lab-procedure">
-<h2>💻 Lab Procedure<a class="headerlink" href="#lab-procedure" title="Permalink to this heading">#</a></h2>
+<h2>💻 Lab Procedure<a class="headerlink" href="#lab-procedure" title="Link to this heading">#</a></h2>
 <section id="setup">
-<h3>🔧 Setup<a class="headerlink" href="#setup" title="Permalink to this heading">#</a></h3>
+<h3>🔧 Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h3>
 <ol class="arabic">
-<li><p>Follow the <a class="reference internal" href="../Appendix/GamepadSetup.html"><span class="doc std std-doc">Gamepad Setup</span></a> guide to configure the Logitech Gamepad on your <strong>Master</strong> computer.</p></li>
+<li><p>Follow the <a class="reference internal" href="../Appendix/GamepadSetup.html"><span class="std std-doc">Gamepad Setup</span></a> guide to configure the Logitech Gamepad on your <strong>Master</strong> computer.</p></li>
 <li><p>Open a terminal and navigate to the <code class="docutils literal notranslate"><span class="pre">src</span></code> directory in your workspace:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/master_ws/src<span class="w">  </span>
 </pre></div>
@@ -528,7 +558,7 @@ Finished<span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="
 </ol>
 </section>
 <section id="running-the-turtlebot3-simulation">
-<h3>🚀 Running the TurtleBot3 Simulation<a class="headerlink" href="#running-the-turtlebot3-simulation" title="Permalink to this heading">#</a></h3>
+<h3>🚀 Running the TurtleBot3 Simulation<a class="headerlink" href="#running-the-turtlebot3-simulation" title="Link to this heading">#</a></h3>
 <ol class="arabic">
 <li><p>Source your workspace before launching the simulation to ensure all necessary environment variables are set:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span>~/master_ws/install/setup.bash
@@ -546,7 +576,8 @@ Finished<span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="
 <li><p>Click <strong>Models</strong> &gt; <strong>burger</strong> &gt; <strong>pose</strong></p></li>
 <li><p>The robot should be positioned at (-2.0, -0.5), facing the positive x-direction (yaw = 0.0) inside a maze.</p></li>
 </ul>
-<a class="reference internal image-reference" href="../_images/Lab4_Gazebo_Pose.png"><img alt="../_images/Lab4_Gazebo_Pose.png" class="align-center" src="../_images/Lab4_Gazebo_Pose.png" style="width: 700px;" /></a>
+<a class="reference internal image-reference" href="../_images/Lab4_Gazebo_Pose.png"><img alt="../_images/Lab4_Gazebo_Pose.png" class="align-center" src="../_images/Lab4_Gazebo_Pose.png" style="width: 700px;" />
+</a>
  <br>
 <p>🔹 Camera controls in Gazebo:</p>
 <ul class="simple">
@@ -562,7 +593,8 @@ Finished<span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">RViz</span></code> is a visualization tool that helps you see how the robot perceives its surroundings. In <code class="docutils literal notranslate"><span class="pre">RViz</span></code>, you should see a series of red dots outlining obstacles in the maze. These dots represent objects detected by the TurtleBot3’s LIDAR sensor, which publishes data to the <code class="docutils literal notranslate"><span class="pre">/scan</span></code> topic.</p></li>
 <li><p>Try enabling and disabling different checkboxes to explore how various visualizations affect the display.</p>
-<a class="reference internal image-reference" href="../_images/Lab4_RViz.png"><img alt="../_images/Lab4_RViz.png" class="align-center" src="../_images/Lab4_RViz.png" style="width: 800px;" /></a>
+<a class="reference internal image-reference" href="../_images/Lab4_RViz.png"><img alt="../_images/Lab4_RViz.png" class="align-center" src="../_images/Lab4_RViz.png" style="width: 800px;" />
+</a>
  <br>
 <p>🔹 Camera controls in RViz:</p>
 <ul class="simple">
@@ -638,7 +670,7 @@ Finished<span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="
 </ol>
 </section>
 <section id="create-a-new-ros2-package">
-<h3>📦 Create a New ROS2 Package<a class="headerlink" href="#create-a-new-ros2-package" title="Permalink to this heading">#</a></h3>
+<h3>📦 Create a New ROS2 Package<a class="headerlink" href="#create-a-new-ros2-package" title="Link to this heading">#</a></h3>
 <ol class="arabic">
 <li><p>Navigate to your local repository inside your workspace:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/master_ws/src/ece387_lastname<span class="w">  </span>
@@ -664,7 +696,7 @@ Finished<span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="
 </ol>
 </section>
 <section id="write-the-ros2-node">
-<h3>📝 Write the ROS2 Node<a class="headerlink" href="#write-the-ros2-node" title="Permalink to this heading">#</a></h3>
+<h3>📝 Write the ROS2 Node<a class="headerlink" href="#write-the-ros2-node" title="Link to this heading">#</a></h3>
 <ol class="arabic">
 <li><p>Navigate to the package directory:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>lab4_gamepad/lab4_gamepad<span class="w">  </span>
@@ -689,21 +721,21 @@ $<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>
 <span class="c1"># The above line is a shebang, which tells the system to run this script using Python 3.</span>
 
 <span class="c1"># Import necessary ROS 2 libraries</span>
-<span class="kn">import</span> <span class="nn">rclpy</span>  <span class="c1"># ROS 2 client library for Python</span>
-<span class="kn">from</span> <span class="nn">rclpy.node</span> <span class="kn">import</span> <span class="n">Node</span>  <span class="c1"># Base class for creating ROS 2 nodes</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">rclpy</span>  <span class="c1"># ROS 2 client library for Python</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rclpy.node</span><span class="w"> </span><span class="kn">import</span> <span class="n">Node</span>  <span class="c1"># Base class for creating ROS 2 nodes</span>
 
 <span class="c1"># Import message types</span>
-<span class="kn">from</span> <span class="nn">sensor_msgs.msg</span> <span class="kn">import</span> <span class="n">Joy</span>  <span class="c1"># Message type for joystick (gamepad) inputs</span>
-<span class="kn">from</span> <span class="nn">geometry_msgs.msg</span> <span class="kn">import</span> <span class="n">Twist</span>  <span class="c1"># Message type for velocity commands</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sensor_msgs.msg</span><span class="w"> </span><span class="kn">import</span> <span class="n">Joy</span>  <span class="c1"># Message type for joystick (gamepad) inputs</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">geometry_msgs.msg</span><span class="w"> </span><span class="kn">import</span> <span class="n">Twist</span>  <span class="c1"># Message type for velocity commands</span>
 
-<span class="k">class</span> <span class="nc">Gamepad</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Gamepad</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A ROS 2 Node that converts joystick (gamepad) inputs into velocity commands</span>
 <span class="sd">    for a robot. It subscribes to the &#39;joy&#39; topic and publishes Twist messages</span>
 <span class="sd">    to the &#39;cmd_vel&#39; topic.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Constructor: Initializes the gamepad node.</span>
 <span class="sd">        - Subscribes to the &#39;joy&#39; topic to receive joystick inputs.</span>
@@ -726,7 +758,7 @@ $<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>
         <span class="c1"># Log a message indicating that the node has started successfully</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Joy to cmd_vel node started!&quot;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">joy_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">joy_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Callback function that processes incoming joystick messages.</span>
 <span class="sd">        - Extracts axis values from the joystick message.</span>
@@ -752,7 +784,7 @@ $<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>
 
 
 
-<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Main function to start the ROS 2 node.</span>
 <span class="sd">    - Initializes the ROS 2 system.</span>
@@ -778,7 +810,7 @@ $<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>
 </ol>
 </section>
 <section id="update-setup-py">
-<h3>🛠 Update <code class="docutils literal notranslate"><span class="pre">setup.py</span></code><a class="headerlink" href="#update-setup-py" title="Permalink to this heading">#</a></h3>
+<h3>🛠 Update <code class="docutils literal notranslate"><span class="pre">setup.py</span></code><a class="headerlink" href="#update-setup-py" title="Link to this heading">#</a></h3>
 <ol class="arabic">
 <li><p>Open the <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> file in your preferred text editor:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>gedit<span class="w"> </span>~/master_ws/src/ece387_lastname/lab4_gamepad/setup.py<span class="w">  </span>
@@ -798,7 +830,7 @@ $<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>
 </ol>
 </section>
 <section id="build-the-workspace">
-<h3>🔨 Build the Workspace<a class="headerlink" href="#build-the-workspace" title="Permalink to this heading">#</a></h3>
+<h3>🔨 Build the Workspace<a class="headerlink" href="#build-the-workspace" title="Link to this heading">#</a></h3>
 <ol class="arabic">
 <li><p>Navigate to the root of your workspace:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/master_ws<span class="w">  </span>
@@ -825,7 +857,7 @@ $<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>
 </ol>
 </section>
 <section id="run-and-test-the-nodes">
-<h3>🚀 Run and Test the Nodes<a class="headerlink" href="#run-and-test-the-nodes" title="Permalink to this heading">#</a></h3>
+<h3>🚀 Run and Test the Nodes<a class="headerlink" href="#run-and-test-the-nodes" title="Link to this heading">#</a></h3>
 <ol class="arabic">
 <li><p>Start the <code class="docutils literal notranslate"><span class="pre">joy</span></code> node to publish gamepad data:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>joy<span class="w"> </span>joy_node<span class="w">  </span>
@@ -860,7 +892,7 @@ $<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>
 </ol>
 </section>
 <section id="monitor-ros2-system-using-rqt">
-<h3>📊 Monitor ROS2 System Using <code class="docutils literal notranslate"><span class="pre">rqt</span></code><a class="headerlink" href="#monitor-ros2-system-using-rqt" title="Permalink to this heading">#</a></h3>
+<h3>📊 Monitor ROS2 System Using <code class="docutils literal notranslate"><span class="pre">rqt</span></code><a class="headerlink" href="#monitor-ros2-system-using-rqt" title="Link to this heading">#</a></h3>
 <ol class="arabic">
 <li><p>Launch <code class="docutils literal notranslate"><span class="pre">rqt_gui</span></code>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>rqt_gui<span class="w"> </span>rqt_gui<span class="w">  </span>
@@ -878,7 +910,8 @@ $<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>
 <li><p>Once the topic monitor loads, topics are not monitored by default. Check the box next to each topic to enable monitoring.</p></li>
 <li><p>To view more details about a topic, click the <strong>▶</strong> icon next to the checkbox.</p></li>
 </ul>
-<a class="reference internal image-reference" href="../_images/Lab4_rqt_odom.png"><img alt="../_images/Lab4_rqt_odom.png" class="align-center" src="../_images/Lab4_rqt_odom.png" style="width: 800px;" /></a>
+<a class="reference internal image-reference" href="../_images/Lab4_rqt_odom.png"><img alt="../_images/Lab4_rqt_odom.png" class="align-center" src="../_images/Lab4_rqt_odom.png" style="width: 800px;" />
+</a>
  <br>
 </li>
 <li><p>Monitor the <code class="docutils literal notranslate"><span class="pre">cmd_vel</span></code> and <code class="docutils literal notranslate"><span class="pre">joy</span></code> topics:</p>
@@ -891,7 +924,7 @@ $<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>
 </section>
 <hr class="docutils" />
 <section id="understanding-rqt-vs-rqt-graph">
-<h3>📝 <strong>Understanding <code class="docutils literal notranslate"><span class="pre">rqt</span></code> vs. <code class="docutils literal notranslate"><span class="pre">rqt_graph</span></code></strong><a class="headerlink" href="#understanding-rqt-vs-rqt-graph" title="Permalink to this heading">#</a></h3>
+<h3>📝 <strong>Understanding <code class="docutils literal notranslate"><span class="pre">rqt</span></code> vs. <code class="docutils literal notranslate"><span class="pre">rqt_graph</span></code></strong><a class="headerlink" href="#understanding-rqt-vs-rqt-graph" title="Link to this heading">#</a></h3>
 <blockquote>
 <div><p>🔹 <code class="docutils literal notranslate"><span class="pre">rqt</span></code> is a <strong>graphical toolset</strong> that provides a user-friendly interface for monitoring, debugging, and visualizing various aspects of the ROS2 system. It acts as a plugin framework, allowing you to load different tools as needed, such as topic monitors, node viewers, and service callers.</p>
 </div></blockquote>
@@ -905,7 +938,7 @@ $<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>
 </ul>
 </section>
 <section id="control-the-turtlebot3">
-<h3>🎮 Control the TurtleBot3<a class="headerlink" href="#control-the-turtlebot3" title="Permalink to this heading">#</a></h3>
+<h3>🎮 Control the TurtleBot3<a class="headerlink" href="#control-the-turtlebot3" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Use the <strong>left stick</strong> to move forward/backward.</p></li>
 <li><p>Use the <strong>right stick</strong> to rotate left/right.</p></li>
@@ -919,7 +952,7 @@ $<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>
 </section>
 <hr class="docutils" />
 <section id="deliverables">
-<h2>📌 <strong>Deliverables</strong><a class="headerlink" href="#deliverables" title="Permalink to this heading">#</a></h2>
+<h2>📌 <strong>Deliverables</strong><a class="headerlink" href="#deliverables" title="Link to this heading">#</a></h2>
 <ol class="arabic simple">
 <li><p><strong>Complete all TODO sections</strong> in <code class="docutils literal notranslate"><span class="pre">gamepad.py</span></code>.</p></li>
 <li><p><strong>Demo joystick control</strong> over the TurtleBot3 in simulation.</p></li>
@@ -954,11 +987,10 @@ $<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>
 
               
               
-                <footer class="bd-footer-article">
+              
+              
+                <footer class="prev-next-footer d-print-none">
                   
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="Lab3_Python.html"
@@ -978,10 +1010,7 @@ $<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -989,6 +1018,7 @@ $<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>
             
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -1034,6 +1064,7 @@ By Stan Baek
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2023.
@@ -1060,8 +1091,8 @@ By Stan Baek
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>
