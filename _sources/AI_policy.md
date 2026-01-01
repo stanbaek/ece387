@@ -2,7 +2,7 @@
 
 ## 🔍 Purpose of the Policy
 
-Artificial Intelligence (AI) tools—such as large language models, code generators, writing assistants, and virtual tutors—are increasingly available to students and engineers. When used appropriately, these tools can support learning. When misused, however, they can interfere with skill development, obscure student understanding, and compromise academic integrity.
+Artificial Intelligence (AI) tools - such as large language models, code generators, writing assistants, and virtual tutors - are increasingly available to students and engineers. When used appropriately, these tools can support learning. When misused, however, they can interfere with skill development, obscure student understanding, and compromise academic integrity.
 
 This policy defines when and how AI tools may be used in this course, with clear boundaries designed to ensure that all submitted work accurately reflects your own understanding, reasoning, and skills as a student in electrical and computer engineering.
 
@@ -52,25 +52,25 @@ The following uses of AI are **not allowed** in this course:
 
 * **Checking solutions with AI after completing work**: You may **not** input completed homework, lab solutions, project results, code, or exam answers into AI tools to verify correctness.
 
-Why this is prohibited: Checking answers with AI allows errors to be corrected without understanding, masks misconceptions, and prevents instructors from accurately assessing your learning. In engineering, **validation and reasoning are part of the skill—not just the final answer.**
+    Why this is prohibited: Checking answers with AI allows errors to be corrected without understanding, masks misconceptions, and prevents instructors from accurately assessing your learning. In engineering, **validation and reasoning are part of the skill - not just the final answer.**
 
 * **Debugging code with AI**: You may **not** use AI tools to debug your code, identify logic errors, or suggest fixes (e.g., "Here is my code-why doesn’t it work?", "Fix this program.", or "What is wrong with my state machine or controller logic?").
 
-You are expected to use:
+    You are expected to use 
     - IDE debuggers
     - Break points and watch variables
     - Simulators
     - Logic analyzers, waveform viewers, or test benches
 
-**Debugging is a core engineering skill and must be practiced directly.**
+    **Debugging is a core engineering skill and must be practiced directly.**
 
 * **AI-generated or AI-assisted coding**: You may **not** submit code, scripts, HDL, or configuration files that are generated, suggested, or auto-completed by AI. This includes (but is not limited to) GitHub Copilot, AI-powered VS Code extensions, or similar tools
 
-**Installing or using guided AI coding tools is strictly prohibited.**
+    **Installing or using guided AI coding tools is strictly prohibited.**
 
 * **AI Editing of Writing or Technical Content**: You may **not** use AI tools to rewrite, rephrase, restructure, or improve the technical content of your writing. This includes lab reports, homework explanations, design discussions, and project documentation.
 
-Why this is prohibited: Technical writing is part of demonstrating engineering understanding. AI-edited writing prevents instructors from accurately assessing your comprehension and reasoning. Only **grammar and spelling corrections** are permitted.
+    Why this is prohibited: Technical writing is part of demonstrating engineering understanding. AI-edited writing prevents instructors from accurately assessing your comprehension and reasoning. Only **grammar and spelling corrections** are permitted.
 
 ---
 
@@ -118,4 +118,4 @@ Use AI as a support, not a shortcut:
 
 AI will be part of your future as an engineer. Learning to use it **ethically, responsibly, and appropratly** start here. In this course, it means AI may support your understanding - but **thie thinking, coding, debugging, and writing must be yours.**
 
-Let’s use technology wisely—with integrity, curiosity, and responsibility.
+Let’s use technology wisely - with integrity, curiosity, and responsibility.
