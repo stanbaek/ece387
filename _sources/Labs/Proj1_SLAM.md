@@ -1,263 +1,317 @@
 # 🚀 Proj 1: SLAM
 
 (not ready yet)
+
 ## 📌 Objectives
+
 - Students should be able to implement a ROS2 node to detect walls using LiDAR data.
 
 ## 📜 Overview
 
-In this project, we’ll enable our robot to autonomously navigate unknown maze and build a map of the maze. As we did in the previous lab, we will be using the LiDAR to detect the walls of the maze (or obstacles) surrounding the robot. We will be utilizeing the simultaneous localization and mapping library provided by ROS2 and Turtleb3. Although SLAM is one of the fundamental algorithms used for mobile robots, a solid understading of the algorithms requires a deep understanding of statististics and optimazation, which are mostly graduate level studies.   
+In this project, we will enable our robot to autonomously navigate an unknown maze and build a map of the environment. As in the previous lab, we will use LiDAR to detect the walls of the maze (or obstacles) surrounding the robot. We will be utilizing the Simultaneous Localization and Mapping (SLAM) library provided by ROS2 and TurtleBot3.
 
+SLAM, or Simultaneous Localization and Mapping, is a process used in robotics to enable a robot to build a map of an unknown environment while simultaneously determining its location within that map. It involves combining sensor data, algorithms, and probabilistic methods to perform real-time mapping and localization. SLAM is crucial for autonomous robots to operate effectively in environments where pre-existing maps are not available.
 
+SLAM is one of the fundamental algorithms in robotics and is widely used in applications such as autonomous vehicles, drone navigation, and robotic vacuum cleaners. It enables robots to navigate dynamic and unfamiliar environments without relying on GPS or pre-defined maps, which is essential for many real-world scenarios.
 
+SLAM integrates data from sensors like LiDAR and odometry to construct and update a map while estimating the robot's position. Through statistical methods like Kalman Filters or Particle Filters, SLAM corrects errors in localization and mapping to achieve accurate results. While the underlying mathematics involves advanced topics in statistics and optimization, libraries provided in ROS2 simplify SLAM's implementation, making it accessible for practical applications.
 
-```{image} ./figures/rplidar.png
-:width: 300  
-:align: center  
+We will use Cartographer in this lab because it provides an efficient and accurate SLAM solution for 2D environments like the maze we’ll be mapping. Its ability to handle LiDAR data and update maps in real time makes it ideal for this project. Furthermore, its compatibility with TurtleBot3 and ROS2 simplifies the setup, allowing us to focus on understanding the SLAM process and its applications.
+
+## 🛠️ Lab Procedures
+
+### **Setting Up TurtleBot3 with SLAM in Gazebo**
+
+Follow these steps to simulate SLAM with TurtleBot3 in the Gazebo environment.
+
+1. Download the [`maze Gazebo files`](../files/maze.tar.xz). Extract the files and move them inside the appropriate directories in `~/master_ws/src/turtlebot3_simulations/turtlebot3_gazebo`. Ensure each new directory is moved to the existing directory with the same name.
+
+1. Launch the Gazebo world:
+
+    ```bash
+    ros2 launch turtlebot3_gazebo maze.launch.py
+    ```
+
+    It will launch the Gazebo simulation for the maze as shown in the figure below
+
+    ```{image} ./figures/Proj1_GazeboInit.png
+    :width: 400  
+    :align: center  
+    ```  
+
+1. Open another terminal and run the Cartography SLAM:
+
+    ```bash
+    ros2 launch turtlebot3_cartographer cartographer.launch.py use_sim_time:=true
+    ```
+
+    This will start the SLAM process, and Cartographer will begin building the map shown below as you move the robot.
+
+    ```{image} ./figures/Proj1_CartographerInit.png
+    :width: 400  
+    :align: center  
+    ```  
+
+1. Use `gamepad` to manually navigate the robot in Gazebo and build the map:
+
+    ```bash
+    ros2 launch lab4_gamepad gamepad.launch.py
+    ```
+
+    Ensure you navigate the entire maze. The obstacles (walls) are represnted in black. As the gray pixels represent noise, solid black color means low uncertainty of the obstacles. If you complete multiple laps, the uncertainty of the obstacles will be lower - light gray pixels will become dark gray pixels.  
+
+    ```{image} ./figures/Proj1_CartographerDone.png
+    :width: 400  
+    :align: center  
+    ```  
+
+1. Once the mapping process is complete, save the generated map:
+
+    ```bash
+    ros2 run nav2_map_server map_saver_cli -f ~/map
+    ```
+
+1. Download [`map_plotter.py`](../files/map_plotter.py) to your `home` directory and make it executable.
+
+    ```bash
+    chmod +x map_plotter.py
+    ```
+
+   Then, verify if the file is now executable using `ls -l`
+
+    ```{important}
+    If you are asked to write the command that makes a file executable only for the file owner, you should be able to answer in your GR. 😉
+    ```
+
+1. Run the python script to plot the map
+
+    ```bash
+    ./map_plotter.py
+    ```
+
+1. Verify that the dimensions of the map in the plot correpsond to the actual maze. The length of the wall pieces is 0.18 meters.  
+
+### **Autonomous Navigation with SLAM**
+
+To run **autonomous SLAM** using **Cartographer**, we need to set up `Cartographer` to build the map and use `Navigation2` to autonomously explore the environment and update the map in real-time.
+
+1. Launch the TurtleBot3 in the Gazebo simulation:
+
+    ```bash
+    ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py
+    ```
+
+    ```{image} ./figures/Lab9_GazeboWorld.png
+    :width: 400  
+    :align: center  
+    ```  
+
+1. Start Cartographer to perform SLAM:
+
+    ```bash
+    ros2 launch turtlebot3_cartographer cartographer.launch.py use_sim_time:=true
+    ```
+
+    ```{image} ./figures/Lab9_CartographerInit.png
+    :width: 400  
+    :align: center  
+    ```  
+
+1. You can now run Navigation2 alongside Cartographer to allow the robot to navigate autonomously using the evolving map:
+
+    ```bash
+    ros2 launch turtlebot3_navigation2 navigation2.launch.py use_sim_time:=true
+    ```
+
+    ```{image} ./figures/Lab9_Nav2WorldInit.png
+    :width: 400  
+    :align: center  
+    ```  
+
+    Cartographer will continue updating the map dynamically as the robot navigates.
+
+    - Click the `2D Pose Estimate` button in the RViz2 menu. Then
+    - Click on the map where the actual robot is located and drag the large green arrow toward the direction where the robot is facing.
+    - Use `2D Nav Goal` to set a navigation target
+    - As you set waypoints to navigate multiple target points, the robot will explore the maze as shown below.
+
+    ```{image} ./figures/Lab9_Nav2WorldInProgress.png
+    :width: 400  
+    :align: center  
+    ```  
+
+    - Accordingly, the map will be updated as shown below
+
+    ```{image} ./figures/Lab9_GazeboWorldInProgress.png
+    :width: 400  
+    :align: center  
+    ```  
+
+1. Explore the entire world and create a map. Ensure you have dark gray obstacles.
+
+1. Take a screenshot of the cartographer window by right clicking the tileboar.  Submit the screenshot on Gradescope.
+
+## ✅ **Option 1: Use a Python Script with an Action Client**
+
+You can create a Python script to send a sequence of goals to Nav2 using the **`FollowWaypoints`** action.
+
+### **Example Script to Send Multiple Goals:**
+
+1. Create a new Python script:
+
+```bash
+mkdir -p ~/master_ws/src/multi_goal_nav
+cd ~/master_ws/src/multi_goal_nav
+touch multi_goal_nav.py
+chmod +x multi_goal_nav.py
 ```
 
-### 📹 How LiDAR Works
-<center>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/EYbhNSUnIdU?si=idFVZOttywfaJ_Ys" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
-</center>
+2. Add the following code to `multi_goal_nav.py`:
 
-### 📹 TurtleBot3 LiDAR Example
-<center>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/9oic8aT3wIc?si=nedLzJ4oj7beh2Xk" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
-</center>
+```python
+#!/usr/bin/env python3
 
-## 🌱 Pre-Lab: Setting Up and Testing LiDAR
+import rclpy
+from rclpy.node import Node
+from geometry_msgs.msg import PoseStamped
+from nav2_msgs.action import FollowWaypoints
+from rclpy.action import ActionClient
+import time
 
-Before we dive into wall detection, we need to ensure that our setup is working correctly.
+class MultiGoalNav(Node):
+    def __init__(self):
+        super().__init__('multi_goal_nav')
+        self.client = ActionClient(self, FollowWaypoints, 'follow_waypoints')
+        self.client.wait_for_server()
 
-### Using ROS2 Launch Files
+    def send_goals(self):
+        # Define multiple goals as PoseStamped messages
+        goals = []
 
-Managing multiple ROS nodes can become overwhelming, especially as our system grows. Instead of running each node in separate terminals, we’ll use ROS2 launch files to simplify the process.
+        goal_1 = PoseStamped()
+        goal_1.header.frame_id = 'map'
+        goal_1.header.stamp = self.get_clock().now().to_msg()
+        goal_1.pose.position.x = 1.0
+        goal_1.pose.position.y = 0.5
+        goal_1.pose.orientation.w = 1.0
+        goals.append(goal_1)
 
-1. **Navigate to Your Package**: Open a terminal and move to the `lab4_gamepad` package.
-   ```bash
-   cd ~/master_ws/src/ece387_ws/lab4_gamepad
-   ```
+        goal_2 = PoseStamped()
+        goal_2.header.frame_id = 'map'
+        goal_2.header.stamp = self.get_clock().now().to_msg()
+        goal_2.pose.position.x = -0.5
+        goal_2.pose.position.y = 1.0
+        goal_2.pose.orientation.w = 1.0
+        goals.append(goal_2)
 
-2. **Create a Launch Directory**: Create a `launch` directory:
+        goal_3 = PoseStamped()
+        goal_3.header.frame_id = 'map'
+        goal_3.header.stamp = self.get_clock().now().to_msg()
+        goal_3.pose.position.x = 0.0
+        goal_3.pose.position.y = -1.0
+        goal_3.pose.orientation.w = 1.0
+        goals.append(goal_3)
 
-3. **Create a Launch File**: Inside the `launch` directory, create a new file named `gamepad.launch.py`:
+        self.get_logger().info(f"Sending {len(goals)} goals...")
 
-4. **Open the File in VS Code**: Open the newly created file in your code editor.
+        goal_msg = FollowWaypoints.Goal()
+        goal_msg.poses = goals
 
-5. **Copy and Paste the Following Code**:
-   ```python
-   import launch
-   import launch_ros.actions
+        self.send_goal_future = self.client.send_goal_async(goal_msg)
+        self.send_goal_future.add_done_callback(self.goal_response_callback)
 
-   def generate_launch_description():
-       """
-       Launches the gamepad node from lab4_gamepad
-       and the joy_node from the joy package.
-       """
-       return launch.LaunchDescription([
-           launch_ros.actions.Node(
-               package='joy',
-               executable='joy_node',
-               name='joy_node',
-               output='screen'
-           ),
-           launch_ros.actions.Node(
-               package='lab4_gamepad',
-               executable='gamepad',
-               name='gamepad_node',
-               output='screen'
-           ),
-       ])
-   ```
-6. **Modify `setup.py` to Include the Launch File**: Open `setup.py` and add:
-   ```python
-   import os
-   from glob import glob
-   ```
-   Then, add this line inside `data_files`:
-   ```python
-   (os.path.join('share', package_name, 'launch'), glob('launch/*.launch.py')),
-   ```
-7. **Update `package.xml`**: Ensure the dependencies include:
-   ```xml
-   <depend>launch</depend>
-   <depend>launch_ros</depend>
-   ```
-8. **Build the Package**:
-   ```bash
-   ccbuild --packages-select lab4_gamepad
-   ```
-9. **Run the Launch File**:
-   ```bash
-   ros2 launch lab4_gamepad gamepad.1aunch.py
-   ```
-10. **Verify Nodes Are Running**:
-    ```bash
-    ros2 node list
-    ```
-    You should see `gamepad_node` and `joy_node` listed.
+    def goal_response_callback(self, future):
+        goal_handle = future.result()
+        if not goal_handle.accepted:
+            self.get_logger().info('Goal rejected :(')
+            return
+        self.get_logger().info('Goal accepted :)')
+        self.result_future = goal_handle.get_result_async()
+        self.result_future.add_done_callback(self.result_callback)
 
-### Install Packages
+    def result_callback(self, future):
+        result = future.result().result
+        self.get_logger().info(f'Navigation complete with {result.missed_waypoints} missed waypoints.')
 
-1. Use the following command to install the `scikit-learn` machine learning package for Python:
-    ```bash
-    pip install scikit-learn
-    ```
+def main(args=None):
+    rclpy.init(args=args)
+    node = MultiGoalNav()
+    time.sleep(2)  # Ensure connection to server
+    node.send_goals()
+    rclpy.spin(node)
+    node.destroy_node()
+    rclpy.shutdown()
 
-1. Download the [`square path Gazebo files`](../files/squarepath_gazebo.tar.xz). Extract the files and move them inside the appropriate directories in `~/master_ws/src/turtlebot3_simulations/turtlebot3_gazebo`. Ensure each new directory is moved to the existing directory with the same name.
+if __name__ == '__main__':
+    main()
+```
 
-1. Return to the ROS2 workspace root and build the package or simply run `ccbuild`.
+3. **Build and Run:**
 
-1. Open the Gazebo simulation:
-    ```bash
-    ros2 launch turtlebot3_gazebo square_path.launch.py
-    ```
-    It will open the Gazebo simulation as shown in the figure below.
-    ```{image} ./figures/Lab8_SquarePathGazebo.png
-    :width: 500  
-    :align: center  
-    ```  
+```bash
+colcon build --packages-select multi_goal_nav
+source install/setup.bash
+ros2 run multi_goal_nav multi_goal_nav.py
+```
 
-1. Type the following and observe the command output:
-    ```bash
-    ros2 topic list
-    ros2 topic info /scan
-    ros2 topic echo /scan
-    ```  
+---
 
-1. Find the message type of the `/scan` topic:
-    ```bash
-    ros2 topic type /scan
-    ```
-    Then, examine the details of the message type.
+## ✅ **Option 2: Use RViz Waypoints Plugin**
 
-1. Open the RViz visualization tool:
-    ```bash
-    ros2 launch turtlebot3_bringup rviz.launch.py
-    ```
-    This should open an RViz window where we can visualize ROS components of our system. In the `Displays` menu on the left, you should see two submenus of interest: `LaserScan` and `RobotModel`. These allow us to depict the TurtleBot3 and LiDAR data. You should see red dots fill the **rviz** map where obstacles exist, as shown below.
-    ```{image} ./figures/Lab8_SquarePathRViz.png
-    :width: 500  
-    :align: center  
-    ```  
+You can also use a plugin in RViz to set multiple waypoints:
 
+1. In **RViz**, add the **"Waypoint Follower"** plugin:
+   - Open RViz.
+   - Click **"Add"** → **"By Topic"** → Select `/goal_pose`.
 
+2. In the RViz toolbar:
+   - After adding the plugin, you should see a **"Set Waypoints"** button.
+   - Click **"Set Waypoints"** to define multiple goal points on the map.
+   - Once all waypoints are set, click **"Follow Waypoints"** to start autonomous navigation.
 
-## 💻 Lab Procedure: LiDAR-Based Wall Detection
+---
 
-Follow the steps below to set up your ROS 2 package, implement the required scripts, and run the simulation or real robot.
+## ✅ **Option 3: Use a YAML File for Goals**
 
-### Setting Up Your ROS2 Package
+You can create a list of goals in a YAML file and load it at runtime:
 
-1. **Navigate to Your Workspace:** Open a terminal and move into your ROS 2 workspace directory:
-   ```bash
-   cd ~/master_ws/src/ece387_ws
-   ```
+1. Create a YAML file (`multi_goals.yaml`) like this:
 
-1. **Create a New ROS2 Package:** Create a new package named `lab8_lidar` with the BSD-3 license:
+```yaml
+goals:
+  - pose:
+      position:
+        x: 1.0
+        y: 0.5
+      orientation:
+        w: 1.0
+  - pose:
+      position:
+        x: -0.5
+        y: 1.0
+      orientation:
+        w: 1.0
+  - pose:
+      position:
+        x: 0.0
+        y: -1.0
+      orientation:
+        w: 1.0
+```
 
-1. **Add Dependencies:** Edit `package.xml` to include the following dependencies:
-    ```xml
-    <depend>rclpy</depend>
-    <depend>sensor_msgs</depend>
-    <depend>geometry_msgs</depend>
-    <depend>nav2_msgs</depend>
-    <depend>tf2_ros</depend>
-    <depend>visualization_msgs</depend>
-    <depend>numpy</depend>
-    <depend>scikit-learn</depend>
-    ```
+2. Create a launch file to read the goals and send them to Nav2 using `FollowWaypoints` action.
 
-3. **Download Required Scripts**: Download the following scripts and save them in the `lab8_lidar/lab8_lidar` directory:
+---
 
-   - [`wall_detector.py`](../files/wall_detector.py)
-   - [`line_follower.py`](../files/line_follower.py)
+## 🚀 **Recommended Approach:**
 
-1. **Modify `setup.py`**: Add your scripts under `entry_points`.
-
-### Implementing the Python Scripts
-
-1. **Complete `wall_detector.py`**  
-   Open the `wall_detector.py` script and implement the missing functionality as described in the comments. This script will process LiDAR data to detect walls and publish visualization markers.
-
-2. **Complete `line_follower.py`**  
-   Open the `line_follower.py` script and implement the missing functionality as described in the comments. This script will enable the robot to follow the detected center line between walls.
-
-3. **Build the Package**  
-   After completing the scripts, build the package:
-   ```bash
-   ccbuild --packages-select lab8_lidar
-   ```
-
-### **Running the Simulation**
-
-1. **Launch Gazebo with TurtleBot3** Start the Gazebo simulation with the TurtleBot3 robot:
-   ```bash
-   ros2 launch turtlebot3_gazebo square_path.launch.py
-   ```
-
-2. **Open RViz for Visualization** Launch RViz to visualize the detected walls and determine the center line:
-   ```bash
-   ros2 launch turtlebot3_bringup rviz.launch.py
-   ```
-
-3. **Run the Wall Detector Node**  Start the wall detection node:
-   ```bash
-   ros2 run lab8_lidar wall_detector
-   ```
-
-4. **Observe the Detected Walls in RViz**  
-   - Unselect `TF` and `Odometry` in RViz.  
-   - Click the `Add` button in the bottom left of the RViz window, select the `By topic` tab, and add the `Marker` messages under the `/center_line` and `/wall_markers` topics.
-
-5. **Debug If Needed** If you encounter issues, run the wall detector node in debug mode:
-   ```bash
-   ros2 run lab8lidar wall_detector --ros-args --log-level debug
-   ```
-
-6. **Update Parameters** Adjust the parameters for the `DBSCAN` clustering function and the `RANSACRegressor` function to improve wall detection.
-
-7. **Run the Line Follower Node** Once the center line is detected, start the line follower node:
-   ```bash
-   ros2 run lab8_lidar line_follower
-   ```
-   Ensure you also launch `gamepad.launch.py` to relinquish control. 
-
-8. **Tune the Controller Gains**  
-   Adjust the `kh` (heading gain) and `kd` (distance gain) values in the `line_follower.py` script to optimize the robot's line-following performance.
-
-### Running the Real Robot
-
-1. **Close the Gazebo Simulation** Ensure the Gazebo simulation is closed before running the real robot. Never run the simulation and the real robot simultaneously.
-
-2. **Reopen RViz** Launch RViz to visualize the wall detection on the real robot:
-   ```bash
-   ros2 launch turtlebot3_bringup rviz.launch.py
-   ```
-
-3. **Run the Wall Detector Node** Start the wall detection node:
-   ```bash
-   ros2 run lab8lidar wall_detector
-   ```
-
-4. **Fix QoS Warning** If you see the following warning:
-   ```bash
-   [WARN] [wall_detector]: New publisher discovered on topic '/scan', offering incompatible QoS. No messages will be received from it. Last incompatible policy: RELIABILITY
-   ```
-   Investigate the warning and fix it using the `qos_profile` provided in the `wall_detector.py` script. You can use Google or ChatGPT to learn more about ROS 2 QoS (Quality of Service).
-
-5. **Run the Line Follower Node** Start the line follower node:
-   ```bash
-   ros2 run lab8_lidar line_follower
-   ```
-
-6. **Demo the Robot** Demonstrate the robot following the walls in a straight path. **Ensure the robot starts 10 cm from the center line as shown below.**
+- For flexible automation → Use **Option 1** (Python script).
+- For interactive use → Use **Option 2** (RViz Waypoints Plugin).
+- For repeated runs → Use **Option 3** (YAML file).
 
 <center>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/yf1iLbKwU3E?si=f9wdUHjrpu-KqkSU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </center>
-
 
 ## 🚚 Deliverables
 

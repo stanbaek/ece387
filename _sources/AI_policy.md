@@ -2,13 +2,21 @@
 
 ## 🔍 Purpose of the Policy
 
-Artificial Intelligence (AI) tools—such as language models, code generators, image analyzers, and virtual tutors—can be powerful supports for learning. However, when misused, they can hinder understanding and compromise academic integrity. This policy provides guidance on how you may and may not use AI tools in this course.
+Artificial Intelligence (AI) tools—such as large language models, code generators, writing assistants, and virtual tutors—are increasingly available to students and engineers. When used appropriately, these tools can support learning. When misused, however, they can interfere with skill development, obscure student understanding, and compromise academic integrity.
+
+This policy defines when and how AI tools may be used in this course, with clear boundaries designed to ensure that all submitted work accurately reflects your own understanding, reasoning, and skills as a student in electrical and computer engineering.
 
 ---
 
 ## **GenAI Usage Levels**
 
-USAFA defines seven levels of GenAI use. **Unless otherwise stated, this course operates at Level 2** (Use of GenAI for brainstorming or idea generation).
+USAFA defines seven levels of Generative AI (GenAI) use. **Unless otherwise stated, this course generally aligns with Level 2**, which permits limited use of GenAI for brainstorming or idea generation.
+
+This level designation is a **high-level reference only**.
+The **specific [Permitted Uses of AI Tools](permitted-uses-of-ai-tools)** and **[Prohibited Uses of AI Tools](prohibited-uses-of-ai-tools)** for this course-along with concrete electrical and computer engineering examples-are defined in detail in the sections below. These detailed rules **take precedence** over the general level description.
+
+Students are responsible for following the **explicit permissions, restrctions, and examples listed later in this policy**, regardless of how a particular GenAI tool might be categorized under the USAFA usage levels.
+
 
 | **Level** | **Descriptor**                                            | **What this looks like in practice**                                                  |
 | ---------------- | --------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -21,34 +29,58 @@ USAFA defines seven levels of GenAI use. **Unless otherwise stated, this course 
 | **Level 6** | Unrestricted, unattributed use of GenAI  | Cadets may use GenAI freely without attribution unless otherwise specified. Note: While it is possible to use GenAI in an unrestricted manner without attribution, any who apply this level in their course should carefully consider ethical and legal implications. |
 
 ---
+(permitted-uses-of-ai-tools)=
+## ✅ **Permitted Uses of AI Tools (with Restrictions)**
 
-## ✅ **Permitted Uses of AI Tools**
+Students may use AI tools only as learning aids, not as substitutes for thinking, problem-solving, coding, or writing.
 
-You may use AI tools to support your learning in the following ways:
+* **Understanding concepts and theory**: You may use AI to clarify or explain concepts from lectures, textbooks, or assignments (e.g., "Explain the Nyquist sampling theorem." or "What is the physical meaning of poles and zeros?")
+* **Studying terminology**: You may use AI to look up technical terms, definitions, or basic principles (e.g., "What is the Bayes’ theorem?").
+* **Generating practice material**: You may ask AI to generate practice problems or conceptaul quizzes for self-study (not for submission).
+* **Learning by example**: You may ask for high-level, illustrative examples that help you understand topics such as circuit analysis, signal processing, digital logic, or embedded systems—provided these examples are not used directly in assignments.
+* **Understanding compile errors and syntax errors**: You may use AI to interpret compiler messages, syntax errors, or warnings in languages such as Assemblym C/C++, Python, MATLAB, or VHDL (e.g., "What does this compiler error message mean?"). 
+AI may explain what the error indicates, but **you must resolve the issue yourself** using appropriate tools.
+* **Grammar and spelling corrections only**: You may use basic grammar and spell-checking tools (e.g., Grammarly for grammar only) to correct spelling and grammatical errors.
 
-* **Understanding concepts**: You may use AI to clarify or rephrase ideas from lectures, textbooks, or assignments.
-* **Studying terminology**: You may use AI to look up technical terms, definitions, or basic principles (e.g., "What are the applications of Bayes’ theorem?" or "Explain the Nyquist theorem").
-* **Generating practice material**: You may ask AI tools to help you quiz yourself or create practice problems.
-* **Learning by example**: You may ask for general examples that help you better understand topics like digital signal processing, circuit analysis, or embedded systems.
-* **Debugging support**: You may use AI tools to help interpret error messages or learn syntax—so long as the work remains your own.
 
 ---
-
+(prohibited-uses-of-ai-tools)=
 ## ❌ **Prohibited Uses of AI Tools**
 
-You may **not** use AI tools in the following ways:
+The following uses of AI are **not allowed** in this course:
 
-* **To generate solutions for assignments, labs, projects, or exams**: Do not submit any code, calculations, diagrams, or written responses that were produced wholly or partially by an AI system.
-* **To rewrite AI-generated work to pass as original**: Rephrasing or editing AI output and submitting it as your own still constitutes unauthorized assistance.
-* **To avoid doing your own analysis**: Submitting AI-generated responses without fully understanding them undermines your learning and violates academic expectations.
+
+* **Checking solutions with AI after completing work**: You may **not** input completed homework, lab solutions, project results, code, or exam answers into AI tools to verify correctness.
+
+Why this is prohibited: Checking answers with AI allows errors to be corrected without understanding, masks misconceptions, and prevents instructors from accurately assessing your learning. In engineering, **validation and reasoning are part of the skill—not just the final answer.**
+
+* **Debugging code with AI**: You may **not** use AI tools to debug your code, identify logic errors, or suggest fixes (e.g., "Here is my code-why doesn’t it work?", "Fix this program.", or "What is wrong with my state machine or controller logic?").
+
+You are expected to use:
+    - IDE debuggers
+    - Break points and watch variables
+    - Simulators
+    - Logic analyzers, waveform viewers, or test benches
+
+**Debugging is a core engineering skill and must be practiced directly.**
+
+* **AI-generated or AI-assisted coding**: You may **not** submit code, scripts, HDL, or configuration files that are generated, suggested, or auto-completed by AI. This includes (but is not limited to) GitHub Copilot, AI-powered VS Code extensions, or similar tools
+
+**Installing or using guided AI coding tools is strictly prohibited.**
+
+* **AI Editing of Writing or Technical Content**: You may **not** use AI tools to rewrite, rephrase, restructure, or improve the technical content of your writing. This includes lab reports, homework explanations, design discussions, and project documentation.
+
+Why this is prohibited: Technical writing is part of demonstrating engineering understanding. AI-edited writing prevents instructors from accurately assessing your comprehension and reasoning. Only **grammar and spelling corrections** are permitted.
 
 ---
 
 ## 🎓 **Rationale Behind the Policy**
 
-* **You’re here to learn**: Engineering courses are designed to build your problem-solving and critical thinking skills. AI shortcuts can prevent you from developing the abilities you'll need as a professional.
-* **Integrity is essential**: Submitting work you didn't produce yourself—even if assisted by an AI—is a form of **academic dishonesty**, similar to plagiarism or unauthorized collaboration.
-* **AI tools are not neutral**: While AI can explain topics, it can also make errors or generate misleading content. Relying on it too heavily can give you a false sense of understanding.
+* **Integrity is essential**: Submitting work you didn't produce yourself-even if assisted by an AI-is a form of **academic dishonesty**, similar to plagiarism or unauthorized collaboration.
+* **You’re here to learn**: Learning requires struggle. Engineering courses are designed to build your problem-solving and critical thinking skills. AI shortcuts can prevent you from developing the abilities you'll need as a professional.
+* **Assessment must reflect understanding**: Instructors must be able to distinguish what you know from what a tool produced.
+* **AI is fallible**: AI systems can generate incorrect, misleading, or poorly reasoned outputs, especially in technical domains.
+
 
 ---
 
@@ -62,9 +94,12 @@ If you misuse AI tools in this course, you may face consequences including:
 
 ---
 
-## 💬 **If You’re Unsure**
+## 💬 **If You’re Unsure - Ask First**
 
-If you're unsure whether your use of AI is appropriate, ask the instructor **before using it**. If you wouldn’t be comfortable explaining your process in front of the class, it’s probably not within policy.
+If you are **not sure whether a particular use of AI is permitted**, ask the instructor **before using it**.
+- Do not assume a tool or use case is allowed.
+- "I didn’t know" is not an acceptable justification after the fact.
+- When in doubt, **ask first**.
 
 ---
 
@@ -73,7 +108,7 @@ If you're unsure whether your use of AI is appropriate, ask the instructor **bef
 Use AI as a support, not a shortcut:
 
 * Treat it like a tutor, not a teammate.
-* Ask it to help you **understand** the “why” or “how”—not to **do** the work for you.
+* Ask it to help you **understand** the “why” or “how”-not to **do** the work for you.
 * Verify everything it tells you against your notes, textbook, or instructor guidance.
 * Keep notes on how you use AI while studying, in case you need to explain your process.
 
@@ -81,6 +116,6 @@ Use AI as a support, not a shortcut:
 
 ## 🧠 Final Words
 
-AI will be a tool in your future engineering career—but learning to **use it responsibly and ethically** is essential. This course supports your growth, and that means **doing the hard work yourself** when it matters.
+AI will be part of your future as an engineer. Learning to use it **ethically, responsibly, and appropratly** start here. In this course, it means AI may support your understanding - but **thie thinking, coding, debugging, and writing must be yours.**
 
 Let’s use technology wisely—with integrity, curiosity, and responsibility.
