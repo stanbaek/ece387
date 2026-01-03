@@ -930,7 +930,7 @@ echo 'export TURTLEBOT3_MODEL=burger' >> ~/.bashrc
     ```bash
     sudo adduser $USER video
     ```
-    or replace $USER$ with user ID.
+    or replace `$USER` with a user ID.
     ```bash
     sudo adduser pi video
     ```
