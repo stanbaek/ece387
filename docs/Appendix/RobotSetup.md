@@ -38,16 +38,16 @@ Also, a small fan can be installed to help with cooling. We used this 3D printed
 After installing the Raspberry pi level of the TurtleBot3 you need to install the USB Camera Mount prior to finishing the robot build. The mount used in this course can be found in the [curriculum material](../stl/burger_usbcam_mount.stl) and is installed on two of the front standoffs on the TurtleBot3.
 
 ```{image} ./figures/camera_mount.jpg
-:width: 380
+:width: 280
 :align: center
 ```
 
 ## Ubuntu Installation
 
 ### Download Ubuntu and flash MicroSD card
-There are multiple ways to download and install Ubuntu 22.04 to a MicroSD card, but the Raspberry Pi Imager is one of the easiest. Instructions for installing the imager on your operating system can be found on the [Raspberry Pi OS software page](https://www.raspberrypi.com/software/). 
+There are multiple ways to download and install Ubuntu 22.04.5 to a MicroSD card, but the Raspberry Pi Imager is one of the easiest. Instructions for installing the imager on your operating system can be found on the [Raspberry Pi OS software page](https://www.raspberrypi.com/software/). 
 
-Once installed, start the imager and select the "CHOOSE OS" button.
+Once installed, start the imager and select "Raspberry Pi 4".
 
 ```{image} ./figures/installer1.png
 :width: 480
@@ -72,7 +72,7 @@ Next, select "Ubuntu".
 :align: center
 ```
 <br>
-Lastly, scroll and select the latest 64-bit version of "Ubuntu Server 22.04 LTS".
+Lastly, scroll and select the latest 64-bit version of "Ubuntu Server 22.04 LTS (64-bit)".
 
 <br>
 
@@ -82,13 +82,7 @@ Lastly, scroll and select the latest 64-bit version of "Ubuntu Server 22.04 LTS"
 ```
 <br>
 
-Now that you have the correct image selected, you need to choose the correct storage device that corresponds to the MicroSD card. Select "CHOOSE STORAGE".
-
-```{warning}
-This process will overwrite the drive, so ensure you select the correct device! You can select "CHOOSE STORAGE" before inserting the MicroSD card, then insert it, and the card will be the new drive that pops up.
-```
-
-Once you are sure the correct drive is selected, click "WRITE".
+Now that you have the correct image selected, you need to choose the correct storage device that corresponds to the MicroSD card.
 
 Once complete you should have an Ubuntu SD card! Ensure your Raspberry Pi is powered off, connected to a monitor, keyboard, and mouse, and insert the SD card.
 
@@ -96,53 +90,34 @@ Once complete you should have an Ubuntu SD card! Ensure your Raspberry Pi is pow
 ## Configuring Ubuntu
 
 ### Login and changing password
-Once Ubuntu boots up you will be prompted to enter the login and password. It may take a few minutes on first boot to configure the default username and password, so if login fails, try again after a few minutes. The default username is **ubuntu** and password is **ubuntu**.
+Once Ubuntu boots up you will be prompted to enter the login and password. It may take a few minutes on first boot to configure the default username and password, so if login fails, try again after a few minutes. 
 
-On first login, you will be prompted to change the password. Enter the current password, **ubuntu**, and then enter a new password twice.
+### Adding username 
+We need to create a new user named *pi* for students.
 
-### Changing username (optional)
-I like to change the username to "pi" so I remember that this machine is a Raspberry Pi. This is optional and you can change the username to anything you like.
+- Create the *pi* user:
+    ```bash
+    sudo adduser pi
+    ```
 
-First, add a *temp* user:
-```bash
-sudo adduser temp
-```
-Enter an easy to remember password, and then hit enter until you are back at the terminal prompt.
+    Enter an easy-to-remember password when prompted, then press Enter through the remaining prompts until you return to the terminal.
 
-Add the *temp* user to the *sudo* group:
-```bash
-sudo adduser temp sudo
-```
+- Grant *sudo* previleges:
+    ```bash
+    sudo adduser pi sudo
+    ```
 
-Log out of *ubuntu* user:
-```bash
-exit
-```
+- Switch to the new user
+    ```bash
+    exit
+    ```
+    Then log in using the *pi* account credentials.
 
-Login to *temp* user account.
-
-Change the *ubuntu* username to the new username:
-
-```console
-sudo usermod -l newUsername ubuntu
-sudo usermod -d /home/newHomeDir -m newUsername
-```
-
-For example:
-```shell
-sudo usermod -l pi ubuntu
-sudo usermod -d /home/pi -m pi
-```
-
-Log out of *temp* user and log in with new username and password (the password is still the same as the password you set for the *ubuntu* user).
-
-Delete the *temp* user:
-```shell
-sudo deluser temp
-sudo rm -r /home/temp
-```
-
-Now at the terminal prompt you should see `pi@ubuntu:` and if you type `pwd` you should see `/home/pi` (with `pi` replaced with the username you chose). 
+- Once logged in as *pi*, your terminal prompt should show `pi@ubuntu:`. Confirm your current directory by running:
+    ```bash
+    pwd
+    ```
+    This should display `/home/pi`.
 
 
 ### Change hostname
@@ -153,11 +128,9 @@ Change the hostname with the command line editor of your choice.
 sudo hostnamectl set-hostname robot0
 ```
 
-Replace `ubuntu` with the hostname of choice, such as robot0. Save and exit.
-
 The new hostname will not take effect until reboot. Don't reboot yet, though! We have a couple more things to accomplish before reboot.
 
-### Set up Wi-Fi
+### Set up Wi-Fi (Optional)
 Until a desktop GUI is installed we have to work with the command line to set up the Wi-Fi. This is the most reliable method I have found and we will delete these changes once a GUI is installed.
 
 First, determine the name of your Wi-Fi network adapter by typing `ip link` (for the Raspberry Pi version of Ubuntu Server 20.04 LTS it is typically **`wlan0`**).
@@ -241,12 +214,12 @@ network:
                  "robotics_5GHz":
                      password: "YOUR-PASSWORD"
              addresses:
-                 - 192.168.4.208/24
+                 - 192.168.1.208/24
              routes:
                  - to: default
-                   via: 192.168.4.1
+                   via: 192.168.1.1
              nameservers:
-                 addresses: [192.168.4.1, 8.8.8.8, 1.1.1.1]
+                 addresses: [192.168.1.1, 8.8.8.8, 1.1.1.1]
              optional: true
 ```
 
@@ -274,7 +247,7 @@ APT::Periodic::Download-Upgradeable-Packages "0";
 
 Set the systemd to prevent boot-up delay even if there is no network at startup. Run the command below to set mask the systemd process using the following command.
 ```
-$ systemctl mask systemd-networkd-wait-online.service
+$ sudo systemctl mask systemd-networkd-wait-online.service
 ```
 
 Disable Suspend and Hibernation
@@ -287,84 +260,12 @@ Reboot the Raspberry Pi.
 $ reboot
 ```
 
-### Enable SSH and generate new keys
-```bash
-sudo ssh-keygen -A
-sudo systemctl start ssh
-```
 
-#### Add Swap Space (optional)
-The Raspberry Pi 4 B used in our course has 8 GB of RAM. Swap Space might not be necessary, but with a larger SD card it is beneficial.
 
-You can check that there is no active swap using the free utility:
 
-```bash
-pi@ubuntu:~$ free -h
-               total        used        free      shared  buff/cache   available
-Mem:           7.6Gi       201Mi       7.1Gi       3.0Mi       328Mi       7.3Gi
-Swap:             0B          0B          0B
-```
 
-The **fallocate** program can be used to create a swap:
 
-```bash
-sudo fallocate -l 2G /swapfile
-```
 
-If it was created correctly, you should see the below:
-
-```bash
-pi@ubuntu:~$ ls -lh /swapfile
--rw------- 1 root root 2.0G Aug 19 17:30 /swapfile
-```
-
-Make the file only accessible to root by typing:
-
-```bash
-sudo chmod 600 /swapfile
-```
-
-Verify the permissions by typing the following:
-
-```bash
-pi@ubuntu:~$ ls -lh /swapfile 
--rw------- 1 root root 2.0G Aug 19 17:28 /swapfile
-Now only root user has read and write flags enabled.
-```
-
-You can set the file as swap space by typing the following:
-
-```bash
-pi@ubuntu:~$ sudo mkswap /swapfile
-Setting up swapspace version 1, size = 2 GiB (2147479552 bytes)
-no label, UUID=b5bc4abf-2bce-419e-870d-4d44a7a05778
-```
-
-Then turn on the swap file:
-
-```bash
-sudo swapon /swapfile
-```
-
-To verify that this worked you can type the following:
-
-```bash
-pi@ubuntu:~$ sudo swapon --show
-NAME      TYPE SIZE USED PRIO
-/swapfile file   2G   0B   -2
-```
-
-This swap will only last until reboot, so to make it permanent at it to the `fstab` file:
-
-```shell
-echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
-```
-
-Now it is time to reboot by typing 
-
-```shell
-sudo reboot
-```
 
 #### Verify changes
 After reboot and you log in your new hostname should be listed at the terminal (e.g., `pi@robot0`). Additionally, you should be connected to Wi-Fi and have an IP Address. You can confirm by typing the following and observing the IP address in the output:
@@ -381,20 +282,12 @@ or
 ssh username@HOSTNAME
 ```
 
-Lastly, ensure your swap space is still active by typing the following and observing the output:
-
-```bash
-pi@robot99:~$ free -h
-               total        used        free      shared  buff/cache   available
-Mem:           7.6Gi       224Mi       6.5Gi       3.0Mi       903Mi       7.3Gi
-Swap:          2.0Gi          0B       2.0Gi
-```
 
 ### Update and Upgrade
 Since we turned off automatic updates, you should periodically update and upgrade. You can use this single command to accomplish both while accepting all upgrades:
 
 ```bash
-sudo apt update && sudo apt -y upgrade
+sudo apt update && sudo apt upgrade -y
 ```
 
 ### Install Ubuntu Desktop (optional)
@@ -424,9 +317,571 @@ network:
              optional: true
 ```
 
-
-
 You can now use the GUI interface in the top right of the screen to set up a Wi-Fi connection.
+
+
+### Install RTL8723BU driver (Ubuntu 22.04)
+
+We use a WiFi dongle to create an access point, allowing a remote master computer to directly control the robot. The specific adapter is the [Xinghuatian Tech Combination WiFi + Bluetooth® 4.0 USB Adapter](https://www.adafruit.com/product/4827?srsltid=AfmBOorWVrVtwi3XuDb8Z2vIOsfrhc-y8ti8qm8orQDFAH0JVqh8e-_I)
+
+- Install build prerequisites
+
+    ```bash
+    sudo apt update
+    sudo apt install -y git dkms build-essential linux-headers-$(uname -r)
+    ```
+
+- Remove any conflicting Realtek modules
+
+    ```bash
+    sudo modprobe -r rtw88_8723b 2>/dev/null
+    sudo modprobe -r rtl8723bu 2>/dev/null
+    ```
+
+    (Optional) Verify no 8723 modules are loaded.
+
+    ```bash
+    lsmod | grep 8723
+    ```
+
+- Install the RTL8723BU Driver.  The recommended repository is https://github.com/lwfinger/rtl8723bu.git.
+
+    ```bash
+    # Clone the repository
+    git clone https://github.com/lwfinger/rtl8723bu.git
+    cd rtl8723bu
+
+    # Read package info from dkms.conf
+    source dkms.conf
+
+    # Create and populate the DKMS source directory
+    sudo mkdir -p /usr/src/$PACKAGE_NAME-$PACKAGE_VERSION
+    sudo cp -r core hal include os_dep platform dkms.conf Makefile rtl8723b_fw.bin /usr/src/$PACKAGE_NAME-$PACKAGE_VERSION
+
+    # Add and install the DKMS module
+    sudo dkms add $PACKAGE_NAME/$PACKAGE_VERSION
+    sudo dkms autoinstall $PACKAGE_NAME/$PACKAGE_VERSION
+    ```
+- Load the module
+    ```bash
+    sudo modprobe rtl8723bu
+    lsmod | grep 8723
+    ```
+    It should display something like:    
+    ```bash
+    8723bu               1048576  0
+    cfg80211              970752  4 brcmfmac,mac80211,8723bu,rtl8xxxu
+    ```
+
+- Rename the interface: Currently, `ip addr` shows the WiFi dongle with varying names (e.g., wlx1cbfcee6196b). We want to standardize this to `wlan1` across all robots.
+
+    Here is the most effective way to ensure that the external dongle is always named `wlan1` across all your Raspberry Pis, regardless of its MAC address. On the Raspberry Pi 4, the built-in WiFi will grab wlan0, and the first USB dongle detected will grab wlan1.
+
+    Edit the boot configuration: On Ubuntu for Raspberry Pi, the kernel boot parameters are stored in a specific text file.
+
+    ```bash
+    sudo nano /boot/firmware/cmdline.txt
+    ```
+
+    Add naming parameters: Stay on the same line (do not create a new line). Go to the end of the existing text and add a space followed by:
+
+    ```
+    net.ifnames=0 biosdevname=0
+    ```
+
+    Save and Reboot.  After rebooting, your interfaces will no longer have long names like wlx1cbfcee6196b. Your dongle will almost certainly be wlan1.
+
+
+
+## Dual Wi-Fi Setup (Client + Access Point)
+
+### 🎯 GOAL (Final Architecture)
+
+| Interface                | Role                  | Network           |
+| ------------------------ | --------------------- | ----------------- |
+| `wlan0` (built-in)       | Access Point          | `robot99_ap`      |
+| `wlan1` (USB, RTL8723BU) | Wi-Fi client → router | `ECE` or `Afacademy_Guest|
+| Master (NUC)             | Dual Wi-Fi            | Robot AP + Router |
+
+- **No internet forwarding through robot**
+- Laptop connects to internet independently
+
+
+### Prerequisites (Already satisfied)
+
+- ✔ USB Wi-Fi driver installed
+- ✔ Kernel module loaded:
+
+    ```bash
+    lsmod | grep 8723
+    ```
+
+- ✔ Interfaces present:
+
+    ```bash
+    ip link
+    ```
+
+- ✔ wlan0 already works as Wi-Fi client
+
+---
+
+### Change netplan for wlan1 (Wi-Fi client)
+
+- Edit the Netplan configuration
+    ```bash
+    sudo nano /etc/netplan/50-cloud-init.yaml
+    ```
+    Change `wlan0` to `wlan1`. This configures the USB WiFi dongle to connect to a 2.4 GHz network for internet access. The built-in 5 GHz adapter will then be available for a direct, high-bandwidth connection to the remote master computer.
+
+    ```yaml
+    network:
+    version: 2
+    ethernets:
+        eth0:
+        dhcp4: true
+        dhcp6: true
+        optional: true
+    wifis:
+        wlan0:
+        dhcp4: true
+        optional: true
+        regulatory-domain: US
+        access-points:
+            "BAEK-5G":
+            password: "YOUR_ROUTER_PASSWORD"
+    ```
+
+
+- Make sure the permissions should be 600:
+
+    ```bash
+    sudo chmod 600 /etc/netplan/50-cloud-init.yaml
+    ```
+
+    Then, apply:
+
+    ```bash
+    sudo netplan apply
+    ```
+
+    Verify:
+
+    ```bash
+    ip addr show wlan1
+    ```
+
+    You must see:
+
+    ```
+    inet 192.168.0.x
+    ```
+
+
+
+### Configure static IP for the AP interface (wlan1)
+
+Create a **separate netplan file**:
+
+```bash
+sudo nano /etc/netplan/60-ap.yaml
+```
+
+### Contents:
+
+```yaml
+network:
+  version: 2
+  ethernets:
+    wlan1:
+      dhcp4: false
+      addresses:
+        - 192.168.50.1/24
+```
+
+Fix permissions:
+
+```bash
+sudo chmod 600 /etc/netplan/60-ap.yaml
+```
+
+Apply:
+
+```bash
+sudo netplan apply
+```
+
+---
+
+### Install AP services
+
+```bash
+sudo apt update
+sudo apt install hostapd dnsmasq
+```
+
+Stop them for configuration:
+
+```bash
+sudo systemctl stop hostapd
+sudo systemctl stop dnsmasq
+```
+
+---
+
+### Configure DHCP for AP clients (dnsmasq)
+
+- Create:
+
+    ```bash
+    sudo nano /etc/dnsmasq.d/ap.conf
+    ```
+
+- Paste:
+
+    ```ini
+    interface=wlan0
+    bind-interfaces
+
+    # DHCP only (NO DNS)
+    port=0
+
+    dhcp-range=192.168.50.10,192.168.50.50,255.255.255.0,72h
+
+    ```
+
+### Configure the Access Point (hostapd)
+
+- Create config:
+
+    ```bash
+    sudo nano /etc/hostapd/hostapd.conf
+    ```
+
+- **RTL8723BU-safe configuration**
+        
+    ```ini
+    interface=wlan0
+    driver=nl80211
+
+    ssid=robot99
+
+    # 5 GHz band (802.11a/ac)
+    hw_mode=a
+    channel=36
+
+    ieee80211n=1
+    ieee80211ac=1
+
+    # Regulatory domain must be set in netplan or iw
+    country_code=US
+
+    # QoS / stability
+    wmm_enabled=1
+
+    # Security
+    auth_algs=1
+    wpa=2
+    wpa_passphrase=dfec3141
+    wpa_key_mgmt=WPA-PSK
+    rsn_pairwise=CCMP
+
+    ignore_broadcast_ssid=0
+
+    ```
+
+- Tell systemd where hostapd config lives:
+
+    ```bash
+    sudo nano /etc/default/hostapd
+    ```
+
+    Set:
+
+    ```
+    DAEMON_CONF="/etc/hostapd/hostapd.conf"
+    ```
+
+- Start services
+
+    ```bash
+    sudo systemctl unmask hostapd
+    sudo systemctl enable hostapd
+    sudo systemctl enable dnsmasq
+
+    sudo systemctl restart systemd-networkd
+    sudo systemctl restart hostapd
+    sudo systemctl restart dnsmasq
+    ```
+
+### Verify AP operation
+
+- On the robot:
+
+    ```bash
+    systemctl status hostapd --no-pager
+    ```
+
+    You should see:
+
+    ```
+    AP-ENABLED
+    ```
+
+    ```bash
+    iw dev wlan0 info
+    ```
+
+    Type must be:
+
+    ```
+    type AP
+    ```
+
+- From master computer:
+
+    - Connect to Wi-Fi **robot99_ap**
+    - IP should be `192.168.50.x`
+
+
+### Test SSH:
+
+```bash
+ssh pi@192.168.50.1
+```
+
+### Final expected state (sanity check)
+
+```bash
+ip addr show wlan0
+```
+
+→ `192.168.0.x`
+
+```bash
+ip addr show wlan1
+```
+
+→ `192.168.50.1`
+
+```bash
+iw dev
+```
+
+→ wlan1 = AP
+
+---
+
+
+### Inside hostapd.conf, we have ssid=robot99.  If I change the host name, I would like to change its ssid accordingly automatically.
+We can make the SSID automatically follow the hostname, and this is actually a *clean and common Linux pattern*.
+
+- Idea
+    * Keep `hostapd.conf` **template-like**
+    * Inject the hostname at service start
+    * No hacks, no manual edits when hostname changes
+
+- Modify `/etc/hostapd/hostapd.conf`
+
+    Replace:
+
+    ```ini
+    ssid=robot99
+    ```
+
+    with a placeholder:
+
+    ```ini
+    ssid=__HOSTNAME__
+    ```
+
+- Create a small SSID generator script
+
+    ```bash
+    sudo nano /usr/local/bin/hostapd-ssid.sh
+    ```
+
+    ```bash
+    #!/bin/bash
+
+    HOSTNAME=$(hostname)
+    TEMPLATE="/etc/hostapd/hostapd.conf"
+    TMP="/run/hostapd.conf"
+
+    sed "s/__HOSTNAME__/${HOSTNAME}/g" "$TEMPLATE" > "$TMP"
+    ```
+
+    Make it executable:
+
+    ```bash
+    sudo chmod +x /usr/local/bin/hostapd-ssid.sh
+    ```
+
+— Tell hostapd to use the generated config
+
+    Edit the systemd override:
+
+    ```bash
+    sudo systemctl edit hostapd
+    ```
+
+    Add **exactly** this:
+
+    ```ini
+    [Service]
+    ExecStartPre=/usr/local/bin/hostapd-ssid.sh
+    ExecStart=
+    ExecStart=/usr/sbin/hostapd /run/hostapd.conf
+    ```
+
+    > ⚠️ The empty `ExecStart=` line is required to override the default.
+
+
+— Reload and restart
+
+    ```bash
+    sudo systemctl daemon-reexec
+    sudo systemctl restart hostapd
+    ```
+
+- Test it
+
+    Change hostname:
+
+    ```bash
+    sudo hostnamectl set-hostname robot42
+    ```
+
+    Restart AP:
+
+    ```bash
+    sudo systemctl restart hostapd
+    ```
+
+
+If I reboot, the host name changes back to robot99. I also tried to change /etc/hostname manually, but it still changes back to robot99
+
+This behavior is **100% consistent with cloud-init**, and nothing is wrong with your commands.
+
+What’s happening is:
+
+> **cloud-init is resetting the hostname on every boot back to `robot99`.**
+
+That’s why:
+
+* `hostnamectl set-hostname …` works **until reboot**
+* Editing `/etc/hostname` is **overwritten at boot**
+* Your SSID keeps reverting too (because it follows hostname)
+
+---
+
+# ✅ Root Cause (Confirmed)
+
+You are using **cloud-init networking** (`50-cloud-init.yaml`), and **cloud-init manages hostname by default**.
+
+On Ubuntu (including 22.04 Server, Raspberry Pi images):
+
+* cloud-init runs **early at boot**
+* It **re-applies hostname** from its configuration
+* Manual edits are discarded unless cloud-init is told not to touch hostname
+
+---
+
+# ✅ Correct Fix (Do This Once)
+
+You must **disable cloud-init hostname management**.
+
+---
+
+## 🔧 Step 1 — Create cloud-init hostname override
+
+```bash
+sudo nano /etc/cloud/cloud.cfg.d/99-disable-hostname.cfg
+```
+
+Paste **exactly**:
+
+```yaml
+preserve_hostname: true
+```
+
+Save and exit.
+
+---
+
+## 🔧 Step 2 — (Optional but recommended) Remove stored cloud-init hostname
+
+Open it:
+
+```bash
+sudo nano /etc/cloud/cloud.cfg
+```
+
+Look for:
+
+```yaml
+preserve_hostname: false
+```
+
+Change it to
+
+```yaml
+preserve_hostname: true
+```
+
+---
+
+## 🔧 Step 3 — Set hostname permanently
+
+Now set hostname normally:
+
+```bash
+sudo hostnamectl set-hostname robot42
+```
+
+Verify:
+
+```bash
+hostname
+cat /etc/hostname
+```
+
+Both should say:
+
+```
+robot42
+```
+
+---
+
+## 🔄 Step 4 — Reboot and verify
+
+```bash
+sudo reboot
+```
+
+After reboot:
+
+```bash
+hostname
+```
+
+✅ It should **stay robot42**
+
+✅ Your AP SSID will now also stay correct
+
+---
+
+
+
+
+
+
+
+
+
+
+
 
 ### Setup GitHub SSH Keys
 The following assumes you already have a GitHub account.
@@ -602,20 +1057,24 @@ echo "export ROS_DOMAIN_ID=<your_domain_id>" >> ~/.bashrc
 ### Install and Build ROS2 Packages
 
 ```bash
-sudo apt install python3-argcomplete python3-colcon-common-extensions libboost-system-dev build-essential
-sudo apt install ros-humble-hls-lfcd-lds-driver
-sudo apt install ros-humble-turtlebot3-msgs
-sudo apt install ros-humble-dynamixel-sdk
-sudo apt install libudev-dev
-mkdir -p ~/robot_ws/src && cd ~/robot_ws/src
-git clone -b humble-devel https://github.com/ROBOTIS-GIT/turtlebot3.git
-git clone -b ros2-devel https://github.com/ROBOTIS-GIT/ld08_driver.git
-cd ~/robot_ws/src/turtlebot3
-rm -r turtlebot3_cartographer turtlebot3_navigation2
-cd ~/robot_ws/
-colcon build --symlink-install --parallel-workers 1
-source ~/robot_ws/install/setup.bash
-source ~/.bashrc
+$ sudo apt install python3-argcomplete python3-colcon-common-extensions libboost-system-dev build-essential
+$ sudo apt install ros-humble-hls-lfcd-lds-driver
+$ sudo apt install ros-humble-turtlebot3-msgs
+$ sudo apt install ros-humble-dynamixel-sdk
+$ sudo apt install ros-humble-xacro
+$ sudo apt install libudev-dev
+$ mkdir -p ~/robot_ws/src && cd ~/robot_ws/src
+$ git clone -b humble https://github.com/ROBOTIS-GIT/turtlebot3.git
+$ git clone -b humble https://github.com/ROBOTIS-GIT/ld08_driver.git
+$ git clone -b humble https://github.com/ROBOTIS-GIT/coin_d4_driver
+$ cd ~/robot_ws/src/turtlebot3
+$ rm -r turtlebot3_cartographer turtlebot3_navigation2
+$ cd ~/robot_ws/
+$ echo 'source /opt/ros/humble/setup.bash' >> ~/.bashrc
+$ source ~/.bashrc
+$ colcon build --symlink-install --parallel-workers 1
+$ echo 'source ~/robot_ws/install/setup.bash' >> ~/.bashrc
+$ source ~/.bashrc
 ```
 
 ROS2 USB-CAM Package
@@ -638,10 +1097,10 @@ sudo apt install ros-humble-cv-bridge
 
 For all users:
 ```bash
-sudo pip install "pydantic<2"   # pip3 install pydantic 
-sudo pip install dlib
-sudo pip install imutils
-sudo pip install scipy
+pip install "pydantic<2"   # pip3 install pydantic 
+pip install dlib
+pip install imutils
+pip install scipy
 ```
 
 
@@ -789,5 +1248,78 @@ pip3 install -r requirements.txt
 ```
 
 > 📝️ **Note:** the "dlib" package will take quite a while to install.
-<!-- #endregion -->
 
+
+
+#### Add Swap Space (optional)
+Since the Raspberry Pi 4B used in our course has 8 GB of RAM, Swap Space might not be necessary.
+
+You can check that there is no active swap using the free utility:
+
+```bash
+pi@ubuntu:~$ free -h
+               total        used        free      shared  buff/cache   available
+Mem:           7.6Gi       201Mi       7.1Gi       3.0Mi       328Mi       7.3Gi
+Swap:             0B          0B          0B
+```
+
+The **fallocate** program can be used to create a swap:
+
+```bash
+sudo fallocate -l 2G /swapfile
+```
+
+If it was created correctly, you should see the below:
+
+```bash
+pi@ubuntu:~$ ls -lh /swapfile
+-rw------- 1 root root 2.0G Aug 19 17:30 /swapfile
+```
+
+Make the file only accessible to root by typing:
+
+```bash
+sudo chmod 600 /swapfile
+```
+
+Verify the permissions by typing the following:
+
+```bash
+pi@ubuntu:~$ ls -lh /swapfile 
+-rw------- 1 root root 2.0G Aug 19 17:28 /swapfile
+Now only root user has read and write flags enabled.
+```
+
+You can set the file as swap space by typing the following:
+
+```bash
+pi@ubuntu:~$ sudo mkswap /swapfile
+Setting up swapspace version 1, size = 2 GiB (2147479552 bytes)
+no label, UUID=b5bc4abf-2bce-419e-870d-4d44a7a05778
+```
+
+Then turn on the swap file:
+
+```bash
+sudo swapon /swapfile
+```
+
+To verify that this worked you can type the following:
+
+```bash
+pi@ubuntu:~$ sudo swapon --show
+NAME      TYPE SIZE USED PRIO
+/swapfile file   2G   0B   -2
+```
+
+This swap will only last until reboot, so to make it permanent at it to the `fstab` file:
+
+```shell
+echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+```
+
+Now it is time to reboot by typing 
+
+```shell
+sudo reboot
+```
