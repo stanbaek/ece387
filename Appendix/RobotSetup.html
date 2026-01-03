@@ -214,6 +214,8 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendix</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">🔧 Robot Setup</a></li>
+
+
 <li class="toctree-l1"><a class="reference internal" href="MasterSetup.html">🔧 Master Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="GitSetup.html">🔧 Git Repo Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="GamepadSetup.html">🔧 Gamepad Setup</a></li>
@@ -412,6 +414,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">🔧 Robot Setup</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#turtlebot3">TurtleBot3</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hardware-assembly">Hardware Assembly</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#raspberry-pi">Raspberry Pi</a></li>
@@ -424,17 +427,41 @@ document.write(`
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuring-ubuntu">Configuring Ubuntu</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#login-and-changing-password">Login and changing password</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#changing-username-optional">Changing username (optional)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-username">Adding username</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#change-hostname">Change hostname</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up-wi-fi">Set up Wi-Fi</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#disable-automatic-updates">Disable Automatic Updates</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enable-ssh-and-generate-new-keys">Enable SSH and generate new keys</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#add-swap-space-optional">Add Swap Space (optional)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up-wi-fi-optional">Set up Wi-Fi (Optional)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#disable-automatic-updates">Disable Automatic Updates</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#verify-changes">Verify changes</a></li>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#update-and-upgrade">Update and Upgrade</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-ubuntu-desktop-optional">Install Ubuntu Desktop (optional)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-rtl8723bu-driver-ubuntu-22-04">Install RTL8723BU driver (Ubuntu 22.04)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dual-wi-fi-setup-client-access-point">Dual Wi-Fi Setup (Client + Access Point)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#goal-final-architecture">🎯 GOAL (Final Architecture)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites-already-satisfied">Prerequisites (Already satisfied)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#change-netplan-for-wlan1-wi-fi-client">Change netplan for wlan1 (Wi-Fi client)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configure-static-ip-for-the-ap-interface-wlan1">Configure static IP for the AP interface (wlan1)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#contents">Contents:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-ap-services">Install AP services</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configure-dhcp-for-ap-clients-dnsmasq">Configure DHCP for AP clients (dnsmasq)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configure-the-access-point-hostapd">Configure the Access Point (hostapd)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verify-ap-operation">Verify AP operation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#test-ssh">Test SSH:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#final-expected-state-sanity-check">Final expected state (sanity check)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inside-hostapd-conf-we-have-ssid-robot99-if-i-change-the-host-name-i-would-like-to-change-its-ssid-accordingly-automatically">Inside hostapd.conf, we have ssid=robot99.  If I change the host name, I would like to change its ssid accordingly automatically.</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#root-cause-confirmed">✅ Root Cause (Confirmed)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#correct-fix-do-this-once">✅ Correct Fix (Do This Once)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-create-cloud-init-hostname-override">🔧 Step 1 — Create cloud-init hostname override</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-optional-but-recommended-remove-stored-cloud-init-hostname">🔧 Step 2 — (Optional but recommended) Remove stored cloud-init hostname</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-set-hostname-permanently">🔧 Step 3 — Set hostname permanently</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-reboot-and-verify">🔄 Step 4 — Reboot and verify</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-github-ssh-keys">Setup GitHub SSH Keys</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#update-alternatives">Update Alternatives</a></li>
 </ul>
@@ -444,10 +471,16 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configuring-ros2-environment">Configuring ROS2 Environment</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-and-build-ros2-packages">Install and Build ROS2 Packages</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#updating-opencr-firmware">Updating OpenCR firmware</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ece387-curriculum">ECE387 Curriculum</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ece387-curriculum">ECE387 Curriculum</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#add-swap-space-optional">Add Swap Space (optional)</a></li>
 </ul>
 </li>
 </ul>
+</li>
+</ul>
+</li>
+</ul>
+
             </nav>
         </div>
     </div>
@@ -491,7 +524,7 @@ document.write(`
 <section id="camera">
 <h3>Camera<a class="headerlink" href="#camera" title="Link to this heading">#</a></h3>
 <p>After installing the Raspberry pi level of the TurtleBot3 you need to install the USB Camera Mount prior to finishing the robot build. The mount used in this course can be found in the <a class="reference download internal" download="" href="../_downloads/3a3cd348ff4a2bc81ddea473f4ae906f/burger_usbcam_mount.stl"><span class="xref download myst">curriculum material</span></a> and is installed on two of the front standoffs on the TurtleBot3.</p>
-<a class="reference internal image-reference" href="../_images/camera_mount.jpg"><img alt="../_images/camera_mount.jpg" class="align-center" src="../_images/camera_mount.jpg" style="width: 380px;" />
+<a class="reference internal image-reference" href="../_images/camera_mount.jpg"><img alt="../_images/camera_mount.jpg" class="align-center" src="../_images/camera_mount.jpg" style="width: 280px;" />
 </a>
 </section>
 </section>
@@ -499,8 +532,8 @@ document.write(`
 <h2>Ubuntu Installation<a class="headerlink" href="#ubuntu-installation" title="Link to this heading">#</a></h2>
 <section id="download-ubuntu-and-flash-microsd-card">
 <h3>Download Ubuntu and flash MicroSD card<a class="headerlink" href="#download-ubuntu-and-flash-microsd-card" title="Link to this heading">#</a></h3>
-<p>There are multiple ways to download and install Ubuntu 22.04 to a MicroSD card, but the Raspberry Pi Imager is one of the easiest. Instructions for installing the imager on your operating system can be found on the <a class="reference external" href="https://www.raspberrypi.com/software/">Raspberry Pi OS software page</a>.</p>
-<p>Once installed, start the imager and select the “CHOOSE OS” button.</p>
+<p>There are multiple ways to download and install Ubuntu 22.04.5 to a MicroSD card, but the Raspberry Pi Imager is one of the easiest. Instructions for installing the imager on your operating system can be found on the <a class="reference external" href="https://www.raspberrypi.com/software/">Raspberry Pi OS software page</a>.</p>
+<p>Once installed, start the imager and select “Raspberry Pi 4”.</p>
 <a class="reference internal image-reference" href="../_images/installer1.png"><img alt="../_images/installer1.png" class="align-center" src="../_images/installer1.png" style="width: 480px;" />
 </a>
 <br>
@@ -513,17 +546,12 @@ Scroll down the menu and select "Other general purpose OS".
 <a class="reference internal image-reference" href="../_images/installer3.png"><img alt="../_images/installer3.png" class="align-center" src="../_images/installer3.png" style="width: 480px;" />
 </a>
 <br>
-Lastly, scroll and select the latest 64-bit version of "Ubuntu Server 22.04 LTS".
+Lastly, scroll and select the latest 64-bit version of "Ubuntu Server 22.04 LTS (64-bit)".
 <br>
 <a class="reference internal image-reference" href="../_images/installer4.png"><img alt="../_images/installer4.png" class="align-center" src="../_images/installer4.png" style="width: 480px;" />
 </a>
 <br>
-<p>Now that you have the correct image selected, you need to choose the correct storage device that corresponds to the MicroSD card. Select “CHOOSE STORAGE”.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>This process will overwrite the drive, so ensure you select the correct device! You can select “CHOOSE STORAGE” before inserting the MicroSD card, then insert it, and the card will be the new drive that pops up.</p>
-</div>
-<p>Once you are sure the correct drive is selected, click “WRITE”.</p>
+<p>Now that you have the correct image selected, you need to choose the correct storage device that corresponds to the MicroSD card.</p>
 <p>Once complete you should have an Ubuntu SD card! Ensure your Raspberry Pi is powered off, connected to a monitor, keyboard, and mouse, and insert the SD card.</p>
 </section>
 </section>
@@ -531,43 +559,36 @@ Lastly, scroll and select the latest 64-bit version of "Ubuntu Server 22.04 LTS"
 <h2>Configuring Ubuntu<a class="headerlink" href="#configuring-ubuntu" title="Link to this heading">#</a></h2>
 <section id="login-and-changing-password">
 <h3>Login and changing password<a class="headerlink" href="#login-and-changing-password" title="Link to this heading">#</a></h3>
-<p>Once Ubuntu boots up you will be prompted to enter the login and password. It may take a few minutes on first boot to configure the default username and password, so if login fails, try again after a few minutes. The default username is <strong>ubuntu</strong> and password is <strong>ubuntu</strong>.</p>
-<p>On first login, you will be prompted to change the password. Enter the current password, <strong>ubuntu</strong>, and then enter a new password twice.</p>
+<p>Once Ubuntu boots up you will be prompted to enter the login and password. It may take a few minutes on first boot to configure the default username and password, so if login fails, try again after a few minutes.</p>
 </section>
-<section id="changing-username-optional">
-<h3>Changing username (optional)<a class="headerlink" href="#changing-username-optional" title="Link to this heading">#</a></h3>
-<p>I like to change the username to “pi” so I remember that this machine is a Raspberry Pi. This is optional and you can change the username to anything you like.</p>
-<p>First, add a <em>temp</em> user:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>adduser<span class="w"> </span>temp
+<section id="adding-username">
+<h3>Adding username<a class="headerlink" href="#adding-username" title="Link to this heading">#</a></h3>
+<p>We need to create a new user named <em>pi</em> for students.</p>
+<ul>
+<li><p>Create the <em>pi</em> user:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>adduser<span class="w"> </span>pi
 </pre></div>
 </div>
-<p>Enter an easy to remember password, and then hit enter until you are back at the terminal prompt.</p>
-<p>Add the <em>temp</em> user to the <em>sudo</em> group:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>adduser<span class="w"> </span>temp<span class="w"> </span>sudo
+<p>Enter an easy-to-remember password when prompted, then press Enter through the remaining prompts until you return to the terminal.</p>
+</li>
+<li><p>Grant <em>sudo</em> previleges:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>adduser<span class="w"> </span>pi<span class="w"> </span>sudo
 </pre></div>
 </div>
-<p>Log out of <em>ubuntu</em> user:</p>
+</li>
+<li><p>Switch to the new user</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">exit</span>
 </pre></div>
 </div>
-<p>Login to <em>temp</em> user account.</p>
-<p>Change the <em>ubuntu</em> username to the new username:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo usermod -l newUsername ubuntu</span>
-<span class="go">sudo usermod -d /home/newHomeDir -m newUsername</span>
+<p>Then log in using the <em>pi</em> account credentials.</p>
+</li>
+<li><p>Once logged in as <em>pi</em>, your terminal prompt should show <code class="docutils literal notranslate"><span class="pre">pi&#64;ubuntu:</span></code>. Confirm your current directory by running:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">pwd</span>
 </pre></div>
 </div>
-<p>For example:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>usermod<span class="w"> </span>-l<span class="w"> </span>pi<span class="w"> </span>ubuntu
-sudo<span class="w"> </span>usermod<span class="w"> </span>-d<span class="w"> </span>/home/pi<span class="w"> </span>-m<span class="w"> </span>pi
-</pre></div>
-</div>
-<p>Log out of <em>temp</em> user and log in with new username and password (the password is still the same as the password you set for the <em>ubuntu</em> user).</p>
-<p>Delete the <em>temp</em> user:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>deluser<span class="w"> </span>temp
-sudo<span class="w"> </span>rm<span class="w"> </span>-r<span class="w"> </span>/home/temp
-</pre></div>
-</div>
-<p>Now at the terminal prompt you should see <code class="docutils literal notranslate"><span class="pre">pi&#64;ubuntu:</span></code> and if you type <code class="docutils literal notranslate"><span class="pre">pwd</span></code> you should see <code class="docutils literal notranslate"><span class="pre">/home/pi</span></code> (with <code class="docutils literal notranslate"><span class="pre">pi</span></code> replaced with the username you chose).</p>
+<p>This should display <code class="docutils literal notranslate"><span class="pre">/home/pi</span></code>.</p>
+</li>
+</ul>
 </section>
 <section id="change-hostname">
 <h3>Change hostname<a class="headerlink" href="#change-hostname" title="Link to this heading">#</a></h3>
@@ -576,11 +597,10 @@ sudo<span class="w"> </span>rm<span class="w"> </span>-r<span class="w"> </span>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>hostnamectl<span class="w"> </span>set-hostname<span class="w"> </span>robot0
 </pre></div>
 </div>
-<p>Replace <code class="docutils literal notranslate"><span class="pre">ubuntu</span></code> with the hostname of choice, such as robot0. Save and exit.</p>
 <p>The new hostname will not take effect until reboot. Don’t reboot yet, though! We have a couple more things to accomplish before reboot.</p>
 </section>
-<section id="set-up-wi-fi">
-<h3>Set up Wi-Fi<a class="headerlink" href="#set-up-wi-fi" title="Link to this heading">#</a></h3>
+<section id="set-up-wi-fi-optional">
+<h3>Set up Wi-Fi (Optional)<a class="headerlink" href="#set-up-wi-fi-optional" title="Link to this heading">#</a></h3>
 <p>Until a desktop GUI is installed we have to work with the command line to set up the Wi-Fi. This is the most reliable method I have found and we will delete these changes once a GUI is installed.</p>
 <p>First, determine the name of your Wi-Fi network adapter by typing <code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">link</span></code> (for the Raspberry Pi version of Ubuntu Server 20.04 LTS it is typically <strong><code class="docutils literal notranslate"><span class="pre">wlan0</span></code></strong>).</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pi@ubuntu:~$<span class="w"> </span>ip<span class="w"> </span>link
@@ -649,12 +669,12 @@ default via 192.168.0.1 dev wlan0 proto static
                  <span class="s2">&quot;robotics_5GHz&quot;</span><span class="p">:</span>
                      <span class="n">password</span><span class="p">:</span> <span class="s2">&quot;YOUR-PASSWORD&quot;</span>
              <span class="n">addresses</span><span class="p">:</span>
-                 <span class="o">-</span> <span class="mf">192.168.4.208</span><span class="o">/</span><span class="mi">24</span>
+                 <span class="o">-</span> <span class="mf">192.168.1.208</span><span class="o">/</span><span class="mi">24</span>
              <span class="n">routes</span><span class="p">:</span>
                  <span class="o">-</span> <span class="n">to</span><span class="p">:</span> <span class="n">default</span>
-                   <span class="n">via</span><span class="p">:</span> <span class="mf">192.168.4.1</span>
+                   <span class="n">via</span><span class="p">:</span> <span class="mf">192.168.1.1</span>
              <span class="n">nameservers</span><span class="p">:</span>
-                 <span class="n">addresses</span><span class="p">:</span> <span class="p">[</span><span class="mf">192.168.4.1</span><span class="p">,</span> <span class="mf">8.8.8.8</span><span class="p">,</span> <span class="mf">1.1.1.1</span><span class="p">]</span>
+                 <span class="n">addresses</span><span class="p">:</span> <span class="p">[</span><span class="mf">192.168.1.1</span><span class="p">,</span> <span class="mf">8.8.8.8</span><span class="p">,</span> <span class="mf">1.1.1.1</span><span class="p">]</span>
              <span class="n">optional</span><span class="p">:</span> <span class="n">true</span>
 </pre></div>
 </div>
@@ -679,7 +699,7 @@ default via 192.168.0.1 dev wlan0 proto static
 </pre></div>
 </div>
 <p>Set the systemd to prevent boot-up delay even if there is no network at startup. Run the command below to set mask the systemd process using the following command.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ systemctl mask systemd-networkd-wait-online.service
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo systemctl mask systemd-networkd-wait-online.service
 </pre></div>
 </div>
 <p>Disable Suspend and Hibernation</p>
@@ -690,67 +710,6 @@ default via 192.168.0.1 dev wlan0 proto static
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ reboot
 </pre></div>
 </div>
-</section>
-<section id="enable-ssh-and-generate-new-keys">
-<h3>Enable SSH and generate new keys<a class="headerlink" href="#enable-ssh-and-generate-new-keys" title="Link to this heading">#</a></h3>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>ssh-keygen<span class="w"> </span>-A
-sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>ssh
-</pre></div>
-</div>
-<section id="add-swap-space-optional">
-<h4>Add Swap Space (optional)<a class="headerlink" href="#add-swap-space-optional" title="Link to this heading">#</a></h4>
-<p>The Raspberry Pi 4 B used in our course has 8 GB of RAM. Swap Space might not be necessary, but with a larger SD card it is beneficial.</p>
-<p>You can check that there is no active swap using the free utility:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pi@ubuntu:~$<span class="w"> </span>free<span class="w"> </span>-h
-<span class="w">               </span>total<span class="w">        </span>used<span class="w">        </span>free<span class="w">      </span>shared<span class="w">  </span>buff/cache<span class="w">   </span>available
-Mem:<span class="w">           </span><span class="m">7</span>.6Gi<span class="w">       </span>201Mi<span class="w">       </span><span class="m">7</span>.1Gi<span class="w">       </span><span class="m">3</span>.0Mi<span class="w">       </span>328Mi<span class="w">       </span><span class="m">7</span>.3Gi
-Swap:<span class="w">             </span>0B<span class="w">          </span>0B<span class="w">          </span>0B
-</pre></div>
-</div>
-<p>The <strong>fallocate</strong> program can be used to create a swap:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>fallocate<span class="w"> </span>-l<span class="w"> </span>2G<span class="w"> </span>/swapfile
-</pre></div>
-</div>
-<p>If it was created correctly, you should see the below:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pi@ubuntu:~$<span class="w"> </span>ls<span class="w"> </span>-lh<span class="w"> </span>/swapfile
--rw-------<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">2</span>.0G<span class="w"> </span>Aug<span class="w"> </span><span class="m">19</span><span class="w"> </span><span class="m">17</span>:30<span class="w"> </span>/swapfile
-</pre></div>
-</div>
-<p>Make the file only accessible to root by typing:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>/swapfile
-</pre></div>
-</div>
-<p>Verify the permissions by typing the following:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pi@ubuntu:~$<span class="w"> </span>ls<span class="w"> </span>-lh<span class="w"> </span>/swapfile<span class="w"> </span>
--rw-------<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">2</span>.0G<span class="w"> </span>Aug<span class="w"> </span><span class="m">19</span><span class="w"> </span><span class="m">17</span>:28<span class="w"> </span>/swapfile
-Now<span class="w"> </span>only<span class="w"> </span>root<span class="w"> </span>user<span class="w"> </span>has<span class="w"> </span><span class="nb">read</span><span class="w"> </span>and<span class="w"> </span>write<span class="w"> </span>flags<span class="w"> </span>enabled.
-</pre></div>
-</div>
-<p>You can set the file as swap space by typing the following:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pi@ubuntu:~$<span class="w"> </span>sudo<span class="w"> </span>mkswap<span class="w"> </span>/swapfile
-Setting<span class="w"> </span>up<span class="w"> </span>swapspace<span class="w"> </span>version<span class="w"> </span><span class="m">1</span>,<span class="w"> </span><span class="nv">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="w"> </span>GiB<span class="w"> </span><span class="o">(</span><span class="m">2147479552</span><span class="w"> </span>bytes<span class="o">)</span>
-no<span class="w"> </span>label,<span class="w"> </span><span class="nv">UUID</span><span class="o">=</span>b5bc4abf-2bce-419e-870d-4d44a7a05778
-</pre></div>
-</div>
-<p>Then turn on the swap file:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>swapon<span class="w"> </span>/swapfile
-</pre></div>
-</div>
-<p>To verify that this worked you can type the following:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pi@ubuntu:~$<span class="w"> </span>sudo<span class="w"> </span>swapon<span class="w"> </span>--show
-NAME<span class="w">      </span>TYPE<span class="w"> </span>SIZE<span class="w"> </span>USED<span class="w"> </span>PRIO
-/swapfile<span class="w"> </span>file<span class="w">   </span>2G<span class="w">   </span>0B<span class="w">   </span>-2
-</pre></div>
-</div>
-<p>This swap will only last until reboot, so to make it permanent at it to the <code class="docutils literal notranslate"><span class="pre">fstab</span></code> file:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;/swapfile none swap sw 0 0&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>-a<span class="w"> </span>/etc/fstab
-</pre></div>
-</div>
-<p>Now it is time to reboot by typing</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>reboot
-</pre></div>
-</div>
-</section>
 <section id="verify-changes">
 <h4>Verify changes<a class="headerlink" href="#verify-changes" title="Link to this heading">#</a></h4>
 <p>After reboot and you log in your new hostname should be listed at the terminal (e.g., <code class="docutils literal notranslate"><span class="pre">pi&#64;robot0</span></code>). Additionally, you should be connected to Wi-Fi and have an IP Address. You can confirm by typing the following and observing the IP address in the output:</p>
@@ -763,19 +722,12 @@ NAME<span class="w">      </span>TYPE<span class="w"> </span>SIZE<span class="w"
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>username@HOSTNAME
 </pre></div>
 </div>
-<p>Lastly, ensure your swap space is still active by typing the following and observing the output:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pi@robot99:~$<span class="w"> </span>free<span class="w"> </span>-h
-<span class="w">               </span>total<span class="w">        </span>used<span class="w">        </span>free<span class="w">      </span>shared<span class="w">  </span>buff/cache<span class="w">   </span>available
-Mem:<span class="w">           </span><span class="m">7</span>.6Gi<span class="w">       </span>224Mi<span class="w">       </span><span class="m">6</span>.5Gi<span class="w">       </span><span class="m">3</span>.0Mi<span class="w">       </span>903Mi<span class="w">       </span><span class="m">7</span>.3Gi
-Swap:<span class="w">          </span><span class="m">2</span>.0Gi<span class="w">          </span>0B<span class="w">       </span><span class="m">2</span>.0Gi
-</pre></div>
-</div>
 </section>
 </section>
 <section id="update-and-upgrade">
 <h3>Update and Upgrade<a class="headerlink" href="#update-and-upgrade" title="Link to this heading">#</a></h3>
 <p>Since we turned off automatic updates, you should periodically update and upgrade. You can use this single command to accomplish both while accepting all upgrades:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>-y<span class="w"> </span>upgrade
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>upgrade<span class="w"> </span>-y
 </pre></div>
 </div>
 </section>
@@ -805,6 +757,502 @@ Swap:<span class="w">          </span><span class="m">2</span>.0Gi<span class="w
 </div>
 <p>You can now use the GUI interface in the top right of the screen to set up a Wi-Fi connection.</p>
 </section>
+<section id="install-rtl8723bu-driver-ubuntu-22-04">
+<h3>Install RTL8723BU driver (Ubuntu 22.04)<a class="headerlink" href="#install-rtl8723bu-driver-ubuntu-22-04" title="Link to this heading">#</a></h3>
+<p>We use a WiFi dongle to create an access point, allowing a remote master computer to directly control the robot. The specific adapter is the <a class="reference external" href="https://www.adafruit.com/product/4827?srsltid=AfmBOorWVrVtwi3XuDb8Z2vIOsfrhc-y8ti8qm8orQDFAH0JVqh8e-_I">Xinghuatian Tech Combination WiFi + Bluetooth® 4.0 USB Adapter</a></p>
+<ul>
+<li><p>Install build prerequisites</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>update
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>git<span class="w"> </span>dkms<span class="w"> </span>build-essential<span class="w"> </span>linux-headers-<span class="k">$(</span>uname<span class="w"> </span>-r<span class="k">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Remove any conflicting Realtek modules</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>modprobe<span class="w"> </span>-r<span class="w"> </span>rtw88_8723b<span class="w"> </span><span class="m">2</span>&gt;/dev/null
+sudo<span class="w"> </span>modprobe<span class="w"> </span>-r<span class="w"> </span>rtl8723bu<span class="w"> </span><span class="m">2</span>&gt;/dev/null
+</pre></div>
+</div>
+<p>(Optional) Verify no 8723 modules are loaded.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>lsmod<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">8723</span>
+</pre></div>
+</div>
+</li>
+<li><p>Install the RTL8723BU Driver.  The recommended repository is <a class="github reference external" href="https://github.com/lwfinger/rtl8723bu.git">lwfinger/rtl8723bu.git</a>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Clone the repository</span>
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/lwfinger/rtl8723bu.git
+<span class="nb">cd</span><span class="w"> </span>rtl8723bu
+
+<span class="c1"># Read package info from dkms.conf</span>
+<span class="nb">source</span><span class="w"> </span>dkms.conf
+
+<span class="c1"># Create and populate the DKMS source directory</span>
+sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/usr/src/<span class="nv">$PACKAGE_NAME</span>-<span class="nv">$PACKAGE_VERSION</span>
+sudo<span class="w"> </span>cp<span class="w"> </span>-r<span class="w"> </span>core<span class="w"> </span>hal<span class="w"> </span>include<span class="w"> </span>os_dep<span class="w"> </span>platform<span class="w"> </span>dkms.conf<span class="w"> </span>Makefile<span class="w"> </span>rtl8723b_fw.bin<span class="w"> </span>/usr/src/<span class="nv">$PACKAGE_NAME</span>-<span class="nv">$PACKAGE_VERSION</span>
+
+<span class="c1"># Add and install the DKMS module</span>
+sudo<span class="w"> </span>dkms<span class="w"> </span>add<span class="w"> </span><span class="nv">$PACKAGE_NAME</span>/<span class="nv">$PACKAGE_VERSION</span>
+sudo<span class="w"> </span>dkms<span class="w"> </span>autoinstall<span class="w"> </span><span class="nv">$PACKAGE_NAME</span>/<span class="nv">$PACKAGE_VERSION</span>
+</pre></div>
+</div>
+</li>
+<li><p>Load the module</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>modprobe<span class="w"> </span>rtl8723bu
+lsmod<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">8723</span>
+</pre></div>
+</div>
+<p>It should display something like:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>8723bu<span class="w">               </span><span class="m">1048576</span><span class="w">  </span><span class="m">0</span>
+cfg80211<span class="w">              </span><span class="m">970752</span><span class="w">  </span><span class="m">4</span><span class="w"> </span>brcmfmac,mac80211,8723bu,rtl8xxxu
+</pre></div>
+</div>
+</li>
+<li><p>Rename the interface: Currently, <code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">addr</span></code> shows the WiFi dongle with varying names (e.g., wlx1cbfcee6196b). We want to standardize this to <code class="docutils literal notranslate"><span class="pre">wlan1</span></code> across all robots.</p>
+<p>Here is the most effective way to ensure that the external dongle is always named <code class="docutils literal notranslate"><span class="pre">wlan1</span></code> across all your Raspberry Pis, regardless of its MAC address. On the Raspberry Pi 4, the built-in WiFi will grab wlan0, and the first USB dongle detected will grab wlan1.</p>
+<p>Edit the boot configuration: On Ubuntu for Raspberry Pi, the kernel boot parameters are stored in a specific text file.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nano<span class="w"> </span>/boot/firmware/cmdline.txt
+</pre></div>
+</div>
+<p>Add naming parameters: Stay on the same line (do not create a new line). Go to the end of the existing text and add a space followed by:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">net</span><span class="o">.</span><span class="n">ifnames</span><span class="o">=</span><span class="mi">0</span> <span class="n">biosdevname</span><span class="o">=</span><span class="mi">0</span>
+</pre></div>
+</div>
+<p>Save and Reboot.  After rebooting, your interfaces will no longer have long names like wlx1cbfcee6196b. Your dongle will almost certainly be wlan1.</p>
+</li>
+</ul>
+</section>
+</section>
+<section id="dual-wi-fi-setup-client-access-point">
+<h2>Dual Wi-Fi Setup (Client + Access Point)<a class="headerlink" href="#dual-wi-fi-setup-client-access-point" title="Link to this heading">#</a></h2>
+<section id="goal-final-architecture">
+<h3>🎯 GOAL (Final Architecture)<a class="headerlink" href="#goal-final-architecture" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Interface</p></th>
+<th class="head"><p>Role</p></th>
+<th class="head"><p>Network</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">wlan0</span></code> (built-in)</p></td>
+<td><p>Access Point</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">robot99_ap</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">wlan1</span></code> (USB, RTL8723BU)</p></td>
+<td><p>Wi-Fi client → router</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ECE</span></code> or `Afacademy_Guest</p></td>
+</tr>
+<tr class="row-even"><td><p>Master (NUC)</p></td>
+<td><p>Dual Wi-Fi</p></td>
+<td><p>Robot AP + Router</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul class="simple">
+<li><p><strong>No internet forwarding through robot</strong></p></li>
+<li><p>Laptop connects to internet independently</p></li>
+</ul>
+</section>
+<section id="prerequisites-already-satisfied">
+<h3>Prerequisites (Already satisfied)<a class="headerlink" href="#prerequisites-already-satisfied" title="Link to this heading">#</a></h3>
+<ul>
+<li><p>✔ USB Wi-Fi driver installed</p></li>
+<li><p>✔ Kernel module loaded:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>lsmod<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">8723</span>
+</pre></div>
+</div>
+</li>
+<li><p>✔ Interfaces present:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ip<span class="w"> </span>link
+</pre></div>
+</div>
+</li>
+<li><p>✔ wlan0 already works as Wi-Fi client</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="change-netplan-for-wlan1-wi-fi-client">
+<h3>Change netplan for wlan1 (Wi-Fi client)<a class="headerlink" href="#change-netplan-for-wlan1-wi-fi-client" title="Link to this heading">#</a></h3>
+<ul>
+<li><p>Edit the Netplan configuration</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/netplan/50-cloud-init.yaml
+</pre></div>
+</div>
+<p>Change <code class="docutils literal notranslate"><span class="pre">wlan0</span></code> to <code class="docutils literal notranslate"><span class="pre">wlan1</span></code>. This configures the USB WiFi dongle to connect to a 2.4 GHz network for internet access. The built-in 5 GHz adapter will then be available for a direct, high-bandwidth connection to the remote master computer.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">network</span><span class="p">:</span>
+<span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="nt">ethernets</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">eth0</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">dhcp4</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">dhcp6</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">optional</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="nt">wifis</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">wlan0</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">dhcp4</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">optional</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">regulatory-domain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">US</span>
+<span class="w">    </span><span class="nt">access-points</span><span class="p">:</span>
+<span class="w">        </span><span class="s">&quot;BAEK-5G&quot;</span><span class="p p-Indicator">:</span>
+<span class="w">        </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YOUR_ROUTER_PASSWORD&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Make sure the permissions should be 600:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>/etc/netplan/50-cloud-init.yaml
+</pre></div>
+</div>
+<p>Then, apply:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>netplan<span class="w"> </span>apply
+</pre></div>
+</div>
+<p>Verify:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ip<span class="w"> </span>addr<span class="w"> </span>show<span class="w"> </span>wlan1
+</pre></div>
+</div>
+<p>You must see:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">inet</span> <span class="mf">192.168.0</span><span class="o">.</span><span class="n">x</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="configure-static-ip-for-the-ap-interface-wlan1">
+<h3>Configure static IP for the AP interface (wlan1)<a class="headerlink" href="#configure-static-ip-for-the-ap-interface-wlan1" title="Link to this heading">#</a></h3>
+<p>Create a <strong>separate netplan file</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/netplan/60-ap.yaml
+</pre></div>
+</div>
+</section>
+<section id="contents">
+<h3>Contents:<a class="headerlink" href="#contents" title="Link to this heading">#</a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">network</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">  </span><span class="nt">ethernets</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">wlan1</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">dhcp4</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">      </span><span class="nt">addresses</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">192.168.50.1/24</span>
+</pre></div>
+</div>
+<p>Fix permissions:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>/etc/netplan/60-ap.yaml
+</pre></div>
+</div>
+<p>Apply:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>netplan<span class="w"> </span>apply
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="install-ap-services">
+<h3>Install AP services<a class="headerlink" href="#install-ap-services" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>update
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>hostapd<span class="w"> </span>dnsmasq
+</pre></div>
+</div>
+<p>Stop them for configuration:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>hostapd
+sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>dnsmasq
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="configure-dhcp-for-ap-clients-dnsmasq">
+<h3>Configure DHCP for AP clients (dnsmasq)<a class="headerlink" href="#configure-dhcp-for-ap-clients-dnsmasq" title="Link to this heading">#</a></h3>
+<ul>
+<li><p>Create:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/dnsmasq.d/ap.conf
+</pre></div>
+</div>
+</li>
+<li><p>Paste:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="na">interface</span><span class="o">=</span><span class="s">wlan0</span>
+<span class="na">bind-interfaces</span>
+
+<span class="c1"># DHCP only (NO DNS)</span>
+<span class="na">port</span><span class="o">=</span><span class="s">0</span>
+
+<span class="na">dhcp-range</span><span class="o">=</span><span class="s">192.168.50.10,192.168.50.50,255.255.255.0,72h</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="configure-the-access-point-hostapd">
+<h3>Configure the Access Point (hostapd)<a class="headerlink" href="#configure-the-access-point-hostapd" title="Link to this heading">#</a></h3>
+<ul>
+<li><p>Create config:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/hostapd/hostapd.conf
+</pre></div>
+</div>
+</li>
+<li><p><strong>RTL8723BU-safe configuration</strong></p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="na">interface</span><span class="o">=</span><span class="s">wlan0</span>
+<span class="na">driver</span><span class="o">=</span><span class="s">nl80211</span>
+
+<span class="na">ssid</span><span class="o">=</span><span class="s">robot99</span>
+
+<span class="c1"># 5 GHz band (802.11a/ac)</span>
+<span class="na">hw_mode</span><span class="o">=</span><span class="s">a</span>
+<span class="na">channel</span><span class="o">=</span><span class="s">36</span>
+
+<span class="na">ieee80211n</span><span class="o">=</span><span class="s">1</span>
+<span class="na">ieee80211ac</span><span class="o">=</span><span class="s">1</span>
+
+<span class="c1"># Regulatory domain must be set in netplan or iw</span>
+<span class="na">country_code</span><span class="o">=</span><span class="s">US</span>
+
+<span class="c1"># QoS / stability</span>
+<span class="na">wmm_enabled</span><span class="o">=</span><span class="s">1</span>
+
+<span class="c1"># Security</span>
+<span class="na">auth_algs</span><span class="o">=</span><span class="s">1</span>
+<span class="na">wpa</span><span class="o">=</span><span class="s">2</span>
+<span class="na">wpa_passphrase</span><span class="o">=</span><span class="s">dfec3141</span>
+<span class="na">wpa_key_mgmt</span><span class="o">=</span><span class="s">WPA-PSK</span>
+<span class="na">rsn_pairwise</span><span class="o">=</span><span class="s">CCMP</span>
+
+<span class="na">ignore_broadcast_ssid</span><span class="o">=</span><span class="s">0</span>
+</pre></div>
+</div>
+</li>
+<li><p>Tell systemd where hostapd config lives:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/default/hostapd
+</pre></div>
+</div>
+<p>Set:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DAEMON_CONF</span><span class="o">=</span><span class="s2">&quot;/etc/hostapd/hostapd.conf&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Start services</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>systemctl<span class="w"> </span>unmask<span class="w"> </span>hostapd
+sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>hostapd
+sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>dnsmasq
+
+sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>systemd-networkd
+sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>hostapd
+sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>dnsmasq
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="verify-ap-operation">
+<h3>Verify AP operation<a class="headerlink" href="#verify-ap-operation" title="Link to this heading">#</a></h3>
+<ul>
+<li><p>On the robot:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>status<span class="w"> </span>hostapd<span class="w"> </span>--no-pager
+</pre></div>
+</div>
+<p>You should see:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">AP</span><span class="o">-</span><span class="n">ENABLED</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>iw<span class="w"> </span>dev<span class="w"> </span>wlan0<span class="w"> </span>info
+</pre></div>
+</div>
+<p>Type must be:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span> <span class="n">AP</span>
+</pre></div>
+</div>
+</li>
+<li><p>From master computer:</p>
+<ul class="simple">
+<li><p>Connect to Wi-Fi <strong>robot99_ap</strong></p></li>
+<li><p>IP should be <code class="docutils literal notranslate"><span class="pre">192.168.50.x</span></code></p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="test-ssh">
+<h3>Test SSH:<a class="headerlink" href="#test-ssh" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>pi@192.168.50.1
+</pre></div>
+</div>
+</section>
+<section id="final-expected-state-sanity-check">
+<h3>Final expected state (sanity check)<a class="headerlink" href="#final-expected-state-sanity-check" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ip<span class="w"> </span>addr<span class="w"> </span>show<span class="w"> </span>wlan0
+</pre></div>
+</div>
+<p>→ <code class="docutils literal notranslate"><span class="pre">192.168.0.x</span></code></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ip<span class="w"> </span>addr<span class="w"> </span>show<span class="w"> </span>wlan1
+</pre></div>
+</div>
+<p>→ <code class="docutils literal notranslate"><span class="pre">192.168.50.1</span></code></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>iw<span class="w"> </span>dev
+</pre></div>
+</div>
+<p>→ wlan1 = AP</p>
+</section>
+<hr class="docutils" />
+<section id="inside-hostapd-conf-we-have-ssid-robot99-if-i-change-the-host-name-i-would-like-to-change-its-ssid-accordingly-automatically">
+<h3>Inside hostapd.conf, we have ssid=robot99.  If I change the host name, I would like to change its ssid accordingly automatically.<a class="headerlink" href="#inside-hostapd-conf-we-have-ssid-robot99-if-i-change-the-host-name-i-would-like-to-change-its-ssid-accordingly-automatically" title="Link to this heading">#</a></h3>
+<p>We can make the SSID automatically follow the hostname, and this is actually a <em>clean and common Linux pattern</em>.</p>
+<ul>
+<li><p>Idea</p>
+<ul class="simple">
+<li><p>Keep <code class="docutils literal notranslate"><span class="pre">hostapd.conf</span></code> <strong>template-like</strong></p></li>
+<li><p>Inject the hostname at service start</p></li>
+<li><p>No hacks, no manual edits when hostname changes</p></li>
+</ul>
+</li>
+<li><p>Modify <code class="docutils literal notranslate"><span class="pre">/etc/hostapd/hostapd.conf</span></code></p>
+<p>Replace:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="na">ssid</span><span class="o">=</span><span class="s">robot99</span>
+</pre></div>
+</div>
+<p>with a placeholder:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="na">ssid</span><span class="o">=</span><span class="s">__HOSTNAME__</span>
+</pre></div>
+</div>
+</li>
+<li><p>Create a small SSID generator script</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nano<span class="w"> </span>/usr/local/bin/hostapd-ssid.sh
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="nv">HOSTNAME</span><span class="o">=</span><span class="k">$(</span>hostname<span class="k">)</span>
+<span class="nv">TEMPLATE</span><span class="o">=</span><span class="s2">&quot;/etc/hostapd/hostapd.conf&quot;</span>
+<span class="nv">TMP</span><span class="o">=</span><span class="s2">&quot;/run/hostapd.conf&quot;</span>
+
+sed<span class="w"> </span><span class="s2">&quot;s/__HOSTNAME__/</span><span class="si">${</span><span class="nv">HOSTNAME</span><span class="si">}</span><span class="s2">/g&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$TEMPLATE</span><span class="s2">&quot;</span><span class="w"> </span>&gt;<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$TMP</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p>Make it executable:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>/usr/local/bin/hostapd-ssid.sh
+</pre></div>
+</div>
+</li>
+</ul>
+<p>— Tell hostapd to use the generated config</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Edit the systemd override:
+
+```bash
+sudo systemctl edit hostapd
+```
+
+Add **exactly** this:
+
+```ini
+[Service]
+ExecStartPre=/usr/local/bin/hostapd-ssid.sh
+ExecStart=
+ExecStart=/usr/sbin/hostapd /run/hostapd.conf
+```
+
+&gt; ⚠️ The empty `ExecStart=` line is required to override the default.
+</pre></div>
+</div>
+<p>— Reload and restart</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>```bash
+sudo systemctl daemon-reexec
+sudo systemctl restart hostapd
+```
+</pre></div>
+</div>
+<ul>
+<li><p>Test it</p>
+<p>Change hostname:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>hostnamectl<span class="w"> </span>set-hostname<span class="w"> </span>robot42
+</pre></div>
+</div>
+<p>Restart AP:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>hostapd
+</pre></div>
+</div>
+</li>
+</ul>
+<p>If I reboot, the host name changes back to robot99. I also tried to change /etc/hostname manually, but it still changes back to robot99</p>
+<p>This behavior is <strong>100% consistent with cloud-init</strong>, and nothing is wrong with your commands.</p>
+<p>What’s happening is:</p>
+<blockquote>
+<div><p><strong>cloud-init is resetting the hostname on every boot back to <code class="docutils literal notranslate"><span class="pre">robot99</span></code>.</strong></p>
+</div></blockquote>
+<p>That’s why:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">hostnamectl</span> <span class="pre">set-hostname</span> <span class="pre">…</span></code> works <strong>until reboot</strong></p></li>
+<li><p>Editing <code class="docutils literal notranslate"><span class="pre">/etc/hostname</span></code> is <strong>overwritten at boot</strong></p></li>
+<li><p>Your SSID keeps reverting too (because it follows hostname)</p></li>
+</ul>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="root-cause-confirmed">
+<h1>✅ Root Cause (Confirmed)<a class="headerlink" href="#root-cause-confirmed" title="Link to this heading">#</a></h1>
+<p>You are using <strong>cloud-init networking</strong> (<code class="docutils literal notranslate"><span class="pre">50-cloud-init.yaml</span></code>), and <strong>cloud-init manages hostname by default</strong>.</p>
+<p>On Ubuntu (including 22.04 Server, Raspberry Pi images):</p>
+<ul class="simple">
+<li><p>cloud-init runs <strong>early at boot</strong></p></li>
+<li><p>It <strong>re-applies hostname</strong> from its configuration</p></li>
+<li><p>Manual edits are discarded unless cloud-init is told not to touch hostname</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="correct-fix-do-this-once">
+<h1>✅ Correct Fix (Do This Once)<a class="headerlink" href="#correct-fix-do-this-once" title="Link to this heading">#</a></h1>
+<p>You must <strong>disable cloud-init hostname management</strong>.</p>
+<hr class="docutils" />
+<section id="step-1-create-cloud-init-hostname-override">
+<h2>🔧 Step 1 — Create cloud-init hostname override<a class="headerlink" href="#step-1-create-cloud-init-hostname-override" title="Link to this heading">#</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/cloud/cloud.cfg.d/99-disable-hostname.cfg
+</pre></div>
+</div>
+<p>Paste <strong>exactly</strong>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">preserve_hostname</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</pre></div>
+</div>
+<p>Save and exit.</p>
+</section>
+<hr class="docutils" />
+<section id="step-2-optional-but-recommended-remove-stored-cloud-init-hostname">
+<h2>🔧 Step 2 — (Optional but recommended) Remove stored cloud-init hostname<a class="headerlink" href="#step-2-optional-but-recommended-remove-stored-cloud-init-hostname" title="Link to this heading">#</a></h2>
+<p>Open it:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/cloud/cloud.cfg
+</pre></div>
+</div>
+<p>Look for:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">preserve_hostname</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</pre></div>
+</div>
+<p>Change it to</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">preserve_hostname</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="step-3-set-hostname-permanently">
+<h2>🔧 Step 3 — Set hostname permanently<a class="headerlink" href="#step-3-set-hostname-permanently" title="Link to this heading">#</a></h2>
+<p>Now set hostname normally:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>hostnamectl<span class="w"> </span>set-hostname<span class="w"> </span>robot42
+</pre></div>
+</div>
+<p>Verify:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>hostname
+cat<span class="w"> </span>/etc/hostname
+</pre></div>
+</div>
+<p>Both should say:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">robot42</span>
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="step-4-reboot-and-verify">
+<h2>🔄 Step 4 — Reboot and verify<a class="headerlink" href="#step-4-reboot-and-verify" title="Link to this heading">#</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>reboot
+</pre></div>
+</div>
+<p>After reboot:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>hostname
+</pre></div>
+</div>
+<p>✅ It should <strong>stay robot42</strong></p>
+<p>✅ Your AP SSID will now also stay correct</p>
+<hr class="docutils" />
 <section id="setup-github-ssh-keys">
 <h3>Setup GitHub SSH Keys<a class="headerlink" href="#setup-github-ssh-keys" title="Link to this heading">#</a></h3>
 <p>The following assumes you already have a GitHub account.</p>
@@ -926,20 +1374,24 @@ sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> <
 </section>
 <section id="install-and-build-ros2-packages">
 <h3>Install and Build ROS2 Packages<a class="headerlink" href="#install-and-build-ros2-packages" title="Link to this heading">#</a></h3>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>python3-argcomplete<span class="w"> </span>python3-colcon-common-extensions<span class="w"> </span>libboost-system-dev<span class="w"> </span>build-essential
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ros-humble-hls-lfcd-lds-driver
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ros-humble-turtlebot3-msgs
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ros-humble-dynamixel-sdk
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>libudev-dev
-mkdir<span class="w"> </span>-p<span class="w"> </span>~/robot_ws/src<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/robot_ws/src
-git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>humble-devel<span class="w"> </span>https://github.com/ROBOTIS-GIT/turtlebot3.git
-git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>ros2-devel<span class="w"> </span>https://github.com/ROBOTIS-GIT/ld08_driver.git
-<span class="nb">cd</span><span class="w"> </span>~/robot_ws/src/turtlebot3
-rm<span class="w"> </span>-r<span class="w"> </span>turtlebot3_cartographer<span class="w"> </span>turtlebot3_navigation2
-<span class="nb">cd</span><span class="w"> </span>~/robot_ws/
-colcon<span class="w"> </span>build<span class="w"> </span>--symlink-install<span class="w"> </span>--parallel-workers<span class="w"> </span><span class="m">1</span>
-<span class="nb">source</span><span class="w"> </span>~/robot_ws/install/setup.bash
-<span class="nb">source</span><span class="w"> </span>~/.bashrc
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>python3-argcomplete<span class="w"> </span>python3-colcon-common-extensions<span class="w"> </span>libboost-system-dev<span class="w"> </span>build-essential
+$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ros-humble-hls-lfcd-lds-driver
+$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ros-humble-turtlebot3-msgs
+$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ros-humble-dynamixel-sdk
+$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ros-humble-xacro
+$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>libudev-dev
+$<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>~/robot_ws/src<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/robot_ws/src
+$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>humble<span class="w"> </span>https://github.com/ROBOTIS-GIT/turtlebot3.git
+$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>humble<span class="w"> </span>https://github.com/ROBOTIS-GIT/ld08_driver.git
+$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>humble<span class="w"> </span>https://github.com/ROBOTIS-GIT/coin_d4_driver
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/robot_ws/src/turtlebot3
+$<span class="w"> </span>rm<span class="w"> </span>-r<span class="w"> </span>turtlebot3_cartographer<span class="w"> </span>turtlebot3_navigation2
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/robot_ws/
+$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;source /opt/ros/humble/setup.bash&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
+$<span class="w"> </span><span class="nb">source</span><span class="w"> </span>~/.bashrc
+$<span class="w"> </span>colcon<span class="w"> </span>build<span class="w"> </span>--symlink-install<span class="w"> </span>--parallel-workers<span class="w"> </span><span class="m">1</span>
+$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;source ~/robot_ws/install/setup.bash&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
+$<span class="w"> </span><span class="nb">source</span><span class="w"> </span>~/.bashrc
 </pre></div>
 </div>
 <p>ROS2 USB-CAM Package</p>
@@ -953,10 +1405,10 @@ sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> <
 </pre></div>
 </div>
 <p>For all users:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;pydantic&lt;2&quot;</span><span class="w">   </span><span class="c1"># pip3 install pydantic </span>
-sudo<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>dlib
-sudo<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>imutils
-sudo<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>scipy
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;pydantic&lt;2&quot;</span><span class="w">   </span><span class="c1"># pip3 install pydantic </span>
+pip<span class="w"> </span>install<span class="w"> </span>dlib
+pip<span class="w"> </span>install<span class="w"> </span>imutils
+pip<span class="w"> </span>install<span class="w"> </span>scipy
 </pre></div>
 </div>
 <p>Apriltags</p>
@@ -1075,7 +1527,60 @@ pip3<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </
 <blockquote>
 <div><p>📝️ <strong>Note:</strong> the “dlib” package will take quite a while to install.</p>
 </div></blockquote>
-<!-- #endregion -->
+<section id="add-swap-space-optional">
+<h4>Add Swap Space (optional)<a class="headerlink" href="#add-swap-space-optional" title="Link to this heading">#</a></h4>
+<p>Since the Raspberry Pi 4B used in our course has 8 GB of RAM, Swap Space might not be necessary.</p>
+<p>You can check that there is no active swap using the free utility:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pi@ubuntu:~$<span class="w"> </span>free<span class="w"> </span>-h
+<span class="w">               </span>total<span class="w">        </span>used<span class="w">        </span>free<span class="w">      </span>shared<span class="w">  </span>buff/cache<span class="w">   </span>available
+Mem:<span class="w">           </span><span class="m">7</span>.6Gi<span class="w">       </span>201Mi<span class="w">       </span><span class="m">7</span>.1Gi<span class="w">       </span><span class="m">3</span>.0Mi<span class="w">       </span>328Mi<span class="w">       </span><span class="m">7</span>.3Gi
+Swap:<span class="w">             </span>0B<span class="w">          </span>0B<span class="w">          </span>0B
+</pre></div>
+</div>
+<p>The <strong>fallocate</strong> program can be used to create a swap:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>fallocate<span class="w"> </span>-l<span class="w"> </span>2G<span class="w"> </span>/swapfile
+</pre></div>
+</div>
+<p>If it was created correctly, you should see the below:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pi@ubuntu:~$<span class="w"> </span>ls<span class="w"> </span>-lh<span class="w"> </span>/swapfile
+-rw-------<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">2</span>.0G<span class="w"> </span>Aug<span class="w"> </span><span class="m">19</span><span class="w"> </span><span class="m">17</span>:30<span class="w"> </span>/swapfile
+</pre></div>
+</div>
+<p>Make the file only accessible to root by typing:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>/swapfile
+</pre></div>
+</div>
+<p>Verify the permissions by typing the following:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pi@ubuntu:~$<span class="w"> </span>ls<span class="w"> </span>-lh<span class="w"> </span>/swapfile<span class="w"> </span>
+-rw-------<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">2</span>.0G<span class="w"> </span>Aug<span class="w"> </span><span class="m">19</span><span class="w"> </span><span class="m">17</span>:28<span class="w"> </span>/swapfile
+Now<span class="w"> </span>only<span class="w"> </span>root<span class="w"> </span>user<span class="w"> </span>has<span class="w"> </span><span class="nb">read</span><span class="w"> </span>and<span class="w"> </span>write<span class="w"> </span>flags<span class="w"> </span>enabled.
+</pre></div>
+</div>
+<p>You can set the file as swap space by typing the following:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pi@ubuntu:~$<span class="w"> </span>sudo<span class="w"> </span>mkswap<span class="w"> </span>/swapfile
+Setting<span class="w"> </span>up<span class="w"> </span>swapspace<span class="w"> </span>version<span class="w"> </span><span class="m">1</span>,<span class="w"> </span><span class="nv">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="w"> </span>GiB<span class="w"> </span><span class="o">(</span><span class="m">2147479552</span><span class="w"> </span>bytes<span class="o">)</span>
+no<span class="w"> </span>label,<span class="w"> </span><span class="nv">UUID</span><span class="o">=</span>b5bc4abf-2bce-419e-870d-4d44a7a05778
+</pre></div>
+</div>
+<p>Then turn on the swap file:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>swapon<span class="w"> </span>/swapfile
+</pre></div>
+</div>
+<p>To verify that this worked you can type the following:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pi@ubuntu:~$<span class="w"> </span>sudo<span class="w"> </span>swapon<span class="w"> </span>--show
+NAME<span class="w">      </span>TYPE<span class="w"> </span>SIZE<span class="w"> </span>USED<span class="w"> </span>PRIO
+/swapfile<span class="w"> </span>file<span class="w">   </span>2G<span class="w">   </span>0B<span class="w">   </span>-2
+</pre></div>
+</div>
+<p>This swap will only last until reboot, so to make it permanent at it to the <code class="docutils literal notranslate"><span class="pre">fstab</span></code> file:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;/swapfile none swap sw 0 0&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>-a<span class="w"> </span>/etc/fstab
+</pre></div>
+</div>
+<p>Now it is time to reboot by typing</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>reboot
+</pre></div>
+</div>
+</section>
 </section>
 </section>
 </section>
@@ -1144,6 +1649,7 @@ pip3<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">🔧 Robot Setup</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#turtlebot3">TurtleBot3</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hardware-assembly">Hardware Assembly</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#raspberry-pi">Raspberry Pi</a></li>
@@ -1156,17 +1662,41 @@ pip3<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuring-ubuntu">Configuring Ubuntu</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#login-and-changing-password">Login and changing password</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#changing-username-optional">Changing username (optional)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-username">Adding username</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#change-hostname">Change hostname</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up-wi-fi">Set up Wi-Fi</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#disable-automatic-updates">Disable Automatic Updates</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enable-ssh-and-generate-new-keys">Enable SSH and generate new keys</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#add-swap-space-optional">Add Swap Space (optional)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up-wi-fi-optional">Set up Wi-Fi (Optional)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#disable-automatic-updates">Disable Automatic Updates</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#verify-changes">Verify changes</a></li>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#update-and-upgrade">Update and Upgrade</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-ubuntu-desktop-optional">Install Ubuntu Desktop (optional)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-rtl8723bu-driver-ubuntu-22-04">Install RTL8723BU driver (Ubuntu 22.04)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dual-wi-fi-setup-client-access-point">Dual Wi-Fi Setup (Client + Access Point)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#goal-final-architecture">🎯 GOAL (Final Architecture)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites-already-satisfied">Prerequisites (Already satisfied)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#change-netplan-for-wlan1-wi-fi-client">Change netplan for wlan1 (Wi-Fi client)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configure-static-ip-for-the-ap-interface-wlan1">Configure static IP for the AP interface (wlan1)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#contents">Contents:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-ap-services">Install AP services</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configure-dhcp-for-ap-clients-dnsmasq">Configure DHCP for AP clients (dnsmasq)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configure-the-access-point-hostapd">Configure the Access Point (hostapd)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verify-ap-operation">Verify AP operation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#test-ssh">Test SSH:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#final-expected-state-sanity-check">Final expected state (sanity check)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inside-hostapd-conf-we-have-ssid-robot99-if-i-change-the-host-name-i-would-like-to-change-its-ssid-accordingly-automatically">Inside hostapd.conf, we have ssid=robot99.  If I change the host name, I would like to change its ssid accordingly automatically.</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#root-cause-confirmed">✅ Root Cause (Confirmed)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#correct-fix-do-this-once">✅ Correct Fix (Do This Once)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-create-cloud-init-hostname-override">🔧 Step 1 — Create cloud-init hostname override</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-optional-but-recommended-remove-stored-cloud-init-hostname">🔧 Step 2 — (Optional but recommended) Remove stored cloud-init hostname</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-set-hostname-permanently">🔧 Step 3 — Set hostname permanently</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-reboot-and-verify">🔄 Step 4 — Reboot and verify</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-github-ssh-keys">Setup GitHub SSH Keys</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#update-alternatives">Update Alternatives</a></li>
 </ul>
@@ -1176,10 +1706,16 @@ pip3<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configuring-ros2-environment">Configuring ROS2 Environment</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-and-build-ros2-packages">Install and Build ROS2 Packages</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#updating-opencr-firmware">Updating OpenCR firmware</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ece387-curriculum">ECE387 Curriculum</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ece387-curriculum">ECE387 Curriculum</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#add-swap-space-optional">Add Swap Space (optional)</a></li>
 </ul>
 </li>
 </ul>
+</li>
+</ul>
+</li>
+</ul>
+
   </nav></div>
 
 </div></div>
