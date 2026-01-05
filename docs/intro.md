@@ -49,6 +49,8 @@ Authorized resources: Any material from the ECE 382 course site and online sourc
 - All help received on work submitted for grading must be documented in accordance with the course documentation policy.
 - GRs are individual efforts. No collaboration is allowed while taking these exams. All electronic devices (phones, smartwatches, computers, tablets, etc.) must be placed out of sight for the duration of the event. If any electronic device is seen during the event, the student will receive a zero for that effort. 
 
+> Disclaimer: The contents of this website are for educational use only and do not necessarily reflect the official policy or position of the United States Air Force Academy, the Department of the Air Force, or the U.S. Government.
+
 
 ```{tableofcontents}
 ```
