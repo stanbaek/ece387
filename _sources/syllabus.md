@@ -20,7 +20,7 @@ The course schedule is [here](schedule.md)
 
 ## 💯 Grade Distribution and Policy
 
-The overall **weighting** of the graded items is:
+The **Grade distribution** for this course is shown below.
 
 |     Prog               |             | Final              |             |
 |------------------------|-------------|--------------------|-------------|
@@ -31,7 +31,14 @@ The overall **weighting** of the graded items is:
 |                        |             |                    |             |
 |     Total              |     100%    | Total              |     100%    |
 
-The **Grade distribution** for this course is shown in the chart below.
+
+```{image} ./GradeDistribution.png
+:width: 660
+:align: center
+```
+
+Electrical and Computer Engineering courses are contract graded using the following 100 point scale.
+
 
 |     Grade             |     Grade           |   
 |-----------------------|---------------------|
@@ -65,7 +72,7 @@ Unless specifically directed otherwise, the collaboration policy for this course
 - If you checked answers with anyone, you must document with whom on which problems. You must document whether you made any changes or not.  If you did make changes, you must document the problems you changed and the reasons why.
 - Vague documentation statements will result in a 5% deduction on the assignment.
 
-## AI Usage Policy
+## 🤖 AI Usage Policy
 
 You are encouraged to use AI tools (such as ChatGPT, Gemini, Copilot, etc.) to **support your understanding** of course concepts—such as reviewing terminology, clarifying ideas, or generating practice problems. However, using AI to **generate answers, code, or reports** for assignments, projects, or exams is strictly prohibited and will be treated as a violation of academic integrity. All submitted work must reflect your own effort and understanding. For the full policy and examples of acceptable vs. unacceptable use, visit: [AI Usage Policy](AI_policy) 
 
