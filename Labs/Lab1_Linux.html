@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=4c969af8" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -54,7 +54,7 @@
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
@@ -412,7 +412,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bjectives">📌 bjectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">📌 Objectives</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linux-commands">Linux Commands 🐧</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-filesystem">Using Filesystem</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#listing-files">Listing Files</a></li>
@@ -437,8 +437,8 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="lab1-linux">
 <h1>🔬 Lab1: Linux<a class="headerlink" href="#lab1-linux" title="Link to this heading">#</a></h1>
-<section id="bjectives">
-<h2>📌 bjectives<a class="headerlink" href="#bjectives" title="Link to this heading">#</a></h2>
+<section id="objectives">
+<h2>📌 Objectives<a class="headerlink" href="#objectives" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Students should be able to use commands like <code class="docutils literal notranslate"><span class="pre">ls</span></code>, <code class="docutils literal notranslate"><span class="pre">pwd</span></code>, and <code class="docutils literal notranslate"><span class="pre">cd</span></code> to explore directories, navigate using relative and absolute paths, and understand the structure of the Linux filesystem.</p></li>
 <li><p>Students should be able to create files and directories using <code class="docutils literal notranslate"><span class="pre">touch</span></code> and <code class="docutils literal notranslate"><span class="pre">mkdir</span></code>, modify file timestamps, and delete items using <code class="docutils literal notranslate"><span class="pre">rm</span></code> and <code class="docutils literal notranslate"><span class="pre">rmdir</span></code>, including handling hidden and non-empty directories.</p></li>
@@ -451,7 +451,7 @@ document.write(`
 <h2>Linux Commands 🐧<a class="headerlink" href="#linux-commands" title="Link to this heading">#</a></h2>
 <p>During class, we covered several basic Linux commands. In this lab, we will get hands-on practice with those commands.</p>
 <ol class="arabic">
-<li><p>To log in the Master computer, use <code class="docutils literal notranslate"><span class="pre">m3</span></code> if you’re in the M3 section and <code class="docutils literal notranslate"><span class="pre">t5</span></code> if you’re in the T5 section.</p></li>
+<li><p>To log in the Master computer, use <code class="docutils literal notranslate"><span class="pre">m3</span></code> if you’re in the M4 section and <code class="docutils literal notranslate"><span class="pre">t5</span></code> if you’re in the T5 section.</p></li>
 <li><p>Click the Terminal icon on the Dock to open a terminal and practice commands.</p>
 <a class="reference internal image-reference" href="../_images/Lab1_Terminal.png"><img alt="../_images/Lab1_Terminal.png" class="align-center" src="../_images/Lab1_Terminal.png" style="width: 300px;" />
 </a>
@@ -497,7 +497,7 @@ document.write(`
 <li><p><strong>File Count</strong>: After the permission letters, there’s a single number. This is the number of files in the item. If it’s a file, it will be 1, but if it’s a directory, it will be at least 2. Each directory contains two hidden files: one with a single dot (<code class="docutils literal notranslate"><span class="pre">.</span></code>) and one with two dots (<code class="docutils literal notranslate"><span class="pre">..</span></code>). Directories containing files or other directories will have a higher number.</p></li>
 <li><p><strong>Owner and Group</strong>: Next, you’ll see your username twice on each line. The first is the owner of the file, and the second is the group. Typically, these will be the same, and you’ll see either <code class="docutils literal notranslate"><span class="pre">root</span></code> or your username. You can enter <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-l</span> <span class="pre">/</span></code> to view the files and directories in the root directory that belongs to the root account.</p></li>
 <li><p><strong>File Size</strong>: The next number relates to the size of the files, in bytes. The <code class="docutils literal notranslate"><span class="pre">h</span></code> argument in <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-lah</span></code> humanizes the number, making it easier to read.</p></li>
-<li><p><strong>Hidden Files</strong>: Be aware that many hidden files in Linux are listed using the <code class="docutils literal notranslate"><span class="pre">-a</span></code> argument. Hidden files and directories begin with a dot (<code class="docutils literal notranslate"><span class="pre">.</span></code>), so you should never start a file or directory with a dot, unless you want to hide it. Typically, you can combine all three arguments into the command <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-lah</span></code>.</p></li>
+<li><p><strong>Hidden Files</strong>: Be aware that hidden files in Linux are listed using the <code class="docutils literal notranslate"><span class="pre">-a</span></code> argument. Hidden files and directories begin with a dot (<code class="docutils literal notranslate"><span class="pre">.</span></code>), so you should never start a file or directory with a dot, unless you want to hide it. Typically, you can combine all three arguments into the command <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-lah</span></code>.</p></li>
 </ol>
 </section>
 <section id="creating-and-deleting-files">
@@ -552,7 +552,7 @@ document.write(`
 <li><p><strong>View Memory Information</strong>: Enter <code class="docutils literal notranslate"><span class="pre">cat</span> <span class="pre">/proc/meminfo</span></code> to get information about your memory.</p></li>
 <li><p><strong>Process Status</strong>: Type <code class="docutils literal notranslate"><span class="pre">ps</span></code> to see two items: <code class="docutils literal notranslate"><span class="pre">bash</span></code> and <code class="docutils literal notranslate"><span class="pre">ps</span></code>. To view processes used by other users (including those started by root), enter <code class="docutils literal notranslate"><span class="pre">ps</span> <span class="pre">-a</span></code>. This option shows processes for all users but does not include background processes. For that, enter <code class="docutils literal notranslate"><span class="pre">ps</span> <span class="pre">-A</span></code> or <code class="docutils literal notranslate"><span class="pre">ps</span> <span class="pre">-e</span></code>, which shows every process on the system, including background processes. You may need to pipe it through <code class="docutils literal notranslate"><span class="pre">less</span></code> using <code class="docutils literal notranslate"><span class="pre">ps</span> <span class="pre">-e</span> <span class="pre">|</span> <span class="pre">less</span></code>. The <code class="docutils literal notranslate"><span class="pre">less</span></code> command allows you to view the contents one screen at a time. Press <code class="docutils literal notranslate"><span class="pre">q</span></code> to exit <code class="docutils literal notranslate"><span class="pre">less</span></code>.</p></li>
 <li><p><strong>Real-Time Process Monitoring</strong>: While <code class="docutils literal notranslate"><span class="pre">ps</span></code> is useful, you may need to view processes in real-time, especially to check CPU and memory usage. Use the <code class="docutils literal notranslate"><span class="pre">top</span></code> command for this.</p></li>
-<li><p><strong>Shutdown and Restart</strong>: To shut down the computer from the command line, enter <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">shutdown</span> <span class="pre">-h</span> <span class="pre">now</span></code>. The <code class="docutils literal notranslate"><span class="pre">-h</span></code> option stands for “halt.” To restart, enter <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">shutdown</span> <span class="pre">-r</span></code>.</p></li>
+<li><p><strong>Shutdown and Restart</strong>: To shut down the computer from the command line, enter <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">shutdown</span> <span class="pre">-h</span> <span class="pre">now</span></code>. The <code class="docutils literal notranslate"><span class="pre">-h</span></code> option stands for “halt.” To restart, enter <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">shutdown</span> <span class="pre">-r</span></code> or <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">reboot</span></code>.</p></li>
 </ol>
 </section>
 <section id="input-output-and-pipes">
@@ -644,7 +644,7 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bjectives">📌 bjectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">📌 Objectives</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linux-commands">Linux Commands 🐧</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-filesystem">Using Filesystem</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#listing-files">Listing Files</a></li>
