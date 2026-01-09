@@ -51,7 +51,7 @@ Work through all 10 tutorials while carefully following the instructions in this
     export LDS_MODEL=LDS-01 # replace with LDS-02 if using new LIDAR
     source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
     ```
-    Your `ROS_DOMAIN_ID=XX` should match your computer ID, where `XX` corresponds to the `XX` in `MasterXX`. Update the file, save the changes, and exit. You can find your `LDS_MODEL` [here](../Appendix/RobotSetup.md#lds-configuration)
+    Your `ROS_DOMAIN_ID=XX` should match your computer ID, where `XX` corresponds to the `XX` in `MasterXX`. Update the file, save the changes, and exit. You can find your `LDS_MODEL` [here](/Appendix/RobotSetup.md#lds-configuration)
 
 
 ### 2. Using turtlesim, ros2, and rqt
