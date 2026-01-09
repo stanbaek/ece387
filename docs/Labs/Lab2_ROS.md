@@ -19,8 +19,7 @@ ROS2 Humble Hawksbill: https://docs.ros.org/en/humble/
 
 ## 💻 ROS Command-line tools
 
-
-The tutorials at  [Beginner: CLI Tools](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools.html) are an excellent introduction to ROS2 command‑line tools, but you must follow the lab instructions provided below as you complete them. Do not skip ahead or work through the tutorials on your own - each step in this lab depends on the guidance written [here](#1-configuring-environment)
+The tutorials at  [Beginner: CLI Tools](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools.html) are an excellent introduction to ROS2 command‑line tools, but you must follow the lab instructions provided below as you complete them. Do not skip ahead or work through the tutorials on your own - each step in this lab depends on the guidance written below.
 
 Work through all 10 tutorials while carefully following the instructions in this lab, which should take about 2–3 hours in total.
 
