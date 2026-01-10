@@ -1,6 +1,6 @@
 # 🔬 Lab1: Linux
 
-## 📌 Objectives
+## 📌 bjectives
 - Students should be able to use commands like `ls`, `pwd`, and `cd` to explore directories, navigate using relative and absolute paths, and understand the structure of the Linux filesystem.  
 - Students should be able to create files and directories using `touch` and `mkdir`, modify file timestamps, and delete items using `rm` and `rmdir`, including handling hidden and non-empty directories.  
 - Students should be able to use advanced `ls` options such as `-lah` to display detailed file and directory information, including permissions, ownership, and sizes, and recognize hidden files.  
@@ -10,7 +10,7 @@
 ## Linux Commands 🐧
 During class, we covered several basic Linux commands. In this lab, we will get hands-on practice with those commands.
 
-1. To log in the Master computer, use `m3` if you're in the M4 section and `t5` if you're in the T5 section.
+1. To log in the Master computer, use `m3` if you're in the M3 section and `t5` if you're in the T5 section.
 1. Click the Terminal icon on the Dock to open a terminal and practice commands.
 
     ```{image} ./figures/Lab1_Terminal.png
@@ -28,7 +28,7 @@ During class, we covered several basic Linux commands. In this lab, we will get 
 
 ### Using Filesystem
 
-To master Linux, it's crucial to understand the filesystem and become comfortable with the Terminal (or shell). While the command line may feel intimidating at first, regular practice will make it second nature.
+To master Linux, it’s crucial to understand the filesystem and become comfortable with the Terminal (or shell). While the command line may feel intimidating at first, regular practice will make it second nature.
 
 
 1. **View Directory Contents**: Enter `ls` to see the contents of the current directory. You'll see directories like Desktop, Documents, and Downloads. Color coding helps identify types: directories are blue, files are white, executable files are bright green, and archived files are red. For now, just note that directories are blue and files are white.
@@ -39,7 +39,7 @@ To master Linux, it's crucial to understand the filesystem and become comfortabl
 
 1. **Navigate to Parent Directory**: Use `cd ..` to navigate back to the home directory. In Linux, two dots `..` refer to the directory above (the parent directory). A single dot `.` refers to the current directory. While you don't use `cd .` to switch to the current directory, knowing this can be useful for some commands.
 
-1. **Root Directory**: The root directory is always `/`. Enter `ls /` to list the contents of the root directory, and `cd /` to switch to the root directory. It's important to understand the difference between `ls Downloads` and `ls /Downloads`. The first command lists the contents of the Downloads directory within the current directory, while the second tries to list a Downloads directory directly under the root, which usually doesn't exist.
+1. **Root Directory**: The root directory is always `/`. Enter `ls /` to list the contents of the root directory, and `cd /` to switch to the root directory. It’s important to understand the difference between `ls Downloads` and `ls /Downloads`. The first command lists the contents of the Downloads directory within the current directory, while the second tries to list a Downloads directory directly under the root, which usually doesn’t exist.
 
 1. **View Root Directory Contents**: Enter `cd /` followed by `ls` to view the files inside the root directory.
 
@@ -73,7 +73,7 @@ Using the desktop GUI to list and move files is easier than using the Terminal a
 
 1. **File Size**: The next number relates to the size of the files, in bytes. The `h` argument in `ls -lah` humanizes the number, making it easier to read.
 
-1. **Hidden Files**: Be aware that hidden files in Linux are listed using the `-a` argument. Hidden files and directories begin with a dot (`.`), so you should never start a file or directory with a dot, unless you want to hide it. Typically, you can combine all three arguments into the command `ls -lah`.
+1. **Hidden Files**: Be aware that many hidden files in Linux are listed using the `-a` argument. Hidden files and directories begin with a dot (`.`), so you should never start a file or directory with a dot, unless you want to hide it. Typically, you can combine all three arguments into the command `ls -lah`.
 
 ### Creating and Deleting Files
 
@@ -146,7 +146,7 @@ Linux is a vast and versatile command line language with hundreds of commands yo
 
 1. **Real-Time Process Monitoring**: While `ps` is useful, you may need to view processes in real-time, especially to check CPU and memory usage. Use the `top` command for this.
 
-1. **Shutdown and Restart**: To shut down the computer from the command line, enter `sudo shutdown -h now`. The `-h` option stands for "halt." To restart, enter `sudo shutdown -r` or `sudo reboot`.
+1. **Shutdown and Restart**: To shut down the computer from the command line, enter `sudo shutdown -h now`. The `-h` option stands for "halt." To restart, enter `sudo shutdown -r`.
 
 ### Input, Output, and Pipes
 

@@ -1,9 +1,9 @@
 # ECE 387 Introduction to Robotic Systems
 
-## 👨‍🏫 Instructors
-- [![baek](https://img.shields.io/badge/Dr.%20Stan%20Baek-2E38-red)](https://stanbaek.github.io)
-
-
+## 👨‍🏫 Instructor
+[![name](https://img.shields.io/badge/Instructor-Dr.%20Stan%20Baek-blue)](https://stanbaek.github.io)
+![office](https://img.shields.io/badge/Office-Fairchild%202E38-red)
+[![web](https://img.shields.io/badge/Web-stanbaek.github.io-orange)](https://stanbaek.github.io)
 
 ## 📝 Course information
 - **Course Goal**: Cadets shall design, implement, test, and debug robotics-based systems by developing Python programs incorporating built-in Robotics Operating System (ROS) functions and successfully interfacing the microcomputer with the external world. 

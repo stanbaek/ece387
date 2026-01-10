@@ -1,11 +1,7 @@
 # 🔬 Lab2: ROS
 
-## 📌 Objectives
-- Students should be able to configure and verify a ROS2 environment, including understanding how environment variables and workspace setup influence ROS behavior.
-- Students should be able to interact with ROS2 command‑line tools, using nodes, topics, services, parameters, and actions to control and observe system behavior.
-- Students should be able to visualize ROS computation graphs and system activity, using tools such as rqt_graph and rqt_console to interpret node interactions and debug runtime events.
-- Students should be able to record and replay ROS2 data, creating bag files, managing directory structures, and validating recorded sensor or simulation data.
-
+## 📌 Purpose
+This lecture accompanies the introduction to ROS used in class. We will apply the knowledge you learned by interacting with a simulated TurlteBot3 Burger.
 
 ## 📜 ROS Introduction.
 
@@ -19,9 +15,9 @@ ROS2 Humble Hawksbill: https://docs.ros.org/en/humble/
 
 ## 💻 ROS Command-line tools
 
-The tutorials at  [Beginner: CLI Tools](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools.html) are an excellent introduction to ROS2 command‑line tools, but you must follow the lab instructions provided below as you complete them. Do not skip ahead or work through the tutorials on your own - each step in this lab depends on the guidance written below.
+The tutorials at [Beginner: CLI Tools](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools.html) provide an excellent starting point for learning ROS (Robot Operating System) command-line tools. These tutorials are designed to help beginners get familiar with ROS and use its command-line tools effectively.  
 
-Work through all 10 tutorials while carefully following the instructions in this lab, which should take about 2–3 hours in total.
+Follow the lab instructions provided below as you work through all 10 tutorials. The entire set should take about 2-3 hours to finish.  
 
 ```{image} ./figures/Lab2_ROS_Tutorials.png
 :width: 800
@@ -39,7 +35,6 @@ Work through all 10 tutorials while carefully following the instructions in this
     ```
 
 - You should see the following lines at the bottom of the `.bashrc` file. 
-
     ```bash
     source /opt/ros/humble/setup.bash
     source ~/master_ws/install/setup.bash
@@ -51,7 +46,7 @@ Work through all 10 tutorials while carefully following the instructions in this
     export LDS_MODEL=LDS-01 # replace with LDS-02 if using new LIDAR
     source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
     ```
-    Your `ROS_DOMAIN_ID=XX` should match your computer ID, where `XX` corresponds to the `XX` in `MasterXX`. Update the file, save the changes, and exit. You can find your `LDS_MODEL` [here](/Appendix/RobotSetup.md#lds-configuration)
+    Your `ROS_DOMAIN_ID=XX` should match your computer ID, where `XX` corresponds to the `XX` in `MasterXX`. Update the file, save the changes, and exit.
 
 
 ### 2. Using turtlesim, ros2, and rqt
