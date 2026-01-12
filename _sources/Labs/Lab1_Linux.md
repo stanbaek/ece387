@@ -59,7 +59,7 @@ To master Linux, it's crucial to understand the filesystem and become comfortabl
 
 Using the desktop GUI to list and move files is easier than using the Terminal and keyboard, but it's an important skill that you’ll appreciate as you advance with ROS and Linux.
 
-1. **Basic Listing**: We've already looked at `ls`, which lists the files in the working directory. You're more likely to use a command like `ls -lah`. The bit after the command (the `-lah`) is known as the argument. This option modifies the behavior of the command. The `-l` argument lists files and directories in "long" format. Each file and directory is now on a single line, and before each file is a lot of text. First, you'll see letters and dashes, like `drwxr-xr-x`. These are `permissions`, and we breifly discussed in class.
+1. **Basic Listing**: We've already looked at `ls`, which lists the files in the working directory. You're more likely to use a command like `ls -lah`. The bit after the command (the `-lah`) is known as the argument. This option modifies the behavior of the command. The `-l` argument lists files and directories in "long" format. Each file and directory is now on a single line, and before each file is a lot of text. First, you'll see letters and dashes, like `drwxr-xr-x`. These are `permissions`, and we briefly discussed in class.
 
     ```{image} ./figures/Lab1_ls-lah.png
     :width: 520
