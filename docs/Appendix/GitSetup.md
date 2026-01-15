@@ -117,15 +117,15 @@ This section assumes you already have a GitHub account.
     $ git clone git@github.com:ECE387/ece387_lastname.git  
     ```  
 
+1. Move into your repository you just cloned:  
+    ```bash  
+    $ cd ece387-lastname  
+    ```  
+
 1. Update your Git email address and name:  
     ```bash  
     $ git config user.email "you@example.com"  
     $ git config user.name "FirstName LastName"  
-    ```  
-
-1. Move into your repository you just cloned:  
-    ```bash  
-    $ cd ece387-lastname  
     ```  
 
 1. Use the `touch` command to create an empty file called `COLCON_IGNORE`. This file ensures that this directory will be ignored when compiling ROS packages.
