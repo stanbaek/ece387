@@ -139,9 +139,9 @@ You can find an example output in `example_output.txt`.
   - `health`: The unit's health points.
   - `hit_threshold`: The minimum dice roll needed for the unit to score a hit.
 - **Methods**:
-  - `roll_attack()`: Simulates a dice roll and determines if the unit scores a hit.
+  - `roll_attack()`: Simulates a dice roll and determines if the unit scores a hit. It returns the total number of hits scored by the unit.
   - `take_damage(damage)`: Reduces the unit's health by the specified damage.
-    - **TODO**: Subtract the damage value from `self.health` and ensure health doesn’t go below 0. Hint: Use the `max()` function to ensure health doesn’t drop below 0.
+    - **TODO**: Subtract the damage value from `self.health` and ensure health doesn't go below 0. Hint: Use the `max()` function to ensure health doesn't drop below 0.
   - `isalive()`: Checks if the unit is still alive (health > 0). Hint: Check the value of `self.health` and return a boolean.
     - **TODO**: Return `True` if health > 0, else return `False`.
 
@@ -150,7 +150,7 @@ You can find an example output in `example_output.txt`.
 - Each unit type has specific attributes for `cost`, `health`, and `hit_threshold`.
 - **SiegeMachine Special Ability**:
   - Rolls **two dice** instead of one for its attack.
-  - **TODO**: Implement the `roll_attack` method in the `SiegeMachine` class to roll two dice and count the hits.
+  - **TODO**: Implement the `roll_attack` method in the `SiegeMachine` class to roll two dice and count the hits. Hint: Count how many rolls are greater than or equal to `hit_threshold` and return that count. Use `random.randint(1, 6)` to simulate rolling a six-sided die.
 
 #### **3. `Player` Class**
 - Represents a player (user or computer).
@@ -159,13 +159,33 @@ You can find an example output in `example_output.txt`.
   - `budget`: Coins available for recruiting units.
   - `army`: List of units the player has recruited.
 - **Methods**:
-  - `recruit_units()`: Randomly recruits units within the player's budget.
-    - **TODO**: Enforce the maximum number of Siege Machines (`MaxSiegeUnits`) allowed.
-  - `attack(defender)`: Simulates an attack on another player.
-    - **TODO**: Roll dice for units of the current type and calculate the total hits.
-  - `resolve_damage(total_damage)`: Applies damage to the player's units.
-    - **TODO**: Randomly pick units to take damage, remove units with zero health, and print eliminated units.
+  - `recruit_units()`: Randomly recruits units within the player's budget. Ensure the player doesn't exceed the max allowed Siege Machines.
+    - **TODO**: 
+      - Check the player's remaining budget before adding a unit. 2
+      - If the selected unit is a Siege Machine, ensure the player has not exceeded `MaxSiegeUnits`.
+      - Append the unit to `self.army` and deduct the unit's cost from `self.budget`.
+    - **HINTs**: Inside the while loop:
+      - Use isinstance() to check if the unit is an instance of the SiegeMachine class.
+      - Logic to skip adding another Siege Machine if `siege_count >= MaxSiegeUnits`.
+      - Add the unit to the player's army.
+      - Deduct the unit's cost from `self.budget`.
+  - `attack(defender)`: Simulates an attack on another player. Roll dice for units of the current type and calculate the total hits.
+    - **TODO**: 
+      - Loop through `self.army` and roll attack dice for units of the current type.
+      - Keep track of the total number of hits and print the results.
+      - Call `defender.resolve_damage()` with the total hits.
+    - **HINTS**: Inside the for loop:
+      - Roll attack dice for the unit.
+      - Add the resulting hits to `total_hits`.
+      - Print the result, e.g., "Knight (Health: 2) scores 1 hit(s)"
 
+  - `resolve_damage(total_damage)`: Applies damage to the player's units and resolve damage by applying it to random units in the army. Units with zero health should be removed from the army.
+    - **TODO**: 
+      - While the total damage is nonzero, randomly pick a unit from `self.army` using `random.choice()`.
+      - Call `unit.take_damage(1)` for the chosen unit.
+      - If the unit's health drops to 0, remove it from the army.
+      - Print the name of the unit eliminated (if any).
+    
 #### **4. `Risk` Class**
 - Represents the overall game.
 - Attributes:
