@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=4c969af8" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -648,7 +648,7 @@ document.write(`
 </li>
 <li><p><strong>Methods</strong>:</p>
 <ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">roll_attack()</span></code>: Simulates a dice roll and determines if the unit scores a hit.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">roll_attack()</span></code>: Simulates a dice roll and determines if the unit scores a hit. It returns the total number of hits scored by the unit.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">take_damage(damage)</span></code>: Reduces the unit’s health by the specified damage.</p>
 <ul>
 <li><p><strong>TODO</strong>: Subtract the damage value from <code class="docutils literal notranslate"><span class="pre">self.health</span></code> and ensure health doesn’t go below 0. Hint: Use the <code class="docutils literal notranslate"><span class="pre">max()</span></code> function to ensure health doesn’t drop below 0.</p></li>
@@ -671,7 +671,7 @@ document.write(`
 <li><p><strong>SiegeMachine Special Ability</strong>:</p>
 <ul>
 <li><p>Rolls <strong>two dice</strong> instead of one for its attack.</p></li>
-<li><p><strong>TODO</strong>: Implement the <code class="docutils literal notranslate"><span class="pre">roll_attack</span></code> method in the <code class="docutils literal notranslate"><span class="pre">SiegeMachine</span></code> class to roll two dice and count the hits.</p></li>
+<li><p><strong>TODO</strong>: Implement the <code class="docutils literal notranslate"><span class="pre">roll_attack</span></code> method in the <code class="docutils literal notranslate"><span class="pre">SiegeMachine</span></code> class to roll two dice and count the hits. Hint: Count how many rolls are greater than or equal to <code class="docutils literal notranslate"><span class="pre">hit_threshold</span></code> and return that count. Use <code class="docutils literal notranslate"><span class="pre">random.randint(1,</span> <span class="pre">6)</span></code> to simulate rolling a six-sided die.</p></li>
 </ul>
 </li>
 </ul>
@@ -689,19 +689,53 @@ document.write(`
 </li>
 <li><p><strong>Methods</strong>:</p>
 <ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">recruit_units()</span></code>: Randomly recruits units within the player’s budget.</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">recruit_units()</span></code>: Randomly recruits units within the player’s budget. Ensure the player doesn’t exceed the max allowed Siege Machines.</p>
 <ul>
-<li><p><strong>TODO</strong>: Enforce the maximum number of Siege Machines (<code class="docutils literal notranslate"><span class="pre">MaxSiegeUnits</span></code>) allowed.</p></li>
+<li><p><strong>TODO</strong>:</p>
+<ul>
+<li><p>Check the player’s remaining budget before adding a unit. 2</p></li>
+<li><p>If the selected unit is a Siege Machine, ensure the player has not exceeded <code class="docutils literal notranslate"><span class="pre">MaxSiegeUnits</span></code>.</p></li>
+<li><p>Append the unit to <code class="docutils literal notranslate"><span class="pre">self.army</span></code> and deduct the unit’s cost from <code class="docutils literal notranslate"><span class="pre">self.budget</span></code>.</p></li>
 </ul>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">attack(defender)</span></code>: Simulates an attack on another player.</p>
+<li><p><strong>HINTs</strong>: Inside the while loop:</p>
 <ul>
-<li><p><strong>TODO</strong>: Roll dice for units of the current type and calculate the total hits.</p></li>
+<li><p>Use isinstance() to check if the unit is an instance of the SiegeMachine class.</p></li>
+<li><p>Logic to skip adding another Siege Machine if <code class="docutils literal notranslate"><span class="pre">siege_count</span> <span class="pre">&gt;=</span> <span class="pre">MaxSiegeUnits</span></code>.</p></li>
+<li><p>Add the unit to the player’s army.</p></li>
+<li><p>Deduct the unit’s cost from <code class="docutils literal notranslate"><span class="pre">self.budget</span></code>.</p></li>
 </ul>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">resolve_damage(total_damage)</span></code>: Applies damage to the player’s units.</p>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">attack(defender)</span></code>: Simulates an attack on another player. Roll dice for units of the current type and calculate the total hits.</p>
 <ul>
-<li><p><strong>TODO</strong>: Randomly pick units to take damage, remove units with zero health, and print eliminated units.</p></li>
+<li><p><strong>TODO</strong>:</p>
+<ul>
+<li><p>Loop through <code class="docutils literal notranslate"><span class="pre">self.army</span></code> and roll attack dice for units of the current type.</p></li>
+<li><p>Keep track of the total number of hits and print the results.</p></li>
+<li><p>Call <code class="docutils literal notranslate"><span class="pre">defender.resolve_damage()</span></code> with the total hits.</p></li>
+</ul>
+</li>
+<li><p><strong>HINTS</strong>: Inside the for loop:</p>
+<ul>
+<li><p>Roll attack dice for the unit.</p></li>
+<li><p>Add the resulting hits to <code class="docutils literal notranslate"><span class="pre">total_hits</span></code>.</p></li>
+<li><p>Print the result, e.g., “Knight (Health: 2) scores 1 hit(s)”</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">resolve_damage(total_damage)</span></code>: Applies damage to the player’s units and resolve damage by applying it to random units in the army. Units with zero health should be removed from the army.</p>
+<ul>
+<li><p><strong>TODO</strong>:</p>
+<ul>
+<li><p>While the total damage is nonzero, randomly pick a unit from <code class="docutils literal notranslate"><span class="pre">self.army</span></code> using <code class="docutils literal notranslate"><span class="pre">random.choice()</span></code>.</p></li>
+<li><p>Call <code class="docutils literal notranslate"><span class="pre">unit.take_damage(1)</span></code> for the chosen unit.</p></li>
+<li><p>If the unit’s health drops to 0, remove it from the army.</p></li>
+<li><p>Print the name of the unit eliminated (if any).</p></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
