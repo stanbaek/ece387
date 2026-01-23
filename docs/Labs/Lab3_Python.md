@@ -111,16 +111,37 @@ This straightforward set of rules ensures that the focus remains on implementing
 
 ### Setup
 
-1. Pull the latest changes from the upstream repository by running:  
+1. Go to your local repository, e.g., 
     ```bash  
-    git pull upstream main  
+    cd ~/master_ws/src/ece387-baek  
     ```  
-    After completing this step, you should see a `lab3` directory containing Python scripts. Ensure you have `risk_base.py` inside the `lab3` directory.  
+    If you already have a `lab3` directory, delete it:
+    ```bash  
+    rm -rf lab3  
+    ```  
+    Then, create a new lab3 directory:
+    ```bash  
+    mkdir lab3  
+    ```  
+        
 
-1. Copy `risk_base.py` to create your own working file. 
+1. Download the [`risk.zip`](../files/risk.zip) file in your `~/Downloads` directory and unzip it. You should see five files:
+    - `COLCON_IGNORE`: ROS2 will ignore this folder for the later labs
+    - `course_roster.py`: OOP Example used in class. Review this file to learn OOP.
+    - `example_output.txt`: Your final output should resemble this example.
+    - `README.MD`: The README file for this lab
+    - `risk_base.py`: The file you will copy and use for this lab. 
+
+1. Move the five files into the `lab3` directory. You can do this using on the GUI.
+
+1. Navigate to your local repository and copy `risk_base.py` to create your own working file. 
     ```bash
+    cd ~/master_ws/src/lab3
     cp risk_base.py risk.py
     ```
+
+1. Do **not** modify `risk_base.py`. All your work should be done in `risk.py`
+
 
 1. Open **VS Code** by running the following command in your terminal:  
     ```bash  
