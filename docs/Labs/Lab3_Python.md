@@ -111,20 +111,23 @@ This straightforward set of rules ensures that the focus remains on implementing
 
 ### Setup
 
-1. Go to the [Setup Upstream Repository](UpstreamRepo) section to connect your repository to the instructor's (upstream) repository.  
-
 1. Pull the latest changes from the upstream repository by running:  
     ```bash  
     git pull upstream main  
     ```  
-    After completing this step, you should see a `lab3` directory containing Python scripts.  
+    After completing this step, you should see a `lab3` directory containing Python scripts. Ensure you have `risk_base.py` inside the `lab3` directory.  
+
+1. Copy `risk_base.py` to create your own working file. 
+    ```bash
+    cp risk_base.py risk.py
+    ```
 
 1. Open **VS Code** by running the following command in your terminal:  
     ```bash  
     code .  
     ```  
----
-
+    Make all changes **only** in `risk.py`.
+   
 ### Classes and Responsibilities
 
 ```{hint}
