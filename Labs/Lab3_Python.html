@@ -613,21 +613,25 @@ document.write(`
 <section id="setup">
 <h3>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h3>
 <ol class="arabic">
-<li><p>Go to the <a class="reference internal" href="../Appendix/GitSetup.html#upstreamrepo"><span class="std std-ref">Setup Upstream Repository</span></a> section to connect your repository to the instructor’s (upstream) repository.</p></li>
 <li><p>Pull the latest changes from the upstream repository by running:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>pull<span class="w"> </span>upstream<span class="w"> </span>main<span class="w">  </span>
 </pre></div>
 </div>
-<p>After completing this step, you should see a <code class="docutils literal notranslate"><span class="pre">lab3</span></code> directory containing Python scripts.</p>
+<p>After completing this step, you should see a <code class="docutils literal notranslate"><span class="pre">lab3</span></code> directory containing Python scripts. Ensure you have <code class="docutils literal notranslate"><span class="pre">risk_base.py</span></code> inside the <code class="docutils literal notranslate"><span class="pre">lab3</span></code> directory.</p>
+</li>
+<li><p>Copy <code class="docutils literal notranslate"><span class="pre">risk_base.py</span></code> to create your own working file.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cp<span class="w"> </span>risk_base.py<span class="w"> </span>risk.py
+</pre></div>
+</div>
 </li>
 <li><p>Open <strong>VS Code</strong> by running the following command in your terminal:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>code<span class="w"> </span>.<span class="w">  </span>
 </pre></div>
 </div>
+<p>Make all changes <strong>only</strong> in <code class="docutils literal notranslate"><span class="pre">risk.py</span></code>.</p>
 </li>
 </ol>
 </section>
-<hr class="docutils" />
 <section id="classes-and-responsibilities">
 <h3>Classes and Responsibilities<a class="headerlink" href="#classes-and-responsibilities" title="Link to this heading">#</a></h3>
 <div class="admonition hint">
