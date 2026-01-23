@@ -613,17 +613,36 @@ document.write(`
 <section id="setup">
 <h3>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h3>
 <ol class="arabic">
-<li><p>Pull the latest changes from the upstream repository by running:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>pull<span class="w"> </span>upstream<span class="w"> </span>main<span class="w">  </span>
+<li><p>Go to your local repository, e.g.,</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/master_ws/src/ece387-baek<span class="w">  </span>
 </pre></div>
 </div>
-<p>After completing this step, you should see a <code class="docutils literal notranslate"><span class="pre">lab3</span></code> directory containing Python scripts. Ensure you have <code class="docutils literal notranslate"><span class="pre">risk_base.py</span></code> inside the <code class="docutils literal notranslate"><span class="pre">lab3</span></code> directory.</p>
-</li>
-<li><p>Copy <code class="docutils literal notranslate"><span class="pre">risk_base.py</span></code> to create your own working file.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cp<span class="w"> </span>risk_base.py<span class="w"> </span>risk.py
+<p>If you already have a <code class="docutils literal notranslate"><span class="pre">lab3</span></code> directory, delete it:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rm<span class="w"> </span>-rf<span class="w"> </span>lab3<span class="w">  </span>
+</pre></div>
+</div>
+<p>Then, create a new lab3 directory:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>lab3<span class="w">  </span>
 </pre></div>
 </div>
 </li>
+<li><p>Download the <a class="reference download internal" download="" href="../_downloads/713c73dcbccc8bbb77716b39bf3aa6f5/risk.zip"><span class="xref download myst"><code class="docutils literal notranslate"><span class="pre">risk.zip</span></code></span></a> file in your <code class="docutils literal notranslate"><span class="pre">~/Downloads</span></code> directory and unzip it. You should see five files:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">COLCON_IGNORE</span></code>: ROS2 will ignore this folder for the later labs</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">course_roster.py</span></code>: OOP Example used in class. Review this file to learn OOP.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">example_output.txt</span></code>: Your final output should resemble this example.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">README.MD</span></code>: The README file for this lab</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">risk_base.py</span></code>: The file you will copy and use for this lab.</p></li>
+</ul>
+</li>
+<li><p>Move the five files into the <code class="docutils literal notranslate"><span class="pre">lab3</span></code> directory. You can do this using on the GUI.</p></li>
+<li><p>Navigate to your local repository and copy <code class="docutils literal notranslate"><span class="pre">risk_base.py</span></code> to create your own working file.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/master_ws/src/lab3
+cp<span class="w"> </span>risk_base.py<span class="w"> </span>risk.py
+</pre></div>
+</div>
+</li>
+<li><p>Do <strong>not</strong> modify <code class="docutils literal notranslate"><span class="pre">risk_base.py</span></code>. All your work should be done in <code class="docutils literal notranslate"><span class="pre">risk.py</span></code></p></li>
 <li><p>Open <strong>VS Code</strong> by running the following command in your terminal:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>code<span class="w"> </span>.<span class="w">  </span>
 </pre></div>
