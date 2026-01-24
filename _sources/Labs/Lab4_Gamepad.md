@@ -82,6 +82,14 @@ Complete the following four tutorials. **Important:** Skip **C++** tutorials and
    $ colcon build --symlink-install  
    ```  
 
+    ```{warning} 
+    Always run `colcon build` from the root of your workspace (`~/master_ws`).  
+    ```
+   
+    :::{important}
+    Always run `colcon build` from the root of your workspace (`~/master_ws`).  
+    :::
+
     After running the command, you should see output similar to the following.
     **Note**: If you notice `stderr` messages or `CMake Warning` messages like the one shown below, **you can safely ignore them**—they do not affect the build process.  
 

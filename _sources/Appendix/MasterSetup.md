@@ -60,11 +60,11 @@ sudo apt install -y ros-humble-apriltag ros-humble-apriltag-ros libapriltag-dev
 sudo apt install -y python3-pip
 sudo apt install -y obs-studio qtwayland5
 sudo apt install -y tree
+sudo apt install -y ros-humble-cv-bridge
+sudo apt install -y ros-humble-joy
+sudo apt install -y ros-humble-teleop-twist-joy
+sudo apt install -y jstest-gtk  
 ```
-
-sudo apt install ros-humble-cv-bridge
-
-
 
 Install TurtleBot3 packages
 
