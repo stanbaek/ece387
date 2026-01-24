@@ -14,40 +14,40 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=4c969af8" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
     <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=f281be69"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script src="../_static/tabs.js?v=3ee01567"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
@@ -74,23 +74,28 @@
 
   
   
-  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
   
   <div id="pst-scroll-pixel-helper"></div>
+
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
 
   
   <input type="checkbox"
           class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -112,20 +117,12 @@
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
-
-  <div class="pst-async-banner-revealer d-none">
-  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
-</div>
-
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
-    </header>
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
   
-
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
-      
-      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -141,8 +138,6 @@
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
 
-  
-    
   
 
 <a class="navbar-brand logo" href="../intro.html">
@@ -165,7 +160,7 @@
 
  <script>
  document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass"></i>
     <span class="search-button__default-text">Search</span>
     <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
@@ -232,7 +227,7 @@
 
       </div>
       
-      <main id="main-content" class="bd-main" role="main">
+      <main id="main-content" class="bd-main">
         
         
 
@@ -241,14 +236,14 @@
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article d-print-none">
+              <div class="bd-header-article">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</button></div>
+</label></div>
       
     </div>
   
@@ -373,10 +368,10 @@
 
 <script>
 document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script>
@@ -384,14 +379,14 @@ document.write(`
 
 <script>
 document.write(`
-  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</button>
+</label>
 </div></div>
       
     </div>
@@ -434,7 +429,7 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article">
+                <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="lab9-slam">
 <h1>🔬 Lab9: SLAM<a class="headerlink" href="#lab9-slam" title="Link to this heading">#</a></h1>
@@ -456,8 +451,7 @@ document.write(`
 <section id="pre-lab-ros2-client-libraries">
 <h2>🌱 Pre-Lab: ROS2 Client Libraries<a class="headerlink" href="#pre-lab-ros2-client-libraries" title="Link to this heading">#</a></h2>
 <p>The <a class="reference external" href="https://docs.ros.org/en/humble/Tutorials/Intermediate.html">ROS2 Intermediate Tutorials</a> on <code class="docutils literal notranslate"><span class="pre">actions</span></code>  are a great starting point for learning about ROS2 action servers and clients.</p>
-<a class="reference internal image-reference" href="../_images/Lab9_ROS2_ActionTutorials.png"><img alt="../_images/Lab9_ROS2_ActionTutorials.png" class="align-center" src="../_images/Lab9_ROS2_ActionTutorials.png" style="width: 800px;" />
-</a>
+<a class="reference internal image-reference" href="../_images/Lab9_ROS2_ActionTutorials.png"><img alt="../_images/Lab9_ROS2_ActionTutorials.png" class="align-center" src="../_images/Lab9_ROS2_ActionTutorials.png" style="width: 800px;" /></a>
 <br>  
 <p>Complete the following three tutorials. <strong>Important:</strong> Skip <strong>C++</strong> tutorials and focus only on the <strong>Python</strong> tutorials.</p>
 <ol class="arabic simple">
@@ -490,16 +484,14 @@ document.write(`
 </pre></div>
 </div>
 <p>This will launch the Gazebo environment with the maze, as shown below:</p>
-<a class="reference internal image-reference" href="../_images/Proj1_GazeboInit.png"><img alt="../_images/Proj1_GazeboInit.png" class="align-center" src="../_images/Proj1_GazeboInit.png" style="width: 400px;" />
-</a>
+<a class="reference internal image-reference" href="../_images/Proj1_GazeboInit.png"><img alt="../_images/Proj1_GazeboInit.png" class="align-center" src="../_images/Proj1_GazeboInit.png" style="width: 400px;" /></a>
 </li>
 <li><p>Open a new terminal and start the Cartographer SLAM process:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_cartographer<span class="w"> </span>cartographer.launch.py<span class="w"> </span>use_sim_time:<span class="o">=</span><span class="nb">true</span>
 </pre></div>
 </div>
 <p>The use_sim_time:=true parameter ensures proper synchronization with the simulation clock.  Cartographer will begin building a map as you move the robot. The initial map will look like this:</p>
-<a class="reference internal image-reference" href="../_images/Proj1_CartographerInit.png"><img alt="../_images/Proj1_CartographerInit.png" class="align-center" src="../_images/Proj1_CartographerInit.png" style="width: 400px;" />
-</a>
+<a class="reference internal image-reference" href="../_images/Proj1_CartographerInit.png"><img alt="../_images/Proj1_CartographerInit.png" class="align-center" src="../_images/Proj1_CartographerInit.png" style="width: 400px;" /></a>
 </li>
 <li><p>Use a gamepad to manually control the robot and navigate the maze. Run the following command to start the gamepad controller:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>lab4_gamepad<span class="w"> </span>gamepad.launch.py
@@ -510,8 +502,7 @@ document.write(`
 <li><p>Gray pixels indicate noise or uncertainty. As you complete multiple laps, the uncertainty decreases, and light gray pixels become darker.</p></li>
 </ul>
 <p>Once the map is complete, it should look like this:</p>
-<a class="reference internal image-reference" href="../_images/Proj1_CartographerDone.png"><img alt="../_images/Proj1_CartographerDone.png" class="align-center" src="../_images/Proj1_CartographerDone.png" style="width: 400px;" />
-</a>
+<a class="reference internal image-reference" href="../_images/Proj1_CartographerDone.png"><img alt="../_images/Proj1_CartographerDone.png" class="align-center" src="../_images/Proj1_CartographerDone.png" style="width: 400px;" /></a>
 </li>
 <li><p>After mapping the maze, save the map using the following command:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>nav2_map_server<span class="w"> </span>map_saver_cli<span class="w"> </span>-f<span class="w"> </span>~/map
@@ -568,28 +559,24 @@ free_thresh:<span class="w"> </span><span class="m">0</span>.25
 </pre></div>
 </div>
 <p>The Gazebo environment will look like this:</p>
-<a class="reference internal image-reference" href="../_images/Lab9_GazeboWorld.png"><img alt="../_images/Lab9_GazeboWorld.png" class="align-center" src="../_images/Lab9_GazeboWorld.png" style="width: 400px;" />
-</a>
+<a class="reference internal image-reference" href="../_images/Lab9_GazeboWorld.png"><img alt="../_images/Lab9_GazeboWorld.png" class="align-center" src="../_images/Lab9_GazeboWorld.png" style="width: 400px;" /></a>
 </li>
 <li><p>Run Cartographer to begin building the map in real-time:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_cartographer<span class="w"> </span>cartographer.launch.py<span class="w"> </span>use_sim_time:<span class="o">=</span><span class="nb">true</span>
 </pre></div>
 </div>
 <p>The initial map will appear as shown below:</p>
-<a class="reference internal image-reference" href="../_images/Lab9_CartographerInit.png"><img alt="../_images/Lab9_CartographerInit.png" class="align-center" src="../_images/Lab9_CartographerInit.png" style="width: 400px;" />
-</a>
+<a class="reference internal image-reference" href="../_images/Lab9_CartographerInit.png"><img alt="../_images/Lab9_CartographerInit.png" class="align-center" src="../_images/Lab9_CartographerInit.png" style="width: 400px;" /></a>
 </li>
 <li><p>Run Navigation2 alongside Cartographer to allow the robot to navigate autonomously:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_navigation2<span class="w"> </span>navigation2.launch.py<span class="w"> </span>use_sim_time:<span class="o">=</span><span class="nb">true</span>
 </pre></div>
 </div>
 <p>The RViz2 interface will look like this:</p>
-<a class="reference internal image-reference" href="../_images/Lab9_Nav2WorldInit.png"><img alt="../_images/Lab9_Nav2WorldInit.png" class="align-center" src="../_images/Lab9_Nav2WorldInit.png" style="width: 400px;" />
-</a>
+<a class="reference internal image-reference" href="../_images/Lab9_Nav2WorldInit.png"><img alt="../_images/Lab9_Nav2WorldInit.png" class="align-center" src="../_images/Lab9_Nav2WorldInit.png" style="width: 400px;" /></a>
 </li>
 <li><p>You can show or hide the <code class="docutils literal notranslate"><span class="pre">Global</span> <span class="pre">Costmap</span></code> and <code class="docutils literal notranslate"><span class="pre">Local</span> <span class="pre">Costmap</span></code> on RViz2 using the checkboxes on the  the <code class="docutils literal notranslate"><span class="pre">Display</span></code> sidebar:</p>
-<a class="reference internal image-reference" href="../_images/Lab9_Nav2CostMap.png"><img alt="../_images/Lab9_Nav2CostMap.png" class="align-center" src="../_images/Lab9_Nav2CostMap.png" style="width: 400px;" />
-</a>
+<a class="reference internal image-reference" href="../_images/Lab9_Nav2CostMap.png"><img alt="../_images/Lab9_Nav2CostMap.png" class="align-center" src="../_images/Lab9_Nav2CostMap.png" style="width: 400px;" /></a>
 </li>
 <li><p>Use the <strong>2D Pose Estimate</strong> tool in RViz2 to set the robot’s initial position:</p>
 <ul class="simple">
@@ -599,11 +586,9 @@ free_thresh:<span class="w"> </span><span class="m">0</span>.25
 </li>
 <li><p>Use the <strong>2D Nav Goal</strong> tool to set navigation targets. The robot will autonomously explore the maze, updating the map dynamically as it moves.</p>
 <p>As the robot explores, the map will evolve, as shown below:</p>
-<a class="reference internal image-reference" href="../_images/Lab9_Nav2WorldInProgress.png"><img alt="../_images/Lab9_Nav2WorldInProgress.png" class="align-center" src="../_images/Lab9_Nav2WorldInProgress.png" style="width: 400px;" />
-</a>
+<a class="reference internal image-reference" href="../_images/Lab9_Nav2WorldInProgress.png"><img alt="../_images/Lab9_Nav2WorldInProgress.png" class="align-center" src="../_images/Lab9_Nav2WorldInProgress.png" style="width: 400px;" /></a>
 <p>The Gazebo simulation will reflect the robot’s progress:</p>
-<a class="reference internal image-reference" href="../_images/Lab9_GazeboWorldInProgress.png"><img alt="../_images/Lab9_GazeboWorldInProgress.png" class="align-center" src="../_images/Lab9_GazeboWorldInProgress.png" style="width: 400px;" />
-</a>
+<a class="reference internal image-reference" href="../_images/Lab9_GazeboWorldInProgress.png"><img alt="../_images/Lab9_GazeboWorldInProgress.png" class="align-center" src="../_images/Lab9_GazeboWorldInProgress.png" style="width: 400px;" /></a>
 </li>
 <li><p>Explore the entire world and create a map. Ensure you have dark gray obstacles.</p></li>
 <li><p>Take a screenshot of the cartographer window by right clicking the title bar.  Submit the screenshot on Gradescope.</p></li>
@@ -884,7 +869,8 @@ If static transforms are being used (like in your earlier command), the transfor
 ---
 
 Let me know if you'd like guidance on any of these steps! I can also assist with debugging transforms or interpreting the output from `tf2_echo`.
---></section>
+-->
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -914,7 +900,7 @@ Let me know if you'd like guidance on any of these steps! I can also assist with
               
               
               
-                <footer class="prev-next-footer d-print-none">
+                <footer class="prev-next-footer">
                   
 <div class="prev-next-area">
     <a class="left-prev"
@@ -943,7 +929,6 @@ Let me know if you'd like guidance on any of these steps! I can also assist with
             
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -1012,8 +997,8 @@ By Stan Baek
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
   <footer class="bd-footer">
   </footer>
