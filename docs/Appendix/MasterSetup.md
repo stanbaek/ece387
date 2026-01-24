@@ -141,12 +141,6 @@ source ~/.bashrc
 
 ### PIP
 
-ROS2 USB-CAM Package
-```bash
-
-```
-
-
 For all users:
 ```bash
 sudo pip install "pydantic<2"   # pip3 install pydantic 
@@ -155,13 +149,14 @@ sudo pip install imutils
 sudo pip install pupil-apriltags
 ```
 
+```{note}
+The `dlib` package will take quite a while to install.
+```
+
+
 For each user:
 ```bash
 sudo adduser $USER video
 ```
 Then, reboot the system.
 
-
-```{note}
-The `dlib` package will take quite a while to install.
-```
