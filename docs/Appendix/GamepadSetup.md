@@ -40,6 +40,7 @@ To ensure the gamepads are detected:
 
 ### 5. Install and Use the Joystick GUI Calibration Tool  
 1. Install the joystick calibration tool:  
+   (*Note: This package is already installed on the Master computer.*)  
    ```bash  
    sudo apt-get install jstest-gtk  
    ```  
