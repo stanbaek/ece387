@@ -48,10 +48,23 @@ To ensure the gamepads are detected:
    ```bash  
    jstest-gtk  
    ```  
-3. Once the GUI opens:  
-   - Double-click on your gamepad to open its settings.  
-   - Move the joysticks and press buttons to see which axes and buttons correspond to the output values.  
-   - If the joystick values do not return to zero in the neutral position, click the **Calibration** button and follow the steps to calibrate the gamepad.  
+   The following window should appear:
+   ```{image} ./figures/LogitechGamepad_jstest-gtk.png  
+   :width: 280  
+   :align: center  
+   ```  
+
+3. Configure and inspect the joystick  
+   - Double-click your gamepad to open its settings.  
+   - Move the joysticks and press buttons to observe which axes and buttons correspond to the output values.  
+   - If the joystick values do not return to zero in the neutral position, click the **Calibration** button and follow the on-screen instrution to calibrate the gamepad.  
+
+   ```{image} ./figures/LogitechGamepad_jstest-gtk_axes.png  
+   :width: 280  
+   :align: center  
+   ```  
+4. The left stick should be mapped to `Axis 0` and `Axis 1`, and the right stick should be mapped to `Axis 3` and `Axis 4`. If this is not the case, press the `mode` button on the game.
+
 
 ### 6. Launch the `joy` Node  
 The `joy` node reads input from your gamepads and publishes joystick data to ROS topics. To start the node, run:  
