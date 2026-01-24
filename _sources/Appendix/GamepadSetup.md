@@ -6,7 +6,7 @@
 Set up a Logitech Gamepad on the `Master` to work with ROS2 Humble on Ubuntu. This will allow you to use a Logitech Gamepad for controlling robots. Follow these steps to install dependencies, configure the gamepads, and test them in your ROS2 workspace.
 
 ```{image} ./figures/LogitechGamepad.png  
-:width: 280  
+:width: 340  
 :align: center  
 ```  
 
@@ -50,7 +50,7 @@ To ensure the gamepads are detected:
    ```  
    The following window should appear:
    ```{image} ./figures/LogitechGamepad_jstest-gtk.png  
-   :width: 280  
+   :width: 340  
    :align: center  
    ```  
 
@@ -60,7 +60,7 @@ To ensure the gamepads are detected:
    - If the joystick values do not return to zero in the neutral position, click the **Calibration** button and follow the on-screen instrution to calibrate the gamepad.  
 
    ```{image} ./figures/LogitechGamepad_jstest-gtk_axes.png  
-   :width: 280  
+   :width: 480  
    :align: center  
    ```  
 4. The left stick should be mapped to `Axis 0` and `Axis 1`, and the right stick should be mapped to `Axis 3` and `Axis 4`. If this is not the case, press the `mode` button on the game.
