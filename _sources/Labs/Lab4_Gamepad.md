@@ -488,6 +488,5 @@ This will display joystick data, allowing you to adjust mappings in `joy_callbac
 1. **Complete all TODO sections** in `gamepad.py`.  
 1. **Demo joystick control** over the TurtleBot3 in simulation.  
 1. **Push your code** to your GitHub repository.  
-1. **Submit your assignment** on Gradescope.  
-
+1. **Submit the rqt screen screenshot** on Gradescope.  
 
