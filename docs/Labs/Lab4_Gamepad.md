@@ -77,15 +77,15 @@ Complete the following four tutorials. **Important:** Skip **C++** tutorials and
 1. Build the workspace: 
 **Important:** Always run `colcon build` from the root of your workspace (`~/master_ws`).  
 
-   ```bash  
-   $ cd ~/master_ws  
-   $ colcon build --symlink-install  
-   ```  
-
     ```{warning} 
     Always run `colcon build` from the root of your workspace (`~/master_ws`).  
     ```
    
+    ```bash  
+    $ cd ~/master_ws  
+    $ colcon build --symlink-install  
+    ```  
+
     :::{important}
     Always run `colcon build` from the root of your workspace (`~/master_ws`).  
     :::
@@ -124,7 +124,7 @@ Complete the following four tutorials. **Important:** Skip **C++** tutorials and
 
 1. Launch the TurtleBot3 simulation in `Gazebo`. A **launch file** is used in ROS to start multiple nodes at once. You will learn more about them later. For now, launch the simulation:  
     ```bash
-    ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py
+    ros2 launch turt1ebot3_gazebo turtlebot3_world.launch.py
     ```
 
 1. `Gazebo` is a simulation environment that provides physics for the robot, allowing you to test algorithms before deploying them in the real world.
@@ -165,6 +165,10 @@ Complete the following four tutorials. **Important:** Skip **C++** tutorials and
 
     (Yes, the controls are slightly different in Gazebo and RViz. 😅)
 
+    ```{important}
+    RViz shows you what the robot thinks is happening, while Gazebo shows you what is really happening.
+    ```
+
 1. List active topics to see what topics are currently being published:
     ```bash
     ros2 topic list
@@ -174,11 +178,9 @@ Complete the following four tutorials. **Important:** Skip **C++** tutorials and
     - `/imu`: Provides data from the robot’s orientation sensor
     - `/scan`: LIDAR sensor data (obstacle detection)
 
-
-    ```{important}
-    RViz shows you what the robot thinks is happening, while Gazebo shows you what is really happening.
-    ```
-
+    ```{hint}  
+    Use `ros2 topic info <topic_name>` to inspect topics and `ros2 interface show <message_name>` to see message structures.  
+    ```  
 
 1. Visualize ROS connections using `rqt_graph`. This tool provides a graphical representation of how nodes and topics are connected:
     ```bash
@@ -276,9 +278,6 @@ Complete the following four tutorials. **Important:** Skip **C++** tutorials and
 
 1. Open the `gamepad.py` file in VS Code and implement the **TODO** sections in the provided template.  
 
-    ```{hint}  
-    Use `ros2 topic info <topic_name>` to inspect topics and `ros2 interface show <message_name>` to see message structures.  
-    ```  
     <br>
 
     ```python
@@ -295,57 +294,28 @@ Complete the following four tutorials. **Important:** Skip **C++** tutorials and
 
     class Gamepad(Node):
         """
-        A ROS 2 Node that converts joystick (gamepad) inputs into velocity commands
-        for a robot. It subscribes to the 'joy' topic and publishes Twist messages
-        to the 'cmd_vel' topic.
+        A ROS 2 Node that converts joystick (gamepad) inputs into velocity commands for a robot. 
         """
         
         def __init__(self):
             """
             Constructor: Initializes the gamepad node.
-            - Subscribes to the 'joy' topic to receive joystick inputs.
-            - Publishes to the 'cmd_vel' topic to send velocity commands.
             """
-            # TODO: Initialize the node with the name 'gamepad'
+            # TODO: Write your code here 
 
 
-            # TODO: Create a subscriber to the 'joy' topic (gamepad inputs)
-            # - This listens for messages of type Joy.
-            # - It calls the `joy_callback` function whenever a new message arrives.
-            # - Queue size of 10 will buffer up to 10 messages before discarding old ones.
 
-
-            # TODO: Create a publisher to send velocity commands to the 'cmd_vel' topic.
-            # - This sends messages of type Twist.
-            # - Queue size of 10 helps manage message buffering.
 
 
             # Log a message indicating that the node has started successfully
             self.get_logger().info("Joy to cmd_vel node started!")
 
-        def joy_callback(self, msg):
+        def joy_callback(self, msg: Joy):
             """
             Callback function that processes incoming joystick messages.
-            - Extracts axis values from the joystick message.
-            - Converts these values into a Twist message (velocity commands).
-            - Publishes the Twist message to control the robot.
-
-            Args:
-                msg (Joy): The incoming joystick message containing axes and button states.
             """
-            # TODO: Create a new Twist message for velocity commands.
+            # TODO: Write your code here 
 
-
-            # TODO: Map joystick axes to robot velocity:
-            # - The left stick (up/down) controls linear speed (forward/backward).
-            # - The right stick (left/right) controls angular speed (rotation).
-            # Ensure that the joystick axis values are properly scaled to match 
-            # the robot's velocity limits:
-            # - Max Linear Velocity: 0.22 m/s
-            # - Max Angular Velocity: 2.84 rad/s
-
-
-            # TODO: Publish the velocity command to the '/cmd_vel' topic.
 
 
 
@@ -370,6 +340,27 @@ Complete the following four tutorials. **Important:** Skip **C++** tutorials and
         main()
 
     ```
+
+1. Inside the Constructor:
+    - Initialize the node with the name `gamepad`
+    - Create a subscriber to the `joy` topic (gamepad inputs): 
+        - Listens for messages of type `Joy`.
+        - Calls the `joy_callback` function whenever a new message arrives.
+        - Uses a queue size of 10 to buffer up to 10 messages before discarding old ones.
+    - Create a publisher to send velocity commands to the `cmd_vel` topic.
+        - Publishes messages of type `Twist`
+        - Uses a queue size of 10 to manage message buffering.
+
+1. Inside the `joy_callback` method:
+    - Create a new `Twist` message for velocity commands.
+    - Map joystick axes to robot velocity:
+        - The left stick (up/down) controls linear speed (forward/backward).
+        - The right stick (left/right) controls angular speed (rotation).
+    - Ensure that the joystick axis values are properly scaled to match the robot's velocity limits:
+        - Max Linear Velocity: 0.22 m/s
+        - Max Angular Velocity: 2.84 rad/s
+    - Publish the velocity command to the `/cmd_vel` topic.
+
 
 ### 🛠 Update `setup.py`  
 
@@ -493,9 +484,9 @@ This will display joystick data, allowing you to adjust mappings in `joy_callbac
 
 ## 📌 **Deliverables**  
 
+1. **Prelab** - Demo the Terminal Outputs
 1. **Complete all TODO sections** in `gamepad.py`.  
 1. **Demo joystick control** over the TurtleBot3 in simulation.  
 1. **Push your code** to your GitHub repository.  
-1. **Submit your assignment** on Gradescope.  
-
+1. **Submit the rqt screen screenshot** on Gradescope.  
 
