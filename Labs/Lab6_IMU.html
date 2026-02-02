@@ -1,12 +1,13 @@
 
+
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="../" >
+<html lang="en" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>🔬 Lab6: IMU-Based Navigation &#8212; Introduction to Robotic Systems</title>
   
@@ -14,55 +15,58 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=4c969af8" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
-    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="../_static/copybutton.js?v=f281be69"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
-    <script src="../_static/tabs.js?v=3ee01567"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/tabs.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js?v=36754332"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'Labs/Lab6_IMU';</script>
-    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="🔬 Lab7: Transformation" href="Lab7_TF.html" />
@@ -76,23 +80,19 @@
 
   
   
-  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
-  
-  <div id="pst-scroll-pixel-helper"></div>
-  
-  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
-
+  <a class="skip-link" href="#main-content">Skip to main content</a>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -114,20 +114,12 @@
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
-
-  <div class="pst-async-banner-revealer d-none">
-  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
-</div>
-
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
-    </header>
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
   
-
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
-      
-      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -142,13 +134,9 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
-
-  
-    
   
 
 <a class="navbar-brand logo" href="../intro.html">
-  
   
   
   
@@ -158,23 +146,12 @@
       
     
     
-    <img src="../_static/ece387.png" class="logo__image only-light" alt="Introduction to Robotic Systems - Home"/>
-    <script>document.write(`<img src="../_static/ece387.png" class="logo__image only-dark" alt="Introduction to Robotic Systems - Home"/>`);</script>
+    <img src="../_static/ece387.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/ece387.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
   
   
 </a></div>
-        <div class="sidebar-primary-item">
-
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
-        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -234,7 +211,7 @@
 
       </div>
       
-      <main id="main-content" class="bd-main" role="main">
+      <main id="main-content" class="bd-main">
         
         
 
@@ -243,14 +220,14 @@
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article d-print-none">
+              <div class="bd-header-article">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</button></div>
+</label></div>
       
     </div>
   
@@ -372,28 +349,26 @@
 </button>
 
 
-
 <script>
 document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
   </button>
 `);
 </script>
 
-
 <script>
 document.write(`
-  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</button>
+</label>
 </div></div>
       
     </div>
@@ -442,12 +417,12 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article">
+                <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="lab6-imu-based-navigation">
-<h1>🔬 Lab6: IMU-Based Navigation<a class="headerlink" href="#lab6-imu-based-navigation" title="Link to this heading">#</a></h1>
+<h1>🔬 Lab6: IMU-Based Navigation<a class="headerlink" href="#lab6-imu-based-navigation" title="Permalink to this heading">#</a></h1>
 <section id="objectives">
-<h2>📌 Objectives<a class="headerlink" href="#objectives" title="Link to this heading">#</a></h2>
+<h2>📌 Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Students should be able to describe how IMU data is used in ROS2 and interpret IMU messages.</p></li>
 <li><p>Students should be able to set up and analyze IMU (<code class="docutils literal notranslate"><span class="pre">/imu</span></code>) and odometry (<code class="docutils literal notranslate"><span class="pre">/odom</span></code>) topics in ROS2.</p></li>
@@ -457,21 +432,19 @@ document.write(`
 </ul>
 </section>
 <section id="overview">
-<h2>📜 Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
+<h2>📜 Overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h2>
 <p>In real-world robotics, an Inertial Measurement Unit (IMU) is essential for tracking motion by measuring orientation, angular velocity, and linear acceleration. The <a class="reference external" href="https://invensense.tdk.com/products/motion-tracking/6-axis/icm-20648/">ICM-20648 6-Axis MEMS MotionTracking Device</a> from TDK integrates a 3-axis gyroscope, a 3-axis accelerometer, and a Digital Motion Processor (DMP). This IMU is embedded in the OpenCR1.0 board, an open-source robot controller featuring an ARM Cortex-M7 processor. The OpenCR board applies an Extended Kalman Filter (EKF) to fuse sensor data, generating IMU estimates at 170 Hz.</p>
-<a class="reference internal image-reference" href="../_images/IMU.jpg"><img alt="../_images/IMU.jpg" class="align-center" src="../_images/IMU.jpg" style="width: 380px;" />
-</a>
+<a class="reference internal image-reference" href="../_images/IMU.jpg"><img alt="../_images/IMU.jpg" class="align-center" src="../_images/IMU.jpg" style="width: 380px;" /></a>
 <br>
 The IMU significantly enhances navigation accuracy when combined with odometry. It helps estimate the robot's position over time and improves localization.
-<a class="reference internal image-reference" href="../_images/TurtleBot3_Coordinates.png"><img alt="../_images/TurtleBot3_Coordinates.png" class="align-center" src="../_images/TurtleBot3_Coordinates.png" style="width: 280px;" />
-</a>
+<a class="reference internal image-reference" href="../_images/TurtleBot3_Coordinates.png"><img alt="../_images/TurtleBot3_Coordinates.png" class="align-center" src="../_images/TurtleBot3_Coordinates.png" style="width: 280px;" /></a>
 <p>As we discussed earlier, multiple sensors work together to estimate the TurtleBot3’s attitude and heading. These sensors are highly sensitive to magnetic fields, which can vary depending on the location and the device. Even everyday electronic components, including those on the OpenCR board, generate small magnetic fields. Although the IMU is placed at the center of the robot for optimal performance, it is still exposed to various magnetic interferences.</p>
 <p>Fortunately, the TurtleBot3 developers anticipated this issue. Each time you run the serial node to connect to the robot, the IMU automatically calibrates itself, ensuring more accurate readings.</p>
 </section>
 <section id="pre-lab-testing-the-imu">
-<h2>🌱 Pre-Lab: Testing the IMU<a class="headerlink" href="#pre-lab-testing-the-imu" title="Link to this heading">#</a></h2>
+<h2>🌱 Pre-Lab: Testing the IMU<a class="headerlink" href="#pre-lab-testing-the-imu" title="Permalink to this heading">#</a></h2>
 <section id="step-1-launch-the-turtlebot3-simulation">
-<h3>Step 1: Launch the TurtleBot3 Simulation<a class="headerlink" href="#step-1-launch-the-turtlebot3-simulation" title="Link to this heading">#</a></h3>
+<h3>Step 1: Launch the TurtleBot3 Simulation<a class="headerlink" href="#step-1-launch-the-turtlebot3-simulation" title="Permalink to this heading">#</a></h3>
 <ol class="arabic">
 <li><p>Open a terminal and start the TurtleBot3 simulation in Gazebo:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>turtlebot3_gazebo<span class="w"> </span>turtlebot_world.launch
@@ -481,7 +454,7 @@ The IMU significantly enhances navigation accuracy when combined with odometry. 
 </ol>
 </section>
 <section id="step-2-verify-communication-with-the-master">
-<h3>Step 2: Verify Communication with the Master<a class="headerlink" href="#step-2-verify-communication-with-the-master" title="Link to this heading">#</a></h3>
+<h3>Step 2: Verify Communication with the Master<a class="headerlink" href="#step-2-verify-communication-with-the-master" title="Permalink to this heading">#</a></h3>
 <ol class="arabic">
 <li><p>Ensure the TurtleBot3 is properly communicating with the Master by listing active topics:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ros2<span class="w"> </span>topic<span class="w"> </span>list
@@ -502,7 +475,7 @@ The IMU significantly enhances navigation accuracy when combined with odometry. 
 </ol>
 </section>
 <section id="step-3-examine-the-imu-and-odom-topics">
-<h3>Step 3: Examine the <code class="docutils literal notranslate"><span class="pre">/imu</span></code> and <code class="docutils literal notranslate"><span class="pre">/odom</span></code> Topics<a class="headerlink" href="#step-3-examine-the-imu-and-odom-topics" title="Link to this heading">#</a></h3>
+<h3>Step 3: Examine the <code class="docutils literal notranslate"><span class="pre">/imu</span></code> and <code class="docutils literal notranslate"><span class="pre">/odom</span></code> Topics<a class="headerlink" href="#step-3-examine-the-imu-and-odom-topics" title="Permalink to this heading">#</a></h3>
 <ol class="arabic">
 <li><p>Run the <code class="docutils literal notranslate"><span class="pre">gamepad</span></code> and <code class="docutils literal notranslate"><span class="pre">joy</span></code> nodes.</p></li>
 <li><p>Observe the IMU and odometry messages while moving the robot:</p>
@@ -515,7 +488,7 @@ $<span class="w"> </span>ros2<span class="w"> </span>topic<span class="w"> </spa
 </ol>
 </section>
 <section id="step-4-visualizing-data-in-rqt">
-<h3>Step 4: Visualizing Data in <code class="docutils literal notranslate"><span class="pre">rqt</span></code><a class="headerlink" href="#step-4-visualizing-data-in-rqt" title="Link to this heading">#</a></h3>
+<h3>Step 4: Visualizing Data in <code class="docutils literal notranslate"><span class="pre">rqt</span></code><a class="headerlink" href="#step-4-visualizing-data-in-rqt" title="Permalink to this heading">#</a></h3>
 <ol class="arabic">
 <li><p>Open <code class="docutils literal notranslate"><span class="pre">rqt</span></code>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>rqt
@@ -533,10 +506,10 @@ $<span class="w"> </span>ros2<span class="w"> </span>topic<span class="w"> </spa
 </section>
 </section>
 <section id="lab-procedure">
-<h2>💻 Lab Procedure<a class="headerlink" href="#lab-procedure" title="Link to this heading">#</a></h2>
+<h2>💻 Lab Procedure<a class="headerlink" href="#lab-procedure" title="Permalink to this heading">#</a></h2>
 <p>In this lab, you will create a ROS2 Python package that enables the TurtleBot3 to navigate to a desired <strong>location and orientation</strong> using data from the <strong>IMU (<code class="docutils literal notranslate"><span class="pre">/imu</span></code>)</strong> and <strong>ODOM (<code class="docutils literal notranslate"><span class="pre">/odom</span></code>)</strong> topics.</p>
 <section id="update-bashrc-for-easier-builds">
-<h3>🛠 Update <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> for Easier Builds<a class="headerlink" href="#update-bashrc-for-easier-builds" title="Link to this heading">#</a></h3>
+<h3>🛠 Update <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> for Easier Builds<a class="headerlink" href="#update-bashrc-for-easier-builds" title="Permalink to this heading">#</a></h3>
 <p>To avoid common mistakes when running <code class="docutils literal notranslate"><span class="pre">colcon</span> <span class="pre">build</span></code>, follow these steps to streamline your workflow. This will ensure that <code class="docutils literal notranslate"><span class="pre">colcon</span> <span class="pre">build</span></code> is always run in the correct directory and that the necessary setup file is sourced automatically.</p>
 <ol class="arabic">
 <li><p>Use <code class="docutils literal notranslate"><span class="pre">gedit</span></code> to open the <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> file:</p>
@@ -573,7 +546,7 @@ $<span class="w"> </span>ros2<span class="w"> </span>topic<span class="w"> </spa
 </ol>
 </section>
 <section id="testing-imu-on-the-physical-robot">
-<h3>🛠 Testing IMU on the Physical Robot<a class="headerlink" href="#testing-imu-on-the-physical-robot" title="Link to this heading">#</a></h3>
+<h3>🛠 Testing IMU on the Physical Robot<a class="headerlink" href="#testing-imu-on-the-physical-robot" title="Permalink to this heading">#</a></h3>
 <p>To test the IMU on the physical robot, follow these steps:</p>
 <ol class="arabic">
 <li><p>Use SSH to launch the <code class="docutils literal notranslate"><span class="pre">robot.launch.py</span></code> file on the robot.</p></li>
@@ -603,7 +576,7 @@ $<span class="w"> </span>ros2<span class="w"> </span>topic<span class="w"> </spa
 </ol>
 </section>
 <section id="modify-gamepad-py-to-include-control-relinquishment">
-<h3>🛠 Modify <code class="docutils literal notranslate"><span class="pre">gamepad.py</span></code> to Include Control Relinquishment<a class="headerlink" href="#modify-gamepad-py-to-include-control-relinquishment" title="Link to this heading">#</a></h3>
+<h3>🛠 Modify <code class="docutils literal notranslate"><span class="pre">gamepad.py</span></code> to Include Control Relinquishment<a class="headerlink" href="#modify-gamepad-py-to-include-control-relinquishment" title="Permalink to this heading">#</a></h3>
 <p>In this section, you’ll modify the <code class="docutils literal notranslate"><span class="pre">gamepad.py</span></code> script to add functionality for relinquishing and regaining control of the robot. This will allow users to toggle control states using specific gamepad buttons.</p>
 <ol class="arabic">
 <li><p>Locate and open the <code class="docutils literal notranslate"><span class="pre">gamepad.py</span></code> file.</p></li>
@@ -658,7 +631,7 @@ $<span class="w"> </span>ros2<span class="w"> </span>topic<span class="w"> </spa
 </ol>
 </section>
 <section id="create-a-new-ros2-package">
-<h3><strong>Create a New ROS2 Package</strong><a class="headerlink" href="#create-a-new-ros2-package" title="Link to this heading">#</a></h3>
+<h3><strong>Create a New ROS2 Package</strong><a class="headerlink" href="#create-a-new-ros2-package" title="Permalink to this heading">#</a></h3>
 <ol class="arabic">
 <li><p>Open a terminal and navigate to the <code class="docutils literal notranslate"><span class="pre">src</span></code> directory of your workspace:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/master_ws/src/ece387_ws
@@ -702,7 +675,7 @@ $<span class="w"> </span>ros2<span class="w"> </span>topic<span class="w"> </spa
 </ol>
 </section>
 <section id="implement-the-move2goal-py-script">
-<h3><strong>Implement the <code class="docutils literal notranslate"><span class="pre">move2goal.py</span></code> Script</strong><a class="headerlink" href="#implement-the-move2goal-py-script" title="Link to this heading">#</a></h3>
+<h3><strong>Implement the <code class="docutils literal notranslate"><span class="pre">move2goal.py</span></code> Script</strong><a class="headerlink" href="#implement-the-move2goal-py-script" title="Permalink to this heading">#</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">move2goal.py</span></code> script will control the TurtleBot3 to move to a specified goal location and orientation. Follow these steps to complete the implementation:</p>
 <ol class="arabic simple">
 <li><p>Initialize publishers and subscribers.</p>
@@ -774,7 +747,7 @@ $<span class="w"> </span>ros2<span class="w"> </span>topic<span class="w"> </spa
 </ol>
 </section>
 <section id="build-and-test-the-package">
-<h3><strong>Build and Test the Package</strong><a class="headerlink" href="#build-and-test-the-package" title="Link to this heading">#</a></h3>
+<h3><strong>Build and Test the Package</strong><a class="headerlink" href="#build-and-test-the-package" title="Permalink to this heading">#</a></h3>
 <ol class="arabic">
 <li><p>Install <code class="docutils literal notranslate"><span class="pre">tf-transformations</span></code> using</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ros-humble-tf-transformations
@@ -799,7 +772,7 @@ $<span class="w"> </span>ros2<span class="w"> </span>topic<span class="w"> </spa
 </center>
 </section>
 <section id="deliverables">
-<h3>🚚 Deliverables<a class="headerlink" href="#deliverables" title="Link to this heading">#</a></h3>
+<h3>🚚 Deliverables<a class="headerlink" href="#deliverables" title="Permalink to this heading">#</a></h3>
 <ol class="arabic simple">
 <li><p><strong>[15 Points] Complete the <code class="docutils literal notranslate"><span class="pre">move2goal.py</span></code> Script:</strong></p>
 <ul class="simple">
@@ -856,10 +829,11 @@ $<span class="w"> </span>ros2<span class="w"> </span>topic<span class="w"> </spa
 
               
               
-              
-              
-                <footer class="prev-next-footer d-print-none">
+                <footer class="bd-footer-article">
                   
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="Lab5_TurtleBot.html"
@@ -879,7 +853,10 @@ $<span class="w"> </span>ros2<span class="w"> </span>topic<span class="w"> </spa
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
+</div></div>
+  
 </div>
+
                 </footer>
               
             </div>
@@ -887,7 +864,6 @@ $<span class="w"> </span>ros2<span class="w"> </span>topic<span class="w"> </spa
             
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -935,7 +911,6 @@ By Stan Baek
   
   <div class="footer-item">
     
-
   <p class="copyright">
     
       © Copyright 2023.
@@ -962,8 +937,8 @@ By Stan Baek
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
   <footer class="bd-footer">
   </footer>

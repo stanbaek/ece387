@@ -1,12 +1,13 @@
 
+
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="../" >
+<html lang="en" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>🔬 Lab7: Transformation &#8212; Introduction to Robotic Systems</title>
   
@@ -14,55 +15,58 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=4c969af8" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
-    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="../_static/copybutton.js?v=f281be69"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
-    <script src="../_static/tabs.js?v=3ee01567"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/tabs.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js?v=36754332"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'Labs/Lab7_TF';</script>
-    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="🔬 Lab 8: LiDAR" href="Lab8_LIDAR.html" />
@@ -76,23 +80,19 @@
 
   
   
-  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
-  
-  <div id="pst-scroll-pixel-helper"></div>
-  
-  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
-
+  <a class="skip-link" href="#main-content">Skip to main content</a>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -114,20 +114,12 @@
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
-
-  <div class="pst-async-banner-revealer d-none">
-  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
-</div>
-
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
-    </header>
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
   
-
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
-      
-      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -142,13 +134,9 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
-
-  
-    
   
 
 <a class="navbar-brand logo" href="../intro.html">
-  
   
   
   
@@ -158,23 +146,12 @@
       
     
     
-    <img src="../_static/ece387.png" class="logo__image only-light" alt="Introduction to Robotic Systems - Home"/>
-    <script>document.write(`<img src="../_static/ece387.png" class="logo__image only-dark" alt="Introduction to Robotic Systems - Home"/>`);</script>
+    <img src="../_static/ece387.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/ece387.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
   
   
 </a></div>
-        <div class="sidebar-primary-item">
-
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
-        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -234,7 +211,7 @@
 
       </div>
       
-      <main id="main-content" class="bd-main" role="main">
+      <main id="main-content" class="bd-main">
         
         
 
@@ -243,14 +220,14 @@
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article d-print-none">
+              <div class="bd-header-article">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</button></div>
+</label></div>
       
     </div>
   
@@ -372,28 +349,26 @@
 </button>
 
 
-
 <script>
 document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
   </button>
 `);
 </script>
 
-
 <script>
 document.write(`
-  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</button>
+</label>
 </div></div>
       
     </div>
@@ -439,12 +414,12 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article">
+                <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="lab7-transformation">
-<h1>🔬 Lab7: Transformation<a class="headerlink" href="#lab7-transformation" title="Link to this heading">#</a></h1>
+<h1>🔬 Lab7: Transformation<a class="headerlink" href="#lab7-transformation" title="Permalink to this heading">#</a></h1>
 <section id="objectives">
-<h2>📌 Objectives<a class="headerlink" href="#objectives" title="Link to this heading">#</a></h2>
+<h2>📌 Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Students should be able to explain the concept of coordinate transformation between global and local frames.</p></li>
 <li><p>Students should be able to implement a method to reset local coordinates without restarting the TurtleBot3.</p></li>
@@ -455,11 +430,10 @@ document.write(`
 </ul>
 </section>
 <section id="overview">
-<h2>📜 Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
+<h2>📜 Overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h2>
 <p>In this lab, we will learn how to transform coordinates from the global coordinate system to the local coordinate system. When you power on the TurtleBot3, its initial position and orientation (pose) are automatically set to zero. However, if you want to start a new task after completing a previous one, the initial pose will no longer be zero.</p>
 <p>To reset the pose, you could power-cycle the robot or press the reset button on the OpenCR board, but this also requires restarting <code class="docutils literal notranslate"><span class="pre">bringup</span></code>, which is not always convenient. Instead, we will implement a method to reset the local coordinates without having to restart the board.</p>
-<a class="reference internal image-reference" href="../_images/Lab7_CoordTransformation.png"><img alt="../_images/Lab7_CoordTransformation.png" class="align-center" src="../_images/Lab7_CoordTransformation.png" style="width: 300px;" />
-</a>
+<a class="reference internal image-reference" href="../_images/Lab7_CoordTransformation.png"><img alt="../_images/Lab7_CoordTransformation.png" class="align-center" src="../_images/Lab7_CoordTransformation.png" style="width: 300px;" /></a>
 <p>As discussed in the lecture, a coordinate transformation allows us to express a point’s position in one frame relative to another. The rotational matrix that rotates Frame {B} with respect to Frame {A} by an angle <span class="math notranslate nohighlight">\(\theta\)</span> in a 2D space is given by:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}{}^{A}R_B = \begin{bmatrix} \cos\theta &amp; -\sin\theta \\ \sin\theta &amp; \cos\theta \end{bmatrix} \end{split}\]</div>
@@ -477,14 +451,13 @@ document.write(`
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{bmatrix} {}^{B}x \\ {}^{B}y \end{bmatrix} = {}^{A}R_B^{-1} \left(\begin{bmatrix} {}^{A}x \\ {}^{A}y \end{bmatrix} - \begin{bmatrix} x \\ y \end{bmatrix}\right)\end{split}\]</div>
 <p>The orientation with respect to Frame {B}, <span class="math notranslate nohighlight">\({}^{B}\theta\)</span>, can be obtained by <span class="math notranslate nohighlight">\({}^{B}\theta = {}^{A}\theta - \theta\)</span> as illustrated in the figure below</p>
-<a class="reference internal image-reference" href="../_images/Lab7_Orientation.png"><img alt="../_images/Lab7_Orientation.png" class="align-center" src="../_images/Lab7_Orientation.png" style="width: 300px;" />
-</a>
+<a class="reference internal image-reference" href="../_images/Lab7_Orientation.png"><img alt="../_images/Lab7_Orientation.png" class="align-center" src="../_images/Lab7_Orientation.png" style="width: 300px;" /></a>
 <p>This transformation allows us to reset the local coordinates programmatically rather than manually restarting the TurtleBot3, making our system more efficient and flexible.</p>
 </section>
 <section id="pre-lab-testing-the-imu">
-<h2>🌱 Pre-Lab: Testing the IMU<a class="headerlink" href="#pre-lab-testing-the-imu" title="Link to this heading">#</a></h2>
+<h2>🌱 Pre-Lab: Testing the IMU<a class="headerlink" href="#pre-lab-testing-the-imu" title="Permalink to this heading">#</a></h2>
 <section id="non-interactive-ssh-sessions">
-<h3>Non-Interactive SSH Sessions<a class="headerlink" href="#non-interactive-ssh-sessions" title="Link to this heading">#</a></h3>
+<h3>Non-Interactive SSH Sessions<a class="headerlink" href="#non-interactive-ssh-sessions" title="Permalink to this heading">#</a></h3>
 <p>Sometimes, we need to execute commands remotely without logging into the remote host via SSH. Here’s how you can run commands remotely from your local computer:</p>
 <ol class="arabic">
 <li><p>Run the following command on your master computer:</p>
@@ -551,7 +524,7 @@ document.write(`
 </ol>
 </section>
 <section id="running-robot-launch-py-without-ssh-into-the-robot">
-<h3>Running <code class="docutils literal notranslate"><span class="pre">robot.launch.py</span></code> without SSH into the Robot<a class="headerlink" href="#running-robot-launch-py-without-ssh-into-the-robot" title="Link to this heading">#</a></h3>
+<h3>Running <code class="docutils literal notranslate"><span class="pre">robot.launch.py</span></code> without SSH into the Robot<a class="headerlink" href="#running-robot-launch-py-without-ssh-into-the-robot" title="Permalink to this heading">#</a></h3>
 <p>Previously, to drive a physical TurtleBot3, we had to log into the remote host using SSH and run <code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">launch</span> <span class="pre">turtlebot3_bringup</span> <span class="pre">robot.launch.py</span></code>. Here, we will implement a more convenient method to accomplish the same task without logging into the remote computer:</p>
 <ol class="arabic">
 <li><p>On a terminal, run:</p>
@@ -590,9 +563,9 @@ document.write(`
 </section>
 <hr class="docutils" />
 <section id="lab-procedure">
-<h2>💻 Lab Procedure<a class="headerlink" href="#lab-procedure" title="Link to this heading">#</a></h2>
+<h2>💻 Lab Procedure<a class="headerlink" href="#lab-procedure" title="Permalink to this heading">#</a></h2>
 <section id="creating-a-new-ros2-package">
-<h3><strong>Creating a New ROS2 Package</strong><a class="headerlink" href="#creating-a-new-ros2-package" title="Link to this heading">#</a></h3>
+<h3><strong>Creating a New ROS2 Package</strong><a class="headerlink" href="#creating-a-new-ros2-package" title="Permalink to this heading">#</a></h3>
 <p>Follow these steps to set up a new ROS2 package for this lab:</p>
 <ol class="arabic">
 <li><p><strong>Navigate to Your Workspace:</strong> Open a terminal and move into the <code class="docutils literal notranslate"><span class="pre">ece387_ws</span></code> directory within your ROS2 workspace:</p>
@@ -627,12 +600,12 @@ document.write(`
 </ol>
 </section>
 <section id="implementing-the-service-server">
-<h3><strong>Implementing the Service Server</strong><a class="headerlink" href="#implementing-the-service-server" title="Link to this heading">#</a></h3>
+<h3><strong>Implementing the Service Server</strong><a class="headerlink" href="#implementing-the-service-server" title="Permalink to this heading">#</a></h3>
 <ol class="arabic">
 <li><p><strong>Import Required Libraries:</strong>  Open <code class="docutils literal notranslate"><span class="pre">move2goal_tf.py</span></code> and add the following imports:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">std_srvs.srv</span><span class="w"> </span><span class="kn">import</span> <span class="n">Empty</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">nav2_msgs.srv</span><span class="w"> </span><span class="kn">import</span> <span class="n">SetInitialPose</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">std_srvs.srv</span> <span class="kn">import</span> <span class="n">Empty</span>
+<span class="kn">from</span> <span class="nn">nav2_msgs.srv</span> <span class="kn">import</span> <span class="n">SetInitialPose</span>
+<span class="kn">import</span> <span class="nn">math</span>
 </pre></div>
 </div>
 </li>
@@ -666,7 +639,7 @@ document.write(`
 </div>
 </li>
 <li><p><strong>Define the Callback Function:</strong> Implement the service callback function to reset the local pose:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">set_pose_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">SetInitialPose</span><span class="o">.</span><span class="n">Request</span><span class="p">,</span> <span class="n">response</span><span class="p">:</span> <span class="n">Empty</span><span class="o">.</span><span class="n">Response</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Empty</span><span class="o">.</span><span class="n">Response</span><span class="p">:</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">set_pose_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">SetInitialPose</span><span class="o">.</span><span class="n">Request</span><span class="p">,</span> <span class="n">response</span><span class="p">:</span> <span class="n">Empty</span><span class="o">.</span><span class="n">Response</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Empty</span><span class="o">.</span><span class="n">Response</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Resets the local position coordinates to zero and clears the previous position coordinates.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -710,12 +683,12 @@ document.write(`
 </ol>
 </section>
 <section id="implementing-the-service-client">
-<h3><strong>Implementing the Service Client</strong><a class="headerlink" href="#implementing-the-service-client" title="Link to this heading">#</a></h3>
+<h3><strong>Implementing the Service Client</strong><a class="headerlink" href="#implementing-the-service-client" title="Permalink to this heading">#</a></h3>
 <ol class="arabic">
 <li><p><strong>Modify <code class="docutils literal notranslate"><span class="pre">gamepad.py</span></code>:</strong> Import the required libraries:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">std_srvs.srv</span><span class="w"> </span><span class="kn">import</span> <span class="n">Empty</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">geometry_msgs.msg</span><span class="w"> </span><span class="kn">import</span> <span class="n">PoseWithCovarianceStamped</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">std_srvs.srv</span> <span class="kn">import</span> <span class="n">Empty</span>
+<span class="kn">from</span> <span class="nn">geometry_msgs.msg</span> <span class="kn">import</span> <span class="n">PoseWithCovarianceStamped</span>
+<span class="kn">import</span> <span class="nn">math</span>
 </pre></div>
 </div>
 </li>
@@ -735,7 +708,7 @@ document.write(`
 </div>
 </li>
 <li><p><strong>Define the Request Function:</strong> Implement <code class="docutils literal notranslate"><span class="pre">send_set_pose_request</span></code>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">send_set_pose_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span><span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span><span class="nb">float</span><span class="p">,</span> <span class="n">theta</span><span class="p">:</span><span class="nb">float</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">send_set_pose_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span><span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span><span class="nb">float</span><span class="p">,</span> <span class="n">theta</span><span class="p">:</span><span class="nb">float</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calls the &#39;reset_pose&#39; service to reset the robot&#39;s pose.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -771,7 +744,7 @@ document.write(`
 </div>
 </li>
 <li><p><strong>Handle Service Response:</strong> Add the following method to the <code class="docutils literal notranslate"><span class="pre">Gamepad</span></code> class:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">reset_pose_done_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">future</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">reset_pose_done_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">future</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Callback function to handle the response from the &#39;reset_pose&#39; service.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -790,10 +763,10 @@ document.write(`
 </ol>
 </section>
 <section id="implement-coordinate-transformation">
-<h3><strong>Implement Coordinate Transformation</strong><a class="headerlink" href="#implement-coordinate-transformation" title="Link to this heading">#</a></h3>
+<h3><strong>Implement Coordinate Transformation</strong><a class="headerlink" href="#implement-coordinate-transformation" title="Permalink to this heading">#</a></h3>
 <ol class="arabic">
 <li><p><strong>Modify the <code class="docutils literal notranslate"><span class="pre">imu_callback</span></code> Method</strong> First, update the <code class="docutils literal notranslate"><span class="pre">imu_callback</span></code> method in the <code class="docutils literal notranslate"><span class="pre">MoveToGoal</span></code> class as follows:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">imu_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">imu_msg</span><span class="p">:</span> <span class="n">Imu</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">imu_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">imu_msg</span><span class="p">:</span> <span class="n">Imu</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Callback function for handling control relinquishment messages.</span>
 <span class="sd">    Updates local yaw relative to the starting orientation.</span>
@@ -812,7 +785,7 @@ document.write(`
 </div>
 </li>
 <li><p><strong>Modify the <code class="docutils literal notranslate"><span class="pre">odom_callback</span></code> Method</strong> Update the <code class="docutils literal notranslate"><span class="pre">odom_callback</span></code> method to handle odometry messages and update the local x and y coordinates relative to the starting position:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">odom_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">:</span> <span class="n">Odometry</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">odom_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">:</span> <span class="n">Odometry</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Callback function for handling odometry messages.</span>
 <span class="sd">    Updates the local x and y coordinates relative to the starting position.</span>
@@ -844,7 +817,7 @@ document.write(`
 </ol>
 </section>
 <section id="build-and-test-the-package">
-<h3><strong>Build and Test the Package</strong><a class="headerlink" href="#build-and-test-the-package" title="Link to this heading">#</a></h3>
+<h3><strong>Build and Test the Package</strong><a class="headerlink" href="#build-and-test-the-package" title="Permalink to this heading">#</a></h3>
 <p>Let’s ensure your package is built and tested properly:</p>
 <ol class="arabic">
 <li><p><strong>Build the <code class="docutils literal notranslate"><span class="pre">lab7_tf</span></code> Package</strong>  Use the following command to build your package:</p>
@@ -865,7 +838,7 @@ document.write(`
 </section>
 <hr class="docutils" />
 <section id="deliverables">
-<h3>🚚 Deliverables<a class="headerlink" href="#deliverables" title="Link to this heading">#</a></h3>
+<h3>🚚 Deliverables<a class="headerlink" href="#deliverables" title="Permalink to this heading">#</a></h3>
 <ol class="arabic simple">
 <li><p><strong>[20 Points] Complete the <code class="docutils literal notranslate"><span class="pre">move2goal_tf.py</span></code> Script</strong></p>
 <ul class="simple">
@@ -916,10 +889,11 @@ document.write(`
 
               
               
-              
-              
-                <footer class="prev-next-footer d-print-none">
+                <footer class="bd-footer-article">
                   
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="Lab6_IMU.html"
@@ -939,7 +913,10 @@ document.write(`
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
+</div></div>
+  
 </div>
+
                 </footer>
               
             </div>
@@ -947,7 +924,6 @@ document.write(`
             
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -992,7 +968,6 @@ By Stan Baek
   
   <div class="footer-item">
     
-
   <p class="copyright">
     
       © Copyright 2023.
@@ -1019,8 +994,8 @@ By Stan Baek
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
   <footer class="bd-footer">
   </footer>
