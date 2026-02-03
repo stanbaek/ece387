@@ -44,6 +44,18 @@ To ensure the gamepads are detected:
    ```bash  
    sudo apt-get install jstest-gtk  
    ```  
+
+   If it throws the following error
+   ```bash
+   Gtk-Message: 10:19:54.335: Failed to load module "canberra-gtk-module"
+   ```
+
+   run 
+   ```
+   sudo apt install libcanberra-gtk-module libcanberra-gtk3-module
+   ```
+
+
 2. Launch the calibration tool:  
    ```bash  
    jstest-gtk  
