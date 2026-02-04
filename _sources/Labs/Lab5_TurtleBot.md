@@ -26,7 +26,7 @@ The Raspberry Pi on your robot acts as a Wi-Fi access point (AP), allowing direc
 
    - Open a terminal on your Master computer and run:  
      ```bash
-     $ ping 192.168.4.1
+     $ ping 192.168.50.1
      ```
    - If the connection is successful, you will see responses from the robot’s IP address.  
    - If you don’t receive a response, check that you are connected to the correct Wi-Fi network.  
@@ -35,7 +35,7 @@ The Raspberry Pi on your robot acts as a Wi-Fi access point (AP), allowing direc
 
    - Access the robot remotely by running:  
      ```bash
-     $ ssh pi@192.168.4.1
+     $ ssh pi@192.168.50.1
      ```
      > ⌨️ **Syntax:** `ssh <username>@<hostname/IP address>`
    - When prompted, enter the default password (provided by your instructor).  
@@ -92,26 +92,17 @@ The Raspberry Pi on your robot acts as a Wi-Fi access point (AP), allowing direc
 
 ### Updating the Hosts File on **Master**
 
-To make it easier to remember and use the hostname instead of the IP address, let's modify the `hosts` file so that the master computer recognizes the hostname of the Raspberry Pi.
+To make it easier to remember, We can also use the hostname instead of the IP address.
 
 ```{warning}
 Ensure you execute the commands in this section on the **Master** computer. Do not execute them on the Raspberry Pi.
 ```
 
-1. **Update the Hosts File on the Master Computer**: To add the robot's IP address to the hosts file, follow these steps on the **`Master`** computer:
-   ```sh
-   $ sudo gedit /etc/hosts
-   ```
-   Add the following line to the file:
-   ```sh
-   192.168.4.1    robotXX
-   ```
-   Replace `robotXX` with your specific robot number.
-
 1. **Check Connectivity Using Hostname**
    ```bash
    $ ping robotXX
    ```
+   Replace `robotXX` with your specific robot number.
 
 1. **Reconnect Using Hostname Instead of IP**
    ```bash
@@ -197,7 +188,14 @@ Using password-free SSH authentication improves both security and convenience. I
     ```bash
     $ rqt_graph
     ```
-    - You should see `/turtlebot3_node` subscribing to the **/cmd_vel** topic and publishing multiple topics including **/imu**.
+    - As shown on the figure below, you should see `/turtlebot3_node` subscribing to the **/cmd_vel** topic and publishing multiple topics including **/imu**.
+
+    ```{image} ./figures/Lab5_rqt_graph.png
+    :width: 480
+    :align: center
+    ```
+    <br>
+
 
 1. **Get Information About `/turtlebot3_node`**:
     - Open another terminal and run the following command to get information about the `/turtlebot3_node`:
