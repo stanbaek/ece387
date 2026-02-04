@@ -52,6 +52,7 @@ The Raspberry Pi on your robot acts as a Wi-Fi access point (AP), allowing direc
         password updated successfully
         ```
    - Test the new password by opening a **new terminal** and reconnecting to the robot via SSH.  
+   - Submit this password on Gradescope so instructors can update your robot's software configuration.
 
 1. **Edit the `.bashrc` File**  
 
@@ -90,9 +91,9 @@ The Raspberry Pi on your robot acts as a Wi-Fi access point (AP), allowing direc
    - This will return you to your Master computer’s terminal.  
 
 
-### Updating the Hosts File on **Master**
+### Connecting Remote Machine with Host Name
 
-To make it easier to remember, We can also use the hostname instead of the IP address.
+You can also connect using the machine's hostname rather than its IP address
 
 ```{warning}
 Ensure you execute the commands in this section on the **Master** computer. Do not execute them on the Raspberry Pi.
@@ -143,7 +144,7 @@ Using password-free SSH authentication improves both security and convenience. I
     ```
     **Note:** The following command contains a deliberate typo to prevent copying and pasting. Be sure to type it out manually or use **Tab** for auto-completion:
     ```bash
-    $ ros2 launch turt1ebot3_bringup robot.launch
+    $ ros2 launch turt1ebot3_bringup robot.launch.py
     ```
     > ⌨️ **Syntax:** `ros2 launch <package> <launchfile>`
 
@@ -191,7 +192,7 @@ Using password-free SSH authentication improves both security and convenience. I
     - As shown on the figure below, you should see `/turtlebot3_node` subscribing to the **/cmd_vel** topic and publishing multiple topics including **/imu**.
 
     ```{image} ./figures/Lab5_rqt_graph.png
-    :width: 480
+    :width: 760
     :align: center
     ```
     <br>
@@ -241,22 +242,6 @@ Using password-free SSH authentication improves both security and convenience. I
     - Before driving the Turtlebot3, observe how the nodes communicate using the `rqt_graph` tool. Open a new terminal (or refresh the existing `rqt_graph` window if it's still open) to see the interactions.
 
 
-
-
-### Setting up Team Repository.
-
-1. Go to [Create a Team Repository within GitHub Classroom](TeamRepo) to setup a new GitHub repository for your team. 
-2. Move the `Lab4_gamepad` directory from the `ece387_lastname` directory to `ece387_ws`. You no longer need the old code. Push all the code in the `ece387_lastname` directory to your GitHub repository as a backup and delete the `ece387_lastname` directory.  
-3. Navigate to your ROS2 workspace, `~/master_ws` and remove the old files by running
-   ```bash
-   $ rm -rf install/ build/ log/
-   ```
-4. Ensure you still have the `turtlebot3_simulations` and `ece387_ws` directories within the `src` directory.
-5. Rebuild the local packages
-   ```bash
-   $ colcon build --symlink-1nstall
-   ```
-
 ### Driving the Robot with Gamepad
 
 1. **Stop the current node**: Go to the terminal running the `teleop_keyboard` node and stop it by pressing `Ctrl+C`.
@@ -270,5 +255,5 @@ Using password-free SSH authentication improves both security and convenience. I
 ## 🚚 Deliverables
 1. Demonstrate that you can successfully drive the TurtleBot3 using gamepad teleoperation.
 2. Submit the screenshot of `rqt_graph` on Gradescope.
-
+3. Push your code. 
 
