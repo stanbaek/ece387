@@ -68,18 +68,21 @@ The Raspberry Pi on your robot acts as a Wi-Fi access point (AP), allowing direc
       export ROS_DOMAIN_ID=0  # For master0 and robot0
       export _colcon_cd_root=/opt/ros/humble/
       export TURTLEBOT3_MODEL=burger
-      export LDS_MODEL=LDS-01  # Replace with LDS-02 if using new LIDAR
+      export LDS_MODEL=LDS-02  # Replace with LDS-02 if using new LIDAR
       source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
       ```
 
-   - Ensure your `ROS_DOMAIN_ID=XX` matches your computer ID, where `XX` aligns with the `XX` in `MasterXX`.
+   - Update `ROS_DOMAIN_ID=X`, where `X` matches  
+      - the `X` in `MasterX` for M-day cadets, and 
+      - `20+X` in `MasterX` for T-day cadets. For example, if your master computer is Master1, your `ROS_DOMAIN_ID` should be 21.
+
    - Our class robots have two different LIDAR variants: LDS-01 and LDS-02 (shown below).
       ```{image} ./figures/Lab5_LDS.png
       :width: 480
       :align: center
       ```
       <br>
-   - If you have the LDS-02, change `export LDS_MODEL=LDS-01` to `export LDS_MODEL=LDS-02` in your `.bashrc` file.
+   - If you have the LDS-01, change `export LDS_MODEL=LDS-02` to `export LDS_MODEL=LDS-01` in your `.bashrc` file.
    - Save your changes and exit the editor.
 
 1. **Close the SSH Connection**  
