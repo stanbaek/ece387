@@ -516,18 +516,23 @@ document.write(`
 <span class="nb">export</span><span class="w"> </span><span class="nv">ROS_DOMAIN_ID</span><span class="o">=</span><span class="m">0</span><span class="w">  </span><span class="c1"># For master0 and robot0</span>
 <span class="nb">export</span><span class="w"> </span><span class="nv">_colcon_cd_root</span><span class="o">=</span>/opt/ros/humble/
 <span class="nb">export</span><span class="w"> </span><span class="nv">TURTLEBOT3_MODEL</span><span class="o">=</span>burger
-<span class="nb">export</span><span class="w"> </span><span class="nv">LDS_MODEL</span><span class="o">=</span>LDS-01<span class="w">  </span><span class="c1"># Replace with LDS-02 if using new LIDAR</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">LDS_MODEL</span><span class="o">=</span>LDS-02<span class="w">  </span><span class="c1"># Replace with LDS-02 if using new LIDAR</span>
 <span class="nb">source</span><span class="w"> </span>/usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
 </pre></div>
 </div>
 </li>
-<li><p>Ensure your <code class="docutils literal notranslate"><span class="pre">ROS_DOMAIN_ID=XX</span></code> matches your computer ID, where <code class="docutils literal notranslate"><span class="pre">XX</span></code> aligns with the <code class="docutils literal notranslate"><span class="pre">XX</span></code> in <code class="docutils literal notranslate"><span class="pre">MasterXX</span></code>.</p></li>
+<li><p>Update <code class="docutils literal notranslate"><span class="pre">ROS_DOMAIN_ID=X</span></code>, where <code class="docutils literal notranslate"><span class="pre">X</span></code> matches</p>
+<ul class="simple">
+<li><p>the <code class="docutils literal notranslate"><span class="pre">X</span></code> in <code class="docutils literal notranslate"><span class="pre">MasterX</span></code> for M-day cadets, and</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">20+X</span></code> in <code class="docutils literal notranslate"><span class="pre">MasterX</span></code> for T-day cadets. For example, if your master computer is Master1, your <code class="docutils literal notranslate"><span class="pre">ROS_DOMAIN_ID</span></code> should be 21.</p></li>
+</ul>
+</li>
 <li><p>Our class robots have two different LIDAR variants: LDS-01 and LDS-02 (shown below).</p>
 <a class="reference internal image-reference" href="../_images/Lab5_LDS.png"><img alt="../_images/Lab5_LDS.png" class="align-center" src="../_images/Lab5_LDS.png" style="width: 480px;" />
 </a>
  <br>
 </li>
-<li><p>If you have the LDS-02, change <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">LDS_MODEL=LDS-01</span></code> to <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">LDS_MODEL=LDS-02</span></code> in your <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> file.</p></li>
+<li><p>If you have the LDS-01, change <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">LDS_MODEL=LDS-02</span></code> to <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">LDS_MODEL=LDS-01</span></code> in your <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> file.</p></li>
 <li><p>Save your changes and exit the editor.</p></li>
 </ul>
 </li>
