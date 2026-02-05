@@ -20,7 +20,7 @@ The Raspberry Pi on your robot acts as a Wi-Fi access point (AP), allowing direc
 (AccessPoint)=
 1. **Connect to the Robot's Wi-Fi Network**
    - Click the **system menu** (top-right corner of the screen).  
-   - Select **Wi-Fi Networks** and choose `RobotXX`, where `XX` is your assigned robot number.  
+   - Select **Wi-Fi Networks** and choose `RobotX`, where `X` is your assigned robot number.  
    
 1. **Check Connectivity**  
 
@@ -72,9 +72,7 @@ The Raspberry Pi on your robot acts as a Wi-Fi access point (AP), allowing direc
       source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
       ```
 
-   - Update `ROS_DOMAIN_ID=X`, where `X` matches  
-      - the `X` in `MasterX` for M-day cadets, and 
-      - `20+X` in `MasterX` for T-day cadets. For example, if your master computer is Master1, your `ROS_DOMAIN_ID` should be 21.
+   - Update `ROS_DOMAIN_ID=X`, where `X` matches the `X` in `Robot X` on your robot. 
 
    - Our class robots have two different LIDAR variants: LDS-01 and LDS-02 (shown below).
       ```{image} ./figures/Lab5_LDS.png
