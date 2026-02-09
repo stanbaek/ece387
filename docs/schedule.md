@@ -18,20 +18,20 @@ This schedule is subject to change as appropriate.
 | 8    |[Lab 3: Python](Labs/Lab3_Python.md)      |Quiz1 |
 | 9    |[Lab 3: Python](Labs/Lab3_Python.md)      |      |
 | 10   |Lec 4: Gamepad                            |Lab3  |
-| 11   |[Lab 4: Gamepad](Labs/Lab4_Gamepad.md)    |Quiz2 |
+| 11   |[Lab 4: Gamepad](Labs/Lab4_Gamepad.md)    |      |
 | 12   |Lec 5: TurtleBot                          |Lab4  |
-| 13   |[Lab 5: TurtleBot](Labs/Lab5_TurtleBot.md)|Quiz3 |
+| 13   |[Lab 5: TurtleBot](Labs/Lab5_TurtleBot.md)|Quiz2 |
 | 14   |Lec 6: IMU                                |Lab5  |
 | 15   |[Lab 6: IMU](Labs/Lab6_IMU.md)            |      |
 | 16   |GR 1                                      |      |
 | 17   |Lec 7: Transformation                     |Lab6  |
-| 18   |[Lab 7: Transformation](Labs/Lab7_TF.md)  |      |
+| 18   |[Lab 7: Transformation](Labs/Lab7_TF.md)  |Quiz3 |
 | 19   |Lec 8: LiDAR                              |Lab7  |
-| 20   |[Lab 8: LiDAR](Labs/Lab8_LIDAR.md)        |Quiz4 |
+| 20   |[Lab 8: LiDAR](Labs/Lab8_LIDAR.md)        |      |
 | 21   |[Lab 8: LiDAR](Labs/Lab8_LIDAR.md)        |      |
 | 22   |Lec 9: SLAM                               |Lab8  |
 | 23   |[Lab 9: SLAM](Labs/Lab9_SLAM.md)          |      |
-| 24   |[Lab 9: SLAM](Labs/Lab9_SLAM.md)          |      |
+| 24   |[Lab 9: SLAM](Labs/Lab9_SLAM.md)          |Quiz4 |
 | 25   |Lec 10: Computer Vision                   |Lab9  |
 | 26   |[Lab 10: CV](Labs/Lab10_CV.md)            |      |
 | 27   |[Lab 10: CV](Labs/Lab10_CV.md)            |      |
