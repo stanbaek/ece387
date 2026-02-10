@@ -954,17 +954,16 @@ Ref: https://emanual.robotis.com/docs/en/platform/turtlebot3/opencr_setup/#openc
     sudo apt install libc6:armhf
     ```
 
-- Setup the OpenCR model name:
-    ```bash
-    export OPENCR_PORT=/dev/ttyACM0
-    export OPENCR_MODEL=burger
-    rm -rf ./opencr_update.tar.bz2
-    ```
-
 - Download the firmware and loader, then extract the file:
     ```bash
     wget https://github.com/ROBOTIS-GIT/OpenCR-Binaries/raw/master/turtlebot3/ROS2/latest/opencr_update.tar.bz2
     tar -xvf ./opencr_update.tar.bz2
+    ```
+
+- Setup the OpenCR model name:
+    ```bash
+    export OPENCR_PORT=/dev/ttyACM0
+    export OPENCR_MODEL=burger
     ```
 
 - Upload firmware to the OpenCR:
