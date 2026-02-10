@@ -14,40 +14,40 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=4c969af8" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
     <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=f281be69"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script src="../_static/tabs.js?v=3ee01567"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
@@ -74,23 +74,28 @@
 
   
   
-  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
   
   <div id="pst-scroll-pixel-helper"></div>
+
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
 
   
   <input type="checkbox"
           class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -112,20 +117,12 @@
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
-
-  <div class="pst-async-banner-revealer d-none">
-  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
-</div>
-
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
-    </header>
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
   
-
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
-      
-      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -141,8 +138,6 @@
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
 
-  
-    
   
 
 <a class="navbar-brand logo" href="../intro.html">
@@ -165,7 +160,7 @@
 
  <script>
  document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass"></i>
     <span class="search-button__default-text">Search</span>
     <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
@@ -232,7 +227,7 @@
 
       </div>
       
-      <main id="main-content" class="bd-main" role="main">
+      <main id="main-content" class="bd-main">
         
         
 
@@ -241,14 +236,14 @@
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article d-print-none">
+              <div class="bd-header-article">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</button></div>
+</label></div>
       
     </div>
   
@@ -373,10 +368,10 @@
 
 <script>
 document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script>
@@ -384,14 +379,14 @@ document.write(`
 
 <script>
 document.write(`
-  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</button>
+</label>
 </div></div>
       
     </div>
@@ -438,7 +433,7 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article">
+                <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="lab4-gamepad">
 <h1>🔬 Lab4: Gamepad<a class="headerlink" href="#lab4-gamepad" title="Link to this heading">#</a></h1>
@@ -459,8 +454,7 @@ document.write(`
 <section id="pre-lab-ros2-client-libraries">
 <h2>🌱 Pre-Lab: ROS2 Client Libraries<a class="headerlink" href="#pre-lab-ros2-client-libraries" title="Link to this heading">#</a></h2>
 <p>The tutorials at <a class="reference external" href="https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries.html">Beginner: Client Libraries</a> are a great introduction to ROS2 client libraries.</p>
-<a class="reference internal image-reference" href="../_images/Lab2_ROS_Tutorials2.png"><img alt="../_images/Lab2_ROS_Tutorials2.png" class="align-center" src="../_images/Lab2_ROS_Tutorials2.png" style="width: 800px;" />
-</a>
+<a class="reference internal image-reference" href="../_images/Lab2_ROS_Tutorials2.png"><img alt="../_images/Lab2_ROS_Tutorials2.png" class="align-center" src="../_images/Lab2_ROS_Tutorials2.png" style="width: 800px;" /></a>
 <br>  
 <p>Complete the following four tutorials. <strong>Important:</strong> Skip <strong>C++</strong> tutorials and complete only the <strong>Python</strong> ones.</p>
 <ol class="arabic">
@@ -584,8 +578,7 @@ Finished<span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="
 <li><p>Click <strong>Models</strong> &gt; <strong>burger</strong> &gt; <strong>pose</strong></p></li>
 <li><p>The robot should be positioned at (-2.0, -0.5), facing the positive x-direction (yaw = 0.0) inside a maze.</p></li>
 </ul>
-<a class="reference internal image-reference" href="../_images/Lab4_Gazebo_Pose.png"><img alt="../_images/Lab4_Gazebo_Pose.png" class="align-center" src="../_images/Lab4_Gazebo_Pose.png" style="width: 700px;" />
-</a>
+<a class="reference internal image-reference" href="../_images/Lab4_Gazebo_Pose.png"><img alt="../_images/Lab4_Gazebo_Pose.png" class="align-center" src="../_images/Lab4_Gazebo_Pose.png" style="width: 700px;" /></a>
  <br>
 <p>🔹 Camera controls in Gazebo:</p>
 <ul class="simple">
@@ -601,8 +594,7 @@ Finished<span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">RViz</span></code> is a visualization tool that helps you see how the robot perceives its surroundings. In <code class="docutils literal notranslate"><span class="pre">RViz</span></code>, you should see a series of red dots outlining obstacles in the maze. These dots represent objects detected by the TurtleBot3’s LIDAR sensor, which publishes data to the <code class="docutils literal notranslate"><span class="pre">/scan</span></code> topic.</p></li>
 <li><p>Try enabling and disabling different checkboxes to explore how various visualizations affect the display.</p>
-<a class="reference internal image-reference" href="../_images/Lab4_RViz.png"><img alt="../_images/Lab4_RViz.png" class="align-center" src="../_images/Lab4_RViz.png" style="width: 800px;" />
-</a>
+<a class="reference internal image-reference" href="../_images/Lab4_RViz.png"><img alt="../_images/Lab4_RViz.png" class="align-center" src="../_images/Lab4_RViz.png" style="width: 800px;" /></a>
  <br>
 <p>🔹 Camera controls in RViz:</p>
 <ul class="simple">
@@ -729,19 +721,19 @@ $<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>
 <span class="c1"># The above line is a shebang, which tells the system to run this script using Python 3.</span>
 
 <span class="c1"># Import necessary ROS 2 libraries</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">rclpy</span>  <span class="c1"># ROS 2 client library for Python</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">rclpy.node</span><span class="w"> </span><span class="kn">import</span> <span class="n">Node</span>  <span class="c1"># Base class for creating ROS 2 nodes</span>
+<span class="kn">import</span> <span class="nn">rclpy</span>  <span class="c1"># ROS 2 client library for Python</span>
+<span class="kn">from</span> <span class="nn">rclpy.node</span> <span class="kn">import</span> <span class="n">Node</span>  <span class="c1"># Base class for creating ROS 2 nodes</span>
 
 <span class="c1"># Import message types</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sensor_msgs.msg</span><span class="w"> </span><span class="kn">import</span> <span class="n">Joy</span>  <span class="c1"># Message type for joystick (gamepad) inputs</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">geometry_msgs.msg</span><span class="w"> </span><span class="kn">import</span> <span class="n">Twist</span>  <span class="c1"># Message type for velocity commands</span>
+<span class="kn">from</span> <span class="nn">sensor_msgs.msg</span> <span class="kn">import</span> <span class="n">Joy</span>  <span class="c1"># Message type for joystick (gamepad) inputs</span>
+<span class="kn">from</span> <span class="nn">geometry_msgs.msg</span> <span class="kn">import</span> <span class="n">Twist</span>  <span class="c1"># Message type for velocity commands</span>
 
-<span class="k">class</span><span class="w"> </span><span class="nc">Gamepad</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">Gamepad</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A ROS 2 Node that converts joystick (gamepad) inputs into velocity commands for a robot. </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Constructor: Initializes the gamepad node.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -754,7 +746,7 @@ $<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>
         <span class="c1"># Log a message indicating that the node has started successfully</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Joy to cmd_vel node started!&quot;</span><span class="p">)</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">joy_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">:</span> <span class="n">Joy</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">joy_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">:</span> <span class="n">Joy</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Callback function that processes incoming joystick messages.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -763,7 +755,7 @@ $<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>
 
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Main function to start the ROS 2 node.</span>
 <span class="sd">    - Initializes the ROS 2 system.</span>
@@ -925,8 +917,7 @@ $<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>
 <li><p>Once the topic monitor loads, topics are not monitored by default. Check the box next to each topic to enable monitoring.</p></li>
 <li><p>To view more details about a topic, click the <strong>▶</strong> icon next to the checkbox.</p></li>
 </ul>
-<a class="reference internal image-reference" href="../_images/Lab4_rqt_odom.png"><img alt="../_images/Lab4_rqt_odom.png" class="align-center" src="../_images/Lab4_rqt_odom.png" style="width: 800px;" />
-</a>
+<a class="reference internal image-reference" href="../_images/Lab4_rqt_odom.png"><img alt="../_images/Lab4_rqt_odom.png" class="align-center" src="../_images/Lab4_rqt_odom.png" style="width: 800px;" /></a>
  <br>
 </li>
 <li><p>Monitor the <code class="docutils literal notranslate"><span class="pre">cmd_vel</span></code> and <code class="docutils literal notranslate"><span class="pre">joy</span></code> topics:</p>
@@ -1005,7 +996,7 @@ $<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>
               
               
               
-                <footer class="prev-next-footer d-print-none">
+                <footer class="prev-next-footer">
                   
 <div class="prev-next-area">
     <a class="left-prev"
@@ -1034,7 +1025,6 @@ $<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>
             
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -1107,8 +1097,8 @@ By Stan Baek
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
   <footer class="bd-footer">
   </footer>

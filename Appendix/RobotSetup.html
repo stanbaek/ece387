@@ -14,40 +14,40 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=4c969af8" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
     <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=f281be69"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script src="../_static/tabs.js?v=3ee01567"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
@@ -74,23 +74,28 @@
 
   
   
-  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
   
   <div id="pst-scroll-pixel-helper"></div>
+
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
 
   
   <input type="checkbox"
           class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -112,20 +117,12 @@
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
-
-  <div class="pst-async-banner-revealer d-none">
-  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
-</div>
-
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
-    </header>
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
   
-
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
-      
-      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -141,8 +138,6 @@
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
 
-  
-    
   
 
 <a class="navbar-brand logo" href="../intro.html">
@@ -165,7 +160,7 @@
 
  <script>
  document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass"></i>
     <span class="search-button__default-text">Search</span>
     <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
@@ -232,7 +227,7 @@
 
       </div>
       
-      <main id="main-content" class="bd-main" role="main">
+      <main id="main-content" class="bd-main">
         
         
 
@@ -241,14 +236,14 @@
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article d-print-none">
+              <div class="bd-header-article">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</button></div>
+</label></div>
       
     </div>
   
@@ -373,10 +368,10 @@
 
 <script>
 document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script>
@@ -384,14 +379,14 @@ document.write(`
 
 <script>
 document.write(`
-  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</button>
+</label>
 </div></div>
       
     </div>
@@ -475,7 +470,7 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article">
+                <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="robot-setup">
 <h1>🔧 Robot Setup<a class="headerlink" href="#robot-setup" title="Link to this heading">#</a></h1>
@@ -504,14 +499,12 @@ document.write(`
 <h3>Raspberry Pi<a class="headerlink" href="#raspberry-pi" title="Link to this heading">#</a></h3>
 <p>A Raspberry Pi 4 B with 8 GB of RAM is used throughout this curriculum. Ensure heat sinks are propertly installed on the Pi such as these from <a class="reference external" href="https://www.canakit.com/raspberry-pi-4-heat-sinks.html">CanaKit</a>.</p>
 <p>Also, a small fan can be installed to help with cooling. We used this 3D printed bracket to mount the fan.</p>
-<a class="reference internal image-reference" href="../_images/fan.jpg"><img alt="../_images/fan.jpg" class="align-center" src="../_images/fan.jpg" style="width: 380px;" />
-</a>
+<a class="reference internal image-reference" href="../_images/fan.jpg"><img alt="../_images/fan.jpg" class="align-center" src="../_images/fan.jpg" style="width: 380px;" /></a>
 </section>
 <section id="camera">
 <h3>Camera<a class="headerlink" href="#camera" title="Link to this heading">#</a></h3>
 <p>After installing the Raspberry pi level of the TurtleBot3 you need to install the USB Camera Mount prior to finishing the robot build. The mount used in this course can be found in the <a class="reference download internal" download="" href="../_downloads/3a3cd348ff4a2bc81ddea473f4ae906f/burger_usbcam_mount.stl"><span class="xref download myst">curriculum material</span></a> and is installed on two of the front standoffs on the TurtleBot3.</p>
-<a class="reference internal image-reference" href="../_images/camera_mount.jpg"><img alt="../_images/camera_mount.jpg" class="align-center" src="../_images/camera_mount.jpg" style="width: 280px;" />
-</a>
+<a class="reference internal image-reference" href="../_images/camera_mount.jpg"><img alt="../_images/camera_mount.jpg" class="align-center" src="../_images/camera_mount.jpg" style="width: 280px;" /></a>
 </section>
 </section>
 <section id="ubuntu-installation">
@@ -521,23 +514,19 @@ document.write(`
 <p>There are multiple ways to download and install Ubuntu 22.04.5 to a MicroSD card, but the Raspberry Pi Imager is one of the easiest. Instructions for installing the imager on your operating system can be found on the <a class="reference external" href="https://www.raspberrypi.com/software/">Raspberry Pi OS software page</a>.</p>
 <p>Once installed, start the imager and select “Raspberry Pi 4”.
 <br></p>
-<a class="reference internal image-reference" href="../_images/installer1.png"><img alt="../_images/installer1.png" class="align-center" src="../_images/installer1.png" style="width: 480px;" />
-</a>
+<a class="reference internal image-reference" href="../_images/installer1.png"><img alt="../_images/installer1.png" class="align-center" src="../_images/installer1.png" style="width: 480px;" /></a>
 <br>
 Scroll down the menu and select "Other general purpose OS".
 <br>
-<a class="reference internal image-reference" href="../_images/installer2.png"><img alt="../_images/installer2.png" class="align-center" src="../_images/installer2.png" style="width: 480px;" />
-</a>
+<a class="reference internal image-reference" href="../_images/installer2.png"><img alt="../_images/installer2.png" class="align-center" src="../_images/installer2.png" style="width: 480px;" /></a>
 <br>
 <p>Next, select “Ubuntu”.
 <br></p>
-<a class="reference internal image-reference" href="../_images/installer3.png"><img alt="../_images/installer3.png" class="align-center" src="../_images/installer3.png" style="width: 480px;" />
-</a>
+<a class="reference internal image-reference" href="../_images/installer3.png"><img alt="../_images/installer3.png" class="align-center" src="../_images/installer3.png" style="width: 480px;" /></a>
 <br>
 Lastly, scroll and select the latest 64-bit version of "Ubuntu Server 22.04 LTS (64-bit)".
 <br>
-<a class="reference internal image-reference" href="../_images/installer4.png"><img alt="../_images/installer4.png" class="align-center" src="../_images/installer4.png" style="width: 480px;" />
-</a>
+<a class="reference internal image-reference" href="../_images/installer4.png"><img alt="../_images/installer4.png" class="align-center" src="../_images/installer4.png" style="width: 480px;" /></a>
 <br>
 <p>Now that you have the correct image selected, you need to choose the correct storage device that corresponds to the MicroSD card.</p>
 <p>Once complete you should have an Ubuntu SD card! Ensure your Raspberry Pi is powered off, connected to a monitor, keyboard, and mouse, and insert the SD card.</p>
@@ -843,7 +832,7 @@ cfg80211<span class="w">              </span><span class="m">970752</span><span 
 <p>This design avoids routing complexity and provides a stable ROS2 communication link.</p>
 <section id="goal-final-architecture">
 <h3>GOAL (Final Architecture)<a class="headerlink" href="#goal-final-architecture" title="Link to this heading">#</a></h3>
-<div class="pst-scrollable-table-container"><table class="table">
+<table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Interface</p></th>
 <th class="head"><p>Hardware</p></th>
@@ -869,7 +858,6 @@ cfg80211<span class="w">              </span><span class="m">970752</span><span 
 </tr>
 </tbody>
 </table>
-</div>
 <ul class="simple">
 <li><p><strong>No NAT or packet forwarding</strong></p></li>
 <li><p><strong>No NetworkManager</strong></p></li>
@@ -1004,7 +992,7 @@ sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class=
 </section>
 <section id="what-controls-the-ap-instead">
 <h3>What controls the AP instead<a class="headerlink" href="#what-controls-the-ap-instead" title="Link to this heading">#</a></h3>
-<div class="pst-scrollable-table-container"><table class="table">
+<table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Component</p></th>
 <th class="head"><p>Purpose</p></th>
@@ -1025,7 +1013,6 @@ sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class=
 </tr>
 </tbody>
 </table>
-</div>
 </section>
 <section id="hostapd-configuration-template">
 <h3>Hostapd Configuration Template<a class="headerlink" href="#hostapd-configuration-template" title="Link to this heading">#</a></h3>
@@ -1313,8 +1300,7 @@ sudo udevadm trigger
 <section id="lds-configuration">
 <h3>LDS Configuration<a class="headerlink" href="#lds-configuration" title="Link to this heading">#</a></h3>
 <p>The TurtleBot3 LDS has been updated to LDS-02 since 2022. For the Turtlebots we have purchased after 2022, use LDS-02 for the LDS_MODEL.</p>
-<a class="reference internal image-reference" href="../_images/lds_small.png"><img alt="../_images/lds_small.png" class="align-center" src="../_images/lds_small.png" style="width: 420px;" />
-</a>
+<a class="reference internal image-reference" href="../_images/lds_small.png"><img alt="../_images/lds_small.png" class="align-center" src="../_images/lds_small.png" style="width: 420px;" /></a>
 <br>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="s1">&#39;export LDS_MODEL=LDS-02&#39;</span> <span class="o">&gt;&gt;</span> <span class="o">~/.</span><span class="n">bashrc</span>
 <span class="n">echo</span> <span class="s1">&#39;export TURTLEBOT3_MODEL=burger&#39;</span> <span class="o">&gt;&gt;</span> <span class="o">~/.</span><span class="n">bashrc</span>
@@ -1376,16 +1362,15 @@ sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> <
 </pre></div>
 </div>
 </li>
-<li><p>Setup the OpenCR model name:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">OPENCR_PORT</span><span class="o">=</span>/dev/ttyACM0
-<span class="nb">export</span><span class="w"> </span><span class="nv">OPENCR_MODEL</span><span class="o">=</span>burger
-rm<span class="w"> </span>-rf<span class="w"> </span>./opencr_update.tar.bz2
-</pre></div>
-</div>
-</li>
 <li><p>Download the firmware and loader, then extract the file:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>https://github.com/ROBOTIS-GIT/OpenCR-Binaries/raw/master/turtlebot3/ROS2/latest/opencr_update.tar.bz2
 tar<span class="w"> </span>-xvf<span class="w"> </span>./opencr_update.tar.bz2
+</pre></div>
+</div>
+</li>
+<li><p>Setup the OpenCR model name:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">OPENCR_PORT</span><span class="o">=</span>/dev/ttyACM0
+<span class="nb">export</span><span class="w"> </span><span class="nv">OPENCR_MODEL</span><span class="o">=</span>burger
 </pre></div>
 </div>
 </li>
@@ -1448,20 +1433,17 @@ ssh-add<span class="w"> </span>~/.ssh/id_ed25519
 </li>
 <li><p>Open a web browser and sign in to your GitHub account. In the upper-right corner of any page, click your profile photo, then click <strong>Settings</strong>:</p>
   <br>
-<a class="reference internal image-reference" href="../_images/ssh1.png"><img alt="../_images/ssh1.png" class="align-center" src="../_images/ssh1.png" style="width: 240px;" />
-</a>
+<a class="reference internal image-reference" href="../_images/ssh1.png"><img alt="../_images/ssh1.png" class="align-center" src="../_images/ssh1.png" style="width: 240px;" /></a>
   <br>
 </li>
 <li><p>In the user settings sidebar, click <strong>SSH and GPG keys</strong>:</p>
   <br>
-<a class="reference internal image-reference" href="../_images/ssh2.png"><img alt="../_images/ssh2.png" class="align-center" src="../_images/ssh2.png" style="width: 240px;" />
-</a>
+<a class="reference internal image-reference" href="../_images/ssh2.png"><img alt="../_images/ssh2.png" class="align-center" src="../_images/ssh2.png" style="width: 240px;" /></a>
   <br>
 </li>
 <li><p>Click <strong>New SSH key</strong>:
 <br></p>
-<a class="reference internal image-reference" href="../_images/ssh3.png"><img alt="../_images/ssh3.png" class="align-center" src="../_images/ssh3.png" style="width: 640px;" />
-</a>
+<a class="reference internal image-reference" href="../_images/ssh3.png"><img alt="../_images/ssh3.png" class="align-center" src="../_images/ssh3.png" style="width: 640px;" /></a>
   <br>
 <p>In the <code class="docutils literal notranslate"><span class="pre">Title</span></code> field, add a descriptive label for the new key, such as “robot0”. Paste your key into the <code class="docutils literal notranslate"><span class="pre">Key</span></code> field (contents of the <code class="docutils literal notranslate"><span class="pre">.pub</span></code> file). Click <strong>Add SSH key</strong>.</p>
 </li>
@@ -1586,7 +1568,7 @@ NAME<span class="w">      </span>TYPE<span class="w"> </span>SIZE<span class="w"
               
               
               
-                <footer class="prev-next-footer d-print-none">
+                <footer class="prev-next-footer">
                   
 <div class="prev-next-area">
     <a class="left-prev"
@@ -1615,7 +1597,6 @@ NAME<span class="w">      </span>TYPE<span class="w"> </span>SIZE<span class="w"
             
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -1725,8 +1706,8 @@ By Stan Baek
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
   <footer class="bd-footer">
   </footer>
