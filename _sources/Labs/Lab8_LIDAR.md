@@ -1,4 +1,4 @@
-# 🔬 Lab 8: LiDAR
+# 🔬 Lab8: LiDAR
 
 ## 📌 Objectives
 - Students should be able to implement a ROS2 node to detect walls using LiDAR data.
