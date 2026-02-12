@@ -22,10 +22,10 @@ This schedule is subject to change as appropriate.
 | 12   |Lec 5: TurtleBot                          |Lab4  |
 | 13   |[Lab 5: TurtleBot](Labs/Lab5_TurtleBot.md)|Quiz2 |
 | 14   |Lec 6: IMU                                |Lab5  |
-| 15   |[Lab 6: IMU](Labs/Lab6_IMU.md)            |      |
+| 15   |[Lab 6: IMU](Labs/Lab6_IMU.md)            |Quiz3 |
 | 16   |GR 1                                      |      |
 | 17   |Lec 7: Transformation                     |Lab6  |
-| 18   |[Lab 7: Transformation](Labs/Lab7_TF.md)  |Quiz3 |
+| 18   |[Lab 7: Transformation](Labs/Lab7_TF.md)  |      |
 | 19   |Lec 8: LiDAR                              |Lab7  |
 | 20   |[Lab 8: LiDAR](Labs/Lab8_LIDAR.md)        |      |
 | 21   |[Lab 8: LiDAR](Labs/Lab8_LIDAR.md)        |      |
@@ -35,14 +35,14 @@ This schedule is subject to change as appropriate.
 | 25   |Lec 10: Computer Vision                   |Lab9  |
 | 26   |[Lab 10: CV](Labs/Lab10_CV.md)            |      |
 | 27   |[Lab 10: CV](Labs/Lab10_CV.md)            |      |
-| 28   |[Lab 10: CV](Labs/Lab10_CV.md)            |      |
-| 29   |Lec 11: AprilTags                         |Lab10 |
-| 30   |[Lab 11: AprilTag](Labs/Lab11_AprilTag.md)|Quiz5 |
-| 31   |[Lab 11: AprilTag](Labs/Lab11_AprilTag.md)|      | 
-| 32   |Final Project - Requirements              |Lab11 |
-| 33   |GR 2                                      |      |
-| 34   |Final Project - Design                    |      |
-| 35   |Final Project - Design Briefs             |Briefs|
+| 28   |Lec 11: AprilTags                         |Lab10 |
+| 29   |[Lab 11: AprilTag](Labs/Lab11_AprilTag.md)|Quiz5 |
+| 30   |[Lab 11: AprilTag](Labs/Lab11_AprilTag.md)|      | 
+| 31   |Final Project - Requirements              |Lab11 |
+| 32   |GR 2                                      |      |
+| 33   |Final Project - Design                    |      |
+| 34   |Final Project - Design Briefs             |Briefs|
+| 35   |Final Project                             |      |
 | 36   |Final Project                             |      |
 | 37   |Final Project                             |      |
 | 38   |Final Project                             |      |
