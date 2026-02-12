@@ -17,10 +17,13 @@ In real-world robotics, an Inertial Measurement Unit (IMU) is essential for trac
 <br>
 The IMU significantly enhances navigation accuracy when combined with odometry. It helps estimate the robot's position over time and improves localization.
 
+<br>
+
 ```{image} ./figures/TurtleBot3_Coordinates.png
 :width: 280
 :align: center
 ```
+<br>
 
 As we discussed earlier, multiple sensors work together to estimate the TurtleBot3's attitude and heading. These sensors are highly sensitive to magnetic fields, which can vary depending on the location and the device. Even everyday electronic components, including those on the OpenCR board, generate small magnetic fields. Although the IMU is placed at the center of the robot for optimal performance, it is still exposed to various magnetic interferences.
 
@@ -32,6 +35,7 @@ Fortunately, the TurtleBot3 developers anticipated this issue. Each time you run
 ### Step 1: Launch the TurtleBot3 Simulation
 
 1. Open a terminal and start the TurtleBot3 simulation in Gazebo:
+
    ```bash
    $ ros2 launch turtlebot3_gazebo turtlebot_world.launch
    ```
@@ -39,6 +43,7 @@ Fortunately, the TurtleBot3 developers anticipated this issue. Each time you run
 ### Step 2: Verify Communication with the Master
 
 1. Ensure the TurtleBot3 is properly communicating with the Master by listing active topics:
+
    ```bash
    $ ros2 topic list
    ```
@@ -55,16 +60,29 @@ Fortunately, the TurtleBot3 developers anticipated this issue. Each time you run
 
 ### Step 3: Examine the `/imu` and `/odom` Topics
 1. Run the `gamepad` and `joy` nodes.
-1. Observe the IMU and odometry messages while moving the robot:
+1. Observe the IMU and odometry data in real-time as you move the robot:
+
     ```bash
     $ ros2 topic echo /imu
     $ ros2 topic echo /odom
     ```
-    Pay close attention to the `pose` field. In future labs, be mindful not to confuse the different pose hierarchies within the Imu and Odom messages.
+    Pay close attention to the nested fields. Be careful not to confuse the different `pose` hierarchies within the Imu and Odom messages.
 
+1. Inspect the underlying message definitions so you know how to access these fields in your code:
+
+   ```bash
+   ros2 interface show <message_type>
+   ```
+
+   You can find the appropriate <message_type> by running:
+
+   ```bash
+   $ ros2 topic info <topic_name>
+   ```
 
 ### Step 4: Visualizing Data in `rqt`
 1. Open `rqt`:
+
     ```bash
     $ rqt
     ```
@@ -108,7 +126,8 @@ To avoid common mistakes when running `colcon build`, follow these steps to stre
    $ gedit ~/.bashrc
    ```
 
-1. At the end of the file, add the following function:
+1. Near the bottom the `.bashrc` file, look for the following functions. If they are not already present, add them.
+
    ```bash
    # Function to build with optional arguments
    function ccbuild() {
@@ -120,9 +139,9 @@ To avoid common mistakes when running `colcon build`, follow these steps to stre
    export -f ccbuild
    ```
 
-1. Save the file, exit the editor, and restart your terminal for the changes to take effect.
+1. Save the file, close the editor, and restart your terminal for the changes to take effect.
 
-1. Instead of manually navigating to `~/master_ws`, running `colcon build --symlink-install`, and sourcing `install/setup.bash`, you can now simply run:
+1. Instead of manually navigating to `~/master_ws`, running `colcon build --symlink-install`, and sourcing `install/setup.bash`, you can now simply run
    ```bash
    $ ccbuild
    ```
@@ -205,7 +224,11 @@ In this section, you'll modify the `gamepad.py` script to add functionality for 
    if not self.has_control:
        return
    ```
-   
+
+1. From the gamepad node's standpoint, this addition introduces a simple control‑ownership mechanism. The node now keeps track of whether the remote operator currently "has control" of the robot. When the user presses the A (Green) button, the node publishes a message indicating that control has been relinquished. When the B (Red) button is pressed, it publishes a message indicating that control has been regained.
+
+   The `has_control` flag ensures that once control is relinquished, the node stops processing joystick commands entirely, preventing unintended motion. This makes the gamepad node responsible not only for reading joystick input but also for broadcasting the robot's control state to the rest of the system.
+ 
    This is a common safety practice in robotics to halt autonomous tasks a robot is executing.  Another safety practice is to integrating an easily accessible emergency stop switch that cuts off the main power to the robot.  
 
 
@@ -276,6 +299,12 @@ The `move2goal.py` script will control the TurtleBot3 to move to a specified goa
     - Update the `self.has_control` flag based on the received `Bool` message.
     - Log a message indicating whether control is taken or relinquished.
 
+
+   From the robot's standpoint, `self.has_control` acts as a permission gate. When this flag becomes False, the robot immediately stops generating motion commands, ensuring that autonomous behavior halts the moment control is taken away. When the flag is True, the robot is allowed to continue computing and publishing `/cmd_vel` commands toward the goal. In other words, the flag tells the robot whether it is allowed to act.
+
+   The gamepad node is the source of control decisions—it sets the control state based on button presses and publishes that state on the `ctrl_relinq` topic. The robot (via `move2goal.py`) is the consumer of that decision—it listens, updates its own `self.has_control`, and behaves accordingly. This separation keeps the control logic clean: the gamepad decides, and the robot obeys.
+
+
 1. Implement the `control_loop` function
     - Compute the **angle to the goal** and normalize it to the range [-$\pi$, $\pi$].
     - Compute the **distance to the goal** using the Euclidean distance formula.
@@ -303,11 +332,6 @@ The `move2goal.py` script will control the TurtleBot3 to move to a specified goa
 
 
 ### **Build and Test the Package**
-
-1. Install `tf-transformations` using
-   ```bash
-   $ sudo apt install ros-humble-tf-transformations
-   ```
 
 1. Build the `lab6_nav` package using:
    ```bash
