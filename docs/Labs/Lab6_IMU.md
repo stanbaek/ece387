@@ -343,10 +343,27 @@ The `move2goal.py` script will control the TurtleBot3 to move to a specified goa
    - Rotate the robot to face `0°`.
    - **Hint:** Most floor and ceiling tiles in the U.S. are 1' by 1' or 2' by 2'. Use this to estimate distances. (1 foot = 30.48 cm).
 
+   <center>
+   <iframe width="560" height="315" src="https://www.youtube.com/embed/OXq5pgE4C6M?si=R9m2p0erJwloZ9VT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+   </center>
 
-<center>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/OXq5pgE4C6M?si=R9m2p0erJwloZ9VT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-</center>
+1. How to Shut Down or Reboot the Raspberry Pi (Warm Shutdown Recommended)
+   
+   Before powering off the robot, always perform a **warm shutdown**. Linux continuously writes to the SD card, and cutting power abruptly can corrupt the filesystem, damage ROS logs, or break packages. A clean shutdown flushes all buffers and ensures the SD card remains healthy.
+
+   To shut down safely:
+
+   ```bash
+   sudo shutdown now
+   ```
+
+   To reboot safely:
+
+   ```bash
+   sudo reboot
+   ```
+
+   Warm shutdowns are especially important for robots because IMU, odometry, and ROS2 nodes write data frequently. A clean shutdown prevents SD card corruption and keeps the robot stable for the next run.
 
 
 ### 🚚 Deliverables
@@ -357,6 +374,7 @@ The `move2goal.py` script will control the TurtleBot3 to move to a specified goa
 
 1. **[15 Points] Demonstration:**
    - Show the robot successfully navigating to the goal location and orientation in a real-world setup.
+   - Although an in‑person demo is preferred, you can also submit a video demo in the course Teams under General > Shared > Demos.
 
 1. **[20 Points] Performance Analysis:**
     - Examine the distance and angle errors printed by `move2goal.py`.
