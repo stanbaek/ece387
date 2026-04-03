@@ -39,8 +39,8 @@ This schedule is subject to change as appropriate.
 | 29   |Lec 11: AprilTags                         |Lab10 |
 | 30   |[Lab 11: AprilTag](Labs/Lab11_AprilTag.md)|Quiz5 |
 | 31   |[Lab 11: AprilTag](Labs/Lab11_AprilTag.md)|      | 
-| 32   |Final Project - Requirements              |Lab11 |
-| 33   |GR 2                                      |      |
+| 32   |GR 2                                      |      |
+| 33   |Final Project - Requirements              |Lab11 |
 | 34   |Final Project - Design                    |      |
 | 35   |Final Project - Design Briefs             |Briefs|
 | 36   |Final Project                             |      |
