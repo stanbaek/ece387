@@ -38,17 +38,15 @@ Rather than braving the perilous maze, the infamous pirate captain, Dr. Baek, is
 Here's what the scroll reveals about navigating the maze:  
 
 1. **Follow the walls in the maze at all times.**  
-2. **Avoid stopping at or looking out windows-those are deadly!**  
-3. **React to AprilTags and Stop Sign:**  
-   - **Tag ID 0:** Turn left (make a 270° clockwise turn).  
-   - **Tag ID 1:** Stop for at least 5 seconds, then make a 90$^\circ$ left turn (90$^\circ$ counterclockwise turn).  
-   - **Tag ID 2:** Look around to locate the treasure chest, which is buired under **AprilTag ID 4**. Record the pose (position and orientation) of the treasure chest. You will need to report these once the robot returns home.
-   - **Tag ID 3:** Turn left (make a 90° counterclockwise turn).  
-   - **Stop Sign:** Stop within 0.6 meters of the sign. Report (print to the terminal) the location and orietation of the treasure chest.  
+2. **Avoid stopping at or looking out windows - those are deadly!**  
+3. **React to AprilTags:** These tags act like arrows you must follow. Detect the AprilTag and follow the direction indicated.  
+   - If the tag's yaw is \(90^\circ\), make a \(90^\circ\) left turn.
+   - **Tag ID 0 & 1:** Follow the direction shown on the tag.  
+   - **Tag ID 2:** Follow the direction, but the scroll warns that the treasure chest is nearby. Look around to locate the treasure chest, which is buried under **AprilTag ID 4**. Record the pose (position and orientation) of the treasure chest; you will need to report this once the robot returns home.  
+   - **Tag ID 3:** The scroll says this is a trap. Stop for at least 5 seconds, then make the turn shown on the tag — but in the **opposite** direction. For example, if the tag indicates a \(90^\circ\) turn, you must instead make a \(270^\circ\) right turn.  
+4. **Stop Sign:** You have reached the exit of the maze. Stop within 0.6 meters of the sign. Report (print to the terminal) the location and orientation of the treasure chest.
 
 Once you locate the treasure chest, send Captain Baek the maze map along with the chest's pose in the map so he can claim the loot!
-
----
 
 ## 🎮 Final Project Gamesmanship
 
@@ -56,7 +54,7 @@ Once you locate the treasure chest, send Captain Baek the maze map along with th
 
 - Review the presentation and final report requirements **before** you begin coding.  
 - **Start early**—delays can put your completion at risk.  
-- Use the code from Labs 10 and 11 as a reference, but **do not** implement your project within those lab files. Instructors will evaluate the code inside your `final_project` folder.  
+- Use the code from Labs 10 and 11 as a reference, but **do not** implement your project within those lab files. Instructors will evaluate the code inside your `final_project` folder.  **You must name it final_project**.
 - Take advantage of debugging tools like `rqt`, `ros2 topic`, and `rviz` to fine-tune high-level behaviors.  
 - **Prioritize your final report:**  
   - Your analysis in the report is more important than completing the maze.  
@@ -68,6 +66,7 @@ Once you locate the treasure chest, send Captain Baek the maze map along with th
 - **Cover all required details** in your presentation.  
 - Stick to the **5-minute limit**—practice to refine your delivery. At the 6-minute mark, your talk will be stopped, and any content beyond that **won't** be graded. Time management is key, just as it is in professional conferences.  
 - **Practice, practice, practice.** Short presentations that lack detail often result in lost points. Even experienced engineers practice for their conference presentations.
+- Carefully review the **rubric** posted on Teams before you begin.
 
 ### 3. Final Report (40 points)  
 
@@ -89,6 +88,10 @@ Once you locate the treasure chest, send Captain Baek the maze map along with th
 
 1. **L35: Design Presentations**: Prepare to present your project design during **L35**.  
 
+1. **L37 0700: Early Bird**
+    - Navigate through **Tag ID 2** and locate the **treasure chest**.  
+    - You will earn **5 bonus points** that can carry over the final course grade. It is 1.25% of the total course grade.
+
 1. **L39 0700: Live Demo Due**  
     - You may use **grace days**, but all submissions must be completed by **T40 2359**, as per the Dean's policy.  
 
@@ -109,7 +112,14 @@ Once you locate the treasure chest, send Captain Baek the maze map along with th
 
 ## 🎬 Demonstrations  
 
-Below is the final grading rubric, with a total of **40 points** assigned to the demonstration:  
+Below is the final grading rubric, with a total of **42 points** assigned to the demonstration. The score will be capped at **40 points**, so even if you lose 2 points, you will still earn a 100% on your demo.  
+
+```{image} ./figures/maze.jpg
+:width: 800
+:align: center
+```
+
+<br>
 
 1. **Wall Following (10 points):**  
 
@@ -117,12 +127,12 @@ Below is the final grading rubric, with a total of **40 points** assigned to the
 - Each wall collision results in a **1-point deduction**.  
 - However, if the robot successfully reaches the final goal (white line), no more than **3 points** will be deducted.  
 
-1. **Stop Sign (8 points):**  
+1. **Stop Sign (5 points):**  
 
 - The robot must stop at the **yellow line**, with its bottom plate covering any part of it.  
 - Once the treasure chest is found, the robot should **print its current location** and remain there indefinitely.  
 
-1. **AprilTags (15 points):**  
+1. **AprilTags (20 points):**  
 
 - The robot must stop at the **orange line** before turning.  
 - Its bottom plate must cover at least part of the orange line before executing a turn.  
@@ -135,7 +145,7 @@ Below is the final grading rubric, with a total of **40 points** assigned to the
 
 1. **Gamepad Control (2 points):**  
 
-- You must be able to **relinquish control** to the robot when needed.  
+- You must use the gamepad to move your robot to the starting position, then relinquish control so it can begin navigating the maze.
 
 ## 👩‍🏫 Design Presentation (20 Points)  
 
