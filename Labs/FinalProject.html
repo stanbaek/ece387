@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=4c969af8" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -59,6 +59,8 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'Labs/FinalProject';</script>
     <link rel="icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -493,10 +495,10 @@ document.write(`
 <li><p><strong>Avoid stopping at or looking out windows - those are deadly!</strong></p></li>
 <li><p><strong>React to AprilTags:</strong> These tags act like arrows you must follow. Detect the AprilTag and follow the direction indicated.</p>
 <ul class="simple">
-<li><p>If the tag’s yaw is (90^\circ), make a (90^\circ) left turn.</p></li>
+<li><p>If the tag’s yaw is <span class="math notranslate nohighlight">\(90^\circ\)</span>, make a <span class="math notranslate nohighlight">\(90^\circ\)</span> left turn.</p></li>
 <li><p><strong>Tag ID 0 &amp; 1:</strong> Follow the direction shown on the tag.</p></li>
 <li><p><strong>Tag ID 2:</strong> Follow the direction, but the scroll warns that the treasure chest is nearby. Look around to locate the treasure chest, which is buried under <strong>AprilTag ID 4</strong>. Record the pose (position and orientation) of the treasure chest; you will need to report this once the robot returns home.</p></li>
-<li><p><strong>Tag ID 3:</strong> The scroll says this is a trap. Stop for at least 5 seconds, then make the turn shown on the tag — but in the <strong>opposite</strong> direction. For example, if the tag indicates a (90^\circ) turn, you must instead make a (270^\circ) right turn.</p></li>
+<li><p><strong>Tag ID 3:</strong> The scroll says this is a trap. Stop for at least 5 seconds, then make the turn shown on the tag — but in the <strong>opposite</strong> direction. For example, if the tag indicates a <span class="math notranslate nohighlight">\(90^\circ\)</span> turn, you must instead make a <span class="math notranslate nohighlight">\(270^\circ\)</span> right turn.</p></li>
 </ul>
 </li>
 <li><p><strong>Stop Sign:</strong> You have reached the exit of the maze. Stop within 0.6 meters of the sign. Report (print to the terminal) the location and orientation of the treasure chest.</p></li>
@@ -562,11 +564,12 @@ document.write(`
 </li>
 <li><p><strong>L39 0700: Live Demo Due</strong></p>
 <ul class="simple">
-<li><p>You may use <strong>grace days</strong>, but all submissions must be completed by <strong>T40 2359</strong>, as per the Dean’s policy.</p></li>
+<li><p>You may <strong>not</strong> use grace days. The <strong>live demo</strong> must be completed by <strong>L39 0700</strong>. Otherwise, you will not have enough time to write the final report.</p></li>
 </ul>
 </li>
-<li><p><strong>T40 2359: Final Report &amp; Code</strong></p>
+<li><p><strong>T40 2359: Final Report, Demo Video, &amp; Code</strong></p>
 <ul class="simple">
+<li><p>Submit a video demo of the robot navigating the maze <strong>along with</strong> the corresponding screen recording.</p></li>
 <li><p><strong>No grace days</strong> are available—everything must be submitted by <strong>midnight (T40 2359)</strong>.</p></li>
 </ul>
 </li>
@@ -577,6 +580,7 @@ document.write(`
 <ol class="arabic simple">
 <li><p>Add detailed comments to your code for clarity.</p></li>
 <li><p>Avoid delays, loops, waits, or sleeps, as they interfere with the timer functionality.</p></li>
+<li><p>If you have any code on the robot, you do not need to create a GitHub repository. You may zip the files and submit them on Gradescope.</p></li>
 </ol>
 </section>
 <section id="penalties">
@@ -595,25 +599,33 @@ document.write(`
 </a>
 <br>
 <ol class="arabic simple">
+<li><p><strong>Gamepad Control (2 points):</strong></p></li>
+</ol>
+<ul class="simple">
+<li><p>Place your robot behind the brown line.</p></li>
+<li><p>Use the gamepad to move your robot to the starting position (white box), then <strong>relinquish control</strong> so it can begin navigating the maze.</p></li>
+</ul>
+<ol class="arabic simple">
 <li><p><strong>Wall Following (10 points):</strong></p></li>
 </ol>
 <ul class="simple">
 <li><p>The robot must follow the maze walls without colliding.</p></li>
 <li><p>Each wall collision results in a <strong>1-point deduction</strong>.</p></li>
-<li><p>However, if the robot successfully reaches the final goal (white line), no more than <strong>3 points</strong> will be deducted.</p></li>
+<li><p>However, if the robot successfully reaches the final goal (yellow line), no more than <strong>3 points</strong> will be deducted.</p></li>
 </ul>
 <ol class="arabic simple">
 <li><p><strong>Stop Sign (5 points):</strong></p></li>
 </ol>
 <ul class="simple">
 <li><p>The robot must stop at the <strong>yellow line</strong>, with its bottom plate covering any part of it.</p></li>
-<li><p>Once the treasure chest is found, the robot should <strong>print its current location</strong> and remain there indefinitely.</p></li>
+<li><p>After coming to a complete stop, the robot must <strong>print its current pose and the treasure chest’s pose</strong>, then remain stopped indefinitely.</p></li>
 </ul>
 <ol class="arabic simple">
 <li><p><strong>AprilTags (20 points):</strong></p></li>
 </ol>
 <ul class="simple">
 <li><p>The robot must stop at the <strong>orange line</strong> before turning.</p></li>
+<li><p>Once stopped, it must print the tags’ poses on screen.</p></li>
 <li><p>Its bottom plate must cover at least part of the orange line before executing a turn.</p></li>
 <li><p>Precise turns aren’t directly graded, but improving turn accuracy will <strong>boost overall performance</strong>.</p></li>
 </ul>
@@ -623,12 +635,6 @@ document.write(`
 <ul class="simple">
 <li><p>As the robot explores the maze, it must generate a <strong>map</strong>.</p></li>
 <li><p>This map should be included in your final report.</p></li>
-</ul>
-<ol class="arabic simple">
-<li><p><strong>Gamepad Control (2 points):</strong></p></li>
-</ol>
-<ul class="simple">
-<li><p>You must use the gamepad to move your robot to the starting position, then relinquish control so it can begin navigating the maze.</p></li>
 </ul>
 </section>
 <section id="design-presentation-20-points">

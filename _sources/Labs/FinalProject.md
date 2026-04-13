@@ -40,10 +40,10 @@ Here's what the scroll reveals about navigating the maze:
 1. **Follow the walls in the maze at all times.**  
 2. **Avoid stopping at or looking out windows - those are deadly!**  
 3. **React to AprilTags:** These tags act like arrows you must follow. Detect the AprilTag and follow the direction indicated.  
-   - If the tag's yaw is \(90^\circ\), make a \(90^\circ\) left turn.
+   - If the tag's yaw is $90^\circ$, make a $90^\circ$ left turn.
    - **Tag ID 0 & 1:** Follow the direction shown on the tag.  
    - **Tag ID 2:** Follow the direction, but the scroll warns that the treasure chest is nearby. Look around to locate the treasure chest, which is buried under **AprilTag ID 4**. Record the pose (position and orientation) of the treasure chest; you will need to report this once the robot returns home.  
-   - **Tag ID 3:** The scroll says this is a trap. Stop for at least 5 seconds, then make the turn shown on the tag — but in the **opposite** direction. For example, if the tag indicates a \(90^\circ\) turn, you must instead make a \(270^\circ\) right turn.  
+   - **Tag ID 3:** The scroll says this is a trap. Stop for at least 5 seconds, then make the turn shown on the tag — but in the **opposite** direction. For example, if the tag indicates a $90^\circ$ turn, you must instead make a $270^\circ$ right turn.  
 4. **Stop Sign:** You have reached the exit of the maze. Stop within 0.6 meters of the sign. Report (print to the terminal) the location and orientation of the treasure chest.
 
 Once you locate the treasure chest, send Captain Baek the maze map along with the chest's pose in the map so he can claim the loot!
@@ -93,15 +93,17 @@ Once you locate the treasure chest, send Captain Baek the maze map along with th
     - You will earn **5 bonus points** that can carry over the final course grade. It is 1.25% of the total course grade.
 
 1. **L39 0700: Live Demo Due**  
-    - You may use **grace days**, but all submissions must be completed by **T40 2359**, as per the Dean's policy.  
-
-1. **T40 2359: Final Report & Code**  
+    - You may **not** use grace days. The **live demo** must be completed by **L39 0700**. Otherwise, you will not have enough time to write the final report.  
+    
+1. **T40 2359: Final Report, Demo Video, & Code**  
+    - Submit a video demo of the robot navigating the maze **along with** the corresponding screen recording.
     - **No grace days** are available—everything must be submitted by **midnight (T40 2359)**.
 
 ### Coding Requirements  
 
 1. Add detailed comments to your code for clarity.  
 1. Avoid delays, loops, waits, or sleeps, as they interfere with the timer functionality.  
+1. If you have any code on the robot, you do not need to create a GitHub repository. You may zip the files and submit them on Gradescope.
 
 ### Penalties  
 
@@ -121,20 +123,24 @@ Below is the final grading rubric, with a total of **42 points** assigned to the
 
 <br>
 
-1. **Wall Following (10 points):**  
+1. **Gamepad Control (2 points):**  
+- Place your robot behind the brown line.
+- Use the gamepad to move your robot to the starting position (white box), then **relinquish control** so it can begin navigating the maze.
 
+1. **Wall Following (10 points):**  
 - The robot must follow the maze walls without colliding.  
 - Each wall collision results in a **1-point deduction**.  
-- However, if the robot successfully reaches the final goal (white line), no more than **3 points** will be deducted.  
+- However, if the robot successfully reaches the final goal (yellow line), no more than **3 points** will be deducted.  
 
 1. **Stop Sign (5 points):**  
 
 - The robot must stop at the **yellow line**, with its bottom plate covering any part of it.  
-- Once the treasure chest is found, the robot should **print its current location** and remain there indefinitely.  
+- After coming to a complete stop, the robot must **print its current pose and the treasure chest's pose**, then remain stopped indefinitely.  
 
 1. **AprilTags (20 points):**  
 
 - The robot must stop at the **orange line** before turning.  
+- Once stopped, it must print the tags' poses on screen.
 - Its bottom plate must cover at least part of the orange line before executing a turn.  
 - Precise turns aren't directly graded, but improving turn accuracy will **boost overall performance**.  
 
@@ -143,9 +149,6 @@ Below is the final grading rubric, with a total of **42 points** assigned to the
 - As the robot explores the maze, it must generate a **map**.  
 - This map should be included in your final report.  
 
-1. **Gamepad Control (2 points):**  
-
-- You must use the gamepad to move your robot to the starting position, then relinquish control so it can begin navigating the maze.
 
 ## 👩‍🏫 Design Presentation (20 Points)  
 
