@@ -495,10 +495,10 @@ document.write(`
 <li><p><strong>Avoid stopping at or looking out windows - those are deadly!</strong></p></li>
 <li><p><strong>React to AprilTags:</strong> These tags act like arrows you must follow. Detect the AprilTag and follow the direction indicated.</p>
 <ul class="simple">
-<li><p>If the tag’s yaw is <span class="math notranslate nohighlight">\(90^\circ\)</span>, make a <span class="math notranslate nohighlight">\(90^\circ\)</span> left turn.</p></li>
+<li><p>If the tag’s yaw is <span class="math notranslate nohighlight">\(-90^\circ\)</span>, make a <span class="math notranslate nohighlight">\(90^\circ\)</span> <strong>left</strong> turn (counterclockwise). Note that the yaw angle is measured relative to the camera frame, not the AprilTag itself.</p></li>
 <li><p><strong>Tag ID 0 &amp; 1:</strong> Follow the direction shown on the tag.</p></li>
 <li><p><strong>Tag ID 2:</strong> Follow the direction, but the scroll warns that the treasure chest is nearby. Look around to locate the treasure chest, which is buried under <strong>AprilTag ID 4</strong>. Record the pose (position and orientation) of the treasure chest; you will need to report this once the robot returns home.</p></li>
-<li><p><strong>Tag ID 3:</strong> The scroll says this is a trap. Stop for at least 5 seconds, then make the turn shown on the tag — but in the <strong>opposite</strong> direction. For example, if the tag indicates a <span class="math notranslate nohighlight">\(90^\circ\)</span> turn, you must instead make a <span class="math notranslate nohighlight">\(270^\circ\)</span> right turn.</p></li>
+<li><p><strong>Tag ID 3:</strong> The scroll says this is a trap. Stop for at least 5 seconds, then make the turn shown on the tag — but in the <strong>opposite</strong> direction. For example, if the tag indicates a <span class="math notranslate nohighlight">\(-90^\circ\)</span> turn, you must instead make a <span class="math notranslate nohighlight">\(270^\circ\)</span> clockwise turn.</p></li>
 </ul>
 </li>
 <li><p><strong>Stop Sign:</strong> You have reached the exit of the maze. Stop within 0.6 meters of the sign. Report (print to the terminal) the location and orientation of the treasure chest.</p></li>
