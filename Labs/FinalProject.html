@@ -28,11 +28,11 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=4c969af8" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -474,7 +474,7 @@ document.write(`
 <ul class="simple">
 <li><p><strong>LIDAR:</strong> Keeps the robot centered between walls.</p></li>
 <li><p><strong>IMU:</strong> Handles precise turns (90°, -90°, 270°).</p></li>
-<li><p><strong>OpenCV:</strong> Detects and reacts to randomly placed stop signs.</p></li>
+<li><p><strong>OpenCV:</strong> Detects and reacts to stop signs.</p></li>
 <li><p><strong>AprilTags:</strong> Guides the robot through the maze using tag IDs and distances to decide actions like turning or stopping at specific locations.</p></li>
 </ul>
 <div class="admonition important">
@@ -484,26 +484,25 @@ document.write(`
 </section>
 <section id="story">
 <h2>🏴‍☠️ Story<a class="headerlink" href="#story" title="Link to this heading">#</a></h2>
-<p>Ahoy, crew!  The legendary 💀 pirate captain, Dr. Baek, has uncovered an ancient scroll that reveals the location of a hidden treasure island. But there’s a catch—the treasure is locked deep inside a deadly maze!</p>
+<p>Ahoy, crew!  The legendary 💀 pirate captain, Stan Baek, has uncovered an ancient scroll that reveals the location of a hidden treasure island. But there’s a catch—the treasure is locked deep inside a deadly maze!</p>
 <p>According to the scroll, the maze is marked with enigmatic symbols known as AprilTags. These cryptic signs hold the key to locating the treasure. Miss one, or read it wrong, and… well, let’s just say you won’t be making it back.</p>
 <p>Rather than braving the perilous maze, the infamous pirate captain, Dr. Baek, is relying on you to develop cutting-edge technology to solve the mystery. Your task is to design and build a robotic system that can navigate the maze independently, decode the AprilTags, and uncover the treasure’s hidden location.</p>
 <p>Here’s what the scroll reveals about navigating the maze:</p>
 <ol class="arabic simple">
 <li><p><strong>Follow the walls in the maze at all times.</strong></p></li>
-<li><p><strong>Avoid stopping at or looking out windows—those are deadly!</strong></p></li>
-<li><p><strong>React to AprilTags:</strong></p>
+<li><p><strong>Avoid stopping at or looking out windows - those are deadly!</strong></p></li>
+<li><p><strong>React to AprilTags:</strong> These tags act like arrows you must follow. Detect the AprilTag and follow the direction indicated.</p>
 <ul class="simple">
-<li><p><strong>Tag ID 0:</strong> Turn left (make a 270° clockwise turn).</p></li>
-<li><p><strong>Tag ID 1:</strong> Stop for 5 seconds, then make a 90° left turn.</p></li>
-<li><p><strong>Tag ID 2:</strong> Turn right (make a 90° clockwise turn).</p></li>
-<li><p><strong>Tag ID 3:</strong> Turn left (make a 90° counterclockwise turn).</p></li>
-<li><p><strong>Stop Signs:</strong> Stop 0.3 meters before the sign, then turn left. Look around to locate the treasure chest, which is buried under <strong>AprilTag ID 4</strong>.</p></li>
+<li><p>If the tag’s yaw is (90^\circ), make a (90^\circ) left turn.</p></li>
+<li><p><strong>Tag ID 0 &amp; 1:</strong> Follow the direction shown on the tag.</p></li>
+<li><p><strong>Tag ID 2:</strong> Follow the direction, but the scroll warns that the treasure chest is nearby. Look around to locate the treasure chest, which is buried under <strong>AprilTag ID 4</strong>. Record the pose (position and orientation) of the treasure chest; you will need to report this once the robot returns home.</p></li>
+<li><p><strong>Tag ID 3:</strong> The scroll says this is a trap. Stop for at least 5 seconds, then make the turn shown on the tag — but in the <strong>opposite</strong> direction. For example, if the tag indicates a (90^\circ) turn, you must instead make a (270^\circ) right turn.</p></li>
 </ul>
 </li>
+<li><p><strong>Stop Sign:</strong> You have reached the exit of the maze. Stop within 0.6 meters of the sign. Report (print to the terminal) the location and orientation of the treasure chest.</p></li>
 </ol>
-<p>Once you locate the treasure chest, send Captain Baek the maze map so he can claim the loot!</p>
+<p>Once you locate the treasure chest, send Captain Baek the maze map along with the chest’s pose in the map so he can claim the loot!</p>
 </section>
-<hr class="docutils" />
 <section id="final-project-gamesmanship">
 <h2>🎮 Final Project Gamesmanship<a class="headerlink" href="#final-project-gamesmanship" title="Link to this heading">#</a></h2>
 <section id="demo-coding-40-points">
@@ -511,7 +510,7 @@ document.write(`
 <ul class="simple">
 <li><p>Review the presentation and final report requirements <strong>before</strong> you begin coding.</p></li>
 <li><p><strong>Start early</strong>—delays can put your completion at risk.</p></li>
-<li><p>Use the code from Labs 10 and 11 as a reference, but <strong>do not</strong> implement your project within those lab files. Instructors will evaluate the code inside your <code class="docutils literal notranslate"><span class="pre">final_project</span></code> folder.</p></li>
+<li><p>Use the code from Labs 10 and 11 as a reference, but <strong>do not</strong> implement your project within those lab files. Instructors will evaluate the code inside your <code class="docutils literal notranslate"><span class="pre">final_project</span></code> folder.  <strong>You must name it final_project</strong>.</p></li>
 <li><p>Take advantage of debugging tools like <code class="docutils literal notranslate"><span class="pre">rqt</span></code>, <code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">topic</span></code>, and <code class="docutils literal notranslate"><span class="pre">rviz</span></code> to fine-tune high-level behaviors.</p></li>
 <li><p><strong>Prioritize your final report:</strong></p>
 <ul>
@@ -528,12 +527,12 @@ document.write(`
 <li><p><strong>Cover all required details</strong> in your presentation.</p></li>
 <li><p>Stick to the <strong>5-minute limit</strong>—practice to refine your delivery. At the 6-minute mark, your talk will be stopped, and any content beyond that <strong>won’t</strong> be graded. Time management is key, just as it is in professional conferences.</p></li>
 <li><p><strong>Practice, practice, practice.</strong> Short presentations that lack detail often result in lost points. Even experienced engineers practice for their conference presentations.</p></li>
+<li><p>Carefully review the <strong>rubric</strong> posted on Teams before you begin.</p></li>
 </ul>
 </section>
 <section id="final-report-40-points">
 <h3>3. Final Report (40 points)<a class="headerlink" href="#final-report-40-points" title="Link to this heading">#</a></h3>
 <ul class="simple">
-<li><p>Carefully <strong>follow the template</strong> and ensure all required sections are included.</p></li>
 <li><p>Strengthen your analysis with figures and tables to clearly present your findings.</p></li>
 <li><p>If you opt for an in-person demo, <strong>also</strong> submit a video demo that aligns with your report’s plots to support your documentation.</p></li>
 </ul>
@@ -555,6 +554,12 @@ document.write(`
 </ul>
 </li>
 <li><p><strong>L35: Design Presentations</strong>: Prepare to present your project design during <strong>L35</strong>.</p></li>
+<li><p><strong>L37 0700: Early Bird</strong></p>
+<ul class="simple">
+<li><p>Navigate through <strong>Tag ID 2</strong> and locate the <strong>treasure chest</strong>.</p></li>
+<li><p>You will earn <strong>5 bonus points</strong> that can carry over the final course grade. It is 1.25% of the total course grade.</p></li>
+</ul>
+</li>
 <li><p><strong>L39 0700: Live Demo Due</strong></p>
 <ul class="simple">
 <li><p>You may use <strong>grace days</strong>, but all submissions must be completed by <strong>T40 2359</strong>, as per the Dean’s policy.</p></li>
@@ -585,24 +590,27 @@ document.write(`
 <hr class="docutils" />
 <section id="demonstrations">
 <h2>🎬 Demonstrations<a class="headerlink" href="#demonstrations" title="Link to this heading">#</a></h2>
-<p>Below is the final grading rubric, with a total of <strong>40 points</strong> assigned to the demonstration:</p>
+<p>Below is the final grading rubric, with a total of <strong>42 points</strong> assigned to the demonstration. The score will be capped at <strong>40 points</strong>, so even if you lose 2 points, you will still earn a 100% on your demo.</p>
+<a class="reference internal image-reference" href="../_images/maze.jpg"><img alt="../_images/maze.jpg" class="align-center" src="../_images/maze.jpg" style="width: 800px;" />
+</a>
+<br>
 <ol class="arabic simple">
 <li><p><strong>Wall Following (10 points):</strong></p></li>
 </ol>
 <ul class="simple">
 <li><p>The robot must follow the maze walls without colliding.</p></li>
 <li><p>Each wall collision results in a <strong>1-point deduction</strong>.</p></li>
-<li><p>However, if the robot successfully reaches the final goal (yellow line), no more than <strong>3 points</strong> will be deducted.</p></li>
+<li><p>However, if the robot successfully reaches the final goal (white line), no more than <strong>3 points</strong> will be deducted.</p></li>
 </ul>
 <ol class="arabic simple">
-<li><p><strong>Stop Sign (8 points):</strong></p></li>
+<li><p><strong>Stop Sign (5 points):</strong></p></li>
 </ol>
 <ul class="simple">
 <li><p>The robot must stop at the <strong>yellow line</strong>, with its bottom plate covering any part of it.</p></li>
 <li><p>Once the treasure chest is found, the robot should <strong>print its current location</strong> and remain there indefinitely.</p></li>
 </ul>
 <ol class="arabic simple">
-<li><p><strong>AprilTags (15 points):</strong></p></li>
+<li><p><strong>AprilTags (20 points):</strong></p></li>
 </ol>
 <ul class="simple">
 <li><p>The robot must stop at the <strong>orange line</strong> before turning.</p></li>
@@ -620,7 +628,7 @@ document.write(`
 <li><p><strong>Gamepad Control (2 points):</strong></p></li>
 </ol>
 <ul class="simple">
-<li><p>You must be able to <strong>relinquish control</strong> to the robot when needed.</p></li>
+<li><p>You must use the gamepad to move your robot to the starting position, then relinquish control so it can begin navigating the maze.</p></li>
 </ul>
 </section>
 <section id="design-presentation-20-points">
@@ -709,7 +717,7 @@ document.write(`
 <li><p><strong>Controller design</strong>, including finite state machine details.</p></li>
 <li><p>Include an <strong>RQT graph</strong> with <strong>legible plots</strong>.</p></li>
 </ul>
-<ol class="arabic simple" start="3">
+<ol class="arabic simple">
 <li><p><strong>Analysis &amp; Results [20 Points]</strong></p>
 <ul class="simple">
 <li><p><strong>This is the most crucial section—your engineering analysis matters!</strong></p></li>
