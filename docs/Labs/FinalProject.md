@@ -40,10 +40,10 @@ Here's what the scroll reveals about navigating the maze:
 1. **Follow the walls in the maze at all times.**  
 2. **Avoid stopping at or looking out windows - those are deadly!**  
 3. **React to AprilTags:** These tags act like arrows you must follow. Detect the AprilTag and follow the direction indicated.  
-   - If the tag's yaw is \(90^\circ\), make a \(90^\circ\) left turn.
+   - If the tag's yaw is $90^\circ$, make a $90^\circ$ left turn.
    - **Tag ID 0 & 1:** Follow the direction shown on the tag.  
    - **Tag ID 2:** Follow the direction, but the scroll warns that the treasure chest is nearby. Look around to locate the treasure chest, which is buried under **AprilTag ID 4**. Record the pose (position and orientation) of the treasure chest; you will need to report this once the robot returns home.  
-   - **Tag ID 3:** The scroll says this is a trap. Stop for at least 5 seconds, then make the turn shown on the tag — but in the **opposite** direction. For example, if the tag indicates a \(90^\circ\) turn, you must instead make a \(270^\circ\) right turn.  
+   - **Tag ID 3:** The scroll says this is a trap. Stop for at least 5 seconds, then make the turn shown on the tag — but in the **opposite** direction. For example, if the tag indicates a $90^\circ$ turn, you must instead make a $270^\circ$ right turn.  
 4. **Stop Sign:** You have reached the exit of the maze. Stop within 0.6 meters of the sign. Report (print to the terminal) the location and orientation of the treasure chest.
 
 Once you locate the treasure chest, send Captain Baek the maze map along with the chest's pose in the map so he can claim the loot!
