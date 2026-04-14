@@ -495,10 +495,10 @@ document.write(`
 <li><p><strong>Avoid stopping at or looking out windows - those are deadly!</strong></p></li>
 <li><p><strong>React to AprilTags:</strong> These tags act like arrows you must follow. Detect the AprilTag and follow the direction indicated.</p>
 <ul class="simple">
-<li><p>If the tag’s yaw is <span class="math notranslate nohighlight">\(-90^\circ\)</span>, make a <span class="math notranslate nohighlight">\(90^\circ\)</span> <strong>left</strong> turn (counterclockwise). Note that the yaw angle is measured relative to the camera frame, not the AprilTag itself.</p></li>
+<li><p>If the tag’s yaw is <span class="math notranslate nohighlight">\(90^\circ\)</span>, make a <span class="math notranslate nohighlight">\(90^\circ\)</span> <strong>left</strong> turn (counterclockwise). Note that the yaw angle is measured relative to the camera frame, not the AprilTag itself.</p></li>
 <li><p><strong>Tag ID 0 &amp; 1:</strong> Follow the direction shown on the tag.</p></li>
 <li><p><strong>Tag ID 2:</strong> Follow the direction, but the scroll warns that the treasure chest is nearby. Look around to locate the treasure chest, which is buried under <strong>AprilTag ID 4</strong>. Record the pose (position and orientation) of the treasure chest; you will need to report this once the robot returns home.</p></li>
-<li><p><strong>Tag ID 3:</strong> The scroll says this is a trap. Stop for at least 5 seconds, then make the turn shown on the tag — but in the <strong>opposite</strong> direction. For example, if the tag indicates a <span class="math notranslate nohighlight">\(-90^\circ\)</span> turn, you must instead make a <span class="math notranslate nohighlight">\(270^\circ\)</span> clockwise turn.</p></li>
+<li><p><strong>Tag ID 3:</strong> The scroll says this is a trap. Stop for at least 5 seconds, then make the turn shown on the tag — but in the <strong>opposite</strong> direction. For example, if the tag indicates a <span class="math notranslate nohighlight">\(90^\circ\)</span> turn, you must instead make a <span class="math notranslate nohighlight">\(-270^\circ\)</span> clockwise turn.</p></li>
 </ul>
 </li>
 <li><p><strong>Stop Sign:</strong> You have reached the exit of the maze. Stop within 0.6 meters of the sign. Report (print to the terminal) the location and orientation of the treasure chest.</p></li>
@@ -599,43 +599,41 @@ document.write(`
 </a>
 <br>
 <ol class="arabic simple">
-<li><p><strong>Gamepad Control (2 points):</strong></p></li>
-</ol>
+<li><p><strong>Gamepad Control (2 points):</strong></p>
 <ul class="simple">
 <li><p>Place your robot behind the brown line.</p></li>
 <li><p>Use the gamepad to move your robot to the starting position (white box), then <strong>relinquish control</strong> so it can begin navigating the maze.</p></li>
+<li><p>Use the brown marker inside the white box as the origin of the maze frame.</p></li>
 </ul>
-<ol class="arabic simple">
-<li><p><strong>Wall Following (10 points):</strong></p></li>
-</ol>
+</li>
+<li><p><strong>Wall Following (10 points):</strong></p>
 <ul class="simple">
 <li><p>The robot must follow the maze walls without colliding.</p></li>
 <li><p>Each wall collision results in a <strong>1-point deduction</strong>.</p></li>
 <li><p>However, if the robot successfully reaches the final goal (yellow line), no more than <strong>3 points</strong> will be deducted.</p></li>
 </ul>
-<ol class="arabic simple">
-<li><p><strong>Stop Sign (5 points):</strong></p></li>
-</ol>
+</li>
+<li><p><strong>Stop Sign (5 points):</strong></p>
 <ul class="simple">
 <li><p>The robot must stop at the <strong>yellow line</strong>, with its bottom plate covering any part of it.</p></li>
 <li><p>After coming to a complete stop, the robot must <strong>print its current pose and the treasure chest’s pose</strong>, then remain stopped indefinitely.</p></li>
 </ul>
-<ol class="arabic simple">
-<li><p><strong>AprilTags (20 points):</strong></p></li>
-</ol>
+</li>
+<li><p><strong>AprilTags (20 points):</strong></p>
 <ul class="simple">
 <li><p>The robot must stop at the <strong>orange line</strong> before turning.</p></li>
-<li><p>Once stopped, it must print the tags’ poses on screen.</p></li>
+<li><p>Once the robot stops, you must print the tags’ poses relative to the origin (the brown marker) on the screen.</p></li>
 <li><p>Its bottom plate must cover at least part of the orange line before executing a turn.</p></li>
 <li><p>Precise turns aren’t directly graded, but improving turn accuracy will <strong>boost overall performance</strong>.</p></li>
 </ul>
-<ol class="arabic simple">
-<li><p><strong>Map Generation (5 points):</strong></p></li>
-</ol>
+</li>
+<li><p><strong>Map Generation (5 points):</strong></p>
 <ul class="simple">
 <li><p>As the robot explores the maze, it must generate a <strong>map</strong>.</p></li>
 <li><p>This map should be included in your final report.</p></li>
 </ul>
+</li>
+</ol>
 </section>
 <section id="design-presentation-20-points">
 <h2>👩‍🏫 Design Presentation (20 Points)<a class="headerlink" href="#design-presentation-20-points" title="Link to this heading">#</a></h2>
@@ -716,14 +714,13 @@ document.write(`
 <li><p>Clearly define the <strong>problem</strong> and project <strong>requirements</strong>.</p></li>
 </ul>
 </li>
-<li><p><strong>Design [10 Points]</strong>: Discuss key design elements, including:</p></li>
-</ol>
+<li><p><strong>Design [10 Points]</strong>: Discuss key design elements, including:</p>
 <ul class="simple">
 <li><p>Image resolution, frame rate, and sensor choices.</p></li>
 <li><p><strong>Controller design</strong>, including finite state machine details.</p></li>
 <li><p>Include an <strong>RQT graph</strong> with <strong>legible plots</strong>.</p></li>
 </ul>
-<ol class="arabic simple">
+</li>
 <li><p><strong>Analysis &amp; Results [20 Points]</strong></p>
 <ul class="simple">
 <li><p><strong>This is the most crucial section—your engineering analysis matters!</strong></p></li>
