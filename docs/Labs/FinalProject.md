@@ -40,10 +40,10 @@ Here's what the scroll reveals about navigating the maze:
 1. **Follow the walls in the maze at all times.**  
 2. **Avoid stopping at or looking out windows - those are deadly!**  
 3. **React to AprilTags:** These tags act like arrows you must follow. Detect the AprilTag and follow the direction indicated.  
-   - If the tag's yaw is $-90^\circ$, make a $90^\circ$ **left** turn (counterclockwise). Note that the yaw angle is measured relative to the camera frame, not the AprilTag itself.
+   - If the tag's yaw is $90^\circ$, make a $90^\circ$ **left** turn (counterclockwise). Note that the yaw angle is measured relative to the camera frame, not the AprilTag itself.
    - **Tag ID 0 & 1:** Follow the direction shown on the tag.  
    - **Tag ID 2:** Follow the direction, but the scroll warns that the treasure chest is nearby. Look around to locate the treasure chest, which is buried under **AprilTag ID 4**. Record the pose (position and orientation) of the treasure chest; you will need to report this once the robot returns home.  
-   - **Tag ID 3:** The scroll says this is a trap. Stop for at least 5 seconds, then make the turn shown on the tag — but in the **opposite** direction. For example, if the tag indicates a $-90^\circ$ turn, you must instead make a $270^\circ$ clockwise turn.  
+   - **Tag ID 3:** The scroll says this is a trap. Stop for at least 5 seconds, then make the turn shown on the tag — but in the **opposite** direction. For example, if the tag indicates a $90^\circ$ turn, you must instead make a $-270^\circ$ clockwise turn.  
 4. **Stop Sign:** You have reached the exit of the maze. Stop within 0.6 meters of the sign. Report (print to the terminal) the location and orientation of the treasure chest.
 
 Once you locate the treasure chest, send Captain Baek the maze map along with the chest's pose in the map so he can claim the loot!
@@ -94,7 +94,7 @@ Once you locate the treasure chest, send Captain Baek the maze map along with th
 
 1. **L39 0700: Live Demo Due**  
     - You may **not** use grace days. The **live demo** must be completed by **L39 0700**. Otherwise, you will not have enough time to write the final report.  
-    
+
 1. **T40 2359: Final Report, Demo Video, & Code**  
     - Submit a video demo of the robot navigating the maze **along with** the corresponding screen recording.
     - **No grace days** are available—everything must be submitted by **midnight (T40 2359)**.
@@ -123,32 +123,25 @@ Below is the final grading rubric, with a total of **42 points** assigned to the
 
 <br>
 
-1. **Gamepad Control (2 points):**  
-- Place your robot behind the brown line.
-- Use the gamepad to move your robot to the starting position (white box), then **relinquish control** so it can begin navigating the maze.
-
+1. **Gamepad Control (2 points):**
+    - Place your robot behind the brown line.
+    - Use the gamepad to move your robot to the starting position (white box), then **relinquish control** so it can begin navigating the maze.
+    - Use the brown marker inside the white box as the origin of the maze frame.
 1. **Wall Following (10 points):**  
-- The robot must follow the maze walls without colliding.  
-- Each wall collision results in a **1-point deduction**.  
-- However, if the robot successfully reaches the final goal (yellow line), no more than **3 points** will be deducted.  
-
+    - The robot must follow the maze walls without colliding.  
+    - Each wall collision results in a **1-point deduction**.  
+    - However, if the robot successfully reaches the final goal (yellow line), no more than **3 points** will be deducted.  
 1. **Stop Sign (5 points):**  
-
-- The robot must stop at the **yellow line**, with its bottom plate covering any part of it.  
-- After coming to a complete stop, the robot must **print its current pose and the treasure chest's pose**, then remain stopped indefinitely.  
-
+    - The robot must stop at the **yellow line**, with its bottom plate covering any part of it.  
+    - After coming to a complete stop, the robot must **print its current pose and the treasure chest's pose**, then remain stopped indefinitely.  
 1. **AprilTags (20 points):**  
-
-- The robot must stop at the **orange line** before turning.  
-- Once stopped, it must print the tags' poses on screen.
-- Its bottom plate must cover at least part of the orange line before executing a turn.  
-- Precise turns aren't directly graded, but improving turn accuracy will **boost overall performance**.  
-
+    - The robot must stop at the **orange line** before turning.  
+    - Once the robot stops, you must print the tags' poses relative to the origin (the brown marker) on the screen.
+    - Its bottom plate must cover at least part of the orange line before executing a turn.  
+    - Precise turns aren't directly graded, but improving turn accuracy will **boost overall performance**.  
 1. **Map Generation (5 points):**  
-
-- As the robot explores the maze, it must generate a **map**.  
-- This map should be included in your final report.  
-
+    - As the robot explores the maze, it must generate a **map**.  
+    - This map should be included in your final report.  
 
 ## 👩‍🏫 Design Presentation (20 Points)  
 
@@ -208,12 +201,11 @@ Even if your demo is not successful, whether you use grace days or not, ensure y
     - Clearly define the **problem** and project **requirements**.  
 
 2. **Design [10 Points]**: Discuss key design elements, including:  
+    - Image resolution, frame rate, and sensor choices.  
+    - **Controller design**, including finite state machine details.  
+    - Include an **RQT graph** with **legible plots**.  
 
-- Image resolution, frame rate, and sensor choices.  
-- **Controller design**, including finite state machine details.  
-- Include an **RQT graph** with **legible plots**.  
-
-1. **Analysis & Results [20 Points]**  
+3. **Analysis & Results [20 Points]**  
     - **This is the most crucial section—your engineering analysis matters!**  
     - Base findings on collected **data** rather than visual observations.  
     - Evaluate performance of **vision sensors, LiDAR, and IMU**.  
@@ -222,7 +214,7 @@ Even if your demo is not successful, whether you use grace days or not, ensure y
     - Highlight **unique features** that set your robot apart.  
     - Clearly explain **incomplete tasks** and **why they weren't achieved**.  
 
-2. **Conclusion [5 Points]**  
+4. **Conclusion [5 Points]**  
     - Summarize your findings and project outcomes concisely.  
 
 ```{attention}  
