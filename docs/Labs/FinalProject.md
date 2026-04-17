@@ -143,6 +143,12 @@ Below is the final grading rubric, with a total of **42 points** assigned to the
     - As the robot explores the maze, it must generate a **map**.  
     - This map should be included in your final report.  
 
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/lhrhyQzPnkI?si=HqZ9VAjc_5QeZWCU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+Spring 2025 Final Project Demo
+</center>
+
 ## 👩‍🏫 Design Presentation (20 Points)  
 
 Your presentation will last **5 minutes**, followed by a **2-minute Q&A** session. Be sure to cover the following topics:  
