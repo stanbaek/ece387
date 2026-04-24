@@ -88,7 +88,7 @@ Once you locate the treasure chest, send Captain Baek the maze map along with th
 
 1. **L35: Design Presentations**: Prepare to present your project design during **L35**.  
 
-1. **L37 0700: Early Bird**
+1. **L37 ~~0700~~ <span style="color:blue">1700</span>: Early Bird**
     - Navigate through **Tag ID 2** and locate the **treasure chest**.  
     - You will earn **5 bonus points** that can carry over the final course grade. It is 1.25% of the total course grade.
 
@@ -127,6 +127,7 @@ Below is the final grading rubric, with a total of **42 points** assigned to the
     - Place your robot behind the brown line.
     - Use the gamepad to move your robot to the starting position (white box), then **relinquish control** so it can begin navigating the maze.
     - Use the brown marker inside the white box as the origin of the maze frame.
+    - <span style="color:blue"> You should be able to take control at any time during maze navigation </span>.
 1. **Wall Following (10 points):**  
     - The robot must follow the maze walls without colliding.  
     - Each wall collision results in a **1-point deduction**.  
