@@ -916,6 +916,44 @@ echo 'export TURTLEBOT3_MODEL=burger' >> ~/.bashrc
     pip install dlib imutils scipy
     ```
 
+    Since `dlib` requires a heavy C++ compilation step, doing it once and sharing the binary can about 30–60 minutes per Raspberry Pi. We can build a wheel (`.whl`) file and share with other Raspberry Pi computers.
+
+    First, ensure we have the build tools and the `wheel` packages installed
+
+    ```bash
+    # Install dependencies
+    sudo apt-get update
+    sudo apt-get install -y cmake build-essential python3-dev
+
+    # Install the wheel package
+    pip3 install wheel
+    ```
+
+    Now, download the `dlib` source and build the wheel file. 
+    ```bash
+    # Download dlib source
+    pip3 download dlib
+
+    # Build the wheel (This will take a long time - 30+ minutes)
+    # Note: Adjust the filename if you downloaded a specific version
+    python3 -m pip wheel dlib-*.tar.gz
+    ```
+    Once finished, you will see a file in your directory ending in `.whl` (e.g., `dlib-19.24.1-cp310-cp310-linux_aarch64.whl`).
+
+    Then, move the `.whl` file to the other Raspberry Pis using `scp`, a USB drive, or a network share
+    ```bash
+    scp dlib-xxx.whl pi@other_pi_ip:~/
+    ```
+
+    On the target Pis, you still need the runtime dependencies, but you do not need the compiler or the long wait time.
+    ```bash
+    # Install minimal runtime dependencies
+    sudo apt-get install -y libopenblas-dev liblapack-dev
+
+    # Install the wheel (This takes seconds!)
+    pip3 install dlib-xxx.whl
+    ```    
+
 - Install Apriltags libraries
 
     ```bash

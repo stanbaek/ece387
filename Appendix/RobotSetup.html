@@ -1338,6 +1338,38 @@ sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> <
 pip<span class="w"> </span>install<span class="w"> </span>dlib<span class="w"> </span>imutils<span class="w"> </span>scipy
 </pre></div>
 </div>
+<p>Since <code class="docutils literal notranslate"><span class="pre">dlib</span></code> requires a heavy C++ compilation step, doing it once and sharing the binary can about 30–60 minutes per Raspberry Pi. We can build a wheel (<code class="docutils literal notranslate"><span class="pre">.whl</span></code>) file and share with other Raspberry Pi computers.</p>
+<p>First, ensure we have the build tools and the <code class="docutils literal notranslate"><span class="pre">wheel</span></code> packages installed</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install dependencies</span>
+sudo<span class="w"> </span>apt-get<span class="w"> </span>update
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>cmake<span class="w"> </span>build-essential<span class="w"> </span>python3-dev
+
+<span class="c1"># Install the wheel package</span>
+pip3<span class="w"> </span>install<span class="w"> </span>wheel
+</pre></div>
+</div>
+<p>Now, download the <code class="docutils literal notranslate"><span class="pre">dlib</span></code> source and build the wheel file.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Download dlib source</span>
+pip3<span class="w"> </span>download<span class="w"> </span>dlib
+
+<span class="c1"># Build the wheel (This will take a long time - 30+ minutes)</span>
+<span class="c1"># Note: Adjust the filename if you downloaded a specific version</span>
+python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>wheel<span class="w"> </span>dlib-*.tar.gz
+</pre></div>
+</div>
+<p>Once finished, you will see a file in your directory ending in <code class="docutils literal notranslate"><span class="pre">.whl</span></code> (e.g., <code class="docutils literal notranslate"><span class="pre">dlib-19.24.1-cp310-cp310-linux_aarch64.whl</span></code>).</p>
+<p>Then, move the <code class="docutils literal notranslate"><span class="pre">.whl</span></code> file to the other Raspberry Pis using <code class="docutils literal notranslate"><span class="pre">scp</span></code>, a USB drive, or a network share</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scp<span class="w"> </span>dlib-xxx.whl<span class="w"> </span>pi@other_pi_ip:~/
+</pre></div>
+</div>
+<p>On the target Pis, you still need the runtime dependencies, but you do not need the compiler or the long wait time.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install minimal runtime dependencies</span>
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>libopenblas-dev<span class="w"> </span>liblapack-dev
+
+<span class="c1"># Install the wheel (This takes seconds!)</span>
+pip3<span class="w"> </span>install<span class="w"> </span>dlib-xxx.whl
+</pre></div>
+</div>
 </li>
 <li><p>Install Apriltags libraries</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>--user<span class="w"> </span>scikit-build<span class="w"> </span>cmake
