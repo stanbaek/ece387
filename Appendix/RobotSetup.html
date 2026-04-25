@@ -703,17 +703,17 @@ default via 192.168.0.1 dev wlan0 proto static
 </div>
 </li>
 <li><p>Set the systemd to prevent boot-up delay even if there is no network at startup. Run the command below to set mask the systemd process using the following command.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo systemctl mask systemd-networkd-wait-online.service
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">mask</span> <span class="n">systemd</span><span class="o">-</span><span class="n">networkd</span><span class="o">-</span><span class="n">wait</span><span class="o">-</span><span class="n">online</span><span class="o">.</span><span class="n">service</span>
 </pre></div>
 </div>
 </li>
 <li><p>Disable Suspend and Hibernation</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">mask</span> <span class="n">sleep</span><span class="o">.</span><span class="n">target</span> <span class="n">suspend</span><span class="o">.</span><span class="n">target</span> <span class="n">hibernate</span><span class="o">.</span><span class="n">target</span> <span class="n">hybrid</span><span class="o">-</span><span class="n">sleep</span><span class="o">.</span><span class="n">target</span>
 </pre></div>
 </div>
 </li>
 <li><p>Reboot the Raspberry Pi.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo reboot
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">reboot</span>
 </pre></div>
 </div>
 </li>
@@ -1276,10 +1276,10 @@ sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> <
 </div>
 </li>
 <li><p>Create workspace and clone repositories</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>~/robot_ws/src<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/robot_ws/src
-$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>humble<span class="w"> </span>https://github.com/ROBOTIS-GIT/turtlebot3.git
-$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>humble<span class="w"> </span>https://github.com/ROBOTIS-GIT/ld08_driver.git
-$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>humble<span class="w"> </span>https://github.com/ROBOTIS-GIT/coin_d4_driver
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span>~/robot_ws/src<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/robot_ws/src
+git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>humble<span class="w"> </span>https://github.com/ROBOTIS-GIT/turtlebot3.git
+git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>humble<span class="w"> </span>https://github.com/ROBOTIS-GIT/ld08_driver.git
+git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>humble<span class="w"> </span>https://github.com/ROBOTIS-GIT/coin_d4_driver
 </pre></div>
 </div>
 </li>
@@ -1338,8 +1338,9 @@ sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> <
 pip<span class="w"> </span>install<span class="w"> </span>dlib<span class="w"> </span>imutils<span class="w"> </span>scipy
 </pre></div>
 </div>
-<p>Since <code class="docutils literal notranslate"><span class="pre">dlib</span></code> requires a heavy C++ compilation step, doing it once and sharing the binary can about 30–60 minutes per Raspberry Pi. We can build a wheel (<code class="docutils literal notranslate"><span class="pre">.whl</span></code>) file and share with other Raspberry Pi computers.</p>
-<p>First, ensure we have the build tools and the <code class="docutils literal notranslate"><span class="pre">wheel</span></code> packages installed</p>
+<p>Because <code class="docutils literal notranslate"><span class="pre">dlib</span></code> requires a lengthy C++ compilation step, building it once and sharing the compiled binary can save about 30–60 minutes per Raspberry Pi. To do this, we can create a wheel (<code class="docutils literal notranslate"><span class="pre">.whl</span></code>) file and distribute it to other Raspberry Pi devices. If you already have a wheel file, skip to Step 4.</p>
+<ol class="arabic">
+<li><p>First, ensure we have the build tools and the <code class="docutils literal notranslate"><span class="pre">wheel</span></code> packages installed</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install dependencies</span>
 sudo<span class="w"> </span>apt-get<span class="w"> </span>update
 sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>cmake<span class="w"> </span>build-essential<span class="w"> </span>python3-dev
@@ -1348,7 +1349,8 @@ sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w
 pip3<span class="w"> </span>install<span class="w"> </span>wheel
 </pre></div>
 </div>
-<p>Now, download the <code class="docutils literal notranslate"><span class="pre">dlib</span></code> source and build the wheel file.</p>
+</li>
+<li><p>Now, download the <code class="docutils literal notranslate"><span class="pre">dlib</span></code> source and build the wheel file.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Download dlib source</span>
 pip3<span class="w"> </span>download<span class="w"> </span>dlib
 
@@ -1357,12 +1359,14 @@ pip3<span class="w"> </span>download<span class="w"> </span>dlib
 python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>wheel<span class="w"> </span>dlib-*.tar.gz
 </pre></div>
 </div>
-<p>Once finished, you will see a file in your directory ending in <code class="docutils literal notranslate"><span class="pre">.whl</span></code> (e.g., <code class="docutils literal notranslate"><span class="pre">dlib-19.24.1-cp310-cp310-linux_aarch64.whl</span></code>).</p>
-<p>Then, move the <code class="docutils literal notranslate"><span class="pre">.whl</span></code> file to the other Raspberry Pis using <code class="docutils literal notranslate"><span class="pre">scp</span></code>, a USB drive, or a network share</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scp<span class="w"> </span>dlib-xxx.whl<span class="w"> </span>pi@other_pi_ip:~/
+</li>
+<li><p>Once finished, you will see a file in your directory ending in <code class="docutils literal notranslate"><span class="pre">.whl</span></code> (e.g., <a class="reference download internal" download="" href="../_downloads/b276712f0b082b0c0501604a40c4716a/dlib-20.0.1-cp310-cp310-linux_aarch64.whl"><span class="xref download myst">dlib-20.0.1-cp310-cp310-linux_aarch64.whl</span></a>).</p></li>
+<li><p>Transfer the <code class="docutils literal notranslate"><span class="pre">.whl</span></code> file to the other Raspberry Pis using <code class="docutils literal notranslate"><span class="pre">scp</span></code>, a USB drive, VS Code Remote-SSH, or a network share</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scp<span class="w"> </span>dlib-xxx.whl<span class="w"> </span>pi@robotX:~/
 </pre></div>
 </div>
-<p>On the target Pis, you still need the runtime dependencies, but you do not need the compiler or the long wait time.</p>
+</li>
+<li><p>On the target Pis, you still need the runtime dependencies, but you do not need the compiler or the long wait time.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install minimal runtime dependencies</span>
 sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>libopenblas-dev<span class="w"> </span>liblapack-dev
 
@@ -1370,6 +1374,8 @@ sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w
 pip3<span class="w"> </span>install<span class="w"> </span>dlib-xxx.whl
 </pre></div>
 </div>
+</li>
+</ol>
 </li>
 <li><p>Install Apriltags libraries</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>--user<span class="w"> </span>scikit-build<span class="w"> </span>cmake

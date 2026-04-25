@@ -9,22 +9,22 @@ This guide is adapted from the [TurtleBot3 e-Manual](https://emanual.robotis.com
 
 ---
 
-
 ## TurtleBot3
-Below is a list of recommended hardware and links. Other off-the-shelf components can replace the ones below. 
 
-- [TurtleBot3](https://www.robotis.us/turtlebot-3/) 
+Below is a list of recommended hardware and links. Other off-the-shelf components can replace the ones below.
+
+- [TurtleBot3](https://www.robotis.us/turtlebot-3/)
 - [USB Camera](https://www.adesso.com/product/cybertrack-h4-1080p-hd-usb-webcam-with-built-in-microphone/) (Any USB Cam will work, this is the one we use)
 - 128 GB High Speed MicroSD card
 - Monitor, mouse, and keyboard
 - If using an older version of the TurtleBot3 with a Jetson Nano or Raspberry Pi 3B+ you will need ot purchase a [Raspberry Pi 4 Model B](https://www.canakit.com/raspberry-pi-4-8gb.html) (preferably with 8 GB of RAM))
 
-
 ### Hardware Assembly
+
 Follow the [Robotis e-Manual](https://emanual.robotis.com/docs/en/platform/turtlebot3/hardware_setup/#hardware-assembly) for hardware assembly stopping after installing the Raspberry Pi.
 
-
 ### Raspberry Pi
+
 A Raspberry Pi 4 B with 8 GB of RAM is used throughout this curriculum. Ensure heat sinks are propertly installed on the Pi such as these from [CanaKit](https://www.canakit.com/raspberry-pi-4-heat-sinks.html).
 
 Also, a small fan can be installed to help with cooling. We used this 3D printed bracket to mount the fan.
@@ -35,6 +35,7 @@ Also, a small fan can be installed to help with cooling. We used this 3D printed
 ```
 
 ### Camera
+
 After installing the Raspberry pi level of the TurtleBot3 you need to install the USB Camera Mount prior to finishing the robot build. The mount used in this course can be found in the [curriculum material](../stl/burger_usbcam_mount.stl) and is installed on two of the front standoffs on the TurtleBot3.
 
 ```{image} ./figures/camera_mount.jpg
@@ -45,7 +46,8 @@ After installing the Raspberry pi level of the TurtleBot3 you need to install th
 ## Ubuntu Installation
 
 ### Download Ubuntu and flash MicroSD card
-There are multiple ways to download and install Ubuntu 22.04.5 to a MicroSD card, but the Raspberry Pi Imager is one of the easiest. Instructions for installing the imager on your operating system can be found on the [Raspberry Pi OS software page](https://www.raspberrypi.com/software/). 
+
+There are multiple ways to download and install Ubuntu 22.04.5 to a MicroSD card, but the Raspberry Pi Imager is one of the easiest. Instructions for installing the imager on your operating system can be found on the [Raspberry Pi OS software page](https://www.raspberrypi.com/software/).
 
 Once installed, start the imager and select "Raspberry Pi 4".
 <br>
@@ -54,6 +56,7 @@ Once installed, start the imager and select "Raspberry Pi 4".
 :width: 480
 :align: center
 ```
+
 <br>
 Scroll down the menu and select "Other general purpose OS".
 
@@ -69,7 +72,6 @@ Scroll down the menu and select "Other general purpose OS".
 Next, select "Ubuntu".
 <br>
 
-
 ```{image} ./figures/installer3.png
 :width: 480
 :align: center
@@ -84,22 +86,25 @@ Lastly, scroll and select the latest 64-bit version of "Ubuntu Server 22.04 LTS 
 :width: 480
 :align: center
 ```
+
 <br>
 
 Now that you have the correct image selected, you need to choose the correct storage device that corresponds to the MicroSD card.
 
 Once complete you should have an Ubuntu SD card! Ensure your Raspberry Pi is powered off, connected to a monitor, keyboard, and mouse, and insert the SD card.
 
-
 ## Configuring Ubuntu
 
 ### Login and changing password
-Once Ubuntu boots up you will be prompted to enter the login and password. It may take a few minutes on first boot to configure the default username and password, so if login fails, try again after a few minutes. 
 
-### Adding username 
+Once Ubuntu boots up you will be prompted to enter the login and password. It may take a few minutes on first boot to configure the default username and password, so if login fails, try again after a few minutes.
+
+### Adding username
+
 We need to create a new user named *pi* for students.
 
 - Create the *pi* user:
+
     ```bash
     sudo adduser pi
     ```
@@ -107,27 +112,33 @@ We need to create a new user named *pi* for students.
     Enter an easy-to-remember password when prompted, then press Enter through the remaining prompts until you return to the terminal.
 
 - Grant *sudo* previleges:
+
     ```bash
     sudo adduser pi sudo
     ```
 
 - Switch to the new user
+
     ```bash
     exit
     ```
+
     Then log in using the *pi* account credentials.
 
 - Once logged in as *pi*, your terminal prompt should show `pi@ubuntu:`. Confirm your current directory by running:
+
     ```bash
     pwd
     ```
+
     This should display `/home/pi`.
 
-
 ### Change hostname
+
 If you have multiple robots on your network it is good to give each a unique hostname. We number each robot from 0-n and each robot has a corresponding hostname (e.g., robot0).
 
 Change the hostname with the command line editor of your choice.
+
 ```bash
 sudo hostnamectl set-hostname robot0
 ```
@@ -135,6 +146,7 @@ sudo hostnamectl set-hostname robot0
 The new hostname will not take effect until reboot. Don't reboot yet, though! We have a couple more things to accomplish before reboot.
 
 ### Set up Wi-Fi (Optional)
+
 Until a desktop GUI is installed we have to work with the command line to set up the Wi-Fi. This is the most reliable method I have found and we will delete these changes once a GUI is installed.
 
 - First, determine the name of your Wi-Fi network adapter by typing `ip link` (for the Raspberry Pi version of Ubuntu Server 20.04 LTS it is typically **`wlan0`**).
@@ -181,16 +193,19 @@ Until a desktop GUI is installed we have to work with the command line to set up
 - Save and exit.
 
 - Apply your changes using the following command:
+
     ```bash
     sudo netplan apply
     ```
 
     Alternatively, you can reboot your system and the changes will be automatically applied once the system boots.
 
-### Static IP Address (Optional) 
+### Static IP Address (Optional)
+
 It may be beneficial to setup a static IP address. To do this you need to determine your subnet and gateway.
 
 - Determine subnet and gateway addresses:
+
     ```
     ubuntu@ubuntu:~$ ip route
     default via 192.168.0.1 dev wlan0 proto static 
@@ -198,6 +213,7 @@ It may be beneficial to setup a static IP address. To do this you need to determ
     ```
 
 - Set static IP within subnet range:
+
     ```
     # This file is generated from information provided by the datasource.  Changes
     # to it will not persist across an instance reboot.  To disable cloud-init's  
@@ -227,20 +243,24 @@ It may be beneficial to setup a static IP address. To do this you need to determ
     ```
 
 ### Disable Automatic Updates
+
 Ubuntu will attempt to apply system updates in the background. This has caused issues in the past with ROS dependencies and keys. Disabling automatic updates allows you to control when Ubuntu installs updates. While this is not a good habit for general computer security, it is fine for this application of an embedded robotics system. Ensure you periodically update and upgrade your system.
 
 - Open the auto updater configuration file using sudoedit:
+
     ```bash
     sudoedit /etc/apt/apt.conf.d/20auto-upgrades
     ```
 
 - Change the content from:
+
     ```
     APT::Periodic::Update-Package-Lists "1";
     APT::Periodic::Unattended-Upgrade "1";
     ```
 
     to:
+
     ```
     APT::Periodic::Update-Package-Lists "0";
     APT::Periodic::Unattended-Upgrade "0";
@@ -249,21 +269,25 @@ Ubuntu will attempt to apply system updates in the background. This has caused i
     ```
 
 - Set the systemd to prevent boot-up delay even if there is no network at startup. Run the command below to set mask the systemd process using the following command.
+
     ```
-    $ sudo systemctl mask systemd-networkd-wait-online.service
+    sudo systemctl mask systemd-networkd-wait-online.service
     ```
 
 - Disable Suspend and Hibernation
+
     ```
-    $ sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
+    sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
     ```
 
 - Reboot the Raspberry Pi.
+
     ```
-    $ sudo reboot
+    sudo reboot
     ```
 
 ### Verify changes
+
 - After reboot and you log in your new hostname should be listed at the terminal (e.g., `pi@robot0`). Additionally, you should be connected to Wi-Fi and have an IP Address. You can confirm by typing the following and observing the IP address in the output:
 
     ![logo](figures/wifi3.png)
@@ -273,13 +297,15 @@ Ubuntu will attempt to apply system updates in the background. This has caused i
     ```bash
     ssh username@IP_ADDRESS
     ```
+
     or
+
     ```bash
     ssh username@HOSTNAME
     ```
 
-
 ### Update and Upgrade
+
 Since we turned off automatic updates, you should periodically update and upgrade. You can use this single command to accomplish both while accepting all upgrades:
 
 ```bash
@@ -287,6 +313,7 @@ sudo apt update && sudo apt upgrade -y
 ```
 
 ### Install Ubuntu Desktop (optional)
+
 A desktop GUI is **not** necessary for a remote machine like TurtleBot3 and will take up about 1.4 GB of RAM to run. If GUI is neccessary, the following will install the environment while confirming the installation:
 
 ```bash
@@ -315,7 +342,6 @@ network:
 
 You can now use the GUI interface in the top right of the screen to set up a Wi-Fi connection.
 
-
 ### Install RTL8723BU driver (Ubuntu 22.04)
 
 We use a WiFi dongle to create an access point, allowing a remote master computer to directly control the robot. The specific adapter is the [Xinghuatian Tech Combination WiFi + Bluetooth® 4.0 USB Adapter](https://www.adafruit.com/product/4827?srsltid=AfmBOorWVrVtwi3XuDb8Z2vIOsfrhc-y8ti8qm8orQDFAH0JVqh8e-_I)
@@ -340,7 +366,7 @@ We use a WiFi dongle to create an access point, allowing a remote master compute
     lsmod | grep 8723
     ```
 
-- Install the RTL8723BU Driver.  The recommended repository is https://github.com/lwfinger/rtl8723bu.git.
+- Install the RTL8723BU Driver.  The recommended repository is <https://github.com/lwfinger/rtl8723bu.git>.
 
     ```bash
     # Clone the repository
@@ -358,12 +384,16 @@ We use a WiFi dongle to create an access point, allowing a remote master compute
     sudo dkms add $PACKAGE_NAME/$PACKAGE_VERSION
     sudo dkms autoinstall $PACKAGE_NAME/$PACKAGE_VERSION
     ```
+
 - Load the module
+
     ```bash
     sudo modprobe rtl8723bu
     lsmod | grep 8723
     ```
-    It should display something like:    
+
+    It should display something like:
+
     ```bash
     8723bu               1048576  0
     cfg80211              970752  4 brcmfmac,mac80211,8723bu,rtl8xxxu
@@ -387,8 +417,6 @@ We use a WiFi dongle to create an access point, allowing a remote master compute
 
     Save and Reboot.  After rebooting, your interfaces will no longer have long names like wlx1cbfcee6196b. Your dongle will almost certainly be wlan1.
 
-
-
 ## Dual Wi-Fi Setup (Client + Access Point)
 
 In this configuration, the TurtleBot3 uses **two independent Wi-Fi interfaces**:
@@ -409,7 +437,6 @@ This design avoids routing complexity and provides a stable ROS2 communication l
 - **No NAT or packet forwarding**
 - **No NetworkManager**
 - Laptop/NUC maintains its own internet connection
-
 
 ### Verify Interfaces
 
@@ -437,7 +464,6 @@ This design avoids routing complexity and provides a stable ROS2 communication l
     ```text
     8723bu
     ```
-
 
 ### Configure Wi-Fi Client (Internet) — `wlan1`
 
@@ -487,8 +513,8 @@ This configures the USB WiFi dongle to connect to a 2.4 GHz network for internet
     inet 192.168.x.x
     ```
 
-
 ### Configure Static IP for Access Point — `wlan0`
+
 The built-in Wi-Fi (`wlan0`) will act as an access point with a **fixed IP address**.
 
 - Edit `dhcpcd`:
@@ -514,6 +540,7 @@ The built-in Wi-Fi (`wlan0`) will act as an access point with a **fixed IP addre
 ---
 
 ### Configure DHCP for AP Clients (dnsmasq)
+
 The `dnsmasq` service assigns IP addresses to devices that connect to the robot’s AP.
 
 - Install and configure:
@@ -560,10 +587,8 @@ The `dnsmasq` service assigns IP addresses to devices that connect to the robot�
 | `hostapd`     | Wi-Fi AP              |
 | `systemd`     | Startup ordering      |
 
-
-
-
 ### Hostapd Configuration Template
+
 Instead of hard-coding the SSID, we make it **automatically follow the robot hostname**.
 This allows you to clone SD cards without manual edits.
 
@@ -616,15 +641,16 @@ This allows you to clone SD cards without manual edits.
     sudo chmod +x /usr/local/bin/gen-hostapd-conf.sh
     ```
 
-
 ### Systemd Service for Automatic SSID Update
 
 - Edit
+
     ```bash
     sudo nano /etc/systemd/system/hostapd-genconf.service
     ```
 
 - Add
+
     ```ini
     [Unit]
     Description=Generate hostapd config from hostname
@@ -644,7 +670,6 @@ This allows you to clone SD cards without manual edits.
     sudo systemctl daemon-reexec
     sudo systemctl enable hostapd-genconf.service
     ```
-
 
 - Tell systemd where hostapd config lives:
 
@@ -683,6 +708,7 @@ This allows you to clone SD cards without manual edits.
     ```
 
 ### Disable cloud-init Hostname Reset (IMPORTANT)
+
 By default, **cloud-init resets the hostname on every boot**, which breaks the automatic SSID feature.
 
 - Create the override:
@@ -690,7 +716,7 @@ By default, **cloud-init resets the hostname on every boot**, which breaks the a
     ```bash
     sudo nano /etc/cloud/cloud.cfg.d/99-disable-hostname.cfg
     ```
-   
+
     ```yaml
     preserve_hostname: true
     ```
@@ -712,7 +738,6 @@ By default, **cloud-init resets the hostname on every boot**, which breaks the a
     ```yaml
     preserve_hostname: true
     ```
-
 
 ### Final Verification
 
@@ -738,6 +763,7 @@ By default, **cloud-init resets the hostname on every boot**, which breaks the a
     ```
 
 ## ROS2 Humble
+
 At this point, the Ubuntu environment is setup. Now we will setup the ROS requirements for the TurtleBot3. All of these instructions are adapted from the [ROS2 Documentation](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html) and [The Robotics Back-End](https://roboticsbackend.com/install-ros2-on-raspberry-pi/)
 . ROS 2 Humble is the latest version of ROS 2 that supports Ubuntu 22.04.
 
@@ -757,6 +783,7 @@ locale  # verify settings
 ```
 
 First ensure that the Ubuntu Universe repository is enabled.
+
 ```shell
 sudo apt install software-properties-common
 sudo add-apt-repository universe
@@ -796,8 +823,7 @@ sudo apt install python3-colcon-common-extensions
 
 ### Configuring ROS2 Environment
 
-Ref: https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Configuring-ROS2-Environment.html
-
+Ref: <https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Configuring-ROS2-Environment.html>
 
 Setup ROS environment variables and setup scripts within the `~/.bashrc` file. If you don’t want to have to source the setup file every time you open a new shell, then add the command to your shell startup script:
 
@@ -834,9 +860,11 @@ echo "export ROS_DOMAIN_ID=<your_domain_id>" >> ~/.bashrc
 ```
 
 ### Install and Build ROS2 Packages
+
 This section installs the minimum system, ROS 2, and sensor packages required to run TurtleBot3 on ROS 2 Humble.
 
 - Install the core build tools that are required to compile and build ROS 2 packages using `colcon`.
+
     ```bash
     sudo apt install python3-argcomplete python3-colcon-common-extensions libboost-system-dev build-essential
     ```
@@ -852,20 +880,23 @@ This section installs the minimum system, ROS 2, and sensor packages required to
     ```
 
 - Create workspace and clone repositories
+
     ```bash
-    $ mkdir -p ~/robot_ws/src && cd ~/robot_ws/src
-    $ git clone -b humble https://github.com/ROBOTIS-GIT/turtlebot3.git
-    $ git clone -b humble https://github.com/ROBOTIS-GIT/ld08_driver.git
-    $ git clone -b humble https://github.com/ROBOTIS-GIT/coin_d4_driver
+    mkdir -p ~/robot_ws/src && cd ~/robot_ws/src
+    git clone -b humble https://github.com/ROBOTIS-GIT/turtlebot3.git
+    git clone -b humble https://github.com/ROBOTIS-GIT/ld08_driver.git
+    git clone -b humble https://github.com/ROBOTIS-GIT/coin_d4_driver
     ```
 
 - Remove unused navigation packages to reduces build time and memory usage on the Raspberry Pi.
+
     ```bash
     cd ~/robot_ws/src/turtlebot3
     rm -r turtlebot3_cartographer turtlebot3_navigation2
     ```
 
 - Build and source workspace
+
     ```bash
     source ~/.bashrc
     cd ~/robot_ws
@@ -882,7 +913,8 @@ This section installs the minimum system, ROS 2, and sensor packages required to
     sudo udevadm trigger
     ```
 
-### LDS Configuration 
+### LDS Configuration
+
 The TurtleBot3 LDS has been updated to LDS-02 since 2022. For the Turtlebots we have purchased after 2022, use LDS-02 for the LDS_MODEL.
 
 ```{image} ./figures/lds_small.png
@@ -916,43 +948,47 @@ echo 'export TURTLEBOT3_MODEL=burger' >> ~/.bashrc
     pip install dlib imutils scipy
     ```
 
-    Since `dlib` requires a heavy C++ compilation step, doing it once and sharing the binary can about 30–60 minutes per Raspberry Pi. We can build a wheel (`.whl`) file and share with other Raspberry Pi computers.
+    Because `dlib` requires a lengthy C++ compilation step, building it once and sharing the compiled binary can save about 30–60 minutes per Raspberry Pi. To do this, we can create a wheel (`.whl`) file and distribute it to other Raspberry Pi devices. If you already have a wheel file, skip to Step 4.
 
-    First, ensure we have the build tools and the `wheel` packages installed
+    1. First, ensure we have the build tools and the `wheel` packages installed
 
-    ```bash
-    # Install dependencies
-    sudo apt-get update
-    sudo apt-get install -y cmake build-essential python3-dev
+        ```bash
+        # Install dependencies
+        sudo apt-get update
+        sudo apt-get install -y cmake build-essential python3-dev
 
-    # Install the wheel package
-    pip3 install wheel
-    ```
+        # Install the wheel package
+        pip3 install wheel
+        ```
 
-    Now, download the `dlib` source and build the wheel file. 
-    ```bash
-    # Download dlib source
-    pip3 download dlib
+    2. Now, download the `dlib` source and build the wheel file.
 
-    # Build the wheel (This will take a long time - 30+ minutes)
-    # Note: Adjust the filename if you downloaded a specific version
-    python3 -m pip wheel dlib-*.tar.gz
-    ```
-    Once finished, you will see a file in your directory ending in `.whl` (e.g., `dlib-19.24.1-cp310-cp310-linux_aarch64.whl`).
+        ```bash
+        # Download dlib source
+        pip3 download dlib
 
-    Then, move the `.whl` file to the other Raspberry Pis using `scp`, a USB drive, or a network share
-    ```bash
-    scp dlib-xxx.whl pi@other_pi_ip:~/
-    ```
+        # Build the wheel (This will take a long time - 30+ minutes)
+        # Note: Adjust the filename if you downloaded a specific version
+        python3 -m pip wheel dlib-*.tar.gz
+        ```
 
-    On the target Pis, you still need the runtime dependencies, but you do not need the compiler or the long wait time.
-    ```bash
-    # Install minimal runtime dependencies
-    sudo apt-get install -y libopenblas-dev liblapack-dev
+    3. Once finished, you will see a file in your directory ending in `.whl` (e.g., [dlib-20.0.1-cp310-cp310-linux_aarch64.whl](dlib-20.0.1-cp310-cp310-linux_aarch64.whl)).
 
-    # Install the wheel (This takes seconds!)
-    pip3 install dlib-xxx.whl
-    ```    
+    4. Transfer the `.whl` file to the other Raspberry Pis using `scp`, a USB drive, VS Code Remote-SSH, or a network share
+
+        ```bash
+        scp dlib-xxx.whl pi@robotX:~/
+        ```
+
+    5. On the target Pis, you still need the runtime dependencies, but you do not need the compiler or the long wait time.
+
+        ```bash
+        # Install minimal runtime dependencies
+        sudo apt-get install -y libopenblas-dev liblapack-dev
+
+        # Install the wheel (This takes seconds!)
+        pip3 install dlib-xxx.whl
+        ```
 
 - Install Apriltags libraries
 
@@ -965,10 +1001,13 @@ echo 'export TURTLEBOT3_MODEL=burger' >> ~/.bashrc
 ### Camera Permissions
 
 - Should run this for each user
+
     ```bash
     sudo adduser $USER video
     ```
+
     or replace `$USER` with a user ID.
+
     ```bash
     sudo adduser pi video
     ```
@@ -977,12 +1016,11 @@ echo 'export TURTLEBOT3_MODEL=burger' >> ~/.bashrc
 
 - Then, reboot the system.
 
-
 ### Updating OpenCR firmware
+
 The last step is updating the firmware for the OpenCR controller board.
 
-Ref: https://emanual.robotis.com/docs/en/platform/turtlebot3/opencr_setup/#opencr-setup
-
+Ref: <https://emanual.robotis.com/docs/en/platform/turtlebot3/opencr_setup/#opencr-setup>
 
 - Install required packages on the Raspberry Pi
 
@@ -993,18 +1031,21 @@ Ref: https://emanual.robotis.com/docs/en/platform/turtlebot3/opencr_setup/#openc
     ```
 
 - Download the firmware and loader, then extract the file:
+
     ```bash
     wget https://github.com/ROBOTIS-GIT/OpenCR-Binaries/raw/master/turtlebot3/ROS2/latest/opencr_update.tar.bz2
     tar -xvf ./opencr_update.tar.bz2
     ```
 
 - Setup the OpenCR model name:
+
     ```bash
     export OPENCR_PORT=/dev/ttyACM0
     export OPENCR_MODEL=burger
     ```
 
 - Upload firmware to the OpenCR:
+
     ```bash
     cd ~/opencr_update
     ./update.sh $OPENCR_PORT $OPENCR_MODEL.opencr
@@ -1038,8 +1079,8 @@ Ref: https://emanual.robotis.com/docs/en/platform/turtlebot3/opencr_setup/#openc
 
 - If not successful, attempt the debug methods in the [OpenCR Setup](https://emanual.robotis.com/docs/en/platform/turtlebot3/opencr_setup/#opencr-setup) guide.
 
-
 ## Setup GitHub SSH Keys
+
 The following assumes you already have a GitHub account.
 
 - Create SSH keys to use with your GitHub account by typing the following using the same email as you GitHub login:
@@ -1074,6 +1115,7 @@ The following assumes you already have a GitHub account.
     :width: 240
     :align: center
     ```
+
     <br>
 
 - In the user settings sidebar, click **SSH and GPG keys**:
@@ -1084,6 +1126,7 @@ The following assumes you already have a GitHub account.
     :width: 240
     :align: center
     ```
+
     <br>
 
 - Click **New SSH key**:
@@ -1093,6 +1136,7 @@ The following assumes you already have a GitHub account.
     :width: 640
     :align: center
     ```
+
     <br>
 
     In the `Title` field, add a descriptive label for the new key, such as "robot0". Paste your key into the `Key` field (contents of the `.pub` file). Click **Add SSH key**.
@@ -1100,14 +1144,15 @@ The following assumes you already have a GitHub account.
 ## Optional Updates
 
 ### Update Alternatives
+
 Python3 is installed in Ubuntu 22.04 by default. Some ROS packages utilize the "python" command instead of "python3" so we need to create a new executable, "/usr/bin/python" that will call the Python3 (basically use the command "python" to call Python3):
 
 ```bash
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 10
 ```
 
-
 ### [ECE387 Curriculum](https://github.com/AF-ROBOTICS/ece387_curriculum)
+
 ```bash
 git clone git@github.com:AF-ROBOTICS/ece387_curriculum.git
 ```
@@ -1138,9 +1183,8 @@ pip3 install -r requirements.txt
 
 > 📝️ **Note:** the "dlib" package will take quite a while to install.
 
-
-
 ### Add Swap Space (optional)
+
 Since the Raspberry Pi 4B used in our course has 8 GB of RAM, Swap Space might not be necessary.
 
 You can check that there is no active swap using the free utility:
@@ -1207,7 +1251,7 @@ This swap will only last until reboot, so to make it permanent at it to the `fst
 echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
 ```
 
-Now it is time to reboot by typing 
+Now it is time to reboot by typing
 
 ```shell
 sudo reboot
