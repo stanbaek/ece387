@@ -88,7 +88,7 @@ Once you locate the treasure chest, send Captain Baek the maze map along with th
 
 1. **L35: Design Presentations**: Prepare to present your project design during **L35**.  
 
-1. **L37 ~~0700~~ <span style="color:blue">1700</span>: Early Bird**
+1. **~~L37 0700~~ <span style="color:blue">M-day: T37 2359, T-day: M38 2359</span>: Early Bird**
     - Navigate through **Tag ID 2** and locate the **treasure chest**.  
     - You will earn **5 bonus points** that can carry over the final course grade. It is 1.25% of the total course grade.
 
