@@ -89,8 +89,9 @@ Once you locate the treasure chest, send Captain Baek the maze map along with th
 1. **L35: Design Presentations**: Prepare to present your project design during **L35**.  
 
 1. **~~L37 0700~~ <span style="color:blue">M-day: T37 2359, T-day: M38 2359</span>: Early Bird**
-    - Navigate through **Tag ID 2** and locate the **treasure chest**.  
+    - Navigate through **Tag ID 2** and ~~locate the **treasure chest**~~ <span style="color:blue">detect AprilTag ID 2.</span>  
     - You will earn **5 bonus points** that can carry over the final course grade. It is 1.25% of the total course grade.
+    - <span style="color:blue">You may **not** use grace days for early bird; it is just contradictory.</span>
 
 1. **~~L39 0700~~ <span style="color:blue">M-day: T39 1700, T-day: M40 0700</span>: Live Demo Due**  
     - You may **not** use grace days. The **live demo** must be completed by **L39 0700**. Otherwise, you will not have enough time to write the final report.  
