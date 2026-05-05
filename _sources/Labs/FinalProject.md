@@ -92,7 +92,7 @@ Once you locate the treasure chest, send Captain Baek the maze map along with th
     - Navigate through **Tag ID 2** and locate the **treasure chest**.  
     - You will earn **5 bonus points** that can carry over the final course grade. It is 1.25% of the total course grade.
 
-1. **L39 0700: Live Demo Due**  
+1. **~~L39 0700~~ <span style="color:blue">M-day: T39 1700, T-day: M40 0700</span>: Live Demo Due**  
     - You may **not** use grace days. The **live demo** must be completed by **L39 0700**. Otherwise, you will not have enough time to write the final report.  
 
 1. **T40 2359: Final Report, Demo Video, & Code**  
