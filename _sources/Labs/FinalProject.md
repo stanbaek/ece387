@@ -96,9 +96,15 @@ Once you locate the treasure chest, send Captain Baek the maze map along with th
 1. **~~L39 0700~~ <span style="color:blue">M-day: T39 1700, T-day: M40 0700</span>: Live Demo Due**  
     - You may **not** use grace days. The **live demo** must be completed by **L39 0700**. Otherwise, you will not have enough time to write the final report.  
 
-1. **T40 2359: Final Report, Demo Video, & Code**  
+1. **T40 2359: Final Report, Demo Video, Code \& Peer Evaluation**  
     - Submit a video demo of the robot navigating the maze **along with** the corresponding screen recording.
     - **No grace days** are available—everything must be submitted by **midnight (T40 2359)**.
+    - Submit the peer evaluation on Gradescope.
+
+1. **T40 2359: Return your robots**
+    - Every cadet must return their robot, including a power cable, battery holder (return the batteries to the battery station), one SD card inserted in the Raspberry Pi. 
+    - You must report any broken parts or malfunctions.
+
 
 ### Coding Requirements  
 
