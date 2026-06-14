@@ -1,13 +1,11 @@
 # 🔬 Lab10: CV
 
-
 ## 📌 Objectives
 
 - Students should be able to explain how Histogram of Oriented Gradients (HOG) features enable object detection.
 - Students should be able to train and test a custom stop sign detector using Dlib and evaluate its accuracy.
 - Students should be able to stream and process live camera images in ROS 2 using usb_cam and OpenCV.
 - Students should be able to implement a ROS node to detect stop signs in real time and estimate their distance.
-
 
 ## 📜 Overview
 
@@ -19,6 +17,7 @@ Rather than analyzing the gradient direction of every single pixel, HOG groups p
 :width: 600  
 :align: center  
 ```  
+
 <br>
 
 Comparing each individual pixel of this training image with another test image would not only be time consuming, but it would also be highly subject to noise.  As previously mentioned, the HOG feature will consider a block of pixels.  The size of this block is variable and will naturally impact both accuracy and speed of execution for the algorithm.  Once the block size is determined, the gradient for each pixel within the block is computed.  Once the gradients are computed for a block, the entire cell can then be represented by this histogram.  Not only does this reduce the amount of data to compare with a test image, but it also reduces the impacts of noise in the image and measurements.  
@@ -27,6 +26,7 @@ Comparing each individual pixel of this training image with another test image w
 :width: 500  
 :align: center  
 ```  
+
 <br>
 
 Now that we understand HOG features, let’s leverage OpenCV and Dlib to build a stop sign detector. First, we need to download a repository containing pre-made test and training data. Keep in mind that we won’t evaluate the algorithm’s effectiveness using the training data—it’s expected to perform well there. Instead, our goal is to use a diverse test set to develop a detector robust enough to recognize stop signs in new images.  
@@ -42,13 +42,13 @@ Now that we understand HOG features, let’s leverage OpenCV and Dlib to build a
 
     _Hint: There’s a way to include all dependencies at the time of package creation._
 
-1. Download the [`lab10_prelab.tar.xz`](../files/lab10_prelab.tar.xz). Extract the files and move them to `~/master_ws/src/ece387_ws/lab10_cv/test`. 
+1. Download the [`lab10_prelab.tar.xz`](../files/lab10_prelab.tar.xz). Extract the files and move them to `~/master_ws/src/ece387_ws/lab10_cv/test`.
 
-1. Open the Jupyter Notebook file, `lab10_prelab.ipynb` with vscode. 
+1. Open the Jupyter Notebook file, `lab10_prelab.ipynb` with vscode.
 
 1. Click `Select Kernel` in the top right corner, choose `Python Environments`, and select `/usr/bin/python3`.  
 
-1. As you read through the notebook, run the python code by clicking the arrow button in the top left corner. 
+1. As you read through the notebook, run the python code by clicking the arrow button in the top left corner.
 
 1. If the following message pops up, choose `Install`
 
@@ -56,6 +56,7 @@ Now that we understand HOG features, let’s leverage OpenCV and Dlib to build a
     :width: 450  
     :align: center  
     ```  
+
     <br>
 1. Take a screenshot of the gradient image and submit it on Gradescope.
 
@@ -66,6 +67,7 @@ Now that we understand HOG features, let’s leverage OpenCV and Dlib to build a
 In this lab, you’ll build a stop sign detector using HOG (Histogram of Oriented Gradients) features, test it, and integrate it with a ROS-based camera system.
 
 (CV:HOG)=
+
 ### **1. Build a Detector Using HOG Features**
 
 1. Open a terminal and download the demo repository:
@@ -95,13 +97,14 @@ In this lab, you’ll build a stop sign detector using HOG (Histogram of Oriente
     :width: 50  
     :align: center  
     ```  
+
     <br>
 
    - Click and drag to draw a bounding box **only around each stop sign**.
    - If an image contains multiple stop signs, draw a box around each.
    - If you make a mistake, select the box and press `delete`.
 
-    ```{note} 
+    ```{note}
     It is important to label all examples of objects in an image; otherwise, Dlib will implicitly assume that regions not labeled are regions that should not be detected (i.e., hard-negative mining applied during extraction time).
     ```
 
@@ -116,6 +119,7 @@ In this lab, you’ll build a stop sign detector using HOG (Histogram of Oriente
     :width: 200  
     :align: center  
     ```  
+
 1. Create a Python script:
 
     ```bash
@@ -179,6 +183,7 @@ In this lab, you’ll build a stop sign detector using HOG (Histogram of Oriente
 
 ---
 (CV:Detector)=
+
 ### **2. Test the Detector**
 
 Now it is time to build our code to test the detector.  
@@ -194,10 +199,10 @@ Now it is time to build our code to test the detector.
 
     ```python
     # Import the necessary packages
-    from imutils import paths   # Utility to easily grab file paths from a directory
-    import argparse             # Used to handle command-line arguments
-    import dlib                 # Library for machine learning tools including object detection
-    import cv2                  # OpenCV for image processing
+    import glob         # Utility to easily grab file paths from a directory
+    import argparse     # Used to handle command-line arguments
+    import dlib         # Library for machine learning tools including object detection
+    import cv2          # OpenCV for image processing
 
     # Set up command-line arguments
     ap = argparse.ArgumentParser()
@@ -210,7 +215,7 @@ Now it is time to build our code to test the detector.
     detector = dlib.simple_object_detector(args["detector"])
 
     # Loop through each image file in the testing directory
-    for imagePath in paths.list_images(args["testing"]):
+    for imagePath in glob.glob(args["testing"] + "/**/*.*", recursive=True):
 
         # Read the image from disk using OpenCV
         image = cv2.imread(imagePath)
@@ -236,7 +241,7 @@ Now it is time to build our code to test the detector.
         cv2.waitKey(0)
     ```
 
-3. Run your test:
+1. Run your test:
 
     ```bash
     python3 testDetector.py --detector training/stop_detector.svm --testing test
@@ -257,11 +262,13 @@ ROS includes several tools for working with commercial off-the-shelf cameras, li
     ```
 
     If you have an error that can't find the `usb_cam` package, install the package using
+
     ```bash
     sudo apt install ros-humble-usb-cam
     ```
 
     If you have a permission error, you need to run
+
     ```bash
     sudo usermod -aG video $USER
     sudo reboot now
@@ -308,6 +315,7 @@ Ignore any calibration error messages — we’ll handle that later.
     ```bash
     ros2 run usb_cam usb_cam_node_exe --ros-args -p video_device:=/dev/video0
     ```
+
 1. Check topic bandwidth and image publishing rate:
 
     ```bash
@@ -337,13 +345,13 @@ You’ll now use a script to save training images of stop signs from your live f
     ccbuild --packages-selelct labl0-cv
     ```
 
-4. Run the USB camera node on Master:
+1. Run the USB camera node on Master:
 
     ```bash
     ros2 run usb_cam usb_cam_node_exe --ros-args -p video_device:=/dev/video0
     ```
 
-5. Open a new terminal, navigate to the `Documents` directory, and run
+1. Open a new terminal, navigate to the `Documents` directory, and run
 
     ```bash
     ros2 run lab10_cv image_capture -o ./training_images/
@@ -351,7 +359,7 @@ You’ll now use a script to save training images of stop signs from your live f
 
     Press `s` and `Enter` to save an image. Take multiple images from different angles and distances. Press `Ctrl + C` when done.
 
-6. Use `imglab` again to annotate your new images and save the XML file as before. Then re-train your detector using the updated dataset.
+1. Use `imglab` again to annotate your new images and save the XML file as before. Then re-train your detector using the updated dataset.
 
 ---
 
@@ -387,8 +395,8 @@ In this step, you’ll create a ROS 2 node that runs your stop sign detector in 
 1. Run `obs` from the terminal, or find it under `Applications`.
 
 1. Set up recording:
-   - In the *Scenes* panel (bottom-left), click the **`+`** and name your scene (e.g., "Stop Sign Detection").
-   - In the *Sources* panel, click the **`+`** and choose **Window Capture**.
+   - In the _Scenes_ panel (bottom-left), click the **`+`** and name your scene (e.g., "Stop Sign Detection").
+   - In the _Sources_ panel, click the **`+`** and choose **Window Capture**.
    - Select the window showing your detector output.
    - Click **Start Recording**.
 
@@ -401,7 +409,6 @@ In this step, you’ll create a ROS 2 node that runs your stop sign detector in 
 <center>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/9eR6FfNGUfo?si=rEm6W9HU0e8J9pK6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </center>
-
 
 ### **6. Estimating Distance to a Stop Sign**
 
@@ -417,6 +424,7 @@ In this section, you’ll determine the distance between the stop sign and the c
     :width: 300  
     :align: center  
     ```  
+
     <br>
 1. **Estimate the Distance to the Stop Sign**: Once you have the calculated focal length, $f$, use it along with the known width of the stop sign, $Y$, and its perceived width in pixels, $y$, to compute the distance from the camera using this formula:  
 
@@ -433,9 +441,8 @@ In this section, you’ll determine the distance between the stop sign and the c
     ```
 
 1. **Publish the Distance**  
-    - Set up a publisher to send the calculated distance using **Float32** messages from the *std_msgs* package on the */stop_dist* topic.  
+    - Set up a publisher to send the calculated distance using **Float32** messages from the _std_msgs_ package on the _/stop_dist_ topic.  
     - Ensure the published distance reflects every detected object in the image.
-
 
 ## 🚚 Deliverables
 
@@ -453,6 +460,5 @@ In this section, you’ll determine the distance between the stop sign and the c
     - Must include varied angles/distances and display bounding boxes.
     - Published distances on /stop_dist (verified via ros2 topic echo).
 
-1. **[10 points] Summary** 
+1. **[10 points] Summary**
     - Brief summary of HOG principles, challenges faced, and detection accuracy.
-
