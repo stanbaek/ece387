@@ -1,13 +1,13 @@
 # 🔬 Lab2: ROS
 
 ## 📌 Objectives
+
 - Students should be able to configure and verify a ROS2 environment, including understanding how environment variables and workspace setup influence ROS behavior.
 - Students should be able to interact with ROS2 command‑line tools, using nodes, topics, services, parameters, and actions to control and observe system behavior.
 - Students should be able to visualize ROS computation graphs and system activity, using tools such as rqt_graph and rqt_console to interpret node interactions and debug runtime events.
 - Students should be able to record and replay ROS2 data, creating bag files, managing directory structures, and validating recorded sensor or simulation data.
 
-
-## 📜 ROS Introduction.
+## 📜 ROS Introduction
 
 The Robot Operating System (ROS) is a flexible framework for writing robot software. It is a collection of tools, libraries, and conventions that aim to simplify the task of creating complex and robust robot behavior across a wide variety of robotic platforms. ROS is sometimes called a meta operating system because it performs many functions of an operating system, but it requires a computer's operating system such as Linux.
 
@@ -15,7 +15,7 @@ Why? Because creating truly robust, general-purpose robot software is hard. From
 
 As a result, ROS was built from the ground up to encourage collaborative robotics software development. For example, one laboratory might have experts in mapping indoor environments, and could contribute a world-class system for producing maps. Another group might have experts at using maps to navigate, and yet another group might have discovered a computer vision approach that works well for recognizing small objects in clutter. ROS was designed specifically for groups like these to collaborate and build upon each other's work, as is described throughout this site.
 
-ROS2 Humble Hawksbill: https://docs.ros.org/en/humble/
+ROS2 Humble Hawksbill: <https://docs.ros.org/en/humble/>
 
 ## 💻 ROS Command-line tools
 
@@ -27,6 +27,7 @@ Work through all 10 tutorials while carefully following the instructions in this
 :width: 800
 :align: center
 ```
+
 <br>
 
 ### 1. Configuring environment
@@ -38,7 +39,7 @@ Work through all 10 tutorials while carefully following the instructions in this
     gedit .bashrc
     ```
 
-- You should see the following lines at the bottom of the `.bashrc` file. 
+- You should see the following lines at the bottom of the `.bashrc` file.
 
     ```bash
     source /opt/ros/humble/setup.bash
@@ -51,8 +52,8 @@ Work through all 10 tutorials while carefully following the instructions in this
     export LDS_MODEL=LDS-01 # replace with LDS-02 if using new LIDAR
     source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
     ```
-    Your `ROS_DOMAIN_ID=XX` should match your computer ID, where `XX` corresponds to the `XX` in `MasterXX`. Update the file, save the changes, and exit. You can find your `LDS_MODEL` [here](../Appendix/RobotSetup.md#lds-configuration)
 
+    Your `ROS_DOMAIN_ID=XX` should match your computer ID, where `XX` corresponds to the `XX` in `MasterXX`. Update the file, save the changes, and exit. You can find your `LDS_MODEL` [here](../Appendix/RobotSetup27.md#lds-configuration)
 
 ### 2. Using turtlesim, ros2, and rqt
 
@@ -70,6 +71,7 @@ Work through all 10 tutorials while carefully following the instructions in this
     :width: 720
     :align: center
     ```
+
     <br>
 
 - Recreate the graph shown above and save it as a .png file. While the block locations might differ from the example, ensure your graph structure matches. Save the graph by clicking the `Save as image` button in the top-right corner and submit it on Gradescope.
@@ -86,6 +88,7 @@ Work through all 10 tutorials while carefully following the instructions in this
     :width: 320
     :align: center
     ```
+
     <br>
 
     ```{Warning}
@@ -96,11 +99,9 @@ Work through all 10 tutorials while carefully following the instructions in this
 
 - Complete this tutorial.
 
-
 ### 7. Understanding actions
 
 - Complete this tutorial.
-
 
 ### 8. Using rqt_console to view logs
 
@@ -114,6 +115,6 @@ Work through all 10 tutorials while carefully following the instructions in this
 
 - Create a directory called `lab2` within your local repository.  Then, create the `bag_files` directory inside the `lab2` directory.  As you follow the instruction in this tutorial, save the `subset` bag file in the `bag_files` directory.  Ensure the recording time is approimately 10 seconds. Push your code to your GitHub repository.
 
-## 🚚 Deliverables 
+## 🚚 Deliverables
 
 - Go to Gradescope and submit the `Lab2` assignment.
