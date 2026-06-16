@@ -47,7 +47,7 @@ After installing the Raspberry Pi level of the TurtleBot3 you need to install th
 
 There are multiple ways to download and install Ubuntu 24.04 LTS to a MicroSD card, but the Raspberry Pi Imager is one of the easiest. Instructions for installing the imager on your operating system can be found on the [Raspberry Pi OS software page](https://www.raspberrypi.com/software/).
 
-Once installed, start the imager and select **"Raspberry Pi 4"**.
+Once installed, start the imager and select **Raspberry Pi 4**.
 <br>
 
 ```{image} ./figures/installer1.png
@@ -56,8 +56,8 @@ Once installed, start the imager and select **"Raspberry Pi 4"**.
 ```
 
 <br>
-Scroll down the menu and select **"Other general purpose OS"**.
 
+Scroll down the menu and select **Other general purpose OS**.
 <br>
 
 ```{image} ./figures/installer2.png
@@ -67,7 +67,7 @@ Scroll down the menu and select **"Other general purpose OS"**.
 
 <br>
 
-Next, select **"Ubuntu"**.
+Next, select **Ubuntu**.
 <br>
 
 ```{image} ./figures/installer3.png
@@ -76,7 +76,8 @@ Next, select **"Ubuntu"**.
 ```
 
 <br>
-Lastly, scroll and select the latest 64-bit version of **"Ubuntu Server 24.04 LTS (64-bit)"**.
+
+Lastly, scroll and select the latest 64-bit version of **Ubuntu Server 24.04 LTS (64-bit)**.
 
 <br>
 
