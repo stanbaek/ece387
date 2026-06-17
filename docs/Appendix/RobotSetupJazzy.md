@@ -1,4 +1,4 @@
-# 🔧 Robot Setup (2027)
+# 🔧 Robot Setup (ROS2 Jazzy)
 
 This guide walks through the steps to install Ubuntu Server 24.04 LTS, ROS2 Jazzy, and all dependencies on a Raspberry Pi 4. This Pi is embedded within the Robotis TurtleBot3 Burger along with a USB camera. The robotics system, TurtleBot3, is utilized in the United States Air Force Academy's Electrical and Computer Engineering department to teach undergraduate students robotics.
 
