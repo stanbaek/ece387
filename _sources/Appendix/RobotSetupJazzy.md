@@ -202,13 +202,9 @@ Until a desktop GUI is installed we have to work with the command line to set up
           dhcp4: true
           regulatory-domain: "US"
           access-points:
-            "YOUR-HOME-SSID":
-              auth:
-                key-management: "psk"
-                password: "<64-char PSK from wpa_passphrase>"
-            "AFAcademy_Guest":
-              auth:
-                key-management: "none"
+            "AFAcademy_Guest": {}
+            "ECE":
+              password: "<64-char PSK from wpa_passphrase>"
     ```
 
     The Pi connects to whichever network is in range. If both are visible simultaneously, it picks based on signal strength.
@@ -258,13 +254,9 @@ network:
       nameservers:
         addresses: [192.168.0.1, 8.8.8.8, 1.1.1.1]
       access-points:
-        "YOUR-HOME-SSID":
-          auth:
-            key-management: "psk"
-            password: "<64-char PSK from wpa_passphrase>"
-        "AFAcademy_Guest":
-          auth:
-            key-management: "none"
+        "AFAcademy_Guest": {}
+        "ECE":
+          password: "<64-char PSK from wpa_passphrase>"
 ```
 
 ### Disable Automatic Updates
@@ -494,19 +486,15 @@ network:
       optional: true
       dhcp4: true
       dhcp6: true
-  wifis:
+  wifis:          access-points:
     wlan1:
       optional: true
       dhcp4: true
       regulatory-domain: "US"
       access-points:
-        "YOUR-HOME-SSID":
-          auth:
-            key-management: "psk"
-            password: "<64-char PSK from wpa_passphrase>"
-        "AFAcademy_Guest":
-          auth:
-            key-management: "none"
+        "AFAcademy_Guest": {}
+        "ECE":
+          password: "<64-char PSK from wpa_passphrase>"
 ```
 
 Apply and verify:
