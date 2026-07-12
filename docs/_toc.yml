@@ -40,8 +40,9 @@ parts:
   - caption: Appendix
     chapters:
     - file: Appendix/RobotSetupJazzy.md
-    - file: Appendix/MasterSetup.md  
+    - file: Appendix/MasterSetupJazzy.md  
     - file: Appendix/GitSetup.md    
     - file: Appendix/GamepadSetup.md
     - file: Appendix/RobotSetupHumble.md
+    - file: Appendix/MasterSetupHumble.md  
     
