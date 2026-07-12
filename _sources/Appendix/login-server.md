@@ -1,4 +1,26 @@
-# ECE 387 Login Server & Master Computer Setup
+# ECE 387 Login Server Setup
+
+This guide covers setting up the **login server** — the machine that hosts OpenLDAP (user accounts) and NFS (shared home directories) for the lab. It is one of three companion guides:
+
+- **login-server.md** (this file) — the login server itself
+- [login-client.md](login-client.md) — master computers that authenticate against the login server
+- [master-standalone-setup.md](master-standalone-setup.md) — a single master with a local account, no login server
+
+## Why a Login Server?
+
+A login server (OpenLDAP + SSSD + NFS) is only worth the setup effort in one specific situation: **a shared lab of fixed, dedicated computers that many different students rotate through.**
+
+**When a login server helps:**
+- The lab has a bank of master computers (e.g., 14 NUCs) and students do not own or sit at the same machine every session.
+- A student should be able to sit down at *any* master, log in with their own credentials, and immediately have their `.bashrc`, SSH keys, and ROS workspace available — without re-cloning or re-configuring anything.
+- You want to manage 20–30 student accounts centrally: create them once, reset a forgotten password in one command, and push a `.bashrc` update to every account at once (see [Maintenance](#3-maintenance)).
+- You need some isolation between students who share the same physical hardware (restricted sudo, separate home directories, no ability to read another student's files).
+
+**When a login server is overkill:**
+- Students each have their own laptop or a personal workstation they always use. In that case there is nothing to "roam" between — a local Ubuntu account already gives each student a persistent home directory, and centralized authentication just adds an extra server to install, patch, and keep running (plus a single point of failure if it goes down). Use [master-standalone-setup.md](master-standalone-setup.md) instead — it sets up the same ROS 2 environment with a normal local account and no LDAP/NFS dependency.
+- You only have a handful of machines and can simply assign one student (or a fixed pair) per machine for the term.
+
+**The trade-off:** a login server buys you station-independence and central account management, at the cost of standing up and maintaining an extra server, plus a dependency on the network (mitigated in [login-client.md](login-client.md) with SSSD credential caching and soft NFS mounts). For ECE 387's AFA lab — a fixed set of 14 dedicated NUCs used by a rotating roster of ~30 students across sections — that trade-off is worth it.
 
 ## Architecture Overview
 
@@ -30,7 +52,7 @@
     └────────────────┘                       └────────────────┘
 ```
 
-**Key concept:** Student home directories live on the login server and are NFS-mounted on every master. When a student logs in to any master, their home directory (`.bashrc`, SSH keys, ROS workspace) is automatically available — no per-machine setup needed.
+**Key concept:** Student home directories live on the login server and are NFS-mounted on every master. When a student logs in to any master (set up per [login-client.md](login-client.md)), their home directory (`.bashrc`, SSH keys, ROS workspace) is automatically available — no per-machine setup needed.
 
 > **Why not FreeIPA?** `freeipa-server` is not packaged for Ubuntu 24.04. OpenLDAP + SSSD is the standard replacement and provides the same centralized login and shared home directory functionality.
 
@@ -40,19 +62,19 @@
 
 Assign static IPs on your lab's Ethernet network before starting. All machines must be on the same subnet so they can reach each other.
 
-| Host         | Hostname       | IP              |
-|--------------|----------------|-----------------|
-| Login Server | `ece387server` | `192.168.1.10`  |
-| Master 01    | `master01`     | `192.168.1.101` |
-| Master 02    | `master02`     | `192.168.1.102` |
-| ...          | ...            | ...             |
-| Master 14    | `master14`     | `192.168.1.114` |
+| Host | Hostname | IP |
+|------|----------|----|
+| Login Server | `ece387server` | `192.168.0.151` |
+| Master 01 | `master01` | `192.168.0.101` |
+| Master 02 | `master02` | `192.168.0.102` |
+| ... | ... | ... |
+| Master 14 | `master14` | `192.168.0.114` |
 
-> Adjust the subnet to match your lab's actual network. This guide uses the domain `ece387.local`.
+> The login server IP (`192.168.0.151`) reflects the home test setup. In the AFA lab, adjust all IPs to match the actual lab subnet. This guide uses the domain `ece387.local`.
 
 ---
 
-## Part 1: Login Server Setup
+## 1. Login Server Setup
 
 ### 1.0 Create a Working Directory
 
@@ -84,10 +106,10 @@ network:
   ethernets:
     enp86s0:                      # replace with your actual interface name
       dhcp4: false
-      addresses: [192.168.1.10/24]
+      addresses: [192.168.0.151/24]
       routes:
         - to: default
-          via: 192.168.1.1        # your lab gateway/router IP
+          via: 192.168.0.1        # your router IP (home: 192.168.0.1, lab: adjust accordingly)
       nameservers:
         addresses: [8.8.8.8, 8.8.4.4]
 ```
@@ -111,10 +133,9 @@ sudo nano /etc/hosts
 ```
 
 The file should contain:
-
 ```
 127.0.0.1   localhost
-192.168.1.10  ece387server.ece387.local  ece387server
+192.168.0.151  ece387server.ece387.local  ece387server
 ```
 
 > `ece387server.ece387.local` is the fully qualified domain name (FQDN): machine name + domain. `ece387.local` is a private domain that exists only within your lab network — it is not registered on the public internet.
@@ -132,7 +153,7 @@ sudo apt update && sudo apt upgrade -y
 sudo apt install -y slapd ldap-utils ldapscripts
 ```
 
-During install you are prompted for an admin password — set a strong one (e.g., `LdapAdmin2024!`). This is the LDAP admin password, not your Linux account password.
+During install you are prompted for an admin password — set a strong one (e.g., `LdapAdmin387!`). This is the LDAP admin password, not your Linux account password.
 
 Now reconfigure the database to use your domain name. This step sets the "root" of the LDAP tree — everything hangs off `dc=ece387,dc=local`:
 
@@ -141,11 +162,10 @@ sudo dpkg-reconfigure slapd
 ```
 
 Answer the prompts:
-
 - Omit OpenLDAP server configuration? → **No**
 - DNS domain name → `ece387.local`  *(this becomes dc=ece387,dc=local in LDAP)*
 - Organization name → `ECE387`
-- Admin password → `LdapAdmin2024!` (confirm)
+- Admin password → `LdapAdmin387!` (confirm)
 - Remove database when slapd is purged? → **No**
 - Move old database? → **Yes**
 
@@ -198,23 +218,31 @@ ldapadd -x -H ldap://localhost \
   -W -f ~/Documents/ece387/structure.ldif
 ```
 
-### 1.5 Create a Course .bashrc Template
+### 1.5 Create Course Config Templates
 
-Before creating student accounts, set up the course environment template. Every student's `.bashrc` will be copied from this file so they all start with the correct ROS environment variables.
+Before creating student accounts, set up the course templates. These files are copied into every student's home directory and can be updated and re-pushed at any time.
 
 ```bash
 # Create the directory that will hold course-wide config files
 sudo mkdir -p /etc/ece387
+```
 
+#### .bashrc Template
+
+The `.bashrc` is sourced every time a terminal opens. It sets ROS environment variables and loads the student's personal customizations from a separate file, so you can update course settings without overwriting students' own additions.
+
+```bash
 sudo nano /etc/ece387/bashrc_template
 ```
 
 ```bash
 # ECE 387 Course Environment
-# This file is sourced every time a terminal opens.
+# This file is managed by the instructor — do not edit directly.
+# Add your own customizations to ~/.bashrc_personal instead.
 
 # ROS_DOMAIN_ID separates ROS2 traffic between different robot pairs.
-# Each student should set this to a unique number matching their robot.
+# Each student should set this in ~/.bashrc_personal, e.g.:
+#   export ROS_DOMAIN_ID=15
 export ROS_DOMAIN_ID=30
 
 export TURTLEBOT3_MODEL=burger
@@ -228,14 +256,48 @@ source /opt/ros/jazzy/setup.bash
 source ~/ros2_ws/install/setup.bash 2>/dev/null || true
 
 # Shortcut to SSH into the robot.
-# Students set ROBOT_IP in their own .bashrc, e.g.: export ROBOT_IP=10.42.0.1
+# Students set ROBOT_IP in ~/.bashrc_personal, e.g.: export ROBOT_IP=10.42.0.1
 alias robot='ssh ubuntu@$ROBOT_IP'
+
+# Load student's personal customizations (robot IP, aliases, etc.)
+# This file is never overwritten by the instructor.
+source ~/.bashrc_personal 2>/dev/null || true
 ```
+
+#### .inputrc Template
+
+`.inputrc` configures readline behavior — used by bash for history search and tab completion.
+
+```bash
+sudo nano /etc/ece387/inputrc_template
+```
+
+```
+# Arrow keys search history based on what's already typed
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+
+# Case-insensitive tab completion
+set completion-ignore-case on
+```
+
+#### Pushing Updates to All Students
+
+The templates are only copied automatically when accounts are first created. To push changes to all existing students at any time:
+
+```bash
+for user in /home/students/a27-*/; do
+  sudo cp /etc/ece387/bashrc_template "${user}.bashrc"
+  sudo cp /etc/ece387/inputrc_template "${user}.inputrc"
+  echo "Updated: $user"
+done
+```
+
+> This overwrites `.bashrc` and `.inputrc` but leaves `.bashrc_personal` untouched, so student customizations are preserved.
 
 ### 1.6 Create Student Accounts
 
 Student IDs follow the pattern `a27-01` through `a27-30`. The script below:
-
 1. Generates a hashed password for all accounts
 2. Builds a single LDIF file with all 30 user entries
 3. Creates each student's home directory on the server and populates it with the course `.bashrc`
@@ -249,7 +311,7 @@ set -e
 
 # --- Configuration ---
 LDAP_ADMIN_DN="cn=admin,dc=ece387,dc=local"
-LDAP_ADMIN_PW="LdapAdmin2024!"    # your LDAP admin password
+LDAP_ADMIN_PW="LdapAdmin387!"    # your LDAP admin password
 INITIAL_PW="TempPass2024!"        # students change this on first login
 LDIF=~/Documents/ece387/students.ldif
 
@@ -292,8 +354,13 @@ ENTRY
   sudo mkdir -p /home/students/${USERNAME}
   sudo cp -r /etc/skel/. /home/students/${USERNAME}/
 
-  # Overwrite .bashrc with the course template
+  # Copy course config templates
   sudo cp /etc/ece387/bashrc_template /home/students/${USERNAME}/.bashrc
+  sudo cp /etc/ece387/inputrc_template /home/students/${USERNAME}/.inputrc
+
+  # Create an empty .bashrc_personal for student customizations (robot IP, aliases, etc.)
+  # This file is sourced at the end of .bashrc and is never overwritten by the instructor.
+  sudo touch /home/students/${USERNAME}/.bashrc_personal
 
   # Set ownership to the student's UID and the shared group GID (10000).
   # chmod 700 means only the student can read/write their own directory.
@@ -351,13 +418,14 @@ sudo nano /etc/exports
 ```
 
 ```
-# Share /home/students with all machines on the 192.168.1.0/24 subnet.
+# Share /home/students with all machines on the 192.168.0.0/24 subnet.
 # rw             = read and write access
 # sync           = write data to disk before acknowledging — safer than async
 # no_subtree_check = disables subtree checking, improves reliability
 # no_root_squash = allows root on clients to act as root here (needed for
 #                  creating/chowning files during setup)
-/home/students  192.168.1.0/24(rw,sync,no_subtree_check,no_root_squash)
+/home/students  192.168.0.0/24(rw,sync,no_subtree_check,no_root_squash)
+# Note: adjust subnet to match your lab network (e.g., 192.168.0.0/24 for home testing)
 ```
 
 ```bash
@@ -371,6 +439,8 @@ sudo systemctl enable --now nfs-server
 showmount -e localhost
 ```
 
+> `no_root_squash` is used here to simplify initial account creation. Once accounts are set up, switch to `root_squash` for better isolation between students — see "Grant Students Restricted sudo Access" in [login-client.md](login-client.md).
+
 ### 1.8 Open Required Firewall Ports
 
 ```bash
@@ -383,8 +453,12 @@ sudo ufw allow 389/tcp
 # Allow NFS traffic (port 2049)
 sudo ufw allow 2049/tcp
 
-# Allow all traffic from the lab subnet (covers NFS port-mapper and other NFS ports)
-sudo ufw allow from 192.168.1.0/24
+# Allow rpcbind/portmapper (port 111) — required for showmount and NFS negotiation
+sudo ufw allow 111/tcp
+sudo ufw allow 111/udp
+
+# Allow all traffic from the lab subnet
+sudo ufw allow from 192.168.0.0/24
 
 # Enable the firewall
 sudo ufw enable
@@ -393,362 +467,19 @@ sudo ufw enable
 sudo ufw status
 ```
 
----
-
-## Part 2: Master Computer Setup (NUC 9 × 14)
-
-Do this on each of the 14 master computers. Most steps can be scripted and run via Ansible to configure all 14 machines simultaneously — see Part 5.
-
-### 2.1 Fresh Install Ubuntu 24.04 Desktop
-
-1. Boot from Ubuntu 24.04 Desktop ISO.
-2. During install:
-   - Hostname: `master01`, `master02`, ... `master14`
-   - Create local admin account: `ece387admin`
-3. After install, set a static IP on the lab Ethernet interface so the machine can always reach the login server:
-
-```bash
-# Find your ethernet interface name
-ip a
-
-sudo nano /etc/netplan/01-lab-network.yaml
-```
-
-```yaml
-network:
-  version: 2
-  ethernets:
-    enp86s0:                          # your ethernet interface
-      dhcp4: false
-      addresses: [192.168.1.101/24]   # increment per machine: .102, .103, etc.
-      routes:
-        - to: default
-          via: 192.168.1.1            # lab gateway
-      nameservers:
-        addresses: [8.8.8.8]
-```
-
-```bash
-sudo netplan apply
-
-# Confirm the master can reach the login server before proceeding
-ping 192.168.1.10
-```
-
-### 2.2 Install ROS2 Jazzy
-
-```bash
-# Install prerequisites for adding a new apt repository
-sudo apt install -y software-properties-common curl
-
-# Download and store the ROS2 package signing key
-sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key \
-  -o /usr/share/keyrings/ros-archive-keyring.gpg
-
-# Add the ROS2 apt repository for Ubuntu Noble (24.04)
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] \
-  http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | \
-  sudo tee /etc/apt/sources.list.d/ros2.list
-
-sudo apt update
-
-# Install ROS2 Jazzy Desktop (includes rviz2, rqt, etc.) plus TurtleBot3 packages
-sudo apt install -y ros-jazzy-desktop ros-jazzy-turtlebot3* ros-dev-tools
-```
-
-sudo apt install -y ros-humble-gazebo-*
-sudo apt install -y ros-humble-usb-cam ros-humble-image-proc
-sudo apt install -y ros-humble-camera-calibration
-sudo apt install -y ros-humble-apriltag ros-humble-apriltag-ros
-sudo apt install -y tree
-sudo apt install -y jstest-gtk  
-
-alias bringup='ssh pi@robotX '\''ros2 launch turtlebot3_bringup robot.launch.py'\'
-
-# Function to build with optional arguments
-
-function ccbuild() {
-    cd ~/master_ws && colcon build --symlink-install "$@"
-    source ~/master_ws/install/setup.bash
-}
-
-# Export the function to make it available in the shell
-
-export -f ccbuild
-
-source /opt/ros/jazzy/setup.bash
-source ~/master_ws/install/setup.bash
-export ROS_DOMAIN_ID=99  # For master0 and robot0
-
-export TURTLEBOT3_MODEL=burger
-export LDS_MODEL=LDS-02 # replace with LDS-02 if using new LIDAR
-
-source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
-source /usr/share/gazebo/setup.sh
-source /usr/share/colcon_cd/function/colcon_cd.sh
-export_colcon_cd_root=/opt/ros/jazzy/
-
-### 2.3 Configure SSSD for LDAP Authentication
-
-SSSD (System Security Services Daemon) is the bridge between the master computer and the login server's LDAP database. When a student types their username and password, SSSD queries the LDAP server to verify their identity.
-
-```bash
-# Install SSSD and its LDAP backend, plus PAM/NSS libraries that let Linux
-# use SSSD for login (PAM) and user lookups like "id username" (NSS)
-sudo apt install -y sssd sssd-ldap libpam-sss libnss-sss oddjob oddjob-mkhomedir
-```
-
-Create the SSSD configuration file:
-
-```bash
-sudo nano /etc/sssd/sssd.conf
-```
-
-```ini
-[sssd]
-# Services to run:
-#   nss = name service (allows "id username", "getent passwd", etc.)
-#   pam = pluggable authentication module (handles login)
-services = nss, pam
-domains = ece387.local
-config_file_version = 2
-
-[domain/ece387.local]
-# id_provider = where to look up user information (UID, home dir, etc.)
-# auth_provider = where to verify passwords
-id_provider = ldap
-auth_provider = ldap
-
-# URI of the LDAP server (the login server's IP)
-ldap_uri = ldap://192.168.1.10
-
-# Base DN: the root of the LDAP tree to search
-ldap_search_base = dc=ece387,dc=local
-
-# Narrow searches to the students OU for efficiency
-ldap_user_search_base = ou=students,dc=ece387,dc=local
-ldap_group_search_base = ou=groups,dc=ece387,dc=local
-
-# Credentials SSSD uses to bind (connect) to the LDAP server for lookups
-ldap_default_bind_dn = cn=admin,dc=ece387,dc=local
-ldap_default_authtok_type = password
-ldap_default_authtok = LdapAdmin2024!
-
-# Do not use TLS for now (simpler setup for a local lab network)
-ldap_id_use_start_tls = false
-
-# Cache credentials locally so students can still log in if the server
-# is temporarily unreachable (offline mode)
-cache_credentials = true
-
-# Pre-load all user accounts so "getent passwd" and tab-completion work
-enumerate = true
-```
-
-```bash
-# sssd.conf must not be readable by other users — SSSD refuses to start otherwise
-sudo chmod 600 /etc/sssd/sssd.conf
-
-# Enable and start SSSD
-sudo systemctl enable --now sssd
-
-# Tell PAM to create a home directory on first login if one doesn't exist locally
-sudo pam-auth-update --enable mkhomedir
-
-# Test: this should return the student's uid, gid, and home directory path
-id a27-01
-```
-
-### 2.4 Mount NFS Home Directories
-
-autofs automatically mounts a network directory the moment it is accessed, and unmounts it after a period of inactivity. This is more efficient than a static mount in `/etc/fstab` because the mount only happens when needed.
-
-```bash
-# Install autofs (automounter) and nfs-common (NFS client tools)
-sudo apt install -y autofs nfs-common
-```
-
-Tell autofs to manage the `/home/students` mount point:
-
-```bash
-sudo nano /etc/auto.master.d/students.autofs
-```
-
-```
-# When anything under /home/students is accessed, use the rules in /etc/auto.students.
-# --timeout=600 means unmount after 10 minutes of inactivity.
-/home/students  /etc/auto.students  --timeout=600
-```
-
-Define the NFS mount rule:
-
-```bash
-sudo nano /etc/auto.students
-```
-
-```
-# The * wildcard matches any username.
-# When /home/students/a27-01 is accessed, autofs mounts:
-#   192.168.1.10:/home/students/a27-01
-# The & at the end substitutes the matched username.
-#
-# soft     = give up if the server is unreachable rather than hanging forever
-# timeo=30 = wait 3 seconds per retry attempt (units are 0.1s)
-# retrans=2 = retry twice before giving up
-*  -fstype=nfs,soft,timeo=30,retrans=2  192.168.1.10:/home/students/&
-```
-
-```bash
-# Enable autofs at boot and start it now
-sudo systemctl enable --now autofs
-sudo systemctl restart autofs
-
-# Test: switch to a student account — their home directory should mount automatically
-sudo su - a27-01
-pwd          # should show /home/students/a27-01
-ls -la       # should show .bashrc, .profile, etc.
-exit
-```
-
-### 2.5 Grant Students sudo Access (Optional)
-
-If students need `sudo` privileges (e.g., to install ROS packages during labs):
-
-```bash
-sudo nano /etc/sudoers.d/ece387-students
-```
-
-```
-# Members of the ece387students group can run any command as any user.
-# The % prefix means this applies to a group, not an individual user.
-%ece387students  ALL=(ALL) ALL
-```
-
-```bash
-# sudoers files must have exactly these permissions — sudo ignores files with wrong perms
-sudo chmod 440 /etc/sudoers.d/ece387-students
-```
-
-### 2.6 Configure WiFi Interfaces
-
-Each master has two WiFi adapters. Use NetworkManager (`nmcli`) to configure them:
-
-```bash
-# List all network interfaces and their current state
-nmcli device status
-
-# Connect the external USB WiFi dongle to the internet network.
-# Replace wlx<mac_of_dongle> with the actual interface name (e.g., wlx00e04c360001)
-nmcli dev wifi connect "AFAcademy_Guest" ifname wlx<mac_of_dongle>
-
-# Make this connection reconnect automatically after every reboot
-nmcli connection modify "AFAcademy_Guest" connection.autoconnect yes
-
-# The internal WiFi adapter is left for students to connect to their robot's
-# access point during lab — they configure this per-robot.
-```
+Once the server is up, continue to [login-client.md](login-client.md) to configure each master to authenticate against it.
 
 ---
 
-## Part 3: Resilience — Server Down or Network Unreliable
+## 2. Resilience — Server Down or Network Unreliable
 
-Two failure modes and how each is handled:
+**Authentication (SSSD):** Handled on the client side — after a student logs in once, SSSD on each master caches their credentials locally so they can still log in if the login server goes down. See [login-client.md](login-client.md).
 
-**Authentication (SSSD):** Already resilient. `cache_credentials = true` in `sssd.conf` means after a student logs in once, SSSD saves their credentials in a local encrypted cache. If the login server goes down, they can still log in to any master they have previously used.
-
-**Home directories (NFS):** The more serious problem — if the NFS server is unreachable, the student's home directory cannot be mounted, so they lose access to `.bashrc`, SSH keys, and their ROS workspace.
-
-The solution combines two approaches:
-
-### Option 1: GitHub as the Safety Net
-
-Require students to keep their ROS workspace in a GitHub repository as part of the course workflow. If NFS is unreachable, a student can recover in minutes:
-
-```bash
-# Clone from GitHub using HTTPS (no SSH key needed)
-git clone https://github.com/<username>/<repo>.git ~/ros2_ws
-cd ~/ros2_ws && colcon build
-```
-
-AFAcademy_Guest WiFi provides internet access independently of the ECE lab network, so GitHub is reachable even when the login server is not.
-
-### Option 2: Soft NFS Mounts
-
-Without `soft`, a failed NFS mount causes the accessing process to hang indefinitely — the terminal freezes and the student cannot do anything. `soft` mounts fail fast instead, so the student gets an error message rather than a frozen session.
-
-This is already included in the `/etc/auto.students` configuration in Section 2.4:
-
-```
-*  -fstype=nfs,soft,timeo=30,retrans=2  192.168.1.10:/home/students/&
-```
-
-If you need to change this after initial setup, edit the file and restart autofs:
-
-```bash
-sudo systemctl restart autofs
-```
+**Home directories (NFS):** If the NFS server is unreachable, students lose access to `.bashrc`, SSH keys, and their ROS workspace on any master. Mitigations (GitHub as a safety net, soft NFS mounts) are configured on the client side — see [login-client.md](login-client.md).
 
 ---
 
-## Part 4: Student Workflow
-
-When a student moves to a different station:
-
-1. Log in with their LDAP username (e.g., `a27-01`) and password — SSSD authenticates against the login server and their home directory mounts automatically via NFS.
-2. `.bashrc`, `.ssh/`, and workspace files are immediately available — no re-setup needed.
-3. Connect to their robot:
-
-   ```bash
-   # Connect the internal WiFi adapter to the robot's access point
-   nmcli dev wifi connect "robot_XX_ap" password "robotpassword" ifname wlan0
-
-   # SSH into the robot
-   ssh ubuntu@10.42.0.1
-   ```
-
-4. Their GitHub SSH key is already in `~/.ssh/` — `git push` and `git pull` work immediately.
-
----
-
-## Part 5: Ansible Automation (Recommended for 14 Machines)
-
-Rather than repeating Part 2 on each master by hand, Ansible lets you run the same commands on all 14 machines simultaneously from the login server.
-
-```bash
-# Install Ansible on the login server
-sudo apt install -y ansible
-
-# Create an inventory file listing all master computers
-# Ansible reads this to know which machines to configure
-cat > ~/Documents/ece387/masters-inventory.ini << 'EOF'
-[masters]
-master01 ansible_host=192.168.1.101
-master02 ansible_host=192.168.1.102
-master03 ansible_host=192.168.1.103
-master04 ansible_host=192.168.1.104
-master05 ansible_host=192.168.1.105
-master06 ansible_host=192.168.1.106
-master07 ansible_host=192.168.1.107
-master08 ansible_host=192.168.1.108
-master09 ansible_host=192.168.1.109
-master10 ansible_host=192.168.1.110
-master11 ansible_host=192.168.1.111
-master12 ansible_host=192.168.1.112
-master13 ansible_host=192.168.1.113
-master14 ansible_host=192.168.1.114
-
-[masters:vars]
-ansible_user=ece387admin
-ansible_become=yes
-EOF
-
-# Run a playbook (write the playbook separately covering sections 2.2–2.6)
-ansible-playbook -i ~/Documents/ece387/masters-inventory.ini setup-masters.yml
-```
-
----
-
-## Part 6: Maintenance
+## 3. Maintenance
 
 ### Add a new student
 
@@ -779,6 +510,8 @@ EOF
 sudo mkdir -p /home/students/a27-31
 sudo cp -r /etc/skel/. /home/students/a27-31/
 sudo cp /etc/ece387/bashrc_template /home/students/a27-31/.bashrc
+sudo cp /etc/ece387/inputrc_template /home/students/a27-31/.inputrc
+sudo touch /home/students/a27-31/.bashrc_personal
 sudo chown -R 10031:10000 /home/students/a27-31
 sudo chmod 700 /home/students/a27-31
 ```
@@ -802,16 +535,6 @@ ldapsearch -x -H ldap://localhost \
   -W uid cn
 ```
 
-### Check who is logged in across all masters
-
-```bash
-# SSH into each master and run 'who' to see logged-in users
-for i in $(seq -w 1 14); do
-  echo "=== master$i ==="
-  ssh ece387admin@192.168.1.1${i} who 2>/dev/null
-done
-```
-
 ### Back up home directories and LDAP database
 
 ```bash
@@ -830,9 +553,7 @@ sudo slapcat > ~/Documents/ece387/ldap-backup-$(date +%Y%m%d).ldif
 | Problem | Command | Fix |
 |---------|---------|-----|
 | Student can't log in | `ldapsearch -x -H ldap://localhost -b "ou=students,dc=ece387,dc=local" -D "cn=admin,dc=ece387,dc=local" -W "(uid=a27-01)"` | Check account exists; verify password hash is valid |
-| Home dir not mounting | `automount -v` | Check NFS exports on server, autofs config on master, server reachable |
-| SSSD not resolving users | `sssctl user-checks a27-01` | Restart sssd: `systemctl restart sssd` |
-| LDAP connection refused | `ldapsearch -x -H ldap://192.168.1.10 -b "dc=ece387,dc=local" -x` | Check `systemctl status slapd` on server |
-| NFS mount fails | `showmount -e 192.168.1.10` | Check firewall on server; verify `nfs-server` is running |
-| Login hangs (no soft mount) | `journalctl -u autofs` | Ensure `soft,timeo=30,retrans=2` is in `/etc/auto.students` |
-| Login slow (~30s) | `journalctl -u sssd` | Check LDAP URI is reachable: `ping 192.168.1.10` |
+| LDAP connection refused | `ldapsearch -x -H ldap://192.168.0.151 -b "dc=ece387,dc=local" -x` | Check `systemctl status slapd` on server |
+| NFS mount fails (from a client) | `showmount -e 192.168.0.151` | Check firewall on server; verify `nfs-server` is running |
+
+For client-side symptoms (home directory not mounting, SSSD not resolving users, login hangs or is slow), see the troubleshooting table in [login-client.md](login-client.md).
