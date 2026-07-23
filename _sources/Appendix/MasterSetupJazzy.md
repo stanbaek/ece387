@@ -1,9 +1,10 @@
 
-# 🔧 Master Setup — Standalone
+# Master Setup — Standalone
 
 This guide walks through installing Ubuntu Desktop 24.04 LTS, ROS 2 Jazzy, and all dependencies on a standalone desktop computer with a single local Ubuntu account. This computer system is utilized in the United States Air Force Academy's Electrical and Computer Engineering department in an embedded network with the ground robot, a TurtleBot3 Burger. The master system is used to run ROS GUI tools and create secure connections with the TurtleBot3.
 
-> Use this guide for a single master with a local Ubuntu account. If you are setting up the centralized multi-student lab (shared logins across many masters), see [login-server.md](login-server.md) and [login-client.md](login-client.md) instead.
+> Use this guide for a single master with a local Ubuntu account. If you are setting up the centralized multi-student lab (shared logins across many masters), see [Login Server Setup](login-server.md) and [Master (Client) Setup](login-client.md) instead.
+
 
 This guide is adapted from the [TurtleBot3 e-Manual](https://emanual.robotis.com/docs/en/platform/turtlebot3/overview/#overview).
 

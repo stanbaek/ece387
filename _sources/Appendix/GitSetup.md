@@ -1,5 +1,5 @@
 
-# 🔧 Git Repo Setup
+# Git Repo Setup
 
 
 ## Purpose

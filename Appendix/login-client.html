@@ -63,7 +63,7 @@
     <link rel="icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="🔧 Master Setup — Standalone" href="MasterSetupJazzy.html" />
+    <link rel="next" title="Master Setup — Standalone" href="MasterSetupJazzy.html" />
     <link rel="prev" title="Login Server Setup" href="login-server.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -213,14 +213,14 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendix</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="RobotSetupJazzy.html">🔧 Robot Setup (ROS2 Jazzy)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RobotSetupJazzy.html">Robot Setup (ROS2 Jazzy)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="login-server.html">Login Server Setup</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Master (Client) Setup</a></li>
-<li class="toctree-l1"><a class="reference internal" href="MasterSetupJazzy.html">🔧 Master Setup — Standalone</a></li>
-<li class="toctree-l1"><a class="reference internal" href="GitSetup.html">🔧 Git Repo Setup</a></li>
-<li class="toctree-l1"><a class="reference internal" href="GamepadSetup.html">🔧 Gamepad Setup</a></li>
-<li class="toctree-l1"><a class="reference internal" href="RobotSetupHumble.html">🔧 Robot Setup (ROS2 Humble)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="MasterSetupHumble.html">🔧 Master Setup (ROS2 Humble)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MasterSetupJazzy.html">Master Setup — Standalone</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GitSetup.html">Git Repo Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GamepadSetup.html">Gamepad Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RobotSetupHumble.html">Robot Setup (ROS2 Humble)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MasterSetupHumble.html">Master Setup (ROS2 Humble)</a></li>
 </ul>
 
     </div>
@@ -461,9 +461,9 @@ document.write(`
 <h1>Master (Client) Setup<a class="headerlink" href="#master-client-setup" title="Link to this heading">#</a></h1>
 <p>This guide covers setting up a <strong>master computer as a login client</strong> — a machine that authenticates students against the login server (via SSSD) and mounts their home directory over NFS, so any student can sit at any master. It is one of three companion guides:</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="login-server.html"><span class="std std-doc">login-server.md</span></a> — the login server itself</p></li>
-<li><p><strong><a class="reference external" href="http://login-client.md">login-client.md</a></strong> (this file) — master computers that authenticate against the login server</p></li>
-<li><p><a class="reference internal" href="#master-standalone-setup.md"><span class="xref myst">master-standalone-setup.md</span></a> — a single master with a local account, no login server</p></li>
+<li><p><a class="reference internal" href="login-server.html"><span class="std std-doc">Login Server Setup</span></a> — the login server itself</p></li>
+<li><p><a class="reference internal" href="#"><span class="std std-doc">Master (Client) Setup</span></a> — master computers that authenticate against the login server</p></li>
+<li><p><a class="reference internal" href="MasterSetupJazzy.html"><span class="std std-doc">Master Setup - Standalone</span></a> — a single master with a local account, no login server</p></li>
 </ul>
 <p>Complete <a class="reference internal" href="login-server.html"><span class="std std-doc">login-server.md</span></a> first — the login server must be running before a client can authenticate against it.</p>
 <hr class="docutils" />
@@ -500,7 +500,7 @@ document.write(`
 <hr class="docutils" />
 <section id="master-computer-setup-nuc-9-14">
 <h2>1. Master Computer Setup (NUC 9 × 14)<a class="headerlink" href="#master-computer-setup-nuc-9-14" title="Link to this heading">#</a></h2>
-<p>Do this on each of the 14 master computers. Most steps can be scripted and run via Ansible to configure all 14 machines simultaneously — see <a class="reference internal" href="#3-ansible-automation-recommended-for-14-machines"><span class="xref myst">Ansible Automation</span></a>.</p>
+<p>Do this on each of the 14 master computers. Most steps can be scripted and run via Ansible to configure all 14 machines simultaneously — see <a class="reference internal" href="#4-ansible-automation-recommended-for-14-machines"><span class="xref myst">Ansible Automation</span></a>.</p>
 <section id="fresh-install-ubuntu-24-04-desktop">
 <h3>1.1 Fresh Install Ubuntu 24.04 Desktop<a class="headerlink" href="#fresh-install-ubuntu-24-04-desktop" title="Link to this heading">#</a></h3>
 <ol class="arabic simple">
@@ -1157,7 +1157,7 @@ ansible-playbook<span class="w"> </span>-i<span class="w"> </span>~/Documents/ec
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">🔧 Master Setup — Standalone</p>
+        <p class="prev-next-title">Master Setup — Standalone</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

@@ -2,9 +2,9 @@
 
 This guide covers setting up the **login server** — the machine that hosts OpenLDAP (user accounts) and NFS (shared home directories) for the lab. It is one of three companion guides:
 
-- **login-server.md** (this file) — the login server itself
-- [login-client.md](login-client.md) — master computers that authenticate against the login server
-- [master-standalone-setup.md](master-standalone-setup.md) — a single master with a local account, no login server
+- **Login Server Setup** (this page) — the login server itself
+- [Master (Client) Setup](login-client.md) — master computers that authenticate against the login server
+- [Master Setup - Standalone](MasterSetupJazzy.md) — a single master with a local account, no login server
 
 ## Why a Login Server?
 
@@ -17,10 +17,10 @@ A login server (OpenLDAP + SSSD + NFS) is only worth the setup effort in one spe
 - You need some isolation between students who share the same physical hardware (restricted sudo, separate home directories, no ability to read another student's files).
 
 **When a login server is overkill:**
-- Students each have their own laptop or a personal workstation they always use. In that case there is nothing to "roam" between — a local Ubuntu account already gives each student a persistent home directory, and centralized authentication just adds an extra server to install, patch, and keep running (plus a single point of failure if it goes down). Use [master-standalone-setup.md](master-standalone-setup.md) instead — it sets up the same ROS 2 environment with a normal local account and no LDAP/NFS dependency.
+- Students each have their own laptop or a personal workstation they always use. In that case there is nothing to "roam" between — a local Ubuntu account already gives each student a persistent home directory, and centralized authentication just adds an extra server to install, patch, and keep running (plus a single point of failure if it goes down). Use [Master Setup - Standalone](MasterSetupJazzy.md) instead — it sets up the same ROS 2 environment with a normal local account and no LDAP/NFS dependency.
 - You only have a handful of machines and can simply assign one student (or a fixed pair) per machine for the term.
 
-**The trade-off:** a login server buys you station-independence and central account management, at the cost of standing up and maintaining an extra server, plus a dependency on the network (mitigated in [login-client.md](login-client.md) with SSSD credential caching and soft NFS mounts). For ECE 387's AFA lab — a fixed set of 14 dedicated NUCs used by a rotating roster of ~30 students across sections — that trade-off is worth it.
+**The trade-off:** a login server buys you station-independence and central account management, at the cost of standing up and maintaining an extra server, plus a dependency on the network (mitigated in [Master (Client) Setup](login-client.md) with SSSD credential caching and soft NFS mounts). For ECE 387's AFA lab — a fixed set of 14 dedicated NUCs used by a rotating roster of ~30 students across sections — that trade-off is worth it.
 
 ## Architecture Overview
 
@@ -52,7 +52,7 @@ A login server (OpenLDAP + SSSD + NFS) is only worth the setup effort in one spe
     └────────────────┘                       └────────────────┘
 ```
 
-**Key concept:** Student home directories live on the login server and are NFS-mounted on every master. When a student logs in to any master (set up per [login-client.md](login-client.md)), their home directory (`.bashrc`, SSH keys, ROS workspace) is automatically available — no per-machine setup needed.
+**Key concept:** Student home directories live on the login server and are NFS-mounted on every master. When a student logs in to any master (set up per [Master (Client) Setup](login-client.md)), their home directory (`.bashrc`, SSH keys, ROS workspace) is automatically available — no per-machine setup needed.
 
 > **Why not FreeIPA?** `freeipa-server` is not packaged for Ubuntu 24.04. OpenLDAP + SSSD is the standard replacement and provides the same centralized login and shared home directory functionality.
 

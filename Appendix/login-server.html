@@ -64,7 +64,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Master (Client) Setup" href="login-client.html" />
-    <link rel="prev" title="🔧 Robot Setup (ROS2 Jazzy)" href="RobotSetupJazzy.html" />
+    <link rel="prev" title="Robot Setup (ROS2 Jazzy)" href="RobotSetupJazzy.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -213,14 +213,14 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendix</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="RobotSetupJazzy.html">🔧 Robot Setup (ROS2 Jazzy)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RobotSetupJazzy.html">Robot Setup (ROS2 Jazzy)</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Login Server Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="login-client.html">Master (Client) Setup</a></li>
-<li class="toctree-l1"><a class="reference internal" href="MasterSetupJazzy.html">🔧 Master Setup — Standalone</a></li>
-<li class="toctree-l1"><a class="reference internal" href="GitSetup.html">🔧 Git Repo Setup</a></li>
-<li class="toctree-l1"><a class="reference internal" href="GamepadSetup.html">🔧 Gamepad Setup</a></li>
-<li class="toctree-l1"><a class="reference internal" href="RobotSetupHumble.html">🔧 Robot Setup (ROS2 Humble)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="MasterSetupHumble.html">🔧 Master Setup (ROS2 Humble)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MasterSetupJazzy.html">Master Setup — Standalone</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GitSetup.html">Git Repo Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GamepadSetup.html">Gamepad Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RobotSetupHumble.html">Robot Setup (ROS2 Humble)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MasterSetupHumble.html">Master Setup (ROS2 Humble)</a></li>
 </ul>
 
     </div>
@@ -461,9 +461,9 @@ document.write(`
 <h1>Login Server Setup<a class="headerlink" href="#login-server-setup" title="Link to this heading">#</a></h1>
 <p>This guide covers setting up the <strong>login server</strong> — the machine that hosts OpenLDAP (user accounts) and NFS (shared home directories) for the lab. It is one of three companion guides:</p>
 <ul class="simple">
-<li><p><strong><a class="reference external" href="http://login-server.md">login-server.md</a></strong> (this file) — the login server itself</p></li>
-<li><p><a class="reference internal" href="login-client.html"><span class="std std-doc">login-client.md</span></a> — master computers that authenticate against the login server</p></li>
-<li><p><a class="reference internal" href="#master-standalone-setup.md"><span class="xref myst">master-standalone-setup.md</span></a> — a single master with a local account, no login server</p></li>
+<li><p><strong>Login Server Setup</strong> (this page) — the login server itself</p></li>
+<li><p><a class="reference internal" href="login-client.html"><span class="std std-doc">Master (Client) Setup</span></a> — master computers that authenticate against the login server</p></li>
+<li><p><a class="reference internal" href="MasterSetupJazzy.html"><span class="std std-doc">Master Setup - Standalone</span></a> — a single master with a local account, no login server</p></li>
 </ul>
 <section id="why-a-login-server">
 <h2>Why a Login Server?<a class="headerlink" href="#why-a-login-server" title="Link to this heading">#</a></h2>
@@ -477,10 +477,10 @@ document.write(`
 </ul>
 <p><strong>When a login server is overkill:</strong></p>
 <ul class="simple">
-<li><p>Students each have their own laptop or a personal workstation they always use. In that case there is nothing to “roam” between — a local Ubuntu account already gives each student a persistent home directory, and centralized authentication just adds an extra server to install, patch, and keep running (plus a single point of failure if it goes down). Use <a class="reference internal" href="#master-standalone-setup.md"><span class="xref myst">master-standalone-setup.md</span></a> instead — it sets up the same ROS 2 environment with a normal local account and no LDAP/NFS dependency.</p></li>
+<li><p>Students each have their own laptop or a personal workstation they always use. In that case there is nothing to “roam” between — a local Ubuntu account already gives each student a persistent home directory, and centralized authentication just adds an extra server to install, patch, and keep running (plus a single point of failure if it goes down). Use <a class="reference internal" href="MasterSetupJazzy.html"><span class="std std-doc">Master Setup - Standalone</span></a> instead — it sets up the same ROS 2 environment with a normal local account and no LDAP/NFS dependency.</p></li>
 <li><p>You only have a handful of machines and can simply assign one student (or a fixed pair) per machine for the term.</p></li>
 </ul>
-<p><strong>The trade-off:</strong> a login server buys you station-independence and central account management, at the cost of standing up and maintaining an extra server, plus a dependency on the network (mitigated in <a class="reference internal" href="login-client.html"><span class="std std-doc">login-client.md</span></a> with SSSD credential caching and soft NFS mounts). For ECE 387’s AFA lab — a fixed set of 14 dedicated NUCs used by a rotating roster of ~30 students across sections — that trade-off is worth it.</p>
+<p><strong>The trade-off:</strong> a login server buys you station-independence and central account management, at the cost of standing up and maintaining an extra server, plus a dependency on the network (mitigated in <a class="reference internal" href="login-client.html"><span class="std std-doc">Master (Client) Setup</span></a> with SSSD credential caching and soft NFS mounts). For ECE 387’s AFA lab — a fixed set of 14 dedicated NUCs used by a rotating roster of ~30 students across sections — that trade-off is worth it.</p>
 </section>
 <section id="architecture-overview">
 <h2>Architecture Overview<a class="headerlink" href="#architecture-overview" title="Link to this heading">#</a></h2>
@@ -511,7 +511,7 @@ document.write(`
     └────────────────┘                       └────────────────┘
 </pre></div>
 </div>
-<p><strong>Key concept:</strong> Student home directories live on the login server and are NFS-mounted on every master. When a student logs in to any master (set up per <a class="reference internal" href="login-client.html"><span class="std std-doc">login-client.md</span></a>), their home directory (<code class="docutils literal notranslate"><span class="pre">.bashrc</span></code>, SSH keys, ROS workspace) is automatically available — no per-machine setup needed.</p>
+<p><strong>Key concept:</strong> Student home directories live on the login server and are NFS-mounted on every master. When a student logs in to any master (set up per <a class="reference internal" href="login-client.html"><span class="std std-doc">Master (Client) Setup</span></a>), their home directory (<code class="docutils literal notranslate"><span class="pre">.bashrc</span></code>, SSH keys, ROS workspace) is automatically available — no per-machine setup needed.</p>
 <blockquote>
 <div><p><strong>Why not FreeIPA?</strong> <code class="docutils literal notranslate"><span class="pre">freeipa-server</span></code> is not packaged for Ubuntu 24.04. OpenLDAP + SSSD is the standard replacement and provides the same centralized login and shared home directory functionality.</p>
 </div></blockquote>
@@ -1194,7 +1194,7 @@ sudo<span class="w"> </span>slapcat<span class="w"> </span>&gt;<span class="w"> 
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">🔧 Robot Setup (ROS2 Jazzy)</p>
+        <p class="prev-next-title">Robot Setup (ROS2 Jazzy)</p>
       </div>
     </a>
     <a class="right-next"
