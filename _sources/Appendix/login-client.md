@@ -1,4 +1,4 @@
-# ECE 387 Login Client Setup (Master Computers)
+# Master (Client) Setup
 
 This guide covers setting up a **master computer as a login client** — a machine that authenticates students against the login server (via SSSD) and mounts their home directory over NFS, so any student can sit at any master. It is one of three companion guides:
 
@@ -12,17 +12,15 @@ Complete [login-server.md](login-server.md) first — the login server must be r
 
 ## Network Planning
 
-Assign static IPs on your lab's Ethernet network before starting. All machines must be on the same subnet so they can reach each other.
+Only the login server needs a static IP. Master computers get a **dynamic IP** from the lab's WiFi router, which acts as the DHCP server.
 
 | Host | Hostname | IP |
 |------|----------|----|
-| Login Server | `ece387server` | `192.168.0.151` |
-| Master 01 | `master01` | `192.168.0.101` |
-| Master 02 | `master02` | `192.168.0.102` |
-| ... | ... | ... |
-| Master 14 | `master14` | `192.168.0.114` |
+| WiFi router (DHCP server / gateway) | — | `10.99.1.1` (SSID `ECE387`) |
+| Login Server | `ece387server` | `10.99.1.50` (static) |
+| Master 01–14 | `master01`–`master14` | DHCP-assigned (dynamic) |
 
-> The login server IP (`192.168.0.151`) reflects the home test setup. In the AFA lab, adjust all IPs to match the actual lab subnet. This guide uses the domain `ece387.local`.
+> Masters are identified by hostname, not IP, since their IP can change after a reboot or DHCP lease renewal. Ubuntu Desktop ships with `avahi-daemon` (mDNS) enabled by default, so each master is reachable at `<hostname>.local` (e.g. `master01.local`) from any other machine on the `ECE387` network, regardless of its current DHCP-assigned IP. This guide uses the domain `ece387.local` for LDAP.
 
 ---
 
@@ -36,35 +34,22 @@ Do this on each of the 14 master computers. Most steps can be scripted and run v
 2. During install:
    - Hostname: `master01`, `master02`, ... `master14`
    - Create local admin account: `ece387admin`
-3. After install, set a static IP on the lab Ethernet interface so the machine can always reach the login server:
+   - Connect to the `ECE387` WiFi network (or Ethernet, if wired) during setup — Ubuntu will request a **dynamic IP via DHCP by default**, which is what we want. No static IP configuration is needed on the masters.
+3. After install, confirm the master got an address from the router and can reach the login server:
 
 ```bash
-# Find your ethernet interface name
+# Confirm a DHCP lease was obtained (look for an inet addr on your WiFi/ethernet interface)
 ip a
 
-sudo nano /etc/netplan/01-lab-network.yaml
-```
-
-```yaml
-network:
-  version: 2
-  ethernets:
-    enp86s0:                          # your ethernet interface
-      dhcp4: false
-      addresses: [192.168.0.101/24]   # increment per machine: .102, .103, etc.
-      routes:
-        - to: default
-          via: 192.168.0.1            # lab gateway
-      nameservers:
-        addresses: [8.8.8.8]
-```
-
-```bash
-sudo netplan apply
+# Confirm avahi-daemon (mDNS) is installed and running — this is what lets other
+# machines find this master at masterNN.local even though its IP can change
+systemctl status avahi-daemon
 
 # Confirm the master can reach the login server before proceeding
-ping 192.168.0.151
+ping 10.99.1.50
 ```
+
+> If `avahi-daemon` isn't running: `sudo apt install -y avahi-daemon && sudo systemctl enable --now avahi-daemon`.
 
 ### 1.2 Install ROS2 Jazzy
 
@@ -119,7 +104,7 @@ id_provider = ldap
 auth_provider = ldap
 
 # URI of the LDAP server (the login server's IP)
-ldap_uri = ldap://192.168.0.151
+ldap_uri = ldap://10.99.1.50
 
 # Base DN: the root of the LDAP tree to search
 ldap_search_base = dc=ece387,dc=local
@@ -163,8 +148,8 @@ sudo systemctl start sssd
 sleep 5
 
 # Test: this should return the student's uid, gid, and home directory path
-# Expected: uid=10001(a27-01) gid=10000(ece387students) groups=10000(ece387students)
-id a27-01
+# Expected: uid=20000(a27-m0) gid=10000(ece387students) groups=10000(ece387students)
+id a27-m0
 ```
 
 ### 1.4 Mount NFS Home Directories
@@ -196,14 +181,14 @@ sudo nano /etc/auto.students
 
 ```
 # The * wildcard matches any username.
-# When /home/students/a27-01 is accessed, autofs mounts:
-#   192.168.0.151:/home/students/a27-01
+# When /home/students/a27-m0 is accessed, autofs mounts:
+#   10.99.1.50:/home/students/a27-m0
 # The & at the end substitutes the matched username.
 #
 # soft     = give up if the server is unreachable rather than hanging forever
 # timeo=30 = wait 3 seconds per retry attempt (units are 0.1s)
 # retrans=2 = retry twice before giving up
-*  -fstype=nfs,soft,timeo=30,retrans=2  192.168.0.151:/home/students/&
+*  -fstype=nfs,soft,timeo=30,retrans=2  10.99.1.50:/home/students/&
 ```
 
 ```bash
@@ -212,8 +197,8 @@ sudo systemctl enable --now autofs
 sudo systemctl restart autofs
 
 # Test: switch to a student account — their home directory should mount automatically
-sudo su - a27-01
-pwd          # should show /home/students/a27-01
+sudo su - a27-m0
+pwd          # should show /home/students/a27-m0
 ls -la       # should show .bashrc, .profile, etc.
 exit
 ```
@@ -234,7 +219,7 @@ sudo nano /etc/exports
 
 Change `no_root_squash` to `root_squash`:
 ```
-/home/students  192.168.0.0/24(rw,sync,no_subtree_check,root_squash)
+/home/students  10.99.1.0/24(rw,sync,no_subtree_check,root_squash)
 ```
 
 ```bash
@@ -287,24 +272,240 @@ Then add the path to the appropriate `Cmnd_Alias` line.
 
 ### 1.6 Configure WiFi Interfaces
 
-Each master has two WiFi adapters. Use NetworkManager (`nmcli`) to configure them:
+Each master has two WiFi adapters:
+- **Built-in adapter** (`wlo1`) — left unconfigured here; students point this at their robot's access point per-lab via `nmcli`.
+- **External USB dongle** — connects to the lab/internet networks (`ECE387`, `AF_ACADEMY_GUEST`, `ECE`). Since each machine's dongle has a different MAC address, we rename it to a consistent interface name (`wlan1`) so the same config works on all 14 masters.
+
+**a. Rename any USB WiFi dongle to `wlan1`** (matches by bus/type, not MAC, so it works regardless of which dongle is plugged into a given machine):
 
 ```bash
-# List all network interfaces and their current state
-nmcli device status
+sudo nano /etc/systemd/network/10-usb-wifi.link
+```
+```ini
+[Match]
+Type=wlan
+Property=ID_BUS=usb
 
-# Connect the external USB WiFi dongle to the internet network.
-# Replace wlx<mac_of_dongle> with the actual interface name (e.g., wlx00e04c360001)
-nmcli dev wifi connect "AFAcademy_Guest" ifname wlx<mac_of_dongle>
-
-# Make this connection reconnect automatically after every reboot
-nmcli connection modify "AFAcademy_Guest" connection.autoconnect yes
-
-# The internal WiFi adapter is left for students to connect to their robot's
-# access point during lab — they configure this per-robot.
+[Link]
+Name=wlan1
+```
+```bash
+sudo udevadm control --reload
+sudo udevadm trigger --subsystem-match=net --action=add
+# Unplug and replug the dongle (or reboot) so it re-enumerates under the new name
 ```
 
+**b. Configure the three networks on `wlan1` via netplan:**
+
+```bash
+sudo nano /etc/netplan/50-cloud-init.yaml
+```
+```yaml
+network:
+  version: 2
+  renderer: NetworkManager
+  wifis:
+    wlan1:
+      dhcp4: true
+      access-points:
+        "ECE387":
+          password: "ece387only"
+          networkmanager:
+            passthrough:
+              connection.autoconnect-priority: "20"
+        "AF_ACADEMY_GUEST":
+          networkmanager:
+            passthrough:
+              connection.autoconnect-priority: "10"
+        "ECE":
+          password: "dfec3141"
+          networkmanager:
+            passthrough:
+              connection.autoconnect-priority: "5"
+```
+
+Higher `autoconnect-priority` wins when more than one network is in range: `ECE387` (lab) is preferred, then `AF_ACADEMY_GUEST` (internet), then `ECE` (backup internet).
+
+**c. Netplan config files must not be world-readable** — they contain the WiFi passwords in plaintext. Ubuntu warns about this if permissions are too open:
+
+```bash
+sudo chmod 600 /etc/netplan/*.yaml
+```
+
+**d. Apply and verify:**
+
+```bash
+sudo netplan apply
+
+ip a show wlan1
+nmcli connection show --active
+ping 10.99.1.50    # login server, over ECE387
+```
+
+**e. Reconnecting to `ECE387` manually, if `wlan1` is currently on a lower-priority network** (e.g. `ECE`) **and `ECE387` comes back into range:** NetworkManager doesn't auto-preempt an active connection, so switch it by hand:
+
+```bash
+nmcli connection up "ECE387"
+```
+
+> `wlo1` is intentionally left out of this config — it stays free for students to join their robot's AP each session via `nmcli dev wifi connect "robot_XX_ap" password "..." ifname wlo1`.
+
 ---
+
+## 1a. Reconfiguring an Existing Master (New Server IP + WiFi Setup)
+
+Use this on a master that was already set up under the old scheme (static Ethernet IP, server at `192.168.0.151`). It moves the master's networking to the current setup — built-in adapter free for the robot AP, USB dongle (renamed to `wlan1`) on `ECE387`/`AF_ACADEMY_GUEST`/`ECE` — and points authentication and home directories at the login server's new IP, `10.99.1.50`.
+
+### Step 1: Rename the USB WiFi dongle to `wlan1`
+
+Each master's dongle has a different MAC address, so match by bus/type instead so the same config works on every machine:
+
+```bash
+sudo nano /etc/systemd/network/10-usb-wifi.link
+```
+```ini
+[Match]
+Type=wlan
+Property=ID_BUS=usb
+
+[Link]
+Name=wlan1
+```
+```bash
+sudo udevadm control --reload
+sudo udevadm trigger --subsystem-match=net --action=add
+# Unplug and replug the dongle (or reboot) so it re-enumerates as wlan1
+```
+
+Confirm:
+```bash
+ip a   # should show wlan1 in place of the old wlx... name
+```
+
+### Step 2: Configure the three WiFi networks on `wlan1`
+
+Ubuntu Desktop uses NetworkManager to manage networking, and netplan hands control to it. `ls /etc/netplan/` typically shows:
+
+| File | What it is | Edit it? |
+|------|------------|------------------|
+| `01-network-manager-all.yaml` | Ships by default; tells netplan "let NetworkManager handle every interface." | No |
+| `90-NM-*.yaml` (one or more) | Auto-generated by NetworkManager, one per connection profile. Rewritten automatically whenever a profile changes. | No — hand edits get overwritten |
+| `50-cloud-init.yaml` | Written by the installer at provisioning. This is the one to edit. | **Yes** |
+
+```bash
+sudo nano /etc/netplan/50-cloud-init.yaml
+```
+```yaml
+network:
+  version: 2
+  renderer: NetworkManager
+  wifis:
+    wlan1:
+      dhcp4: true
+      access-points:
+        "ECE387":
+          password: "ece387only"
+          networkmanager:
+            passthrough:
+              connection.autoconnect-priority: "20"
+        "AF_ACADEMY_GUEST":
+          networkmanager:
+            passthrough:
+              connection.autoconnect-priority: "10"
+        "ECE":
+          password: "dfec3141"
+          networkmanager:
+            passthrough:
+              connection.autoconnect-priority: "5"
+```
+
+This replaces whatever was in the file before (old static Ethernet config, or an old home-WiFi profile) — all three networks use DHCP, with `ECE387` preferred, then `AF_ACADEMY_GUEST`, then `ECE` as backup.
+
+Netplan files contain the WiFi passwords in plaintext, so fix permissions (Ubuntu will warn on `netplan apply` if this isn't done):
+```bash
+sudo chmod 600 /etc/netplan/*.yaml
+```
+
+Apply and confirm:
+```bash
+sudo netplan apply
+
+ip a show wlan1
+nmcli connection show --active
+ping 10.99.1.1     # the router
+ping 10.99.1.50    # the login server
+```
+
+Stop cloud-init from reverting this file on the next boot:
+```bash
+sudo nano /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
+```
+```yaml
+network: {config: disabled}
+```
+
+If `wlan1` later connects to a lower-priority network (e.g. `ECE`) and `ECE387` becomes available again, NetworkManager won't auto-switch — reconnect manually:
+```bash
+nmcli connection up "ECE387"
+```
+
+> `wlo1` (built-in) is intentionally left unconfigured — students point it at their robot's AP each session via `nmcli dev wifi connect "robot_XX_ap" password "..." ifname wlo1`.
+
+### Step 3: Point SSSD at the new login server IP
+
+```bash
+sudo nano /etc/sssd/sssd.conf
+```
+Change the `ldap_uri` line to:
+```ini
+ldap_uri = ldap://10.99.1.50
+```
+```bash
+# Restart SSSD and clear its cache so it doesn't hold onto the old server's stale data
+sudo systemctl stop sssd
+sudo rm -rf /var/lib/sss/db/*
+sudo systemctl start sssd
+sleep 5
+
+# Test: should return the student's uid/gid, confirming the new LDAP URI works
+id a27-m0
+```
+
+### Step 4: Point autofs at the new login server IP
+
+```bash
+sudo nano /etc/auto.students
+```
+Update the NFS source IP:
+```
+*  -fstype=nfs,soft,timeo=30,retrans=2  10.99.1.50:/home/students/&
+```
+```bash
+sudo systemctl restart autofs
+
+# Test: home directory should mount automatically
+sudo su - a27-m0
+pwd
+exit
+```
+
+### Step 5: Confirm mDNS hostname resolution
+
+Since the master's IP can change on every DHCP renewal, other machines (including the login server, for Ansible) reach it by hostname instead:
+
+```bash
+# Confirm avahi-daemon is running (ships by default on Ubuntu Desktop)
+systemctl status avahi-daemon
+
+# From another machine on the ECE387 network, confirm this master answers:
+ping masterNN.local    # replace NN with this machine's number, e.g. master03.local
+```
+
+If you're reconfiguring all 14 masters, repeat Steps 1–2 on each (the `.link` file and `50-cloud-init.yaml` are identical across machines, so these can be pushed via Ansible too), and push Steps 3–4 via the Ansible playbook in [Section 4](#4-ansible-automation-recommended-for-14-machines). Do Steps 1–2 carefully if working over SSH — a network change can drop the connection mid-command if it affects the interface your SSH session is using.
+
+---
+
+
 
 ## 2. Resilience — Server Down or Network Unreliable
 
@@ -326,7 +527,7 @@ git clone https://github.com/<username>/<repo>.git ~/ros2_ws
 cd ~/ros2_ws && colcon build
 ```
 
-AFAcademy_Guest WiFi provides internet access independently of the ECE lab network, so GitHub is reachable even when the login server is not.
+AF_ACADEMY_GUEST WiFi provides internet access independently of the ECE lab network, so GitHub is reachable even when the login server is not.
 
 ### Option 2: Soft NFS Mounts
 
@@ -335,7 +536,7 @@ Without `soft`, a failed NFS mount causes the accessing process to hang indefini
 This is already included in the `/etc/auto.students` configuration in Section 1.4:
 
 ```
-*  -fstype=nfs,soft,timeo=30,retrans=2  192.168.0.151:/home/students/&
+*  -fstype=nfs,soft,timeo=30,retrans=2  10.99.1.50:/home/students/&
 ```
 
 If you need to change this after initial setup, edit the file and restart autofs:
@@ -350,7 +551,7 @@ sudo systemctl restart autofs
 
 When a student moves to a different station:
 
-1. Log in with their LDAP username (e.g., `a27-01`) and password — SSSD authenticates against the login server and their home directory mounts automatically via NFS.
+1. Log in with their LDAP username (e.g., `a27-m0`) and password — SSSD authenticates against the login server and their home directory mounts automatically via NFS.
 2. `.bashrc`, `.ssh/`, and workspace files are immediately available — no re-setup needed.
 3. Connect to their robot:
    ```bash
@@ -372,24 +573,34 @@ Rather than repeating Section 1 on each master by hand, Ansible lets you run the
 # Install Ansible on the login server
 sudo apt install -y ansible
 
-# Create an inventory file listing all master computers
-# Ansible reads this to know which machines to configure
+# The login server is Ubuntu Server, which — unlike Ubuntu Desktop — does NOT
+# ship with mDNS resolution by default. Install it so *.local hostnames resolve:
+sudo apt install -y avahi-daemon libnss-mdns
+sudo systemctl enable --now avahi-daemon
+
+# Quick check: this should resolve to master01's current DHCP IP
+ping -c 1 master01.local
+
+# Create an inventory file listing all master computers.
+# Masters now get dynamic IPs from the WiFi router, so we address them by
+# their mDNS hostname (masterNN.local) instead of a static IP — this still
+# resolves correctly even after a reboot changes the machine's DHCP lease.
 cat > ~/Documents/ece387/masters-inventory.ini << 'EOF'
 [masters]
-master01 ansible_host=192.168.0.101
-master02 ansible_host=192.168.0.102
-master03 ansible_host=192.168.0.103
-master04 ansible_host=192.168.0.104
-master05 ansible_host=192.168.0.105
-master06 ansible_host=192.168.0.106
-master07 ansible_host=192.168.0.107
-master08 ansible_host=192.168.0.108
-master09 ansible_host=192.168.0.109
-master10 ansible_host=192.168.0.110
-master11 ansible_host=192.168.0.111
-master12 ansible_host=192.168.0.112
-master13 ansible_host=192.168.0.113
-master14 ansible_host=192.168.0.114
+master01 ansible_host=master01.local
+master02 ansible_host=master02.local
+master03 ansible_host=master03.local
+master04 ansible_host=master04.local
+master05 ansible_host=master05.local
+master06 ansible_host=master06.local
+master07 ansible_host=master07.local
+master08 ansible_host=master08.local
+master09 ansible_host=master09.local
+master10 ansible_host=master10.local
+master11 ansible_host=master11.local
+master12 ansible_host=master12.local
+master13 ansible_host=master13.local
+master14 ansible_host=master14.local
 
 [masters:vars]
 ansible_user=ece387admin
@@ -407,10 +618,11 @@ ansible-playbook -i ~/Documents/ece387/masters-inventory.ini setup-masters.yml
 ### Check who is logged in across all masters
 
 ```bash
-# SSH into each master and run 'who' to see logged-in users
+# SSH into each master by its mDNS hostname and run 'who' to see logged-in users.
+# masterNN.local resolves regardless of the master's current DHCP-assigned IP.
 for i in $(seq -w 1 14); do
   echo "=== master$i ==="
-  ssh ece387admin@192.168.1.1$(printf '%02d' $((10#$i))) who 2>/dev/null
+  ssh ece387admin@master$i.local who 2>/dev/null
 done
 ```
 
@@ -421,9 +633,10 @@ done
 | Problem | Command | Fix |
 |---------|---------|-----|
 | Home dir not mounting | `automount -v` | Check NFS exports on server, autofs config on master, server reachable |
-| SSSD not resolving users | `sssctl user-checks a27-01` | Restart sssd: `systemctl restart sssd` |
-| NFS mount fails | `showmount -e 192.168.0.151` | Check firewall on server; verify `nfs-server` is running |
+| SSSD not resolving users | `sssctl user-checks a27-m0` | Restart sssd: `systemctl restart sssd` |
+| NFS mount fails | `showmount -e 10.99.1.50` | Check firewall on server; verify `nfs-server` is running |
 | Login hangs (no soft mount) | `journalctl -u autofs` | Ensure `soft,timeo=30,retrans=2` is in `/etc/auto.students` |
-| Login slow (~30s) | `journalctl -u sssd` | Check LDAP URI is reachable: `ping 192.168.0.151` |
+| Login slow (~30s) | `journalctl -u sssd` | Check LDAP URI is reachable: `ping 10.99.1.50` |
+| Can't reach a master by hostname | `ping masterNN.local` | Check `avahi-daemon` is running on both machines: `systemctl status avahi-daemon` |
 
 For server-side symptoms (student account issues, LDAP connection refused), see the troubleshooting table in [login-server.md](login-server.md).

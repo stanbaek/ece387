@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>ECE 387 Login Server Setup &#8212; Introduction to Robotic Systems</title>
+    <title>Login Server Setup &#8212; Introduction to Robotic Systems</title>
   
   
   
@@ -63,6 +63,8 @@
     <link rel="icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Master (Client) Setup" href="login-client.html" />
+    <link rel="prev" title="🔧 Robot Setup (ROS2 Jazzy)" href="RobotSetupJazzy.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -124,8 +126,6 @@
     <div class="bd-container__inner bd-page-width">
       
       
-      
-        
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -212,9 +212,11 @@
 <li class="toctree-l1"><a class="reference external" href="https://stanbaek.github.io/NoPointer.html">No Pointers in Python?</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendix</span></p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="RobotSetupJazzy.html">🔧 Robot Setup (ROS2 Jazzy)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="MasterSetupJazzy.html">🔧 Master Computer Setup — Standalone (No Login Server)</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Login Server Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="login-client.html">Master (Client) Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MasterSetupJazzy.html">🔧 Master Setup — Standalone</a></li>
 <li class="toctree-l1"><a class="reference internal" href="GitSetup.html">🔧 Git Repo Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="GamepadSetup.html">🔧 Gamepad Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="RobotSetupHumble.html">🔧 Robot Setup (ROS2 Humble)</a></li>
@@ -404,7 +406,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>ECE 387 Login Server Setup</h1>
+    <h1>Login Server Setup</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -417,7 +419,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-a-login-server">Why a Login Server?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#architecture-overview">Architecture Overview</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#network-planning">Network Planning</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#login-server-setup">1. Login Server Setup</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">1. Login Server Setup</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-working-directory">1.0 Create a Working Directory</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-ubuntu-24-04-server">1.1 Install Ubuntu 24.04 Server</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#set-hostname-and-etc-hosts">1.2 Set Hostname and /etc/hosts</a></li>
@@ -438,6 +440,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#maintenance">3. Maintenance</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#add-a-new-student">Add a new student</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reset-a-student-password">Reset a student password</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#remove-all-students-for-a-class-year-year-end-rollover">Remove all students for a class year (year-end rollover)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#list-all-student-accounts">List all student accounts</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#back-up-home-directories-and-ldap-database">Back up home directories and LDAP database</a></li>
 </ul>
@@ -454,8 +457,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="ece-387-login-server-setup">
-<h1>ECE 387 Login Server Setup<a class="headerlink" href="#ece-387-login-server-setup" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="login-server-setup">
+<h1>Login Server Setup<a class="headerlink" href="#login-server-setup" title="Link to this heading">#</a></h1>
 <p>This guide covers setting up the <strong>login server</strong> — the machine that hosts OpenLDAP (user accounts) and NFS (shared home directories) for the lab. It is one of three companion guides:</p>
 <ul class="simple">
 <li><p><strong><a class="reference external" href="http://login-server.md">login-server.md</a></strong> (this file) — the login server itself</p></li>
@@ -516,7 +519,8 @@ document.write(`
 <hr class="docutils" />
 <section id="network-planning">
 <h2>Network Planning<a class="headerlink" href="#network-planning" title="Link to this heading">#</a></h2>
-<p>Assign static IPs on your lab’s Ethernet network before starting. All machines must be on the same subnet so they can reach each other.</p>
+<p>Assign static IPs on your lab’s network before starting. All machines must be on the same subnet so they can reach each other.</p>
+<p><strong>Lab network:</strong> WiFi router at <code class="docutils literal notranslate"><span class="pre">10.99.1.1</span></code>, SSID <code class="docutils literal notranslate"><span class="pre">ece387only</span></code>, subnet <code class="docutils literal notranslate"><span class="pre">10.99.1.0/24</span></code>.</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Host</p></th>
@@ -527,15 +531,15 @@ document.write(`
 <tbody>
 <tr class="row-even"><td><p>Login Server</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">ece387server</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">192.168.0.151</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">10.99.1.50</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p>Master 01</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">master01</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">192.168.0.101</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">10.99.1.101</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p>Master 02</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">master02</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">192.168.0.102</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">10.99.1.102</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p>…</p></td>
 <td><p>…</p></td>
@@ -543,18 +547,18 @@ document.write(`
 </tr>
 <tr class="row-even"><td><p>Master 14</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">master14</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">192.168.0.114</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">10.99.1.114</span></code></p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <blockquote>
-<div><p>The login server IP (<code class="docutils literal notranslate"><span class="pre">192.168.0.151</span></code>) reflects the home test setup. In the AFA lab, adjust all IPs to match the actual lab subnet. This guide uses the domain <code class="docutils literal notranslate"><span class="pre">ece387.local</span></code>.</p>
+<div><p>The login server IP (<code class="docutils literal notranslate"><span class="pre">10.99.1.50</span></code>) is the AFA lab address, reachable over the <code class="docutils literal notranslate"><span class="pre">ece387only</span></code> WiFi network at <code class="docutils literal notranslate"><span class="pre">10.99.1.1</span></code>. Master IPs above (<code class="docutils literal notranslate"><span class="pre">10.99.1.101</span></code>–<code class="docutils literal notranslate"><span class="pre">114</span></code>) are a suggested continuation of that range — adjust if you assign them differently. This guide uses the domain <code class="docutils literal notranslate"><span class="pre">ece387.local</span></code>.</p>
 </div></blockquote>
 </section>
 <hr class="docutils" />
-<section id="login-server-setup">
-<h2>1. Login Server Setup<a class="headerlink" href="#login-server-setup" title="Link to this heading">#</a></h2>
+<section id="id1">
+<h2>1. Login Server Setup<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
 <section id="create-a-working-directory">
 <h3>1.0 Create a Working Directory<a class="headerlink" href="#create-a-working-directory" title="Link to this heading">#</a></h3>
 <p>All scripts and configuration files for this setup are saved here so you can reference or reuse them later.</p>
@@ -578,7 +582,12 @@ document.write(`
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Find your ethernet interface name (look for something like enp86s0 or eno1)</span>
 ip<span class="w"> </span>a
 
-sudo<span class="w"> </span>nano<span class="w"> </span>/etc/netplan/00-installer-config.yaml
+<span class="c1"># On Ubuntu Server installs, the netplan file created by cloud-init is</span>
+<span class="c1"># usually 50-cloud-init.yaml, not 00-installer-config.yaml. Check which one</span>
+<span class="c1"># exists on your machine first:</span>
+ls<span class="w"> </span>/etc/netplan/
+
+sudo<span class="w"> </span>nano<span class="w"> </span>/etc/netplan/50-cloud-init.yaml
 </pre></div>
 </div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">network</span><span class="p">:</span>
@@ -586,10 +595,10 @@ sudo<span class="w"> </span>nano<span class="w"> </span>/etc/netplan/00-installe
 <span class="w">  </span><span class="nt">ethernets</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">enp86s0</span><span class="p">:</span><span class="w">                      </span><span class="c1"># replace with your actual interface name</span>
 <span class="w">      </span><span class="nt">dhcp4</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-<span class="w">      </span><span class="nt">addresses</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">192.168.0.151/24</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">addresses</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">10.99.1.50/24</span><span class="p p-Indicator">]</span>
 <span class="w">      </span><span class="nt">routes</span><span class="p">:</span>
 <span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">to</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
-<span class="w">          </span><span class="nt">via</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">192.168.0.1</span><span class="w">        </span><span class="c1"># your router IP (home: 192.168.0.1, lab: adjust accordingly)</span>
+<span class="w">          </span><span class="nt">via</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.99.1.1</span><span class="w">          </span><span class="c1"># WiFi router IP (ece387only)</span>
 <span class="w">      </span><span class="nt">nameservers</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">addresses</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">8.8.8.8</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">8.8.4.4</span><span class="p p-Indicator">]</span>
 </pre></div>
@@ -598,6 +607,16 @@ sudo<span class="w"> </span>nano<span class="w"> </span>/etc/netplan/00-installe
 sudo<span class="w"> </span>netplan<span class="w"> </span>apply
 </pre></div>
 </div>
+<blockquote>
+<div><p><strong>Careful with <code class="docutils literal notranslate"><span class="pre">50-cloud-init.yaml</span></code>:</strong> cloud-init regenerates this file on every boot by default, which can silently revert your static IP back to DHCP after a reboot. To make the change stick, disable cloud-init’s network management:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
+</pre></div>
+</div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">network</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">config</span><span class="p">:</span><span class="w"> </span><span class="nv">disabled</span><span class="p p-Indicator">}</span>
+</pre></div>
+</div>
+<p>This only stops cloud-init from touching networking on future boots — it does not affect the netplan file you just edited.</p>
+</div></blockquote>
 </section>
 <section id="set-hostname-and-etc-hosts">
 <h3>1.2 Set Hostname and /etc/hosts<a class="headerlink" href="#set-hostname-and-etc-hosts" title="Link to this heading">#</a></h3>
@@ -611,7 +630,7 @@ sudo<span class="w"> </span>hostnamectl<span class="w"> </span>set-hostname<span
 </div>
 <p>The file should contain:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">127.0.0.1</span>   <span class="n">localhost</span>
-<span class="mf">192.168.0.151</span>  <span class="n">ece387server</span><span class="o">.</span><span class="n">ece387</span><span class="o">.</span><span class="n">local</span>  <span class="n">ece387server</span>
+<span class="mf">10.99.1.50</span>  <span class="n">ece387server</span><span class="o">.</span><span class="n">ece387</span><span class="o">.</span><span class="n">local</span>  <span class="n">ece387server</span>
 </pre></div>
 </div>
 <blockquote>
@@ -764,13 +783,14 @@ sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </sp
 </section>
 <section id="create-student-accounts">
 <h3>1.6 Create Student Accounts<a class="headerlink" href="#create-student-accounts" title="Link to this heading">#</a></h3>
-<p>Student IDs follow the pattern <code class="docutils literal notranslate"><span class="pre">a27-01</span></code> through <code class="docutils literal notranslate"><span class="pre">a27-30</span></code>. The script below:</p>
+<p>Student IDs follow two series this term: <code class="docutils literal notranslate"><span class="pre">a27-m0</span></code> through <code class="docutils literal notranslate"><span class="pre">a27-m30</span></code> (31 accounts) and <code class="docutils literal notranslate"><span class="pre">a27-t0</span></code> through <code class="docutils literal notranslate"><span class="pre">a27-t30</span></code> (31 accounts) — 62 accounts total. The script below:</p>
 <ol class="arabic simple">
 <li><p>Generates a hashed password for all accounts</p></li>
-<li><p>Builds a single LDIF file with all 30 user entries</p></li>
+<li><p>Builds a single LDIF file with all 62 user entries</p></li>
 <li><p>Creates each student’s home directory on the server and populates it with the course <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code></p></li>
 <li><p>Adds all accounts to LDAP in one command</p></li>
 </ol>
+<p>UID numbers are split into two non-overlapping ranges so the two series never collide: <code class="docutils literal notranslate"><span class="pre">m</span></code> series uses <code class="docutils literal notranslate"><span class="pre">20000</span></code>–<code class="docutils literal notranslate"><span class="pre">20030</span></code>, <code class="docutils literal notranslate"><span class="pre">t</span></code> series uses <code class="docutils literal notranslate"><span class="pre">21000</span></code>–<code class="docutils literal notranslate"><span class="pre">21030</span></code>.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>&gt;<span class="w"> </span>~/Documents/ece387/create_students.sh<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
 <span class="s">#!/bin/bash</span>
 <span class="s"># Exit immediately if any command fails</span>
@@ -789,17 +809,20 @@ sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </sp
 <span class="s"># Clear the LDIF file if it already exists from a previous run</span>
 <span class="s">&gt; $LDIF</span>
 
-<span class="s"># Loop from 01 to 30, creating one LDAP entry per student</span>
-<span class="s">for i in $(seq -w 1 30); do</span>
-<span class="s">  USERNAME=&quot;a27-${i}&quot;</span>
+<span class="s"># Two username series this term: a27-m0..a27-m30 and a27-t0..a27-t30.</span>
+<span class="s"># UID_BASE keeps the two series in separate, non-overlapping ranges.</span>
+<span class="s">create_series() {</span>
+<span class="s">  local PREFIX=$1     # &quot;m&quot; or &quot;t&quot;</span>
+<span class="s">  local UID_BASE=$2   # 20000 for m-series, 21000 for t-series</span>
 
-<span class="s">  # UID numbers must be unique integers. We use 10001–10030.</span>
-<span class="s">  # &quot;10#$i&quot; forces base-10 interpretation so &quot;08&quot; isn&#39;t treated as octal.</span>
-<span class="s">  UID_NUMBER=$((10000 + 10#$i))</span>
+<span class="s">  # Loop from 0 to 30, creating one LDAP entry per student</span>
+<span class="s">  for i in $(seq 0 30); do</span>
+<span class="s">    USERNAME=&quot;a27-${PREFIX}${i}&quot;</span>
+<span class="s">    UID_NUMBER=$((UID_BASE + i))</span>
 
-<span class="s">  # Append this student&#39;s entry to the LDIF file.</span>
-<span class="s">  # Each entry is separated by a blank line (required by LDIF format).</span>
-<span class="s">  cat &gt;&gt; $LDIF &lt;&lt; ENTRY</span>
+<span class="s">    # Append this student&#39;s entry to the LDIF file.</span>
+<span class="s">    # Each entry is separated by a blank line (required by LDIF format).</span>
+<span class="s">    cat &gt;&gt; $LDIF &lt;&lt; ENTRY</span>
 <span class="s">dn: uid=${USERNAME},ou=students,dc=ece387,dc=local</span>
 <span class="s">objectClass: inetOrgPerson</span>
 <span class="s">objectClass: posixAccount</span>
@@ -815,29 +838,33 @@ sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </sp
 
 <span class="s">ENTRY</span>
 
-<span class="s">  # Create the student&#39;s home directory on the NFS share.</span>
-<span class="s">  # /etc/skel contains default files (.bashrc, .profile, etc.) that are</span>
-<span class="s">  # copied into every new home directory.</span>
-<span class="s">  sudo mkdir -p /home/students/${USERNAME}</span>
-<span class="s">  sudo cp -r /etc/skel/. /home/students/${USERNAME}/</span>
+<span class="s">    # Create the student&#39;s home directory on the NFS share.</span>
+<span class="s">    # /etc/skel contains default files (.bashrc, .profile, etc.) that are</span>
+<span class="s">    # copied into every new home directory.</span>
+<span class="s">    sudo mkdir -p /home/students/${USERNAME}</span>
+<span class="s">    sudo cp -r /etc/skel/. /home/students/${USERNAME}/</span>
 
-<span class="s">  # Copy course config templates</span>
-<span class="s">  sudo cp /etc/ece387/bashrc_template /home/students/${USERNAME}/.bashrc</span>
-<span class="s">  sudo cp /etc/ece387/inputrc_template /home/students/${USERNAME}/.inputrc</span>
+<span class="s">    # Copy course config templates</span>
+<span class="s">    sudo cp /etc/ece387/bashrc_template /home/students/${USERNAME}/.bashrc</span>
+<span class="s">    sudo cp /etc/ece387/inputrc_template /home/students/${USERNAME}/.inputrc</span>
 
-<span class="s">  # Create an empty .bashrc_personal for student customizations (robot IP, aliases, etc.)</span>
-<span class="s">  # This file is sourced at the end of .bashrc and is never overwritten by the instructor.</span>
-<span class="s">  sudo touch /home/students/${USERNAME}/.bashrc_personal</span>
+<span class="s">    # Create an empty .bashrc_personal for student customizations (robot IP, aliases, etc.)</span>
+<span class="s">    # This file is sourced at the end of .bashrc and is never overwritten by the instructor.</span>
+<span class="s">    sudo touch /home/students/${USERNAME}/.bashrc_personal</span>
 
-<span class="s">  # Set ownership to the student&#39;s UID and the shared group GID (10000).</span>
-<span class="s">  # chmod 700 means only the student can read/write their own directory.</span>
-<span class="s">  sudo chown -R ${UID_NUMBER}:10000 /home/students/${USERNAME}</span>
-<span class="s">  sudo chmod 700 /home/students/${USERNAME}</span>
+<span class="s">    # Set ownership to the student&#39;s UID and the shared group GID (10000).</span>
+<span class="s">    # chmod 700 means only the student can read/write their own directory.</span>
+<span class="s">    sudo chown -R ${UID_NUMBER}:10000 /home/students/${USERNAME}</span>
+<span class="s">    sudo chmod 700 /home/students/${USERNAME}</span>
 
-<span class="s">  echo &quot;Prepared: ${USERNAME} (uid=${UID_NUMBER})&quot;</span>
-<span class="s">done</span>
+<span class="s">    echo &quot;Prepared: ${USERNAME} (uid=${UID_NUMBER})&quot;</span>
+<span class="s">  done</span>
+<span class="s">}</span>
 
-<span class="s"># Add all 30 entries to LDAP in a single operation.</span>
+<span class="s">create_series &quot;m&quot; 20000</span>
+<span class="s">create_series &quot;t&quot; 21000</span>
+
+<span class="s"># Add all 62 entries to LDAP in a single operation.</span>
 <span class="s"># -w = password (non-interactive, read from argument)</span>
 <span class="s">ldapadd -x -H ldap://localhost \</span>
 <span class="s">  -D &quot;$LDAP_ADMIN_DN&quot; \</span>
@@ -845,7 +872,7 @@ sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </sp
 <span class="s">  -f $LDIF</span>
 
 <span class="s">echo &quot;&quot;</span>
-<span class="s">echo &quot;Done. 30 student accounts created.&quot;</span>
+<span class="s">echo &quot;Done. 62 student accounts created (a27-m0..m30, a27-t0..t30).&quot;</span>
 <span class="s">EOF</span>
 
 <span class="c1"># Make the script executable, then run it</span>
@@ -855,7 +882,7 @@ bash<span class="w"> </span>~/Documents/ece387/create_students.sh
 </div>
 <p>Verify all accounts were created:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Search the LDAP students OU and list just the uid field.</span>
-<span class="c1"># You should see uid: a27-01 through uid: a27-30.</span>
+<span class="c1"># You should see uid: a27-m0 through uid: a27-m30, and uid: a27-t0 through uid: a27-t30.</span>
 ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://localhost<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-b<span class="w"> </span><span class="s2">&quot;ou=students,dc=ece387,dc=local&quot;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-D<span class="w"> </span><span class="s2">&quot;cn=admin,dc=ece387,dc=local&quot;</span><span class="w"> </span><span class="se">\</span>
@@ -870,7 +897,7 @@ ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> <
 sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>nfs-kernel-server
 
 <span class="c1"># Create the parent directory that holds all student home directories.</span>
-<span class="c1"># Individual student dirs (a27-01, a27-02, ...) were already created in 1.6.</span>
+<span class="c1"># Individual student dirs (a27-m0, a27-m1, ..., a27-t0, a27-t1, ...) were already created in 1.6.</span>
 sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/home/students
 sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">755</span><span class="w"> </span>/home/students
 </pre></div>
@@ -879,14 +906,14 @@ sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">755</sp
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/exports
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Share /home/students with all machines on the 192.168.0.0/24 subnet.</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Share /home/students with all machines on the 10.99.1.0/24 subnet.</span>
 <span class="c1"># rw             = read and write access</span>
 <span class="c1"># sync           = write data to disk before acknowledging — safer than async</span>
 <span class="c1"># no_subtree_check = disables subtree checking, improves reliability</span>
 <span class="c1"># no_root_squash = allows root on clients to act as root here (needed for</span>
 <span class="c1">#                  creating/chowning files during setup)</span>
-<span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">students</span>  <span class="mf">192.168.0.0</span><span class="o">/</span><span class="mi">24</span><span class="p">(</span><span class="n">rw</span><span class="p">,</span><span class="n">sync</span><span class="p">,</span><span class="n">no_subtree_check</span><span class="p">,</span><span class="n">no_root_squash</span><span class="p">)</span>
-<span class="c1"># Note: adjust subnet to match your lab network (e.g., 192.168.0.0/24 for home testing)</span>
+<span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">students</span>  <span class="mf">10.99.1.0</span><span class="o">/</span><span class="mi">24</span><span class="p">(</span><span class="n">rw</span><span class="p">,</span><span class="n">sync</span><span class="p">,</span><span class="n">no_subtree_check</span><span class="p">,</span><span class="n">no_root_squash</span><span class="p">)</span>
+<span class="c1"># Note: this matches the ece387only WiFi router subnet (10.99.1.0/24)</span>
 </pre></div>
 </div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Re-read /etc/exports and apply the new export</span>
@@ -919,7 +946,7 @@ sudo<span class="w"> </span>ufw<span class="w"> </span>allow<span class="w"> </s
 sudo<span class="w"> </span>ufw<span class="w"> </span>allow<span class="w"> </span><span class="m">111</span>/udp
 
 <span class="c1"># Allow all traffic from the lab subnet</span>
-sudo<span class="w"> </span>ufw<span class="w"> </span>allow<span class="w"> </span>from<span class="w"> </span><span class="m">192</span>.168.0.0/24
+sudo<span class="w"> </span>ufw<span class="w"> </span>allow<span class="w"> </span>from<span class="w"> </span><span class="m">10</span>.99.1.0/24
 
 <span class="c1"># Enable the firewall</span>
 sudo<span class="w"> </span>ufw<span class="w"> </span><span class="nb">enable</span>
@@ -928,6 +955,15 @@ sudo<span class="w"> </span>ufw<span class="w"> </span><span class="nb">enable</
 sudo<span class="w"> </span>ufw<span class="w"> </span>status
 </pre></div>
 </div>
+<blockquote>
+<div><p><strong>Reconfiguring an already-running server:</strong> if <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">ufw</span> <span class="pre">status</span></code> still shows an old subnet (e.g. <code class="docutils literal notranslate"><span class="pre">192.168.1.0/24</span></code>) from a previous setup, <code class="docutils literal notranslate"><span class="pre">ufw</span> <span class="pre">allow</span></code> won’t replace it — the old rule stays active alongside the new one. Remove it explicitly:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>ufw<span class="w"> </span>status<span class="w"> </span>numbered<span class="w">      </span><span class="c1"># find the rule number for the old subnet</span>
+sudo<span class="w"> </span>ufw<span class="w"> </span>delete<span class="w"> </span>&lt;number&gt;<span class="w">      </span><span class="c1"># delete it</span>
+sudo<span class="w"> </span>ufw<span class="w"> </span>allow<span class="w"> </span>from<span class="w"> </span><span class="m">10</span>.99.1.0/24
+sudo<span class="w"> </span>ufw<span class="w"> </span>status
+</pre></div>
+</div>
+</div></blockquote>
 <p>Once the server is up, continue to <a class="reference internal" href="login-client.html"><span class="std std-doc">login-client.md</span></a> to configure each master to authenticate against it.</p>
 </section>
 </section>
@@ -947,43 +983,129 @@ slappasswd<span class="w"> </span>-s<span class="w"> </span>NewStudentPass!
 <span class="c1"># Copy the {SSHA}... output</span>
 
 <span class="c1"># Step 2: Add the account to LDAP</span>
-<span class="c1"># Use uidNumber 10031 (or the next available number after your existing students)</span>
+<span class="c1"># Use the next free uidNumber in the right series:</span>
+<span class="c1">#   m series (a27-m0..m30):  20000-20030</span>
+<span class="c1">#   t series (a27-t0..t30):  21000-21030</span>
+<span class="c1"># e.g. a new t-series student a27-t31 gets uidNumber 21031</span>
 ldapadd<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://localhost<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-D<span class="w"> </span><span class="s2">&quot;cn=admin,dc=ece387,dc=local&quot;</span><span class="w"> </span>-W<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
-<span class="s">dn: uid=a27-31,ou=students,dc=ece387,dc=local</span>
+<span class="s">dn: uid=a27-t31,ou=students,dc=ece387,dc=local</span>
 <span class="s">objectClass: inetOrgPerson</span>
 <span class="s">objectClass: posixAccount</span>
 <span class="s">objectClass: shadowAccount</span>
-<span class="s">uid: a27-31</span>
-<span class="s">cn: a27-31</span>
-<span class="s">sn: a27-31</span>
-<span class="s">uidNumber: 10031</span>
+<span class="s">uid: a27-t31</span>
+<span class="s">cn: a27-t31</span>
+<span class="s">sn: a27-t31</span>
+<span class="s">uidNumber: 21031</span>
 <span class="s">gidNumber: 10000</span>
-<span class="s">homeDirectory: /home/students/a27-31</span>
+<span class="s">homeDirectory: /home/students/a27-t31</span>
 <span class="s">loginShell: /bin/bash</span>
 <span class="s">userPassword: {SSHA}PASTE_HASH_HERE</span>
 <span class="s">EOF</span>
 
 <span class="c1"># Step 3: Create the home directory on the server</span>
-sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/home/students/a27-31
-sudo<span class="w"> </span>cp<span class="w"> </span>-r<span class="w"> </span>/etc/skel/.<span class="w"> </span>/home/students/a27-31/
-sudo<span class="w"> </span>cp<span class="w"> </span>/etc/ece387/bashrc_template<span class="w"> </span>/home/students/a27-31/.bashrc
-sudo<span class="w"> </span>cp<span class="w"> </span>/etc/ece387/inputrc_template<span class="w"> </span>/home/students/a27-31/.inputrc
-sudo<span class="w"> </span>touch<span class="w"> </span>/home/students/a27-31/.bashrc_personal
-sudo<span class="w"> </span>chown<span class="w"> </span>-R<span class="w"> </span><span class="m">10031</span>:10000<span class="w"> </span>/home/students/a27-31
-sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">700</span><span class="w"> </span>/home/students/a27-31
+sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/home/students/a27-t31
+sudo<span class="w"> </span>cp<span class="w"> </span>-r<span class="w"> </span>/etc/skel/.<span class="w"> </span>/home/students/a27-t31/
+sudo<span class="w"> </span>cp<span class="w"> </span>/etc/ece387/bashrc_template<span class="w"> </span>/home/students/a27-t31/.bashrc
+sudo<span class="w"> </span>cp<span class="w"> </span>/etc/ece387/inputrc_template<span class="w"> </span>/home/students/a27-t31/.inputrc
+sudo<span class="w"> </span>touch<span class="w"> </span>/home/students/a27-t31/.bashrc_personal
+sudo<span class="w"> </span>chown<span class="w"> </span>-R<span class="w"> </span><span class="m">21031</span>:10000<span class="w"> </span>/home/students/a27-t31
+sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">700</span><span class="w"> </span>/home/students/a27-t31
 </pre></div>
 </div>
 </section>
 <section id="reset-a-student-password">
 <h3>Reset a student password<a class="headerlink" href="#reset-a-student-password" title="Link to this heading">#</a></h3>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Replace a27-01 with the student&#39;s username, and set the new password with -s</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Replace a27-m0 with the student&#39;s username, and set the new password with -s</span>
 ldappasswd<span class="w"> </span>-H<span class="w"> </span>ldap://localhost<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-D<span class="w"> </span><span class="s2">&quot;cn=admin,dc=ece387,dc=local&quot;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-W<span class="w"> </span>-s<span class="w"> </span>NewPassword!<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">&quot;uid=a27-01,ou=students,dc=ece387,dc=local&quot;</span>
+<span class="w">  </span><span class="s2">&quot;uid=a27-m0,ou=students,dc=ece387,dc=local&quot;</span>
 </pre></div>
 </div>
+</section>
+<section id="remove-all-students-for-a-class-year-year-end-rollover">
+<h3>Remove all students for a class year (year-end rollover)<a class="headerlink" href="#remove-all-students-for-a-class-year-year-end-rollover" title="Link to this heading">#</a></h3>
+<p>Class-year prefixes change every year (<code class="docutils literal notranslate"><span class="pre">a27</span></code> = class of 2027, <code class="docutils literal notranslate"><span class="pre">a28</span></code> = class of 2028, etc.). Run this once at the start of a new year, right before running <code class="docutils literal notranslate"><span class="pre">create_students.sh</span></code> for the incoming class. It takes a prefix, backs up the LDAP database and matching home directories first, then deletes the LDAP entries and home directories for every account matching that prefix (both <code class="docutils literal notranslate"><span class="pre">m</span></code> and <code class="docutils literal notranslate"><span class="pre">t</span></code> series, since they share the same <code class="docutils literal notranslate"><span class="pre">a27-*</span></code> prefix).</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>&gt;<span class="w"> </span>~/Documents/ece387/remove_students.sh<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
+<span class="s">#!/bin/bash</span>
+<span class="s"># Removes ALL student accounts for a given class-year prefix (e.g. a27)</span>
+<span class="s"># and deletes their home directories. Backs up LDAP + home dirs first.</span>
+<span class="s">set -e</span>
+
+<span class="s">if [ -z &quot;$1&quot; ]; then</span>
+<span class="s">  echo &quot;Usage: $0 &lt;prefix&gt;   e.g. $0 a27&quot;</span>
+<span class="s">  exit 1</span>
+<span class="s">fi</span>
+
+<span class="s">PREFIX=$1</span>
+<span class="s">LDAP_ADMIN_DN=&quot;cn=admin,dc=ece387,dc=local&quot;</span>
+<span class="s">LDAP_ADMIN_PW=&quot;LdapAdmin387!&quot;    # your LDAP admin password</span>
+<span class="s">BASE_DN=&quot;ou=students,dc=ece387,dc=local&quot;</span>
+
+<span class="s">echo &quot;This will PERMANENTLY delete all LDAP accounts and home directories&quot;</span>
+<span class="s">echo &quot;matching &#39;${PREFIX}-*&#39; under ${BASE_DN} (covers both m and t series).&quot;</span>
+<span class="s">read -p &quot;Type the prefix again to confirm (${PREFIX}): &quot; CONFIRM</span>
+<span class="s">if [ &quot;$CONFIRM&quot; != &quot;$PREFIX&quot; ]; then</span>
+<span class="s">  echo &quot;Confirmation did not match. Aborting.&quot;</span>
+<span class="s">  exit 1</span>
+<span class="s">fi</span>
+
+<span class="s"># --- Step 1: Back up before deleting anything ---</span>
+<span class="s">BACKUP_DIR=~/Documents/ece387/backups/$(date +%Y%m%d)-${PREFIX}</span>
+<span class="s">mkdir -p &quot;$BACKUP_DIR/home&quot;</span>
+
+<span class="s">echo &quot;Backing up full LDAP database to ${BACKUP_DIR}/ldap-backup.ldif ...&quot;</span>
+<span class="s">sudo slapcat &gt; &quot;${BACKUP_DIR}/ldap-backup.ldif&quot;</span>
+
+<span class="s">echo &quot;Backing up home directories matching ${PREFIX}-* to ${BACKUP_DIR}/home ...&quot;</span>
+<span class="s">sudo rsync -av --include=&quot;${PREFIX}-*&quot; --include=&quot;${PREFIX}-*/**&quot; --exclude=&quot;*&quot; \</span>
+<span class="s">  /home/students/ &quot;${BACKUP_DIR}/home/&quot;</span>
+
+<span class="s"># --- Step 2: Find all matching uids in LDAP ---</span>
+<span class="s">USERS=$(ldapsearch -x -H ldap://localhost \</span>
+<span class="s">  -b &quot;$BASE_DN&quot; -D &quot;$LDAP_ADMIN_DN&quot; -w &quot;$LDAP_ADMIN_PW&quot; \</span>
+<span class="s">  &quot;(uid=${PREFIX}-*)&quot; uid | grep &quot;^uid:&quot; | awk &#39;{print $2}&#39;)</span>
+
+<span class="s">if [ -z &quot;$USERS&quot; ]; then</span>
+<span class="s">  echo &quot;No accounts found matching ${PREFIX}-*. Nothing to remove.&quot;</span>
+<span class="s">  exit 0</span>
+<span class="s">fi</span>
+
+<span class="s">echo &quot;Found $(echo &quot;$USERS&quot; | wc -l) accounts to remove:&quot;</span>
+<span class="s">echo &quot;$USERS&quot;</span>
+<span class="s">echo &quot;&quot;</span>
+
+<span class="s"># --- Step 3: Delete each LDAP entry ---</span>
+<span class="s">for USERNAME in $USERS; do</span>
+<span class="s">  echo &quot;Deleting LDAP entry: uid=${USERNAME}&quot;</span>
+<span class="s">  ldapdelete -x -H ldap://localhost \</span>
+<span class="s">    -D &quot;$LDAP_ADMIN_DN&quot; -w &quot;$LDAP_ADMIN_PW&quot; \</span>
+<span class="s">    &quot;uid=${USERNAME},${BASE_DN}&quot;</span>
+<span class="s">done</span>
+
+<span class="s"># --- Step 4: Remove home directories ---</span>
+<span class="s">for USERNAME in $USERS; do</span>
+<span class="s">  echo &quot;Removing home directory: /home/students/${USERNAME}&quot;</span>
+<span class="s">  sudo rm -rf &quot;/home/students/${USERNAME}&quot;</span>
+<span class="s">done</span>
+
+<span class="s">echo &quot;&quot;</span>
+<span class="s">echo &quot;Done. Removed accounts matching &#39;${PREFIX}-*&#39;.&quot;</span>
+<span class="s">echo &quot;Backup saved to: ${BACKUP_DIR}&quot;</span>
+<span class="s">EOF</span>
+
+chmod<span class="w"> </span>+x<span class="w"> </span>~/Documents/ece387/remove_students.sh
+</pre></div>
+</div>
+<p>Run it with the outgoing class prefix, e.g.:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bash<span class="w"> </span>~/Documents/ece387/remove_students.sh<span class="w"> </span>a27
+</pre></div>
+</div>
+<p>Then create the incoming class with the new prefix by editing the <code class="docutils literal notranslate"><span class="pre">create_series</span></code> calls in <code class="docutils literal notranslate"><span class="pre">create_students.sh</span></code> (or parameterizing them the same way) before re-running it.</p>
+<blockquote>
+<div><p><strong>Group and OU structure are untouched</strong> — this only removes entries under <code class="docutils literal notranslate"><span class="pre">ou=students</span></code>. <code class="docutils literal notranslate"><span class="pre">ou=groups</span></code> and the <code class="docutils literal notranslate"><span class="pre">ece387students</span></code> group (gidNumber 10000) stay in place and are reused every year.</p>
+</div></blockquote>
 </section>
 <section id="list-all-student-accounts">
 <h3>List all student accounts<a class="headerlink" href="#list-all-student-accounts" title="Link to this heading">#</a></h3>
@@ -1018,15 +1140,15 @@ sudo<span class="w"> </span>slapcat<span class="w"> </span>&gt;<span class="w"> 
 </thead>
 <tbody>
 <tr class="row-even"><td><p>Student can’t log in</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">ldapsearch</span> <span class="pre">-x</span> <span class="pre">-H</span> <span class="pre">ldap://localhost</span> <span class="pre">-b</span> <span class="pre">&quot;ou=students,dc=ece387,dc=local&quot;</span> <span class="pre">-D</span> <span class="pre">&quot;cn=admin,dc=ece387,dc=local&quot;</span> <span class="pre">-W</span> <span class="pre">&quot;(uid=a27-01)&quot;</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ldapsearch</span> <span class="pre">-x</span> <span class="pre">-H</span> <span class="pre">ldap://localhost</span> <span class="pre">-b</span> <span class="pre">&quot;ou=students,dc=ece387,dc=local&quot;</span> <span class="pre">-D</span> <span class="pre">&quot;cn=admin,dc=ece387,dc=local&quot;</span> <span class="pre">-W</span> <span class="pre">&quot;(uid=a27-m0)&quot;</span></code></p></td>
 <td><p>Check account exists; verify password hash is valid</p></td>
 </tr>
 <tr class="row-odd"><td><p>LDAP connection refused</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">ldapsearch</span> <span class="pre">-x</span> <span class="pre">-H</span> <span class="pre">ldap://192.168.0.151</span> <span class="pre">-b</span> <span class="pre">&quot;dc=ece387,dc=local&quot;</span> <span class="pre">-x</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ldapsearch</span> <span class="pre">-x</span> <span class="pre">-H</span> <span class="pre">ldap://10.99.1.50</span> <span class="pre">-b</span> <span class="pre">&quot;dc=ece387,dc=local&quot;</span> <span class="pre">-x</span></code></p></td>
 <td><p>Check <code class="docutils literal notranslate"><span class="pre">systemctl</span> <span class="pre">status</span> <span class="pre">slapd</span></code> on server</p></td>
 </tr>
 <tr class="row-even"><td><p>NFS mount fails (from a client)</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">showmount</span> <span class="pre">-e</span> <span class="pre">192.168.0.151</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">showmount</span> <span class="pre">-e</span> <span class="pre">10.99.1.50</span></code></p></td>
 <td><p>Check firewall on server; verify <code class="docutils literal notranslate"><span class="pre">nfs-server</span></code> is running</p></td>
 </tr>
 </tbody>
@@ -1066,6 +1188,24 @@ sudo<span class="w"> </span>slapcat<span class="w"> </span>&gt;<span class="w"> 
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="RobotSetupJazzy.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">🔧 Robot Setup (ROS2 Jazzy)</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="login-client.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Master (Client) Setup</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
@@ -1085,7 +1225,7 @@ sudo<span class="w"> </span>slapcat<span class="w"> </span>&gt;<span class="w"> 
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-a-login-server">Why a Login Server?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#architecture-overview">Architecture Overview</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#network-planning">Network Planning</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#login-server-setup">1. Login Server Setup</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">1. Login Server Setup</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-working-directory">1.0 Create a Working Directory</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-ubuntu-24-04-server">1.1 Install Ubuntu 24.04 Server</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#set-hostname-and-etc-hosts">1.2 Set Hostname and /etc/hosts</a></li>
@@ -1106,6 +1246,7 @@ sudo<span class="w"> </span>slapcat<span class="w"> </span>&gt;<span class="w"> 
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#maintenance">3. Maintenance</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#add-a-new-student">Add a new student</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reset-a-student-password">Reset a student password</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#remove-all-students-for-a-class-year-year-end-rollover">Remove all students for a class year (year-end rollover)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#list-all-student-accounts">List all student accounts</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#back-up-home-directories-and-ldap-database">Back up home directories and LDAP database</a></li>
 </ul>

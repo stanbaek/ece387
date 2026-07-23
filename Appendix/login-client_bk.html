@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Master (Client) Setup &#8212; Introduction to Robotic Systems</title>
+    <title>ECE 387 Login Client Setup (Master Computers) &#8212; Introduction to Robotic Systems</title>
   
   
   
@@ -59,12 +59,10 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'Appendix/login-client';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Appendix/login-client_bk';</script>
     <link rel="icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="🔧 Master Setup — Standalone" href="MasterSetupJazzy.html" />
-    <link rel="prev" title="Login Server Setup" href="login-server.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -126,6 +124,8 @@
     <div class="bd-container__inner bd-page-width">
       
       
+      
+        
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -212,10 +212,10 @@
 <li class="toctree-l1"><a class="reference external" href="https://stanbaek.github.io/NoPointer.html">No Pointers in Python?</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendix</span></p>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="RobotSetupJazzy.html">🔧 Robot Setup (ROS2 Jazzy)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="login-server.html">Login Server Setup</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Master (Client) Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="login-client.html">Master (Client) Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="MasterSetupJazzy.html">🔧 Master Setup — Standalone</a></li>
 <li class="toctree-l1"><a class="reference internal" href="GitSetup.html">🔧 Git Repo Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="GamepadSetup.html">🔧 Gamepad Setup</a></li>
@@ -292,7 +292,7 @@
       
       
       
-      <li><a href="https://github.com/stanbaek/ece387/issues/new?title=Issue%20on%20page%20%2FAppendix/login-client.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/stanbaek/ece387/issues/new?title=Issue%20on%20page%20%2FAppendix/login-client_bk.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -322,7 +322,7 @@
       
       
       
-      <li><a href="../_sources/Appendix/login-client.md" target="_blank"
+      <li><a href="../_sources/Appendix/login-client_bk.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -406,7 +406,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Master (Client) Setup</h1>
+    <h1>ECE 387 Login Client Setup (Master Computers)</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -424,14 +424,6 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mount-nfs-home-directories">1.4 Mount NFS Home Directories</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grant-students-restricted-sudo-access">1.5 Grant Students Restricted sudo Access</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configure-wifi-interfaces">1.6 Configure WiFi Interfaces</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-reconfiguring-an-existing-master-new-server-ip-wifi-setup">1a. Reconfiguring an Existing Master (New Server IP + WiFi Setup)</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-rename-the-usb-wifi-dongle-to-wlan1">Step 1: Rename the USB WiFi dongle to <code class="docutils literal notranslate"><span class="pre">wlan1</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-configure-the-three-wifi-networks-on-wlan1">Step 2: Configure the three WiFi networks on <code class="docutils literal notranslate"><span class="pre">wlan1</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-point-sssd-at-the-new-login-server-ip">Step 3: Point SSSD at the new login server IP</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-point-autofs-at-the-new-login-server-ip">Step 4: Point autofs at the new login server IP</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-5-confirm-mdns-hostname-resolution">Step 5: Confirm mDNS hostname resolution</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resilience-server-down-or-network-unreliable">2. Resilience — Server Down or Network Unreliable</a><ul class="nav section-nav flex-column">
@@ -457,8 +449,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="master-client-setup">
-<h1>Master (Client) Setup<a class="headerlink" href="#master-client-setup" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="ece-387-login-client-setup-master-computers">
+<h1>ECE 387 Login Client Setup (Master Computers)<a class="headerlink" href="#ece-387-login-client-setup-master-computers" title="Link to this heading">#</a></h1>
 <p>This guide covers setting up a <strong>master computer as a login client</strong> — a machine that authenticates students against the login server (via SSSD) and mounts their home directory over NFS, so any student can sit at any master. It is one of three companion guides:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="login-server.html"><span class="std std-doc">login-server.md</span></a> — the login server itself</p></li>
@@ -469,7 +461,7 @@ document.write(`
 <hr class="docutils" />
 <section id="network-planning">
 <h2>Network Planning<a class="headerlink" href="#network-planning" title="Link to this heading">#</a></h2>
-<p>Only the login server needs a static IP. Master computers get a <strong>dynamic IP</strong> from the lab’s WiFi router, which acts as the DHCP server.</p>
+<p>Assign static IPs on your lab’s Ethernet network before starting. All machines must be on the same subnet so they can reach each other.</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Host</p></th>
@@ -478,23 +470,31 @@ document.write(`
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>WiFi router (DHCP server / gateway)</p></td>
-<td><p>—</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">10.99.1.1</span></code> (SSID <code class="docutils literal notranslate"><span class="pre">ECE387</span></code>)</p></td>
-</tr>
-<tr class="row-odd"><td><p>Login Server</p></td>
+<tr class="row-even"><td><p>Login Server</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">ece387server</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">10.99.1.50</span></code> (static)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">192.168.0.151</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p>Master 01–14</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">master01</span></code>–<code class="docutils literal notranslate"><span class="pre">master14</span></code></p></td>
-<td><p>DHCP-assigned (dynamic)</p></td>
+<tr class="row-odd"><td><p>Master 01</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">master01</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">192.168.0.101</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Master 02</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">master02</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">192.168.0.102</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+</tr>
+<tr class="row-even"><td><p>Master 14</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">master14</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">192.168.0.114</span></code></p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <blockquote>
-<div><p>Masters are identified by hostname, not IP, since their IP can change after a reboot or DHCP lease renewal. Ubuntu Desktop ships with <code class="docutils literal notranslate"><span class="pre">avahi-daemon</span></code> (mDNS) enabled by default, so each master is reachable at <code class="docutils literal notranslate"><span class="pre">&lt;hostname&gt;.local</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">master01.local</span></code>) from any other machine on the <code class="docutils literal notranslate"><span class="pre">ECE387</span></code> network, regardless of its current DHCP-assigned IP. This guide uses the domain <code class="docutils literal notranslate"><span class="pre">ece387.local</span></code> for LDAP.</p>
+<div><p>The login server IP (<code class="docutils literal notranslate"><span class="pre">192.168.0.151</span></code>) reflects the home test setup. In the AFA lab, adjust all IPs to match the actual lab subnet. This guide uses the domain <code class="docutils literal notranslate"><span class="pre">ece387.local</span></code>.</p>
 </div></blockquote>
 </section>
 <hr class="docutils" />
@@ -509,25 +509,35 @@ document.write(`
 <ul class="simple">
 <li><p>Hostname: <code class="docutils literal notranslate"><span class="pre">master01</span></code>, <code class="docutils literal notranslate"><span class="pre">master02</span></code>, … <code class="docutils literal notranslate"><span class="pre">master14</span></code></p></li>
 <li><p>Create local admin account: <code class="docutils literal notranslate"><span class="pre">ece387admin</span></code></p></li>
-<li><p>Connect to the <code class="docutils literal notranslate"><span class="pre">ECE387</span></code> WiFi network (or Ethernet, if wired) during setup — Ubuntu will request a <strong>dynamic IP via DHCP by default</strong>, which is what we want. No static IP configuration is needed on the masters.</p></li>
 </ul>
 </li>
-<li><p>After install, confirm the master got an address from the router and can reach the login server:</p></li>
+<li><p>After install, set a static IP on the lab Ethernet interface so the machine can always reach the login server:</p></li>
 </ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Confirm a DHCP lease was obtained (look for an inet addr on your WiFi/ethernet interface)</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Find your ethernet interface name</span>
 ip<span class="w"> </span>a
 
-<span class="c1"># Confirm avahi-daemon (mDNS) is installed and running — this is what lets other</span>
-<span class="c1"># machines find this master at masterNN.local even though its IP can change</span>
-systemctl<span class="w"> </span>status<span class="w"> </span>avahi-daemon
-
-<span class="c1"># Confirm the master can reach the login server before proceeding</span>
-ping<span class="w"> </span><span class="m">10</span>.99.1.50
+sudo<span class="w"> </span>nano<span class="w"> </span>/etc/netplan/01-lab-network.yaml
 </pre></div>
 </div>
-<blockquote>
-<div><p>If <code class="docutils literal notranslate"><span class="pre">avahi-daemon</span></code> isn’t running: <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">install</span> <span class="pre">-y</span> <span class="pre">avahi-daemon</span> <span class="pre">&amp;&amp;</span> <span class="pre">sudo</span> <span class="pre">systemctl</span> <span class="pre">enable</span> <span class="pre">--now</span> <span class="pre">avahi-daemon</span></code>.</p>
-</div></blockquote>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">network</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">  </span><span class="nt">ethernets</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">enp86s0</span><span class="p">:</span><span class="w">                          </span><span class="c1"># your ethernet interface</span>
+<span class="w">      </span><span class="nt">dhcp4</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">      </span><span class="nt">addresses</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">192.168.0.101/24</span><span class="p p-Indicator">]</span><span class="w">   </span><span class="c1"># increment per machine: .102, .103, etc.</span>
+<span class="w">      </span><span class="nt">routes</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">to</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
+<span class="w">          </span><span class="nt">via</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">192.168.0.1</span><span class="w">            </span><span class="c1"># lab gateway</span>
+<span class="w">      </span><span class="nt">nameservers</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">addresses</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">8.8.8.8</span><span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>netplan<span class="w"> </span>apply
+
+<span class="c1"># Confirm the master can reach the login server before proceeding</span>
+ping<span class="w"> </span><span class="m">192</span>.168.0.151
+</pre></div>
+</div>
 </section>
 <section id="install-ros2-jazzy">
 <h3>1.2 Install ROS2 Jazzy<a class="headerlink" href="#install-ros2-jazzy" title="Link to this heading">#</a></h3>
@@ -577,7 +587,7 @@ sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> <
 <span class="na">auth_provider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">ldap</span>
 
 <span class="c1"># URI of the LDAP server (the login server&#39;s IP)</span>
-<span class="na">ldap_uri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">ldap://10.99.1.50</span>
+<span class="na">ldap_uri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">ldap://192.168.0.151</span>
 
 <span class="c1"># Base DN: the root of the LDAP tree to search</span>
 <span class="na">ldap_search_base</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">dc=ece387,dc=local</span>
@@ -620,8 +630,8 @@ sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w
 sleep<span class="w"> </span><span class="m">5</span>
 
 <span class="c1"># Test: this should return the student&#39;s uid, gid, and home directory path</span>
-<span class="c1"># Expected: uid=20000(a27-m0) gid=10000(ece387students) groups=10000(ece387students)</span>
-id<span class="w"> </span>a27-m0
+<span class="c1"># Expected: uid=10001(a27-01) gid=10000(ece387students) groups=10000(ece387students)</span>
+id<span class="w"> </span>a27-01
 </pre></div>
 </div>
 </section>
@@ -646,14 +656,14 @@ sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> <
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># The * wildcard matches any username.</span>
-<span class="c1"># When /home/students/a27-m0 is accessed, autofs mounts:</span>
-<span class="c1">#   10.99.1.50:/home/students/a27-m0</span>
+<span class="c1"># When /home/students/a27-01 is accessed, autofs mounts:</span>
+<span class="c1">#   192.168.0.151:/home/students/a27-01</span>
 <span class="c1"># The &amp; at the end substitutes the matched username.</span>
 <span class="c1">#</span>
 <span class="c1"># soft     = give up if the server is unreachable rather than hanging forever</span>
 <span class="c1"># timeo=30 = wait 3 seconds per retry attempt (units are 0.1s)</span>
 <span class="c1"># retrans=2 = retry twice before giving up</span>
-<span class="o">*</span>  <span class="o">-</span><span class="n">fstype</span><span class="o">=</span><span class="n">nfs</span><span class="p">,</span><span class="n">soft</span><span class="p">,</span><span class="n">timeo</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span><span class="n">retrans</span><span class="o">=</span><span class="mi">2</span>  <span class="mf">10.99.1.50</span><span class="p">:</span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">students</span><span class="o">/&amp;</span>
+<span class="o">*</span>  <span class="o">-</span><span class="n">fstype</span><span class="o">=</span><span class="n">nfs</span><span class="p">,</span><span class="n">soft</span><span class="p">,</span><span class="n">timeo</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span><span class="n">retrans</span><span class="o">=</span><span class="mi">2</span>  <span class="mf">192.168.0.151</span><span class="p">:</span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">students</span><span class="o">/&amp;</span>
 </pre></div>
 </div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Enable autofs at boot and start it now</span>
@@ -661,8 +671,8 @@ sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">en
 sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>autofs
 
 <span class="c1"># Test: switch to a student account — their home directory should mount automatically</span>
-sudo<span class="w"> </span>su<span class="w"> </span>-<span class="w"> </span>a27-m0
-<span class="nb">pwd</span><span class="w">          </span><span class="c1"># should show /home/students/a27-m0</span>
+sudo<span class="w"> </span>su<span class="w"> </span>-<span class="w"> </span>a27-01
+<span class="nb">pwd</span><span class="w">          </span><span class="c1"># should show /home/students/a27-01</span>
 ls<span class="w"> </span>-la<span class="w">       </span><span class="c1"># should show .bashrc, .profile, etc.</span>
 <span class="nb">exit</span>
 </pre></div>
@@ -681,7 +691,7 @@ ls<span class="w"> </span>-la<span class="w">       </span><span class="c1"># sh
 </pre></div>
 </div>
 <p>Change <code class="docutils literal notranslate"><span class="pre">no_root_squash</span></code> to <code class="docutils literal notranslate"><span class="pre">root_squash</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">students</span>  <span class="mf">10.99.1.0</span><span class="o">/</span><span class="mi">24</span><span class="p">(</span><span class="n">rw</span><span class="p">,</span><span class="n">sync</span><span class="p">,</span><span class="n">no_subtree_check</span><span class="p">,</span><span class="n">root_squash</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">students</span>  <span class="mf">192.168.0.0</span><span class="o">/</span><span class="mi">24</span><span class="p">(</span><span class="n">rw</span><span class="p">,</span><span class="n">sync</span><span class="p">,</span><span class="n">no_subtree_check</span><span class="p">,</span><span class="n">root_squash</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>exportfs<span class="w"> </span>-rav
@@ -730,235 +740,21 @@ sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">440</sp
 </section>
 <section id="configure-wifi-interfaces">
 <h3>1.6 Configure WiFi Interfaces<a class="headerlink" href="#configure-wifi-interfaces" title="Link to this heading">#</a></h3>
-<p>Each master has two WiFi adapters:</p>
-<ul class="simple">
-<li><p><strong>Built-in adapter</strong> (<code class="docutils literal notranslate"><span class="pre">wlo1</span></code>) — left unconfigured here; students point this at their robot’s access point per-lab via <code class="docutils literal notranslate"><span class="pre">nmcli</span></code>.</p></li>
-<li><p><strong>External USB dongle</strong> — connects to the lab/internet networks (<code class="docutils literal notranslate"><span class="pre">ECE387</span></code>, <code class="docutils literal notranslate"><span class="pre">AF_ACADEMY_GUEST</span></code>, <code class="docutils literal notranslate"><span class="pre">ECE</span></code>). Since each machine’s dongle has a different MAC address, we rename it to a consistent interface name (<code class="docutils literal notranslate"><span class="pre">wlan1</span></code>) so the same config works on all 14 masters.</p></li>
-</ul>
-<p><strong>a. Rename any USB WiFi dongle to <code class="docutils literal notranslate"><span class="pre">wlan1</span></code></strong> (matches by bus/type, not MAC, so it works regardless of which dongle is plugged into a given machine):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/systemd/network/10-usb-wifi.link
-</pre></div>
-</div>
-<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[Match]</span>
-<span class="na">Type</span><span class="o">=</span><span class="s">wlan</span>
-<span class="na">Property</span><span class="o">=</span><span class="s">ID_BUS=usb</span>
+<p>Each master has two WiFi adapters. Use NetworkManager (<code class="docutils literal notranslate"><span class="pre">nmcli</span></code>) to configure them:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># List all network interfaces and their current state</span>
+nmcli<span class="w"> </span>device<span class="w"> </span>status
 
-<span class="k">[Link]</span>
-<span class="na">Name</span><span class="o">=</span><span class="s">wlan1</span>
-</pre></div>
-</div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>udevadm<span class="w"> </span>control<span class="w"> </span>--reload
-sudo<span class="w"> </span>udevadm<span class="w"> </span>trigger<span class="w"> </span>--subsystem-match<span class="o">=</span>net<span class="w"> </span>--action<span class="o">=</span>add
-<span class="c1"># Unplug and replug the dongle (or reboot) so it re-enumerates under the new name</span>
-</pre></div>
-</div>
-<p><strong>b. Configure the three networks on <code class="docutils literal notranslate"><span class="pre">wlan1</span></code> via netplan:</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/netplan/50-cloud-init.yaml
-</pre></div>
-</div>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">network</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
-<span class="w">  </span><span class="nt">renderer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NetworkManager</span>
-<span class="w">  </span><span class="nt">wifis</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">wlan1</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">dhcp4</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">      </span><span class="nt">access-points</span><span class="p">:</span>
-<span class="w">        </span><span class="s">&quot;ECE387&quot;</span><span class="p p-Indicator">:</span>
-<span class="w">          </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ece387only&quot;</span>
-<span class="w">          </span><span class="nt">networkmanager</span><span class="p">:</span>
-<span class="w">            </span><span class="nt">passthrough</span><span class="p">:</span>
-<span class="w">              </span><span class="nt">connection.autoconnect-priority</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;20&quot;</span>
-<span class="w">        </span><span class="s">&quot;AF_ACADEMY_GUEST&quot;</span><span class="p p-Indicator">:</span>
-<span class="w">          </span><span class="nt">networkmanager</span><span class="p">:</span>
-<span class="w">            </span><span class="nt">passthrough</span><span class="p">:</span>
-<span class="w">              </span><span class="nt">connection.autoconnect-priority</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10&quot;</span>
-<span class="w">        </span><span class="s">&quot;ECE&quot;</span><span class="p p-Indicator">:</span>
-<span class="w">          </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;dfec3141&quot;</span>
-<span class="w">          </span><span class="nt">networkmanager</span><span class="p">:</span>
-<span class="w">            </span><span class="nt">passthrough</span><span class="p">:</span>
-<span class="w">              </span><span class="nt">connection.autoconnect-priority</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;5&quot;</span>
-</pre></div>
-</div>
-<p>Higher <code class="docutils literal notranslate"><span class="pre">autoconnect-priority</span></code> wins when more than one network is in range: <code class="docutils literal notranslate"><span class="pre">ECE387</span></code> (lab) is preferred, then <code class="docutils literal notranslate"><span class="pre">AF_ACADEMY_GUEST</span></code> (internet), then <code class="docutils literal notranslate"><span class="pre">ECE</span></code> (backup internet).</p>
-<p><strong>c. Netplan config files must not be world-readable</strong> — they contain the WiFi passwords in plaintext. Ubuntu warns about this if permissions are too open:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>/etc/netplan/*.yaml
-</pre></div>
-</div>
-<p><strong>d. Apply and verify:</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>netplan<span class="w"> </span>apply
+<span class="c1"># Connect the external USB WiFi dongle to the internet network.</span>
+<span class="c1"># Replace wlx&lt;mac_of_dongle&gt; with the actual interface name (e.g., wlx00e04c360001)</span>
+nmcli<span class="w"> </span>dev<span class="w"> </span>wifi<span class="w"> </span>connect<span class="w"> </span><span class="s2">&quot;AFAcademy_Guest&quot;</span><span class="w"> </span>ifname<span class="w"> </span>wlx&lt;mac_of_dongle&gt;
 
-ip<span class="w"> </span>a<span class="w"> </span>show<span class="w"> </span>wlan1
-nmcli<span class="w"> </span>connection<span class="w"> </span>show<span class="w"> </span>--active
-ping<span class="w"> </span><span class="m">10</span>.99.1.50<span class="w">    </span><span class="c1"># login server, over ECE387</span>
-</pre></div>
-</div>
-<p><strong>e. Reconnecting to <code class="docutils literal notranslate"><span class="pre">ECE387</span></code> manually, if <code class="docutils literal notranslate"><span class="pre">wlan1</span></code> is currently on a lower-priority network</strong> (e.g. <code class="docutils literal notranslate"><span class="pre">ECE</span></code>) <strong>and <code class="docutils literal notranslate"><span class="pre">ECE387</span></code> comes back into range:</strong> NetworkManager doesn’t auto-preempt an active connection, so switch it by hand:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nmcli<span class="w"> </span>connection<span class="w"> </span>up<span class="w"> </span><span class="s2">&quot;ECE387&quot;</span>
-</pre></div>
-</div>
-<blockquote>
-<div><p><code class="docutils literal notranslate"><span class="pre">wlo1</span></code> is intentionally left out of this config — it stays free for students to join their robot’s AP each session via <code class="docutils literal notranslate"><span class="pre">nmcli</span> <span class="pre">dev</span> <span class="pre">wifi</span> <span class="pre">connect</span> <span class="pre">&quot;robot_XX_ap&quot;</span> <span class="pre">password</span> <span class="pre">&quot;...&quot;</span> <span class="pre">ifname</span> <span class="pre">wlo1</span></code>.</p>
-</div></blockquote>
-</section>
-</section>
-<hr class="docutils" />
-<section id="a-reconfiguring-an-existing-master-new-server-ip-wifi-setup">
-<h2>1a. Reconfiguring an Existing Master (New Server IP + WiFi Setup)<a class="headerlink" href="#a-reconfiguring-an-existing-master-new-server-ip-wifi-setup" title="Link to this heading">#</a></h2>
-<p>Use this on a master that was already set up under the old scheme (static Ethernet IP, server at <code class="docutils literal notranslate"><span class="pre">192.168.0.151</span></code>). It moves the master’s networking to the current setup — built-in adapter free for the robot AP, USB dongle (renamed to <code class="docutils literal notranslate"><span class="pre">wlan1</span></code>) on <code class="docutils literal notranslate"><span class="pre">ECE387</span></code>/<code class="docutils literal notranslate"><span class="pre">AF_ACADEMY_GUEST</span></code>/<code class="docutils literal notranslate"><span class="pre">ECE</span></code> — and points authentication and home directories at the login server’s new IP, <code class="docutils literal notranslate"><span class="pre">10.99.1.50</span></code>.</p>
-<section id="step-1-rename-the-usb-wifi-dongle-to-wlan1">
-<h3>Step 1: Rename the USB WiFi dongle to <code class="docutils literal notranslate"><span class="pre">wlan1</span></code><a class="headerlink" href="#step-1-rename-the-usb-wifi-dongle-to-wlan1" title="Link to this heading">#</a></h3>
-<p>Each master’s dongle has a different MAC address, so match by bus/type instead so the same config works on every machine:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/systemd/network/10-usb-wifi.link
-</pre></div>
-</div>
-<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[Match]</span>
-<span class="na">Type</span><span class="o">=</span><span class="s">wlan</span>
-<span class="na">Property</span><span class="o">=</span><span class="s">ID_BUS=usb</span>
+<span class="c1"># Make this connection reconnect automatically after every reboot</span>
+nmcli<span class="w"> </span>connection<span class="w"> </span>modify<span class="w"> </span><span class="s2">&quot;AFAcademy_Guest&quot;</span><span class="w"> </span>connection.autoconnect<span class="w"> </span>yes
 
-<span class="k">[Link]</span>
-<span class="na">Name</span><span class="o">=</span><span class="s">wlan1</span>
+<span class="c1"># The internal WiFi adapter is left for students to connect to their robot&#39;s</span>
+<span class="c1"># access point during lab — they configure this per-robot.</span>
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>udevadm<span class="w"> </span>control<span class="w"> </span>--reload
-sudo<span class="w"> </span>udevadm<span class="w"> </span>trigger<span class="w"> </span>--subsystem-match<span class="o">=</span>net<span class="w"> </span>--action<span class="o">=</span>add
-<span class="c1"># Unplug and replug the dongle (or reboot) so it re-enumerates as wlan1</span>
-</pre></div>
-</div>
-<p>Confirm:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ip<span class="w"> </span>a<span class="w">   </span><span class="c1"># should show wlan1 in place of the old wlx... name</span>
-</pre></div>
-</div>
-</section>
-<section id="step-2-configure-the-three-wifi-networks-on-wlan1">
-<h3>Step 2: Configure the three WiFi networks on <code class="docutils literal notranslate"><span class="pre">wlan1</span></code><a class="headerlink" href="#step-2-configure-the-three-wifi-networks-on-wlan1" title="Link to this heading">#</a></h3>
-<p>Ubuntu Desktop uses NetworkManager to manage networking, and netplan hands control to it. <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">/etc/netplan/</span></code> typically shows:</p>
-<div class="pst-scrollable-table-container"><table class="table">
-<thead>
-<tr class="row-odd"><th class="head"><p>File</p></th>
-<th class="head"><p>What it is</p></th>
-<th class="head"><p>Edit it?</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">01-network-manager-all.yaml</span></code></p></td>
-<td><p>Ships by default; tells netplan “let NetworkManager handle every interface.”</p></td>
-<td><p>No</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">90-NM-*.yaml</span></code> (one or more)</p></td>
-<td><p>Auto-generated by NetworkManager, one per connection profile. Rewritten automatically whenever a profile changes.</p></td>
-<td><p>No — hand edits get overwritten</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">50-cloud-init.yaml</span></code></p></td>
-<td><p>Written by the installer at provisioning. This is the one to edit.</p></td>
-<td><p><strong>Yes</strong></p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/netplan/50-cloud-init.yaml
-</pre></div>
-</div>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">network</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
-<span class="w">  </span><span class="nt">renderer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NetworkManager</span>
-<span class="w">  </span><span class="nt">wifis</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">wlan1</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">dhcp4</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">      </span><span class="nt">access-points</span><span class="p">:</span>
-<span class="w">        </span><span class="s">&quot;ECE387&quot;</span><span class="p p-Indicator">:</span>
-<span class="w">          </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ece387only&quot;</span>
-<span class="w">          </span><span class="nt">networkmanager</span><span class="p">:</span>
-<span class="w">            </span><span class="nt">passthrough</span><span class="p">:</span>
-<span class="w">              </span><span class="nt">connection.autoconnect-priority</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;20&quot;</span>
-<span class="w">        </span><span class="s">&quot;AF_ACADEMY_GUEST&quot;</span><span class="p p-Indicator">:</span>
-<span class="w">          </span><span class="nt">networkmanager</span><span class="p">:</span>
-<span class="w">            </span><span class="nt">passthrough</span><span class="p">:</span>
-<span class="w">              </span><span class="nt">connection.autoconnect-priority</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10&quot;</span>
-<span class="w">        </span><span class="s">&quot;ECE&quot;</span><span class="p p-Indicator">:</span>
-<span class="w">          </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;dfec3141&quot;</span>
-<span class="w">          </span><span class="nt">networkmanager</span><span class="p">:</span>
-<span class="w">            </span><span class="nt">passthrough</span><span class="p">:</span>
-<span class="w">              </span><span class="nt">connection.autoconnect-priority</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;5&quot;</span>
-</pre></div>
-</div>
-<p>This replaces whatever was in the file before (old static Ethernet config, or an old home-WiFi profile) — all three networks use DHCP, with <code class="docutils literal notranslate"><span class="pre">ECE387</span></code> preferred, then <code class="docutils literal notranslate"><span class="pre">AF_ACADEMY_GUEST</span></code>, then <code class="docutils literal notranslate"><span class="pre">ECE</span></code> as backup.</p>
-<p>Netplan files contain the WiFi passwords in plaintext, so fix permissions (Ubuntu will warn on <code class="docutils literal notranslate"><span class="pre">netplan</span> <span class="pre">apply</span></code> if this isn’t done):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>/etc/netplan/*.yaml
-</pre></div>
-</div>
-<p>Apply and confirm:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>netplan<span class="w"> </span>apply
-
-ip<span class="w"> </span>a<span class="w"> </span>show<span class="w"> </span>wlan1
-nmcli<span class="w"> </span>connection<span class="w"> </span>show<span class="w"> </span>--active
-ping<span class="w"> </span><span class="m">10</span>.99.1.1<span class="w">     </span><span class="c1"># the router</span>
-ping<span class="w"> </span><span class="m">10</span>.99.1.50<span class="w">    </span><span class="c1"># the login server</span>
-</pre></div>
-</div>
-<p>Stop cloud-init from reverting this file on the next boot:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
-</pre></div>
-</div>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">network</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">config</span><span class="p">:</span><span class="w"> </span><span class="nv">disabled</span><span class="p p-Indicator">}</span>
-</pre></div>
-</div>
-<p>If <code class="docutils literal notranslate"><span class="pre">wlan1</span></code> later connects to a lower-priority network (e.g. <code class="docutils literal notranslate"><span class="pre">ECE</span></code>) and <code class="docutils literal notranslate"><span class="pre">ECE387</span></code> becomes available again, NetworkManager won’t auto-switch — reconnect manually:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nmcli<span class="w"> </span>connection<span class="w"> </span>up<span class="w"> </span><span class="s2">&quot;ECE387&quot;</span>
-</pre></div>
-</div>
-<blockquote>
-<div><p><code class="docutils literal notranslate"><span class="pre">wlo1</span></code> (built-in) is intentionally left unconfigured — students point it at their robot’s AP each session via <code class="docutils literal notranslate"><span class="pre">nmcli</span> <span class="pre">dev</span> <span class="pre">wifi</span> <span class="pre">connect</span> <span class="pre">&quot;robot_XX_ap&quot;</span> <span class="pre">password</span> <span class="pre">&quot;...&quot;</span> <span class="pre">ifname</span> <span class="pre">wlo1</span></code>.</p>
-</div></blockquote>
-</section>
-<section id="step-3-point-sssd-at-the-new-login-server-ip">
-<h3>Step 3: Point SSSD at the new login server IP<a class="headerlink" href="#step-3-point-sssd-at-the-new-login-server-ip" title="Link to this heading">#</a></h3>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/sssd/sssd.conf
-</pre></div>
-</div>
-<p>Change the <code class="docutils literal notranslate"><span class="pre">ldap_uri</span></code> line to:</p>
-<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="na">ldap_uri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">ldap://10.99.1.50</span>
-</pre></div>
-</div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Restart SSSD and clear its cache so it doesn&#39;t hold onto the old server&#39;s stale data</span>
-sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>sssd
-sudo<span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/lib/sss/db/*
-sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>sssd
-sleep<span class="w"> </span><span class="m">5</span>
-
-<span class="c1"># Test: should return the student&#39;s uid/gid, confirming the new LDAP URI works</span>
-id<span class="w"> </span>a27-m0
-</pre></div>
-</div>
-</section>
-<section id="step-4-point-autofs-at-the-new-login-server-ip">
-<h3>Step 4: Point autofs at the new login server IP<a class="headerlink" href="#step-4-point-autofs-at-the-new-login-server-ip" title="Link to this heading">#</a></h3>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/auto.students
-</pre></div>
-</div>
-<p>Update the NFS source IP:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*</span>  <span class="o">-</span><span class="n">fstype</span><span class="o">=</span><span class="n">nfs</span><span class="p">,</span><span class="n">soft</span><span class="p">,</span><span class="n">timeo</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span><span class="n">retrans</span><span class="o">=</span><span class="mi">2</span>  <span class="mf">10.99.1.50</span><span class="p">:</span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">students</span><span class="o">/&amp;</span>
-</pre></div>
-</div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>autofs
-
-<span class="c1"># Test: home directory should mount automatically</span>
-sudo<span class="w"> </span>su<span class="w"> </span>-<span class="w"> </span>a27-m0
-<span class="nb">pwd</span>
-<span class="nb">exit</span>
-</pre></div>
-</div>
-</section>
-<section id="step-5-confirm-mdns-hostname-resolution">
-<h3>Step 5: Confirm mDNS hostname resolution<a class="headerlink" href="#step-5-confirm-mdns-hostname-resolution" title="Link to this heading">#</a></h3>
-<p>Since the master’s IP can change on every DHCP renewal, other machines (including the login server, for Ansible) reach it by hostname instead:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Confirm avahi-daemon is running (ships by default on Ubuntu Desktop)</span>
-systemctl<span class="w"> </span>status<span class="w"> </span>avahi-daemon
-
-<span class="c1"># From another machine on the ECE387 network, confirm this master answers:</span>
-ping<span class="w"> </span>masterNN.local<span class="w">    </span><span class="c1"># replace NN with this machine&#39;s number, e.g. master03.local</span>
-</pre></div>
-</div>
-<p>If you’re reconfiguring all 14 masters, repeat Steps 1–2 on each (the <code class="docutils literal notranslate"><span class="pre">.link</span></code> file and <code class="docutils literal notranslate"><span class="pre">50-cloud-init.yaml</span></code> are identical across machines, so these can be pushed via Ansible too), and push Steps 3–4 via the Ansible playbook in <a class="reference internal" href="#4-ansible-automation-recommended-for-14-machines"><span class="xref myst">Section 4</span></a>. Do Steps 1–2 carefully if working over SSH — a network change can drop the connection mid-command if it affects the interface your SSH session is using.</p>
 </section>
 </section>
 <hr class="docutils" />
@@ -976,13 +772,13 @@ git<span class="w"> </span>clone<span class="w"> </span>https://github.com/&lt;u
 <span class="nb">cd</span><span class="w"> </span>~/ros2_ws<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>colcon<span class="w"> </span>build
 </pre></div>
 </div>
-<p>AF_ACADEMY_GUEST WiFi provides internet access independently of the ECE lab network, so GitHub is reachable even when the login server is not.</p>
+<p>AFAcademy_Guest WiFi provides internet access independently of the ECE lab network, so GitHub is reachable even when the login server is not.</p>
 </section>
 <section id="option-2-soft-nfs-mounts">
 <h3>Option 2: Soft NFS Mounts<a class="headerlink" href="#option-2-soft-nfs-mounts" title="Link to this heading">#</a></h3>
 <p>Without <code class="docutils literal notranslate"><span class="pre">soft</span></code>, a failed NFS mount causes the accessing process to hang indefinitely — the terminal freezes and the student cannot do anything. <code class="docutils literal notranslate"><span class="pre">soft</span></code> mounts fail fast instead, so the student gets an error message rather than a frozen session.</p>
 <p>This is already included in the <code class="docutils literal notranslate"><span class="pre">/etc/auto.students</span></code> configuration in Section 1.4:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*</span>  <span class="o">-</span><span class="n">fstype</span><span class="o">=</span><span class="n">nfs</span><span class="p">,</span><span class="n">soft</span><span class="p">,</span><span class="n">timeo</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span><span class="n">retrans</span><span class="o">=</span><span class="mi">2</span>  <span class="mf">10.99.1.50</span><span class="p">:</span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">students</span><span class="o">/&amp;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*</span>  <span class="o">-</span><span class="n">fstype</span><span class="o">=</span><span class="n">nfs</span><span class="p">,</span><span class="n">soft</span><span class="p">,</span><span class="n">timeo</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span><span class="n">retrans</span><span class="o">=</span><span class="mi">2</span>  <span class="mf">192.168.0.151</span><span class="p">:</span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">students</span><span class="o">/&amp;</span>
 </pre></div>
 </div>
 <p>If you need to change this after initial setup, edit the file and restart autofs:</p>
@@ -996,7 +792,7 @@ git<span class="w"> </span>clone<span class="w"> </span>https://github.com/&lt;u
 <h2>3. Student Workflow<a class="headerlink" href="#student-workflow" title="Link to this heading">#</a></h2>
 <p>When a student moves to a different station:</p>
 <ol class="arabic">
-<li><p>Log in with their LDAP username (e.g., <code class="docutils literal notranslate"><span class="pre">a27-m0</span></code>) and password — SSSD authenticates against the login server and their home directory mounts automatically via NFS.</p></li>
+<li><p>Log in with their LDAP username (e.g., <code class="docutils literal notranslate"><span class="pre">a27-01</span></code>) and password — SSSD authenticates against the login server and their home directory mounts automatically via NFS.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">.bashrc</span></code>, <code class="docutils literal notranslate"><span class="pre">.ssh/</span></code>, and workspace files are immediately available — no re-setup needed.</p></li>
 <li><p>Connect to their robot:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Connect the internal WiFi adapter to the robot&#39;s access point</span>
@@ -1017,34 +813,24 @@ ssh<span class="w"> </span>ubuntu@10.42.0.1
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install Ansible on the login server</span>
 sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>ansible
 
-<span class="c1"># The login server is Ubuntu Server, which — unlike Ubuntu Desktop — does NOT</span>
-<span class="c1"># ship with mDNS resolution by default. Install it so *.local hostnames resolve:</span>
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>avahi-daemon<span class="w"> </span>libnss-mdns
-sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>avahi-daemon
-
-<span class="c1"># Quick check: this should resolve to master01&#39;s current DHCP IP</span>
-ping<span class="w"> </span>-c<span class="w"> </span><span class="m">1</span><span class="w"> </span>master01.local
-
-<span class="c1"># Create an inventory file listing all master computers.</span>
-<span class="c1"># Masters now get dynamic IPs from the WiFi router, so we address them by</span>
-<span class="c1"># their mDNS hostname (masterNN.local) instead of a static IP — this still</span>
-<span class="c1"># resolves correctly even after a reboot changes the machine&#39;s DHCP lease.</span>
+<span class="c1"># Create an inventory file listing all master computers</span>
+<span class="c1"># Ansible reads this to know which machines to configure</span>
 cat<span class="w"> </span>&gt;<span class="w"> </span>~/Documents/ece387/masters-inventory.ini<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
 <span class="s">[masters]</span>
-<span class="s">master01 ansible_host=master01.local</span>
-<span class="s">master02 ansible_host=master02.local</span>
-<span class="s">master03 ansible_host=master03.local</span>
-<span class="s">master04 ansible_host=master04.local</span>
-<span class="s">master05 ansible_host=master05.local</span>
-<span class="s">master06 ansible_host=master06.local</span>
-<span class="s">master07 ansible_host=master07.local</span>
-<span class="s">master08 ansible_host=master08.local</span>
-<span class="s">master09 ansible_host=master09.local</span>
-<span class="s">master10 ansible_host=master10.local</span>
-<span class="s">master11 ansible_host=master11.local</span>
-<span class="s">master12 ansible_host=master12.local</span>
-<span class="s">master13 ansible_host=master13.local</span>
-<span class="s">master14 ansible_host=master14.local</span>
+<span class="s">master01 ansible_host=192.168.0.101</span>
+<span class="s">master02 ansible_host=192.168.0.102</span>
+<span class="s">master03 ansible_host=192.168.0.103</span>
+<span class="s">master04 ansible_host=192.168.0.104</span>
+<span class="s">master05 ansible_host=192.168.0.105</span>
+<span class="s">master06 ansible_host=192.168.0.106</span>
+<span class="s">master07 ansible_host=192.168.0.107</span>
+<span class="s">master08 ansible_host=192.168.0.108</span>
+<span class="s">master09 ansible_host=192.168.0.109</span>
+<span class="s">master10 ansible_host=192.168.0.110</span>
+<span class="s">master11 ansible_host=192.168.0.111</span>
+<span class="s">master12 ansible_host=192.168.0.112</span>
+<span class="s">master13 ansible_host=192.168.0.113</span>
+<span class="s">master14 ansible_host=192.168.0.114</span>
 
 <span class="s">[masters:vars]</span>
 <span class="s">ansible_user=ece387admin</span>
@@ -1061,11 +847,10 @@ ansible-playbook<span class="w"> </span>-i<span class="w"> </span>~/Documents/ec
 <h2>5. Maintenance<a class="headerlink" href="#maintenance" title="Link to this heading">#</a></h2>
 <section id="check-who-is-logged-in-across-all-masters">
 <h3>Check who is logged in across all masters<a class="headerlink" href="#check-who-is-logged-in-across-all-masters" title="Link to this heading">#</a></h3>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># SSH into each master by its mDNS hostname and run &#39;who&#39; to see logged-in users.</span>
-<span class="c1"># masterNN.local resolves regardless of the master&#39;s current DHCP-assigned IP.</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># SSH into each master and run &#39;who&#39; to see logged-in users</span>
 <span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>seq<span class="w"> </span>-w<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">14</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
 <span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== master</span><span class="nv">$i</span><span class="s2"> ===&quot;</span>
-<span class="w">  </span>ssh<span class="w"> </span>ece387admin@master<span class="nv">$i</span>.local<span class="w"> </span>who<span class="w"> </span><span class="m">2</span>&gt;/dev/null
+<span class="w">  </span>ssh<span class="w"> </span>ece387admin@192.168.1.1<span class="k">$(</span><span class="nb">printf</span><span class="w"> </span><span class="s1">&#39;%02d&#39;</span><span class="w"> </span><span class="k">$((</span><span class="m">10#</span><span class="nv">$i</span><span class="k">)))</span><span class="w"> </span>who<span class="w"> </span><span class="m">2</span>&gt;/dev/null
 <span class="k">done</span>
 </pre></div>
 </div>
@@ -1087,11 +872,11 @@ ansible-playbook<span class="w"> </span>-i<span class="w"> </span>~/Documents/ec
 <td><p>Check NFS exports on server, autofs config on master, server reachable</p></td>
 </tr>
 <tr class="row-odd"><td><p>SSSD not resolving users</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">sssctl</span> <span class="pre">user-checks</span> <span class="pre">a27-m0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sssctl</span> <span class="pre">user-checks</span> <span class="pre">a27-01</span></code></p></td>
 <td><p>Restart sssd: <code class="docutils literal notranslate"><span class="pre">systemctl</span> <span class="pre">restart</span> <span class="pre">sssd</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p>NFS mount fails</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">showmount</span> <span class="pre">-e</span> <span class="pre">10.99.1.50</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">showmount</span> <span class="pre">-e</span> <span class="pre">192.168.0.151</span></code></p></td>
 <td><p>Check firewall on server; verify <code class="docutils literal notranslate"><span class="pre">nfs-server</span></code> is running</p></td>
 </tr>
 <tr class="row-odd"><td><p>Login hangs (no soft mount)</p></td>
@@ -1100,11 +885,7 @@ ansible-playbook<span class="w"> </span>-i<span class="w"> </span>~/Documents/ec
 </tr>
 <tr class="row-even"><td><p>Login slow (~30s)</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">journalctl</span> <span class="pre">-u</span> <span class="pre">sssd</span></code></p></td>
-<td><p>Check LDAP URI is reachable: <code class="docutils literal notranslate"><span class="pre">ping</span> <span class="pre">10.99.1.50</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p>Can’t reach a master by hostname</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">ping</span> <span class="pre">masterNN.local</span></code></p></td>
-<td><p>Check <code class="docutils literal notranslate"><span class="pre">avahi-daemon</span></code> is running on both machines: <code class="docutils literal notranslate"><span class="pre">systemctl</span> <span class="pre">status</span> <span class="pre">avahi-daemon</span></code></p></td>
+<td><p>Check LDAP URI is reachable: <code class="docutils literal notranslate"><span class="pre">ping</span> <span class="pre">192.168.0.151</span></code></p></td>
 </tr>
 </tbody>
 </table>
@@ -1143,24 +924,6 @@ ansible-playbook<span class="w"> </span>-i<span class="w"> </span>~/Documents/ec
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
-    <a class="left-prev"
-       href="login-server.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Login Server Setup</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="MasterSetupJazzy.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">🔧 Master Setup — Standalone</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
 </div>
                 </footer>
               
@@ -1185,14 +948,6 @@ ansible-playbook<span class="w"> </span>-i<span class="w"> </span>~/Documents/ec
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mount-nfs-home-directories">1.4 Mount NFS Home Directories</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grant-students-restricted-sudo-access">1.5 Grant Students Restricted sudo Access</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configure-wifi-interfaces">1.6 Configure WiFi Interfaces</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-reconfiguring-an-existing-master-new-server-ip-wifi-setup">1a. Reconfiguring an Existing Master (New Server IP + WiFi Setup)</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-rename-the-usb-wifi-dongle-to-wlan1">Step 1: Rename the USB WiFi dongle to <code class="docutils literal notranslate"><span class="pre">wlan1</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-configure-the-three-wifi-networks-on-wlan1">Step 2: Configure the three WiFi networks on <code class="docutils literal notranslate"><span class="pre">wlan1</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-point-sssd-at-the-new-login-server-ip">Step 3: Point SSSD at the new login server IP</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-point-autofs-at-the-new-login-server-ip">Step 4: Point autofs at the new login server IP</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-5-confirm-mdns-hostname-resolution">Step 5: Confirm mDNS hostname resolution</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resilience-server-down-or-network-unreliable">2. Resilience — Server Down or Network Unreliable</a><ul class="nav section-nav flex-column">

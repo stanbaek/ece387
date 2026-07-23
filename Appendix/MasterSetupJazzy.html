@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>🔧 Master Computer Setup — Standalone (No Login Server) &#8212; Introduction to Robotic Systems</title>
+    <title>🔧 Master Setup — Standalone &#8212; Introduction to Robotic Systems</title>
   
   
   
@@ -64,7 +64,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="🔧 Git Repo Setup" href="GitSetup.html" />
-    <link rel="prev" title="🔧 Robot Setup (ROS2 Jazzy)" href="RobotSetupJazzy.html" />
+    <link rel="prev" title="Master (Client) Setup" href="login-client.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -214,7 +214,9 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendix</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="RobotSetupJazzy.html">🔧 Robot Setup (ROS2 Jazzy)</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">🔧 Master Computer Setup — Standalone (No Login Server)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="login-server.html">Login Server Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="login-client.html">Master (Client) Setup</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">🔧 Master Setup — Standalone</a></li>
 <li class="toctree-l1"><a class="reference internal" href="GitSetup.html">🔧 Git Repo Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="GamepadSetup.html">🔧 Gamepad Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="RobotSetupHumble.html">🔧 Robot Setup (ROS2 Humble)</a></li>
@@ -404,7 +406,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>🔧 Master Computer Setup — Standalone (No Login Server)</h1>
+    <h1>🔧 Master Setup — Standalone</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -439,8 +441,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="master-computer-setup-standalone-no-login-server">
-<h1>🔧 Master Computer Setup — Standalone (No Login Server)<a class="headerlink" href="#master-computer-setup-standalone-no-login-server" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="master-setup-standalone">
+<h1>🔧 Master Setup — Standalone<a class="headerlink" href="#master-setup-standalone" title="Link to this heading">#</a></h1>
 <p>This guide walks through installing Ubuntu Desktop 24.04 LTS, ROS 2 Jazzy, and all dependencies on a standalone desktop computer with a single local Ubuntu account. This computer system is utilized in the United States Air Force Academy’s Electrical and Computer Engineering department in an embedded network with the ground robot, a TurtleBot3 Burger. The master system is used to run ROS GUI tools and create secure connections with the TurtleBot3.</p>
 <blockquote>
 <div><p>Use this guide for a single master with a local Ubuntu account. If you are setting up the centralized multi-student lab (shared logins across many masters), see <a class="reference internal" href="login-server.html"><span class="std std-doc">login-server.md</span></a> and <a class="reference internal" href="login-client.html"><span class="std std-doc">login-client.md</span></a> instead.</p>
@@ -637,12 +639,12 @@ sudo<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> <
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="RobotSetupJazzy.html"
+       href="login-client.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">🔧 Robot Setup (ROS2 Jazzy)</p>
+        <p class="prev-next-title">Master (Client) Setup</p>
       </div>
     </a>
     <a class="right-next"

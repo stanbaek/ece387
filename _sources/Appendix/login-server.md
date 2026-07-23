@@ -1,4 +1,4 @@
-# ECE 387 Login Server Setup
+# Login Server Setup
 
 This guide covers setting up the **login server** — the machine that hosts OpenLDAP (user accounts) and NFS (shared home directories) for the lab. It is one of three companion guides:
 
@@ -60,17 +60,19 @@ A login server (OpenLDAP + SSSD + NFS) is only worth the setup effort in one spe
 
 ## Network Planning
 
-Assign static IPs on your lab's Ethernet network before starting. All machines must be on the same subnet so they can reach each other.
+Assign static IPs on your lab's network before starting. All machines must be on the same subnet so they can reach each other.
+
+**Lab network:** WiFi router at `10.99.1.1`, SSID `ece387only`, subnet `10.99.1.0/24`.
 
 | Host | Hostname | IP |
 |------|----------|----|
-| Login Server | `ece387server` | `192.168.0.151` |
-| Master 01 | `master01` | `192.168.0.101` |
-| Master 02 | `master02` | `192.168.0.102` |
+| Login Server | `ece387server` | `10.99.1.50` |
+| Master 01 | `master01` | `10.99.1.101` |
+| Master 02 | `master02` | `10.99.1.102` |
 | ... | ... | ... |
-| Master 14 | `master14` | `192.168.0.114` |
+| Master 14 | `master14` | `10.99.1.114` |
 
-> The login server IP (`192.168.0.151`) reflects the home test setup. In the AFA lab, adjust all IPs to match the actual lab subnet. This guide uses the domain `ece387.local`.
+> The login server IP (`10.99.1.50`) is the AFA lab address, reachable over the `ece387only` WiFi network at `10.99.1.1`. Master IPs above (`10.99.1.101`–`114`) are a suggested continuation of that range — adjust if you assign them differently. This guide uses the domain `ece387.local`.
 
 ---
 
@@ -97,7 +99,12 @@ mkdir -p ~/Documents/ece387
 # Find your ethernet interface name (look for something like enp86s0 or eno1)
 ip a
 
-sudo nano /etc/netplan/00-installer-config.yaml
+# On Ubuntu Server installs, the netplan file created by cloud-init is
+# usually 50-cloud-init.yaml, not 00-installer-config.yaml. Check which one
+# exists on your machine first:
+ls /etc/netplan/
+
+sudo nano /etc/netplan/50-cloud-init.yaml
 ```
 
 ```yaml
@@ -106,10 +113,10 @@ network:
   ethernets:
     enp86s0:                      # replace with your actual interface name
       dhcp4: false
-      addresses: [192.168.0.151/24]
+      addresses: [10.99.1.50/24]
       routes:
         - to: default
-          via: 192.168.0.1        # your router IP (home: 192.168.0.1, lab: adjust accordingly)
+          via: 10.99.1.1          # WiFi router IP (ece387only)
       nameservers:
         addresses: [8.8.8.8, 8.8.4.4]
 ```
@@ -118,6 +125,15 @@ network:
 # Apply the network config — takes effect immediately without rebooting
 sudo netplan apply
 ```
+
+> **Careful with `50-cloud-init.yaml`:** cloud-init regenerates this file on every boot by default, which can silently revert your static IP back to DHCP after a reboot. To make the change stick, disable cloud-init's network management:
+> ```bash
+> sudo nano /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
+> ```
+> ```yaml
+> network: {config: disabled}
+> ```
+> This only stops cloud-init from touching networking on future boots — it does not affect the netplan file you just edited.
 
 ### 1.2 Set Hostname and /etc/hosts
 
@@ -135,7 +151,7 @@ sudo nano /etc/hosts
 The file should contain:
 ```
 127.0.0.1   localhost
-192.168.0.151  ece387server.ece387.local  ece387server
+10.99.1.50  ece387server.ece387.local  ece387server
 ```
 
 > `ece387server.ece387.local` is the fully qualified domain name (FQDN): machine name + domain. `ece387.local` is a private domain that exists only within your lab network — it is not registered on the public internet.
@@ -297,11 +313,13 @@ done
 
 ### 1.6 Create Student Accounts
 
-Student IDs follow the pattern `a27-01` through `a27-30`. The script below:
+Student IDs follow two series this term: `a27-m0` through `a27-m30` (31 accounts) and `a27-t0` through `a27-t30` (31 accounts) — 62 accounts total. The script below:
 1. Generates a hashed password for all accounts
-2. Builds a single LDIF file with all 30 user entries
+2. Builds a single LDIF file with all 62 user entries
 3. Creates each student's home directory on the server and populates it with the course `.bashrc`
 4. Adds all accounts to LDAP in one command
+
+UID numbers are split into two non-overlapping ranges so the two series never collide: `m` series uses `20000`–`20030`, `t` series uses `21000`–`21030`.
 
 ```bash
 cat > ~/Documents/ece387/create_students.sh << 'EOF'
@@ -322,17 +340,20 @@ HASH=$(slappasswd -s "$INITIAL_PW")
 # Clear the LDIF file if it already exists from a previous run
 > $LDIF
 
-# Loop from 01 to 30, creating one LDAP entry per student
-for i in $(seq -w 1 30); do
-  USERNAME="a27-${i}"
+# Two username series this term: a27-m0..a27-m30 and a27-t0..a27-t30.
+# UID_BASE keeps the two series in separate, non-overlapping ranges.
+create_series() {
+  local PREFIX=$1     # "m" or "t"
+  local UID_BASE=$2   # 20000 for m-series, 21000 for t-series
 
-  # UID numbers must be unique integers. We use 10001–10030.
-  # "10#$i" forces base-10 interpretation so "08" isn't treated as octal.
-  UID_NUMBER=$((10000 + 10#$i))
+  # Loop from 0 to 30, creating one LDAP entry per student
+  for i in $(seq 0 30); do
+    USERNAME="a27-${PREFIX}${i}"
+    UID_NUMBER=$((UID_BASE + i))
 
-  # Append this student's entry to the LDIF file.
-  # Each entry is separated by a blank line (required by LDIF format).
-  cat >> $LDIF << ENTRY
+    # Append this student's entry to the LDIF file.
+    # Each entry is separated by a blank line (required by LDIF format).
+    cat >> $LDIF << ENTRY
 dn: uid=${USERNAME},ou=students,dc=ece387,dc=local
 objectClass: inetOrgPerson
 objectClass: posixAccount
@@ -348,29 +369,33 @@ userPassword: ${HASH}
 
 ENTRY
 
-  # Create the student's home directory on the NFS share.
-  # /etc/skel contains default files (.bashrc, .profile, etc.) that are
-  # copied into every new home directory.
-  sudo mkdir -p /home/students/${USERNAME}
-  sudo cp -r /etc/skel/. /home/students/${USERNAME}/
+    # Create the student's home directory on the NFS share.
+    # /etc/skel contains default files (.bashrc, .profile, etc.) that are
+    # copied into every new home directory.
+    sudo mkdir -p /home/students/${USERNAME}
+    sudo cp -r /etc/skel/. /home/students/${USERNAME}/
 
-  # Copy course config templates
-  sudo cp /etc/ece387/bashrc_template /home/students/${USERNAME}/.bashrc
-  sudo cp /etc/ece387/inputrc_template /home/students/${USERNAME}/.inputrc
+    # Copy course config templates
+    sudo cp /etc/ece387/bashrc_template /home/students/${USERNAME}/.bashrc
+    sudo cp /etc/ece387/inputrc_template /home/students/${USERNAME}/.inputrc
 
-  # Create an empty .bashrc_personal for student customizations (robot IP, aliases, etc.)
-  # This file is sourced at the end of .bashrc and is never overwritten by the instructor.
-  sudo touch /home/students/${USERNAME}/.bashrc_personal
+    # Create an empty .bashrc_personal for student customizations (robot IP, aliases, etc.)
+    # This file is sourced at the end of .bashrc and is never overwritten by the instructor.
+    sudo touch /home/students/${USERNAME}/.bashrc_personal
 
-  # Set ownership to the student's UID and the shared group GID (10000).
-  # chmod 700 means only the student can read/write their own directory.
-  sudo chown -R ${UID_NUMBER}:10000 /home/students/${USERNAME}
-  sudo chmod 700 /home/students/${USERNAME}
+    # Set ownership to the student's UID and the shared group GID (10000).
+    # chmod 700 means only the student can read/write their own directory.
+    sudo chown -R ${UID_NUMBER}:10000 /home/students/${USERNAME}
+    sudo chmod 700 /home/students/${USERNAME}
 
-  echo "Prepared: ${USERNAME} (uid=${UID_NUMBER})"
-done
+    echo "Prepared: ${USERNAME} (uid=${UID_NUMBER})"
+  done
+}
 
-# Add all 30 entries to LDAP in a single operation.
+create_series "m" 20000
+create_series "t" 21000
+
+# Add all 62 entries to LDAP in a single operation.
 # -w = password (non-interactive, read from argument)
 ldapadd -x -H ldap://localhost \
   -D "$LDAP_ADMIN_DN" \
@@ -378,7 +403,7 @@ ldapadd -x -H ldap://localhost \
   -f $LDIF
 
 echo ""
-echo "Done. 30 student accounts created."
+echo "Done. 62 student accounts created (a27-m0..m30, a27-t0..t30)."
 EOF
 
 # Make the script executable, then run it
@@ -390,7 +415,7 @@ Verify all accounts were created:
 
 ```bash
 # Search the LDAP students OU and list just the uid field.
-# You should see uid: a27-01 through uid: a27-30.
+# You should see uid: a27-m0 through uid: a27-m30, and uid: a27-t0 through uid: a27-t30.
 ldapsearch -x -H ldap://localhost \
   -b "ou=students,dc=ece387,dc=local" \
   -D "cn=admin,dc=ece387,dc=local" \
@@ -406,7 +431,7 @@ NFS (Network File System) lets the master computers mount the server's `/home/st
 sudo apt install -y nfs-kernel-server
 
 # Create the parent directory that holds all student home directories.
-# Individual student dirs (a27-01, a27-02, ...) were already created in 1.6.
+# Individual student dirs (a27-m0, a27-m1, ..., a27-t0, a27-t1, ...) were already created in 1.6.
 sudo mkdir -p /home/students
 sudo chmod 755 /home/students
 ```
@@ -418,14 +443,14 @@ sudo nano /etc/exports
 ```
 
 ```
-# Share /home/students with all machines on the 192.168.0.0/24 subnet.
+# Share /home/students with all machines on the 10.99.1.0/24 subnet.
 # rw             = read and write access
 # sync           = write data to disk before acknowledging — safer than async
 # no_subtree_check = disables subtree checking, improves reliability
 # no_root_squash = allows root on clients to act as root here (needed for
 #                  creating/chowning files during setup)
-/home/students  192.168.0.0/24(rw,sync,no_subtree_check,no_root_squash)
-# Note: adjust subnet to match your lab network (e.g., 192.168.0.0/24 for home testing)
+/home/students  10.99.1.0/24(rw,sync,no_subtree_check,no_root_squash)
+# Note: this matches the ece387only WiFi router subnet (10.99.1.0/24)
 ```
 
 ```bash
@@ -458,7 +483,7 @@ sudo ufw allow 111/tcp
 sudo ufw allow 111/udp
 
 # Allow all traffic from the lab subnet
-sudo ufw allow from 192.168.0.0/24
+sudo ufw allow from 10.99.1.0/24
 
 # Enable the firewall
 sudo ufw enable
@@ -466,6 +491,14 @@ sudo ufw enable
 # Verify the rules
 sudo ufw status
 ```
+
+> **Reconfiguring an already-running server:** if `sudo ufw status` still shows an old subnet (e.g. `192.168.1.0/24`) from a previous setup, `ufw allow` won't replace it — the old rule stays active alongside the new one. Remove it explicitly:
+> ```bash
+> sudo ufw status numbered      # find the rule number for the old subnet
+> sudo ufw delete <number>      # delete it
+> sudo ufw allow from 10.99.1.0/24
+> sudo ufw status
+> ```
 
 Once the server is up, continue to [login-client.md](login-client.md) to configure each master to authenticate against it.
 
@@ -489,42 +522,131 @@ slappasswd -s NewStudentPass!
 # Copy the {SSHA}... output
 
 # Step 2: Add the account to LDAP
-# Use uidNumber 10031 (or the next available number after your existing students)
+# Use the next free uidNumber in the right series:
+#   m series (a27-m0..m30):  20000-20030
+#   t series (a27-t0..t30):  21000-21030
+# e.g. a new t-series student a27-t31 gets uidNumber 21031
 ldapadd -x -H ldap://localhost \
   -D "cn=admin,dc=ece387,dc=local" -W << 'EOF'
-dn: uid=a27-31,ou=students,dc=ece387,dc=local
+dn: uid=a27-t31,ou=students,dc=ece387,dc=local
 objectClass: inetOrgPerson
 objectClass: posixAccount
 objectClass: shadowAccount
-uid: a27-31
-cn: a27-31
-sn: a27-31
-uidNumber: 10031
+uid: a27-t31
+cn: a27-t31
+sn: a27-t31
+uidNumber: 21031
 gidNumber: 10000
-homeDirectory: /home/students/a27-31
+homeDirectory: /home/students/a27-t31
 loginShell: /bin/bash
 userPassword: {SSHA}PASTE_HASH_HERE
 EOF
 
 # Step 3: Create the home directory on the server
-sudo mkdir -p /home/students/a27-31
-sudo cp -r /etc/skel/. /home/students/a27-31/
-sudo cp /etc/ece387/bashrc_template /home/students/a27-31/.bashrc
-sudo cp /etc/ece387/inputrc_template /home/students/a27-31/.inputrc
-sudo touch /home/students/a27-31/.bashrc_personal
-sudo chown -R 10031:10000 /home/students/a27-31
-sudo chmod 700 /home/students/a27-31
+sudo mkdir -p /home/students/a27-t31
+sudo cp -r /etc/skel/. /home/students/a27-t31/
+sudo cp /etc/ece387/bashrc_template /home/students/a27-t31/.bashrc
+sudo cp /etc/ece387/inputrc_template /home/students/a27-t31/.inputrc
+sudo touch /home/students/a27-t31/.bashrc_personal
+sudo chown -R 21031:10000 /home/students/a27-t31
+sudo chmod 700 /home/students/a27-t31
 ```
 
 ### Reset a student password
 
 ```bash
-# Replace a27-01 with the student's username, and set the new password with -s
+# Replace a27-m0 with the student's username, and set the new password with -s
 ldappasswd -H ldap://localhost \
   -D "cn=admin,dc=ece387,dc=local" \
   -W -s NewPassword! \
-  "uid=a27-01,ou=students,dc=ece387,dc=local"
+  "uid=a27-m0,ou=students,dc=ece387,dc=local"
 ```
+
+### Remove all students for a class year (year-end rollover)
+
+Class-year prefixes change every year (`a27` = class of 2027, `a28` = class of 2028, etc.). Run this once at the start of a new year, right before running `create_students.sh` for the incoming class. It takes a prefix, backs up the LDAP database and matching home directories first, then deletes the LDAP entries and home directories for every account matching that prefix (both `m` and `t` series, since they share the same `a27-*` prefix).
+
+```bash
+cat > ~/Documents/ece387/remove_students.sh << 'EOF'
+#!/bin/bash
+# Removes ALL student accounts for a given class-year prefix (e.g. a27)
+# and deletes their home directories. Backs up LDAP + home dirs first.
+set -e
+
+if [ -z "$1" ]; then
+  echo "Usage: $0 <prefix>   e.g. $0 a27"
+  exit 1
+fi
+
+PREFIX=$1
+LDAP_ADMIN_DN="cn=admin,dc=ece387,dc=local"
+LDAP_ADMIN_PW="LdapAdmin387!"    # your LDAP admin password
+BASE_DN="ou=students,dc=ece387,dc=local"
+
+echo "This will PERMANENTLY delete all LDAP accounts and home directories"
+echo "matching '${PREFIX}-*' under ${BASE_DN} (covers both m and t series)."
+read -p "Type the prefix again to confirm (${PREFIX}): " CONFIRM
+if [ "$CONFIRM" != "$PREFIX" ]; then
+  echo "Confirmation did not match. Aborting."
+  exit 1
+fi
+
+# --- Step 1: Back up before deleting anything ---
+BACKUP_DIR=~/Documents/ece387/backups/$(date +%Y%m%d)-${PREFIX}
+mkdir -p "$BACKUP_DIR/home"
+
+echo "Backing up full LDAP database to ${BACKUP_DIR}/ldap-backup.ldif ..."
+sudo slapcat > "${BACKUP_DIR}/ldap-backup.ldif"
+
+echo "Backing up home directories matching ${PREFIX}-* to ${BACKUP_DIR}/home ..."
+sudo rsync -av --include="${PREFIX}-*" --include="${PREFIX}-*/**" --exclude="*" \
+  /home/students/ "${BACKUP_DIR}/home/"
+
+# --- Step 2: Find all matching uids in LDAP ---
+USERS=$(ldapsearch -x -H ldap://localhost \
+  -b "$BASE_DN" -D "$LDAP_ADMIN_DN" -w "$LDAP_ADMIN_PW" \
+  "(uid=${PREFIX}-*)" uid | grep "^uid:" | awk '{print $2}')
+
+if [ -z "$USERS" ]; then
+  echo "No accounts found matching ${PREFIX}-*. Nothing to remove."
+  exit 0
+fi
+
+echo "Found $(echo "$USERS" | wc -l) accounts to remove:"
+echo "$USERS"
+echo ""
+
+# --- Step 3: Delete each LDAP entry ---
+for USERNAME in $USERS; do
+  echo "Deleting LDAP entry: uid=${USERNAME}"
+  ldapdelete -x -H ldap://localhost \
+    -D "$LDAP_ADMIN_DN" -w "$LDAP_ADMIN_PW" \
+    "uid=${USERNAME},${BASE_DN}"
+done
+
+# --- Step 4: Remove home directories ---
+for USERNAME in $USERS; do
+  echo "Removing home directory: /home/students/${USERNAME}"
+  sudo rm -rf "/home/students/${USERNAME}"
+done
+
+echo ""
+echo "Done. Removed accounts matching '${PREFIX}-*'."
+echo "Backup saved to: ${BACKUP_DIR}"
+EOF
+
+chmod +x ~/Documents/ece387/remove_students.sh
+```
+
+Run it with the outgoing class prefix, e.g.:
+
+```bash
+bash ~/Documents/ece387/remove_students.sh a27
+```
+
+Then create the incoming class with the new prefix by editing the `create_series` calls in `create_students.sh` (or parameterizing them the same way) before re-running it.
+
+> **Group and OU structure are untouched** — this only removes entries under `ou=students`. `ou=groups` and the `ece387students` group (gidNumber 10000) stay in place and are reused every year.
 
 ### List all student accounts
 
@@ -552,8 +674,8 @@ sudo slapcat > ~/Documents/ece387/ldap-backup-$(date +%Y%m%d).ldif
 
 | Problem | Command | Fix |
 |---------|---------|-----|
-| Student can't log in | `ldapsearch -x -H ldap://localhost -b "ou=students,dc=ece387,dc=local" -D "cn=admin,dc=ece387,dc=local" -W "(uid=a27-01)"` | Check account exists; verify password hash is valid |
-| LDAP connection refused | `ldapsearch -x -H ldap://192.168.0.151 -b "dc=ece387,dc=local" -x` | Check `systemctl status slapd` on server |
-| NFS mount fails (from a client) | `showmount -e 192.168.0.151` | Check firewall on server; verify `nfs-server` is running |
+| Student can't log in | `ldapsearch -x -H ldap://localhost -b "ou=students,dc=ece387,dc=local" -D "cn=admin,dc=ece387,dc=local" -W "(uid=a27-m0)"` | Check account exists; verify password hash is valid |
+| LDAP connection refused | `ldapsearch -x -H ldap://10.99.1.50 -b "dc=ece387,dc=local" -x` | Check `systemctl status slapd` on server |
+| NFS mount fails (from a client) | `showmount -e 10.99.1.50` | Check firewall on server; verify `nfs-server` is running |
 
 For client-side symptoms (home directory not mounting, SSSD not resolving users, login hangs or is slow), see the troubleshooting table in [login-client.md](login-client.md).
