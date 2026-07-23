@@ -1,5 +1,5 @@
 
-# 🔧 Gamepad Setup
+# Gamepad Setup
 
 ## Purpose
 

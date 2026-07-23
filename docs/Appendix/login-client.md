@@ -2,9 +2,9 @@
 
 This guide covers setting up a **master computer as a login client** — a machine that authenticates students against the login server (via SSSD) and mounts their home directory over NFS, so any student can sit at any master. It is one of three companion guides:
 
-- [login-server.md](login-server.md) — the login server itself
-- **login-client.md** (this file) — master computers that authenticate against the login server
-- [master-standalone-setup.md](master-standalone-setup.md) — a single master with a local account, no login server
+- [Login Server Setup](login-server.md) — the login server itself
+- [Master (Client) Setup](login-client.md) — master computers that authenticate against the login server
+- [Master Setup - Standalone](MasterSetupJazzy.md) — a single master with a local account, no login server
 
 Complete [login-server.md](login-server.md) first — the login server must be running before a client can authenticate against it.
 
@@ -26,7 +26,7 @@ Only the login server needs a static IP. Master computers get a **dynamic IP** f
 
 ## 1. Master Computer Setup (NUC 9 × 14)
 
-Do this on each of the 14 master computers. Most steps can be scripted and run via Ansible to configure all 14 machines simultaneously — see [Ansible Automation](#3-ansible-automation-recommended-for-14-machines).
+Do this on each of the 14 master computers. Most steps can be scripted and run via Ansible to configure all 14 machines simultaneously — see [Ansible Automation](#4-ansible-automation-recommended-for-14-machines).
 
 ### 1.1 Fresh Install Ubuntu 24.04 Desktop
 

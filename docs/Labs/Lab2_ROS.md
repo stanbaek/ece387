@@ -15,7 +15,7 @@ Why? Because creating truly robust, general-purpose robot software is hard. From
 
 As a result, ROS was built from the ground up to encourage collaborative robotics software development. For example, one laboratory might have experts in mapping indoor environments, and could contribute a world-class system for producing maps. Another group might have experts at using maps to navigate, and yet another group might have discovered a computer vision approach that works well for recognizing small objects in clutter. ROS was designed specifically for groups like these to collaborate and build upon each other's work, as is described throughout this site.
 
-ROS2 Humble Hawksbill: <https://docs.ros.org/en/humble/>
+ROS 2 Jazzy Jalisco: <https://docs.ros.org/en/jazzy/>
 
 ## 💻 ROS Command-line tools
 
@@ -53,7 +53,7 @@ Work through all 10 tutorials while carefully following the instructions in this
     source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
     ```
 
-    Your `ROS_DOMAIN_ID=XX` should match your computer ID, where `XX` corresponds to the `XX` in `MasterXX`. Update the file, save the changes, and exit. You can find your `LDS_MODEL` [here](../Appendix/RobotSetup27.md#lds-configuration)
+    Your `ROS_DOMAIN_ID=XX` should match your computer ID, where `XX` corresponds to the `XX` in `MasterXX`. Update the file, save the changes, and exit. You can find your `LDS_MODEL` [here](../Appendix/RobotSetupJazzy.md#lds-configuration)
 
 ### 2. Using turtlesim, ros2, and rqt
 
