@@ -10,7 +10,7 @@
 ## Linux Commands 🐧
 During class, we covered several basic Linux commands. In this lab, we will get hands-on practice with those commands.
 
-1. To log in the Master computer, use `m3` if you're in the M4 section and `t5` if you're in the T5 section.
+1. To log in the Master computer, use your login ID, starting with `a27-`. 
 1. Click the Terminal icon on the Dock to open a terminal and practice commands.
 
     ```{image} ./figures/Lab1_Terminal.png
@@ -22,7 +22,7 @@ During class, we covered several basic Linux commands. In this lab, we will get 
 1. You can select an open terminal and use `Ctrl + Shift + n` to open a new terminal window or `Ctrl + Shift + t` to add a new tab to the current terminal.
 
 1. When observing the terminal (or Shell) you will notice the following
-    - Syntax: `username@hostname:`(e.g., on the master: `m3@masterX:`, on the robot: `pi@robotX`)
+    - Syntax: `username@hostname:`(e.g., on the master: `a27-yy@masterX:`, on the robot: `pi@robotX`)
     - Current working directory: Represented as `~`, which refers to the user's home directory. 
     - Prompt: The `$` character followed by a blinking cursor, which indicates the terminal is active and ready for commands.
 
@@ -33,7 +33,7 @@ To master Linux, it's crucial to understand the filesystem and become comfortabl
 
 1. **View Directory Contents**: Enter `ls` to see the contents of the current directory. You'll see directories like Desktop, Documents, and Downloads. Color coding helps identify types: directories are blue, files are white, executable files are bright green, and archived files are red. For now, just note that directories are blue and files are white.
 
-1. **Display Current Directory Path**: Enter `pwd` to display the path of the current directory. This will show your home directory path, such as `/home/stanbaek`.
+1. **Display Current Directory Path**: Enter `pwd` to display the path of the current directory. This will show your home directory path, such as `/home/students/a27-m0`.
 
 1. **Change Directory**: To move from your home directory to the Downloads directory, enter `cd Downloads`. The `cd` command stands for "change directory." Enter `ls` again to view the files inside the Downloads directory.
 
@@ -45,9 +45,9 @@ To master Linux, it's crucial to understand the filesystem and become comfortabl
 
 1. **Return to Home Directory**: Enter `cd` to move back to your home directory. Note that `cd` is equivalent to `cd ~`.
 
-1. **Complex Paths**: The `ls` and `cd` commands can also be used with more complex paths. For example, enter `ls /opt/ros/humble` to view the contents of the "humble" directory inside "ros," which is inside "opt." Switch to this directory using `cd /opt/ros/humble`. To move back up three parent directories, use `cd ../../..`.
+1. **Complex Paths**: The `ls` and `cd` commands can also be used with more complex paths. For example, enter `ls /opt/ros/jazzy` to view the contents of the "jazzy" directory inside "ros," which is inside "opt." Switch to this directory using `cd /opt/ros/jazzy`. To move back up three parent directories, use `cd ../../..`.
 
-1. **Autocomplete**: Type `cd /o` followed by the tab key. It will autocomplete to `cd /opt/`. Press the tab key again to see options like `google` and `ros`. Type `r` and press the tab key to choose `ros`, then press the tab key again to choose `humble` as it is the only directory inside `ros`.
+1. **Autocomplete**: Type `cd /o` followed by the tab key. It will autocomplete to `cd /opt/`. Press the tab key again to see options like `google` and `ros`. Type `r` and press the tab key to choose `ros`, then press the tab key again to choose `jazzy` as it is the only directory inside `ros`.
 
     ```{image} ./figures/Lab1_Autocomplete.gif
     :width: 520
