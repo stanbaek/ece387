@@ -1,4 +1,4 @@
-# ECE 387 Login Client Setup (Master Computers)
+# Master (Client) Setup
 
 This guide covers setting up a **master computer as a login client** — a machine that authenticates students against the login server (via SSSD) and mounts their home directory over NFS, so any student can sit at any master. It is one of three companion guides:
 

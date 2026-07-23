@@ -1,4 +1,4 @@
-# ECE 387 Login Server Setup
+# Login Server Setup
 
 This guide covers setting up the **login server** — the machine that hosts OpenLDAP (user accounts) and NFS (shared home directories) for the lab. It is one of three companion guides:
 
