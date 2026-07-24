@@ -104,8 +104,10 @@ cd ~/master_ws && colcon build --symlink-install
 Set up ROS environment variables and setup scripts within the `~/.bashrc` file. Open the `~/.bashrc` file with your favorite command line editor and add the following to the bottom:
 
 ```bash
-alias gedit='gnome-text-edit'
+alias gedit='gnome-text-editor'
 alias bringup='ssh pi@robotX '\''ros2 launch turtlebot3_bringup robot.launch.py'\'
+# Shortcut to SSH into the robot.
+alias ssh_robot='ssh pi@192.168.50.1'
 
 # Function to build with optional arguments
 function ccbuild() {
@@ -116,14 +118,23 @@ function ccbuild() {
 # Export the function to make it available in the shell
 export -f ccbuild
 
+# Source the ROS2 Jazzy environment so ros2 commands are available
 source /opt/ros/jazzy/setup.bash
-source ~/master_ws/install/setup.bash
-export ROS_DOMAIN_ID=0  # For master0 and robot0
+
+# Source the student's own workspace if it has been built
+# The "2>/dev/null || true" suppresses the error if the workspace doesn't exist yet
+source ~/master_ws/install/setup.bash 2>/dev/null || true
+source /usr/share/gazebo/setup.sh
 export TURTLEBOT3_MODEL=burger
-export LDS_MODEL=LDS-01 # replace with LDS-02 if using new LIDAR
 source /usr/share/colcon_cd/function/colcon_cd.sh
 export _colcon_cd_root=/opt/ros/jazzy/
 source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
+
+# ROS_DOMAIN_ID separates ROS2 traffic between different robot pairs.
+# Each student should set this e.g.: export ROS_DOMAIN_ID=X
+# where X is the robot ID.
+export ROS_DOMAIN_ID=99
+export LDS_MODEL=LDS-02 # replace with LDS-03 if using new LIDAR
 ```
 
 Any time you make changes to your `~/.bashrc` file you must source it:

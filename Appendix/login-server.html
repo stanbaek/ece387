@@ -709,31 +709,37 @@ sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </sp
 </pre></div>
 </div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># ECE 387 Course Environment</span>
-<span class="c1"># This file is managed by the instructor — do not edit directly.</span>
-<span class="c1"># Add your own customizations to ~/.bashrc_personal instead.</span>
+<span class="nb">alias</span><span class="w"> </span><span class="nv">gedit</span><span class="o">=</span><span class="s1">&#39;gnome-text-editor&#39;</span>
+<span class="nb">alias</span><span class="w"> </span><span class="nv">bringup</span><span class="o">=</span><span class="s1">&#39;ssh pi@robotX &#39;</span><span class="se">\&#39;</span><span class="s1">&#39;ros2 launch turtlebot3_bringup robot.launch.py&#39;</span><span class="se">\&#39;</span>
+<span class="c1"># Shortcut to SSH into the robot.</span>
+<span class="nb">alias</span><span class="w"> </span><span class="nv">ssh_robot</span><span class="o">=</span><span class="s1">&#39;ssh pi@192.168.50.1&#39;</span>
 
-<span class="c1"># ROS_DOMAIN_ID separates ROS2 traffic between different robot pairs.</span>
-<span class="c1"># Each student should set this in ~/.bashrc_personal, e.g.:</span>
-<span class="c1">#   export ROS_DOMAIN_ID=15</span>
-<span class="nb">export</span><span class="w"> </span><span class="nv">ROS_DOMAIN_ID</span><span class="o">=</span><span class="m">30</span>
+<span class="c1"># Function to build with optional arguments</span>
+<span class="k">function</span><span class="w"> </span>ccbuild<span class="o">()</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="nb">cd</span><span class="w"> </span>~/master_ws<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>colcon<span class="w"> </span>build<span class="w"> </span>--symlink-install<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span>
+<span class="w">    </span><span class="nb">source</span><span class="w"> </span>~/master_ws/install/setup.bash
+<span class="o">}</span>
 
-<span class="nb">export</span><span class="w"> </span><span class="nv">TURTLEBOT3_MODEL</span><span class="o">=</span>burger
-<span class="nb">export</span><span class="w"> </span><span class="nv">RMW_IMPLEMENTATION</span><span class="o">=</span>rmw_fastrtps_cpp
+<span class="c1"># Export the function to make it available in the shell</span>
+<span class="nb">export</span><span class="w"> </span>-f<span class="w"> </span>ccbuild
 
 <span class="c1"># Source the ROS2 Jazzy environment so ros2 commands are available</span>
 <span class="nb">source</span><span class="w"> </span>/opt/ros/jazzy/setup.bash
 
 <span class="c1"># Source the student&#39;s own workspace if it has been built</span>
 <span class="c1"># The &quot;2&gt;/dev/null || true&quot; suppresses the error if the workspace doesn&#39;t exist yet</span>
-<span class="nb">source</span><span class="w"> </span>~/ros2_ws/install/setup.bash<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+<span class="nb">source</span><span class="w"> </span>~/master_ws/install/setup.bash<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+<span class="nb">source</span><span class="w"> </span>/usr/share/gazebo/setup.sh
+<span class="nb">export</span><span class="w"> </span><span class="nv">TURTLEBOT3_MODEL</span><span class="o">=</span>burger
+<span class="nb">source</span><span class="w"> </span>/usr/share/colcon_cd/function/colcon_cd.sh
+<span class="nb">export</span><span class="w"> </span><span class="nv">_colcon_cd_root</span><span class="o">=</span>/opt/ros/jazzy/
+<span class="nb">source</span><span class="w"> </span>/usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
 
-<span class="c1"># Shortcut to SSH into the robot.</span>
-<span class="c1"># Students set ROBOT_IP in ~/.bashrc_personal, e.g.: export ROBOT_IP=10.42.0.1</span>
-<span class="nb">alias</span><span class="w"> </span><span class="nv">robot</span><span class="o">=</span><span class="s1">&#39;ssh ubuntu@$ROBOT_IP&#39;</span>
-
-<span class="c1"># Load student&#39;s personal customizations (robot IP, aliases, etc.)</span>
-<span class="c1"># This file is never overwritten by the instructor.</span>
-<span class="nb">source</span><span class="w"> </span>~/.bashrc_personal<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+<span class="c1"># ROS_DOMAIN_ID separates ROS2 traffic between different robot pairs.</span>
+<span class="c1"># Each student should set this e.g.: export ROS_DOMAIN_ID=X</span>
+<span class="c1"># where X is the robot ID.</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">ROS_DOMAIN_ID</span><span class="o">=</span><span class="m">99</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">LDS_MODEL</span><span class="o">=</span>LDS-02<span class="w"> </span><span class="c1"># replace with LDS-03 if using new LIDAR</span>
 </pre></div>
 </div>
 </section>

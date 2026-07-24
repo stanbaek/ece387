@@ -516,8 +516,10 @@ git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </spa
 <section id="ros-environment">
 <h4>ROS Environment<a class="headerlink" href="#ros-environment" title="Link to this heading">#</a></h4>
 <p>Set up ROS environment variables and setup scripts within the <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> file. Open the <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> file with your favorite command line editor and add the following to the bottom:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">alias</span><span class="w"> </span><span class="nv">gedit</span><span class="o">=</span><span class="s1">&#39;gnome-text-edit&#39;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">alias</span><span class="w"> </span><span class="nv">gedit</span><span class="o">=</span><span class="s1">&#39;gnome-text-editor&#39;</span>
 <span class="nb">alias</span><span class="w"> </span><span class="nv">bringup</span><span class="o">=</span><span class="s1">&#39;ssh pi@robotX &#39;</span><span class="se">\&#39;</span><span class="s1">&#39;ros2 launch turtlebot3_bringup robot.launch.py&#39;</span><span class="se">\&#39;</span>
+<span class="c1"># Shortcut to SSH into the robot.</span>
+<span class="nb">alias</span><span class="w"> </span><span class="nv">ssh_robot</span><span class="o">=</span><span class="s1">&#39;ssh pi@192.168.50.1&#39;</span>
 
 <span class="c1"># Function to build with optional arguments</span>
 <span class="k">function</span><span class="w"> </span>ccbuild<span class="o">()</span><span class="w"> </span><span class="o">{</span>
@@ -528,14 +530,23 @@ git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </spa
 <span class="c1"># Export the function to make it available in the shell</span>
 <span class="nb">export</span><span class="w"> </span>-f<span class="w"> </span>ccbuild
 
+<span class="c1"># Source the ROS2 Jazzy environment so ros2 commands are available</span>
 <span class="nb">source</span><span class="w"> </span>/opt/ros/jazzy/setup.bash
-<span class="nb">source</span><span class="w"> </span>~/master_ws/install/setup.bash
-<span class="nb">export</span><span class="w"> </span><span class="nv">ROS_DOMAIN_ID</span><span class="o">=</span><span class="m">0</span><span class="w">  </span><span class="c1"># For master0 and robot0</span>
+
+<span class="c1"># Source the student&#39;s own workspace if it has been built</span>
+<span class="c1"># The &quot;2&gt;/dev/null || true&quot; suppresses the error if the workspace doesn&#39;t exist yet</span>
+<span class="nb">source</span><span class="w"> </span>~/master_ws/install/setup.bash<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+<span class="nb">source</span><span class="w"> </span>/usr/share/gazebo/setup.sh
 <span class="nb">export</span><span class="w"> </span><span class="nv">TURTLEBOT3_MODEL</span><span class="o">=</span>burger
-<span class="nb">export</span><span class="w"> </span><span class="nv">LDS_MODEL</span><span class="o">=</span>LDS-01<span class="w"> </span><span class="c1"># replace with LDS-02 if using new LIDAR</span>
 <span class="nb">source</span><span class="w"> </span>/usr/share/colcon_cd/function/colcon_cd.sh
 <span class="nb">export</span><span class="w"> </span><span class="nv">_colcon_cd_root</span><span class="o">=</span>/opt/ros/jazzy/
 <span class="nb">source</span><span class="w"> </span>/usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
+
+<span class="c1"># ROS_DOMAIN_ID separates ROS2 traffic between different robot pairs.</span>
+<span class="c1"># Each student should set this e.g.: export ROS_DOMAIN_ID=X</span>
+<span class="c1"># where X is the robot ID.</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">ROS_DOMAIN_ID</span><span class="o">=</span><span class="m">99</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">LDS_MODEL</span><span class="o">=</span>LDS-02<span class="w"> </span><span class="c1"># replace with LDS-03 if using new LIDAR</span>
 </pre></div>
 </div>
 <p>Any time you make changes to your <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> file you must source it:</p>

@@ -58,18 +58,23 @@ Do not run the commands in the official tutorial. Follow the steps below instead
 - You should see the following lines at the bottom of the `.bashrc` file.
 
     ```bash
-    source /opt/ros/humble/setup.bash
-    source ~/master_ws/install/setup.bash
+    source /opt/ros/jazzy/setup.bash
+    source ~/master_ws/install/setup.bash 2>/dev/null || true
     source /usr/share/gazebo/setup.sh
-    source /usr/share/colcon_cd/function/colcon_cd.sh
-    export ROS_DOMAIN_ID=0  # For master0 and robot0
-    export _colcon_cd_root=/opt/ros/humble/
     export TURTLEBOT3_MODEL=burger
-    export LDS_MODEL=LDS-01 # replace with LDS-02 if using new LIDAR
+    source /usr/share/colcon_cd/function/colcon_cd.sh
+    export _colcon_cd_root=/opt/ros/jazzy/
     source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
+
+    # ROS_DOMAIN_ID separates ROS2 traffic between different robot pairs.
+    # Each student should set this e.g.: export ROS_DOMAIN_ID=X
+    # where X is the robot ID.
+    export ROS_DOMAIN_ID=99
+    export LDS_MODEL=LDS-02 # replace with LDS-03 if using new LIDAR
+
     ```
 
-    Your `ROS_DOMAIN_ID=XX` should match your computer ID, where `XX` corresponds to the `XX` in `MasterXX`. Update the file, save the changes, and exit. You can find your `LDS_MODEL` [here](../Appendix/RobotSetupJazzy.md#lds-configuration)
+    Your `ROS_DOMAIN_ID=X` should match your computer ID, where `X` corresponds to the `X` in `RobotX`. Update the file, save the changes, and exit. You can find your `LDS_MODEL` [here](../Appendix/RobotSetupJazzy.md#lds-configuration)
 
 ### 2. Using turtlesim, ros2, and rqt
 
