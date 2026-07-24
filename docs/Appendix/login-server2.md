@@ -47,8 +47,8 @@ A login server (OpenLDAP + SSSD + NFS) is only worth the setup effort in one spe
     ┌────────┴───────┐                       ┌────────┴───────┐
     │  Robot 01      │                       │  Robot N...    │
     │  RPi 4         │                       │  RPi 4         │
-    │  Ubuntu 22.04  │                       │  Ubuntu 22.04  │
-    │  ROS2 Humble   │                       │  ROS2 Humble   │
+    │  Ubuntu 24.04  │                       │  Ubuntu 24.04  │
+    │  ROS2 Jazzy    │                       │  ROS2 Jazzy    │
     └────────────────┘                       └────────────────┘
 ```
 
@@ -349,11 +349,10 @@ fi
 alias gedit='gnome-text-editor'
 
 # Launch the TurtleBot3 bringup on the robot over SSH.
-# Replace robotX with the robot hostname or IP for the bench.
-alias bringup='ssh pi@robotX '\''ros2 launch turtlebot3_bringup robot.launch.py'\'
+alias bringup='ssh pi@192.168.50.1 '\''ros2 launch turtlebot3_bringup robot.launch.py'\'
 
 # Shortcut to SSH into the robot.
-alias ssh_robot='ssh pi@192.168.4.1'
+alias ssh_robot='ssh pi@192.168.50.1'
 
 # Build the workspace, passing through any colcon arguments
 function ccbuild() {
@@ -374,19 +373,20 @@ source ~/master_ws/install/setup.bash 2>/dev/null || true
 export TURTLEBOT3_MODEL=burger
 export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
 
-# ROS_DOMAIN_ID separates ROS 2 traffic between different robot pairs.
-# Students override this per terminal for their bench, e.g.: export ROS_DOMAIN_ID=7
-export ROS_DOMAIN_ID=99
-export LDS_MODEL=LDS-02   # Replace with LDS-03 if using new LIDAR
-
 # colcon helpers
 source /usr/share/colcon_cd/function/colcon_cd.sh
 export _colcon_cd_root=/opt/ros/jazzy/
 source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
+
+# ROS_DOMAIN_ID separates ROS2 traffic between different robot pairs.
+# Each student should set this e.g.: export ROS_DOMAIN_ID=X
+# where X is the robot ID.
+export ROS_DOMAIN_ID=99
+export LDS_MODEL=LDS-02   # Replace with LDS-03 if using new LIDAR
 TEMPLATE_EOF
 ```
 
-Check the syntax before pushing it to 62 accounts — a typo here breaks every terminal in the lab at once:
+Check the syntax before pushing it to 62 accounts - a typo here breaks every terminal in the lab at once:
 
 ```bash
 bash -n /etc/ece387/bashrc_template && echo "syntax OK"
@@ -394,14 +394,14 @@ bash -n /etc/ece387/bashrc_template && echo "syntax OK"
 
 **Notes on the template:**
 
-- The non-interactive guard sets the ROS variables *before* returning. The stock Ubuntu `.bashrc` returns immediately, which would leave `ssh master05 'ros2 topic list'` with no ROS environment. The variables are intentionally duplicated in the guard and in the course block below it — the guard `return`s before reaching the second copy, so keep the two in sync when you change one.
+- The non-interactive guard sets the ROS variables *before* returning. The stock Ubuntu `.bashrc` returns immediately, which would leave `ssh master05 'ros2 topic list'` with no ROS environment. The variables are intentionally duplicated in the guard and in the course block below it - the guard `return`s before reaching the second copy, so keep the two in sync when you change one.
 - Interactivity matters for more than convenience: without the guard, anything the course block prints to stdout corrupts `scp` and `rsync` transfers to and from the robots.
-- `source /usr/share/gazebo/setup.sh` is **not** included. That path belongs to Gazebo Classic, which is not part of Jazzy — on a Jazzy master the file does not exist and every terminal opens with a "No such file or directory" error. If a future setup does need it, guard the source: `[ -f /usr/share/gazebo/setup.sh ] && source /usr/share/gazebo/setup.sh`.
+- `source /usr/share/gazebo/setup.sh` is **not** included. That path belongs to Gazebo Classic, which is not part of Jazzy - on a Jazzy master the file does not exist and every terminal opens with a "No such file or directory" error. If a future setup does need it, guard the source: `[ -f /usr/share/gazebo/setup.sh ] && source /usr/share/gazebo/setup.sh`.
 - `robotX` in the `bringup` alias is a placeholder. Either replace it before the first push or teach students to use `ssh_robot` and launch bringup by hand.
 
 #### .inputrc Template
 
-`.inputrc` configures readline behavior — used by bash for history search and tab completion.
+`.inputrc` configures readline behavior - used by bash for history search and tab completion.
 
 ```bash
 sudo tee /etc/ece387/inputrc_template > /dev/null << 'EOF'
@@ -421,16 +421,6 @@ set completion-ignore-case on
 EOF
 ```
 
-Readline fails silently on a bad binding — a typo does not error, the key just does nothing. Test before pushing:
-
-```bash
-bind -f /etc/ece387/inputrc_template && echo "readline accepted it"
-```
-
-> **`$include` is not optional.** Unlike `.bashrc`, a user's `~/.inputrc` does not layer on top of `/etc/inputrc` — readline reads the user file *instead of* the system file. Without the include line, students silently lose the Ubuntu defaults.
-
-> **Readline reads `.inputrc` only at shell startup.** After a push, `source ~/.bashrc` will not pick up `.inputrc` changes; students need a fresh terminal.
-
 #### Pushing Updates to All Students
 
 The templates are copied automatically only when accounts are first created. To push changes to all existing students at any time:
@@ -438,22 +428,12 @@ The templates are copied automatically only when accounts are first created. To 
 ```bash
 for dir in /home/students/a27-*/; do
   user=$(basename "$dir")
-  # Read the UID from the home directory itself. Do NOT use `id -u "$user"`:
-  # the login server hosts LDAP but is not an LDAP *client*, so NSS on this
-  # machine cannot resolve student names and `id` fails silently.
   uid=$(stat -c %u "$dir")
   sudo cp /etc/ece387/bashrc_template "${dir}.bashrc"   || { echo "FAILED: $user"; continue; }
   sudo cp /etc/ece387/inputrc_template "${dir}.inputrc" || { echo "FAILED: $user"; continue; }
   sudo chown "${uid}:10000" "${dir}.bashrc" "${dir}.inputrc"
   echo "Updated: $user (uid=$uid)"
 done
-```
-
-Verify ownership afterward. The glob must be expanded *inside* the elevated shell — student home directories are `chmod 700`, so your own shell cannot expand a path that reaches into them:
-
-```bash
-# Empty output = all accounts correct
-sudo find /home/students -maxdepth 2 -name '.bashrc' -user root
 ```
 
 > **This overwrites `.bashrc` and `.inputrc` unconditionally.** Anything a student added to either file is gone. That is the intended behavior — the shell environment is course-managed. `chown` is required because `sudo cp` leaves the copies owned by `root`; inside a `chmod 700` home directory that is confusing to debug later even though bash will still source them.

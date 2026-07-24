@@ -68,7 +68,7 @@ Install ROS dependencies for building packages:
 # Gazebo Harmonic, integrated through the ros_gz vendor packages.
 sudo apt install -y ros-jazzy-turtlebot3*
 sudo apt install -y ros-jazzy-dynamixel-sdk
-sudo apt install -y ros-jazzy-ros-gz
+sudo apt install -y ros-jazzy-ros-gz ros-jazzy-turtlebot3-gazebo
 sudo apt install -y ros-jazzy-tf-transformations
 sudo apt install -y ros-jazzy-usb-cam ros-jazzy-image-proc
 sudo apt install -y ros-jazzy-v4l2-camera
@@ -105,17 +105,20 @@ Set up ROS environment variables and setup scripts within the `~/.bashrc` file. 
 
 ```bash
 alias gedit='gnome-text-editor'
-alias bringup='ssh pi@robotX '\''ros2 launch turtlebot3_bringup robot.launch.py'\'
+
+# Launch the TurtleBot3 bringup on the robot over SSH.
+alias bringup='ssh pi@192.168.50.1 '\''ros2 launch turtlebot3_bringup robot.launch.py'\'
+
 # Shortcut to SSH into the robot.
 alias ssh_robot='ssh pi@192.168.50.1'
 
-# Function to build with optional arguments
+# Build the workspace, passing through any colcon arguments
 function ccbuild() {
     cd ~/master_ws && colcon build --symlink-install "$@"
     source ~/master_ws/install/setup.bash
 }
 
-# Export the function to make it available in the shell
+# Export the function so it is available in subshells
 export -f ccbuild
 
 # Source the ROS2 Jazzy environment so ros2 commands are available
@@ -124,8 +127,11 @@ source /opt/ros/jazzy/setup.bash
 # Source the student's own workspace if it has been built
 # The "2>/dev/null || true" suppresses the error if the workspace doesn't exist yet
 source ~/master_ws/install/setup.bash 2>/dev/null || true
-source /usr/share/gazebo/setup.sh
+
 export TURTLEBOT3_MODEL=burger
+export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+
+# colcon helpers
 source /usr/share/colcon_cd/function/colcon_cd.sh
 export _colcon_cd_root=/opt/ros/jazzy/
 source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
