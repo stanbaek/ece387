@@ -143,7 +143,7 @@ This section assumes you already have a GitHub account.
     ```  
     If the file was created successfully, you should see output similar to the following:
     ```{image} ./figures/GitCreateReadmeFile.png  
-    :width: 300  
+    :width: 400  
     :align: center  
     ```  
     <br>  

@@ -19,9 +19,16 @@ ROS 2 Jazzy Jalisco: <https://docs.ros.org/en/jazzy/>
 
 ## 💻 ROS Command-line tools
 
-The tutorials at  [Beginner: CLI Tools](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools.html) are an excellent introduction to ROS2 command‑line tools, but you must follow the lab instructions provided below as you complete them. Do not skip ahead or work through the tutorials on your own - each step in this lab depends on the guidance written below.
+The tutorials at [Beginner: CLI Tools](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools.html) are an excellent introduction to ROS2 command‑line tools, but you must follow the lab instructions provided below as you complete them. Do not skip ahead or work through the tutorials on your own - each step in this lab depends on the guidance written [below](configuring-environment).
 
-Work through all 10 tutorials while carefully following the instructions in this lab, which should take about 2–3 hours in total.
+
+
+**Do not complete these tutorials independently.** Each step [below](configuring-environment) adds required, lab-specific instructions that are *not* in the official ROS2 tutorial - skipping them will cost you points on Gradescope. Expect 2–3 hours total.
+
+
+```{warning}
+Each numbered step below **modifies or overrides** the official tutorial instructions. Read the text under each tutorial link *before* running any commands. Following the official tutorial alone will cause you to misconfigure your environment or lose points on deliverables (e.g., Tutorial 1 tells you to *not* run the commands shown there).
+```
 
 ```{image} ./figures/Lab2_ROS_Tutorials.png
 :width: 800
@@ -30,9 +37,18 @@ Work through all 10 tutorials while carefully following the instructions in this
 
 <br>
 
+```{note}
+Graded items in this lab: rqt_graph screenshot (Step 4), 3-turtle screenshot (Step 5), bag file in `lab2/bag_files` (Step 10). Read each step's instructions — the official tutorials alone won't produce a passing submission.
+```
+
+(configuring-environment)=
 ### 1. Configuring environment
 
-- For this firt tutorial, [Configuring Environment](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Configuring-ROS2-Environment.html), your environment has already been configured. Simply read through the page, but do not run any commands. Instead, open the `.bashrc` file by running the following commands:
+```{important}
+Do not run the commands in the official tutorial. Follow the steps below instead.
+```
+
+- For this firt tutorial, [Configuring Environment](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Configuring-ROS2-Environment.html), your environment has already been configured. Simply read through the page, but do **NOT** run any commands. Instead, open the `.bashrc` file by running the following commands:
 
     ```bash
     cd
@@ -42,18 +58,23 @@ Work through all 10 tutorials while carefully following the instructions in this
 - You should see the following lines at the bottom of the `.bashrc` file.
 
     ```bash
-    source /opt/ros/humble/setup.bash
-    source ~/master_ws/install/setup.bash
+    source /opt/ros/jazzy/setup.bash
+    source ~/master_ws/install/setup.bash 2>/dev/null || true
     source /usr/share/gazebo/setup.sh
-    source /usr/share/colcon_cd/function/colcon_cd.sh
-    export ROS_DOMAIN_ID=0  # For master0 and robot0
-    export _colcon_cd_root=/opt/ros/humble/
     export TURTLEBOT3_MODEL=burger
-    export LDS_MODEL=LDS-01 # replace with LDS-02 if using new LIDAR
+    source /usr/share/colcon_cd/function/colcon_cd.sh
+    export _colcon_cd_root=/opt/ros/jazzy/
     source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
+
+    # ROS_DOMAIN_ID separates ROS2 traffic between different robot pairs.
+    # Each student should set this e.g.: export ROS_DOMAIN_ID=X
+    # where X is the robot ID.
+    export ROS_DOMAIN_ID=99
+    export LDS_MODEL=LDS-02 # replace with LDS-03 if using new LIDAR
+
     ```
 
-    Your `ROS_DOMAIN_ID=XX` should match your computer ID, where `XX` corresponds to the `XX` in `MasterXX`. Update the file, save the changes, and exit. You can find your `LDS_MODEL` [here](../Appendix/RobotSetupJazzy.md#lds-configuration)
+    Your `ROS_DOMAIN_ID=X` should match your computer ID, where `X` corresponds to the `X` in `RobotX`. Update the file, save the changes, and exit. You can find your `LDS_MODEL` [here](../Appendix/RobotSetupJazzy.md#lds-configuration)
 
 ### 2. Using turtlesim, ros2, and rqt
 
