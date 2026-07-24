@@ -19,9 +19,11 @@ ROS 2 Jazzy Jalisco: <https://docs.ros.org/en/jazzy/>
 
 ## 💻 ROS Command-line tools
 
-The tutorials at  [Beginner: CLI Tools](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools.html) are an excellent introduction to ROS2 command‑line tools, but you must follow the lab instructions provided below as you complete them. Do not skip ahead or work through the tutorials on your own - each step in this lab depends on the guidance written below.
+The tutorials at [Beginner: CLI Tools](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools.html) are an excellent introduction to ROS2 command‑line tools, but you must follow the lab instructions provided below as you complete them. Do not skip ahead or work through the tutorials on your own - each step in this lab depends on the guidance written [below](configuring-environment).
 
-**Do not complete these tutorials independently.** Each step below adds required, lab-specific instructions that are *not* in the official ROS2 tutorial - skipping them will cost you points on Gradescope. Expect 2–3 hours total.
+
+
+**Do not complete these tutorials independently.** Each step [below](configuring-environment) adds required, lab-specific instructions that are *not* in the official ROS2 tutorial - skipping them will cost you points on Gradescope. Expect 2–3 hours total.
 
 
 ```{warning}
@@ -39,6 +41,7 @@ Each numbered step below **modifies or overrides** the official tutorial instruc
 Graded items in this lab: rqt_graph screenshot (Step 4), 3-turtle screenshot (Step 5), bag file in `lab2/bag_files` (Step 10). Read each step's instructions — the official tutorials alone won't produce a passing submission.
 ```
 
+(configuring-environment)=
 ### 1. Configuring environment
 
 ```{important}
