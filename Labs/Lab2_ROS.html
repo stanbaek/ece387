@@ -450,14 +450,26 @@
 <section id="ros-command-line-tools">
 <h2>💻 ROS Command-line tools<a class="headerlink" href="#ros-command-line-tools" title="Link to this heading">#</a></h2>
 <p>The tutorials at  <a class="reference external" href="https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools.html">Beginner: CLI Tools</a> are an excellent introduction to ROS2 command‑line tools, but you must follow the lab instructions provided below as you complete them. Do not skip ahead or work through the tutorials on your own - each step in this lab depends on the guidance written below.</p>
-<p>Work through all 10 tutorials while carefully following the instructions in this lab, which should take about 2–3 hours in total.</p>
+<p><strong>Do not complete these tutorials independently.</strong> Each step below adds required, lab-specific instructions that are <em>not</em> in the official ROS2 tutorial - skipping them will cost you points on Gradescope. Expect 2–3 hours total.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Each numbered step below <strong>modifies or overrides</strong> the official tutorial instructions. Read the text under each tutorial link <em>before</em> running any commands. Following the official tutorial alone will cause you to misconfigure your environment or lose points on deliverables (e.g., Tutorial 1 tells you to <em>not</em> run the commands shown there).</p>
+</div>
 <a class="reference internal image-reference" href="../_images/Lab2_ROS_Tutorials.png"><img alt="../_images/Lab2_ROS_Tutorials.png" class="align-center" src="../_images/Lab2_ROS_Tutorials.png" style="width: 800px;" />
 </a>
 <br>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Graded items in this lab: rqt_graph screenshot (Step 4), 3-turtle screenshot (Step 5), bag file in <code class="docutils literal notranslate"><span class="pre">lab2/bag_files</span></code> (Step 10). Read each step’s instructions — the official tutorials alone won’t produce a passing submission.</p>
+</div>
 <section id="configuring-environment">
 <h3>1. Configuring environment<a class="headerlink" href="#configuring-environment" title="Link to this heading">#</a></h3>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Do not run the commands in the official tutorial. Follow the steps below instead.</p>
+</div>
 <ul>
-<li><p>For this firt tutorial, <a class="reference external" href="https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Configuring-ROS2-Environment.html">Configuring Environment</a>, your environment has already been configured. Simply read through the page, but do not run any commands. Instead, open the <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> file by running the following commands:</p>
+<li><p>For this firt tutorial, <a class="reference external" href="https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Configuring-ROS2-Environment.html">Configuring Environment</a>, your environment has already been configured. Simply read through the page, but do <strong>NOT</strong> run any commands. Instead, open the <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> file by running the following commands:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span>
 gedit<span class="w"> </span>.bashrc
 </pre></div>

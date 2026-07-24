@@ -21,7 +21,12 @@ ROS 2 Jazzy Jalisco: <https://docs.ros.org/en/jazzy/>
 
 The tutorials at  [Beginner: CLI Tools](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools.html) are an excellent introduction to ROS2 command‑line tools, but you must follow the lab instructions provided below as you complete them. Do not skip ahead or work through the tutorials on your own - each step in this lab depends on the guidance written below.
 
-Work through all 10 tutorials while carefully following the instructions in this lab, which should take about 2–3 hours in total.
+**Do not complete these tutorials independently.** Each step below adds required, lab-specific instructions that are *not* in the official ROS2 tutorial - skipping them will cost you points on Gradescope. Expect 2–3 hours total.
+
+
+```{warning}
+Each numbered step below **modifies or overrides** the official tutorial instructions. Read the text under each tutorial link *before* running any commands. Following the official tutorial alone will cause you to misconfigure your environment or lose points on deliverables (e.g., Tutorial 1 tells you to *not* run the commands shown there).
+```
 
 ```{image} ./figures/Lab2_ROS_Tutorials.png
 :width: 800
@@ -30,9 +35,17 @@ Work through all 10 tutorials while carefully following the instructions in this
 
 <br>
 
+```{note}
+Graded items in this lab: rqt_graph screenshot (Step 4), 3-turtle screenshot (Step 5), bag file in `lab2/bag_files` (Step 10). Read each step's instructions — the official tutorials alone won't produce a passing submission.
+```
+
 ### 1. Configuring environment
 
-- For this firt tutorial, [Configuring Environment](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Configuring-ROS2-Environment.html), your environment has already been configured. Simply read through the page, but do not run any commands. Instead, open the `.bashrc` file by running the following commands:
+```{important}
+Do not run the commands in the official tutorial. Follow the steps below instead.
+```
+
+- For this firt tutorial, [Configuring Environment](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Configuring-ROS2-Environment.html), your environment has already been configured. Simply read through the page, but do **NOT** run any commands. Instead, open the `.bashrc` file by running the following commands:
 
     ```bash
     cd
