@@ -247,7 +247,7 @@ Student IDs follow two series this term: `a27-m0` through `a27-m30` (31 accounts
 
 1. Generates a hashed password for all accounts
 2. Builds a single LDIF file with all 62 user entries
-3. Creates each student's home directory on the server and populates it with the course `.bashrc`
+3. Creates each student's home directory on the server, populated with the `/etc/skel` defaults (the course `.bashrc` is applied in 1.6)
 4. Adds all accounts to LDAP in one command
 
 UID numbers are split into two non-overlapping ranges so the two series never collide: `m` series uses `20000`–`20030`, `t` series uses `21000`–`21030`.
@@ -306,11 +306,6 @@ ENTRY
     sudo mkdir -p /home/students/${USERNAME}
     sudo cp -r /etc/skel/. /home/students/${USERNAME}/
 
-    # Copy course config templates over the /etc/skel defaults.
-    # These are instructor-managed files and are replaced on every push.
-    sudo cp /etc/ece387/bashrc_template /home/students/${USERNAME}/.bashrc
-    sudo cp /etc/ece387/inputrc_template /home/students/${USERNAME}/.inputrc
-
     # Set ownership to the student's UID and the shared group GID (10000).
     # chmod 700 means only the student can read/write their own directory.
     sudo chown -R ${UID_NUMBER}:10000 /home/students/${USERNAME}
@@ -352,14 +347,20 @@ ldapsearch -x -H ldap://localhost \
 
 ### 1.6 Create Course Config Templates
 
-After creating student accounts, set up the course templates. These files are copied into every student's home directory and can be re-pushed at any time.
+With the accounts created, define the course shell environment. The templates are written here and then distributed to every account by the push at the end of this section — that same command is what you re-run whenever a template changes, so there is no separate first-time install path to drift out of date.
 
 ```bash
 # Create the directory that will hold course-wide config files
 sudo mkdir -p /etc/ece387
 ```
 
-> **The shell environment is instructor-owned.** `.bashrc` and `.inputrc` are course files, not student files. Every push overwrites them, and student edits do not survive. This is deliberate: a uniform environment across all 62 accounts and 14 masters means a broken shell is always the template's fault and is always fixed in one place. Tell students up front that `~/.bashrc` is not theirs to edit — anything they want per-session goes in the terminal (`export ROS_DOMAIN_ID=7`), and anything they want permanently goes in a request to you.
+> **How student edits behave.** Home directories are NFS-mounted from this server, so there is exactly **one** `.bashrc` per student — the copy under `/home/students/` here. Three consequences follow, all of them intended:
+>
+> 1. **A student edit persists.** Nothing overwrites it at login. There is no login hook, no cron job, no sync daemon; after account creation the template and the student's file are unrelated.
+> 2. **An edit follows the student to every machine.** Editing `~/.bashrc` on master07 writes through to this server immediately, so logging into master12 an hour later gets the edited file. There is no per-machine copy to fall out of step.
+> 3. **An instructor push replaces it.** The push below overwrites `.bashrc` on all 62 accounts, discarding student edits with no warning and no backup. That is the only thing that reverts a student's changes, and it happens only when you run it by hand.
+>
+> The file is owned by the student and mode `644`, so they *can* edit it. "Instructor-owned" is a course policy enforced by the push, not a permission setting.
 
 #### .bashrc Template
 
@@ -495,8 +496,10 @@ export _colcon_cd_root=/opt/ros/jazzy/
 source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
 
 # ROS_DOMAIN_ID separates ROS2 traffic between different robot pairs.
-# Each student should set this e.g.: export ROS_DOMAIN_ID=X
-# where X is the robot ID.
+# It MUST match the value set on the robot, which equals the robot number
+# (robot7 -> 7). A mismatch is silent: the master simply sees no topics at
+# all, with no error message. Students override this per terminal:
+#   export ROS_DOMAIN_ID=7
 export ROS_DOMAIN_ID=99
 export LDS_MODEL=LDS-02   # Replace with LDS-03 if using new LIDAR
 TEMPLATE_EOF
@@ -619,7 +622,7 @@ sudo systemctl enable --now nfs-server
 showmount -e localhost
 ```
 
-> `root_squash` is used here to simplify initial account creation. It is better isolation between students — see "Grant Students Restricted sudo Access" in [login-client.md](login-client.md).
+> **`root_squash` is what actually isolates students from each other.** It tells the server to treat root on any master as an unprivileged anonymous user, so `sudo cat /home/students/a27-t02/lab3.py` run from a master is refused by the server — regardless of what a student managed to do on the client. Nothing in this guide needs `no_root_squash`: `create_students.sh` and the push loop both run locally on this server, not over NFS. The tradeoff is that administrative fixes to student files must be made here rather than from a master. See "Grant Students Restricted sudo Access" in [login-client.md](login-client.md).
 
 ### 1.8 Open Required Firewall Ports
 

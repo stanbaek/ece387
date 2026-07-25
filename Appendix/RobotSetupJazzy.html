@@ -597,6 +597,9 @@ document.write(`
 <section id="change-hostname">
 <h3>Change hostname<a class="headerlink" href="#change-hostname" title="Link to this heading">#</a></h3>
 <p>If you have multiple robots on your network it is good to give each a unique hostname. We number each robot from 0–n and each robot has a corresponding hostname (e.g., <code class="docutils literal notranslate"><span class="pre">robot0</span></code>).</p>
+<blockquote>
+<div><p><strong>The hostname becomes the SSID.</strong> Step 6 generates the <code class="docutils literal notranslate"><span class="pre">hostapd</span></code> config from the hostname at boot, so <code class="docutils literal notranslate"><span class="pre">robot7</span></code> broadcasts an access point named <code class="docutils literal notranslate"><span class="pre">robot7</span></code>. Throughout these guides <code class="docutils literal notranslate"><span class="pre">robotX</span></code> means “the robot’s number in place of X” — there is no zero padding, so the robots are <code class="docutils literal notranslate"><span class="pre">robot0</span></code> through <code class="docutils literal notranslate"><span class="pre">robot30</span></code>, not <code class="docutils literal notranslate"><span class="pre">robot00</span></code>.</p>
+</div></blockquote>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>hostnamectl<span class="w"> </span>set-hostname<span class="w"> </span>robot0
 </pre></div>
 </div>
@@ -877,7 +880,7 @@ cfg80211<span class="w">              </span><span class="m">970752</span><span 
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">wlan0</span></code></p></td>
 <td><p>Built-in Raspberry Pi Wi-Fi</p></td>
 <td><p><strong>Access Point (AP)</strong></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">robotXX</span></code> (SSID)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">robotX</span></code> (SSID)</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">wlan1</span></code></p></td>
 <td><p>USB Wi-Fi (RTL8723BU)</p></td>
@@ -887,7 +890,7 @@ cfg80211<span class="w">              </span><span class="m">970752</span><span 
 <tr class="row-even"><td><p>Master PC</p></td>
 <td><p>Built-in &amp; USB Wi-Fi</p></td>
 <td><p>Connects to AP + internet</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">robotXX</span></code> + router</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">robotX</span></code> + router</p></td>
 </tr>
 </tbody>
 </table>
@@ -1404,10 +1407,15 @@ opencr_ld_main
 <span class="nv">ROS_DISTRO</span><span class="o">=</span>jazzy
 </pre></div>
 </div>
-<p>Set the ROS Domain ID. ROS 2 nodes on the same domain ID can communicate freely; nodes on different IDs cannot. Choose X to match the robot number (e.g., <code class="docutils literal notranslate"><span class="pre">ROS_DOMAIN_ID=9</span></code> for <code class="docutils literal notranslate"><span class="pre">robot99</span></code>):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;export ROS_DOMAIN_ID=&lt;your_domain_id&gt;&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
+<p>Set the ROS Domain ID. ROS 2 nodes on the same domain ID can communicate freely; nodes on different IDs cannot.</p>
+<p><strong>The rule: the domain ID equals the robot number, and the master must use the same value.</strong> <code class="docutils literal notranslate"><span class="pre">robot7</span></code> uses <code class="docutils literal notranslate"><span class="pre">ROS_DOMAIN_ID=7</span></code>, and any master talking to <code class="docutils literal notranslate"><span class="pre">robot7</span></code> must also export <code class="docutils literal notranslate"><span class="pre">ROS_DOMAIN_ID=7</span></code>. A mismatch fails silently — <code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">topic</span> <span class="pre">list</span></code> returns nothing at all, with no error, which looks exactly like a network problem.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Replace 7 with this robot&#39;s number</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;export ROS_DOMAIN_ID=7&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
 </pre></div>
 </div>
+<blockquote>
+<div><p>Valid range is 0–101. Robot numbers 0–30 are all safe.</p>
+</div></blockquote>
 </section>
 <section id="build-ros2-workspace">
 <h3>Build ROS2 Workspace<a class="headerlink" href="#build-ros2-workspace" title="Link to this heading">#</a></h3>
