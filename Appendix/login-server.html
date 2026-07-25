@@ -216,8 +216,6 @@
 <li class="toctree-l1"><a class="reference internal" href="RobotSetupJazzy.html">Robot Setup (ROS2 Jazzy)</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Login Server Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="login-client.html">Master (Client) Setup</a></li>
-
-
 <li class="toctree-l1"><a class="reference internal" href="MasterSetupJazzy.html">Master Setup — Standalone</a></li>
 <li class="toctree-l1"><a class="reference internal" href="GitSetup.html">Git Repo Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="GamepadSetup.html">Gamepad Setup</a></li>
@@ -1058,10 +1056,9 @@ sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">755</sp
 <span class="c1"># rw             = read and write access</span>
 <span class="c1"># sync           = write data to disk before acknowledging — safer than async</span>
 <span class="c1"># no_subtree_check = disables subtree checking, improves reliability</span>
-<span class="c1"># no_root_squash = allows root on clients to act as root here (needed for</span>
-<span class="c1">#                  creating/chowning files during setup)</span>
-<span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">students</span>  <span class="mf">10.99.1.0</span><span class="o">/</span><span class="mi">24</span><span class="p">(</span><span class="n">rw</span><span class="p">,</span><span class="n">sync</span><span class="p">,</span><span class="n">no_subtree_check</span><span class="p">,</span><span class="n">no_root_squash</span><span class="p">)</span>
-<span class="c1"># Note: this matches the ece387only WiFi router subnet (10.99.1.0/24)</span>
+<span class="c1"># root_squash = does not allow root on clients to act as root here </span>
+<span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">students</span>  <span class="mf">10.99.1.0</span><span class="o">/</span><span class="mi">24</span><span class="p">(</span><span class="n">rw</span><span class="p">,</span><span class="n">sync</span><span class="p">,</span><span class="n">no_subtree_check</span><span class="p">,</span><span class="n">root_squash</span><span class="p">)</span>
+<span class="c1"># Note: this matches the ece387 WiFi router subnet (10.99.1.0/24)</span>
 </pre></div>
 </div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Re-read /etc/exports and apply the new export</span>
@@ -1075,7 +1072,7 @@ showmount<span class="w"> </span>-e<span class="w"> </span>localhost
 </pre></div>
 </div>
 <blockquote>
-<div><p><code class="docutils literal notranslate"><span class="pre">no_root_squash</span></code> is used here to simplify initial account creation. Once accounts are set up, switch to <code class="docutils literal notranslate"><span class="pre">root_squash</span></code> for better isolation between students — see “Grant Students Restricted sudo Access” in <a class="reference internal" href="login-client.html"><span class="std std-doc">login-client.md</span></a>.</p>
+<div><p><code class="docutils literal notranslate"><span class="pre">root_squash</span></code> is used here to simplify initial account creation. It is better isolation between students — see “Grant Students Restricted sudo Access” in <a class="reference internal" href="login-client.html"><span class="std std-doc">login-client.md</span></a>.</p>
 </div></blockquote>
 </section>
 <section id="open-required-firewall-ports">
@@ -1104,7 +1101,7 @@ sudo<span class="w"> </span>ufw<span class="w"> </span>status
 </pre></div>
 </div>
 <blockquote>
-<div><p><strong>Reconfiguring an already-running server:</strong> if <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">ufw</span> <span class="pre">status</span></code> still shows an old subnet (e.g. <code class="docutils literal notranslate"><span class="pre">192.168.1.0/24</span></code>) from a previous setup, <code class="docutils literal notranslate"><span class="pre">ufw</span> <span class="pre">allow</span></code> won’t replace it — the old rule stays active alongside the new one. Remove it explicitly:</p>
+<div><p><strong>Reconfiguring an already-running server:</strong> if <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">ufw</span> <span class="pre">status</span></code> still shows an old subnet (e.g. <code class="docutils literal notranslate"><span class="pre">10.99.1.0/24</span></code>) from a previous setup, <code class="docutils literal notranslate"><span class="pre">ufw</span> <span class="pre">allow</span></code> won’t replace it — the old rule stays active alongside the new one. Remove it explicitly:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>ufw<span class="w"> </span>status<span class="w"> </span>numbered<span class="w">      </span><span class="c1"># find the rule number for the old subnet</span>
 sudo<span class="w"> </span>ufw<span class="w"> </span>delete<span class="w"> </span>&lt;number&gt;<span class="w">      </span><span class="c1"># delete it</span>
 sudo<span class="w"> </span>ufw<span class="w"> </span>allow<span class="w"> </span>from<span class="w"> </span><span class="m">10</span>.99.1.0/24

@@ -559,6 +559,9 @@ port=0
 
 # 72-hour lease for student labs
 dhcp-range=192.168.50.10,192.168.50.50,255.255.255.0,72h
+
+# Do NOT advertise a default gateway.
+dhcp-option=3
 ```
 
 ### Step 6: Configure hostapd (AP)
@@ -845,7 +848,7 @@ sudo udevadm trigger
 Install USB camera drivers, OpenCV, and AprilTag libraries:
 
 ```bash
-sudo apt install -y python3-pip python3.12-venv
+sudo apt install -y python3-pip python3-venv
 sudo apt install -y ros-jazzy-usb-cam ros-jazzy-image-proc
 sudo apt install -y ros-jazzy-v4l2-camera
 sudo apt install -y python3-opencv python3-numpy ros-jazzy-cv-bridge

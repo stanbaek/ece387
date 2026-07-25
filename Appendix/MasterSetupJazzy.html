@@ -216,8 +216,6 @@
 <li class="toctree-l1"><a class="reference internal" href="RobotSetupJazzy.html">Robot Setup (ROS2 Jazzy)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="login-server.html">Login Server Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="login-client.html">Master (Client) Setup</a></li>
-
-
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Master Setup — Standalone</a></li>
 <li class="toctree-l1"><a class="reference internal" href="GitSetup.html">Git Repo Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="GamepadSetup.html">Gamepad Setup</a></li>
@@ -429,7 +427,10 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tp-link-ac600-archer-t2u-plus-driver">TP-Link AC600 Archer T2U Plus Driver</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pip">PIP</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pip">PIP</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#building-a-dlib-wheel">Building a dlib Wheel</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -565,8 +566,9 @@ git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </spa
 <span class="nb">source</span><span class="w"> </span>/usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
 
 <span class="c1"># ROS_DOMAIN_ID separates ROS2 traffic between different robot pairs.</span>
-<span class="c1"># Each student should set this e.g.: export ROS_DOMAIN_ID=X</span>
-<span class="c1"># where X is the robot ID.</span>
+<span class="c1"># It MUST match the value set on the robot, which equals the robot number</span>
+<span class="c1"># (robot7 -&gt; 7). A mismatch means the master sees no topics at all, and there</span>
+<span class="c1"># is no error message. Change this to your robot&#39;s number.</span>
 <span class="nb">export</span><span class="w"> </span><span class="nv">ROS_DOMAIN_ID</span><span class="o">=</span><span class="m">99</span>
 <span class="nb">export</span><span class="w"> </span><span class="nv">LDS_MODEL</span><span class="o">=</span>LDS-02<span class="w"> </span><span class="c1"># replace with LDS-03 if using new LIDAR</span>
 </pre></div>
@@ -598,8 +600,16 @@ git<span class="w"> </span>clone<span class="w"> </span>https://github.com/aircr
 sudo<span class="w"> </span>make<span class="w"> </span>dkms_install
 </pre></div>
 </div>
-<p>If you don’t have permission try to execute:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chmod<span class="w"> </span><span class="m">777</span><span class="w"> </span>rtl8812au
+<p>If <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">dkms_install</span></code> reports a permission error, do <strong>not</strong> <code class="docutils literal notranslate"><span class="pre">chmod</span> <span class="pre">777</span></code>
+the source tree – that does not fix the build and leaves it
+world-writable. The usual causes are a leftover half-finished DKMS build or
+cloning into a directory root cannot read:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Inspect and clear any previous build, then retry from your home directory</span>
+sudo<span class="w"> </span>dkms<span class="w"> </span>status
+sudo<span class="w"> </span>dkms<span class="w"> </span>remove<span class="w"> </span>rtl8812au/5.6.4.2<span class="w"> </span>--all<span class="w">   </span><span class="c1"># match the version from dkms status</span>
+<span class="nb">cd</span><span class="w"> </span>~<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>rtl8812au
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/aircrack-ng/rtl8812au.git
+<span class="nb">cd</span><span class="w"> </span>rtl8812au<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>make<span class="w"> </span>dkms_install
 </pre></div>
 </div>
 </li>
@@ -607,22 +617,58 @@ sudo<span class="w"> </span>make<span class="w"> </span>dkms_install
 </section>
 <section id="pip">
 <h3>PIP<a class="headerlink" href="#pip" title="Link to this heading">#</a></h3>
-<p>For all users:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;pydantic&lt;2&quot;</span><span class="w">   </span><span class="c1"># pip3 install pydantic</span>
-sudo<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>dlib
-sudo<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>imutils
-sudo<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>pupil-apriltags
+<p>Ubuntu 24.04 enforces <a class="reference external" href="https://peps.python.org/pep-0668/">PEP 668</a>, which blocks pip from writing into the system Python. A plain <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">&lt;package&gt;</span></code> fails with an <code class="docutils literal notranslate"><span class="pre">externally-managed-environment</span></code> error.</p>
+<p>The protection exists so that pip cannot break Python packages other apt-managed applications depend on. A master runs ROS 2 and nothing else, and is re-imaged rather than repaired, so installing system-wide is acceptable here. Use <code class="docutils literal notranslate"><span class="pre">--break-system-packages</span></code> to say so explicitly:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--break-system-packages<span class="w"> </span><span class="s2">&quot;pydantic&lt;2&quot;</span>
+sudo<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--break-system-packages<span class="w"> </span>imutils
+sudo<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--break-system-packages<span class="w"> </span>pupil-apriltags
 </pre></div>
 </div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">dlib</span></code> package will take quite a while to install.</p>
+<p><code class="docutils literal notranslate"><span class="pre">dlib</span></code> is handled separately – see below.</p>
+<section id="building-a-dlib-wheel">
+<h4>Building a dlib Wheel<a class="headerlink" href="#building-a-dlib-wheel" title="Link to this heading">#</a></h4>
+<p><strong>Why not just <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">dlib</span></code>?</strong> Because dlib is a C++ library. PyPI ships it only as a source distribution, so <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">dlib</span></code> downloads the source and invokes the compiler, which takes 30-60 minutes on a NUC and needs cmake, a full build toolchain, and a few GB of RAM.</p>
+<p>A <strong>wheel</strong> (<code class="docutils literal notranslate"><span class="pre">.whl</span></code>) is a zip archive of the <em>already-compiled</em> result. Building one once and installing it everywhere else turns a 45-minute compile into a 5-second unzip. The reasons this is worth doing:</p>
+<ul class="simple">
+<li><p><strong>Time.</strong> Fourteen masters at 45 minutes each is over ten hours of compiling. One build plus thirteen copies is under an hour.</p></li>
+<li><p><strong>Reproducibility.</strong> Every machine gets a bit-identical binary. Compiling separately on each machine invites subtle differences from compiler versions or detected CPU features – the kind that produce a lab that works at one bench and not another.</p></li>
+<li><p><strong>Re-imaging.</strong> Machines get wiped. Keeping the wheel means a rebuild costs seconds instead of another 45-minute compile.</p></li>
+<li><p><strong>No build tools at install time.</strong> Only the machine that builds the wheel needs cmake and the toolchain.</p></li>
+</ul>
+<p><strong>Step 1 – build the wheel (once, on one master):</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Build dependencies, needed only on this machine</span>
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>build-essential<span class="w"> </span>cmake<span class="w"> </span>python3-dev
+
+pip<span class="w"> </span>install<span class="w"> </span>--break-system-packages<span class="w"> </span>wheel
+pip<span class="w"> </span>download<span class="w"> </span>dlib
+python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>wheel<span class="w"> </span>dlib-*.tar.gz
+</pre></div>
 </div>
+<p>This produces a file such as <code class="docutils literal notranslate"><span class="pre">dlib-20.0.0-cp312-cp312-linux_x86_64.whl</span></code>.</p>
+<blockquote>
+<div><p><strong>The filename is a compatibility contract, and it must match the target machine.</strong> <code class="docutils literal notranslate"><span class="pre">cp312</span></code> means CPython 3.12 and <code class="docutils literal notranslate"><span class="pre">linux_x86_64</span></code> means 64-bit Intel/AMD. A wheel built on a robot is tagged <code class="docutils literal notranslate"><span class="pre">linux_aarch64</span></code> and <strong>will not install on a master</strong> – pip will reject it, or worse, ignore it and fall back to compiling. Build one wheel per architecture: one for the masters, one for the robots.</p>
+</div></blockquote>
+<p><strong>Step 2 – keep the wheel somewhere durable.</strong> Not the machine that built it, which will eventually be re-imaged. The login server works, or the course git repo if you do not mind the file size:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scp<span class="w"> </span>dlib-*.whl<span class="w"> </span>ece387admin@ece387server:/srv/ece387/wheels/
+</pre></div>
+</div>
+<p><strong>Step 3 – install on any master:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--break-system-packages<span class="w"> </span>~/dlib-*.whl
+</pre></div>
+</div>
+<p>Verify:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import dlib; print(dlib.__version__)&quot;</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>The robots use a virtual environment instead (see <a class="reference internal" href="RobotSetupJazzy.html"><span class="std std-doc">Robot Setup</span></a>) because that setup already exists and works. There is no need to make the two match.</p>
+</div></blockquote>
 <p>For each user:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>adduser<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>video
 </pre></div>
 </div>
 <p>Then, reboot the system.</p>
+</section>
 </section>
 </section>
 </section>
@@ -702,7 +748,10 @@ sudo<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> <
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tp-link-ac600-archer-t2u-plus-driver">TP-Link AC600 Archer T2U Plus Driver</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pip">PIP</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pip">PIP</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#building-a-dlib-wheel">Building a dlib Wheel</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

@@ -603,10 +603,9 @@ sudo nano /etc/exports
 # rw             = read and write access
 # sync           = write data to disk before acknowledging — safer than async
 # no_subtree_check = disables subtree checking, improves reliability
-# no_root_squash = allows root on clients to act as root here (needed for
-#                  creating/chowning files during setup)
-/home/students  10.99.1.0/24(rw,sync,no_subtree_check,no_root_squash)
-# Note: this matches the ece387only WiFi router subnet (10.99.1.0/24)
+# root_squash = does not allow root on clients to act as root here 
+/home/students  10.99.1.0/24(rw,sync,no_subtree_check,root_squash)
+# Note: this matches the ece387 WiFi router subnet (10.99.1.0/24)
 ```
 
 ```bash
@@ -620,7 +619,7 @@ sudo systemctl enable --now nfs-server
 showmount -e localhost
 ```
 
-> `no_root_squash` is used here to simplify initial account creation. Once accounts are set up, switch to `root_squash` for better isolation between students — see "Grant Students Restricted sudo Access" in [login-client.md](login-client.md).
+> `root_squash` is used here to simplify initial account creation. It is better isolation between students — see "Grant Students Restricted sudo Access" in [login-client.md](login-client.md).
 
 ### 1.8 Open Required Firewall Ports
 
@@ -648,7 +647,7 @@ sudo ufw enable
 sudo ufw status
 ```
 
-> **Reconfiguring an already-running server:** if `sudo ufw status` still shows an old subnet (e.g. `192.168.1.0/24`) from a previous setup, `ufw allow` won't replace it — the old rule stays active alongside the new one. Remove it explicitly:
+> **Reconfiguring an already-running server:** if `sudo ufw status` still shows an old subnet (e.g. `10.99.1.0/24`) from a previous setup, `ufw allow` won't replace it — the old rule stays active alongside the new one. Remove it explicitly:
 >
 > ```bash
 > sudo ufw status numbered      # find the rule number for the old subnet
