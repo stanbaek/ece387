@@ -216,6 +216,8 @@
 <li class="toctree-l1"><a class="reference internal" href="RobotSetupJazzy.html">Robot Setup (ROS2 Jazzy)</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Login Server Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="login-client.html">Master (Client) Setup</a></li>
+
+
 <li class="toctree-l1"><a class="reference internal" href="MasterSetupJazzy.html">Master Setup — Standalone</a></li>
 <li class="toctree-l1"><a class="reference internal" href="GitSetup.html">Git Repo Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="GamepadSetup.html">Gamepad Setup</a></li>
@@ -506,8 +508,8 @@ document.write(`
     ┌────────┴───────┐                       ┌────────┴───────┐
     │  Robot 01      │                       │  Robot N...    │
     │  RPi 4         │                       │  RPi 4         │
-    │  Ubuntu 22.04  │                       │  Ubuntu 22.04  │
-    │  ROS2 Humble   │                       │  ROS2 Humble   │
+    │  Ubuntu 24.04  │                       │  Ubuntu 24.04  │
+    │  ROS2 Jazzy    │                       │  ROS2 Jazzy    │
     └────────────────┘                       └────────────────┘
 </pre></div>
 </div>
@@ -573,8 +575,8 @@ document.write(`
 <li><p>During install, set:</p>
 <ul class="simple">
 <li><p>Hostname: <code class="docutils literal notranslate"><span class="pre">ece387server</span></code></p></li>
-<li><p>Create a local admin account (e.g., <code class="docutils literal notranslate"><span class="pre">stanbaek</span></code>) — this is your personal admin account, separate from student accounts</p></li>
-<li><p>Enable OpenSSH Server so you can manage the server remotely from your office</p></li>
+<li><p>Create a local admin account (e.g., <code class="docutils literal notranslate"><span class="pre">stanbaek</span></code>) — this is your admin account, separate from student accounts</p></li>
+<li><p>Enable OpenSSH Server so you can manage the server remotely</p></li>
 </ul>
 </li>
 <li><p>After install, set a static IP so the server is always reachable at the same address:</p></li>
@@ -820,11 +822,10 @@ sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </sp
 <span class="s">alias gedit=&#39;gnome-text-editor&#39;</span>
 
 <span class="s"># Launch the TurtleBot3 bringup on the robot over SSH.</span>
-<span class="s"># Replace robotX with the robot hostname or IP for the bench.</span>
-<span class="s">alias bringup=&#39;ssh pi@robotX &#39;\&#39;&#39;ros2 launch turtlebot3_bringup robot.launch.py&#39;\&#39;</span>
+<span class="s">alias bringup=&#39;ssh pi@192.168.50.1 &#39;\&#39;&#39;ros2 launch turtlebot3_bringup robot.launch.py&#39;\&#39;</span>
 
 <span class="s"># Shortcut to SSH into the robot.</span>
-<span class="s">alias ssh_robot=&#39;ssh pi@192.168.4.1&#39;</span>
+<span class="s">alias ssh_robot=&#39;ssh pi@192.168.50.1&#39;</span>
 
 <span class="s"># Build the workspace, passing through any colcon arguments</span>
 <span class="s">function ccbuild() {</span>
@@ -845,33 +846,34 @@ sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </sp
 <span class="s">export TURTLEBOT3_MODEL=burger</span>
 <span class="s">export RMW_IMPLEMENTATION=rmw_fastrtps_cpp</span>
 
-<span class="s"># ROS_DOMAIN_ID separates ROS 2 traffic between different robot pairs.</span>
-<span class="s"># Students override this per terminal for their bench, e.g.: export ROS_DOMAIN_ID=7</span>
-<span class="s">export ROS_DOMAIN_ID=99</span>
-<span class="s">export LDS_MODEL=LDS-02   # Replace with LDS-03 if using new LIDAR</span>
-
 <span class="s"># colcon helpers</span>
 <span class="s">source /usr/share/colcon_cd/function/colcon_cd.sh</span>
 <span class="s">export _colcon_cd_root=/opt/ros/jazzy/</span>
 <span class="s">source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash</span>
+
+<span class="s"># ROS_DOMAIN_ID separates ROS2 traffic between different robot pairs.</span>
+<span class="s"># Each student should set this e.g.: export ROS_DOMAIN_ID=X</span>
+<span class="s"># where X is the robot ID.</span>
+<span class="s">export ROS_DOMAIN_ID=99</span>
+<span class="s">export LDS_MODEL=LDS-02   # Replace with LDS-03 if using new LIDAR</span>
 <span class="s">TEMPLATE_EOF</span>
 </pre></div>
 </div>
-<p>Check the syntax before pushing it to 62 accounts — a typo here breaks every terminal in the lab at once:</p>
+<p>Check the syntax before pushing it to 62 accounts - a typo here breaks every terminal in the lab at once:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bash<span class="w"> </span>-n<span class="w"> </span>/etc/ece387/bashrc_template<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;syntax OK&quot;</span>
 </pre></div>
 </div>
 <p><strong>Notes on the template:</strong></p>
 <ul class="simple">
-<li><p>The non-interactive guard sets the ROS variables <em>before</em> returning. The stock Ubuntu <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> returns immediately, which would leave <code class="docutils literal notranslate"><span class="pre">ssh</span> <span class="pre">master05</span> <span class="pre">'ros2</span> <span class="pre">topic</span> <span class="pre">list'</span></code> with no ROS environment. The variables are intentionally duplicated in the guard and in the course block below it — the guard <code class="docutils literal notranslate"><span class="pre">return</span></code>s before reaching the second copy, so keep the two in sync when you change one.</p></li>
+<li><p>The non-interactive guard sets the ROS variables <em>before</em> returning. The stock Ubuntu <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> returns immediately, which would leave <code class="docutils literal notranslate"><span class="pre">ssh</span> <span class="pre">master05</span> <span class="pre">'ros2</span> <span class="pre">topic</span> <span class="pre">list'</span></code> with no ROS environment. The variables are intentionally duplicated in the guard and in the course block below it - the guard <code class="docutils literal notranslate"><span class="pre">return</span></code>s before reaching the second copy, so keep the two in sync when you change one.</p></li>
 <li><p>Interactivity matters for more than convenience: without the guard, anything the course block prints to stdout corrupts <code class="docutils literal notranslate"><span class="pre">scp</span></code> and <code class="docutils literal notranslate"><span class="pre">rsync</span></code> transfers to and from the robots.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">/usr/share/gazebo/setup.sh</span></code> is <strong>not</strong> included. That path belongs to Gazebo Classic, which is not part of Jazzy — on a Jazzy master the file does not exist and every terminal opens with a “No such file or directory” error. If a future setup does need it, guard the source: <code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">-f</span> <span class="pre">/usr/share/gazebo/setup.sh</span> <span class="pre">]</span> <span class="pre">&amp;&amp;</span> <span class="pre">source</span> <span class="pre">/usr/share/gazebo/setup.sh</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">/usr/share/gazebo/setup.sh</span></code> is <strong>not</strong> included. That path belongs to Gazebo Classic, which is not part of Jazzy - on a Jazzy master the file does not exist and every terminal opens with a “No such file or directory” error. If a future setup does need it, guard the source: <code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">-f</span> <span class="pre">/usr/share/gazebo/setup.sh</span> <span class="pre">]</span> <span class="pre">&amp;&amp;</span> <span class="pre">source</span> <span class="pre">/usr/share/gazebo/setup.sh</span></code>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">robotX</span></code> in the <code class="docutils literal notranslate"><span class="pre">bringup</span></code> alias is a placeholder. Either replace it before the first push or teach students to use <code class="docutils literal notranslate"><span class="pre">ssh_robot</span></code> and launch bringup by hand.</p></li>
 </ul>
 </section>
 <section id="inputrc-template">
 <h4>.inputrc Template<a class="headerlink" href="#inputrc-template" title="Link to this heading">#</a></h4>
-<p><code class="docutils literal notranslate"><span class="pre">.inputrc</span></code> configures readline behavior — used by bash for history search and tab completion.</p>
+<p><code class="docutils literal notranslate"><span class="pre">.inputrc</span></code> configures readline behavior - used by bash for history search and tab completion.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>tee<span class="w"> </span>/etc/ece387/inputrc_template<span class="w"> </span>&gt;<span class="w"> </span>/dev/null<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
 <span class="s"># ~/.inputrc: readline initialization file.</span>
 <span class="s"># ECE 387 course template — managed by the instructor, overwritten on every push.</span>

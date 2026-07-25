@@ -72,6 +72,38 @@ sudo apt update
 sudo apt install -y ros-jazzy-desktop ros-jazzy-turtlebot3* ros-dev-tools
 ```
 
+sudo apt install -y ros-humble-gazebo-*
+sudo apt install -y ros-humble-usb-cam ros-humble-image-proc
+sudo apt install -y ros-humble-camera-calibration
+sudo apt install -y ros-humble-apriltag ros-humble-apriltag-ros
+sudo apt install -y tree
+sudo apt install -y jstest-gtk  
+
+alias bringup='ssh pi@robotX '\''ros2 launch turtlebot3_bringup robot.launch.py'\'
+
+# Function to build with optional arguments
+
+function ccbuild() {
+    cd ~/master_ws && colcon build --symlink-install "$@"
+    source ~/master_ws/install/setup.bash
+}
+
+# Export the function to make it available in the shell
+
+export -f ccbuild
+
+source /opt/ros/jazzy/setup.bash
+source ~/master_ws/install/setup.bash
+export ROS_DOMAIN_ID=99  # For master0 and robot0
+
+export TURTLEBOT3_MODEL=burger
+export LDS_MODEL=LDS-02 # replace with LDS-02 if using new LIDAR
+
+source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
+source /usr/share/gazebo/setup.sh
+source /usr/share/colcon_cd/function/colcon_cd.sh
+export_colcon_cd_root=/opt/ros/jazzy/
+
 ### 1.3 Configure SSSD for LDAP Authentication
 
 SSSD (System Security Services Daemon) is the bridge between the master computer and the login server's LDAP database. When a student types their username and password, SSSD queries the LDAP server to verify their identity.
@@ -208,6 +240,7 @@ exit
 Students need `sudo` for package management and system commands during ROS labs, but should not be able to access other students' home directories via sudo.
 
 Two layers of protection are used together:
+
 - **`root_squash` on the NFS server** — maps root on the master to an anonymous unprivileged user on the server, so `sudo cat /home/students/a27-02/file` is rejected by the server even if the student tries it
 - **Command whitelist in sudoers** — restricts which commands can be run with sudo at all
 
@@ -218,6 +251,7 @@ sudo nano /etc/exports
 ```
 
 Change `no_root_squash` to `root_squash`:
+
 ```
 /home/students  10.99.1.0/24(rw,sync,no_subtree_check,root_squash)
 ```
@@ -265,14 +299,17 @@ sudo chmod 440 /etc/sudoers.d/ece387-students
 > **Note:** `ssh`, `cat`, and `nano` are intentionally excluded from the sudo whitelist — students don't need sudo to run them. They can SSH to their robots, read, and edit files freely without sudo. Excluding them from sudo prevents `sudo cat /home/students/a27-02/file` style attacks, and `root_squash` on the server provides a second layer of protection.
 
 To add more commands to the whitelist later, find the full path first:
+
 ```bash
 which <command>   # e.g., which colcon → /usr/bin/colcon
 ```
+
 Then add the path to the appropriate `Cmnd_Alias` line.
 
 ### 1.6 Configure WiFi Interfaces
 
 Each master has two WiFi adapters:
+
 - **Built-in adapter** (`wlo1`) — left unconfigured here; students point this at their robot's access point per-lab via `nmcli`.
 - **External USB dongle** — connects to the lab/internet networks (`ECE387`, `AF_ACADEMY_GUEST`, `ECE`). Since each machine's dongle has a different MAC address, we rename it to a consistent interface name (`wlan1`) so the same config works on all 14 masters.
 
@@ -281,6 +318,7 @@ Each master has two WiFi adapters:
 ```bash
 sudo nano /etc/systemd/network/10-usb-wifi.link
 ```
+
 ```ini
 [Match]
 Type=wlan
@@ -289,6 +327,7 @@ Property=ID_BUS=usb
 [Link]
 Name=wlan1
 ```
+
 ```bash
 sudo udevadm control --reload
 sudo udevadm trigger --subsystem-match=net --action=add
@@ -300,6 +339,7 @@ sudo udevadm trigger --subsystem-match=net --action=add
 ```bash
 sudo nano /etc/netplan/50-cloud-init.yaml
 ```
+
 ```yaml
 network:
   version: 2
@@ -363,6 +403,7 @@ Each master's dongle has a different MAC address, so match by bus/type instead s
 ```bash
 sudo nano /etc/systemd/network/10-usb-wifi.link
 ```
+
 ```ini
 [Match]
 Type=wlan
@@ -371,6 +412,7 @@ Property=ID_BUS=usb
 [Link]
 Name=wlan1
 ```
+
 ```bash
 sudo udevadm control --reload
 sudo udevadm trigger --subsystem-match=net --action=add
@@ -378,6 +420,7 @@ sudo udevadm trigger --subsystem-match=net --action=add
 ```
 
 Confirm:
+
 ```bash
 ip a   # should show wlan1 in place of the old wlx... name
 ```
@@ -395,6 +438,7 @@ Ubuntu Desktop uses NetworkManager to manage networking, and netplan hands contr
 ```bash
 sudo nano /etc/netplan/50-cloud-init.yaml
 ```
+
 ```yaml
 network:
   version: 2
@@ -422,11 +466,13 @@ network:
 This replaces whatever was in the file before (old static Ethernet config, or an old home-WiFi profile) — all three networks use DHCP, with `ECE387` preferred, then `AF_ACADEMY_GUEST`, then `ECE` as backup.
 
 Netplan files contain the WiFi passwords in plaintext, so fix permissions (Ubuntu will warn on `netplan apply` if this isn't done):
+
 ```bash
 sudo chmod 600 /etc/netplan/*.yaml
 ```
 
 Apply and confirm:
+
 ```bash
 sudo netplan apply
 
@@ -437,14 +483,17 @@ ping 10.99.1.50    # the login server
 ```
 
 Stop cloud-init from reverting this file on the next boot:
+
 ```bash
 sudo nano /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
 ```
+
 ```yaml
 network: {config: disabled}
 ```
 
 If `wlan1` later connects to a lower-priority network (e.g. `ECE`) and `ECE387` becomes available again, NetworkManager won't auto-switch — reconnect manually:
+
 ```bash
 nmcli connection up "ECE387"
 ```
@@ -456,10 +505,13 @@ nmcli connection up "ECE387"
 ```bash
 sudo nano /etc/sssd/sssd.conf
 ```
+
 Change the `ldap_uri` line to:
+
 ```ini
 ldap_uri = ldap://10.99.1.50
 ```
+
 ```bash
 # Restart SSSD and clear its cache so it doesn't hold onto the old server's stale data
 sudo systemctl stop sssd
@@ -476,10 +528,13 @@ id a27-m0
 ```bash
 sudo nano /etc/auto.students
 ```
+
 Update the NFS source IP:
+
 ```
 *  -fstype=nfs,soft,timeo=30,retrans=2  10.99.1.50:/home/students/&
 ```
+
 ```bash
 sudo systemctl restart autofs
 
@@ -504,8 +559,6 @@ ping masterNN.local    # replace NN with this machine's number, e.g. master03.lo
 If you're reconfiguring all 14 masters, repeat Steps 1–2 on each (the `.link` file and `50-cloud-init.yaml` are identical across machines, so these can be pushed via Ansible too), and push Steps 3–4 via the Ansible playbook in [Section 4](#4-ansible-automation-recommended-for-14-machines). Do Steps 1–2 carefully if working over SSH — a network change can drop the connection mid-command if it affects the interface your SSH session is using.
 
 ---
-
-
 
 ## 2. Resilience — Server Down or Network Unreliable
 
@@ -554,6 +607,7 @@ When a student moves to a different station:
 1. Log in with their LDAP username (e.g., `a27-m0`) and password — SSSD authenticates against the login server and their home directory mounts automatically via NFS.
 2. `.bashrc`, `.ssh/`, and workspace files are immediately available — no re-setup needed.
 3. Connect to their robot:
+
    ```bash
    # Connect the internal WiFi adapter to the robot's access point
    nmcli dev wifi connect "robot_XX_ap" password "robotpassword" ifname wlan0
@@ -561,6 +615,7 @@ When a student moves to a different station:
    # SSH into the robot
    ssh ubuntu@10.42.0.1
    ```
+
 4. Their GitHub SSH key is already in `~/.ssh/` — `git push` and `git pull` work immediately.
 
 ---
