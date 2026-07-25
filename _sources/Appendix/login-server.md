@@ -64,7 +64,7 @@ A login server (OpenLDAP + SSSD + NFS) is only worth the setup effort in one spe
 
 Assign static IPs on your lab's network before starting. All machines must be on the same subnet so they can reach each other.
 
-**Lab network:** WiFi router at `10.99.1.1`, SSID `ece387only`, subnet `10.99.1.0/24`.
+**Lab network:** WiFi router at `10.99.1.1`, SSID `ece387`, subnet `10.99.1.0/24`.
 
 | Host | Hostname | IP |
 |------|----------|----|
@@ -74,7 +74,7 @@ Assign static IPs on your lab's network before starting. All machines must be on
 | ... | ... | ... |
 | Master 14 | `master14` | `10.99.1.114` |
 
-> The login server IP (`10.99.1.50`) is the AFA lab address, reachable over the `ece387only` WiFi network at `10.99.1.1`. Master IPs above (`10.99.1.101`–`114`) are a suggested continuation of that range — adjust if you assign them differently. This guide uses the domain `ece387.local`.
+> The login server IP (`10.99.1.50`) is the AFA lab address, reachable over the `ece387` WiFi network at `10.99.1.1`. Master IPs above (`10.99.1.101`–`150`) are a suggested continuation of that range — adjust if you assign them differently. This guide uses the domain `ece387.local`.
 
 ---
 
@@ -241,9 +241,118 @@ ldapadd -x -H ldap://localhost \
   -W -f ~/Documents/ece387/structure.ldif
 ```
 
-### 1.5 Create Course Config Templates
+### 1.5 Create Student Accounts
 
-Before creating student accounts, set up the course templates. These files are copied into every student's home directory at account creation and can be re-pushed at any time.
+Student IDs follow two series this term: `a27-m0` through `a27-m30` (31 accounts) and `a27-t0` through `a27-t30` (31 accounts) — 62 accounts total. The script below:
+
+1. Generates a hashed password for all accounts
+2. Builds a single LDIF file with all 62 user entries
+3. Creates each student's home directory on the server and populates it with the course `.bashrc`
+4. Adds all accounts to LDAP in one command
+
+UID numbers are split into two non-overlapping ranges so the two series never collide: `m` series uses `20000`–`20030`, `t` series uses `21000`–`21030`.
+
+```bash
+cat > ~/Documents/ece387/create_students.sh << 'EOF'
+#!/bin/bash
+# Exit immediately if any command fails
+set -e
+
+# --- Configuration ---
+LDAP_ADMIN_DN="cn=admin,dc=ece387,dc=local"
+LDAP_ADMIN_PW="LdapAdmin387!"    # your LDAP admin password
+INITIAL_PW="TempPass2024!"        # students change this on first login
+LDIF=~/Documents/ece387/students.ldif
+
+# Generate a single password hash to reuse for all accounts.
+# slappasswd hashes the password in a format OpenLDAP understands ({SSHA}...).
+HASH=$(slappasswd -s "$INITIAL_PW")
+
+# Clear the LDIF file if it already exists from a previous run
+> $LDIF
+
+# Two username series this term: a27-m0..a27-m30 and a27-t0..a27-t30.
+# UID_BASE keeps the two series in separate, non-overlapping ranges.
+create_series() {
+  local PREFIX=$1     # "m" or "t"
+  local UID_BASE=$2   # 20000 for m-series, 21000 for t-series
+
+  # Loop from 0 to 30, creating one LDAP entry per student
+  for i in $(seq 0 30); do
+    USERNAME="a27-${PREFIX}${i}"
+    UID_NUMBER=$((UID_BASE + i))
+
+    # Append this student's entry to the LDIF file.
+    # Each entry is separated by a blank line (required by LDIF format).
+    cat >> $LDIF << ENTRY
+dn: uid=${USERNAME},ou=students,dc=ece387,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: ${USERNAME}
+cn: ${USERNAME}
+sn: ${USERNAME}
+uidNumber: ${UID_NUMBER}
+gidNumber: 10000
+homeDirectory: /home/students/${USERNAME}
+loginShell: /bin/bash
+userPassword: ${HASH}
+
+ENTRY
+
+    # Create the student's home directory on the NFS share.
+    # /etc/skel contains default files (.bashrc, .profile, etc.) that are
+    # copied into every new home directory.
+    sudo mkdir -p /home/students/${USERNAME}
+    sudo cp -r /etc/skel/. /home/students/${USERNAME}/
+
+    # Copy course config templates over the /etc/skel defaults.
+    # These are instructor-managed files and are replaced on every push.
+    sudo cp /etc/ece387/bashrc_template /home/students/${USERNAME}/.bashrc
+    sudo cp /etc/ece387/inputrc_template /home/students/${USERNAME}/.inputrc
+
+    # Set ownership to the student's UID and the shared group GID (10000).
+    # chmod 700 means only the student can read/write their own directory.
+    sudo chown -R ${UID_NUMBER}:10000 /home/students/${USERNAME}
+    sudo chmod 700 /home/students/${USERNAME}
+
+    echo "Prepared: ${USERNAME} (uid=${UID_NUMBER})"
+  done
+}
+
+create_series "m" 20000
+create_series "t" 21000
+
+# Add all 62 entries to LDAP in a single operation.
+# -w = password (non-interactive, read from argument)
+ldapadd -x -H ldap://localhost \
+  -D "$LDAP_ADMIN_DN" \
+  -w "$LDAP_ADMIN_PW" \
+  -f $LDIF
+
+echo ""
+echo "Done. 62 student accounts created (a27-m0..m30, a27-t0..t30)."
+EOF
+
+# Make the script executable, then run it
+chmod +x ~/Documents/ece387/create_students.sh
+bash ~/Documents/ece387/create_students.sh
+```
+
+Verify all accounts were created:
+
+```bash
+# Search the LDAP students OU and list just the uid field.
+# You should see uid: a27-m0 through uid: a27-m30, and uid: a27-t0 through uid: a27-t30.
+ldapsearch -x -H ldap://localhost \
+  -b "ou=students,dc=ece387,dc=local" \
+  -D "cn=admin,dc=ece387,dc=local" \
+  -W uid uidNumber homeDirectory | grep "^uid:"
+```
+
+### 1.6 Create Course Config Templates
+
+After creating student accounts, set up the course templates. These files are copied into every student's home directory and can be re-pushed at any time.
 
 ```bash
 # Create the directory that will hold course-wide config files
@@ -468,115 +577,6 @@ sudo find /home/students -maxdepth 2 -name '.bashrc' -user root
 Run the push from the login server, not from a master — the home directories live here. Students pick up the change at their next login, or immediately with `source ~/.bashrc`.
 
 > **Verify on one account before pushing to all 62.** Copy the template to a single student, log in as them on a master, and confirm the prompt, `ros2 topic list`, and `ccbuild` all behave. A bad template pushed to every account takes down every bench at once.
-
-### 1.6 Create Student Accounts
-
-Student IDs follow two series this term: `a27-m0` through `a27-m30` (31 accounts) and `a27-t0` through `a27-t30` (31 accounts) — 62 accounts total. The script below:
-
-1. Generates a hashed password for all accounts
-2. Builds a single LDIF file with all 62 user entries
-3. Creates each student's home directory on the server and populates it with the course `.bashrc`
-4. Adds all accounts to LDAP in one command
-
-UID numbers are split into two non-overlapping ranges so the two series never collide: `m` series uses `20000`–`20030`, `t` series uses `21000`–`21030`.
-
-```bash
-cat > ~/Documents/ece387/create_students.sh << 'EOF'
-#!/bin/bash
-# Exit immediately if any command fails
-set -e
-
-# --- Configuration ---
-LDAP_ADMIN_DN="cn=admin,dc=ece387,dc=local"
-LDAP_ADMIN_PW="LdapAdmin387!"    # your LDAP admin password
-INITIAL_PW="TempPass2024!"        # students change this on first login
-LDIF=~/Documents/ece387/students.ldif
-
-# Generate a single password hash to reuse for all accounts.
-# slappasswd hashes the password in a format OpenLDAP understands ({SSHA}...).
-HASH=$(slappasswd -s "$INITIAL_PW")
-
-# Clear the LDIF file if it already exists from a previous run
-> $LDIF
-
-# Two username series this term: a27-m0..a27-m30 and a27-t0..a27-t30.
-# UID_BASE keeps the two series in separate, non-overlapping ranges.
-create_series() {
-  local PREFIX=$1     # "m" or "t"
-  local UID_BASE=$2   # 20000 for m-series, 21000 for t-series
-
-  # Loop from 0 to 30, creating one LDAP entry per student
-  for i in $(seq 0 30); do
-    USERNAME="a27-${PREFIX}${i}"
-    UID_NUMBER=$((UID_BASE + i))
-
-    # Append this student's entry to the LDIF file.
-    # Each entry is separated by a blank line (required by LDIF format).
-    cat >> $LDIF << ENTRY
-dn: uid=${USERNAME},ou=students,dc=ece387,dc=local
-objectClass: inetOrgPerson
-objectClass: posixAccount
-objectClass: shadowAccount
-uid: ${USERNAME}
-cn: ${USERNAME}
-sn: ${USERNAME}
-uidNumber: ${UID_NUMBER}
-gidNumber: 10000
-homeDirectory: /home/students/${USERNAME}
-loginShell: /bin/bash
-userPassword: ${HASH}
-
-ENTRY
-
-    # Create the student's home directory on the NFS share.
-    # /etc/skel contains default files (.bashrc, .profile, etc.) that are
-    # copied into every new home directory.
-    sudo mkdir -p /home/students/${USERNAME}
-    sudo cp -r /etc/skel/. /home/students/${USERNAME}/
-
-    # Copy course config templates over the /etc/skel defaults.
-    # These are instructor-managed files and are replaced on every push.
-    sudo cp /etc/ece387/bashrc_template /home/students/${USERNAME}/.bashrc
-    sudo cp /etc/ece387/inputrc_template /home/students/${USERNAME}/.inputrc
-
-    # Set ownership to the student's UID and the shared group GID (10000).
-    # chmod 700 means only the student can read/write their own directory.
-    sudo chown -R ${UID_NUMBER}:10000 /home/students/${USERNAME}
-    sudo chmod 700 /home/students/${USERNAME}
-
-    echo "Prepared: ${USERNAME} (uid=${UID_NUMBER})"
-  done
-}
-
-create_series "m" 20000
-create_series "t" 21000
-
-# Add all 62 entries to LDAP in a single operation.
-# -w = password (non-interactive, read from argument)
-ldapadd -x -H ldap://localhost \
-  -D "$LDAP_ADMIN_DN" \
-  -w "$LDAP_ADMIN_PW" \
-  -f $LDIF
-
-echo ""
-echo "Done. 62 student accounts created (a27-m0..m30, a27-t0..t30)."
-EOF
-
-# Make the script executable, then run it
-chmod +x ~/Documents/ece387/create_students.sh
-bash ~/Documents/ece387/create_students.sh
-```
-
-Verify all accounts were created:
-
-```bash
-# Search the LDAP students OU and list just the uid field.
-# You should see uid: a27-m0 through uid: a27-m30, and uid: a27-t0 through uid: a27-t30.
-ldapsearch -x -H ldap://localhost \
-  -b "ou=students,dc=ece387,dc=local" \
-  -D "cn=admin,dc=ece387,dc=local" \
-  -W uid uidNumber homeDirectory | grep "^uid:"
-```
 
 ### 1.7 Configure NFS Home Directories
 
