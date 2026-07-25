@@ -64,7 +64,7 @@ A login server (OpenLDAP + SSSD + NFS) is only worth the setup effort in one spe
 
 Assign static IPs on your lab's network before starting. All machines must be on the same subnet so they can reach each other.
 
-**Lab network:** WiFi router at `10.99.1.1`, SSID `ece387only`, subnet `10.99.1.0/24`.
+**Lab network:** WiFi router at `10.99.1.1`, SSID `ece387`, subnet `10.99.1.0/24`.
 
 | Host | Hostname | IP |
 |------|----------|----|
@@ -74,7 +74,7 @@ Assign static IPs on your lab's network before starting. All machines must be on
 | ... | ... | ... |
 | Master 14 | `master14` | `10.99.1.114` |
 
-> The login server IP (`10.99.1.50`) is the AFA lab address, reachable over the `ece387only` WiFi network at `10.99.1.1`. Master IPs above (`10.99.1.101`–`114`) are a suggested continuation of that range — adjust if you assign them differently. This guide uses the domain `ece387.local`.
+> The login server IP (`10.99.1.50`) is the AFA lab address, reachable over the `ece387` WiFi network at `10.99.1.1`. Master IPs above (`10.99.1.101`–`150`) are a suggested continuation of that range — adjust if you assign them differently. This guide uses the domain `ece387.local`.
 
 ---
 
@@ -241,16 +241,126 @@ ldapadd -x -H ldap://localhost \
   -W -f ~/Documents/ece387/structure.ldif
 ```
 
-### 1.5 Create Course Config Templates
+### 1.5 Create Student Accounts
 
-Before creating student accounts, set up the course templates. These files are copied into every student's home directory at account creation and can be re-pushed at any time.
+Student IDs follow two series this term: `a27-m0` through `a27-m30` (31 accounts) and `a27-t0` through `a27-t30` (31 accounts) — 62 accounts total. The script below:
+
+1. Generates a hashed password for all accounts
+2. Builds a single LDIF file with all 62 user entries
+3. Creates each student's home directory on the server, populated with the `/etc/skel` defaults (the course `.bashrc` is applied in 1.6)
+4. Adds all accounts to LDAP in one command
+
+UID numbers are split into two non-overlapping ranges so the two series never collide: `m` series uses `20000`–`20030`, `t` series uses `21000`–`21030`.
+
+```bash
+cat > ~/Documents/ece387/create_students.sh << 'EOF'
+#!/bin/bash
+# Exit immediately if any command fails
+set -e
+
+# --- Configuration ---
+LDAP_ADMIN_DN="cn=admin,dc=ece387,dc=local"
+LDAP_ADMIN_PW="LdapAdmin387!"    # your LDAP admin password
+INITIAL_PW="TempPass2024!"        # students change this on first login
+LDIF=~/Documents/ece387/students.ldif
+
+# Generate a single password hash to reuse for all accounts.
+# slappasswd hashes the password in a format OpenLDAP understands ({SSHA}...).
+HASH=$(slappasswd -s "$INITIAL_PW")
+
+# Clear the LDIF file if it already exists from a previous run
+> $LDIF
+
+# Two username series this term: a27-m0..a27-m30 and a27-t0..a27-t30.
+# UID_BASE keeps the two series in separate, non-overlapping ranges.
+create_series() {
+  local PREFIX=$1     # "m" or "t"
+  local UID_BASE=$2   # 20000 for m-series, 21000 for t-series
+
+  # Loop from 0 to 30, creating one LDAP entry per student
+  for i in $(seq 0 30); do
+    USERNAME="a27-${PREFIX}${i}"
+    UID_NUMBER=$((UID_BASE + i))
+
+    # Append this student's entry to the LDIF file.
+    # Each entry is separated by a blank line (required by LDIF format).
+    cat >> $LDIF << ENTRY
+dn: uid=${USERNAME},ou=students,dc=ece387,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: ${USERNAME}
+cn: ${USERNAME}
+sn: ${USERNAME}
+uidNumber: ${UID_NUMBER}
+gidNumber: 10000
+homeDirectory: /home/students/${USERNAME}
+loginShell: /bin/bash
+userPassword: ${HASH}
+
+ENTRY
+
+    # Create the student's home directory on the NFS share.
+    # /etc/skel contains default files (.bashrc, .profile, etc.) that are
+    # copied into every new home directory.
+    sudo mkdir -p /home/students/${USERNAME}
+    sudo cp -r /etc/skel/. /home/students/${USERNAME}/
+
+    # Set ownership to the student's UID and the shared group GID (10000).
+    # chmod 700 means only the student can read/write their own directory.
+    sudo chown -R ${UID_NUMBER}:10000 /home/students/${USERNAME}
+    sudo chmod 700 /home/students/${USERNAME}
+
+    echo "Prepared: ${USERNAME} (uid=${UID_NUMBER})"
+  done
+}
+
+create_series "m" 20000
+create_series "t" 21000
+
+# Add all 62 entries to LDAP in a single operation.
+# -w = password (non-interactive, read from argument)
+ldapadd -x -H ldap://localhost \
+  -D "$LDAP_ADMIN_DN" \
+  -w "$LDAP_ADMIN_PW" \
+  -f $LDIF
+
+echo ""
+echo "Done. 62 student accounts created (a27-m0..m30, a27-t0..t30)."
+EOF
+
+# Make the script executable, then run it
+chmod +x ~/Documents/ece387/create_students.sh
+bash ~/Documents/ece387/create_students.sh
+```
+
+Verify all accounts were created:
+
+```bash
+# Search the LDAP students OU and list just the uid field.
+# You should see uid: a27-m0 through uid: a27-m30, and uid: a27-t0 through uid: a27-t30.
+ldapsearch -x -H ldap://localhost \
+  -b "ou=students,dc=ece387,dc=local" \
+  -D "cn=admin,dc=ece387,dc=local" \
+  -W uid uidNumber homeDirectory | grep "^uid:"
+```
+
+### 1.6 Create Course Config Templates
+
+With the accounts created, define the course shell environment. The templates are written here and then distributed to every account by the push at the end of this section — that same command is what you re-run whenever a template changes, so there is no separate first-time install path to drift out of date.
 
 ```bash
 # Create the directory that will hold course-wide config files
 sudo mkdir -p /etc/ece387
 ```
 
-> **The shell environment is instructor-owned.** `.bashrc` and `.inputrc` are course files, not student files. Every push overwrites them, and student edits do not survive. This is deliberate: a uniform environment across all 62 accounts and 14 masters means a broken shell is always the template's fault and is always fixed in one place. Tell students up front that `~/.bashrc` is not theirs to edit — anything they want per-session goes in the terminal (`export ROS_DOMAIN_ID=7`), and anything they want permanently goes in a request to you.
+> **How student edits behave.** Home directories are NFS-mounted from this server, so there is exactly **one** `.bashrc` per student — the copy under `/home/students/` here. Three consequences follow, all of them intended:
+>
+> 1. **A student edit persists.** Nothing overwrites it at login. There is no login hook, no cron job, no sync daemon; after account creation the template and the student's file are unrelated.
+> 2. **An edit follows the student to every machine.** Editing `~/.bashrc` on master07 writes through to this server immediately, so logging into master12 an hour later gets the edited file. There is no per-machine copy to fall out of step.
+> 3. **An instructor push replaces it.** The push below overwrites `.bashrc` on all 62 accounts, discarding student edits with no warning and no backup. That is the only thing that reverts a student's changes, and it happens only when you run it by hand.
+>
+> The file is owned by the student and mode `644`, so they *can* edit it. "Instructor-owned" is a course policy enforced by the push, not a permission setting.
 
 #### .bashrc Template
 
@@ -386,8 +496,10 @@ export _colcon_cd_root=/opt/ros/jazzy/
 source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
 
 # ROS_DOMAIN_ID separates ROS2 traffic between different robot pairs.
-# Each student should set this e.g.: export ROS_DOMAIN_ID=X
-# where X is the robot ID.
+# It MUST match the value set on the robot, which equals the robot number
+# (robot7 -> 7). A mismatch is silent: the master simply sees no topics at
+# all, with no error message. Students override this per terminal:
+#   export ROS_DOMAIN_ID=7
 export ROS_DOMAIN_ID=99
 export LDS_MODEL=LDS-02   # Replace with LDS-03 if using new LIDAR
 TEMPLATE_EOF
@@ -469,115 +581,6 @@ Run the push from the login server, not from a master — the home directories l
 
 > **Verify on one account before pushing to all 62.** Copy the template to a single student, log in as them on a master, and confirm the prompt, `ros2 topic list`, and `ccbuild` all behave. A bad template pushed to every account takes down every bench at once.
 
-### 1.6 Create Student Accounts
-
-Student IDs follow two series this term: `a27-m0` through `a27-m30` (31 accounts) and `a27-t0` through `a27-t30` (31 accounts) — 62 accounts total. The script below:
-
-1. Generates a hashed password for all accounts
-2. Builds a single LDIF file with all 62 user entries
-3. Creates each student's home directory on the server and populates it with the course `.bashrc`
-4. Adds all accounts to LDAP in one command
-
-UID numbers are split into two non-overlapping ranges so the two series never collide: `m` series uses `20000`–`20030`, `t` series uses `21000`–`21030`.
-
-```bash
-cat > ~/Documents/ece387/create_students.sh << 'EOF'
-#!/bin/bash
-# Exit immediately if any command fails
-set -e
-
-# --- Configuration ---
-LDAP_ADMIN_DN="cn=admin,dc=ece387,dc=local"
-LDAP_ADMIN_PW="LdapAdmin387!"    # your LDAP admin password
-INITIAL_PW="TempPass2024!"        # students change this on first login
-LDIF=~/Documents/ece387/students.ldif
-
-# Generate a single password hash to reuse for all accounts.
-# slappasswd hashes the password in a format OpenLDAP understands ({SSHA}...).
-HASH=$(slappasswd -s "$INITIAL_PW")
-
-# Clear the LDIF file if it already exists from a previous run
-> $LDIF
-
-# Two username series this term: a27-m0..a27-m30 and a27-t0..a27-t30.
-# UID_BASE keeps the two series in separate, non-overlapping ranges.
-create_series() {
-  local PREFIX=$1     # "m" or "t"
-  local UID_BASE=$2   # 20000 for m-series, 21000 for t-series
-
-  # Loop from 0 to 30, creating one LDAP entry per student
-  for i in $(seq 0 30); do
-    USERNAME="a27-${PREFIX}${i}"
-    UID_NUMBER=$((UID_BASE + i))
-
-    # Append this student's entry to the LDIF file.
-    # Each entry is separated by a blank line (required by LDIF format).
-    cat >> $LDIF << ENTRY
-dn: uid=${USERNAME},ou=students,dc=ece387,dc=local
-objectClass: inetOrgPerson
-objectClass: posixAccount
-objectClass: shadowAccount
-uid: ${USERNAME}
-cn: ${USERNAME}
-sn: ${USERNAME}
-uidNumber: ${UID_NUMBER}
-gidNumber: 10000
-homeDirectory: /home/students/${USERNAME}
-loginShell: /bin/bash
-userPassword: ${HASH}
-
-ENTRY
-
-    # Create the student's home directory on the NFS share.
-    # /etc/skel contains default files (.bashrc, .profile, etc.) that are
-    # copied into every new home directory.
-    sudo mkdir -p /home/students/${USERNAME}
-    sudo cp -r /etc/skel/. /home/students/${USERNAME}/
-
-    # Copy course config templates over the /etc/skel defaults.
-    # These are instructor-managed files and are replaced on every push.
-    sudo cp /etc/ece387/bashrc_template /home/students/${USERNAME}/.bashrc
-    sudo cp /etc/ece387/inputrc_template /home/students/${USERNAME}/.inputrc
-
-    # Set ownership to the student's UID and the shared group GID (10000).
-    # chmod 700 means only the student can read/write their own directory.
-    sudo chown -R ${UID_NUMBER}:10000 /home/students/${USERNAME}
-    sudo chmod 700 /home/students/${USERNAME}
-
-    echo "Prepared: ${USERNAME} (uid=${UID_NUMBER})"
-  done
-}
-
-create_series "m" 20000
-create_series "t" 21000
-
-# Add all 62 entries to LDAP in a single operation.
-# -w = password (non-interactive, read from argument)
-ldapadd -x -H ldap://localhost \
-  -D "$LDAP_ADMIN_DN" \
-  -w "$LDAP_ADMIN_PW" \
-  -f $LDIF
-
-echo ""
-echo "Done. 62 student accounts created (a27-m0..m30, a27-t0..t30)."
-EOF
-
-# Make the script executable, then run it
-chmod +x ~/Documents/ece387/create_students.sh
-bash ~/Documents/ece387/create_students.sh
-```
-
-Verify all accounts were created:
-
-```bash
-# Search the LDAP students OU and list just the uid field.
-# You should see uid: a27-m0 through uid: a27-m30, and uid: a27-t0 through uid: a27-t30.
-ldapsearch -x -H ldap://localhost \
-  -b "ou=students,dc=ece387,dc=local" \
-  -D "cn=admin,dc=ece387,dc=local" \
-  -W uid uidNumber homeDirectory | grep "^uid:"
-```
-
 ### 1.7 Configure NFS Home Directories
 
 NFS (Network File System) lets the master computers mount the server's `/home/students` directory as if it were a local disk. When a student logs in to any master, their home directory appears from the server.
@@ -603,10 +606,9 @@ sudo nano /etc/exports
 # rw             = read and write access
 # sync           = write data to disk before acknowledging — safer than async
 # no_subtree_check = disables subtree checking, improves reliability
-# no_root_squash = allows root on clients to act as root here (needed for
-#                  creating/chowning files during setup)
-/home/students  10.99.1.0/24(rw,sync,no_subtree_check,no_root_squash)
-# Note: this matches the ece387only WiFi router subnet (10.99.1.0/24)
+# root_squash = does not allow root on clients to act as root here 
+/home/students  10.99.1.0/24(rw,sync,no_subtree_check,root_squash)
+# Note: this matches the ece387 WiFi router subnet (10.99.1.0/24)
 ```
 
 ```bash
@@ -620,7 +622,7 @@ sudo systemctl enable --now nfs-server
 showmount -e localhost
 ```
 
-> `no_root_squash` is used here to simplify initial account creation. Once accounts are set up, switch to `root_squash` for better isolation between students — see "Grant Students Restricted sudo Access" in [login-client.md](login-client.md).
+> **`root_squash` is what actually isolates students from each other.** It tells the server to treat root on any master as an unprivileged anonymous user, so `sudo cat /home/students/a27-t02/lab3.py` run from a master is refused by the server — regardless of what a student managed to do on the client. Nothing in this guide needs `no_root_squash`: `create_students.sh` and the push loop both run locally on this server, not over NFS. The tradeoff is that administrative fixes to student files must be made here rather than from a master. See "Grant Students Restricted sudo Access" in [login-client.md](login-client.md).
 
 ### 1.8 Open Required Firewall Ports
 
@@ -648,7 +650,7 @@ sudo ufw enable
 sudo ufw status
 ```
 
-> **Reconfiguring an already-running server:** if `sudo ufw status` still shows an old subnet (e.g. `192.168.1.0/24`) from a previous setup, `ufw allow` won't replace it — the old rule stays active alongside the new one. Remove it explicitly:
+> **Reconfiguring an already-running server:** if `sudo ufw status` still shows an old subnet (e.g. `10.99.1.0/24`) from a previous setup, `ufw allow` won't replace it — the old rule stays active alongside the new one. Remove it explicitly:
 >
 > ```bash
 > sudo ufw status numbered      # find the rule number for the old subnet

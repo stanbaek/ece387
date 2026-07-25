@@ -129,6 +129,8 @@ We need to create a new user named *pi* for students.
 
 If you have multiple robots on your network it is good to give each a unique hostname. We number each robot from 0–n and each robot has a corresponding hostname (e.g., `robot0`).
 
+> **The hostname becomes the SSID.** Step 6 generates the `hostapd` config from the hostname at boot, so `robot7` broadcasts an access point named `robot7`. Throughout these guides `robotX` means "the robot's number in place of X" — there is no zero padding, so the robots are `robot0` through `robot30`, not `robot00`.
+
 ```bash
 sudo hostnamectl set-hostname robot0
 ```
@@ -439,9 +441,9 @@ The TurtleBot3 uses two independent Wi-Fi interfaces:
 
 | Interface | Hardware                    | Role                      | Network             |
 | --------- | --------------------------- | ------------------------- | ------------------- |
-| `wlan0`   | Built-in Raspberry Pi Wi-Fi | **Access Point (AP)**     | `robotXX` (SSID)    |
+| `wlan0`   | Built-in Raspberry Pi Wi-Fi | **Access Point (AP)**     | `robotX` (SSID)    |
 | `wlan1`   | USB Wi-Fi (RTL8723BU)       | **Client → router**       | Campus/lab network  |
-| Master PC | Built-in & USB Wi-Fi        | Connects to AP + internet | `robotXX` + router  |
+| Master PC | Built-in & USB Wi-Fi        | Connects to AP + internet | `robotX` + router  |
 
 The master PC connects to the robot's AP (`wlan0`) for low-latency ROS2 communication while the robot uses `wlan1` for internet access. There is **no NAT or packet forwarding** between the two interfaces — the master PC maintains its own separate internet connection.
 
@@ -559,6 +561,9 @@ port=0
 
 # 72-hour lease for student labs
 dhcp-range=192.168.50.10,192.168.50.50,255.255.255.0,72h
+
+# Do NOT advertise a default gateway.
+dhcp-option=3
 ```
 
 ### Step 6: Configure hostapd (AP)
@@ -845,7 +850,7 @@ sudo udevadm trigger
 Install USB camera drivers, OpenCV, and AprilTag libraries:
 
 ```bash
-sudo apt install -y python3-pip python3.12-venv
+sudo apt install -y python3-pip python3-venv
 sudo apt install -y ros-jazzy-usb-cam ros-jazzy-image-proc
 sudo apt install -y ros-jazzy-v4l2-camera
 sudo apt install -y python3-opencv python3-numpy ros-jazzy-cv-bridge
@@ -1045,11 +1050,16 @@ ROS_PYTHON_VERSION=3
 ROS_DISTRO=jazzy
 ```
 
-Set the ROS Domain ID. ROS 2 nodes on the same domain ID can communicate freely; nodes on different IDs cannot. Choose X to match the robot number (e.g., `ROS_DOMAIN_ID=9` for `robot99`):
+Set the ROS Domain ID. ROS 2 nodes on the same domain ID can communicate freely; nodes on different IDs cannot.
+
+**The rule: the domain ID equals the robot number, and the master must use the same value.** `robot7` uses `ROS_DOMAIN_ID=7`, and any master talking to `robot7` must also export `ROS_DOMAIN_ID=7`. A mismatch fails silently — `ros2 topic list` returns nothing at all, with no error, which looks exactly like a network problem.
 
 ```bash
-echo "export ROS_DOMAIN_ID=<your_domain_id>" >> ~/.bashrc
+# Replace 7 with this robot's number
+echo "export ROS_DOMAIN_ID=7" >> ~/.bashrc
 ```
+
+> Valid range is 0–101. Robot numbers 0–30 are all safe.
 
 ### Build ROS2 Workspace
 
