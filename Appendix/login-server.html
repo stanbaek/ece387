@@ -16,46 +16,43 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!--
-    this give us a css class that will be invisible only if js is disabled
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=4c969af8" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
-  <!-- So that users can add custom icons -->
-  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=f281be69"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script src="../_static/tabs.js?v=3ee01567"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
@@ -70,7 +67,6 @@
     <link rel="prev" title="Robot Setup (ROS2 Jazzy)" href="RobotSetupJazzy.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -86,8 +82,19 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="../search.html"
       method="get">
@@ -95,6 +102,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -102,8 +110,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -119,8 +127,7 @@
       
       
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -150,17 +157,21 @@
     
     
     <img src="../_static/ece387.png" class="logo__image only-light" alt="Introduction to Robotic Systems - Home"/>
-    <img src="../_static/ece387.png" class="logo__image only-dark pst-js-only" alt="Introduction to Robotic Systems - Home"/>
+    <script>document.write(`<img src="../_static/ece387.png" class="logo__image only-dark" alt="Introduction to Robotic Systems - Home"/>`);</script>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
@@ -218,14 +229,9 @@
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
-      <div class="sidebar-primary-item">
-<div id="ethical-ad-placement"
-      class="flat"
-      data-ea-publisher="readthedocs"
-      data-ea-type="readthedocs-sidebar"
-      data-ea-manual="true">
-</div></div>
   </div>
+  
+  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -355,7 +361,7 @@
 
 
 <button onclick="toggleFullScreen()"
-  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  class="btn btn-sm btn-fullscreen-button"
   title="Fullscreen mode"
   data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
@@ -369,17 +375,25 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
-<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
 </div></div>
@@ -458,7 +472,7 @@
 <ul class="simple">
 <li><p>The lab has a bank of master computers (e.g., 14 NUCs) and students do not own or sit at the same machine every session.</p></li>
 <li><p>A student should be able to sit down at <em>any</em> master, log in with their own credentials, and immediately have their <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code>, SSH keys, and ROS workspace available — without re-cloning or re-configuring anything.</p></li>
-<li><p>You want to manage 20–30 student accounts centrally: create them once, reset a forgotten password in one command, and push a <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> update to every account at once (see <a class="reference internal" href="#3-maintenance"><span class="xref myst">Maintenance</span></a>).</p></li>
+<li><p>You want to manage 20–30 student accounts centrally: create them once, reset a forgotten password in one command, and push a <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> update to every account at once (see <a class="reference internal" href="#3-maintenance"><span class="xref myst">Maintenance</span></a>). The shell environment is instructor-owned — every account runs an identical, known-good <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code>, so “it works on my machine” never enters a debugging session.</p></li>
 <li><p>You need some isolation between students who share the same physical hardware (restricted sudo, separate home directories, no ability to read another student’s files).</p></li>
 </ul>
 <p><strong>When a login server is overkill:</strong></p>
@@ -697,79 +711,222 @@ ldapadd<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </sp
 </section>
 <section id="create-course-config-templates">
 <h3>1.5 Create Course Config Templates<a class="headerlink" href="#create-course-config-templates" title="Link to this heading">#</a></h3>
-<p>Before creating student accounts, set up the course templates. These files are copied into every student’s home directory and can be updated and re-pushed at any time.</p>
+<p>Before creating student accounts, set up the course templates. These files are copied into every student’s home directory at account creation and can be re-pushed at any time.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create the directory that will hold course-wide config files</span>
 sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/etc/ece387
 </pre></div>
 </div>
+<blockquote>
+<div><p><strong>The shell environment is instructor-owned.</strong> <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> and <code class="docutils literal notranslate"><span class="pre">.inputrc</span></code> are course files, not student files. Every push overwrites them, and student edits do not survive. This is deliberate: a uniform environment across all 62 accounts and 14 masters means a broken shell is always the template’s fault and is always fixed in one place. Tell students up front that <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> is not theirs to edit — anything they want per-session goes in the terminal (<code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">ROS_DOMAIN_ID=7</span></code>), and anything they want permanently goes in a request to you.</p>
+</div></blockquote>
 <section id="bashrc-template">
 <h4>.bashrc Template<a class="headerlink" href="#bashrc-template" title="Link to this heading">#</a></h4>
-<p>The <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> is sourced every time a terminal opens. It sets ROS environment variables and loads the student’s personal customizations from a separate file, so you can update course settings without overwriting students’ own additions.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/ece387/bashrc_template
+<p><code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> is sourced every time a terminal opens. Because <code class="docutils literal notranslate"><span class="pre">create_students.sh</span></code> copies this file <em>over</em> the student’s <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code>, the template must be a <strong>complete</strong> <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> — the Ubuntu defaults plus the course environment — not just the ECE 387 additions. A template containing only the course block produces accounts with no prompt, no history settings, and no <code class="docutils literal notranslate"><span class="pre">ls</span></code> colors.</p>
+<p>Write it in one shot. The quoted <code class="docutils literal notranslate"><span class="pre">'TEMPLATE_EOF'</span></code> delimiter is required: it stops the shell from expanding <code class="docutils literal notranslate"><span class="pre">$&#64;</span></code>, <code class="docutils literal notranslate"><span class="pre">$-</span></code>, <code class="docutils literal notranslate"><span class="pre">$(...)</span></code>, and <code class="docutils literal notranslate"><span class="pre">~</span></code> while the file is being written.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>tee<span class="w"> </span>/etc/ece387/bashrc_template<span class="w"> </span>&gt;<span class="w"> </span>/dev/null<span class="w"> </span><span class="s">&lt;&lt; &#39;TEMPLATE_EOF&#39;</span>
+<span class="s"># ~/.bashrc: executed by bash(1) for non-login shells.</span>
+<span class="s"># ECE 387 course template — managed by the instructor, overwritten on every push.</span>
+<span class="s"># Do not edit this file on a student account; edit /etc/ece387/bashrc_template</span>
+<span class="s"># on the login server and re-push.</span>
+
+<span class="s"># If not running interactively, set the ROS environment and return early.</span>
+<span class="s"># This is what makes non-login commands work, e.g.:</span>
+<span class="s">#   ssh master05 &#39;ros2 topic list&#39;</span>
+<span class="s">if [[ $- != *i* ]]; then</span>
+<span class="s">    source /opt/ros/jazzy/setup.bash</span>
+<span class="s">    source ~/master_ws/install/setup.bash 2&gt;/dev/null || true</span>
+<span class="s">    export TURTLEBOT3_MODEL=burger</span>
+<span class="s">    export RMW_IMPLEMENTATION=rmw_fastrtps_cpp</span>
+<span class="s">    export ROS_DOMAIN_ID=99     # TURTLEBOT3</span>
+<span class="s">    export LDS_MODEL=LDS-02     # Replace with LDS-03 if using new LIDAR</span>
+
+<span class="s">    return</span>
+<span class="s">fi</span>
+
+<span class="s"># ---------------- Ubuntu defaults ----------------</span>
+
+<span class="s"># don&#39;t put duplicate lines or lines starting with space in the history.</span>
+<span class="s">HISTCONTROL=ignoreboth</span>
+
+<span class="s"># append to the history file, don&#39;t overwrite it</span>
+<span class="s">shopt -s histappend</span>
+
+<span class="s">HISTSIZE=1000</span>
+<span class="s">HISTFILESIZE=2000</span>
+
+<span class="s"># check the window size after each command and update LINES and COLUMNS</span>
+<span class="s">shopt -s checkwinsize</span>
+
+<span class="s"># make less more friendly for non-text input files, see lesspipe(1)</span>
+<span class="s">[ -x /usr/bin/lesspipe ] &amp;&amp; eval &quot;$(SHELL=/bin/sh lesspipe)&quot;</span>
+
+<span class="s"># set variable identifying the chroot you work in (used in the prompt below)</span>
+<span class="s">if [ -z &quot;${debian_chroot:-}&quot; ] &amp;&amp; [ -r /etc/debian_chroot ]; then</span>
+<span class="s">    debian_chroot=$(cat /etc/debian_chroot)</span>
+<span class="s">fi</span>
+
+<span class="s">case &quot;$TERM&quot; in</span>
+<span class="s">    xterm-color|*-256color) color_prompt=yes;;</span>
+<span class="s">esac</span>
+
+<span class="s">if [ -n &quot;$force_color_prompt&quot; ]; then</span>
+<span class="s">    if [ -x /usr/bin/tput ] &amp;&amp; tput setaf 1 &gt;&amp;/dev/null; then</span>
+<span class="s">        color_prompt=yes</span>
+<span class="s">    else</span>
+<span class="s">        color_prompt=</span>
+<span class="s">    fi</span>
+<span class="s">fi</span>
+
+<span class="s">if [ &quot;$color_prompt&quot; = yes ]; then</span>
+<span class="s">    PS1=&#39;${debian_chroot:+($debian_chroot)}\[\033[01;36m\]\u@\h\[\033[00m\]:\[\033[01;33m\]\w\[\033[00m\]\n\$ &#39;</span>
+<span class="s">else</span>
+<span class="s">    PS1=&#39;${debian_chroot:+($debian_chroot)}\u@\h:\w\$ &#39;</span>
+<span class="s">fi</span>
+<span class="s">unset color_prompt force_color_prompt</span>
+
+<span class="s"># If this is an xterm set the title to user@host:dir</span>
+<span class="s">case &quot;$TERM&quot; in</span>
+<span class="s">xterm*|rxvt*)</span>
+<span class="s">    PS1=&quot;\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1&quot;</span>
+<span class="s">    ;;</span>
+<span class="s">*)</span>
+<span class="s">    ;;</span>
+<span class="s">esac</span>
+
+<span class="s"># enable color support of ls and also add handy aliases</span>
+<span class="s">if [ -x /usr/bin/dircolors ]; then</span>
+<span class="s">    test -r ~/.dircolors &amp;&amp; eval &quot;$(dircolors -b ~/.dircolors)&quot; || eval &quot;$(dircolors -b)&quot;</span>
+<span class="s">    alias ls=&#39;ls --color=auto&#39;</span>
+<span class="s">    alias grep=&#39;grep --color=auto&#39;</span>
+<span class="s">    alias fgrep=&#39;fgrep --color=auto&#39;</span>
+<span class="s">    alias egrep=&#39;egrep --color=auto&#39;</span>
+<span class="s">fi</span>
+
+<span class="s">alias ll=&#39;ls -alF&#39;</span>
+<span class="s">alias la=&#39;ls -A&#39;</span>
+<span class="s">alias l=&#39;ls -CF&#39;</span>
+
+<span class="s"># enable programmable completion features</span>
+<span class="s">if ! shopt -oq posix; then</span>
+<span class="s">  if [ -f /usr/share/bash-completion/bash_completion ]; then</span>
+<span class="s">    . /usr/share/bash-completion/bash_completion</span>
+<span class="s">  elif [ -f /etc/bash_completion ]; then</span>
+<span class="s">    . /etc/bash_completion</span>
+<span class="s">  fi</span>
+<span class="s">fi</span>
+
+<span class="s"># ---------------- ECE 387 course environment ----------------</span>
+
+<span class="s">alias gedit=&#39;gnome-text-editor&#39;</span>
+
+<span class="s"># Launch the TurtleBot3 bringup on the robot over SSH.</span>
+<span class="s"># Replace robotX with the robot hostname or IP for the bench.</span>
+<span class="s">alias bringup=&#39;ssh pi@robotX &#39;\&#39;&#39;ros2 launch turtlebot3_bringup robot.launch.py&#39;\&#39;</span>
+
+<span class="s"># Shortcut to SSH into the robot.</span>
+<span class="s">alias ssh_robot=&#39;ssh pi@192.168.4.1&#39;</span>
+
+<span class="s"># Build the workspace, passing through any colcon arguments</span>
+<span class="s">function ccbuild() {</span>
+<span class="s">    cd ~/master_ws &amp;&amp; colcon build --symlink-install &quot;$@&quot;</span>
+<span class="s">    source ~/master_ws/install/setup.bash</span>
+<span class="s">}</span>
+
+<span class="s"># Export the function so it is available in subshells</span>
+<span class="s">export -f ccbuild</span>
+
+<span class="s"># Source the ROS 2 Jazzy environment so ros2 commands are available</span>
+<span class="s">source /opt/ros/jazzy/setup.bash</span>
+
+<span class="s"># Source the student&#39;s own workspace if it has been built.</span>
+<span class="s"># &quot;2&gt;/dev/null || true&quot; suppresses the error if it doesn&#39;t exist yet.</span>
+<span class="s">source ~/master_ws/install/setup.bash 2&gt;/dev/null || true</span>
+
+<span class="s">export TURTLEBOT3_MODEL=burger</span>
+<span class="s">export RMW_IMPLEMENTATION=rmw_fastrtps_cpp</span>
+
+<span class="s"># ROS_DOMAIN_ID separates ROS 2 traffic between different robot pairs.</span>
+<span class="s"># Students override this per terminal for their bench, e.g.: export ROS_DOMAIN_ID=7</span>
+<span class="s">export ROS_DOMAIN_ID=99</span>
+<span class="s">export LDS_MODEL=LDS-02   # Replace with LDS-03 if using new LIDAR</span>
+
+<span class="s"># colcon helpers</span>
+<span class="s">source /usr/share/colcon_cd/function/colcon_cd.sh</span>
+<span class="s">export _colcon_cd_root=/opt/ros/jazzy/</span>
+<span class="s">source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash</span>
+<span class="s">TEMPLATE_EOF</span>
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># ECE 387 Course Environment</span>
-<span class="nb">alias</span><span class="w"> </span><span class="nv">gedit</span><span class="o">=</span><span class="s1">&#39;gnome-text-editor&#39;</span>
-<span class="nb">alias</span><span class="w"> </span><span class="nv">bringup</span><span class="o">=</span><span class="s1">&#39;ssh pi@robotX &#39;</span><span class="se">\&#39;</span><span class="s1">&#39;ros2 launch turtlebot3_bringup robot.launch.py&#39;</span><span class="se">\&#39;</span>
-<span class="c1"># Shortcut to SSH into the robot.</span>
-<span class="nb">alias</span><span class="w"> </span><span class="nv">ssh_robot</span><span class="o">=</span><span class="s1">&#39;ssh pi@192.168.50.1&#39;</span>
-
-<span class="c1"># Function to build with optional arguments</span>
-<span class="k">function</span><span class="w"> </span>ccbuild<span class="o">()</span><span class="w"> </span><span class="o">{</span>
-<span class="w">    </span><span class="nb">cd</span><span class="w"> </span>~/master_ws<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>colcon<span class="w"> </span>build<span class="w"> </span>--symlink-install<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span>
-<span class="w">    </span><span class="nb">source</span><span class="w"> </span>~/master_ws/install/setup.bash
-<span class="o">}</span>
-
-<span class="c1"># Export the function to make it available in the shell</span>
-<span class="nb">export</span><span class="w"> </span>-f<span class="w"> </span>ccbuild
-
-<span class="c1"># Source the ROS2 Jazzy environment so ros2 commands are available</span>
-<span class="nb">source</span><span class="w"> </span>/opt/ros/jazzy/setup.bash
-
-<span class="c1"># Source the student&#39;s own workspace if it has been built</span>
-<span class="c1"># The &quot;2&gt;/dev/null || true&quot; suppresses the error if the workspace doesn&#39;t exist yet</span>
-<span class="nb">source</span><span class="w"> </span>~/master_ws/install/setup.bash<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
-<span class="nb">source</span><span class="w"> </span>/usr/share/gazebo/setup.sh
-<span class="nb">export</span><span class="w"> </span><span class="nv">TURTLEBOT3_MODEL</span><span class="o">=</span>burger
-<span class="nb">source</span><span class="w"> </span>/usr/share/colcon_cd/function/colcon_cd.sh
-<span class="nb">export</span><span class="w"> </span><span class="nv">_colcon_cd_root</span><span class="o">=</span>/opt/ros/jazzy/
-<span class="nb">source</span><span class="w"> </span>/usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
-
-<span class="c1"># ROS_DOMAIN_ID separates ROS2 traffic between different robot pairs.</span>
-<span class="c1"># Each student should set this e.g.: export ROS_DOMAIN_ID=X</span>
-<span class="c1"># where X is the robot ID.</span>
-<span class="nb">export</span><span class="w"> </span><span class="nv">ROS_DOMAIN_ID</span><span class="o">=</span><span class="m">99</span>
-<span class="nb">export</span><span class="w"> </span><span class="nv">LDS_MODEL</span><span class="o">=</span>LDS-02<span class="w"> </span><span class="c1"># replace with LDS-03 if using new LIDAR</span>
+<p>Check the syntax before pushing it to 62 accounts — a typo here breaks every terminal in the lab at once:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bash<span class="w"> </span>-n<span class="w"> </span>/etc/ece387/bashrc_template<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;syntax OK&quot;</span>
 </pre></div>
 </div>
+<p><strong>Notes on the template:</strong></p>
+<ul class="simple">
+<li><p>The non-interactive guard sets the ROS variables <em>before</em> returning. The stock Ubuntu <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> returns immediately, which would leave <code class="docutils literal notranslate"><span class="pre">ssh</span> <span class="pre">master05</span> <span class="pre">'ros2</span> <span class="pre">topic</span> <span class="pre">list'</span></code> with no ROS environment. The variables are intentionally duplicated in the guard and in the course block below it — the guard <code class="docutils literal notranslate"><span class="pre">return</span></code>s before reaching the second copy, so keep the two in sync when you change one.</p></li>
+<li><p>Interactivity matters for more than convenience: without the guard, anything the course block prints to stdout corrupts <code class="docutils literal notranslate"><span class="pre">scp</span></code> and <code class="docutils literal notranslate"><span class="pre">rsync</span></code> transfers to and from the robots.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">/usr/share/gazebo/setup.sh</span></code> is <strong>not</strong> included. That path belongs to Gazebo Classic, which is not part of Jazzy — on a Jazzy master the file does not exist and every terminal opens with a “No such file or directory” error. If a future setup does need it, guard the source: <code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">-f</span> <span class="pre">/usr/share/gazebo/setup.sh</span> <span class="pre">]</span> <span class="pre">&amp;&amp;</span> <span class="pre">source</span> <span class="pre">/usr/share/gazebo/setup.sh</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">robotX</span></code> in the <code class="docutils literal notranslate"><span class="pre">bringup</span></code> alias is a placeholder. Either replace it before the first push or teach students to use <code class="docutils literal notranslate"><span class="pre">ssh_robot</span></code> and launch bringup by hand.</p></li>
+</ul>
 </section>
 <section id="inputrc-template">
 <h4>.inputrc Template<a class="headerlink" href="#inputrc-template" title="Link to this heading">#</a></h4>
 <p><code class="docutils literal notranslate"><span class="pre">.inputrc</span></code> configures readline behavior — used by bash for history search and tab completion.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/ece387/inputrc_template
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Arrow keys search history based on what&#39;s already typed</span>
-<span class="s2">&quot;\e[A&quot;</span><span class="p">:</span> <span class="n">history</span><span class="o">-</span><span class="n">search</span><span class="o">-</span><span class="n">backward</span>
-<span class="s2">&quot;\e[B&quot;</span><span class="p">:</span> <span class="n">history</span><span class="o">-</span><span class="n">search</span><span class="o">-</span><span class="n">forward</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>tee<span class="w"> </span>/etc/ece387/inputrc_template<span class="w"> </span>&gt;<span class="w"> </span>/dev/null<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
+<span class="s"># ~/.inputrc: readline initialization file.</span>
+<span class="s"># ECE 387 course template — managed by the instructor, overwritten on every push.</span>
 
-<span class="c1"># Case-insensitive tab completion</span>
-<span class="nb">set</span> <span class="n">completion</span><span class="o">-</span><span class="n">ignore</span><span class="o">-</span><span class="n">case</span> <span class="n">on</span>
+<span class="s"># Start from the system defaults. Without this line, ~/.inputrc REPLACES</span>
+<span class="s"># /etc/inputrc entirely rather than adding to it.</span>
+<span class="s">$include /etc/inputrc</span>
+
+<span class="s"># Arrow keys search history based on what&#39;s already typed</span>
+<span class="s">&quot;\e[A&quot;: history-search-backward</span>
+<span class="s">&quot;\e[B&quot;: history-search-forward</span>
+
+<span class="s"># Case-insensitive tab completion</span>
+<span class="s">set completion-ignore-case on</span>
+<span class="s">EOF</span>
 </pre></div>
 </div>
-</section>
-<section id="pushing-updates-to-all-students">
-<h4>Pushing Updates to All Students<a class="headerlink" href="#pushing-updates-to-all-students" title="Link to this heading">#</a></h4>
-<p>The templates are only copied automatically when accounts are first created. To push changes to all existing students at any time:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span>user<span class="w"> </span><span class="k">in</span><span class="w"> </span>/home/students/a27-*/<span class="p">;</span><span class="w"> </span><span class="k">do</span>
-<span class="w">  </span>sudo<span class="w"> </span>cp<span class="w"> </span>/etc/ece387/bashrc_template<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">user</span><span class="si">}</span><span class="s2">.bashrc&quot;</span>
-<span class="w">  </span>sudo<span class="w"> </span>cp<span class="w"> </span>/etc/ece387/inputrc_template<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">user</span><span class="si">}</span><span class="s2">.inputrc&quot;</span>
-<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Updated: </span><span class="nv">$user</span><span class="s2">&quot;</span>
-<span class="k">done</span>
+<p>Readline fails silently on a bad binding — a typo does not error, the key just does nothing. Test before pushing:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">bind</span><span class="w"> </span>-f<span class="w"> </span>/etc/ece387/inputrc_template<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;readline accepted it&quot;</span>
 </pre></div>
 </div>
 <blockquote>
-<div><p>This overwrites <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> and <code class="docutils literal notranslate"><span class="pre">.inputrc</span></code> but leaves <code class="docutils literal notranslate"><span class="pre">.bashrc_personal</span></code> untouched, so student customizations are preserved.</p>
+<div><p><strong><code class="docutils literal notranslate"><span class="pre">$include</span></code> is not optional.</strong> Unlike <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code>, a user’s <code class="docutils literal notranslate"><span class="pre">~/.inputrc</span></code> does not layer on top of <code class="docutils literal notranslate"><span class="pre">/etc/inputrc</span></code> — readline reads the user file <em>instead of</em> the system file. Without the include line, students silently lose the Ubuntu defaults.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Readline reads <code class="docutils literal notranslate"><span class="pre">.inputrc</span></code> only at shell startup.</strong> After a push, <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">~/.bashrc</span></code> will not pick up <code class="docutils literal notranslate"><span class="pre">.inputrc</span></code> changes; students need a fresh terminal.</p>
+</div></blockquote>
+</section>
+<section id="pushing-updates-to-all-students">
+<h4>Pushing Updates to All Students<a class="headerlink" href="#pushing-updates-to-all-students" title="Link to this heading">#</a></h4>
+<p>The templates are copied automatically only when accounts are first created. To push changes to all existing students at any time:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span>dir<span class="w"> </span><span class="k">in</span><span class="w"> </span>/home/students/a27-*/<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span><span class="nv">user</span><span class="o">=</span><span class="k">$(</span>basename<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$dir</span><span class="s2">&quot;</span><span class="k">)</span>
+<span class="w">  </span><span class="c1"># Read the UID from the home directory itself. Do NOT use `id -u &quot;$user&quot;`:</span>
+<span class="w">  </span><span class="c1"># the login server hosts LDAP but is not an LDAP *client*, so NSS on this</span>
+<span class="w">  </span><span class="c1"># machine cannot resolve student names and `id` fails silently.</span>
+<span class="w">  </span><span class="nv">uid</span><span class="o">=</span><span class="k">$(</span>stat<span class="w"> </span>-c<span class="w"> </span>%u<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$dir</span><span class="s2">&quot;</span><span class="k">)</span>
+<span class="w">  </span>sudo<span class="w"> </span>cp<span class="w"> </span>/etc/ece387/bashrc_template<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">dir</span><span class="si">}</span><span class="s2">.bashrc&quot;</span><span class="w">   </span><span class="o">||</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;FAILED: </span><span class="nv">$user</span><span class="s2">&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">continue</span><span class="p">;</span><span class="w"> </span><span class="o">}</span>
+<span class="w">  </span>sudo<span class="w"> </span>cp<span class="w"> </span>/etc/ece387/inputrc_template<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">dir</span><span class="si">}</span><span class="s2">.inputrc&quot;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;FAILED: </span><span class="nv">$user</span><span class="s2">&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">continue</span><span class="p">;</span><span class="w"> </span><span class="o">}</span>
+<span class="w">  </span>sudo<span class="w"> </span>chown<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">uid</span><span class="si">}</span><span class="s2">:10000&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">dir</span><span class="si">}</span><span class="s2">.bashrc&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">dir</span><span class="si">}</span><span class="s2">.inputrc&quot;</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Updated: </span><span class="nv">$user</span><span class="s2"> (uid=</span><span class="nv">$uid</span><span class="s2">)&quot;</span>
+<span class="k">done</span>
+</pre></div>
+</div>
+<p>Verify ownership afterward. The glob must be expanded <em>inside</em> the elevated shell — student home directories are <code class="docutils literal notranslate"><span class="pre">chmod</span> <span class="pre">700</span></code>, so your own shell cannot expand a path that reaches into them:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Empty output = all accounts correct</span>
+sudo<span class="w"> </span>find<span class="w"> </span>/home/students<span class="w"> </span>-maxdepth<span class="w"> </span><span class="m">2</span><span class="w"> </span>-name<span class="w"> </span><span class="s1">&#39;.bashrc&#39;</span><span class="w"> </span>-user<span class="w"> </span>root
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>This overwrites <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> and <code class="docutils literal notranslate"><span class="pre">.inputrc</span></code> unconditionally.</strong> Anything a student added to either file is gone. That is the intended behavior — the shell environment is course-managed. <code class="docutils literal notranslate"><span class="pre">chown</span></code> is required because <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">cp</span></code> leaves the copies owned by <code class="docutils literal notranslate"><span class="pre">root</span></code>; inside a <code class="docutils literal notranslate"><span class="pre">chmod</span> <span class="pre">700</span></code> home directory that is confusing to debug later even though bash will still source them.</p>
+</div></blockquote>
+<p>Run the push from the login server, not from a master — the home directories live here. Students pick up the change at their next login, or immediately with <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">~/.bashrc</span></code>.</p>
+<blockquote>
+<div><p><strong>Verify on one account before pushing to all 62.</strong> Copy the template to a single student, log in as them on a master, and confirm the prompt, <code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">topic</span> <span class="pre">list</span></code>, and <code class="docutils literal notranslate"><span class="pre">ccbuild</span></code> all behave. A bad template pushed to every account takes down every bench at once.</p>
 </div></blockquote>
 </section>
 </section>
@@ -836,13 +993,10 @@ sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </sp
 <span class="s">    sudo mkdir -p /home/students/${USERNAME}</span>
 <span class="s">    sudo cp -r /etc/skel/. /home/students/${USERNAME}/</span>
 
-<span class="s">    # Copy course config templates</span>
+<span class="s">    # Copy course config templates over the /etc/skel defaults.</span>
+<span class="s">    # These are instructor-managed files and are replaced on every push.</span>
 <span class="s">    sudo cp /etc/ece387/bashrc_template /home/students/${USERNAME}/.bashrc</span>
 <span class="s">    sudo cp /etc/ece387/inputrc_template /home/students/${USERNAME}/.inputrc</span>
-
-<span class="s">    # Create an empty .bashrc_personal for student customizations (robot IP, aliases, etc.)</span>
-<span class="s">    # This file is sourced at the end of .bashrc and is never overwritten by the instructor.</span>
-<span class="s">    sudo touch /home/students/${USERNAME}/.bashrc_personal</span>
 
 <span class="s">    # Set ownership to the student&#39;s UID and the shared group GID (10000).</span>
 <span class="s">    # chmod 700 means only the student can read/write their own directory.</span>
@@ -1000,7 +1154,6 @@ sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </sp
 sudo<span class="w"> </span>cp<span class="w"> </span>-r<span class="w"> </span>/etc/skel/.<span class="w"> </span>/home/students/a27-t31/
 sudo<span class="w"> </span>cp<span class="w"> </span>/etc/ece387/bashrc_template<span class="w"> </span>/home/students/a27-t31/.bashrc
 sudo<span class="w"> </span>cp<span class="w"> </span>/etc/ece387/inputrc_template<span class="w"> </span>/home/students/a27-t31/.inputrc
-sudo<span class="w"> </span>touch<span class="w"> </span>/home/students/a27-t31/.bashrc_personal
 sudo<span class="w"> </span>chown<span class="w"> </span>-R<span class="w"> </span><span class="m">21031</span>:10000<span class="w"> </span>/home/students/a27-t31
 sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">700</span><span class="w"> </span>/home/students/a27-t31
 </pre></div>
@@ -1205,16 +1358,14 @@ sudo<span class="w"> </span>slapcat<span class="w"> </span>&gt;<span class="w"> 
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
-  <div class="sidebar-secondary-item"><div
-    id="pst-page-navigation-heading-2"
-    class="page-toc tocsection onthispage">
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
     <i class="fa-solid fa-list"></i> Contents
   </div>
-  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+  <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-a-login-server">Why a Login Server?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#architecture-overview">Architecture Overview</a></li>
@@ -1294,8 +1445,8 @@ By Stan Baek
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>
