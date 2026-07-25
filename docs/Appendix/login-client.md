@@ -174,7 +174,7 @@ sudo apt install -y ros-jazzy-usb-cam ros-jazzy-image-proc \
 sudo apt install -y ros-jazzy-joy ros-jazzy-teleop-twist-joy jstest-gtk
 
 # Utilities
-sudo apt install -y tree python3-pip obs-studio qtwayland5
+sudo apt install -y tree terminator python3-pip obs-studio qtwayland5
 ```
 
 > This list must stay in step with [MasterSetupJazzy.md](MasterSetupJazzy.md), which covers the standalone master. Students run identical labs on both, so a package present on one and missing on the other produces a lab that works at one bench and not another.
@@ -202,6 +202,79 @@ sudo pip install --break-system-packages ~/dlib-*.whl
 > Package names occasionally differ between distros. If any line fails, check availability with `apt-cache search <name>` before assuming the mirror is broken.
 
 **The shell environment is not configured here.** `.bashrc` for student accounts comes from `/etc/ece387/bashrc_template` on the login server and is distributed by the push procedure in [login-server.md §1.7](login-server.md). Do not add ROS environment lines to student `.bashrc` files on the master — home directories are on NFS, so a local edit would be overwritten by the next push and would silently diverge from the other 13 machines.
+
+### 1.2b Install Visual Studio Code
+
+Install from the `.deb`, not the snap. Snap confinement interferes with serial device access and with picking up the ROS environment from the student's shell.
+
+```bash
+wget -O /tmp/code.deb 'https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64'
+sudo apt install -y /tmp/code.deb
+rm /tmp/code.deb
+```
+
+The package registers Microsoft's apt repository and key itself, so updates arrive through `sudo apt upgrade`. Do **not** add the repository manually first — configuring both leaves a duplicate source and floods every `apt update` with `configured multiple times` warnings.
+
+Remove a pre-existing snap install if there is one:
+
+```bash
+snap list | grep code && sudo snap remove code
+```
+
+Verify:
+
+```bash
+code --version
+apt-cache policy code      # expect a single packages.microsoft.com origin
+```
+
+If two origins appear, a hand-made source file is left over:
+
+```bash
+sudo rm -f /etc/apt/sources.list.d/vscode.list    # keep vscode.sources
+sudo apt update
+```
+
+#### Raise the file watcher limit
+
+Required on every master. VS Code watches every file in an open folder, and a built `master_ws` has tens of thousands across `build/` and `install/` — well past the default inotify ceiling. Students hit "file watcher limit reached" the first time they open their workspace.
+
+```bash
+echo "fs.inotify.max_user_watches=524288" | sudo tee /etc/sysctl.d/60-inotify.conf
+sudo sysctl -p /etc/sysctl.d/60-inotify.conf
+```
+
+#### Seed workspace settings for students
+
+Because home directories are on NFS, VS Code's per-user configuration follows students between benches — extensions and settings install once and are available everywhere. Two consequences worth planning for:
+
+- **The first extension install is slow.** Something like Pylance writes thousands of small files over NFS. Have students install extensions early in the term, not at the start of a lab.
+- **Extensions are unavailable during a server outage.** They live in `~/.vscode/extensions` on the server, like everything else in the home directory.
+
+Seed sensible defaults so students are not each discovering the build-directory problem themselves. Add to `/etc/skel` on the **login server**, so new accounts pick it up:
+
+```bash
+# On ece387server
+sudo mkdir -p /etc/skel/.config/Code/User
+sudo tee /etc/skel/.config/Code/User/settings.json > /dev/null << 'EOF'
+{
+  "files.watcherExclude": {
+    "**/build/**": true,
+    "**/install/**": true,
+    "**/log/**": true
+  },
+  "search.exclude": {
+    "**/build/**": true,
+    "**/install/**": true,
+    "**/log/**": true
+  }
+}
+EOF
+```
+
+`search.exclude` matters as much as `files.watcherExclude`: without it a project-wide search returns thousands of matches from compiled artifacts and `--symlink-install` symlinks.
+
+> `/etc/skel` is copied only when an account is created, so existing students will not receive this. To apply it to the current 62, copy the file into each home directory with a loop modeled on the push in [login-server.md](login-server.md) — and be aware it overwrites any VS Code settings a student has already chosen.
 
 ### 1.3 Configure SSSD for LDAP Authentication
 
@@ -357,14 +430,14 @@ exit
 
 ### 1.6 Grant Students Restricted sudo Access
 
-Students need `sudo` for package management and system commands during labs, but should not reach other students' home directories.
+This section is the **single definition of the student sudo whitelist**. Other guides reference it rather than restating it — see [genai-blocking.md](genai-blocking.md).
 
-Two layers work together:
+Two layers work together, and they protect different things:
 
-- **`root_squash` on the NFS server** maps root on the master to an unprivileged anonymous user on the server, so `sudo cat /home/students/a27-t02/file` is refused by the server itself
-- **A sudoers command whitelist** limits what can be run with sudo at all
+- **`root_squash` on the NFS server** rewrites root from any master to an unprivileged anonymous user, so `sudo cat /home/students/a27-t02/file` is refused by the server itself
+- **The sudoers whitelist** limits what can be run with sudo at all
 
-First, on the **login server**, confirm the export uses `root_squash`:
+#### Server side — `root_squash`
 
 ```bash
 sudo nano /etc/exports
@@ -376,11 +449,16 @@ sudo nano /etc/exports
 
 ```bash
 sudo exportfs -rav
+sudo exportfs -v          # confirm root_squash appears in the options
 ```
 
-> **This must be `root_squash`, not `no_root_squash`.** `no_root_squash` gives every master's root full write access to every student's home directory, which removes the protection this section depends on. It does not affect the instructor push loop in [login-server.md §1.7](login-server.md) — that runs locally on the server, not over NFS.
+> **This must be `root_squash`, not `no_root_squash`.** `no_root_squash` gives every master's root full write access to every student's home directory. It does not affect the instructor push loop in [login-server.md](login-server.md) — that runs locally on the server, not over NFS.
 
-Then on each **master**:
+> **What `root_squash` does and does not cover.** It rewrites **UID 0 only**. A student who reaches root on a master can still `su - a27-t02` and read that account's files, because those requests carry UID 21002 and there is nothing to squash. This is inherent to `AUTH_SYS`, NFS's default authentication, where the client asserts its own UID and the server takes its word. Closing it entirely requires Kerberos (`sec=krb5`), which is a substantial addition. In practice, student file privacy here rests on the honor code, with `root_squash` and the whitelist removing the easy paths.
+
+#### Master side — the whitelist
+
+**The guiding principle: never whitelist a general-purpose binary.** Package managers, service managers, and network tools all execute code or open editors as root by design, so permitting any of them is equivalent to granting a root shell. Most things students actually need are solved by group membership or udev rules instead, with no privilege involved at all.
 
 ```bash
 sudo nano /etc/sudoers.d/ece387-students
@@ -391,23 +469,17 @@ sudo nano /etc/sudoers.d/ece387-students
 # The % prefix applies the rule to a group rather than a user.
 # NOPASSWD avoids a password prompt — practical in a lab setting.
 
-# Package management — installing ROS packages and dependencies
+# Package management — students install their own libraries during labs.
+# See "What this grants" below: this is equivalent to full root.
 Cmnd_Alias ECE387_PKG = /usr/bin/apt, /usr/bin/apt-get, /usr/bin/dpkg, \
                         /usr/bin/pip, /usr/bin/pip3
 
-# Network — configuring WiFi and inspecting connections
-Cmnd_Alias ECE387_NET = /usr/bin/nmcli, /usr/sbin/ip
-
-# ROS tooling — confirm paths with "which colcon", "which rosdep"
-Cmnd_Alias ECE387_ROS = /usr/bin/rosdep, /usr/bin/colcon
-
-# Services — starting/stopping ROS or robot-related units
-Cmnd_Alias ECE387_SVC = /usr/bin/systemctl
-
-# Power — Lab 1 requires sudo shutdown and sudo reboot
+# Power — Lab 1 teaches sudo shutdown and sudo reboot.
+# (polkit already permits this for a local console user; kept because the
+#  lab teaches the command.)
 Cmnd_Alias ECE387_PWR = /usr/sbin/shutdown, /usr/sbin/reboot
 
-%ece387students ALL=(ALL) NOPASSWD: ECE387_PKG, ECE387_NET, ECE387_ROS, ECE387_SVC, ECE387_PWR
+%ece387students ALL=(ALL) NOPASSWD: ECE387_PKG, ECE387_PWR
 ```
 
 ```bash
@@ -416,11 +488,112 @@ sudo chmod 440 /etc/sudoers.d/ece387-students
 
 # Verify syntax before logging out. A malformed sudoers file can lock out sudo entirely.
 sudo visudo -c -f /etc/sudoers.d/ece387-students
+
+# Confirm what a student can actually run
+sudo -l -U a27-m0
 ```
 
-> **This whitelist is convenience, not containment.** `sudo apt` and `sudo pip` can install arbitrary packages, and package install scripts run as root — a determined student has a straightforward path to full root on the master. `root_squash` on the server is the control that actually protects other students' files, because it holds even against root on the client. Treat the whitelist as a guardrail against accidents, not attacks.
+#### What `ECE387_PKG` grants
 
-To add commands later, find the full path with `which <command>` and add it to the appropriate `Cmnd_Alias`.
+Package management is on the list deliberately: resolving their own dependencies is part of what students are learning. Be clear about what it costs, because it shapes what the rest of this setup can promise.
+
+Package installation means running someone else's code with privilege — that is what installing software *is*. So `ECE387_PKG` is functionally equivalent to unrestricted root:
+
+| Command | Path to root |
+|---|---|
+| `apt`, `apt-get` | Runs configuration hooks as root; `-o APT::Update::Pre-Invoke::=<cmd>` sets one from the command line |
+| `dpkg`, `apt install ./x.deb` | `.deb` packages carry `preinst`/`postinst` scripts that run as root, and anyone can build a `.deb` |
+| `pip`, `pip3` | Executes the package's `setup.py` to build it — arbitrary code, as root |
+
+Two consequences to plan around:
+
+- **Host-level restrictions become deterrents, not controls.** Immutable flags and hosts-file blocking ([genai-blocking.md](genai-blocking.md)) can all be undone by a student who escalates. Audit logging there stops being optional — it is what converts an unenforceable rule into a recorded action.
+- **`root_squash` still holds for the casual case but not the determined one.** See the note above: a student with root can `su - a27-t02`, and those requests carry a legitimate UID.
+
+This is a reasonable trade in an honor-code environment. It is just worth making knowingly.
+
+#### Prefer `pip install --user` over `sudo pip`
+
+For Python specifically there is a better option that needs no sudo at all:
+
+```bash
+pip install --user --break-system-packages imutils     # any package name
+```
+
+This writes to `~/.local/lib/python3.12/site-packages`, which is **in the student's NFS home** — so the package follows them to every bench, needs no privilege, and cannot break the machine for the next student. `--break-system-packages` is still required (Ubuntu 24.04 marks the environment as externally managed even for `--user`), but nothing runs as root.
+
+Teach this as the default and reserve `sudo pip` for the rare case where a package must be system-wide. `sudo pip` on a shared master installs for everyone and is wiped by the next re-image; `--user` is per-student and portable.
+
+#### What is still left out, and why
+
+| Command | Why it is excluded |
+|---|---|
+| `systemctl` | `systemctl edit` opens `$EDITOR` as root; set `EDITOR` to a shell and you have a root shell. If a lab needs one specific unit, permit the full invocation: `/usr/bin/systemctl restart ece387-camera` |
+| `rosdep` | Redundant — it resolves dependencies from a student-written `package.xml` and then calls apt, which is already permitted directly |
+| `colcon` | `colcon build` needs no privilege at all, and `sudo colcon build` creates root-owned files in the student's NFS home that they cannot then delete |
+| `nmcli`, `ip` | Neither needs sudo: `ip addr`/`ip route` work unprivileged, and connecting to WiFi through the GUI goes through polkit |
+
+#### Solve hardware access with groups and udev, not sudo
+
+Serial and camera access is a permissions problem, not a privilege problem:
+
+```bash
+# Device permissions set at plug-in time — no sudo needed by anyone
+sudo tee /etc/udev/rules.d/99-ece387.rules > /dev/null << 'EOF'
+# OpenCR / Dynamixel controller
+SUBSYSTEM=="tty", ATTRS{idVendor}=="0483", MODE="0666"
+# USB cameras
+KERNEL=="video[0-9]*", MODE="0666"
+EOF
+
+sudo udevadm control --reload
+sudo udevadm trigger
+```
+
+`dmesg` is restricted to root on Ubuntu, which students need when debugging USB. Open it rather than whitelisting it:
+
+```bash
+echo "kernel.dmesg_restrict=0" | sudo tee /etc/sysctl.d/61-dmesg.conf
+sudo sysctl -p /etc/sysctl.d/61-dmesg.conf
+```
+
+#### If a lab genuinely needs root
+
+Write a wrapper that does exactly one thing, rather than whitelisting a general binary:
+
+```bash
+sudo tee /usr/local/sbin/ece387-flash-opencr > /dev/null << 'EOF'
+#!/bin/bash
+set -e
+exec /opt/ece387/opencr_update/update.sh /dev/ttyACM0 burger.opencr
+EOF
+sudo chmod 755 /usr/local/sbin/ece387-flash-opencr
+sudo chattr +i /usr/local/sbin/ece387-flash-opencr
+```
+
+Then add only that path:
+
+```
+Cmnd_Alias ECE387_TOOLS = /usr/local/sbin/ece387-flash-opencr
+%ece387students ALL=(ALL) NOPASSWD: ECE387_PWR, ECE387_TOOLS
+```
+
+Root-owned, immutable, no student-controlled arguments, no shell. That is a permission; `sudo systemctl` is a root shell.
+
+#### Discover what students actually need
+
+Rather than guessing, log real usage for a week of labs:
+
+```bash
+echo 'Defaults log_input, log_output' | sudo tee /etc/sudoers.d/00-logging
+sudo chmod 440 /etc/sudoers.d/00-logging
+```
+
+```bash
+sudo journalctl -t sudo | grep COMMAND
+```
+
+Build the whitelist from that evidence. Anything appearing repeatedly probably belongs in the machine image rather than the whitelist.
 
 ### 1.7 Configure the Lab Network Connection
 

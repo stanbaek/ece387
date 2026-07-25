@@ -5,7 +5,6 @@ This guide walks through installing Ubuntu Desktop 24.04 LTS, ROS 2 Jazzy, and a
 
 > Use this guide for a single master with a local Ubuntu account. If you are setting up the centralized multi-student lab (shared logins across many masters), see [Login Server Setup](login-server.md) and [Master (Client) Setup](login-client.md) instead.
 
-
 This guide is adapted from the [TurtleBot3 e-Manual](https://emanual.robotis.com/docs/en/platform/turtlebot3/overview/#overview).
 
 ---
@@ -77,6 +76,7 @@ sudo apt install -y ros-jazzy-apriltag ros-jazzy-apriltag-ros libapriltag-dev
 sudo apt install -y python3-pip
 sudo apt install -y obs-studio qtwayland5
 sudo apt install -y tree
+sudo apt install -y terminator
 sudo apt install -y ros-jazzy-cv-bridge
 sudo apt install -y ros-jazzy-joy
 sudo apt install -y ros-jazzy-teleop-twist-joy
@@ -149,6 +149,69 @@ Any time you make changes to your `~/.bashrc` file you must source it:
 ```bash
 source ~/.bashrc
 ```
+
+### Visual Studio Code
+
+Install from the `.deb` rather than the snap. The snap runs confined and has trouble reaching serial devices and the ROS environment; the `.deb` is an ordinary system package.
+
+```bash
+wget -O /tmp/code.deb 'https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64'
+sudo apt install -y /tmp/code.deb
+rm /tmp/code.deb
+```
+
+The package registers Microsoft's apt repository and signing key itself, so future versions arrive through `sudo apt upgrade` like anything else. There is no need to add the repository by hand first — doing both produces a duplicate source and a wall of `configured multiple times` warnings on every `apt update`.
+
+If VS Code was previously installed as a snap, remove it so the two do not compete for the `code` command:
+
+```bash
+snap list | grep code && sudo snap remove code
+```
+
+Verify:
+
+```bash
+code --version
+which code          # expect /usr/bin/code
+apt-cache policy code
+```
+
+`apt-cache policy` should list a single origin at `packages.microsoft.com`. If it shows two, there is a leftover hand-made source file:
+
+```bash
+sudo rm -f /etc/apt/sources.list.d/vscode.list    # keep vscode.sources
+sudo apt update
+```
+
+#### File watcher limit
+
+VS Code watches every file in an open folder. A built `master_ws` contains tens of thousands of files across `build/` and `install/`, which exceeds the default inotify limit and produces a "file watcher limit reached" error.
+
+Raise the limit:
+
+```bash
+echo "fs.inotify.max_user_watches=524288" | sudo tee /etc/sysctl.d/60-inotify.conf
+sudo sysctl -p /etc/sysctl.d/60-inotify.conf
+```
+
+Better still, stop watching the build output entirely — `ccbuild` regenerates it, so there is nothing worth tracking. Add to the workspace's `.vscode/settings.json`:
+
+```json
+{
+  "files.watcherExclude": {
+    "**/build/**": true,
+    "**/install/**": true,
+    "**/log/**": true
+  },
+  "search.exclude": {
+    "**/build/**": true,
+    "**/install/**": true,
+    "**/log/**": true
+  }
+}
+```
+
+`search.exclude` matters as much as the watcher setting: without it, a project-wide search returns thousands of hits from compiled artifacts and symlinked headers.
 
 ### TP-Link AC600 Archer T2U Plus Driver
 
