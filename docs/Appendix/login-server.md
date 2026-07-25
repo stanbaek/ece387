@@ -11,12 +11,14 @@ This guide covers setting up the **login server** — the machine that hosts Ope
 A login server (OpenLDAP + SSSD + NFS) is only worth the setup effort in one specific situation: **a shared lab of fixed, dedicated computers that many different students rotate through.**
 
 **When a login server helps:**
+
 - The lab has a bank of master computers (e.g., 14 NUCs) and students do not own or sit at the same machine every session.
 - A student should be able to sit down at *any* master, log in with their own credentials, and immediately have their `.bashrc`, SSH keys, and ROS workspace available — without re-cloning or re-configuring anything.
 - You want to manage 20–30 student accounts centrally: create them once, reset a forgotten password in one command, and push a `.bashrc` update to every account at once (see [Maintenance](#3-maintenance)). The shell environment is instructor-owned — every account runs an identical, known-good `.bashrc`, so "it works on my machine" never enters a debugging session.
 - You need some isolation between students who share the same physical hardware (restricted sudo, separate home directories, no ability to read another student's files).
 
 **When a login server is overkill:**
+
 - Students each have their own laptop or a personal workstation they always use. In that case there is nothing to "roam" between — a local Ubuntu account already gives each student a persistent home directory, and centralized authentication just adds an extra server to install, patch, and keep running (plus a single point of failure if it goes down). Use [Master Setup - Standalone](MasterSetupJazzy.md) instead — it sets up the same ROS 2 environment with a normal local account and no LDAP/NFS dependency.
 - You only have a handful of machines and can simply assign one student (or a fixed pair) per machine for the term.
 
@@ -47,8 +49,8 @@ A login server (OpenLDAP + SSSD + NFS) is only worth the setup effort in one spe
     ┌────────┴───────┐                       ┌────────┴───────┐
     │  Robot 01      │                       │  Robot N...    │
     │  RPi 4         │                       │  RPi 4         │
-    │  Ubuntu 22.04  │                       │  Ubuntu 22.04  │
-    │  ROS2 Humble   │                       │  ROS2 Humble   │
+    │  Ubuntu 24.04  │                       │  Ubuntu 24.04  │
+    │  ROS2 Jazzy    │                       │  ROS2 Jazzy    │
     └────────────────┘                       └────────────────┘
 ```
 
@@ -91,8 +93,8 @@ mkdir -p ~/Documents/ece387
 1. Boot from Ubuntu 24.04 Server ISO.
 2. During install, set:
    - Hostname: `ece387server`
-   - Create a local admin account (e.g., `stanbaek`) — this is your personal admin account, separate from student accounts
-   - Enable OpenSSH Server so you can manage the server remotely from your office
+   - Create a local admin account (e.g., `stanbaek`) — this is your admin account, separate from student accounts
+   - Enable OpenSSH Server so you can manage the server remotely
 3. After install, set a static IP so the server is always reachable at the same address:
 
 ```bash
@@ -127,12 +129,15 @@ sudo netplan apply
 ```
 
 > **Careful with `50-cloud-init.yaml`:** cloud-init regenerates this file on every boot by default, which can silently revert your static IP back to DHCP after a reboot. To make the change stick, disable cloud-init's network management:
+>
 > ```bash
 > sudo nano /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
 > ```
+>
 > ```yaml
 > network: {config: disabled}
 > ```
+>
 > This only stops cloud-init from touching networking on future boots — it does not affect the netplan file you just edited.
 
 ### 1.2 Set Hostname and /etc/hosts
@@ -149,6 +154,7 @@ sudo nano /etc/hosts
 ```
 
 The file should contain:
+
 ```
 127.0.0.1   localhost
 10.99.1.50  ece387server.ece387.local  ece387server
@@ -178,6 +184,7 @@ sudo dpkg-reconfigure slapd
 ```
 
 Answer the prompts:
+
 - Omit OpenLDAP server configuration? → **No**
 - DNS domain name → `ece387.local`  *(this becomes dc=ece387,dc=local in LDAP)*
 - Organization name → `ECE387`
@@ -349,11 +356,10 @@ fi
 alias gedit='gnome-text-editor'
 
 # Launch the TurtleBot3 bringup on the robot over SSH.
-# Replace robotX with the robot hostname or IP for the bench.
-alias bringup='ssh pi@robotX '\''ros2 launch turtlebot3_bringup robot.launch.py'\'
+alias bringup='ssh pi@192.168.50.1 '\''ros2 launch turtlebot3_bringup robot.launch.py'\'
 
 # Shortcut to SSH into the robot.
-alias ssh_robot='ssh pi@192.168.4.1'
+alias ssh_robot='ssh pi@192.168.50.1'
 
 # Build the workspace, passing through any colcon arguments
 function ccbuild() {
@@ -374,19 +380,20 @@ source ~/master_ws/install/setup.bash 2>/dev/null || true
 export TURTLEBOT3_MODEL=burger
 export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
 
-# ROS_DOMAIN_ID separates ROS 2 traffic between different robot pairs.
-# Students override this per terminal for their bench, e.g.: export ROS_DOMAIN_ID=7
-export ROS_DOMAIN_ID=99
-export LDS_MODEL=LDS-02   # Replace with LDS-03 if using new LIDAR
-
 # colcon helpers
 source /usr/share/colcon_cd/function/colcon_cd.sh
 export _colcon_cd_root=/opt/ros/jazzy/
 source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
+
+# ROS_DOMAIN_ID separates ROS2 traffic between different robot pairs.
+# Each student should set this e.g.: export ROS_DOMAIN_ID=X
+# where X is the robot ID.
+export ROS_DOMAIN_ID=99
+export LDS_MODEL=LDS-02   # Replace with LDS-03 if using new LIDAR
 TEMPLATE_EOF
 ```
 
-Check the syntax before pushing it to 62 accounts — a typo here breaks every terminal in the lab at once:
+Check the syntax before pushing it to 62 accounts - a typo here breaks every terminal in the lab at once:
 
 ```bash
 bash -n /etc/ece387/bashrc_template && echo "syntax OK"
@@ -394,14 +401,14 @@ bash -n /etc/ece387/bashrc_template && echo "syntax OK"
 
 **Notes on the template:**
 
-- The non-interactive guard sets the ROS variables *before* returning. The stock Ubuntu `.bashrc` returns immediately, which would leave `ssh master05 'ros2 topic list'` with no ROS environment. The variables are intentionally duplicated in the guard and in the course block below it — the guard `return`s before reaching the second copy, so keep the two in sync when you change one.
+- The non-interactive guard sets the ROS variables *before* returning. The stock Ubuntu `.bashrc` returns immediately, which would leave `ssh master05 'ros2 topic list'` with no ROS environment. The variables are intentionally duplicated in the guard and in the course block below it - the guard `return`s before reaching the second copy, so keep the two in sync when you change one.
 - Interactivity matters for more than convenience: without the guard, anything the course block prints to stdout corrupts `scp` and `rsync` transfers to and from the robots.
-- `source /usr/share/gazebo/setup.sh` is **not** included. That path belongs to Gazebo Classic, which is not part of Jazzy — on a Jazzy master the file does not exist and every terminal opens with a "No such file or directory" error. If a future setup does need it, guard the source: `[ -f /usr/share/gazebo/setup.sh ] && source /usr/share/gazebo/setup.sh`.
+- `source /usr/share/gazebo/setup.sh` is **not** included. That path belongs to Gazebo Classic, which is not part of Jazzy - on a Jazzy master the file does not exist and every terminal opens with a "No such file or directory" error. If a future setup does need it, guard the source: `[ -f /usr/share/gazebo/setup.sh ] && source /usr/share/gazebo/setup.sh`.
 - `robotX` in the `bringup` alias is a placeholder. Either replace it before the first push or teach students to use `ssh_robot` and launch bringup by hand.
 
 #### .inputrc Template
 
-`.inputrc` configures readline behavior — used by bash for history search and tab completion.
+`.inputrc` configures readline behavior - used by bash for history search and tab completion.
 
 ```bash
 sudo tee /etc/ece387/inputrc_template > /dev/null << 'EOF'
@@ -465,6 +472,7 @@ Run the push from the login server, not from a master — the home directories l
 ### 1.6 Create Student Accounts
 
 Student IDs follow two series this term: `a27-m0` through `a27-m30` (31 accounts) and `a27-t0` through `a27-t30` (31 accounts) — 62 accounts total. The script below:
+
 1. Generates a hashed password for all accounts
 2. Builds a single LDIF file with all 62 user entries
 3. Creates each student's home directory on the server and populates it with the course `.bashrc`
@@ -641,6 +649,7 @@ sudo ufw status
 ```
 
 > **Reconfiguring an already-running server:** if `sudo ufw status` still shows an old subnet (e.g. `192.168.1.0/24`) from a previous setup, `ufw allow` won't replace it — the old rule stays active alongside the new one. Remove it explicitly:
+>
 > ```bash
 > sudo ufw status numbered      # find the rule number for the old subnet
 > sudo ufw delete <number>      # delete it
