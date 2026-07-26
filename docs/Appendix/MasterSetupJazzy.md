@@ -5,6 +5,7 @@ This guide walks through installing Ubuntu Desktop 24.04 LTS, ROS 2 Jazzy, and a
 
 > Use this guide for a single master with a local Ubuntu account. If you are setting up the centralized multi-student lab (shared logins across many masters), see [Login Server Setup](login-server.md) and [Master (Client) Setup](login-client.md) instead.
 
+
 This guide is adapted from the [TurtleBot3 e-Manual](https://emanual.robotis.com/docs/en/platform/turtlebot3/overview/#overview).
 
 ---
@@ -266,6 +267,7 @@ sudo pip install --break-system-packages pupil-apriltags
 
 `dlib` is handled separately -- see below.
 
+(building-a-dlib-wheel)=
 #### Building a dlib Wheel
 
 **Why not just `pip install dlib`?** Because dlib is a C++ library. PyPI ships it only as a source distribution, so `pip install dlib` downloads the source and invokes the compiler, which takes 30-60 minutes on a NUC and needs cmake, a full build toolchain, and a few GB of RAM.
