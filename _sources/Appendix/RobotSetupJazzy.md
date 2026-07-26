@@ -1090,7 +1090,6 @@ source ~/.bashrc
 ```
 
 (lds-configuration)=
-
 ### LDS and TurtleBot3 Configuration
 
 The TurtleBot3 LDS has been updated to LDS-02 since 2022. For TurtleBots purchased after 2022, use LDS-02 for the `LDS_MODEL`.

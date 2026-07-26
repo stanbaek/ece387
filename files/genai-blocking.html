@@ -1,0 +1,1068 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Blocking GenAI Access on Master Computers &#8212; Introduction to Robotic Systems</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=4c969af8" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/tabs.js?v=3ee01567"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'files/genai-blocking';</script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/ece387.png" class="logo__image only-light" alt="Introduction to Robotic Systems - Home"/>
+    <script>document.write(`<img src="../_static/ece387.png" class="logo__image only-dark" alt="Introduction to Robotic Systems - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    ECE 387 Introduction to Robotic Systems
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Course Info</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../syllabus.html">📌 ECE387 Syllabus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../schedule.html">📆 Course Schedule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AI_policy.html">🤖 AI Usage Policy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">🙋 FAQ</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Labs</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Labs/Lab1_Linux.html">🔬 Lab1: Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Labs/Lab2_ROS.html">🔬 Lab2: ROS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Labs/Lab3_Python.html">🔬 Lab3: Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Labs/Lab4_Gamepad.html">🔬 Lab4: Gamepad</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Labs/Lab5_TurtleBot.html">🔬 Lab5: Driving the Robot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Labs/Lab6_IMU.html">🔬 Lab6: IMU-Based Navigation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Labs/Lab7_TF.html">🔬 Lab7: Transformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Labs/Lab8_LIDAR.html">🔬 Lab8: LiDAR</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Labs/Lab9_SLAM.html">🔬 Lab9: SLAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Labs/Lab10_CV.html">🔬 Lab10: CV</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Labs/Lab11_AprilTag.html">🔬 Lab11: AprilTag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Labs/FinalProject.html">🚀 Final Project</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Supplementary</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://stanbaek.github.io/workshops/PythonBasic.html">Python PythonBasic</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://stanbaek.github.io/workshops/PythonIntermediate.html">Python Containers</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://stanbaek.github.io/workshops/NumPy.html">NumPy</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://stanbaek.github.io/NoPointer.html">No Pointers in Python?</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendix</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Appendix/RobotSetupJazzy.html">Robot Setup (ROS2 Jazzy)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendix/login-server.html">Login Server Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendix/login-client.html">Master (Client) Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendix/MasterSetupJazzy.html">Master Setup — Standalone</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendix/GitSetup.html">Git Repo Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendix/GamepadSetup.html">Gamepad Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendix/RobotSetupHumble.html">Robot Setup (ROS2 Humble)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendix/MasterSetupHumble.html">Master Setup (ROS2 Humble)</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/stanbaek/ece387" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/stanbaek/ece387/issues/new?title=Issue%20on%20page%20%2Ffiles/genai-blocking.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/files/genai-blocking.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Blocking GenAI Access on Master Computers</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-this-can-and-cannot-do">What this can and cannot do</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#close-the-root-escalation-paths">1. Close the root escalation paths</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-the-current-whitelist-grants-root">Why the current whitelist grants root</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-cloning-makes-removal-practical">Why cloning makes removal practical</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-change">The change</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#network-level-blocking">2. Network-level blocking</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#browser-policy-files">3. Browser policy files</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-it-works">How it works</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chrome">Chrome</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#firefox">Firefox</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#etc-hosts-backstop">4. <code class="docutils literal notranslate"><span class="pre">/etc/hosts</span></code> backstop</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">How it works</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vs-code">5. VS Code</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-extension-allowlist">5a. Extension allowlist</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-block-the-marketplace-recommended">5b. Block the marketplace (recommended)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-disable-telemetry-and-remote-sign-in">5c. Disable telemetry and remote sign-in</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#protect-the-configuration-from-tampering">6. Protect the configuration from tampering</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-the-immutable-flag-works">How the immutable flag works</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#self-healing-backstop">Self-healing backstop</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#audit-logging">7. Audit logging</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">How it works</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#forward-logs-off-the-machine">Forward logs off the machine</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#verification-before-cloning">8. Verification before cloning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ongoing-maintenance">9. Ongoing maintenance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#appendix-domain-reference">Appendix — Domain reference</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="blocking-genai-access-on-master-computers">
+<h1>Blocking GenAI Access on Master Computers<a class="headerlink" href="#blocking-genai-access-on-master-computers" title="Link to this heading">#</a></h1>
+<p>Restricting access to generative AI websites and AI coding assistants on the ECE 387 master computers. Written to be applied to a single machine that is then cloned to the rest of the fleet with Clonezilla.</p>
+<p><strong>Companion guides:</strong> <a class="reference internal" href="#login-client.md"><span class="xref myst">Master (Client) Setup</span></a> · <a class="reference internal" href="#login-server.md"><span class="xref myst">Login Server Setup</span></a></p>
+<hr class="docutils" />
+<section id="what-this-can-and-cannot-do">
+<h2>What this can and cannot do<a class="headerlink" href="#what-this-can-and-cannot-do" title="Link to this heading">#</a></h2>
+<p>Be clear-eyed about this before investing effort in it.</p>
+<p><strong>What it achieves:</strong> removes the easy paths, makes the policy unambiguous rather than implied, and produces a record of deliberate circumvention. In an honor-code environment that record is usually worth more than the block itself — a student who has to clear an immutable flag to reach ChatGPT cannot claim they wandered there by accident.</p>
+<p><strong>What it does not achieve:</strong> stopping a determined student. They have phones. They have laptops. And, critically, several commands on the current sudo whitelist lead to full root, and root defeats everything here. Section 1 closes those, and <strong>without Section 1 the rest is decoration.</strong></p>
+<p>The honest framing to give students: this is a technical statement of an academic-integrity policy, not a wall.</p>
+</section>
+<hr class="docutils" />
+<section id="close-the-root-escalation-paths">
+<h2>1. Close the root escalation paths<a class="headerlink" href="#close-the-root-escalation-paths" title="Link to this heading">#</a></h2>
+<p><strong>Do this first.</strong> Every other layer assumes students cannot become root.</p>
+<section id="why-the-current-whitelist-grants-root">
+<h3>Why the current whitelist grants root<a class="headerlink" href="#why-the-current-whitelist-grants-root" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">/etc/sudoers.d/ece387-students</span></code> currently permits <code class="docutils literal notranslate"><span class="pre">apt</span></code>, <code class="docutils literal notranslate"><span class="pre">pip</span></code>, and <code class="docutils literal notranslate"><span class="pre">systemctl</span></code>. All three are escalation paths, not through bugs but through what those tools do by design:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Command</p></th>
+<th class="head"><p>Why it is root</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">-o</span> <span class="pre">APT::Update::Pre-Invoke::=&lt;cmd&gt;</span></code></p></td>
+<td><p>apt runs configuration hooks as root; <code class="docutils literal notranslate"><span class="pre">-o</span></code> sets them on the command line</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">install</span> <span class="pre">./anything.deb</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.deb</span></code> packages carry <code class="docutils literal notranslate"><span class="pre">preinst</span></code>/<code class="docutils literal notranslate"><span class="pre">postinst</span></code> scripts that dpkg runs as root. Anyone can build a <code class="docutils literal notranslate"><span class="pre">.deb</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">&lt;sdist&gt;</span></code></p></td>
+<td><p>pip executes the package’s <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> to build it — arbitrary code, as root</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">systemctl</span> <span class="pre">edit</span> <span class="pre">&lt;unit&gt;</span></code></p></td>
+<td><p>Opens <code class="docutils literal notranslate"><span class="pre">$EDITOR</span></code> as root; set <code class="docutils literal notranslate"><span class="pre">EDITOR</span></code> to a shell and you have a root shell</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Package managers install software, and installing software means running someone else’s code with privilege. There is no way to permit these safely.</p>
+</section>
+<section id="why-cloning-makes-removal-practical">
+<h3>Why cloning makes removal practical<a class="headerlink" href="#why-cloning-makes-removal-practical" title="Link to this heading">#</a></h3>
+<p>The reason <code class="docutils literal notranslate"><span class="pre">apt</span></code> and <code class="docutils literal notranslate"><span class="pre">pip</span></code> were on the whitelist is that students occasionally needed a package mid-lab. With Clonezilla, every package is baked into the image instead, so that need largely disappears — and any genuine gap is fixed by re-imaging or an Ansible push, which is the same discipline that keeps 14 benches from drifting apart.</p>
+</section>
+<section id="the-change">
+<h3>The change<a class="headerlink" href="#the-change" title="Link to this heading">#</a></h3>
+<p><strong>The whitelist is defined in <a class="reference internal" href="#login-client.md"><span class="xref myst">login-client.md §1.6</span></a>.</strong> Apply the version there — it is the single source of truth, and duplicating it here would guarantee the two drift apart.</p>
+<p><strong><code class="docutils literal notranslate"><span class="pre">ECE387_PKG</span></code> (apt, apt-get, dpkg, pip) is intentionally retained</strong>, because students resolving their own dependencies is part of the course. That decision has a direct consequence for this document, and it is important to state plainly:</p>
+<p><strong>A student who wants to reach a GenAI site can. Everything below is a deterrent, not a control.</strong> <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt</span></code> and <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">pip</span></code> both run arbitrary code as root, root clears <code class="docutils literal notranslate"><span class="pre">chattr</span> <span class="pre">+i</span></code>, and cleared flags mean editable hosts files and browser policies.</p>
+<p>So the goal shifts. These layers make the policy explicit, remove any claim of stumbling into a violation, and — critically — <strong>produce a timestamped record of deliberate circumvention.</strong> That record is the enforcement mechanism in an honor-code environment; the technical block is what makes reaching for it a conscious act.</p>
+<p>Because of this, <strong>§7 audit logging is not optional in this configuration.</strong> Skip it and the rest is unverifiable.</p>
+<p>These are excluded and should stay excluded — each is a root path with no offsetting pedagogical value:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">systemctl</span>  <span class="n">rosdep</span>  <span class="n">colcon</span>  <span class="n">nmcli</span>  <span class="n">ip</span>
+</pre></div>
+</div>
+<p>Verify on the image before cloning:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>cat<span class="w"> </span>/etc/sudoers.d/ece387-students
+sudo<span class="w"> </span>-l<span class="w"> </span>-U<span class="w"> </span>a27-m0
+</pre></div>
+</div>
+<p>Expect <code class="docutils literal notranslate"><span class="pre">apt</span></code>, <code class="docutils literal notranslate"><span class="pre">apt-get</span></code>, <code class="docutils literal notranslate"><span class="pre">dpkg</span></code>, <code class="docutils literal notranslate"><span class="pre">pip</span></code>, <code class="docutils literal notranslate"><span class="pre">pip3</span></code>, <code class="docutils literal notranslate"><span class="pre">shutdown</span></code>, <code class="docutils literal notranslate"><span class="pre">reboot</span></code> — and nothing else.</p>
+<blockquote>
+<div><p>§1.6 also covers <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--user</span> <span class="pre">--break-system-packages</span></code>, which needs no sudo, lands in the student’s NFS home, and follows them between benches. Teaching it as the default reduces how often students reach for <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">pip</span></code> at all.</p>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils" />
+<section id="network-level-blocking">
+<h2>2. Network-level blocking<a class="headerlink" href="#network-level-blocking" title="Link to this heading">#</a></h2>
+<p>The only layer students cannot touch from the master, and the only one that also covers phones and laptops on the same network. Everything else is defense in depth.</p>
+<p>Ask whoever administers the <code class="docutils literal notranslate"><span class="pre">ECE387</span></code> router to block the domains in the appendix for that subnet.</p>
+<blockquote>
+<div><p><strong>Your masters have three paths to the internet:</strong> <code class="docutils literal notranslate"><span class="pre">ECE387</span></code>, <code class="docutils literal notranslate"><span class="pre">AF_ACADEMY_GUEST</span></code>, and <code class="docutils literal notranslate"><span class="pre">ECE</span></code> (see <a class="reference external" href="http://login-client.md">login-client.md</a> §1.7). A block applied only to <code class="docutils literal notranslate"><span class="pre">ECE387</span></code> leaves the other two open. Either cover all three, or remove the alternates from the netplan config so masters have exactly one route out.</p>
+</div></blockquote>
+</section>
+<hr class="docutils" />
+<section id="browser-policy-files">
+<h2>3. Browser policy files<a class="headerlink" href="#browser-policy-files" title="Link to this heading">#</a></h2>
+<section id="how-it-works">
+<h3>How it works<a class="headerlink" href="#how-it-works" title="Link to this heading">#</a></h3>
+<p>Chrome and Firefox both read enterprise policy from root-owned files on disk at startup. Policies set this way cannot be overridden from the browser’s settings UI, do not appear as an extension the student can disable, and apply to every profile including guest and incognito.</p>
+<p>This is strictly better than a hosts file for browsers, for two reasons. It understands <strong>URL paths</strong>, so <code class="docutils literal notranslate"><span class="pre">huggingface.co/chat</span></code> can be blocked while model downloads keep working. And it can <strong>disable DNS-over-HTTPS</strong> — with DoH enabled, the browser resolves names through its own encrypted channel and never consults <code class="docutils literal notranslate"><span class="pre">/etc/hosts</span></code>, which is why hosts-file blocking quietly fails on modern browsers.</p>
+</section>
+<section id="chrome">
+<h3>Chrome<a class="headerlink" href="#chrome" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/etc/opt/chrome/policies/managed
+sudo<span class="w"> </span>tee<span class="w"> </span>/etc/opt/chrome/policies/managed/ece387.json<span class="w"> </span>&gt;<span class="w"> </span>/dev/null<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
+<span class="s">{</span>
+<span class="s">  &quot;URLBlocklist&quot;: [</span>
+<span class="s">    &quot;chatgpt.com&quot;, &quot;chat.openai.com&quot;, &quot;openai.com&quot;,</span>
+<span class="s">    &quot;claude.ai&quot;, &quot;anthropic.com&quot;,</span>
+<span class="s">    &quot;gemini.google.com&quot;, &quot;aistudio.google.com&quot;, &quot;bard.google.com&quot;,</span>
+<span class="s">    &quot;copilot.microsoft.com&quot;, &quot;bing.com/chat&quot;, &quot;github.com/copilot&quot;,</span>
+<span class="s">    &quot;perplexity.ai&quot;, &quot;poe.com&quot;, &quot;character.ai&quot;,</span>
+<span class="s">    &quot;chat.mistral.ai&quot;, &quot;chat.deepseek.com&quot;,</span>
+<span class="s">    &quot;grok.com&quot;, &quot;x.ai&quot;, &quot;meta.ai&quot;,</span>
+<span class="s">    &quot;you.com&quot;, &quot;phind.com&quot;, &quot;blackbox.ai&quot;, &quot;v0.dev&quot;,</span>
+<span class="s">    &quot;codeium.com&quot;, &quot;windsurf.com&quot;, &quot;tabnine.com&quot;, &quot;cursor.com&quot;,</span>
+<span class="s">    &quot;huggingface.co/chat&quot;, &quot;chat.qwen.ai&quot;, &quot;kimi.moonshot.cn&quot;,</span>
+<span class="s">    &quot;notebooklm.google.com&quot;, &quot;gamma.app&quot;, &quot;quillbot.com&quot;</span>
+<span class="s">  ],</span>
+<span class="s">  &quot;URLAllowlist&quot;: [</span>
+<span class="s">    &quot;docs.ros.org&quot;, &quot;github.com&quot;, &quot;stackoverflow.com&quot;</span>
+<span class="s">  ],</span>
+<span class="s">  &quot;DnsOverHttpsMode&quot;: &quot;off&quot;,</span>
+<span class="s">  &quot;IncognitoModeAvailability&quot;: 1,</span>
+<span class="s">  &quot;BrowserSignin&quot;: 0</span>
+<span class="s">}</span>
+<span class="s">EOF</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">URLAllowlist</span></code> takes precedence over the blocklist, so <code class="docutils literal notranslate"><span class="pre">github.com</span></code> stays usable while <code class="docutils literal notranslate"><span class="pre">github.com/copilot</span></code> is blocked — allowlist entries win only where they are at least as specific.</p>
+<p><code class="docutils literal notranslate"><span class="pre">IncognitoModeAvailability:</span> <span class="pre">1</span></code> disables incognito. <code class="docutils literal notranslate"><span class="pre">BrowserSignin:</span> <span class="pre">0</span></code> prevents signing into a Google account, which otherwise syncs a student’s own settings down over yours.</p>
+</section>
+<section id="firefox">
+<h3>Firefox<a class="headerlink" href="#firefox" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/etc/firefox/policies
+sudo<span class="w"> </span>tee<span class="w"> </span>/etc/firefox/policies/policies.json<span class="w"> </span>&gt;<span class="w"> </span>/dev/null<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
+<span class="s">{</span>
+<span class="s">  &quot;policies&quot;: {</span>
+<span class="s">    &quot;WebsiteFilter&quot;: {</span>
+<span class="s">      &quot;Block&quot;: [</span>
+<span class="s">        &quot;*://chatgpt.com/*&quot;, &quot;*://chat.openai.com/*&quot;,</span>
+<span class="s">        &quot;*://claude.ai/*&quot;, &quot;*://gemini.google.com/*&quot;,</span>
+<span class="s">        &quot;*://copilot.microsoft.com/*&quot;, &quot;*://perplexity.ai/*&quot;,</span>
+<span class="s">        &quot;*://poe.com/*&quot;, &quot;*://character.ai/*&quot;,</span>
+<span class="s">        &quot;*://chat.deepseek.com/*&quot;, &quot;*://grok.com/*&quot;,</span>
+<span class="s">        &quot;*://you.com/*&quot;, &quot;*://phind.com/*&quot;</span>
+<span class="s">      ],</span>
+<span class="s">      &quot;Exceptions&quot;: [&quot;*://docs.ros.org/*&quot;]</span>
+<span class="s">    },</span>
+<span class="s">    &quot;DNSOverHTTPS&quot;: { &quot;Enabled&quot;: false, &quot;Locked&quot;: true },</span>
+<span class="s">    &quot;DisablePrivateBrowsing&quot;: true,</span>
+<span class="s">    &quot;DisableFirefoxAccounts&quot;: true,</span>
+<span class="s">    &quot;BlockAboutConfig&quot;: true</span>
+<span class="s">  }</span>
+<span class="s">}</span>
+<span class="s">EOF</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>Firefox’s <code class="docutils literal notranslate"><span class="pre">WebsiteFilter</span></code> accepts at most 1000 patterns and requires the <code class="docutils literal notranslate"><span class="pre">*://</span></code> scheme prefix. <code class="docutils literal notranslate"><span class="pre">BlockAboutConfig</span></code> matters — without it a student can re-enable DoH from <code class="docutils literal notranslate"><span class="pre">about:config</span></code>.</p>
+</div></blockquote>
+<p>Verify after restarting each browser: visit <code class="docutils literal notranslate"><span class="pre">chrome://policy</span></code> or <code class="docutils literal notranslate"><span class="pre">about:policies</span></code>.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="etc-hosts-backstop">
+<h2>4. <code class="docutils literal notranslate"><span class="pre">/etc/hosts</span></code> backstop<a class="headerlink" href="#etc-hosts-backstop" title="Link to this heading">#</a></h2>
+<section id="id1">
+<h3>How it works<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>Browsers are covered above. This layer catches everything else: <code class="docutils literal notranslate"><span class="pre">curl</span></code>, Python SDKs, VS Code extensions, and any other program that resolves a hostname the ordinary way. Mapping a name to <code class="docutils literal notranslate"><span class="pre">0.0.0.0</span></code> makes the connection fail immediately rather than hang.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>tee<span class="w"> </span>-a<span class="w"> </span>/etc/hosts<span class="w"> </span>&gt;<span class="w"> </span>/dev/null<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
+
+<span class="s"># ECE 387 — GenAI block</span>
+<span class="s">0.0.0.0 chatgpt.com www.chatgpt.com chat.openai.com api.openai.com</span>
+<span class="s">0.0.0.0 claude.ai www.claude.ai api.anthropic.com</span>
+<span class="s">0.0.0.0 gemini.google.com generativelanguage.googleapis.com</span>
+<span class="s">0.0.0.0 copilot.microsoft.com</span>
+<span class="s">0.0.0.0 perplexity.ai www.perplexity.ai</span>
+<span class="s">0.0.0.0 poe.com character.ai</span>
+<span class="s">0.0.0.0 chat.deepseek.com api.deepseek.com</span>
+<span class="s">0.0.0.0 api.x.ai grok.com</span>
+<span class="s">0.0.0.0 you.com phind.com blackbox.ai</span>
+
+<span class="s"># AI coding assistants — API endpoints, not just the websites</span>
+<span class="s">0.0.0.0 api.githubcopilot.com copilot-proxy.githubusercontent.com</span>
+<span class="s">0.0.0.0 api.individual.githubcopilot.com proxy.individual.githubcopilot.com</span>
+<span class="s">0.0.0.0 default.exp-tas.com</span>
+<span class="s">0.0.0.0 codeium.com server.codeium.com inference.codeium.com</span>
+<span class="s">0.0.0.0 api.tabnine.com update.tabnine.com</span>
+<span class="s">0.0.0.0 api.continue.dev</span>
+<span class="s">0.0.0.0 sourcegraph.com cody-gateway.sourcegraph.com</span>
+<span class="s">EOF</span>
+</pre></div>
+</div>
+<p>The API endpoints matter more than the websites. Blocking <code class="docutils literal notranslate"><span class="pre">api.githubcopilot.com</span></code> disables Copilot even if a student installs the extension — the completions simply never return.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="vs-code">
+<h2>5. VS Code<a class="headerlink" href="#vs-code" title="Link to this heading">#</a></h2>
+<p>Three mechanisms, in increasing order of durability.</p>
+<section id="a-extension-allowlist">
+<h3>5a. Extension allowlist<a class="headerlink" href="#a-extension-allowlist" title="Link to this heading">#</a></h3>
+<p>VS Code 1.96+ supports blocking extensions by ID. Add to the settings file seeded from <code class="docutils literal notranslate"><span class="pre">/etc/skel</span></code> on the login server:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># On ece387server</span>
+sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/etc/skel/.config/Code/User
+sudo<span class="w"> </span>tee<span class="w"> </span>/etc/skel/.config/Code/User/settings.json<span class="w"> </span>&gt;<span class="w"> </span>/dev/null<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
+<span class="s">{</span>
+<span class="s">  &quot;extensions.allowed&quot;: {</span>
+<span class="s">    &quot;*&quot;: true,</span>
+<span class="s">    &quot;github.copilot&quot;: false,</span>
+<span class="s">    &quot;github.copilot-chat&quot;: false,</span>
+<span class="s">    &quot;codeium.codeium&quot;: false,</span>
+<span class="s">    &quot;tabnine.tabnine-vscode&quot;: false,</span>
+<span class="s">    &quot;continue.continue&quot;: false,</span>
+<span class="s">    &quot;sourcegraph.cody-ai&quot;: false,</span>
+<span class="s">    &quot;amazonwebservices.amazon-q-vscode&quot;: false,</span>
+<span class="s">    &quot;google.geminicodeassist&quot;: false,</span>
+<span class="s">    &quot;blackboxapp.blackbox&quot;: false</span>
+<span class="s">  },</span>
+<span class="s">  &quot;chat.commandCenter.enabled&quot;: false,</span>
+<span class="s">  &quot;github.copilot.enable&quot;: { &quot;*&quot;: false },</span>
+<span class="s">  &quot;workbench.commandPalette.experimental.suggestCommands&quot;: false,</span>
+
+<span class="s">  &quot;files.watcherExclude&quot;: {</span>
+<span class="s">    &quot;**/build/**&quot;: true, &quot;**/install/**&quot;: true, &quot;**/log/**&quot;: true</span>
+<span class="s">  },</span>
+<span class="s">  &quot;search.exclude&quot;: {</span>
+<span class="s">    &quot;**/build/**&quot;: true, &quot;**/install/**&quot;: true, &quot;**/log/**&quot;: true</span>
+<span class="s">  }</span>
+<span class="s">}</span>
+<span class="s">EOF</span>
+</pre></div>
+</div>
+<p>This is a blocklist, so it needs maintenance as new AI extensions appear. Fine as a layer, not sufficient alone.</p>
+</section>
+<section id="b-block-the-marketplace-recommended">
+<h3>5b. Block the marketplace (recommended)<a class="headerlink" href="#b-block-the-marketplace-recommended" title="Link to this heading">#</a></h3>
+<p>Far more durable, and cloning makes it practical. Pre-install every extension students need into the image, then make the marketplace unreachable:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># In the image, as the account whose extensions get cloned</span>
+code<span class="w"> </span>--install-extension<span class="w"> </span>ms-python.python
+code<span class="w"> </span>--install-extension<span class="w"> </span>ms-vscode.cpptools
+code<span class="w"> </span>--install-extension<span class="w"> </span>ms-iot.vscode-ros
+code<span class="w"> </span>--install-extension<span class="w"> </span>twxs.cmake
+code<span class="w"> </span>--install-extension<span class="w"> </span>redhat.vscode-yaml
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>tee<span class="w"> </span>-a<span class="w"> </span>/etc/hosts<span class="w"> </span>&gt;<span class="w"> </span>/dev/null<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
+
+<span class="s"># VS Code marketplace — extensions are pre-installed in the image</span>
+<span class="s">0.0.0.0 marketplace.visualstudio.com</span>
+<span class="s">0.0.0.0 vscode.blob.core.windows.net</span>
+<span class="s">0.0.0.0 vscode.download.prss.microsoft.com</span>
+<span class="s">EOF</span>
+</pre></div>
+</div>
+<p>No new extension can be installed at all, so there is no blocklist to keep current. The cost: every legitimate extension request comes to you and is handled by re-imaging or Ansible.</p>
+<blockquote>
+<div><p><strong>Extensions live in <code class="docutils literal notranslate"><span class="pre">~/.vscode/extensions</span></code>, which is on NFS.</strong> If you pre-install into the image, they land on the <em>master’s local disk</em> under the build account and students will not see them. Either install them into <code class="docutils literal notranslate"><span class="pre">/etc/skel/.vscode/extensions</span></code> on the login server so new accounts inherit them, or push them into the existing 62 home directories with a loop. Verify this before cloning — it is the step most likely to be missed.</p>
+</div></blockquote>
+</section>
+<section id="c-disable-telemetry-and-remote-sign-in">
+<h3>5c. Disable telemetry and remote sign-in<a class="headerlink" href="#c-disable-telemetry-and-remote-sign-in" title="Link to this heading">#</a></h3>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;telemetry.telemetryLevel&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;off&quot;</span><span class="p">,</span>
+<span class="nt">&quot;workbench.enableExperiments&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
+</pre></div>
+</div>
+<p>Prevents VS Code fetching remote configuration that could re-enable chat features.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="protect-the-configuration-from-tampering">
+<h2>6. Protect the configuration from tampering<a class="headerlink" href="#protect-the-configuration-from-tampering" title="Link to this heading">#</a></h2>
+<section id="how-the-immutable-flag-works">
+<h3>How the immutable flag works<a class="headerlink" href="#how-the-immutable-flag-works" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">chattr</span> <span class="pre">+i</span></code> sets a flag in the file’s <strong>inode</strong> — filesystem metadata, separate from the <code class="docutils literal notranslate"><span class="pre">rwx</span></code> permission bits. The kernel checks it in the VFS layer <em>before</em> consulting ownership, so the file cannot be modified, deleted, renamed, or hard-linked. Not by its owner, not by root.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span>f<span class="w"> </span><span class="k">in</span><span class="w"> </span>/etc/hosts<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>/etc/opt/chrome/policies/managed/ece387.json<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>/etc/firefox/policies/policies.json<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>/etc/sudoers.d/ece387-students<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span>sudo<span class="w"> </span>chattr<span class="w"> </span>+i<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$f</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+
+lsattr<span class="w"> </span>/etc/hosts<span class="w">       </span><span class="c1"># expect ----i---------e-------</span>
+</pre></div>
+</div>
+<p>Test it:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>sh<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;echo test &gt;&gt; /etc/hosts&#39;</span>
+<span class="c1"># sh: /etc/hosts: Operation not permitted</span>
+</pre></div>
+</div>
+<p><strong>To edit a protected file yourself:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>chattr<span class="w"> </span>-i<span class="w"> </span>/etc/hosts
+sudo<span class="w"> </span>nano<span class="w"> </span>/etc/hosts
+sudo<span class="w"> </span>chattr<span class="w"> </span>+i<span class="w"> </span>/etc/hosts
+</pre></div>
+</div>
+<p><strong>The limit:</strong> clearing the flag needs the <code class="docutils literal notranslate"><span class="pre">CAP_LINUX_IMMUTABLE</span></code> capability, which root has. So <code class="docutils literal notranslate"><span class="pre">chattr</span> <span class="pre">+i</span></code> is only as strong as the guarantee that students cannot become root — which is Section 1’s job. With Section 1 applied there is no supported path to root, and the flag holds. Without it, <code class="docutils literal notranslate"><span class="pre">chattr</span> <span class="pre">-i</span></code> is one command away.</p>
+<p>The flag lives in the inode and Clonezilla copies blocks, so <strong>flagged files stay flagged through cloning.</strong> Set them during image prep.</p>
+<blockquote>
+<div><p>Apply the flag <em>after</em> setting the machine’s hostname. If <code class="docutils literal notranslate"><span class="pre">cloud-init</span></code> has <code class="docutils literal notranslate"><span class="pre">manage_etc_hosts</span></code> enabled it rewrites <code class="docutils literal notranslate"><span class="pre">/etc/hosts</span></code> at boot, and an immutable file will make that fail — possibly silently — on every clone.</p>
+</div></blockquote>
+</section>
+<section id="self-healing-backstop">
+<h3>Self-healing backstop<a class="headerlink" href="#self-healing-backstop" title="Link to this heading">#</a></h3>
+<p>Restores the file if the flag is ever cleared, and logs the event:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>cp<span class="w"> </span>/etc/hosts<span class="w"> </span>/etc/hosts.ece387
+sudo<span class="w"> </span>chattr<span class="w"> </span>+i<span class="w"> </span>/etc/hosts.ece387
+
+sudo<span class="w"> </span>tee<span class="w"> </span>/usr/local/sbin/restore-hosts.sh<span class="w"> </span>&gt;<span class="w"> </span>/dev/null<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
+<span class="s">#!/bin/bash</span>
+<span class="s">if ! cmp -s /etc/hosts.ece387 /etc/hosts; then</span>
+<span class="s">    WHO=$(ausearch -k ece387_hosts -ts recent -i 2&gt;/dev/null \</span>
+<span class="s">          | grep -oP &#39;AUID=&quot;\K[^&quot;]+&#39; | tail -1)</span>
+<span class="s">    logger -t ece387 &quot;hosts modified on $(hostname) by ${WHO:-unknown} — restoring&quot;</span>
+<span class="s">    chattr -i /etc/hosts 2&gt;/dev/null</span>
+<span class="s">    cp /etc/hosts.ece387 /etc/hosts</span>
+<span class="s">    chattr +i /etc/hosts</span>
+<span class="s">fi</span>
+<span class="s">EOF</span>
+sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">700</span><span class="w"> </span>/usr/local/sbin/restore-hosts.sh
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>tee<span class="w"> </span>/etc/systemd/system/ece387-restore-hosts.service<span class="w"> </span>&gt;<span class="w"> </span>/dev/null<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
+<span class="s">[Unit]</span>
+<span class="s">Description=Restore ECE387 hosts file if modified</span>
+<span class="s">[Service]</span>
+<span class="s">Type=oneshot</span>
+<span class="s">ExecStart=/usr/local/sbin/restore-hosts.sh</span>
+<span class="s">EOF</span>
+
+sudo<span class="w"> </span>tee<span class="w"> </span>/etc/systemd/system/ece387-restore-hosts.timer<span class="w"> </span>&gt;<span class="w"> </span>/dev/null<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
+<span class="s">[Unit]</span>
+<span class="s">Description=Check ECE387 hosts file every 2 minutes</span>
+<span class="s">[Timer]</span>
+<span class="s">OnBootSec=2min</span>
+<span class="s">OnUnitActiveSec=2min</span>
+<span class="s">[Install]</span>
+<span class="s">WantedBy=timers.target</span>
+<span class="s">EOF</span>
+
+sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>ece387-restore-hosts.timer
+sudo<span class="w"> </span>systemctl<span class="w"> </span>list-timers<span class="w"> </span>ece387-restore-hosts.timer
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="audit-logging">
+<h2>7. Audit logging<a class="headerlink" href="#audit-logging" title="Link to this heading">#</a></h2>
+<section id="id2">
+<h3>How it works<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">auditd</span></code> records syscalls at the kernel level. The field that matters is <strong><code class="docutils literal notranslate"><span class="pre">auid</span></code></strong> — the audit UID, set at login and <strong>immutable through <code class="docutils literal notranslate"><span class="pre">sudo</span></code> and <code class="docutils literal notranslate"><span class="pre">su</span></code></strong>. A student who escalates to root still shows their own <code class="docutils literal notranslate"><span class="pre">auid</span></code>, so the log identifies the person rather than “root.”</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>auditd
+
+sudo<span class="w"> </span>tee<span class="w"> </span>/etc/audit/rules.d/ece387.rules<span class="w"> </span>&gt;<span class="w"> </span>/dev/null<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
+<span class="s"># Writes and attribute changes to protected files</span>
+<span class="s">-w /etc/hosts -p wa -k ece387_hosts</span>
+<span class="s">-w /etc/sudoers.d/ece387-students -p wa -k ece387_sudoers</span>
+<span class="s">-w /etc/opt/chrome/policies/managed/ -p wa -k ece387_policy</span>
+<span class="s">-w /etc/firefox/policies/ -p wa -k ece387_policy</span>
+
+<span class="s"># Any non-system user running chattr — the only way to clear the immutable flag</span>
+<span class="s">-a always,exit -F arch=b64 -S execve -F path=/usr/bin/chattr \</span>
+<span class="s">   -F auid&gt;=1000 -F auid!=unset -k ece387_chattr</span>
+<span class="s">EOF</span>
+
+sudo<span class="w"> </span>augenrules<span class="w"> </span>--load
+sudo<span class="w"> </span>auditctl<span class="w"> </span>-l
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">auid&gt;=1000</span></code> excludes system daemons, so only human actions appear.</p>
+<p>Reading the log — <code class="docutils literal notranslate"><span class="pre">-i</span></code> resolves numeric IDs through NSS, which means SSSD turns them into LDAP usernames:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>ausearch<span class="w"> </span>-k<span class="w"> </span>ece387_hosts<span class="w"> </span>-i<span class="w"> </span>--start<span class="w"> </span>today
+sudo<span class="w"> </span>ausearch<span class="w"> </span>-k<span class="w"> </span>ece387_chattr<span class="w"> </span>-i<span class="w"> </span>--start<span class="w"> </span>today<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">&#39;AUID|EXE&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="forward-logs-off-the-machine">
+<h3>Forward logs off the machine<a class="headerlink" href="#forward-logs-off-the-machine" title="Link to this heading">#</a></h3>
+<p>Local logs sit on a machine the student may control. Off-box copies are what hold up if something becomes an honor case:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;*.* @@10.99.1.50:514&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/etc/rsyslog.d/60-ece387.conf
+sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>rsyslog
+</pre></div>
+</div>
+<p>Enable the receiver on <code class="docutils literal notranslate"><span class="pre">ece387server</span></code> (<code class="docutils literal notranslate"><span class="pre">imtcp</span></code> in <code class="docutils literal notranslate"><span class="pre">/etc/rsyslog.conf</span></code>) and open the port to the lab subnet only:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># On ece387server</span>
+sudo<span class="w"> </span>ufw<span class="w"> </span>allow<span class="w"> </span>from<span class="w"> </span><span class="m">10</span>.99.1.0/24<span class="w"> </span>to<span class="w"> </span>any<span class="w"> </span>port<span class="w"> </span><span class="m">514</span><span class="w"> </span>proto<span class="w"> </span>tcp
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="verification-before-cloning">
+<h2>8. Verification before cloning<a class="headerlink" href="#verification-before-cloning" title="Link to this heading">#</a></h2>
+<p>Run every check on the source image. A mistake here propagates to all 14 machines.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1. Students cannot escalate — expect NO apt, pip, dpkg, or systemctl</span>
+sudo<span class="w"> </span>-l<span class="w"> </span>-U<span class="w"> </span>a27-m0
+
+<span class="c1"># 2. Immutable flags set</span>
+lsattr<span class="w"> </span>/etc/hosts<span class="w"> </span>/etc/sudoers.d/ece387-students<span class="w"> </span><span class="se">\</span>
+<span class="w">       </span>/etc/opt/chrome/policies/managed/ece387.json<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;^....i&#39;</span>
+
+<span class="c1"># 3. Hosts blocking works</span>
+getent<span class="w"> </span>hosts<span class="w"> </span>chatgpt.com<span class="w">          </span><span class="c1"># expect 0.0.0.0</span>
+curl<span class="w"> </span>-sS<span class="w"> </span>--max-time<span class="w"> </span><span class="m">5</span><span class="w"> </span>https://api.githubcopilot.com<span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;exit=</span><span class="nv">$?</span><span class="s2">&quot;</span>
+
+<span class="c1"># 4. Audit rules loaded</span>
+sudo<span class="w"> </span>auditctl<span class="w"> </span>-l<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>ece387
+
+<span class="c1"># 5. Self-heal timer running</span>
+sudo<span class="w"> </span>systemctl<span class="w"> </span>is-active<span class="w"> </span>ece387-restore-hosts.timer
+
+<span class="c1"># 6. Log forwarding</span>
+logger<span class="w"> </span>-t<span class="w"> </span>ece387<span class="w"> </span><span class="s2">&quot;clone image verification test&quot;</span>
+<span class="c1"># then on ece387server: sudo journalctl -t ece387 --since &quot;5 min ago&quot;</span>
+</pre></div>
+</div>
+<p>Then log in as a real student account and confirm by hand:</p>
+<ul class="simple">
+<li><p>Chrome: <code class="docutils literal notranslate"><span class="pre">chrome://policy</span></code> lists the blocklist; visiting <code class="docutils literal notranslate"><span class="pre">chatgpt.com</span></code> is blocked</p></li>
+<li><p>Firefox: <code class="docutils literal notranslate"><span class="pre">about:policies</span></code> shows the filter; <code class="docutils literal notranslate"><span class="pre">about:config</span></code> is inaccessible</p></li>
+<li><p>VS Code: Extensions view cannot reach the marketplace; the required extensions are present</p></li>
+<li><p>Terminal: <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">install</span> <span class="pre">cowsay</span></code> is refused</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="ongoing-maintenance">
+<h2>9. Ongoing maintenance<a class="headerlink" href="#ongoing-maintenance" title="Link to this heading">#</a></h2>
+<p>New services appear constantly, so treat the domain list as living. Once a term:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>chattr<span class="w"> </span>-i<span class="w"> </span>/etc/hosts
+sudo<span class="w"> </span>nano<span class="w"> </span>/etc/hosts
+sudo<span class="w"> </span>chattr<span class="w"> </span>+i<span class="w"> </span>/etc/hosts
+sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>ece387-restore-hosts.timer<span class="w">   </span><span class="c1"># picks up the new baseline</span>
+sudo<span class="w"> </span>cp<span class="w"> </span>/etc/hosts<span class="w"> </span>/etc/hosts.ece387<span class="w">                </span><span class="c1"># update the pristine copy first!</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>Update <code class="docutils literal notranslate"><span class="pre">/etc/hosts.ece387</span></code> whenever you change <code class="docutils literal notranslate"><span class="pre">/etc/hosts</span></code>, or the timer will revert your edit within two minutes and it will look as though the change did not save.</p>
+</div></blockquote>
+<p>Push changes to the fleet with Ansible rather than re-cloning — see <a class="reference external" href="http://login-client.md">login-client.md</a> §4. Remember to <code class="docutils literal notranslate"><span class="pre">chattr</span> <span class="pre">-i</span></code> before writing and <code class="docutils literal notranslate"><span class="pre">+i</span></code> after, on each host.</p>
+</section>
+<hr class="docutils" />
+<section id="appendix-domain-reference">
+<h2>Appendix — Domain reference<a class="headerlink" href="#appendix-domain-reference" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Category</p></th>
+<th class="head"><p>Domains</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>General chat</strong></p></td>
+<td><p><a class="reference external" href="http://chatgpt.com">chatgpt.com</a>, <a class="reference external" href="http://chat.openai.com">chat.openai.com</a>, <a class="reference external" href="http://claude.ai">claude.ai</a>, <a class="reference external" href="http://gemini.google.com">gemini.google.com</a>, <a class="reference external" href="http://copilot.microsoft.com">copilot.microsoft.com</a>, <a class="reference external" href="http://perplexity.ai">perplexity.ai</a>, <a class="reference external" href="http://poe.com">poe.com</a>, <a class="reference external" href="http://character.ai">character.ai</a>, <a class="reference external" href="http://meta.ai">meta.ai</a>, <a class="reference external" href="http://grok.com">grok.com</a>, <a class="reference external" href="http://chat.deepseek.com">chat.deepseek.com</a>, <a class="reference external" href="http://chat.mistral.ai">chat.mistral.ai</a>, <a class="reference external" href="http://chat.qwen.ai">chat.qwen.ai</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Search-style</strong></p></td>
+<td><p><a class="reference external" href="http://you.com">you.com</a>, <a class="reference external" href="http://phind.com">phind.com</a>, <a class="reference external" href="http://blackbox.ai">blackbox.ai</a>, <a class="reference external" href="http://notebooklm.google.com">notebooklm.google.com</a></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Coding assistants (sites)</strong></p></td>
+<td><p><a class="reference external" href="http://codeium.com">codeium.com</a>, <a class="reference external" href="http://windsurf.com">windsurf.com</a>, <a class="reference external" href="http://tabnine.com">tabnine.com</a>, <a class="reference external" href="http://cursor.com">cursor.com</a>, v0.dev, continue.dev</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Coding assistants (APIs)</strong></p></td>
+<td><p><a class="reference external" href="http://api.githubcopilot.com">api.githubcopilot.com</a>, <a class="reference external" href="http://copilot-proxy.githubusercontent.com">copilot-proxy.githubusercontent.com</a>, <a class="reference external" href="http://api.individual.githubcopilot.com">api.individual.githubcopilot.com</a>, <a class="reference external" href="http://server.codeium.com">server.codeium.com</a>, <a class="reference external" href="http://api.tabnine.com">api.tabnine.com</a>, api.continue.dev, <a class="reference external" href="http://cody-gateway.sourcegraph.com">cody-gateway.sourcegraph.com</a></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Model APIs</strong></p></td>
+<td><p><a class="reference external" href="http://api.openai.com">api.openai.com</a>, <a class="reference external" href="http://api.anthropic.com">api.anthropic.com</a>, <a class="reference external" href="http://generativelanguage.googleapis.com">generativelanguage.googleapis.com</a>, <a class="reference external" href="http://api.deepseek.com">api.deepseek.com</a>, <a class="reference external" href="http://api.x.ai">api.x.ai</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Writing tools</strong></p></td>
+<td><p><a class="reference external" href="http://quillbot.com">quillbot.com</a>, gamma.app</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>VS Code marketplace</strong></p></td>
+<td><p><a class="reference external" href="http://marketplace.visualstudio.com">marketplace.visualstudio.com</a>, <a class="reference external" href="http://vscode.blob.core.windows.net">vscode.blob.core.windows.net</a>, <a class="reference external" href="http://vscode.download.prss.microsoft.com">vscode.download.prss.microsoft.com</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./files"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-this-can-and-cannot-do">What this can and cannot do</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#close-the-root-escalation-paths">1. Close the root escalation paths</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-the-current-whitelist-grants-root">Why the current whitelist grants root</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-cloning-makes-removal-practical">Why cloning makes removal practical</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-change">The change</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#network-level-blocking">2. Network-level blocking</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#browser-policy-files">3. Browser policy files</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-it-works">How it works</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chrome">Chrome</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#firefox">Firefox</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#etc-hosts-backstop">4. <code class="docutils literal notranslate"><span class="pre">/etc/hosts</span></code> backstop</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">How it works</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vs-code">5. VS Code</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-extension-allowlist">5a. Extension allowlist</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-block-the-marketplace-recommended">5b. Block the marketplace (recommended)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-disable-telemetry-and-remote-sign-in">5c. Disable telemetry and remote sign-in</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#protect-the-configuration-from-tampering">6. Protect the configuration from tampering</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-the-immutable-flag-works">How the immutable flag works</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#self-healing-backstop">Self-healing backstop</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#audit-logging">7. Audit logging</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">How it works</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#forward-logs-off-the-machine">Forward logs off the machine</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#verification-before-cloning">8. Verification before cloning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ongoing-maintenance">9. Ongoing maintenance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#appendix-domain-reference">Appendix — Domain reference</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Stan Baek
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

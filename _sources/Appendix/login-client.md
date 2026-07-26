@@ -187,7 +187,7 @@ sudo pip install --break-system-packages imutils
 sudo pip install --break-system-packages pupil-apriltags
 ```
 
-**`dlib` is installed from a prebuilt wheel, not from source.** PyPI ships dlib only as C++ source, so a plain `pip install dlib` compiles it — 30–60 minutes per machine, or over ten hours across fourteen masters. Build the wheel once and install the binary everywhere else in seconds. See [Building a dlib Wheel](MasterSetupJazzy.md) in the standalone master guide for the build procedure and the reasoning.
+**`dlib` is installed from a prebuilt wheel, not from source.** PyPI ships dlib only as C++ source, so a plain `pip install dlib` compiles it — 30–60 minutes per machine, or over ten hours across fourteen masters. Build the wheel once and install the binary everywhere else in seconds. See [Building a dlib Wheel](building-a-dlib-wheel) in the standalone master guide for the build procedure and the reasoning.
 
 ```bash
 # Fetch the prebuilt wheel from the login server and install it
@@ -430,7 +430,7 @@ exit
 
 ### 1.6 Grant Students Restricted sudo Access
 
-This section is the **single definition of the student sudo whitelist**. Other guides reference it rather than restating it — see [genai-blocking.md](genai-blocking.md).
+This section is the **single definition of the student sudo whitelist**. Other guides reference it rather than restating it.
 
 Two layers work together, and they protect different things:
 
@@ -507,7 +507,7 @@ Package installation means running someone else's code with privilege — that i
 
 Two consequences to plan around:
 
-- **Host-level restrictions become deterrents, not controls.** Immutable flags and hosts-file blocking ([genai-blocking.md](genai-blocking.md)) can all be undone by a student who escalates. Audit logging there stops being optional — it is what converts an unenforceable rule into a recorded action.
+- **Host-level restrictions become deterrents, not controls.** Immutable files, hosts-file blocking, and browser policy files can all be undone by a student who escalates to root. Where such restrictions are used, audit logging stops being optional — it is what converts an unenforceable rule into a recorded action.
 - **`root_squash` still holds for the casual case but not the determined one.** See the note above: a student with root can `su - a27-t02`, and those requests carry a legitimate UID.
 
 This is a reasonable trade in an honor-code environment. It is just worth making knowingly.

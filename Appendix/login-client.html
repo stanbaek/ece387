@@ -586,7 +586,7 @@ document.write(`
 <hr class="docutils" />
 <section id="master-computer-setup-nuc-9-14">
 <h2>1. Master Computer Setup (NUC 9 × 14)<a class="headerlink" href="#master-computer-setup-nuc-9-14" title="Link to this heading">#</a></h2>
-<p>Do this on each of the 14 master computers. Most steps can be scripted and run via Ansible — see <a class="reference internal" href="#4-ansible-automation-recommended-for-14-machines"><span class="xref myst">Ansible Automation</span></a>.</p>
+<p>Do this on each of the 14 master computers. Most steps can be scripted and run via Ansible — see <a class="reference internal" href="#ansible-automation-recommended-for-14-machines">Ansible Automation</a>.</p>
 <p>Recommended order: get one master fully working by hand, verify it end to end, then push the rest with Ansible.</p>
 <section id="fresh-install-ubuntu-24-04-desktop">
 <h3>1.1 Fresh Install Ubuntu 24.04 Desktop<a class="headerlink" href="#fresh-install-ubuntu-24-04-desktop" title="Link to this heading">#</a></h3>
@@ -714,7 +714,7 @@ sudo<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> <
 sudo<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--break-system-packages<span class="w"> </span>pupil-apriltags
 </pre></div>
 </div>
-<p><strong><code class="docutils literal notranslate"><span class="pre">dlib</span></code> is installed from a prebuilt wheel, not from source.</strong> PyPI ships dlib only as C++ source, so a plain <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">dlib</span></code> compiles it — 30–60 minutes per machine, or over ten hours across fourteen masters. Build the wheel once and install the binary everywhere else in seconds. See <a class="reference internal" href="MasterSetupJazzy.html"><span class="std std-doc">Building a dlib Wheel</span></a> in the standalone master guide for the build procedure and the reasoning.</p>
+<p><strong><code class="docutils literal notranslate"><span class="pre">dlib</span></code> is installed from a prebuilt wheel, not from source.</strong> PyPI ships dlib only as C++ source, so a plain <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">dlib</span></code> compiles it — 30–60 minutes per machine, or over ten hours across fourteen masters. Build the wheel once and install the binary everywhere else in seconds. See <a class="reference internal" href="MasterSetupJazzy.html#building-a-dlib-wheel"><span class="std std-ref">Building a dlib Wheel</span></a> in the standalone master guide for the build procedure and the reasoning.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fetch the prebuilt wheel from the login server and install it</span>
 scp<span class="w"> </span>ece387admin@ece387server:/srv/ece387/wheels/dlib-*.whl<span class="w"> </span>~/
 sudo<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--break-system-packages<span class="w"> </span>~/dlib-*.whl
@@ -893,7 +893,7 @@ ls<span class="w"> </span>-la<span class="w">       </span><span class="c1"># .b
 </pre></div>
 </div>
 <blockquote>
-<div><p><strong><code class="docutils literal notranslate"><span class="pre">soft</span></code> trades a hang for an error.</strong> With a <code class="docutils literal notranslate"><span class="pre">hard</span></code> mount (the NFS default) an unreachable server freezes the terminal indefinitely. With <code class="docutils literal notranslate"><span class="pre">soft</span></code>, I/O fails after ~6 seconds instead — the student sees <code class="docutils literal notranslate"><span class="pre">Input/output</span> <span class="pre">error</span></code> and keeps a usable session, but a write interrupted mid-operation can leave a truncated file. See <a class="reference internal" href="#2-resilience--server-down-or-network-unreliable"><span class="xref myst">Section 2</span></a>.</p>
+<div><p><strong><code class="docutils literal notranslate"><span class="pre">soft</span></code> trades a hang for an error.</strong> With a <code class="docutils literal notranslate"><span class="pre">hard</span></code> mount (the NFS default) an unreachable server freezes the terminal indefinitely. With <code class="docutils literal notranslate"><span class="pre">soft</span></code>, I/O fails after ~6 seconds instead — the student sees <code class="docutils literal notranslate"><span class="pre">Input/output</span> <span class="pre">error</span></code> and keeps a usable session, but a write interrupted mid-operation can leave a truncated file. See <a class="reference internal" href="#resilience-server-down-or-network-unreliable">Section 2</a>.</p>
 </div></blockquote>
 </section>
 <section id="create-the-local-rescue-account">
@@ -932,7 +932,7 @@ ls<span class="w"> </span>-la<span class="w">        </span><span class="c1"># l
 </section>
 <section id="grant-students-restricted-sudo-access">
 <h3>1.6 Grant Students Restricted sudo Access<a class="headerlink" href="#grant-students-restricted-sudo-access" title="Link to this heading">#</a></h3>
-<p>This section is the <strong>single definition of the student sudo whitelist</strong>. Other guides reference it rather than restating it — see <a class="reference internal" href="#genai-blocking.md"><span class="xref myst">genai-blocking.md</span></a>.</p>
+<p>This section is the <strong>single definition of the student sudo whitelist</strong>. Other guides reference it rather than restating it.</p>
 <p>Two layers work together, and they protect different things:</p>
 <ul class="simple">
 <li><p><strong><code class="docutils literal notranslate"><span class="pre">root_squash</span></code> on the NFS server</strong> rewrites root from any master to an unprivileged anonymous user, so <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">cat</span> <span class="pre">/home/students/a27-t02/file</span></code> is refused by the server itself</p></li>
@@ -1016,7 +1016,7 @@ sudo<span class="w"> </span>-l<span class="w"> </span>-U<span class="w"> </span>
 </div>
 <p>Two consequences to plan around:</p>
 <ul class="simple">
-<li><p><strong>Host-level restrictions become deterrents, not controls.</strong> Immutable flags and hosts-file blocking (<a class="reference internal" href="#genai-blocking.md"><span class="xref myst">genai-blocking.md</span></a>) can all be undone by a student who escalates. Audit logging there stops being optional — it is what converts an unenforceable rule into a recorded action.</p></li>
+<li><p><strong>Host-level restrictions become deterrents, not controls.</strong> Immutable files, hosts-file blocking, and browser policy files can all be undone by a student who escalates to root. Where such restrictions are used, audit logging stops being optional — it is what converts an unenforceable rule into a recorded action.</p></li>
 <li><p><strong><code class="docutils literal notranslate"><span class="pre">root_squash</span></code> still holds for the casual case but not the determined one.</strong> See the note above: a student with root can <code class="docutils literal notranslate"><span class="pre">su</span> <span class="pre">-</span> <span class="pre">a27-t02</span></code>, and those requests carry a legitimate UID.</p></li>
 </ul>
 <p>This is a reasonable trade in an honor-code environment. It is just worth making knowingly.</p>
