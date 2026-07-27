@@ -559,7 +559,7 @@ sudo sysctl -p /etc/sysctl.d/61-dmesg.conf
 
 #### If a lab genuinely needs root
 
-Write a wrapper that does exactly one thing, rather than whitelisting a general binary:
+Write a wrapper that does exactly one thing, rather than whitelisting a general binary. For example,
 
 ```bash
 sudo tee /usr/local/sbin/ece387-flash-opencr > /dev/null << 'EOF'
