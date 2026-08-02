@@ -499,26 +499,20 @@ sudo<span class="w"> </span>apt<span class="w"> </span>update
 sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>ros-jazzy-desktop<span class="w"> </span>ros-dev-tools
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">ros-dev-tools</span></code> (installed below) already bundles <code class="docutils literal notranslate"><span class="pre">colcon</span></code>, <code class="docutils literal notranslate"><span class="pre">rosdep</span></code>, and <code class="docutils literal notranslate"><span class="pre">vcstool</span></code>, so a separate <code class="docutils literal notranslate"><span class="pre">python3-colcon-common-extensions</span></code> install is no longer needed on Jazzy.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ros-dev-tools</span></code> already bundles <code class="docutils literal notranslate"><span class="pre">colcon</span></code>, <code class="docutils literal notranslate"><span class="pre">rosdep</span></code>, and <code class="docutils literal notranslate"><span class="pre">vcstool</span></code>, so a separate <code class="docutils literal notranslate"><span class="pre">python3-colcon-common-extensions</span></code> install is no longer needed on Jazzy.</p>
 <p>Install ROS dependencies for building packages:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Gazebo Classic is end-of-life and is not packaged for Jazzy. Jazzy pairs with</span>
 <span class="c1"># Gazebo Harmonic, integrated through the ros_gz vendor packages.</span>
 sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>ros-jazzy-turtlebot3*
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>ros-jazzy-dynamixel-sdk
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>ros-jazzy-ros-gz<span class="w"> </span>ros-jazzy-turtlebot3-gazebo
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>ros-jazzy-tf-transformations
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>ros-jazzy-usb-cam<span class="w"> </span>ros-jazzy-image-proc
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>ros-jazzy-v4l2-camera
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>ros-jazzy-ros-gz
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>ros-jazzy-usb-cam<span class="w"> </span>ros-jazzy-image-proc<span class="w"> </span>ros-jazzy-v4l2-camera
 sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>ros-jazzy-camera-calibration
 sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>ros-jazzy-apriltag<span class="w"> </span>ros-jazzy-apriltag-ros<span class="w"> </span>libapriltag-dev
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>python3-pip
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>obs-studio<span class="w"> </span>qtwayland5
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>python3-pip<span class="w"> </span>python3-venv
 sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>tree
 sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>terminator
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>ros-jazzy-cv-bridge
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>ros-jazzy-joy
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>ros-jazzy-teleop-twist-joy
 sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>jstest-gtk
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>obs-studio<span class="w"> </span>qtwayland5
 </pre></div>
 </div>
 <p>Create a ROS workspace:</p>

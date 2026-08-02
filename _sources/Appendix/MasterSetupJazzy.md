@@ -59,7 +59,7 @@ sudo apt update
 sudo apt install -y ros-jazzy-desktop ros-dev-tools
 ```
 
-`ros-dev-tools` (installed below) already bundles `colcon`, `rosdep`, and `vcstool`, so a separate `python3-colcon-common-extensions` install is no longer needed on Jazzy.
+`ros-dev-tools` already bundles `colcon`, `rosdep`, and `vcstool`, so a separate `python3-colcon-common-extensions` install is no longer needed on Jazzy.
 
 Install ROS dependencies for building packages:
 
@@ -67,22 +67,15 @@ Install ROS dependencies for building packages:
 # Gazebo Classic is end-of-life and is not packaged for Jazzy. Jazzy pairs with
 # Gazebo Harmonic, integrated through the ros_gz vendor packages.
 sudo apt install -y ros-jazzy-turtlebot3*
-sudo apt install -y ros-jazzy-dynamixel-sdk
-sudo apt install -y ros-jazzy-ros-gz ros-jazzy-turtlebot3-gazebo
-sudo apt install -y ros-jazzy-tf-transformations
-sudo apt install -y ros-jazzy-usb-cam ros-jazzy-image-proc
-sudo apt install -y ros-jazzy-v4l2-camera
+sudo apt install -y ros-jazzy-ros-gz
+sudo apt install -y ros-jazzy-usb-cam ros-jazzy-image-proc ros-jazzy-v4l2-camera
 sudo apt install -y ros-jazzy-camera-calibration
 sudo apt install -y ros-jazzy-apriltag ros-jazzy-apriltag-ros libapriltag-dev
-sudo apt install -y python3-pip
-sudo apt install -y obs-studio qtwayland5
+sudo apt install -y python3-pip python3-venv
 sudo apt install -y tree
 sudo apt install -y terminator
-sudo apt install -y ros-jazzy-cv-bridge
-sudo apt install -y ros-jazzy-joy
-sudo apt install -y ros-jazzy-teleop-twist-joy
 sudo apt install -y jstest-gtk
-
+sudo apt install -y obs-studio qtwayland5
 ```
 
 Create a ROS workspace:
